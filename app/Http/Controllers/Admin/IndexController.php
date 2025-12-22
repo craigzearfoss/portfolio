@@ -73,6 +73,7 @@ class IndexController extends BaseAdminController
 
             if ($username == config('app.demo_admin_username') && !config('app.demo_admin_enabled')) {
                 return view(themedTemplate('admin.login'))
+                    ->with('username', $username)
                     ->withErrors('Demo Admin has been disabled.');
             }
 
@@ -90,13 +91,15 @@ class IndexController extends BaseAdminController
                 $admin = Auth::guard('admin')->user();
                 if ($admin->disabled) {
                     return view(themedTemplate('admin.login'))
+                        ->with('username', $username)
                         ->withErrors($admin->username . ' account has been disabled.');
                 } else {
                     return redirect()->route('admin.dashboard');
                 }
             } else {
                 return view(themedTemplate('admin.login'))
-                    ->withErrors('Invalid login credentials. Please try again.');
+                    ->with('username', $username)
+                    ->withErrors('Incorrect login information.<br>Double-check the username and password and try signing in again.');
             }
 
         } else {

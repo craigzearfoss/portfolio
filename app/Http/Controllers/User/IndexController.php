@@ -62,6 +62,7 @@ class IndexController extends BaseUserController
 
             if ($username == config('app.demo_user_username') && !config('app.demo_user_enabled')) {
                 return view(themedTemplate('user.login'))
+                    ->with('username', $username)
                     ->withErrors('Demo User has been disabled.');
             }
 
@@ -79,13 +80,15 @@ class IndexController extends BaseUserController
                 $user = Auth::guard('user')->user();
                 if ($user->disabled) {
                     return view(themedTemplate('user.login'))
+                        ->with('username', $username)
                         ->withErrors($user->username . ' account has been disabled.');
                 } else {
                     return redirect()->route('user.dashboard');
                 }
             } else {
                 return view(themedTemplate('user.login'))
-                    ->withErrors('Incorrect login information. Double-check the username and password and try signing in again.');
+                    ->with('username', $username)
+                    ->withErrors('Incorrect login information.<br>Double-check the username and password and try signing in again.');
             }
 
         } else {

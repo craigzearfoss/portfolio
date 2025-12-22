@@ -40,6 +40,7 @@ return [
     'demo_user_username'    => env('APP_DEMO_USER_USERNAME', ''),
     'demo_user_password'    => env('APP_DEMO_USER_PASSWORD', ''),
     'readonly'              => boolval(env('APP_READONLY', false)),
+    'record_logins'         => boolval(env('APP_RECORD_LOGINS', false)),
     'contactable'           => boolval(env('APP_CONTACTABLE', false)),
     'theme'                 => env('APP_THEME', null),
     'google_tag'            => env('GOOGLE_TAG', ''),

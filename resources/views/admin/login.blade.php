@@ -39,7 +39,7 @@
                 @include('admin.components.form-input', [
                     'name'        => 'username',
                     'label'       => 'User Name',
-                    'value'       => old('username'),
+                    'value'       => $username ?? '',
                     'placeholder' => 'User Name',
                     'required'    => true,
                     'maxlength'   => 255,
@@ -50,7 +50,7 @@
                     'type'        => 'password',
                     'name'        => 'password',
                     'label'       => 'Password',
-                    'value'       => old('password'),
+                    'value'       => '',
                     'placeholder' => 'Password',
                     'required'    => true,
                     'maxlength'   => 255,
