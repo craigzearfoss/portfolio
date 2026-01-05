@@ -42,12 +42,12 @@ class UserTeamController extends BaseAdminController
     /**
      * Store a newly created user team in storage.
      *
-     * @param StoreUserTeamsRequest $storeUserTeamsRequest
+     * @param StoreUserTeamsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreUserTeamsRequest $storeUserTeamsRequest): RedirectResponse
+    public function store(StoreUserTeamsRequest $request): RedirectResponse
     {
-        $userTeam = UserTeam::create($storeUserTeamsRequest->validated());
+        $userTeam = UserTeam::create($request->validated());
 
         return redirect()->route('admin.system.user-team.show', $userTeam)
             ->with('success', $userTeam->name . ' successfully added.');
@@ -80,15 +80,15 @@ class UserTeamController extends BaseAdminController
     /**
      * Update the specified user team in storage.
      *
-     * @param UpdateUserTeamsRequest $updateUserTeamsRequest
+     * @param UpdateUserTeamsRequest $request
      * @param UserTeam $userTeam
      * @return RedirectResponse
      */
-    public function update(UpdateUserTeamsRequest $updateUserTeamsRequest, UserTeam $userTeam): RedirectResponse
+    public function update(UpdateUserTeamsRequest $request, UserTeam $userTeam): RedirectResponse
     {
         Gate::authorize('update-resource', $userTeam);
 
-        $userTeam->update($updateUserTeamsRequest->validated());
+        $userTeam->update($request->validated());
 
         return redirect()->route('admin.system.user-team.show', $userTeam)
             ->with('success', $userTeam->name . ' successfully updated.');

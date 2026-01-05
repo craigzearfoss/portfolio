@@ -37,4 +37,16 @@ class UpdateUnitsRequest extends FormRequest
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
     }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
 }

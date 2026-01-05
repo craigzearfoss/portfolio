@@ -26,13 +26,6 @@ class UpdateServersRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.servers ', $this->owner_id)
-            ]);
-        }
-
         return [
             'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.servers,full_name,'.$this->server->id],
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.servers,name,'.$this->server->id],
@@ -57,5 +50,32 @@ class UpdateServersRequest extends FormRequest
             'disabled'     => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.servers ', $this->owner_id)
+            ]);
+        }
     }
 }

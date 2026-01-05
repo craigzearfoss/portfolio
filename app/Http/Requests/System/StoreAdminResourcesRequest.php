@@ -2,13 +2,14 @@
 
 namespace App\Http\Requests\System;
 
-use App\Http\Requests\System\StoreAdminsRequest;
-use App\Http\Requests\System\StoreResourcesRequest;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class StoreAdminResourcesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
@@ -18,52 +19,55 @@ class StoreAdminResourcesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $this->checkDemoMode();
+
+        if (isRootAdmin() || ($this->admin->id === Auth::guard('admin')->user()->id)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array
+     * @throws \Exception
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
+        return [
+            'admin_id'    => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'resource_id' => [
+                'filled',
+                'integer',
+                'exists:system_db.resources,id',
+                Rule::unique('system_db.admin_resource', 'resource_id')->where(function ($query) {
+                    return $query->where('admin_id', $this->admin_id);
+                }),
+            ],
+            'menu'        => ['integer', 'between:0,1'],
+            'menu_level'  => ['integer'],
+            'public'      => ['integer', 'between:0,1'],
+            'readonly'    => ['integer', 'between:0,1'],
+            'disabled'    => ['integer', 'between:0,1'],
+            'sequence'    => ['integer', 'min:0', 'nullable'],
+        ];
+    }
 
-        if (!empty($this->admin_id) && !empty($this->resource_id)) {
-
-            $rules = [
-                'admin_id' => [
-                    'required',
-                    'integer',
-                    'exists:system_db.admins,id',
-                    /* @TODO: verify unique admin_id / resource_id
-                    Rule::unique('system_db.admin_resource', 'resource_id')->where(function ($query) {
-                        return $query->where('admin_id', $this->admin_id);
-                    }),
-                    */
-                ],
-                'public'     => ['integer', 'between:0,1'],
-                'readonly'   => ['integer', 'between:0,1'],
-                'disabled'   => ['integer', 'between:0,1'],
-                'sequence'   => ['integer', 'min:0', 'nullable'],
-            ];
-
-        } else {
-
-            // validate the admin_id
-            if (empty($this['admin_id'])) {
-                $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
-            }
-            if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
-                throw new \Exception('You are not authorized to change the resource for an admin.');
-            }
-
-            $rules = empty($this->admin_id)
-                ? (new StoreAdminsRequest())->rules()
-                : (new StoreResourcesRequest())->rules();;
-        }
-
-        return $rules;
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            'admin_id.exists'      => 'Admin not found.',
+            'admin_id.required'    => 'Admin not specified.',
+            'resource_id.required' => 'Resource not specified.',
+            'resource_id.exists'   => 'Resource not found.',
+            'resource_id.unique'   => 'Admin already has an entry for the specified resource.',
+        ];
     }
 }

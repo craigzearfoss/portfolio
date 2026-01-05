@@ -6,7 +6,9 @@ use App\Rules\CaseInsensitiveNotIn;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class UpdateUsersRequest extends FormRequest
 {
@@ -19,8 +21,8 @@ class UpdateUsersRequest extends FormRequest
     {
         $this->checkDemoMode();
 
-        // admins can update any user
-        if (isAdmin()) {
+        // root admins can update any user
+        if (isRootAdmin()) {
             return true;
         }
 
@@ -41,13 +43,12 @@ class UpdateUsersRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             /* USER USERNAMES CANNOT BE CHANGED
             'username' => [
                 'filled',
                 'string',
+                'lowercase',
                 'min:6',
                 'max:200',
                 'unique:users,username,'.$this->user->id,
@@ -75,7 +76,7 @@ class UpdateUsersRequest extends FormRequest
             'latitude'          => [Rule::numeric(), 'nullable'],
             'longitude'         => [Rule::numeric(), 'nullable'],
             'phone'             => ['string', 'max:50', 'nullable'],
-            'email'             => ['filled', 'email', 'max:255', 'unique:users,email,'.$this->user->id],
+            'email'             => ['filled', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$this->user->id],
             'email_verified_at' => ['nullable'],
             'birthday'          => ['date', 'nullable'],
             'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -88,8 +89,7 @@ class UpdateUsersRequest extends FormRequest
             'thumbnail'         => ['string', 'max:500', 'nullable'],
             'logo'              => ['string', 'max:500', 'nullable'],
             'logo_small'        => ['string', 'max:500', 'nullable'],
-            'password'          => ['filled', 'string', 'min:8', 'max:255'],
-            'confirm_password'  => ['filled', 'string', 'same:password'],
+            'password'          => ['filled', 'confirmed', Password::defaults()->letters()->numbers()->symbols()],
             'remember_token'    => ['string', 'max:200', 'nullable'],
             'token'             => ['string', 'max:255', 'nullable'],
             'requires_relogin'  => ['integer', 'between:0,1'],
@@ -103,11 +103,30 @@ class UpdateUsersRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
             'state_id.exists'   => 'The specified state does not exist.',
             'country_id.exists' => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'username' => Str::lower($this->username),
+            'label'    => Str::lower($this->label),
+            'email'    => Str::lower($this->email),
+        ]);
     }
 }

@@ -49,12 +49,12 @@ class RecipeIngredientController extends BaseAdminController
     /**
      * Store a newly created recipe ingredient in storage.
      *
-     * @param StoreRecipeIngredientsRequest $storeRecipeIngredientsRequest
+     * @param StoreRecipeIngredientsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreRecipeIngredientsRequest $storeRecipeIngredientsRequest): RedirectResponse
+    public function store(StoreRecipeIngredientsRequest $request): RedirectResponse
     {
-        $recipeIngredient = RecipeIngredient::create($storeRecipeIngredientsRequest->validated());
+        $recipeIngredient = RecipeIngredient::create($request->validated());
 
         return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
             ->with('success', 'Recipe ingredient successfully added.');
@@ -87,16 +87,16 @@ class RecipeIngredientController extends BaseAdminController
     /**
      * Update the specified recipe ingredient in storage.
      *
-     * @param UpdateRecipeIngredientsRequest $updateRecipeIngredientsRequest
+     * @param UpdateRecipeIngredientsRequest $request
      * @param RecipeIngredient $recipeIngredient
      * @return RedirectResponse
      */
-    public function update(UpdateRecipeIngredientsRequest $updateRecipeIngredientsRequest,
+    public function update(UpdateRecipeIngredientsRequest $request,
                            RecipeIngredient               $recipeIngredient): RedirectResponse
     {
         Gate::authorize('update-resource', $recipeIngredient);
 
-        $recipeIngredient->update($updateRecipeIngredientsRequest->validated());
+        $recipeIngredient->update($request->validated());
 
         return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
             ->with('success', 'Recipe ingredient successfully updated.');

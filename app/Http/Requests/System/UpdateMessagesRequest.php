@@ -15,9 +15,7 @@ class UpdateMessagesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        return true;
+        return isRootAdmin();
     }
 
     /**
@@ -38,6 +36,18 @@ class UpdateMessagesRequest extends FormRequest
             'disabled' => ['integer', 'between:0,1'],
             'demo'     => ['integer', 'between:0,1'],
             'sequence' => ['integer', 'min:0', 'nullable'],
+        ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
         ];
     }
 }

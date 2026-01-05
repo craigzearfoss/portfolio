@@ -53,7 +53,7 @@ class Note extends Model
     }
 
     /**
-     * Get the owner who owns the note.
+     * Get the system owner who owns the note.
      */
     public function owner(): BelongsTo
     {
@@ -61,7 +61,7 @@ class Note extends Model
     }
 
     /**
-     * Get the application that owns the note.
+     * Get the career application that owns the note.
      */
     public function application(): BelongsTo
     {

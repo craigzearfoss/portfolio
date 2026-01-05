@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\System\Country;
 use App\Models\System\State;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +19,10 @@ return new class extends Migration
             $table->id();
             $table->string('code', 10);
             $table->string('name', 50)->unique();
-            $table->foreignIdFor( \App\Models\System\Country::class);
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained('countries', 'id')
+                ->onDelete('cascade');
         });
 
         $data = [

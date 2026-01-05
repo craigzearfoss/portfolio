@@ -11,11 +11,7 @@ class UpdateSiteSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
-
-        return true;
+        return isRootAdmin();
     }
 
     /**
@@ -29,6 +25,18 @@ class UpdateSiteSettingsRequest extends FormRequest
             'name'        => ['filled', 'string', 'max:255', 'unique:system_db.site_settings,name,'.$this->site_setting->id],
             'value'       => ['nullable'],
             'description' => ['nullable'],
+        ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
         ];
     }
 }

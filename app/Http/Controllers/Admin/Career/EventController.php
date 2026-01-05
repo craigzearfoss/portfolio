@@ -61,12 +61,12 @@ class EventController extends BaseAdminController
     /**
      * Store a newly created event in storage.
      *
-     * @param StoreEventsRequest $storeEventsRequest
+     * @param StoreEventsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreEventsRequest $storeEventsRequest): RedirectResponse
+    public function store(StoreEventsRequest $request): RedirectResponse
     {
-        $applicationId = $storeEventsRequest->query('application_id');
+        $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
@@ -77,7 +77,7 @@ class EventController extends BaseAdminController
                 ->withInput();
         }
 
-        $event = Event::create($storeEventsRequest->validated());
+        $event = Event::create($request->validated());
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
@@ -122,15 +122,15 @@ class EventController extends BaseAdminController
     /**
      * Update the specified event in storage.
      *
-     * @param UpdateEventsRequest $updateEventsRequest
+     * @param UpdateEventsRequest $request
      * @param Event $event
      * @return RedirectResponse
      */
-    public function update(UpdateEventsRequest $updateEventsRequest, Event $event): RedirectResponse
+    public function update(UpdateEventsRequest $request, Event $event): RedirectResponse
     {
         Gate::authorize('update-resource', $event);
 
-        $applicationId = $updateEventsRequest->query('application_id');
+        $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
@@ -141,7 +141,7 @@ class EventController extends BaseAdminController
                 ->withInput();
         }
 
-        $event->update($updateEventsRequest->validated());
+        $event->update($request->validated());
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

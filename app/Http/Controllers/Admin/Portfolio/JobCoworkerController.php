@@ -60,12 +60,12 @@ class JobCoworkerController extends BaseAdminController
     /**
      * Store a newly created job coworker in storage.
      *
-     * @param StoreJobCoworkersRequest $storeJobCoworkersRequest
+     * @param StoreJobCoworkersRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreJobCoworkersRequest $storeJobCoworkersRequest): RedirectResponse
+    public function store(StoreJobCoworkersRequest $request): RedirectResponse
     {
-        $jobCoworker = JobCoworker::create($storeJobCoworkersRequest->validated());
+        $jobCoworker = JobCoworker::create($request->validated());
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
             ->with('success', $jobCoworker->name . ' successfully added.');
@@ -99,15 +99,15 @@ class JobCoworkerController extends BaseAdminController
     /**
      * Update the specified job coworker in storage.
      *
-     * @param UpdateJobCoworkersRequest $updateJobCoworkerRequest
+     * @param UpdateJobCoworkersRequest $request
      * @param JobCoworker $jobCoworker
      * @return RedirectResponse
      */
-    public function update(UpdateJobCoworkersRequest $updateJobCoworkerRequest, JobCoworker $jobCoworker): RedirectResponse
+    public function update(UpdateJobCoworkersRequest $request, JobCoworker $jobCoworker): RedirectResponse
     {
         Gate::authorize('update-resource', $jobCoworker);
 
-        $jobCoworker->update($updateJobCoworkerRequest->validated());
+        $jobCoworker->update($request->validated());
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
             ->with('success', $jobCoworker->name . ' successfully updated.');

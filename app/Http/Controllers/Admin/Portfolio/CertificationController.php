@@ -49,16 +49,16 @@ class CertificationController extends Controller
     /**
      * Store a newly created certification in storage.
      *
-     * @param StoreCertificationsRequest $storeCertificationsRequest
+     * @param StoreCertificationsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreCertificationsRequest $storeCertificationsRequest): RedirectResponse
+    public function store(StoreCertificationsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add certifications.');
         }
 
-        $certification = Certification::create($storeCertificationsRequest->validated());
+        $certification = Certification::create($request->validated());
 
         return redirect()->route('admin.portfolio.certification.show', $certification)
             ->with('success', $certification->name . ' successfully added.');
@@ -91,11 +91,11 @@ class CertificationController extends Controller
     /**
      * Update the specified certification in storage.
      *
-     * @param UpdateCertificationsRequest $updateCertificationsRequest
+     * @param UpdateCertificationsRequest $request
      * @param Certification $certification
      * @return RedirectResponse
      */
-    public function update(UpdateCertificationsRequest $updateCertificationsRequest, Certification $certification): RedirectResponse
+    public function update(UpdateCertificationsRequest $request, Certification $certification): RedirectResponse
     {
         Gate::authorize('update-resource', $certification);
 
@@ -103,7 +103,7 @@ class CertificationController extends Controller
             abort(403, 'Only admins with root access can update certifications.');
         }
 
-        $certification->update($updateCertificationsRequest->validated());
+        $certification->update($request->validated());
 
         return redirect()->route('admin.portfolio.certification.show', $certification)
             ->with('success', $certification->name . ' successfully updated.');

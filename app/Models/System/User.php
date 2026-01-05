@@ -99,7 +99,7 @@ class User extends Authenticatable
     const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
-     * Get the country that owns the user.
+     * Get the system country that owns the user.
      */
     public function country(): BelongsTo
     {
@@ -107,7 +107,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the state that owns the user.
+     * Get the system state that owns the user.
      */
     public function state(): BelongsTo
     {

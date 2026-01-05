@@ -62,7 +62,7 @@ class Link extends Model
     }
 
     /**
-     * Get the owner of the link.
+     * Get the system owner of the link.
      */
     public function owner(): BelongsTo
     {

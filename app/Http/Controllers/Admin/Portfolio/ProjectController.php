@@ -47,12 +47,12 @@ class ProjectController extends BaseAdminController
     /**
      * Store a newly created project in storage.
      *
-     * @param StoreProjectsRequest $storeProjectsRequest
+     * @param StoreProjectsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreProjectsRequest $storeProjectsRequest): RedirectResponse
+    public function store(StoreProjectsRequest $request): RedirectResponse
     {
-        $project = Project::create($storeProjectsRequest->validated());
+        $project = Project::create($request->validated());
 
         return redirect()->route('admin.portfolio.project.show', $project)
             ->with('success', $project->name . ' project successfully added.');
@@ -85,15 +85,15 @@ class ProjectController extends BaseAdminController
     /**
      * Update the specified project in storage.
      *
-     * @param UpdateProjectsRequest $updateProjectsRequest
+     * @param UpdateProjectsRequest $request
      * @param Project $project
      * @return RedirectResponse
      */
-    public function update(UpdateProjectsRequest $updateProjectsRequest, Project $project): RedirectResponse
+    public function update(UpdateProjectsRequest $request, Project $project): RedirectResponse
     {
         Gate::authorize('update-resource', $project);
 
-        $project->update($updateProjectsRequest->validated());
+        $project->update($request->validated());
 
         return redirect()->route('admin.portfolio.project.show', $project)
             ->with('success', $project->name . ' project successfully updated.');

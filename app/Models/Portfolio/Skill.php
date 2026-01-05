@@ -70,7 +70,7 @@ class Skill extends Model
     }
 
     /**
-     * Get the owner of the skill.
+     * Get the system owner of the skill.
      */
     public function owner(): BelongsTo
     {

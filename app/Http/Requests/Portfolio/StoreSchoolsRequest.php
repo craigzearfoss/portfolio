@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\School;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -27,16 +28,9 @@ class StoreSchoolsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.schools')
-            ]);
-        }
-
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.schools,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.schools,slug'],
+            'name'         => ['required', 'string', 'max:255', 'unique:'.School::class],
+            'slug'         => ['required', 'string', 'max:255', 'unique:'.School::class],
             'enrollment'   => ['integer', 'min:0', 'nullable'],
             'founded'      => ['integer', 'min:0', 'nullable'],
             'street'       => ['string', 'max:255', 'nullable'],
@@ -66,6 +60,11 @@ class StoreSchoolsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -74,5 +73,20 @@ class StoreSchoolsRequest extends FormRequest
             'state_id.exists'       => 'The specified state does not exist.',
             'country_id.exists'     => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.schools')
+            ]);
+        }
     }
 }

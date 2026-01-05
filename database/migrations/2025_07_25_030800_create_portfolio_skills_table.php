@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Portfolio\Skill;
+use App\Models\Dictionary\Category;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,8 +21,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('skills', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+            $dictionaryDbName = Schema::connection('dictionary_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->string('version', 20)->nullable();
@@ -29,7 +36,10 @@ return new class extends Migration
             $table->boolean('type')->default(true);
             $table->string('summary', 500)->nullable();
             $table->tinyInteger('level')->nullable();
-            $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
+            $table->foreignId('dictionary_category_id')
+                ->nullable()
+                ->constrained($dictionaryDbName . '.categories', 'id')
+                ->onDelete('cascade');
             $table->integer('start_year')->nullable();
             $table->integer('end_year')->nullable();
             $table->integer('years')->nullable();

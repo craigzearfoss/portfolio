@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Models\Personal\Ingredient;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -26,17 +27,10 @@ class StoreIngredientsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients')
-            ]);
-        }
-
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:personal_db.ingredients,full_name'],
-            'name'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,name'],
-            'slug'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,slug'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:'.Ingredient::class],
+            'name'         => ['required', 'string', 'max:100', 'unique:'.Ingredient::class],
+            'slug'         => ['required', 'string', 'max:100', 'unique:'.Ingredient::class],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
@@ -51,5 +45,32 @@ class StoreIngredientsRequest extends FormRequest
             'demo'         => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients')
+            ]);
+        }
     }
 }

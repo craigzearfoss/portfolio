@@ -47,12 +47,12 @@ class LinkController extends BaseAdminController
     /**
      * Store a newly created link in storage.
      *
-     * @param StoreLinksRequest $storeLinksRequest
+     * @param StoreLinksRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreLinksRequest $storeLinksRequest): RedirectResponse
+    public function store(StoreLinksRequest $request): RedirectResponse
     {
-        $link = Link::create($storeLinksRequest->validated());
+        $link = Link::create($request->validated());
 
         return redirect()->route('admin.portfolio.link.show', $link)
             ->with('success', $link->name . ' link successfully added.');
@@ -85,15 +85,15 @@ class LinkController extends BaseAdminController
     /**
      * Update the specified link in storage.
      *
-     * @param UpdateLinksRequest $updateLinksRequest
+     * @param UpdateLinksRequest $request
      * @param Link $link
      * @return RedirectResponse
      */
-    public function update(UpdateLinksRequest $updateLinksRequest, Link $link): RedirectResponse
+    public function update(UpdateLinksRequest $request, Link $link): RedirectResponse
     {
         Gate::authorize('update-resource', $link);
 
-        $link->update($updateLinksRequest->validated());
+        $link->update($request->validated());
 
         return redirect()->route('admin.portfolio.link.show', $link)
             ->with('success', $link->name . ' link successfully updated.');

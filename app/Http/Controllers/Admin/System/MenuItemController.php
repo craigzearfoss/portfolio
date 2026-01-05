@@ -75,16 +75,16 @@ class MenuItemController extends BaseAdminController
     /**
      * Store a newly created menu item in storage.
      *
-     * @param StoreMenuItemsRequest $storeMenuItemsRequest
+     * @param StoreMenuItemsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreMenuItemsRequest $storeMenuItemsRequest): RedirectResponse
+    public function store(StoreMenuItemsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only root admins can add new menu items.');
         }
 
-        $menuItem = MenuItem::create($storeMenuItemsRequest->validated());
+        $menuItem = MenuItem::create($request->validated());
 
         return redirect()->route('admin.system.menu-item.index')
             ->with('success', $menuItem->name . ' menu item successfully added.');
@@ -117,15 +117,15 @@ class MenuItemController extends BaseAdminController
     /**
      * Update the specified menu item in storage.
      *
-     * @param UpdateMenuItemsRequest $updateMenuItemsRequest
+     * @param UpdateMenuItemsRequest $request
      * @param MenuItem $menuItem
      * @return RedirectResponse
      */
-    public function update(UpdateMenuItemsRequest $updateMenuItemsRequest, MenuItem $menuItem): RedirectResponse
+    public function update(UpdateMenuItemsRequest $request, MenuItem $menuItem): RedirectResponse
     {
         Gate::authorize('update-resource', $menuItem);
 
-        $menuItem->update($updateMenuItemsRequest->validated());
+        $menuItem->update($request->validated());
 
         return redirect()->route('admin.system.menu-item.index')
             ->with('success', $menuItem->name . ' menu item successfully updated.');

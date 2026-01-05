@@ -49,12 +49,12 @@ class JobController extends BaseAdminController
     /**
      * Store a newly created job in storage.
      *
-     * @param StoreJobsRequest $storeJobsRequest
+     * @param StoreJobsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreJobsRequest $storeJobsRequest): RedirectResponse
+    public function store(StoreJobsRequest $request): RedirectResponse
     {
-        $job = Job::create($storeJobsRequest->validated());
+        $job = Job::create($request->validated());
 
         return redirect()->route('admin.portfolio.job.show', $job)
             ->with('success', $job->company . ' job successfully added.');
@@ -88,15 +88,15 @@ class JobController extends BaseAdminController
     /**
      * Update the specified job in storage.
      *
-     * @param UpdateJobsRequest $updateJobsRequest
+     * @param UpdateJobsRequest $request
      * @param Job $job
      * @return RedirectResponse
      */
-    public function update(UpdateJobsRequest $updateJobsRequest, Job $job): RedirectResponse
+    public function update(UpdateJobsRequest $request, Job $job): RedirectResponse
     {
         Gate::authorize('update-resource', $job);
 
-        $job->update($updateJobsRequest->validated());
+        $job->update($request->validated());
 
         return redirect()->route('admin.portfolio.job.show', $job)
             ->with('success', $job->company . ' job successfully updated.');

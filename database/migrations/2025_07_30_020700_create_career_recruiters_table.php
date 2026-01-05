@@ -20,6 +20,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('recruiters', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
@@ -31,9 +34,15 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
-            $table->integer('state_id')->nullable();
+            $table->foreignId('state_id')
+                ->nullable()
+                ->constrained($systemDbName.'.states', 'id')
+                ->onDelete('cascade');
             $table->string('zip', 20)->nullable();
-            $table->integer('country_id')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained($systemDbName.'.countries', 'id')
+                ->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->string('phone', 20)->nullable();

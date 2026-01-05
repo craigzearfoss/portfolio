@@ -53,7 +53,7 @@ class RecipeStep extends Model
     }
 
     /**
-     * Get the owner of the recipe step.
+     * Get the system owner of the recipe step.
      */
     public function owner(): BelongsTo
     {
@@ -61,7 +61,7 @@ class RecipeStep extends Model
     }
 
     /**
-     * Get the portfolio recipe that owns the recipe step.
+     * Get the personal recipe that owns the recipe step.
      */
     public function recipe(): BelongsTo
     {

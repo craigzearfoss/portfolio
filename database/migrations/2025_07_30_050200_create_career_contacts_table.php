@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Career\Contact;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,8 +21,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('contacts', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->string('title', 20)->nullable();
@@ -29,9 +35,15 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
-            $table->integer('state_id')->nullable();
+            $table->foreignId('state_id')
+                ->nullable()
+                ->constrained($systemDbName.'.states', 'id')
+                ->onDelete('cascade');
             $table->string('zip', 20)->nullable();
-            $table->integer('country_id')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained($systemDbName.'.countries', 'id')
+                ->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->string('phone', 20)->nullable();

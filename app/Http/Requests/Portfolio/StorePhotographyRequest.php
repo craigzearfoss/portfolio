@@ -29,13 +29,6 @@ class StorePhotographyRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.photography', $this->owner_id)
-            ]);
-        }
-
         return [
             'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'         => ['required', 'string', 'max:255'],
@@ -70,11 +63,31 @@ class StorePhotographyRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
             'owner_id.required' => 'Please select an owner for the photograph.',
             'owner_id.exists'   => 'The specified owner does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.photography', $this->owner_id)
+            ]);
+        }
     }
 }

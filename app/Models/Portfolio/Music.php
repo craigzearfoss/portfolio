@@ -73,7 +73,7 @@ class Music extends Model
     }
 
     /**
-     * Get the owner of the music.
+     * Get the system owner of the music.
      */
     public function owner(): BelongsTo
     {
@@ -81,7 +81,7 @@ class Music extends Model
     }
 
     /**
-     * Get the parent of the music.
+     * Get the parent of the portfolio music.
      */
     public function parent(): BelongsTo
     {
@@ -89,7 +89,7 @@ class Music extends Model
     }
 
     /**
-     * Get the children of the music.
+     * Get the children of the portfolio music.
      */
     public function children(): HasMany
     {

@@ -22,6 +22,7 @@ class CompanyContact extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'company_id',
         'contact_id',
         'active',

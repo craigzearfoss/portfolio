@@ -52,16 +52,16 @@ class DatabaseController extends BaseAdminController
     /**
      * Store a newly created database in storage.
      *
-     * @param StoreDatabasesRequest $storeDatabasesRequest
+     * @param StoreDatabasesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreDatabasesRequest $storeDatabasesRequest): RedirectResponse
+    public function store(StoreDatabasesRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add databases.');
         }
 
-        $database = Database::create($storeDatabasesRequest->validated());
+        $database = Database::create($request->validated());
 
         return redirect()->route('admin.dictionary.database.show', $database)
             ->with('success', $database->name . ' successfully added.');
@@ -94,17 +94,17 @@ class DatabaseController extends BaseAdminController
     /**
      * Update the specified database in storage.
      *
-     * @param UpdateDatabasesRequest $updateDatabasesRequest
+     * @param UpdateDatabasesRequest $request
      * @param Database $database
      * @return RedirectResponse
      */
-    public function update(UpdateDatabasesRequest $updateDatabasesRequest, Database $database): RedirectResponse
+    public function update(UpdateDatabasesRequest $request, Database $database): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update databases.');
         }
 
-        $database->update($updateDatabasesRequest->validated());
+        $database->update($request->validated());
 
         return redirect()->route('admin.dictionary.database.show', $database)
             ->with('success', $database->name . ' successfully updated.');

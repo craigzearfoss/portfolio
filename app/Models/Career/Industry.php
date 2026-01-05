@@ -35,10 +35,10 @@ class Industry extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the companies for the industry.
+     * Get the career companies for the industry.
      */
     public function companies(): HasMany
     {
-        return $this->hasMany(Company::class);
+        return $this->hasMany(Company::class, 'industry_id');
     }
 }

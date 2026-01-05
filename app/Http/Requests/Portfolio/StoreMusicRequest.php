@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Music;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -17,8 +18,6 @@ class StoreMusicRequest extends FormRequest
     {
         $this->checkDemoMode();
 
-        $this->checkOwner();
-
         return true;
     }
 
@@ -30,22 +29,11 @@ class StoreMusicRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug(
-                    $this['name'] . (!empty($this['artist']) ? '-by-' . $this['artist'] : ''),
-                    'portfolio_db.music',
-                    $this->owner_id
-                )
-            ]);
-        }
-
         $maxYear = intval(date("Y")) + 1;
 
         return [
             'owner_id'       => ['required','integer', 'exists:system_db.admins,id'],
-            'name'           => ['required', 'string', 'max:255', 'unique:portfolio_db.music,name'],
+            'name'           => ['required', 'string', 'max:255', 'unique:'.Music::class],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [
                 'required',
@@ -84,6 +72,11 @@ class StoreMusicRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [

@@ -31,10 +31,11 @@ class JobLocationType extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the jobs for the job location type.
+     * Get the portfolio jobs for the job location type.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Job::class, 'job_id')->orderBy('start_date', 'desc');
+        return $this->hasMany(Job::class, 'job_location_type_id')
+            ->orderBy('start_date', 'desc');
     }
 }

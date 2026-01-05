@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\System\AdminGroup;
+use App\Models\System\AdminTeam;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,12 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admin_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignIdFor( \App\Models\System\AdminTeam::class);
+            $table->foreignId('owner_id')
+                ->constrained('admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('admin_team_id')
+                ->constrained('admin_teams', 'id')
+                ->onDelete('cascade');
             $table->string('name', 100)->index('name_idx');
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();

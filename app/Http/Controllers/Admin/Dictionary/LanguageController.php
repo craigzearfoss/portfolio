@@ -52,16 +52,16 @@ class LanguageController extends BaseAdminController
     /**
      * Store a newly created language in storage.
      *
-     * @param StoreLanguagesRequest $storeLanguagesRequest
+     * @param StoreLanguagesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreLanguagesRequest $storeLanguagesRequest): RedirectResponse
+    public function store(StoreLanguagesRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add languages.');
         }
 
-        $language = Language::create($storeLanguagesRequest->validated());
+        $language = Language::create($request->validated());
 
         return redirect()->route('admin.dictionary.language.show', $language)
             ->with('success', $language->name . ' successfully added.');
@@ -94,15 +94,15 @@ class LanguageController extends BaseAdminController
     /**
      * Update the specified language in storage.
      *
-     * @param UpdateLanguagesRequest $updateLanguagesRequest
+     * @param UpdateLanguagesRequest $request
      * @param Language $language
      * @return RedirectResponse
      */
-    public function update(UpdateLanguagesRequest $updateLanguagesRequest, Language $language): RedirectResponse
+    public function update(UpdateLanguagesRequest $request, Language $language): RedirectResponse
     {
         Gate::authorize('update-resource', $language);
 
-        $language->update($updateLanguagesRequest->validated());
+        $language->update($request->validated());
 
         return redirect()->route('admin.dictionary.show', $language)
             ->with('success', $language->name . ' successfully updated.');

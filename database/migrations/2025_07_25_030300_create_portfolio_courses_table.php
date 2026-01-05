@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Portfolio\Course;
+use App\Models\System\Owner;
+use App\Models\Portfolio\Academy;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,8 +21,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('courses', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
@@ -30,7 +36,10 @@ return new class extends Migration
             $table->boolean('completed')->default(false);
             $table->date('completion_date')->nullable();
             $table->float('duration_hours')->nullable();
-            $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->nullable();
+            $table->foreignId('academy_id')
+                ->nullable()
+                ->constrained('academies', 'id')
+                ->onDelete('cascade');
             $table->string('school')->nullable();
             $table->string('instructor')->nullable();
             $table->string('sponsor')->nullable();

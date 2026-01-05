@@ -49,16 +49,16 @@ class MessageController extends BaseAdminController
     /**
      * Store a newly created message in storage.
      *
-     * @param StoreMessagesRequest $storeMessagesRequest
+     * @param StoreMessagesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreMessagesRequest $storeMessagesRequest): RedirectResponse
+    public function store(StoreMessagesRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only root admins can create new messages.');
         }
 
-        $message = Message::create($storeMessagesRequest->validated());
+        $message = Message::create($request->validated());
 
         return redirect()->route('admin.system.message.show', $message)
             ->with('success', 'Message successfully added.');
@@ -92,16 +92,16 @@ class MessageController extends BaseAdminController
     /**
      * Update the specified message in storage.
      *
-     * @param UpdateMessagesRequest $updateMessagesRequest
+     * @param UpdateMessagesRequest $request
      * @param Message $message
      * @return RedirectResponse
      */
-    public function update(UpdateMessagesRequest $updateMessagesRequest, Message $message): RedirectResponse
+    public function update(UpdateMessagesRequest $request, Message $message): RedirectResponse
     {
         // any admin can update a message
         //Gate::authorize('update-resource', $message);
 
-        $message->update($updateMessagesRequest->validated());
+        $message->update($request->validated());
 
         return redirect()->route('admin.system.message.index')
             ->with('success', 'Message successfully updated.');

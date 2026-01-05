@@ -61,12 +61,12 @@ class NoteController extends BaseAdminController
     /**
      * Store a newly created note in storage.
      *
-     * @param StoreNotesRequest $storeNotesRequest
+     * @param StoreNotesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreNotesRequest $storeNotesRequest): RedirectResponse
+    public function store(StoreNotesRequest $request): RedirectResponse
     {
-        $applicationId = $storeNotesRequest->query('application_id');
+        $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
@@ -77,7 +77,7 @@ class NoteController extends BaseAdminController
                 ->withInput();
         }
 
-        $note = Note::create($storeNotesRequest->validated());
+        $note = Note::create($request->validated());
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
@@ -122,15 +122,15 @@ class NoteController extends BaseAdminController
     /**
      * Update the specified note in storage.
      *
-     * @param UpdateNotesRequest $updateNotesRequest
+     * @param UpdateNotesRequest $request
      * @param Note $note
      * @return RedirectResponse
      */
-    public function update(UpdateNotesRequest $updateNotesRequest, Note $note): RedirectResponse
+    public function update(UpdateNotesRequest $request, Note $note): RedirectResponse
     {
         Gate::authorize('update-resource', $note);
 
-        $applicationId = $updateNotesRequest->query('application_id');
+        $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
@@ -141,7 +141,7 @@ class NoteController extends BaseAdminController
                 ->withInput();
         }
 
-        $note->update($updateNotesRequest->validated());
+        $note->update($request->validated());
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

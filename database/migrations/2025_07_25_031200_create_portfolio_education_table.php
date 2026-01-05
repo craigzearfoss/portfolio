@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Portfolio\DegreeType;
 use App\Models\Portfolio\Education;
+use App\Models\Portfolio\School;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,12 +30,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('education', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignIdFor(\App\Models\Portfolio\DegreeType::class, 'degree_type_id');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('degree_type_id')
+                ->constrained('degree_types', 'id')
+                ->onDelete('cascade');
             $table->string('major');
             $table->string('minor')->nullable();
-            $table->foreignIdFor(\App\Models\Portfolio\School::class, 'school_id');
+            $table->foreignId('school_id')
+                ->constrained('schools', 'id')
+                ->onDelete('cascade');
             $table->string('slug');
             $table->integer('enrollment_month')->nullable();
             $table->integer('enrollment_year')->nullable();

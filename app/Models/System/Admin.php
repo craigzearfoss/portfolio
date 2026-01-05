@@ -75,7 +75,7 @@ class Admin extends Authenticatable
     const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
-     * Get the country that owns the admin.
+     * Get the system country that owns the admin.
      */
     public function country(): BelongsTo
     {
@@ -83,7 +83,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the state that owns the admin.
+     * Get the system state that owns the admin.
      */
     public function state(): BelongsTo
     {
@@ -91,7 +91,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the team of the admin.
+     * Get the system team of the admin.
      */
     public function team(): BelongsTo
     {

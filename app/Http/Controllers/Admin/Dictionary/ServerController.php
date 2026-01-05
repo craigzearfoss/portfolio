@@ -52,16 +52,16 @@ class ServerController extends BaseAdminController
     /**
      * Store a newly created server in storage.
      *
-     * @param StoreServersRequest $storeServersRequest
+     * @param StoreServersRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreServersRequest $storeServersRequest): RedirectResponse
+    public function store(StoreServersRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add servers.');
         }
 
-        $server = Server::create($storeServersRequest->validated());
+        $server = Server::create($request->validated());
 
         return redirect()->route('admin.dictionary.server.show', $server)
             ->with('success', $server->name . ' successfully added.');
@@ -94,15 +94,15 @@ class ServerController extends BaseAdminController
     /**
      * Update the specified server in storage.
      *
-     * @param UpdateServersRequest $updateServersRequest
+     * @param UpdateServersRequest $request
      * @param Server $server
      * @return RedirectResponse
      */
-    public function update(UpdateServersRequest $updateServersRequest, Server $server): RedirectResponse
+    public function update(UpdateServersRequest $request, Server $server): RedirectResponse
     {
         Gate::authorize('update-resource', $server);
 
-        $server->update($updateServersRequest->validated());
+        $server->update($request->validated());
 
         return redirect()->route('admin.dictionary.server.show', $server)
             ->with('success', $server->name . ' successfully updated.');

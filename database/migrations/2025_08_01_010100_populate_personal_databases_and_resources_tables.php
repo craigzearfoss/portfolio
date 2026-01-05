@@ -45,19 +45,22 @@ return new class extends Migration
          ** ----------------------------------------------------- */
         $data = [
             [
-                //'id'       => 3,
-                'name'     => 'personal',
-                'database' => config('app.' . $this->database_tag),
-                'tag'      => $this->database_tag,
-                'title'    => 'Personal',
-                'plural'   => 'Personal',
-                'icon'     => 'fa-folder',
-                'guest'    => 1,
-                'user'     => 1,
-                'admin'    => 1,
-                'sequence' => 2000,
-                'public'   => 1,
-                'disabled' => 0,
+                //'id'         => 3,
+                'name'       => 'personal',
+                'database'   => config('app.' . $this->database_tag),
+                'tag'        => $this->database_tag,
+                'title'      => 'Personal',
+                'plural'     => 'Personal',
+                'guest'      => 1,
+                'user'       => 1,
+                'admin'      => 1,
+                'global'     => 0,
+                'menu'       => 1,
+                'menu_level' => 1,
+                'icon'       => 'fa-folder',
+                'public'     => 1,
+                'disabled'   => 0,
+                'sequence'   => 2000,
             ],
         ];
 
@@ -93,13 +96,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-pizza-slice',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 10,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 10,
                 ],
                 [
                     'parent_id'   => null,
@@ -114,13 +118,14 @@ return new class extends Migration
                     'user'        => 1,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-book',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 20,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 20,
                 ],
                 [
                     'parent_id'   => null,
@@ -135,13 +140,14 @@ return new class extends Migration
                     'user'        => 1,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-cutlery',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 30,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 30,
                 ],
                 [
                     'parent_id'   => null,
@@ -156,13 +162,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 0,
+                    'menu_level'  => 3,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 3,
-                    'sequence'    => $database->sequence + 40,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 40,
                 ],
                 [
                     'parent_id'   => null,
@@ -177,13 +184,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 0,
+                    'menu_level'  => 3,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 3,
-                    'sequence'    => $database->sequence + 50,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 50,
                 ],
                 [
                     'parent_id'   => null,
@@ -198,13 +206,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 0,
                     'global'      => 1,
+                    'menu'        => 0,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-video-camera',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 60,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 1,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 60,
                 ],
             ];
 
@@ -215,7 +224,9 @@ return new class extends Migration
                 $data[$i]['owner_id']   = $this->rootAdminId;
             }
 
-            Resource::insert($data);
+            for ($i=0; $i<count($data); $i++) {
+                Resource::insert($data[$i]);
+            }
         }
     }
 

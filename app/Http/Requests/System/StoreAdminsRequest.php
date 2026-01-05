@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\System;
 
+use App\Http\Middleware\Admin;
 use App\Rules\CaseInsensitiveNotIn;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class StoreAdminsRequest extends FormRequest
 {
@@ -29,27 +32,22 @@ class StoreAdminsRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
-        // if the account is disabled then force current session to logout
-        if (!empty($this['disabled'])) {
-            $this->merge(['requires_relogin' => 1]);
-        }
-
         $ruleArray = [
             'admin_team_id'    => ['required', 'integer', 'exists:system_db.admin_teams,id'],
             'username'         => [
                 'required',
                 'string',
+                'lowercase',
                 'min:6',
                 'max:200',
-                'unique:admins,username',
+                'unique:'.Admin::class,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'name'             => ['required', 'string', 'min:6', 'max:255'],
             'label'            => [
                 'required',
                 'string',
+                'lowercase',
                 'min:6',
                 'max:200',
                 'unique:admins,label',
@@ -67,7 +65,7 @@ class StoreAdminsRequest extends FormRequest
             'latitude'         => [Rule::numeric(), 'nullable'],
             'longitude'        => [Rule::numeric(), 'nullable'],
             'phone'            => ['string', 'max:50', 'nullable'],
-            'email'            => ['required', 'email', 'max:255', 'unique:admins,email'],
+            'email'            => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Admin::class],
             'birthday'         => ['date', 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
@@ -79,8 +77,7 @@ class StoreAdminsRequest extends FormRequest
             'thumbnail'        => ['string', 'max:500', 'nullable'],
             'logo'             => ['string', 'max:500', 'nullable'],
             'logo_small'       => ['string', 'max:500', 'nullable'],
-            'password'         => ['string', 'min:8', 'max:255'],
-            'confirm_password' => ['string', 'same:password'],
+            'password'         => ['required', 'confirmed', Password::defaults()->letters()->numbers()->symbols()],
             'remember_token'   => ['string', 'max:200', 'nullable'],
             'token'            => ['string', 'max:255', 'nullable'],
             'requires_relogin' => ['integer', 'between:0,1'],
@@ -106,6 +103,11 @@ class StoreAdminsRequest extends FormRequest
         return $ruleArray;
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -113,5 +115,24 @@ class StoreAdminsRequest extends FormRequest
             'state_id.exists'        => 'The specified state does not exist.',
             'country_id.exists'      => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'username' => Str::lower($this->username),
+            'label'    => Str::lower($this->label),
+            'email'    => Str::lower($this->email),
+        ]);
+
+        // if the account is disabled then force current session to logout
+        if (!empty($this['disabled'])) {
+            $this->merge(['requires_relogin' => 1]);
+        }
     }
 }

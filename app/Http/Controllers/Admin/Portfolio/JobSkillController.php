@@ -59,12 +59,12 @@ class JobSkillController extends Controller
     /**
      * Store a newly created job skill in storage.
      *
-     * @param StoreJobSkillsRequest $storeJobSkillsRequest
+     * @param StoreJobSkillsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreJobSkillsRequest $storeJobSkillsRequest): RedirectResponse
+    public function store(StoreJobSkillsRequest $request): RedirectResponse
     {
-        $jobSkill = JobSkill::create($storeJobSkillsRequest->validated());
+        $jobSkill = JobSkill::create($request->validated());
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
             ->with('success', $jobSkill->name . ' successfully added.');
@@ -98,15 +98,15 @@ class JobSkillController extends Controller
     /**
      * Update the specified job skill in storage.
      *
-     * @param UpdateJobSkillsRequest $updateJobSkillRequest
+     * @param UpdateJobSkillsRequest $request
      * @param JobSkill $jobSkill
      * @return RedirectResponse
      */
-    public function update(UpdateJobSkillsRequest $updateJobSkillRequest, JobSkill $jobSkill): RedirectResponse
+    public function update(UpdateJobSkillsRequest $request, JobSkill $jobSkill): RedirectResponse
     {
         Gate::authorize('update-resource', $jobSkill);
 
-        $jobSkill->update($updateJobSkillRequest->validated());
+        $jobSkill->update($request->validated());
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
             ->with('success', $jobSkill->name . ' successfully updated.');

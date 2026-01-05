@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Dictionary\OperatingSystem;
 use App\Models\Dictionary\OperatingSystemStack;
+use App\Models\Dictionary\Stack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,14 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('operating_system_stack', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Dictionary\OperatingSystem::class);
-            $table->foreignIdFor( \App\Models\Dictionary\Stack::class);
+            $table->foreignId('operating_system_id')
+                ->nullable()
+                ->constrained('operating_systems', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('stack_id')
+                ->nullable()
+                ->constrained('stacks', 'id')
+                ->onDelete('cascade');
 
             $table->unique(['operating_system_id', 'stack_id'], 'operating_system_stack_unique');
         });

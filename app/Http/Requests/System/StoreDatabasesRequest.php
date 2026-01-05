@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\Database;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,26 +26,33 @@ class StoreDatabasesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id' => ['integer', 'exists:system_db.admins,id'],
-            'name'     => ['required', 'string', 'max:50', 'unique:databases,name'],
-            'database' => ['required', 'string', 'max:50', 'unique:databases,database'],
-            'tag'      => ['required', 'string', 'max:50', 'unique:databases,tag'],
-            'title'    => ['required', 'string', 'max:50'],
-            'plural'   => ['required', 'string', 'max:50'],
-            'guest'    => ['integer', 'between:0,1'],
-            'user'     => ['integer', 'between:0,1'],
-            'admin'    => ['integer', 'between:0,1'],
-            'global'   => ['integer', 'between:0,1'],
-            'icon'     => ['string', 'max:50', 'nullable'],
-            'public'   => ['integer', 'between:0,1'],
-            'readonly' => ['integer', 'between:0,1'],
-            'root'     => ['integer', 'between:0,1'],
-            'disabled' => ['integer', 'between:0,1'],
-            'demo'     => ['integer', 'between:0,1'],
-            'sequence' => ['integer', 'min:0', 'nullable'],
+            'owner_id'   => ['integer', 'exists:system_db.admins,id'],
+            'name'       => ['required', 'string', 'max:50', 'unique:'.Database::class],
+            'database'   => ['required', 'string', 'max:50', 'unique:'.Database::class],
+            'tag'        => ['required', 'string', 'max:50', 'unique:'.Database::class],
+            'title'      => ['required', 'string', 'max:50'],
+            'plural'     => ['required', 'string', 'max:50'],
+            'guest'      => ['integer', 'between:0,1'],
+            'user'       => ['integer', 'between:0,1'],
+            'admin'      => ['integer', 'between:0,1'],
+            'global'     => ['integer', 'between:0,1'],
+            'menu'       => ['integer', 'between:0,1'],
+            'menu_level' => ['integer'],
+            'icon'       => ['string', 'max:50', 'nullable'],
+            'public'     => ['integer', 'between:0,1'],
+            'readonly'   => ['integer', 'between:0,1'],
+            'root'       => ['integer', 'between:0,1'],
+            'disabled'   => ['integer', 'between:0,1'],
+            'demo'       => ['integer', 'between:0,1'],
+            'sequence'   => ['integer', 'min:0', 'nullable'],
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [

@@ -60,7 +60,7 @@ class JobTask extends Model
     }
 
     /**
-     * Get the owner of the job task.
+     * Get the system owner of the job task.
      */
     public function owner(): BelongsTo
     {
@@ -68,7 +68,7 @@ class JobTask extends Model
     }
 
     /**
-     * Get the job of the job task.
+     * Get the career job that owns the job task.
      */
     public function job(): BelongsTo
     {

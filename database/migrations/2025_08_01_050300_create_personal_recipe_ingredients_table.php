@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Personal\Ingredient;
+use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeIngredient;
+use App\Models\Personal\Unit;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,12 +24,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('recipe_ingredients', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignIdFor( \App\Models\Personal\Recipe::class);
-            $table->foreignIdFor( \App\Models\Personal\Ingredient::class);
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('recipe_id')
+                ->constrained('recipes', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('ingredient_id')
+                ->constrained('ingredients', 'id')
+                ->onDelete('cascade');
             $table->string('amount', 50)->nullable();
-            $table->foreignIdFor( \App\Models\Personal\Unit::class)->nullable();
+            $table->foreignId('unit_id')
+                ->constrained('units', 'id')
+                ->onDelete('cascade');
             $table->string('qualifier')->nullable();
             $table->text('description')->nullable();
             $table->string('image', 500)->nullable();

@@ -96,7 +96,7 @@ class Recipe extends Model
     }
 
     /**
-     * Get the owner of the recipe.
+     * Get the system owner of the recipe.
      */
     public function owner(): BelongsTo
     {
@@ -104,19 +104,21 @@ class Recipe extends Model
     }
 
     /**
-     * Get the portfolio recipe ingredients for the recipe.
+     * Get the personal recipe ingredients for the recipe.
      */
     public function ingredients(): HasMany
     {
-        return $this->hasMany(RecipeIngredient::class)->orderBy('sequence', 'asc');
+        return $this->hasMany(RecipeIngredient::class, 'recipe_id')
+            ->orderBy('sequence', 'asc');
     }
 
     /**
-     * Get the portfolio recipe steps for the recipe.
+     * Get the personal recipe steps for the recipe.
      */
     public function steps(): HasMany
     {
-        return $this->hasMany(RecipeStep::class)->orderBy('step', 'asc');
+        return $this->hasMany(RecipeStep::class, 'recipe_id')
+            ->orderBy('step', 'asc');
     }
 
     /**

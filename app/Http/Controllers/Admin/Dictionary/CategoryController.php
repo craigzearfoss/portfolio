@@ -52,16 +52,16 @@ class CategoryController extends BaseAdminController
     /**
      * Store a newly created category in storage.
      *
-     * @param StoreCategoriesRequest $storeCategoriesRequest
+     * @param StoreCategoriesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreCategoriesRequest $storeCategoriesRequest): RedirectResponse
+    public function store(StoreCategoriesRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add categories.');
         }
 
-        $category = Category::create($storeCategoriesRequest->validated());
+        $category = Category::create($request->validated());
 
         return redirect()->route('admin.dictionary.category.show', $category)
             ->with('success', $category->name . ' successfully added.');
@@ -94,15 +94,15 @@ class CategoryController extends BaseAdminController
     /**
      * Update the specified category in storage.
      *
-     * @param UpdateCategoriesRequest $updateCategoriesRequest
+     * @param UpdateCategoriesRequest $request
      * @param Category $category
      * @return RedirectResponse
      */
-    public function update(UpdateCategoriesRequest $updateCategoriesRequest, Category $category): RedirectResponse
+    public function update(UpdateCategoriesRequest $request, Category $category): RedirectResponse
     {
         Gate::authorize('update-resource', $category);
 
-        $category->update($updateCategoriesRequest->validated());
+        $category->update($request->validated());
 
         return redirect()->route('admin.dictionary.category.show', $category)
             ->with('success', $category->name . ' successfully updated.');

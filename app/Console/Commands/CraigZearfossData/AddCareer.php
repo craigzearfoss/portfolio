@@ -15,17 +15,18 @@ use App\Models\Career\Reference;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
+use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\MenuItem;
 use App\Models\System\Resource;
-use App\Models\System\AdminResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class AddCareer extends Command
 {
-    const DATABASE = 'career';
+    const DB_TAG = 'career_db';
 
     const USERNAME = 'czearfoss';
 
@@ -58,9 +59,12 @@ class AddCareer extends Command
      */
     public function handle()
     {
+        $this->demo   = $this->option('demo');
+        $this->silent = $this->option('silent');
+
         // get the database id
-        if (!$database = Database::where('name', self::DATABASE)->first()) {
-            echo PHP_EOL . 'Database `' .self::DATABASE . '` not found.' . PHP_EOL . PHP_EOL;
+        if (!$database = Database::where('tag', self::DB_TAG)->first()) {
+            echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
         $this->databaseId = $database->id;
@@ -74,11 +78,13 @@ class AddCareer extends Command
 
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
-            echo  'demo: ' . $this->demo . PHP_EOL;
+            echo 'demo: ' . $this->demo . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         // career
+        $this->insertSystemAdminDatabaseRows();
+        $this->insertSystemAdminResourceRows();
         $this->insertCareerCompanies();
         $this->insertCareerContacts();
         $this->insertCareerReferences();
@@ -268,7 +274,7 @@ class AddCareer extends Command
             [ 'id' => $this->companyId[44],  'name' => 'SPECTRAFORCE Technologies Inc',    'slug' => 'spectraforce-technologies-inc',   'industry_id' => 11, 'link' => 'https://spectraforce.com/',                        'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small' => null ],
             [ 'id' => $this->companyId[45],  'name' => 'Ovia Health',                      'slug' => 'ovia-health',                     'industry_id' => 11, 'link' => 'https://www.oviahealth.com/',                      'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small' => null ],
             [ 'id' => $this->companyId[46],  'name' => 'JOBS by allUP',                    'slug' => 'jobs-by-allup',                   'industry_id' => 11, 'link' => 'https://www.allup.world/',                         'link_name'   => 'LinkedIn website',       'city' => null,                'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small' => null ],
-            [ 'id' => $this->companyId[47],  'name' => 'iostudio',                         'slug' => 'iostudio',                        'industry_id' => 29, 'link' => 'https://iostudio.com/',                            'link_name'   => 'iostudio website',       'city' => null,                'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small' => null ],
+            [ 'id' => $this->companyId[47],  'name' => 'iostudio',                         'slug' => 'iostudio',                        'industry_id' => 11, 'link' => 'https://iostudio.com/',                            'link_name'   => 'iostudio website',       'city' => null,                'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small' => null ],
             [ 'id' => $this->companyId[48],  'name' => 'Black Airplane',                   'slug' => 'black-airplane',                  'industry_id' => 11, 'link' => 'https://blackairplane.com/',                       'link_name'   => 'Black Airplane website', 'city' => null,                'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small' => null ],
             [ 'id' => $this->companyId[49],  'name' => 'Pacifica Media',                   'slug' => 'pacifica-media',                  'industry_id' => 11, 'link' => 'https://pacificamedia.com/',                       'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small' => null ],
             [ 'id' => $this->companyId[50],  'name' => 'Parsetek Inc',                     'slug' => 'parsetek-inc',                    'industry_id' => 11, 'link' => 'http://www.parsetek.com/',                         'link_name'   => null,                     'city' => 'Chantilly',         'state_id' => 47,   'country_id' => 237,  'logo' => null, 'logo_small' => null ],
@@ -320,24 +326,24 @@ class AddCareer extends Command
         echo self::USERNAME . ": Inserting into Career\\CompanyContact ...\n";
 
         $data = [
-            [ 'company_id' => $this->companyId[1],  'contact_id' => $this->contactId[1],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[2],  'contact_id' => $this->contactId[2],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[4],  'contact_id' => $this->contactId[3],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[6],  'contact_id' => $this->contactId[4],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[7],  'contact_id' => $this->contactId[5],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[8],  'contact_id' => $this->contactId[6],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[10], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[11], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[12], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[13], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[2],  'contact_id' => $this->contactId[14], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[12], 'contact_id' => $this->contactId[16], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[13], 'contact_id' => $this->contactId[17], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[14], 'contact_id' => $this->contactId[8],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[15], 'contact_id' => $this->contactId[19], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[21], 'contact_id' => $this->contactId[20], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[22], 'contact_id' => $this->contactId[21], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[23], 'contact_id' => $this->contactId[23], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[1],  'contact_id' => $this->contactId[1],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[2],  'contact_id' => $this->contactId[2],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[4],  'contact_id' => $this->contactId[3],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[6],  'contact_id' => $this->contactId[4],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[7],  'contact_id' => $this->contactId[5],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[8],  'contact_id' => $this->contactId[6],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[10], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[11], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[12], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[13], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[2],  'contact_id' => $this->contactId[14], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[12], 'contact_id' => $this->contactId[16], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[13], 'contact_id' => $this->contactId[17], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[14], 'contact_id' => $this->contactId[8],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[15], 'contact_id' => $this->contactId[19], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[21], 'contact_id' => $this->contactId[20], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[22], 'contact_id' => $this->contactId[21], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[23], 'contact_id' => $this->contactId[23], 'active' => 1 ],
         ];
 
         if (!empty($data)) {
@@ -472,17 +478,19 @@ class AddCareer extends Command
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
+        $idahoNationLabId = Company::where('name', 'Idaho National Laboratory')->first()->id ?? null;
+
         $data = [
-            [ 'name' => 'Kevin Hemsley',         'slug' => 'kevin-hemsley',         'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => 'Rigby',         'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 526-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 317-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
-            [ 'name' => 'Paul Davis',            'slug' => 'paul-davis',            'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => null,            'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(913) 608-5399', 'phone_label' => null,     'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'paul.davis@inl.gov',             'email_label' => 'work', 'alt_email' => 'prtdavis2@yahoo.com', 'alt_email_label' => 'home',  'birthday' => null,         'link' => null ],
-            [ 'name' => 'Alen Kahen',            'slug' => 'alen-kahen',            'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => null,            'state_id' => 33,   'zip' => null,         'country_id' => 237, 'phone' => '(917) 685-6003', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'akahen@live.com',                'email_label' => 'home', 'alt_email' => 'alen.kahen@inl.com',  'alt_email_label' => 'work',  'birthday' => null,         'link' => null ],
-            [ 'name' => 'Nancy Gomez Dominguez', 'slug' => 'nancy-gomez-dominguez', 'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => null,            'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(603) 779-2707', 'phone_label' => 'mobile', 'alt_phone' => '(208) 526-4280', 'alt_phone_label' => 'work',   'email' => 'nancy.gomezdominguez@inl.gov',   'email_label' => 'work', 'alt_email' => 'ngd.00@outlook.com',  'alt_email_label' => 'home',  'birthday' => null,         'link' => null ],
-            [ 'name' => 'Barbara Zearfoss',      'slug' => 'barbara-zearfoss',      'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '2678 Sunset Lane',        'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 764-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 891-1207', 'alt_phone_label' => 'mobile', 'email' => 'BZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1942-08-20', 'link' => null ],
-            [ 'name' => 'Mark Zearfoss',         'slug' => 'mark-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '380 Richardson Rd.',      'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17404',      'country_id' => 237, 'phone' => '(717) 792-7795', 'phone_label' => 'home',   'alt_phone' => '(717) 332-1415', 'alt_phone_label' => 'mobile', 'email' => 'zearfoss@verizon.net',           'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1962-07-19', 'link' => null ],
-            [ 'name' => 'Doug Zearfoss',         'slug' => 'doug-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '9652 Rolling Rock Way',   'street2' => null,  'city' => 'Reno',          'state_id' => 29,   'zip' => '89521',      'country_id' => 237, 'phone' => '(775) 852-1264', 'phone_label' => 'home',   'alt_phone' => '(775) 762-0775', 'alt_phone_label' => 'mobile', 'email' => 'DZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => 'dzearfoss@eigwc.com', 'alt_email_label' => 'work',  'birthday' => '1965-11-25', 'link' => null ],
-            [ 'name' => 'Gary Zearfoss',         'slug' => 'gary-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '2678 Sunset Lane',        'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 764-1215', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null,                             'email_label' => null,   'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1941-09-11', 'link' => null ],
-            [ 'name' => 'Maria Arvanitis',       'slug' => 'maria-arvanitis',       'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '9079 Golden Pond Lane N', 'street2' => null,  'city' => 'Monticello',    'state_id' => 24,   'zip' => '55362',      'country_id' => 237, 'phone' => '(763) 777-2216', 'phone_label' => 'mobile', 'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'mariaelaine29@yahoo.com',        'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1980-07-30', 'link' => null ],
-            [ 'name' => 'Barbara Smith',         'slug' => 'barbara-smith',         'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '2041 Warwick Place',      'street2' => null,  'city' => 'New Braunfels', 'state_id' => 44,   'zip' => '78130',      'country_id' => 237, 'phone' => '(830) 221-8713', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'refugeechildrendream@yahoo.com', 'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday'  => null,        'link' => null ],
+            [ 'name' => 'Kevin Hemsley',         'slug' => 'kevin-hemsley',         'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                      'street2' => null,  'city' => 'Rigby',         'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 526-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 317-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
+            [ 'name' => 'Paul Davis',            'slug' => 'paul-davis',            'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                      'street2' => null,  'city' => null,            'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(913) 608-5399', 'phone_label' => null,     'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'paul.davis@inl.gov',             'email_label' => 'work', 'alt_email' => 'prtdavis2@yahoo.com', 'alt_email_label' => 'home',  'birthday' => null,         'link' => null ],
+            [ 'name' => 'Alen Kahen',            'slug' => 'alen-kahen',            'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                      'street2' => null,  'city' => null,            'state_id' => 33,   'zip' => null,         'country_id' => 237, 'phone' => '(917) 685-6003', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'akahen@live.com',                'email_label' => 'home', 'alt_email' => 'alen.kahen@inl.com',  'alt_email_label' => 'work',  'birthday' => null,         'link' => null ],
+            [ 'name' => 'Nancy Gomez Dominguez', 'slug' => 'nancy-gomez-dominguez', 'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                      'street2' => null,  'city' => null,            'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(603) 779-2707', 'phone_label' => 'mobile', 'alt_phone' => '(208) 526-4280', 'alt_phone_label' => 'work',   'email' => 'nancy.gomezdominguez@inl.gov',   'email_label' => 'work', 'alt_email' => 'ngd.00@outlook.com',  'alt_email_label' => 'home',  'birthday' => null,         'link' => null ],
+            [ 'name' => 'Barbara Zearfoss',      'slug' => 'barbara-zearfoss',      'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '2678 Sunset Lane',        'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 764-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 891-1207', 'alt_phone_label' => 'mobile', 'email' => 'BZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1942-08-20', 'link' => null ],
+            [ 'name' => 'Mark Zearfoss',         'slug' => 'mark-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '380 Richardson Rd.',      'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17404',      'country_id' => 237, 'phone' => '(717) 792-7795', 'phone_label' => 'home',   'alt_phone' => '(717) 332-1415', 'alt_phone_label' => 'mobile', 'email' => 'zearfoss@verizon.net',           'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1962-07-19', 'link' => null ],
+            [ 'name' => 'Doug Zearfoss',         'slug' => 'doug-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '9652 Rolling Rock Way',   'street2' => null,  'city' => 'Reno',          'state_id' => 29,   'zip' => '89521',      'country_id' => 237, 'phone' => '(775) 852-1264', 'phone_label' => 'home',   'alt_phone' => '(775) 762-0775', 'alt_phone_label' => 'mobile', 'email' => 'DZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => 'dzearfoss@eigwc.com', 'alt_email_label' => 'work',  'birthday' => '1965-11-25', 'link' => null ],
+            [ 'name' => 'Gary Zearfoss',         'slug' => 'gary-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '2678 Sunset Lane',        'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 764-1215', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null,                             'email_label' => null,   'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1941-09-11', 'link' => null ],
+            [ 'name' => 'Maria Arvanitis',       'slug' => 'maria-arvanitis',       'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '9079 Golden Pond Lane N', 'street2' => null,  'city' => 'Monticello',    'state_id' => 24,   'zip' => '55362',      'country_id' => 237, 'phone' => '(763) 777-2216', 'phone_label' => 'mobile', 'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'mariaelaine29@yahoo.com',        'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1980-07-30', 'link' => null ],
+            [ 'name' => 'Barbara Smith',         'slug' => 'barbara-smith',         'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '2041 Warwick Place',      'street2' => null,  'city' => 'New Braunfels', 'state_id' => 44,   'zip' => '78130',      'country_id' => 237, 'phone' => '(830) 221-8713', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'refugeechildrendream@yahoo.com', 'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday'  => null,        'link' => null ],
         ];
 
         if (!empty($data)) {
@@ -570,6 +578,94 @@ class AddCareer extends Command
     }
 
     /**
+     * Get a database.
+     *
+     * @return mixed
+     */
+    protected function getDatabase()
+    {
+        return Database::where('tag', self::DB_TAG)->first();
+    }
+
+    /**
+     * Get a database's resources.
+     *
+     * @return mixed
+     */
+    protected function getDbResources()
+    {
+        if (!$database = $this->getDatabase()) {
+            return [];
+        } else {
+            return Resource::where('database_id', $database->id)->get();
+        }
+    }
+
+    /**
+     * Insert system database entries into the admin_database table.
+     *
+     * @return void
+     * @throws \Exception
+     */
+    protected function insertSystemAdminDatabaseRows(): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
+
+        if (!$database = $this->getDatabase()) {
+            throw new \Exception('`system` database not found.');
+        }
+
+        $data = [];
+
+        $data[] = [
+            'admin_id'    => $this->adminId,
+            'database_id' => $database->id,
+            'menu'        => $database->menu,
+            'menu_level'  => $database->menu_level,
+            'public'      => $database->public,
+            'readonly'    => $database->readonly,
+            'disabled'    => $database->disabled,
+            'sequence'    => $database->sequence,
+            'created_at'  => now(),
+            'updated_at'  => now(),
+        ];
+
+        AdminDatabase::insert($data);
+    }
+
+    /**
+     * Insert system database resource entries into the admin_resource table.
+     *
+     * @return void
+     */
+    protected function insertSystemAdminResourceRows(): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminResource ...\n";
+
+        if ($resources = $this->getDbResources()) {
+
+            $data = [];
+
+            foreach ($resources as $resource) {
+                $data[] = [
+                    'admin_id'    => $this->adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $resource->public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
+            }
+
+            AdminResource::insert($data);
+        }
+    }
+
+    /**
      * Attach a resource to the admin.
      *
      * @param string $resourceName
@@ -580,11 +676,28 @@ class AddCareer extends Command
     {
         if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
 
-            AdminResource::insert([
-                'admin_id'    => $this->adminId,
-                'resource_id' => $resource->id,
-                'public'      => $public,
-            ]);
+            if ($adminResource = AdminResource::where('admin_id', $this->adminId)
+                ->where('resource_id', $resource->id)->first()
+            ) {
+
+                $adminResource->public = $public;
+                $adminResource->save();
+
+            } else {
+
+                AdminResource::insert([
+                    'admin_id'    => $this->adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ]);
+            }
         }
     }
 }

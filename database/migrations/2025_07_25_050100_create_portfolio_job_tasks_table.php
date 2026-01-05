@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobTask;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,9 +29,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('job_tasks', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignIdFor( \App\Models\Portfolio\Job::class);
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('job_id')
+                ->constrained('jobs', 'id')
+                ->onDelete('cascade');
             $table->string('summary', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

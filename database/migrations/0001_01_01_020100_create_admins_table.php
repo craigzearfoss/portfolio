@@ -2,6 +2,7 @@
 
 use App\Models\System\Admin;
 use App\Models\System\AdminTeam;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\File;
@@ -122,7 +123,6 @@ return new class extends Migration
 
         Schema::connection($this->database_tag)->create('admins', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\System\AdminTeam::class);
             $table->string('username', 200)->unique();
             $table->string('name')->index('name_idx');
             $table->string('label', 200)->unique();
@@ -132,9 +132,15 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
-            $table->integer('state_id')->nullable();
+            $table->foreignId('state_id')
+                ->nullable()
+                ->constrained('states', 'id')
+                ->onDelete('cascade');
             $table->string('zip', 20)->nullable();
-            $table->integer('country_id')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained('countries', 'id')
+                ->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->string('phone', 20)->nullable();
@@ -169,7 +175,7 @@ return new class extends Migration
         $data = [
             [
                 'id'                => 1,
-                'admin_team_id'     => 1,
+//                'admin_team_id'     => null,
                 'username'          => $this->rootUsername,
                 'name'              => $this->rootName,
                 'label'             => $this->rootLabel,
@@ -184,7 +190,7 @@ return new class extends Migration
             ],
             [
                 'id'                => 2,
-                'admin_team_id'     => 1,
+//                'admin_team_id'     => null,
                 'username'          => $this->defaultUsername,
                 'name'              => $this->defaultName,
                 'label'             => $this->defaultLabel,
@@ -199,7 +205,7 @@ return new class extends Migration
             ],
             [
                 'id'                => 3,
-                'admin_team_id'     => 1,
+//                'admin_team_id'     => null,
                 'username'          => $this->demoUsername,
                 'name'              => $this->demoName,
                 'label'             => $this->demoLabel,
@@ -221,15 +227,6 @@ return new class extends Migration
         }
 
         Admin::insert($data);
-
-        // add owner_id (admin) column to the admin_teams table
-        Schema::connection($this->database_tag)->table('admin_teams', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id')->after('id');
-        });
-
-        // add owners to the admin teams
-        AdminTeam::where('name', 'Default Admin Team')->update(['owner_id' => 2]);
-        AdminTeam::where('name', 'Demo Admin Team')->update(['owner_id' => 3]);
     }
 
     /**

@@ -72,7 +72,7 @@ class Course extends Model
     }
 
     /**
-     * Get the owner of the course.
+     * Get the system owner of the course.
      */
     public function owner(): BelongsTo
     {
@@ -80,7 +80,7 @@ class Course extends Model
     }
 
     /**
-     * Get the academy that owns the course.
+     * Get the portfolio academy that owns the course.
      */
     public function academy(): BelongsTo
     {

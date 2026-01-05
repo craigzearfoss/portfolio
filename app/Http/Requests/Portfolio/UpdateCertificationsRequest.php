@@ -24,13 +24,6 @@ class UpdateCertificationsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.certifications')
-            ]);
-        }
-
         return [
             'name'                  => ['filled', 'string', 'max:255', 'unique:portfolio_db.certifications,name,'.$this->certification->id],
             'slug'                  => ['filled', 'string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this->certification->id],
@@ -54,5 +47,32 @@ class UpdateCertificationsRequest extends FormRequest
             'demo'                  => ['integer', 'between:0,1'],
             'sequence'              => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.certifications')
+            ]);
+        }
     }
 }

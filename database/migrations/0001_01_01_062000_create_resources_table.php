@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\System\Database;
+use App\Models\System\Owner;
 use App\Models\System\Resource;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -30,10 +31,17 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('resources', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignIdFor(\App\Models\System\Database::class);
+            $table->foreignId('owner_id')
+                ->constrained('admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('database_id')
+                ->constrained('databases', 'id')
+                ->onDelete('cascade');
             $table->string('name', 50);
-            $table->foreignIdFor(\App\Models\System\Resource::class, 'parent_id')->nullable();
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->constrained('resources', 'id')
+                ->onDelete('cascade');
             $table->string('table', 50);
             $table->string('class');
             $table->string('title', 50);
@@ -43,8 +51,9 @@ return new class extends Migration
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);
             $table->boolean('global')->default(false);
+            $table->boolean('menu')->default(false);
+            $table->integer('menu_level')->default(1);
             $table->string('icon', 50)->nullable();
-            $table->integer('level')->default(1);
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(true);
@@ -80,13 +89,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-user-plus',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 10,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 10,
                 ],
                 [
                     'parent_id'   => null,
@@ -101,13 +111,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-user-plus',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 20,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 1,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 20,
                 ],
                 [
                     'parent_id'   => null,
@@ -122,13 +133,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-user-plus',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 30,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 30,
                 ],
                 [
                     'parent_id'   => null,
@@ -143,13 +155,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 1,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-users',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 40,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 40,
                 ],
                 [
                     'parent_id'   => null,
@@ -164,13 +177,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-users',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 50,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 50,
                 ],
                 [
                     'parent_id'   => null,
@@ -185,13 +199,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-users',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 60,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 60,
                 ],
                 [
                     'parent_id'   => null,
@@ -206,13 +221,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 1,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-envelope',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 70,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 70,
                 ],
                 [
                     'parent_id'   => null,
@@ -227,13 +243,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-envelope',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 80,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 80,
                 ],
                 [
                     'parent_id'   => null,
@@ -248,13 +265,14 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'global'      => 0,
+                    'menu'        => 1,
+                    'menu_level'  => 2,
                     'icon'        => 'fa-list',
-                    'level'       => 2,
-                    'sequence'    => $database->sequence + 90,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
+                    'sequence'    => $database->sequence + 90,
                 ],
             ];
 

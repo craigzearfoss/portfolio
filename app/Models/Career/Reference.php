@@ -87,7 +87,7 @@ class Reference extends Model
         static::addGlobalScope(new AdminPublicScope());
     }
     /**
-     * Get the owner of the reference.
+     * Get the system owner of the reference.
      */
     public function owner(): BelongsTo
     {
@@ -95,7 +95,7 @@ class Reference extends Model
     }
 
     /**
-     * Get the company that owns the reference.
+     * Get the career company that owns the reference.
      */
     public function company(): BelongsTo
     {
@@ -103,7 +103,7 @@ class Reference extends Model
     }
 
     /**
-    * Get the country that owns the reference.
+    * Get the system country that owns the reference.
     */
     public function country(): BelongsTo
     {
@@ -111,7 +111,7 @@ class Reference extends Model
     }
 
     /**
-     * Get the state that owns the reference.
+     * Get the system state that owns the reference.
      */
     public function state(): BelongsTo
     {

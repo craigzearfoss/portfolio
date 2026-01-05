@@ -31,10 +31,10 @@ class CertificationType extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the certifications for the certification type.
+     * Get the portfolio certifications for the certification type.
      */
     public function certifications(): HasMany
     {
-        return $this->hasMany(Certification::class);
+        return $this->hasMany(Certification::class, 'certification_type_id');
     }
 }

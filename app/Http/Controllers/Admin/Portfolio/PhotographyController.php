@@ -48,12 +48,12 @@ class PhotographyController extends BaseAdminController
     /**
      * Store a newly created photo in storage.
      *
-     * @param StorePhotographyRequest $storePhotographyRequest
+     * @param StorePhotographyRequest $request
      * @return RedirectResponse
      */
-    public function store(StorePhotographyRequest $storePhotographyRequest): RedirectResponse
+    public function store(StorePhotographyRequest $request): RedirectResponse
     {
-        $photo = Photography::create($storePhotographyRequest->validated());
+        $photo = Photography::create($request->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully added.');
@@ -86,15 +86,15 @@ class PhotographyController extends BaseAdminController
     /**
      * Update the specified photo in storage.
      *
-     * @param UpdatePhotographyRequest $updatePhotographyRequest
+     * @param UpdatePhotographyRequest $request
      * @param Photography $photo
      * @return RedirectResponse
      */
-    public function update(UpdatePhotographyRequest $updatePhotographyRequest, Photography $photo): RedirectResponse
+    public function update(UpdatePhotographyRequest $request, Photography $photo): RedirectResponse
     {
         Gate::authorize('update-resource', $photo);
 
-        $photo->update($updatePhotographyRequest->validated());
+        $photo->update($request->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully updated.');

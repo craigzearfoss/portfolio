@@ -126,14 +126,19 @@
             'checked' => $resource->global
         ])
 
-        @include('admin.components.show-row-icon', [
-            'name' => 'icon',
-            'icon' => $resource->icon
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'menu',
+            'checked' => $resource->menu
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'level',
-            'value' => $resource->level
+            'name'  => 'menu level',
+            'value' => $resource->menu_level
+        ])
+
+        @include('admin.components.show-row-icon', [
+            'name' => 'icon',
+            'icon' => $resource->icon
         ])
 
         @include('admin.components.show-row-settings', [

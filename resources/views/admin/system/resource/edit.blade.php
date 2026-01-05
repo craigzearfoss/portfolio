@@ -153,6 +153,23 @@
                                 'message'         => $message ?? '',
                             ])
 
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'menu',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('menu') ?? $resource->menu,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-input', [
+                                'name'      => 'menu_level',
+                                'label'     => 'menu level',
+                                'type'      => 'number',
+                                'value'     => old('menu_level') ?? $resource->menu_level,
+                                'required'  => true,
+                                'message'   => $message ?? '',
+                            ])
+
                         </div>
 
                     </div>

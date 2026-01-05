@@ -26,13 +26,6 @@ class UpdateStacksRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $this->owner_id)
-            ]);
-        }
-
         return [
             'full_name'    => ['filled','string', 'max:255', 'unique:dictionary_db.stacks,full_name,'.$this->stack->id],
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.stacks,name,'.$this->stack->id],
@@ -57,5 +50,32 @@ class UpdateStacksRequest extends FormRequest
             'disabled'     => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $this->owner_id)
+            ]);
+        }
     }
 }

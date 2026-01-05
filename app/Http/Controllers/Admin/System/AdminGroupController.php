@@ -46,16 +46,16 @@ class AdminGroupController extends BaseAdminController
     /**
      * Store a newly created admin group in storage.
      *
-     * @param StoreAdminGroupsRequest $storeAdminGroupsRequest
+     * @param StoreAdminGroupsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreAdminGroupsRequest $storeAdminGroupsRequest): RedirectResponse
+    public function store(StoreAdminGroupsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only root admins can add new admin groups.');
         }
 
-        $adminGroup = AdminGroup::create($storeAdminGroupsRequest->validated());
+        $adminGroup = AdminGroup::create($request->validated());
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
             ->with('success', $adminGroup->name . ' successfully added.');
@@ -88,15 +88,15 @@ class AdminGroupController extends BaseAdminController
     /**
      * Update the specified admin group in storage.
      *
-     * @param UpdateAdminGroupsRequest $updateAdminGroupsRequest
+     * @param UpdateAdminGroupsRequest $request
      * @param AdminGroup $adminGroup
      * @return RedirectResponse
      */
-    public function update(UpdateAdminGroupsRequest $updateAdminGroupsRequest, AdminGroup $adminGroup): RedirectResponse
+    public function update(UpdateAdminGroupsRequest $request, AdminGroup $adminGroup): RedirectResponse
     {
         Gate::authorize('update-resource', $adminGroup);
 
-        $adminGroup->update($updateAdminGroupsRequest->validated());
+        $adminGroup->update($request->validated());
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
             ->with('success', $adminGroup->name . ' successfully updated.');

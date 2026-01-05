@@ -31,23 +31,6 @@ class StoreEducationsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {
-
-            $degreeType = DegreeType::find($this['degree_type_id'])->name;
-            $school = School::find($this['school_id'])->name;
-
-            $this->merge([
-                'slug' => uniqueSlug(
-                        $degreeType . '-in-' . $this['major']
-                        . (!empty($this['minor']) ? '-with-a-minor-in-' . $this['minor'] : '')
-                        . '-from-' .  $school
-                ),
-                'portfolio_db.education',
-                $this->owner_id
-            ]);
-        }
-
         return[
             'owner_id'           => ['required', 'integer', 'exists:system_db.admins,id'],
             'degree_type_id'     => ['required', 'integer', 'exists:portfolio_db.degree_types,id'],
@@ -88,6 +71,11 @@ class StoreEducationsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -100,5 +88,30 @@ class StoreEducationsRequest extends FormRequest
             'state_id.exists'       => 'The specified state does not exist.',
             'country_id.exists'     => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {
+
+            $degreeType = DegreeType::find($this['degree_type_id'])->name;
+            $school = School::find($this['school_id'])->name;
+
+            $this->merge([
+                'slug' => uniqueSlug(
+                    $degreeType . '-in-' . $this['major']
+                    . (!empty($this['minor']) ? '-with-a-minor-in-' . $this['minor'] : '')
+                    . '-from-' .  $school
+                ),
+                'portfolio_db.education',
+                $this->owner_id
+            ]);
+        }
     }
 }

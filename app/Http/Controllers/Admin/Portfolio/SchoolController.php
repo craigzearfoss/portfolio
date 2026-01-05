@@ -52,16 +52,16 @@ class SchoolController extends Controller
     /**
      * Store a newly created school in storage.
      *
-     * @param StoreSchoolsRequest $storeSchoolsRequest
+     * @param StoreSchoolsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreSchoolsRequest $storeSchoolsRequest): RedirectResponse
+    public function store(StoreSchoolsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add schools.');
         }
 
-        $school = School::create($storeSchoolsRequest->validated());
+        $school = School::create($request->validated());
 
         return redirect()->route('admin.portfolio.school.show', $school)
             ->with('success', $school->name . ' successfully added.');
@@ -94,15 +94,15 @@ class SchoolController extends Controller
     /**
      * Update the specified school in storage.
      *
-     * @param UpdateSchoolsRequest $updateSchoolsRequest
+     * @param UpdateSchoolsRequest $request
      * @param School $school
      * @return RedirectResponse
      */
-    public function update(UpdateSchoolsRequest $updateSchoolsRequest, School $school): RedirectResponse
+    public function update(UpdateSchoolsRequest $request, School $school): RedirectResponse
     {
         Gate::authorize('update-resource', $school);
 
-        $school->update($updateSchoolsRequest->validated());
+        $school->update($request->validated());
 
         return redirect()->route('admin.portfolio.school.show', $school)
             ->with('success', $school->name . ' successfully updated.');

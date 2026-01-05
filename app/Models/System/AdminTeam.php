@@ -54,7 +54,7 @@ class AdminTeam extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the owner of the admin team.
+     * Get the system owner of the admin team.
      */
     public function owner(): BelongsTo
     {
@@ -62,20 +62,11 @@ class AdminTeam extends Model
     }
 
     /**
-     * Get the admin groups for the admin team.
+     * Get the system admin groups for the admin team.
      */
     public function groups(): HasMany
     {
-        return $this->hasMany(AdminGroup::class);
-    }
-
-
-    /**
-     * Get the admin groups for the admin team.
-     */
-    public function teams(): HasMany
-    {
-        return $this->hasMany(AdminGroup::class);
+        return $this->hasMany(AdminGroup::class, 'admin_team_id');
     }
 
     /**

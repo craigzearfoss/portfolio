@@ -55,7 +55,7 @@ class UserTeam extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the owner of the user team.
+     * Get the system owner of the user team.
      */
     public function owner(): BelongsTo
     {
@@ -63,11 +63,11 @@ class UserTeam extends Model
     }
 
     /**
-     * Get the user groups for the user team.
+     * Get the system user groups for the user team.
      */
     public function groups(): hasMany
     {
-        return $this->hasMany(UserGroup::class);
+        return $this->hasMany(UserGroup::class, 'user_team_id');
     }
 
     /**

@@ -29,17 +29,6 @@ class StoreAwardsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $label = (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name'];
-            if (!empty($this['category'])) {
-                $label .= ' for ' . $this['category'];
-            }
-            $this->merge([
-                'slug' => uniqueSlug($label, 'portfolio_db.awards', $this->owner_id)
-            ]);
-        }
-
         return [
             'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'           => ['required', 'string', 'max:255'],
@@ -77,11 +66,35 @@ class StoreAwardsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
             'owner_id.required' => 'Please select an owner for the award.',
             'owner_id.exists'   => 'The specified owner does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $label = (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name'];
+            if (!empty($this['category'])) {
+                $label .= ' for ' . $this['category'];
+            }
+            $this->merge([
+                'slug' => uniqueSlug($label, 'portfolio_db.awards', $this->owner_id)
+            ]);
+        }
     }
 }

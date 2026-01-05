@@ -42,14 +42,14 @@ class ProfileController extends BaseAdminController
     /**
      * Update the current admin in storage.
      *
-     * @param UpdateAdminsRequest $updateAdminsRequest
+     * @param UpdateAdminsRequest $request
      * @return RedirectResponse
      */
-    public function update(UpdateAdminsRequest $updateAdminsRequest): RedirectResponse
+    public function update(UpdateAdminsRequest $request): RedirectResponse
     {
         $admin = Auth::guard('admin')->user();
 
-        $admin->update($updateAdminsRequest->validated());
+        $admin->update($request->validated());
 
         return redirect()->route('admin.profile.show', $admin)
             ->with('success', 'Profile successfully updated.');

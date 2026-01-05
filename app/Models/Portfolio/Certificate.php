@@ -68,7 +68,7 @@ class Certificate extends Model
     }
 
     /**
-     * Get the owner of the certificate.
+     * Get the system owner of the certificate.
      */
     public function owner(): BelongsTo
     {
@@ -76,7 +76,7 @@ class Certificate extends Model
     }
 
     /**
-     * Get the academy that owns the certificate.
+     * Get the portfolio academy that owns the certificate.
      */
     public function academy(): BelongsTo
     {

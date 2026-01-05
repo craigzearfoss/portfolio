@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
 class IndexController extends BaseAdminController
@@ -192,8 +193,7 @@ class IndexController extends BaseAdminController
     public function reset_password_submit(Request $request, $token, $email): RedirectResponse
     {
         $request->validate([
-            'password' => ['required'],
-            'confirm_password' => ['required', 'same:password']
+            'password' => ['required', 'confirmed', Password::defaults()->letters()->numbers()->symbols()],
         ]);
 
         if (!$admin = Admin::where('email', $email)->where('token', $token)->first()) {

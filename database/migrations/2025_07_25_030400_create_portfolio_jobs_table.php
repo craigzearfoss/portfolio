@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Portfolio\Job;
-use App\Models\System\Admin;
+use App\Models\Portfolio\JobEmploymentType;
+use App\Models\Portfolio\JobLocationType;
 use App\Models\System\Database;
+use App\Models\System\Owner;
 use App\Models\System\Resource;
-use App\Models\System\ResourceSetting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -44,8 +44,13 @@ return new class extends Migration
         }
 
         Schema::connection($this->database_tag)->create('jobs', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
             $table->string('company')->index('company_idx');
             $table->string('role')->index('role_idx');
             $table->string('slug');
@@ -55,14 +60,26 @@ return new class extends Migration
             $table->integer('start_year')->nullable();
             $table->integer('end_month')->nullable();
             $table->integer('end_year')->nullable();
-            $table->foreignIdFor(\App\Models\Portfolio\JobEmploymentType::class, 'job_employment_type_id');
-            $table->foreignIdFor(\App\Models\Portfolio\JobLocationType::class, 'job_location_type_id');
+            $table->foreignId('job_employment_type_id')
+                ->nullable()
+                ->constrained('job_employment_types', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('job_location_type_id')
+                ->nullable()
+                ->constrained('job_location_types', 'id')
+                ->onDelete('cascade');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
-            $table->integer('state_id')->nullable();
+            $table->foreignId('state_id')
+                ->nullable()
+                ->constrained($systemDbName.'.states', 'id')
+                ->onDelete('cascade');
             $table->string('zip', 20)->nullable();
-            $table->integer('country_id')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained($systemDbName.'.countries', 'id')
+                ->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->text('notes')->nullable();

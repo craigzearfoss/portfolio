@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\User;
 use App\Rules\CaseInsensitiveNotIn;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class StoreUsersRequest extends FormRequest
 {
@@ -28,18 +31,17 @@ class StoreUsersRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'username' => [
                 'required',
                 'string',
+                'lowercase',
                 'min:6',
                 'max:200',
-                'unique:users,username',
+                'unique:'.User::class,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
-            'name'              => ['required', 'string', 'min:6', 'max:255'],
+            'name'              => ['required', 'string', 'lowercase', 'min:6', 'max:255'],
             'label'             => [
                 'required',
                 'string',
@@ -60,7 +62,7 @@ class StoreUsersRequest extends FormRequest
             'latitude'          => [Rule::numeric(), 'nullable'],
             'longitude'         => [Rule::numeric(), 'nullable'],
             'phone'             => ['string', 'max:50', 'nullable'],
-            'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
+            'email'             => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['nullable'],
             'birthday'          => ['date', 'nullable'],
             'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -71,8 +73,7 @@ class StoreUsersRequest extends FormRequest
             'image_credit'      => ['string', 'max:255', 'nullable'],
             'image_source'      => ['string', 'max:255', 'nullable'],
             'thumbnail'         => ['string', 'max:500', 'nullable'],
-            'password'          => ['required', 'string', 'min:8', 'max:255'],
-            'confirm_password'  => ['required', 'string', 'same:password'],
+            'password'          => ['required', 'confirmed', Password::defaults()->letters()->numbers()->symbols()],
             'remember_token'    => ['string', 'max:200', 'nullable'],
             'token'             => ['string', 'max:255', 'nullable'],
             'requires_relogin'  => ['integer', 'between:0,1'],
@@ -86,11 +87,30 @@ class StoreUsersRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
             'state_id.exists'   => 'The specified state does not exist.',
             'country_id.exists' => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'username' => Str::lower($this->username),
+            'label'    => Str::lower($this->label),
+            'email'    => Str::lower($this->email),
+        ]);
     }
 }

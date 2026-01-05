@@ -63,7 +63,7 @@ class CoverLetter extends Model
     }
 
     /**
-     * Get the owner of the cover letter.
+     * Get the system owner of the cover letter.
      */
     public function owner(): BelongsTo
     {
@@ -95,7 +95,7 @@ class CoverLetter extends Model
     }
 
     /**
-     * Get the application that owns the career over letter.
+     * Get the career application that owns the career over letter.
      */
     public function application(): BelongsTo
     {

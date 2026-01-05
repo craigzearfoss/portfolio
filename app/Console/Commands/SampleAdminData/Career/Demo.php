@@ -15,17 +15,18 @@ use App\Models\Career\Reference;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
+use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\MenuItem;
 use App\Models\System\Resource;
-use App\Models\System\AdminResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class Demo extends Command
 {
-    const DATABASE = 'career';
+    const DB_TAG = 'career_db';
 
     const USERNAME = 'demo';
 
@@ -58,9 +59,12 @@ class Demo extends Command
      */
     public function handle()
     {
+        $this->demo   = $this->option('demo');
+        $this->silent = $this->option('silent');
+
         // get the database id
-        if (!$database = Database::where('name', self::DATABASE)->first()) {
-            echo PHP_EOL . 'Database `' .self::DATABASE . '` not found.' . PHP_EOL . PHP_EOL;
+        if (!$database = Database::where('tag', self::DB_TAG)->first()) {
+            echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
         $this->databaseId = $database->id;
@@ -74,11 +78,14 @@ class Demo extends Command
 
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
-            echo  'demo: ' . $this->demo . PHP_EOL;
+            echo 'demo: ' . $this->demo . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         // career
+        // Note that admin_database and admin_resource rows were already added for the demo admin in the migrations.
+        //$this->insertSystemAdminDatabaseRows();
+        //$this->insertSystemAdminResourceRows();
         $this->insertCareerCompanies();
         $this->insertCareerContacts();
         $this->insertCareerReferences();
@@ -222,53 +229,53 @@ class Demo extends Command
         }
 
         $data = [
-            [ 'id' => $this->companyId[1],   'name' => 'CHOAM',                                'slug' => 'choam',                                'industry_id' => 11,   'city' => null,                'state_id' => 10,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[2],   'name' => 'ACME Corp.',                           'slug' => 'acme-corp',                            'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[3],   'name' => 'Randstad',                             'slug' => 'randstad',                             'industry_id' => 11,   'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[4],   'name' => 'Sirius Cybernetics Corporation',       'slug' => 'sirius-cybernetics-corporation',       'industry_id' => 11,   'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[5],   'name' => 'MomCorp',                              'slug' => 'momcorp',                              'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[6],   'name' => 'Rich Industries',                      'slug' => 'rich-industries',                      'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[7],   'name' => 'Soylent Corporation',                  'slug' => 'soylent-corporation',                  'industry_id' => 4,    'city' => null,                'state_id' => 34,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[8],   'name' => 'Very Big Corporation of America',      'slug' => 'very-big-corporation-of-america',      'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[9],   'name' => 'Frobozz Magic Co.',                    'slug' => 'frobozz-magic-co',                     'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[10],  'name' => 'Warbucks Industries',                  'slug' => 'warbucks-industries',                  'industry_id' => 11,   'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[11],  'name' => 'Tyrell Corp.',                         'slug' => 'tyrell-corp',                          'industry_id' => 11,   'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[12],  'name' => 'Initech',                              'slug' => 'initech',                              'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[13],  'name' => 'Wayne Enterprises',                    'slug' => 'wayne-enterprises',                    'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[14],  'name' => 'Virtucon',                             'slug' => 'virtucon',                             'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[15],  'name' => 'Globex',                               'slug' => 'globex',                               'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[16],  'name' => 'Umbrella Corp.',                       'slug' => 'umbrella-corp',                        'industry_id' => 11,   'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[17],  'name' => 'Stark Industries',                     'slug' => 'start-industries',                     'industry_id' => 11,   'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[18],  'name' => 'Clampett Oil',                         'slug' => 'clampett-oil',                         'industry_id' => 11,   'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[19],  'name' => 'Oceanic Airlines',                     'slug' => 'oceanic-airlines',                     'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[20],  'name' => 'Yoyodyne Propulsion Sys.',             'slug' => 'yoyodyne-propulsion-sys',              'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[21],  'name' => 'Cyberdyne Systems Corp.',              'slug' => 'cyberdyne-systems-corp',               'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[22],  'name' => 'd\'Anconia Copper',                    'slug' => 'danconia-copper',                      'industry_id' => 11,   'city' => null,                'state_id' => 44,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[23],  'name' => 'Kiki\'s Delivery Service',             'slug' => 'kikis-delivery-service',               'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[24],  'name' => 'Gringotts',                            'slug' => 'gringotts',                            'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[25],  'name' => 'Oscorp',                               'slug' => 'oscorp',                               'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[26],  'name' => 'Nakatomi Trading Corp.',               'slug' => 'nakatomi-trading-corp',                'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[27],  'name' => 'Spacely Space Sprockets',              'slug' => 'spacely-space-sprockets',              'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[28],  'name' => 'International Genetic Technologies',   'slug' => 'international-genetic-technologies',   'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[29],  'name' => 'Wonka Industries',                     'slug' => 'wonka-industries',                     'industry_id' => 10,   'city' => null,                'state_id' => 6,    'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[30],  'name' => 'Weyland-Yutani',                       'slug' => 'weylandyutani',                        'industry_id' => 11,   'city' => null,                'state_id' => 22,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[31],  'name' => 'Pierce & Pierce',                      'slug' => 'pierce-and-pierce',                    'industry_id' => 11,   'city' => null,                'state_id' => 11,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[32],  'name' => 'Compu-Global-Hyper-Mega-Net',          'slug' => 'compu-global-hyper-mega-net',          'industry_id' => 11,   'city' => null,                'state_id' => 22,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[33],  'name' => 'Silver Shamrock Novelties',            'slug' => 'silver-shamrock-novelties',            'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[34],  'name' => 'Ollivander\'s Wand Shop',              'slug' => 'ollivanders-wand-shop',                'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[35],  'name' => 'Gekko and Co.',                        'slug' => 'gekko-and-co',                         'industry_id' => 11,   'city' => null,                'state_id' => 44,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[36],  'name' => 'Cheers',                               'slug' => 'cheers',                               'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[37],  'name' => 'Callister Inc',                        'slug' => 'callister-inc',                        'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[38],  'name' => 'The Krusty Krab',                      'slug' => 'the-krusty-krab',                      'industry_id' => 11,   'city' => null,                'state_id' => 31,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[39],  'name' => 'Good Burger',                          'slug' => 'good-burger',                          'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[40],  'name' => 'Quick Stop',                           'slug' => 'quick-stop',                           'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[41],  'name' => 'Burns Industries',                     'slug' => 'burns-industries',                     'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[42],  'name' => 'Buy n\' Large',                        'slug' => 'byu-n-large',                          'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[43],  'name' => 'Curl Up and Dye',                      'slug' => 'curl-up-and-dye',                      'industry_id' => 11,   'city' => null,                'state_id' => 11,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[44],  'name' => 'Bushwood Country Club',                'slug' => 'bushwood-country-club',                'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[45],  'name' => 'Dunder Mifflin Paper Company, Inc',    'slug' => 'dunder-mifflin-paper-company-inc',     'industry_id' => 11,   'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[1],   'name' => 'CHOAM',                                'slug' => 'choam',                                'industry_id' => 11, 'city' => null,                'state_id' => 10,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[2],   'name' => 'ACME Corp.',                           'slug' => 'acme-corp',                            'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[3],   'name' => 'Randstad',                             'slug' => 'randstad',                             'industry_id' => 11, 'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[4],   'name' => 'Sirius Cybernetics Corporation',       'slug' => 'sirius-cybernetics-corporation',       'industry_id' => 11, 'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[5],   'name' => 'MomCorp',                              'slug' => 'momcorp',                              'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[6],   'name' => 'Rich Industries',                      'slug' => 'rich-industries',                      'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[7],   'name' => 'Soylent Corporation',                  'slug' => 'soylent-corporation',                  'industry_id' => 4,  'city' => null,                'state_id' => 34,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[8],   'name' => 'Very Big Corporation of America',      'slug' => 'very-big-corporation-of-america',      'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[9],   'name' => 'Frobozz Magic Co.',                    'slug' => 'frobozz-magic-co',                     'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[10],  'name' => 'Warbucks Industries',                  'slug' => 'warbucks-industries',                  'industry_id' => 11, 'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[11],  'name' => 'Tyrell Corp.',                         'slug' => 'tyrell-corp',                          'industry_id' => 11, 'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[12],  'name' => 'Initech',                              'slug' => 'initech',                              'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[13],  'name' => 'Wayne Enterprises',                    'slug' => 'wayne-enterprises',                    'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[14],  'name' => 'Virtucon',                             'slug' => 'virtucon',                             'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[15],  'name' => 'Globex',                               'slug' => 'globex',                               'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[16],  'name' => 'Umbrella Corp.',                       'slug' => 'umbrella-corp',                        'industry_id' => 11, 'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[17],  'name' => 'Stark Industries',                     'slug' => 'start-industries',                     'industry_id' => 11, 'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[18],  'name' => 'Clampett Oil',                         'slug' => 'clampett-oil',                         'industry_id' => 11, 'city' => null,                'state_id' => 24,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[19],  'name' => 'Oceanic Airlines',                     'slug' => 'oceanic-airlines',                     'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[20],  'name' => 'Yoyodyne Propulsion Sys.',             'slug' => 'yoyodyne-propulsion-sys',              'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[21],  'name' => 'Cyberdyne Systems Corp.',              'slug' => 'cyberdyne-systems-corp',               'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[22],  'name' => 'd\'Anconia Copper',                    'slug' => 'danconia-copper',                      'industry_id' => 11, 'city' => null,                'state_id' => 44,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[23],  'name' => 'Kiki\'s Delivery Service',             'slug' => 'kikis-delivery-service',               'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[24],  'name' => 'Gringotts',                            'slug' => 'gringotts',                            'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[25],  'name' => 'Oscorp',                               'slug' => 'oscorp',                               'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[26],  'name' => 'Nakatomi Trading Corp.',               'slug' => 'nakatomi-trading-corp',                'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[27],  'name' => 'Spacely Space Sprockets',              'slug' => 'spacely-space-sprockets',              'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[28],  'name' => 'International Genetic Technologies',   'slug' => 'international-genetic-technologies',   'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[29],  'name' => 'Wonka Industries',                     'slug' => 'wonka-industries',                     'industry_id' => 10, 'city' => null,                'state_id' => 6,    'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[30],  'name' => 'Weyland-Yutani',                       'slug' => 'weylandyutani',                        'industry_id' => 11, 'city' => null,                'state_id' => 22,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[31],  'name' => 'Pierce & Pierce',                      'slug' => 'pierce-and-pierce',                    'industry_id' => 11, 'city' => null,                'state_id' => 11,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[32],  'name' => 'Compu-Global-Hyper-Mega-Net',          'slug' => 'compu-global-hyper-mega-net',          'industry_id' => 11, 'city' => null,                'state_id' => 22,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[33],  'name' => 'Silver Shamrock Novelties',            'slug' => 'silver-shamrock-novelties',            'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[34],  'name' => 'Ollivander\'s Wand Shop',              'slug' => 'ollivanders-wand-shop',                'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[35],  'name' => 'Gekko and Co.',                        'slug' => 'gekko-and-co',                         'industry_id' => 11, 'city' => null,                'state_id' => 44,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[36],  'name' => 'Cheers',                               'slug' => 'cheers',                               'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[37],  'name' => 'Callister Inc',                        'slug' => 'callister-inc',                        'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[38],  'name' => 'The Krusty Krab',                      'slug' => 'the-krusty-krab',                      'industry_id' => 11, 'city' => null,                'state_id' => 31,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[39],  'name' => 'Good Burger',                          'slug' => 'good-burger',                          'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[40],  'name' => 'Quick Stop',                           'slug' => 'quick-stop',                           'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[41],  'name' => 'Burns Industries',                     'slug' => 'burns-industries',                     'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[42],  'name' => 'Buy n\' Large',                        'slug' => 'byu-n-large',                          'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[43],  'name' => 'Curl Up and Dye',                      'slug' => 'curl-up-and-dye',                      'industry_id' => 11, 'city' => null,                'state_id' => 11,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[44],  'name' => 'Bushwood Country Club',                'slug' => 'bushwood-country-club',                'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[45],  'name' => 'Dunder Mifflin Paper Company, Inc',    'slug' => 'dunder-mifflin-paper-company-inc',     'industry_id' => 11, 'city' => null,                'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
             [ 'id' => $this->companyId[46],  'name' => 'Prestige Worldwide',                   'slug' => 'prestige-worldwide',                   'industry_id' => 11, 'city' => null,                  'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            [ 'id' => $this->companyId[47],  'name' => 'Brawndo',                              'slug' => 'brwando',                              'industry_id' => 29, 'city' => null,                  'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
+            [ 'id' => $this->companyId[47],  'name' => 'Brawndo',                              'slug' => 'brwando',                              'industry_id' => 11, 'city' => null,                  'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
             [ 'id' => $this->companyId[48],  'name' => 'Aperture Science, Inc.',               'slug' => 'aperture-science-inc',                 'industry_id' => 11, 'city' => null,                  'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
             [ 'id' => $this->companyId[49],  'name' => 'Lacuna, Inc.',                         'slug' => 'lacuna-inc',                           'industry_id' => 11, 'city' => null,                  'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
             [ 'id' => $this->companyId[50],  'name' => 'Monsters, Inc.',                       'slug' => 'monsters-inc',                         'industry_id' => 11, 'city' => 'Chantilly',           'state_id' => 47,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
@@ -320,24 +327,24 @@ class Demo extends Command
         echo self::USERNAME . ": Inserting into Career\\CompanyContact ...\n";
 
         $data = [
-            [ 'company_id' => $this->companyId[1],  'contact_id' => $this->contactId[1],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[2],  'contact_id' => $this->contactId[2],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[4],  'contact_id' => $this->contactId[3],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[6],  'contact_id' => $this->contactId[4],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[7],  'contact_id' => $this->contactId[5],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[8],  'contact_id' => $this->contactId[6],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[10], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[11], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[12], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[13], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[2],  'contact_id' => $this->contactId[14], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[12], 'contact_id' => $this->contactId[16], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[13], 'contact_id' => $this->contactId[17], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[14], 'contact_id' => $this->contactId[8],  'active' => 1 ],
-            [ 'company_id' => $this->companyId[15], 'contact_id' => $this->contactId[19], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[21], 'contact_id' => $this->contactId[20], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[22], 'contact_id' => $this->contactId[21], 'active' => 1 ],
-            [ 'company_id' => $this->companyId[23], 'contact_id' => $this->contactId[23], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[1],  'contact_id' => $this->contactId[1],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[2],  'contact_id' => $this->contactId[2],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[4],  'contact_id' => $this->contactId[3],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[6],  'contact_id' => $this->contactId[4],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[7],  'contact_id' => $this->contactId[5],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[8],  'contact_id' => $this->contactId[6],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[10], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[11], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[12], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[9],  'contact_id' => $this->contactId[13], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[2],  'contact_id' => $this->contactId[14], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[12], 'contact_id' => $this->contactId[16], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[13], 'contact_id' => $this->contactId[17], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[14], 'contact_id' => $this->contactId[8],  'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[15], 'contact_id' => $this->contactId[19], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[21], 'contact_id' => $this->contactId[20], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[22], 'contact_id' => $this->contactId[21], 'active' => 1 ],
+            [ 'owner_id' => $this->adminId, 'company_id' => $this->companyId[23], 'contact_id' => $this->contactId[23], 'active' => 1 ],
         ];
 
         if (!empty($data)) {
@@ -480,17 +487,19 @@ class Demo extends Command
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
+        $idahoNationLabId = Company::where('name', 'Idaho National Laboratory')->first()->id ?? null;
+
         $data = [
-            [ 'name' => 'George Costanza', 'slug' => 'george-costanza', 'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                    'street2' => null,  'city' => 'Loomisy',     'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 555-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 555-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
-            [ 'name' => 'Ron Swanson',     'slug' => 'ron-swanson',     'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                    'street2' => null,  'city' => null,          'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(913) 555-5399', 'phone_label' => null,     'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'paul.davis@inl.gov',             'email_label' => 'work', 'alt_email' => 'prtdavis2@yahoo.com', 'alt_email_label' => 'home',  'birthday' => null,         'link' => null ],
-            [ 'name' => 'Homer Simpson',   'slug' => 'homer-simpson',   'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                    'street2' => null,  'city' => null,          'state_id' => 33,   'zip' => null,         'country_id' => 237, 'phone' => '(917) 555-6003', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'akahen@live.com',                'email_label' => 'home', 'alt_email' => 'alen.kahen@inl.com',  'alt_email_label' => 'work',  'birthday' => null,         'link' => null ],
-            [ 'name' => 'Basil Fawlty',    'slug' => 'basil-fawlty',    'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                    'street2' => null,  'city' => null,          'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(603) 555-2707', 'phone_label' => 'mobile', 'alt_phone' => '(208) 555-4280', 'alt_phone_label' => 'work',   'email' => 'nancy.gomezdominguez@inl.gov',   'email_label' => 'work', 'alt_email' => 'ngd.00@outlook.com',  'alt_email_label' => 'home',  'birthday' => null,         'link' => null ],
-            [ 'name' => 'Phil Dunphy',     'slug' => 'phil-dunphy',     'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '2678 Grant Lane',       'street2' => null,  'city' => 'Springfield', 'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1207', 'alt_phone_label' => 'mobile', 'email' => 'BZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1942-08-20', 'link' => null ],
-            [ 'name' => 'Al Bundy',        'slug' => 'al-bundy',        'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '380 Harvey Rd.',        'street2' => null,  'city' => 'Richfield',   'state_id' => 39,   'zip' => '17404',      'country_id' => 237, 'phone' => '(717) 555-7795', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1415', 'alt_phone_label' => 'mobile', 'email' => 'zearfoss@verizon.net',           'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1962-07-19', 'link' => null ],
-            [ 'name' => 'Herman Munster',  'slug' => 'herman-munster',  'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '1313 Mockingbird Lane', 'street2' => null,  'city' => 'Davenport',   'state_id' => 29,   'zip' => '89521',      'country_id' => 237, 'phone' => '(775) 555-1264', 'phone_label' => 'home',   'alt_phone' => '(775) 555-0775', 'alt_phone_label' => 'mobile', 'email' => 'DZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => 'dzearfoss@eigwc.com', 'alt_email_label' => 'work',  'birthday' => '1965-11-25', 'link' => null ],
-            [ 'name' => 'Raymond Holt',    'slug' => 'raymond-holt',    'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '2678 East Rd',          'street2' => null,  'city' => 'Golden Pond', 'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null,                             'email_label' => null,   'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1941-09-11', 'link' => null ],
-            [ 'name' => 'Charlie Kelly ',  'slug' => 'charlie-kelly',   'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '9079 52nd Ave',         'street2' => null,  'city' => 'New London',  'state_id' => 24,   'zip' => '55362',      'country_id' => 237, 'phone' => '(763) 555-2216', 'phone_label' => 'mobile', 'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'mariaelaine29@yahoo.com',        'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1980-07-30', 'link' => null ],
-            [ 'name' => 'Frank Reynolds',  'slug' => 'frank-reynolds',   'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '21   Johnson Street',   'street2' => null,  'city' => 'Athens',      'state_id' => 44,   'zip' => '78130',      'country_id' => 237, 'phone' => '(830) 555-8713', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'refugeechildrendream@yahoo.com', 'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday'  => null,        'link' => null ],
+            [ 'name' => 'George Costanza', 'slug' => 'george-costanza', 'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                    'street2' => null,  'city' => 'Loomisy',     'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 555-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 555-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
+            [ 'name' => 'Ron Swanson',     'slug' => 'ron-swanson',     'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                    'street2' => null,  'city' => null,          'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(913) 555-5399', 'phone_label' => null,     'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'paul.davis@inl.gov',             'email_label' => 'work', 'alt_email' => 'prtdavis2@yahoo.com', 'alt_email_label' => 'home',  'birthday' => null,         'link' => null ],
+            [ 'name' => 'Homer Simpson',   'slug' => 'homer-simpson',   'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                    'street2' => null,  'city' => null,          'state_id' => 33,   'zip' => null,         'country_id' => 237, 'phone' => '(917) 555-6003', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'akahen@live.com',                'email_label' => 'home', 'alt_email' => 'alen.kahen@inl.com',  'alt_email_label' => 'work',  'birthday' => null,         'link' => null ],
+            [ 'name' => 'Basil Fawlty',    'slug' => 'basil-fawlty',    'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                    'street2' => null,  'city' => null,          'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(603) 555-2707', 'phone_label' => 'mobile', 'alt_phone' => '(208) 555-4280', 'alt_phone_label' => 'work',   'email' => 'nancy.gomezdominguez@inl.gov',   'email_label' => 'work', 'alt_email' => 'ngd.00@outlook.com',  'alt_email_label' => 'home',  'birthday' => null,         'link' => null ],
+            [ 'name' => 'Phil Dunphy',     'slug' => 'phil-dunphy',     'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '2678 Grant Lane',       'street2' => null,  'city' => 'Springfield', 'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1207', 'alt_phone_label' => 'mobile', 'email' => 'BZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1942-08-20', 'link' => null ],
+            [ 'name' => 'Al Bundy',        'slug' => 'al-bundy',        'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '380 Harvey Rd.',        'street2' => null,  'city' => 'Richfield',   'state_id' => 39,   'zip' => '17404',      'country_id' => 237, 'phone' => '(717) 555-7795', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1415', 'alt_phone_label' => 'mobile', 'email' => 'zearfoss@verizon.net',           'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1962-07-19', 'link' => null ],
+            [ 'name' => 'Herman Munster',  'slug' => 'herman-munster',  'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '1313 Mockingbird Lane', 'street2' => null,  'city' => 'Davenport',   'state_id' => 29,   'zip' => '89521',      'country_id' => 237, 'phone' => '(775) 555-1264', 'phone_label' => 'home',   'alt_phone' => '(775) 555-0775', 'alt_phone_label' => 'mobile', 'email' => 'DZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => 'dzearfoss@eigwc.com', 'alt_email_label' => 'work',  'birthday' => '1965-11-25', 'link' => null ],
+            [ 'name' => 'Raymond Holt',    'slug' => 'raymond-holt',    'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '2678 East Rd',          'street2' => null,  'city' => 'Golden Pond', 'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null,                             'email_label' => null,   'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1941-09-11', 'link' => null ],
+            [ 'name' => 'Charlie Kelly ',  'slug' => 'charlie-kelly',   'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '9079 52nd Ave',         'street2' => null,  'city' => 'New London',  'state_id' => 24,   'zip' => '55362',      'country_id' => 237, 'phone' => '(763) 555-2216', 'phone_label' => 'mobile', 'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'mariaelaine29@yahoo.com',        'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1980-07-30', 'link' => null ],
+            [ 'name' => 'Frank Reynolds',  'slug' => 'frank-reynolds',  'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '21   Johnson Street',   'street2' => null,  'city' => 'Athens',      'state_id' => 44,   'zip' => '78130',      'country_id' => 237, 'phone' => '(830) 555-8713', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'refugeechildrendream@yahoo.com', 'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday'  => null,        'link' => null ],
         ];
 
         if (!empty($data)) {
@@ -577,6 +586,94 @@ class Demo extends Command
     }
 
     /**
+     * Get a database.
+     *
+     * @return mixed
+     */
+    protected function getDatabase()
+    {
+        return Database::where('tag', self::DB_TAG)->first();
+    }
+
+    /**
+     * Get a database's resources.
+     *
+     * @return mixed
+     */
+    protected function getDbResources()
+    {
+        if (!$database = $this->getDatabase()) {
+            return [];
+        } else {
+            return Resource::where('database_id', $database->id)->get();
+        }
+    }
+
+    /**
+     * Insert system database entries into the admin_database table.
+     *
+     * @return void
+     * @throws \Exception
+     */
+    protected function insertSystemAdminDatabaseRows(): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
+
+        if (!$database = $this->getDatabase()) {
+            throw new \Exception('`system` database not found.');
+        }
+
+        $data = [];
+
+        $data[] = [
+            'admin_id'    => $this->adminId,
+            'database_id' => $database->id,
+            'menu'        => $database->menu,
+            'menu_level'  => $database->menu_level,
+            'public'      => $database->public,
+            'readonly'    => $database->readonly,
+            'disabled'    => $database->disabled,
+            'sequence'    => $database->sequence,
+            'created_at'  => now(),
+            'updated_at'  => now(),
+        ];
+
+        AdminDatabase::insert($data);
+    }
+
+    /**
+     * Insert system database resource entries into the admin_resource table.
+     *
+     * @return void
+     */
+    protected function insertSystemAdminResourceRows(): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminResource ...\n";
+
+        if ($resources = $this->getDbResources()) {
+
+            $data = [];
+
+            foreach ($resources as $resource) {
+                $data[] = [
+                    'admin_id'    => $this->adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $resource->public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
+            }
+
+            AdminResource::insert($data);
+        }
+    }
+
+    /**
      * Attach a resource to the admin.
      *
      * @param string $resourceName
@@ -587,11 +684,28 @@ class Demo extends Command
     {
         if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
 
-            AdminResource::insert([
-                'admin_id'    => $this->adminId,
-                'resource_id' => $resource->id,
-                'public'      => $public,
-            ]);
+            if ($adminResource = AdminResource::where('admin_id', $this->adminId)
+                ->where('resource_id', $resource->id)->first()
+            ) {
+
+                $adminResource->public = $public;
+                $adminResource->save();
+
+            } else {
+
+                AdminResource::insert([
+                    'admin_id'    => $this->adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ]);
+            }
         }
     }
 }

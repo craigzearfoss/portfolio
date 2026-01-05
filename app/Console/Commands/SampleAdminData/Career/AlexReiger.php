@@ -15,17 +15,18 @@ use App\Models\Career\Reference;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
+use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\MenuItem;
 use App\Models\System\Resource;
-use App\Models\System\AdminResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class AlexReiger extends Command
 {
-    const DATABASE = 'career';
+    const DB_TAG = 'career_db';
 
     const USERNAME = 'alex-reiger';
 
@@ -58,9 +59,12 @@ class AlexReiger extends Command
      */
     public function handle()
     {
+        $this->demo   = $this->option('demo');
+        $this->silent = $this->option('silent');
+
         // get the database id
-        if (!$database = Database::where('name', self::DATABASE)->first()) {
-            echo PHP_EOL . 'Database `' .self::DATABASE . '` not found.' . PHP_EOL . PHP_EOL;
+        if (!$database = Database::where('tag', self::DB_TAG)->first()) {
+            echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
         $this->databaseId = $database->id;
@@ -74,11 +78,13 @@ class AlexReiger extends Command
 
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
-            echo  'demo: ' . $this->demo . PHP_EOL;
+            echo 'demo: ' . $this->demo . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         // career
+        $this->insertSystemAdminDatabaseRows();
+        $this->insertSystemAdminResourceRows();
         $this->insertCareerCompanies();
         $this->insertCareerContacts();
         $this->insertCareerReferences();
@@ -135,7 +141,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('application', 0);
+        $this->attachAdminResource('application', count($data) ? 1 : 0);
     }
 
     protected function insertCareerApplicationSkill(): void
@@ -160,7 +166,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             ApplicationSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('application-skill', 0);
+        $this->attachAdminResource('application-skill', count($data) ? 1 : 0);
     }
 
     protected function insertCareerCompanies(): void
@@ -192,7 +198,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('company', 0);
+        $this->attachAdminResource('company', count($data) ? 1 : 0);
     }
 
     protected function insertCareerCompanyContacts(): void
@@ -201,9 +207,9 @@ class AlexReiger extends Command
 
         $data = [];
         for ($i=1; $i<=count($this->contactId); $i++) {
-            //@TODO: NEED TO FIGURE THIS OUT
             /*
             $data[] = [
+                'admin_id'   => $this->>adminId,
                 'contact_id' => $this->contactId[$i],
                 'company_id' => $this->companyId[random_int(1, count($this->companyId))],
                 'active'     => 1,
@@ -243,7 +249,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('contact', 0);
+        $this->attachAdminResource('contact', count($data) ? 1 : 0);
     }
 
     protected function insertCareerCommunications(): void
@@ -265,7 +271,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             Communication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('communication', 0);
+        $this->attachAdminResource('communication', count($data) ? 1 : 0);
     }
 
     protected function insertCareerCoverLetters(): void
@@ -291,7 +297,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('cover-letter', 0);
+        $this->attachAdminResource('cover-letter', count($data) ? 1 : 0);
     }
 
     protected function insertCareerEvents(): void
@@ -314,7 +320,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             Event::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('event', 0);
+        $this->attachAdminResource('event', count($data) ? 1 : 0);
     }
 
     protected function insertCareerNotes(): void
@@ -336,7 +342,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             Note::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('note', 0);
+        $this->attachAdminResource('note', count($data) ? 1 : 0);
     }
 
     protected function insertCareerReferences(): void
@@ -378,7 +384,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('reference', 0);
+        $this->attachAdminResource('reference', count($data) ? 1 : 0);
     }
 
     protected function insertCareerResumes(): void
@@ -401,7 +407,7 @@ class AlexReiger extends Command
         if (!empty($data)) {
             Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('resume', 0);
+        $this->attachAdminResource('resume', count($data) ? 1 : 0);
     }
 
     /**
@@ -449,6 +455,94 @@ class AlexReiger extends Command
     }
 
     /**
+     * Get a database.
+     *
+     * @return mixed
+     */
+    protected function getDatabase()
+    {
+        return Database::where('tag', self::DB_TAG)->first();
+    }
+
+    /**
+     * Get a database's resources.
+     *
+     * @return mixed
+     */
+    protected function getDbResources()
+    {
+        if (!$database = $this->getDatabase()) {
+            return [];
+        } else {
+            return Resource::where('database_id', $database->id)->get();
+        }
+    }
+
+    /**
+     * Insert system database entries into the admin_database table.
+     *
+     * @return void
+     * @throws \Exception
+     */
+    protected function insertSystemAdminDatabaseRows(): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
+
+        if (!$database = $this->getDatabase()) {
+            throw new \Exception('`system` database not found.');
+        }
+
+        $data = [];
+
+        $data[] = [
+            'admin_id'    => $this->adminId,
+            'database_id' => $database->id,
+            'menu'        => $database->menu,
+            'menu_level'  => $database->menu_level,
+            'public'      => $database->public,
+            'readonly'    => $database->readonly,
+            'disabled'    => $database->disabled,
+            'sequence'    => $database->sequence,
+            'created_at'  => now(),
+            'updated_at'  => now(),
+        ];
+
+        AdminDatabase::insert($data);
+    }
+
+    /**
+     * Insert system database resource entries into the admin_resource table.
+     *
+     * @return void
+     */
+    protected function insertSystemAdminResourceRows(): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminResource ...\n";
+
+        if ($resources = $this->getDbResources()) {
+
+            $data = [];
+
+            foreach ($resources as $resource) {
+                $data[] = [
+                    'admin_id'    => $this->adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $resource->public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
+            }
+
+            AdminResource::insert($data);
+        }
+    }
+
+    /**
      * Attach a resource to the admin.
      *
      * @param string $resourceName
@@ -459,11 +553,28 @@ class AlexReiger extends Command
     {
         if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
 
-            AdminResource::insert([
-                'admin_id'    => $this->adminId,
-                'resource_id' => $resource->id,
-                'public'      => $public,
-            ]);
+            if ($adminResource = AdminResource::where('admin_id', $this->adminId)
+                ->where('resource_id', $resource->id)->first()
+            ) {
+
+                $adminResource->public = $public;
+                $adminResource->save();
+
+            } else {
+
+                AdminResource::insert([
+                    'admin_id'    => $this->adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ]);
+            }
         }
     }
 }

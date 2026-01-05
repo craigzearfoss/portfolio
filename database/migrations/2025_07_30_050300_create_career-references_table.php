@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Career\Company;
 use App\Models\Career\Reference;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,8 +22,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('references', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->boolean('friend')->default(false);
@@ -31,13 +38,22 @@ return new class extends Migration
             $table->boolean('subordinate')->default(false);
             $table->boolean('professional')->default(false);
             $table->boolean('other')->default(false);
-            $table->foreignIdFor(\App\Models\Career\Company::class, 'company_id')->nullable();
+            $table->foreignId('company_id')
+                ->nullable()
+                ->constrained('companies', 'id')
+                ->onDelete('cascade');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
-            $table->integer('state_id')->nullable();
+            $table->foreignId('state_id')
+                ->nullable()
+                ->constrained($systemDbName.'.states', 'id')
+                ->onDelete('cascade');
             $table->string('zip', 20)->nullable();
-            $table->integer('country_id')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained($systemDbName.'.countries', 'id')
+                ->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->string('phone', 20)->nullable();

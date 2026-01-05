@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Dictionary\Language;
+use App\Models\Dictionary\Library;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,14 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('language_library', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Dictionary\Language::class);
-            $table->foreignIdFor( \App\Models\Dictionary\Library::class);
+            $table->foreignId('language_id')
+                ->nullable()
+                ->constrained('languages', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('library_id')
+                ->nullable()
+                ->constrained('libraries', 'id')
+                ->onDelete('cascade');
 
             $table->unique(['language_id', 'library_id'], 'language_library_unique');
         });

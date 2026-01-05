@@ -46,10 +46,10 @@ class Ingredient extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the portfolio recipe ingredients for the personal ingredient.
+     * Get the personal recipe ingredients for the personal ingredient.
      */
     public function recipeIngredients(): HasMany
     {
-        return $this->hasMany(RecipeIngredient::class);
+        return $this->hasMany(RecipeIngredient::class, 'ingredient_id');
     }
 }

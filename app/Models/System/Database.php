@@ -31,6 +31,8 @@ class Database extends Model
         'user',
         'admin',
         'global',   // the database has no owner
+        'menu',
+        'menu_level',
         'icon',
         'public',
         'readonly',
@@ -44,11 +46,11 @@ class Database extends Model
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'guest', 'user', 'admin',
-        'icon', 'public', 'readonly', 'root', 'disabled', 'demo'];
+        'global', 'menu', 'menu_level', 'icon', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the admin who owns the database.
+     * Get the system admin who owns the database.
      */
     public function owner(): BelongsTo
     {
@@ -56,11 +58,11 @@ class Database extends Model
     }
 
     /**
-     * Get the owner of the database.
+     * Get the system owner of the database.
      */
     public function resources(): HasMany
     {
-        return $this->hasMany(Resource::class)->orderBy('name', 'asc');
+        return $this->hasMany(Resource::class, 'database_id')->orderBy('name', 'asc');
     }
 
     /**
@@ -108,7 +110,7 @@ class Database extends Model
     {
         $query = AdminResource::where('admin_id', $adminId)
             ->join('resources', 'resources.id', '=', 'admin_resource.resource_id')
-            ->Join('databases', 'databases.id', '=', 'resources.database_id')
+            ->join('databases', 'databases.id', '=', 'resources.database_id')
             ->select( 'resources.*', 'admin_resource.public', 'admin_resource.readonly', 'admin_resource.disabled',
                 /* @TODO: figure out how to override the sequence at the admin level 'admin_resource.sequence', */
                 'databases.id as database_id', 'databases.name as database_name', 'databases.database as database_database')

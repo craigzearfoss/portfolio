@@ -2,6 +2,7 @@
 
 namespace App\Models\System;
 
+use App\Models\Career\Application;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use App\Models\Career\Recruiter;
@@ -39,92 +40,92 @@ class State extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the admins for the state.
+     * Get the system admins for the state.
      */
     public function admins(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Admin::class)
+        return $this->setConnection('career_db')->hasMany(Admin::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the applications for the state.
+     * Get the career applications for the state.
      */
     public function applications(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Country::class)
+        return $this->setConnection('career_db')->hasMany(Application::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the admins for the state.
+     * Get the career companies for the state.
      */
     public function companies(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Company::class)
+        return $this->setConnection('career_db')->hasMany(Company::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the contacts for the state.
+     * Get the career contacts for the state.
      */
     public function contacts(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Contact::class)
+        return $this->setConnection('career_db')->hasMany(Contact::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the country that owns the state.
+     * Get the system country that owns the state.
      */
     public function country(): BelongsTo
     {
-        return $this->belongsTo(Country::class)
+        return $this->belongsTo(Country::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the applications for the state.
+     * Get the portfolio jobs for the state.
      */
     public function jobs(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Job::class)
+        return $this->setConnection('career_db')->hasMany(Job::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the recruiters for the state.
+     * Get the career recruiters for the state.
      */
     public function recruiters(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Recruiter::class)
+        return $this->setConnection('career_db')->hasMany(Recruiter::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the admins for the state.
+     * Get the career references for the state.
      */
     public function references(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Reference::class)
+        return $this->setConnection('career_db')->hasMany(Reference::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the schools for the state.
+     * Get the portfolio schools for the state.
      */
     public function schools(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(School::class)
+        return $this->setConnection('portfolio_db')->hasMany(School::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the users for the state.
+     * Get the system users for the state.
      */
     public function users(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(User::class)
+        return $this->hasMany(User::class, 'state_id')
             ->orderBy('name', 'asc');
     }
 

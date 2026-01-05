@@ -31,7 +31,7 @@ class CompensationUnit extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the applications for the application compensation unit.
+     * Get the career applications for the application compensation unit.
      */
     public function applications(): HasMany
     {

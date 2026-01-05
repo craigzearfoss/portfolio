@@ -29,12 +29,6 @@ class UpdateEventsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (!empty($this->time) && (substr_count($this->time, ':') === 3)) {
-            // remove milliseconds part of time
-            $lastPos = strrpos($this->time, ':');
-            $this->merge(['time' => substr($this->time, 0, $lastPos)]);
-        }
-
         return [
             'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
             'application_id' => ['filled', 'integer', 'exists:career_db.applications,id'],
@@ -53,6 +47,11 @@ class UpdateEventsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -63,12 +62,23 @@ class UpdateEventsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
     public function prepareForValidation()
     {
         if (!empty($this->time)) {
             $this->merge([
                 'time' => $this->time . ':00',
             ]);
+        }
+
+        if (!empty($this->time) && (substr_count($this->time, ':') === 3)) {
+            // remove milliseconds part of time
+            $lastPos = strrpos($this->time, ':');
+            $this->merge(['time' => substr($this->time, 0, $lastPos)]);
         }
     }
 }

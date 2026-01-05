@@ -27,4 +27,16 @@ class UpdateSettingTypesRequest extends FormRequest
             'description' => ['nullable'],
         ];
     }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
 }

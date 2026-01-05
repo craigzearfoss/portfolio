@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Dictionary\Framework;
 use App\Models\Dictionary\FrameworkStack;
+use App\Models\Dictionary\Stack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,14 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('framework_stack', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Dictionary\Framework::class);
-            $table->foreignIdFor( \App\Models\Dictionary\Stack::class);
+            $table->foreignId('framework_id')
+                ->nullable()
+                ->constrained('frameworks', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('stack_id')
+                ->nullable()
+                ->constrained('stacks', 'id')
+                ->onDelete('cascade');
 
             $table->unique(['framework_id', 'stack_id'], 'framework_stack_unique');
         });

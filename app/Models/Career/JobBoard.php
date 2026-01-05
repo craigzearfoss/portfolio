@@ -56,11 +56,11 @@ class JobBoard extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the applications for the job board.
+     * Get the career applications for the job board.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'application_id')
+        return $this->hasMany(Application::class, 'job_board_id')
             ->orderBy('post_date', 'desc');
     }
 

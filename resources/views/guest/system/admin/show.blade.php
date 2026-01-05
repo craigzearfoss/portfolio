@@ -1,5 +1,5 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? !empty($admin->name) ? $admin->name : $admin->username,
+    'title'         => $title ??  !empty($admin->name) ? $admin->name : $admin->username,
     'breadcrumbs'   => [
         [ 'name' => 'Home',  'href' => route('system.index') ],
         [ 'name' => 'Users', 'href' => route('guest.admin.index') ],
@@ -11,7 +11,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => null,
+    'admin'         => $admin ?? null,
 ])
 
 @section('content')

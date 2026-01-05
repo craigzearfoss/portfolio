@@ -53,7 +53,7 @@ class Certification extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the degree type of the education.
+     * Get the portfolio certification type that owns the certification.
      */
     public function certificationType(): BelongsTo
     {

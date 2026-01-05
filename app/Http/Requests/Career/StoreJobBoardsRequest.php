@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\JobBoard;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -26,16 +27,9 @@ class StoreJobBoardsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.job_boards')
-            ]);
-        }
-
         return [
-            'name'          => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
-            'slug'          => ['required', 'string', 'max:100', 'unique:career_db.job_boards,slug'],
+            'name'          => ['required', 'string', 'max:100', 'unique:'.JobBoard::class],
+            'slug'          => ['required', 'string', 'max:100', 'unique:'.JobBoard::class],
             'primary'       => ['integer', 'between:0,1'],
             'local'         => ['integer', 'between:0,1'],
             'regional'      => ['integer', 'between:0,1'],
@@ -55,5 +49,32 @@ class StoreJobBoardsRequest extends FormRequest
             'demo'          => ['integer', 'between:0,1'],
             'sequence'      => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'career_db.job_boards')
+            ]);
+        }
     }
 }

@@ -92,12 +92,12 @@ class ApplicationController extends BaseAdminController
     /**
      * Store a newly created application in storage.
      *
-     * @param StoreApplicationsRequest $storeApplicationsStoreRequest
+     * @param StoreApplicationsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreApplicationsRequest $storeApplicationsStoreRequest): RedirectResponse
+    public function store(StoreApplicationsRequest $request): RedirectResponse
     {
-        $application = Application::create($storeApplicationsStoreRequest->validated());
+        $application = Application::create($request->validated());
 
         // Create a cover letter for the application.
         CoverLetter::insert([
@@ -139,16 +139,16 @@ class ApplicationController extends BaseAdminController
     /**
      * Update the specified application in storage.
      *
-     * @param UpdateApplicationsRequest $updateApplicationsRequest
+     * @param UpdateApplicationsRequest $request
      * @param Application $application
      * @return RedirectResponse
      */
-    public function update(UpdateApplicationsRequest $updateApplicationsRequest,
+    public function update(UpdateApplicationsRequest $request,
                            Application               $application): RedirectResponse
     {
         Gate::authorize('update-resource', $application);
 
-        $application->update($updateApplicationsRequest->validated());
+        $application->update($request->validated());
 
         return redirect()->route('admin.career.application.show', $application)
             ->with('success', 'Application successfully updated.');

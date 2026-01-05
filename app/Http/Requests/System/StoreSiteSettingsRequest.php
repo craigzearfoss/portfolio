@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\SiteSetting;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -12,10 +13,6 @@ class StoreSiteSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
-
         return isRootAdmin();
     }
 
@@ -27,9 +24,21 @@ class StoreSiteSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:255', 'unique:system_db.site_settings,name'],
+            'name'        => ['required', 'string', 'max:255', 'unique:'.SiteSetting::class],
             'value'       => ['nullable'],
             'description' => ['nullable'],
+        ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
         ];
     }
 }

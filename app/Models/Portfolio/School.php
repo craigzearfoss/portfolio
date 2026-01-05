@@ -64,7 +64,7 @@ class School extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the country that owns the school.
+     * Get the system country that owns the school.
      */
     public function country(): BelongsTo
     {
@@ -72,23 +72,23 @@ class School extends Model
     }
 
     /**
-     * Get the educations for the school.
+     * Get the portfolio educations for the school.
      */
     public function educations(): HasMany
     {
-        return $this->hasMany(Education::class, 'education_id');
+        return $this->hasMany(Education::class, 'school_id');
     }
 
     /**
-     * Get the students for the school.
+     * Get the portfolio students for the school.
      */
     public function students(): HasMany
     {
-        return $this->hasMany(Admin::class);
+        return $this->hasMany(Admin::class, 'school_id');
     }
 
     /**
-     * Get the state that owns the school.
+     * Get the system state that owns the school.
      */
     public function state(): BelongsTo
     {

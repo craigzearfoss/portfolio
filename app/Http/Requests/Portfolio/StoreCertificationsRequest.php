@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Certification;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -24,16 +25,9 @@ class StoreCertificationsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.certifications')
-            ]);
-        }
-
         return [
-            'name'                  => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,name'],
-            'slug'                  => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,slug'],
+            'name'                  => ['required', 'string', 'max:255', 'unique:'.Certification::class],
+            'slug'                  => ['required', 'string', 'max:255', 'unique:'.Certification::class],
             'abbreviation'          => ['string', 'max:50', 'nullable'],
             'certification_type_id' => ['required', 'integer', 'exists:portfolio_db.certification_types,id'],
             'organization'          => ['string', 'max:255', 'nullable'],
@@ -54,5 +48,32 @@ class StoreCertificationsRequest extends FormRequest
             'demo'                  => ['integer', 'between:0,1'],
             'sequence'              => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.certifications')
+            ]);
+        }
     }
 }

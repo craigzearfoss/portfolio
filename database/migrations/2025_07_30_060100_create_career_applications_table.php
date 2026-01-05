@@ -1,6 +1,13 @@
 <?php
 
 use App\Models\Career\Application;
+use App\Models\Career\Company;
+use App\Models\Career\JobBoard;
+use App\Models\Career\JobDurationType;
+use App\Models\Career\JobLocationType;
+use App\Models\Career\JobEmploymentType;
+use App\Models\Career\Resume;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,12 +27,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('applications', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignIdFor( \App\Models\Career\Company::class);
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('company_id')
+                ->constrained('companies', 'id')
+                ->onDelete('cascade');
             $table->string('role');
-            $table->foreignIdFor( \App\Models\Career\JobBoard::class)->nullable();
-            $table->foreignIdFor( \App\Models\Career\Resume::class)->nullable();
+            $table->foreignId('job_board_id')
+                ->nullable()
+                ->constrained('job_boards', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('resume_id')
+                ->nullable()
+                ->constrained('resumes', 'id')
+                ->onDelete('cascade');
             $table->tinyInteger('rating')->default(1);
             $table->boolean('active')->default(true);
             $table->date('post_date')->nullable();
@@ -34,15 +54,27 @@ return new class extends Migration
             $table->integer('compensation_min')->nullable();
             $table->integer('compensation_max')->nullable();
             $table->integer('compensation_unit_id')->nullable();
-            $table->foreignIdFor(\App\Models\Career\JobDurationType::class, 'job_duration_type_id');
-            $table->foreignIdFor(\App\Models\Career\JobLocationType::class, 'job_location_type_id');
-            $table->foreignIdFor(\App\Models\Career\JobEmploymentType::class, 'job_employment_type_id');
+            $table->foreignId('job_duration_type_id')
+                ->constrained('job_duration_types', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('job_location_type_id')
+                ->constrained('job_location_types', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('job_employment_type_id')
+                ->constrained('job_employment_types', 'id')
+                ->onDelete('cascade');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city')->nullable();
-            $table->integer('state_id')->nullable();
+            $table->foreignId('state_id')
+                ->nullable()
+                ->constrained($systemDbName.'.states', 'id')
+                ->onDelete('cascade');
             $table->string('zip', 20)->nullable();
-            $table->integer('country_id')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained($systemDbName.'.countries', 'id')
+                ->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->integer('bonus')->nullable();

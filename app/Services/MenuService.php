@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Admin;
 use App\Models\Scopes\AdminPublicScope;
+use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -290,28 +291,59 @@ class MenuService
                 $menu[] = $resumeMenuItem;
             }
 
+            $menu = $this->getDatabaseMenuItems($envType, $admin);
+
+            $resources = Resource::bySequence(null, $envType);
+
+            // add level 2 resources
+            foreach ($menu as $dbId=>$menuItem) {
+                for ($i=0; $i<count($resources); $i++) {
+                    if (($resources[$i]->database_id === $dbId) && ($resources[$i]->level == 2)) {
+                        $resources[$i]->label    = $resources[$i]->title;
+                        $resources[$i]->children = [];
+
+                        $dbChildren = $menu[$dbId]->children;
+                        $dbChildren[] = $resources[$i];
+                        $menu[$dbId]->children = $dbChildren;
+
+                        $n = 0;
+                        while (!empty($resources[$i + 1]) && ($resources[$i + 1]->level == 3)) {
+                            $i++;
+                            $resources[$i]->label    = $resources[$i]->title;
+                            $resources[$i]->children = [];
+
+                            $n++;
+                            $dbChildren = $resources[$i - $n]->children;
+                            $dbChildren[] = $resources[$i];
+                            $resources[$i - $n]->children = $dbChildren;
+                        }
+                    }
+                }
+            }
+
             $currentDatabaseName = null;
+            $currentLevelIndex =[];
 
             $i = 0;
             foreach (Resource::bySequence(null, $envType) as $resource) {
 
-                // note that we skip some menu items
-                if (!in_array($resource->database['name'], ['job'])) {
+                if (!array_key_exists($resource->level, $currentLevelIndex)) {
+                    $currentLevelIndex[$resource->level] = $currentLevelIndex;
+                }
 
-                    if (!empty($admin) || in_array($resource->database['name'], ['dictionary'])) {
+                if (!empty($admin) || in_array($resource->database['name'], ['dictionary'])) {
 
-                        if ($resource->database['name'] !== $currentDatabaseName) {
-                            $currentDatabaseName = $resource->database['name'];
-                            $i++;
-                            $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin, 1);
-                        }
-                        $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin, 2);
+                    if ($resource->database['name'] !== $currentDatabaseName) {
+                        $currentDatabaseName = $resource->database['name'];
+                        $i++;
+                        $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin, 1);
                     }
+                    $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin, 2);
                 }
             }
         }
 
-        return $menu;
+        return array_values($menu);
     }
 
     /**
@@ -494,6 +526,84 @@ class MenuService
         $menuItem->children          = $data['children'] ?? [];
 
         return $menuItem;
+    }
+
+    /**
+     * Returns the array of menu items fpr databases.
+     *
+     * @param string|null $envType
+     * @param \App\Models\System\Admin|null $admin
+     * @return array
+     * @throws \Exception
+     */
+    public function getDatabaseMenuItems(
+        string|null $envType = null,
+        \App\Models\System\Admin|null $admin = null): array
+    {
+        // get the databases
+        switch ($envType) {
+            case PermissionService::ENV_ADMIN:
+                $query = Database::where('admin', 1);
+                break;
+            case PermissionService::ENV_USER:
+                $query = Database::where('user', 1)
+                    ->where('public', 1)->where('disabled', 0);
+                break;
+            case PermissionService::ENV_GUEST:
+            default:
+                $query = Database::where('guest', 1)
+                    ->where('public', 1)->where('disabled', 0);
+                break;
+        }
+
+        //@TODO: need to create an admin_database table
+        if (!empty($admin)) {
+
+        }
+
+        $menu = [];
+
+        foreach($query->orderBy('sequence', 'ASC')->get() as $database) {
+
+            $database->level    = 1;
+            $database->label    = $database->title;
+            $database->route    = null;
+            $database->url      = null;
+            $database->children = [];
+
+            // set route and url
+            switch ($envType) {
+                case PermissionService::ENV_ADMIN:
+                    $database->route = 'admin.' . $database->name . '.index';
+                    $database->url = route($database->route);
+                    break;
+                case PermissionService::ENV_USER:
+                    $database->route = 'user.admin.' . $database->name . '.show';
+                    $database->url = route($database->route);
+                    break;
+                case PermissionService::ENV_GUEST:
+
+                    if (Route::has('guest.admin.' . $database->name . '.index')) {
+                        $database->route = 'guest.admin.' . $database->name . '.index';
+                    } elseif (Route::has('guest.admin.' . $database->name . '.show')) {
+                        $database->route = 'guest.admin.' . $database->name . '.show';
+                    }
+
+                    if (!empty($database->route)) {
+                        try {
+                            $database->url = route($database->route, $admin);
+                        } catch (\Exception $e) {
+                            $database->url = null;
+                        }
+                    }
+
+                    break;
+            }
+
+            $menu[$database->id] = $database;
+        }
+
+        return $menu;
     }
 
     /**

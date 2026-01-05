@@ -74,7 +74,7 @@ class JobCoworker extends Model
     }
 
     /**
-     * Get the owner of the job coworker.
+     * Get the system owner of the job coworker.
      */
     public function owner(): BelongsTo
     {
@@ -82,7 +82,7 @@ class JobCoworker extends Model
     }
 
     /**
-     * Get the job of the job coworker.
+     * Get the career job of the job coworker.
      */
     public function job(): BelongsTo
     {

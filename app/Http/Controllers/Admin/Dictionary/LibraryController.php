@@ -52,16 +52,16 @@ class LibraryController extends BaseAdminController
     /**
      * Store a newly created library in storage.
      *
-     * @param StoreLibrariesRequest $storeLibrariesRequest
+     * @param StoreLibrariesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreLibrariesRequest $storeLibrariesRequest): RedirectResponse
+    public function store(StoreLibrariesRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add libraries.');
         }
 
-        $library = Library::create($storeLibrariesRequest->validated());
+        $library = Library::create($request->validated());
 
         return redirect()->route('admin.dictionary.library.show', $library)
             ->with('success', $library->name . ' successfully added.');
@@ -94,15 +94,15 @@ class LibraryController extends BaseAdminController
     /**
      * Update the specified library in storage.
      *
-     * @param UpdateLibrariesRequest $updateLibrariesRequest
+     * @param UpdateLibrariesRequest $request
      * @param Library $library
      * @return RedirectResponse
      */
-    public function update(UpdateLibrariesRequest $updateLibrariesRequest, Library $library): RedirectResponse
+    public function update(UpdateLibrariesRequest $request, Library $library): RedirectResponse
     {
         Gate::authorize('update-resource', $library);
 
-        $library->update($updateLibrariesRequest->validated());
+        $library->update($request->validated());
 
         return redirect()->route('admin.dictionary.library.index', $library)
             ->with('success', $library->name . ' successfully updated.');

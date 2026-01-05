@@ -18,6 +18,8 @@ class AdminResource extends Model
     protected $fillable = [
         'admin_id',
         'resource_id',
+        'menu',
+        'menu_level',
         'public',
         'readonly',
         'disabled',

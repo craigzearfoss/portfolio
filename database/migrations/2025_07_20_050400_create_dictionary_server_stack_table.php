@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Dictionary\Server;
 use App\Models\Dictionary\ServerStack;
+use App\Models\Dictionary\Stack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,14 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('server_stack', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Dictionary\Server::class);
-            $table->foreignIdFor( \App\Models\Dictionary\Stack::class);
+            $table->foreignId('server_id')
+                ->nullable()
+                ->constrained('servers', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('stack_id')
+                ->nullable()
+                ->constrained('stacks', 'id')
+                ->onDelete('cascade');
 
             $table->unique(['server_id', 'stack_id'], 'server_stack_unique');
         });

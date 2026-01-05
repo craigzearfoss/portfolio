@@ -18,6 +18,7 @@ use App\Models\Personal\RecipeStep;
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
+use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use App\Models\Portfolio\JobTask;
@@ -47,250 +48,250 @@ class Owner extends Model
     const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
-     * Get the owner's system admin groups.
+     * Get the system admin groups for the owner.
      */
     public function adminGroups(): HasMany
     {
-        return $this->hasMany(AdminGroup::class);
+        return $this->hasMany(AdminGroup::class, 'owner_id');
     }
 
     /**
-     * Get the owner's system admin teams.
+     * Get the system admin teams for the owner.
      */
     public function adminTeams(): HasMany
     {
-        return $this->hasMany(AdminTeam::class);
+        return $this->hasMany(AdminTeam::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career applications.
+     * Get the career applications for the owner.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class);
+        return $this->setConnection('career_db')->hasMany(Application::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio art.
+     * Get the portfolio art for the owner.
      */
     public function art(): HasMany
     {
-        return $this->hasMany(Art::class);
+        return $this->setConnection('portfolio_db')->hasMany(Art::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio certificates.
+     * Get the portfolio certificates for the owner.
      */
     public function certificates(): HasMany
     {
-        return $this->hasMany(Certificate::class);
+        return $this->setConnection('portfolio_db')->hasMany(Certificate::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career communications.
+     * Get the career communications for the owner.
      */
     public function communications(): HasMany
     {
-        return $this->hasMany(Communication::class);
+        return $this->setConnection('career_db')->hasMany(Communication::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career companies.
+     * Get the career companies for the owner.
      */
     public function companies(): HasMany
     {
-        return $this->hasMany(Company::class);
+        return $this->setConnection('career_db')->hasMany(Company::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career contacts.
+     * Get the career contacts for the owner.
      */
     public function contacts(): HasMany
     {
-        return $this->hasMany(Contact::class);
+        return $this->setConnection('career_db')->hasMany(Contact::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio courses.
+     * Get the portfolio courses for the owner.
      */
     public function courses(): HasMany
     {
-        return $this->hasMany(Course::class);
+        return $this->setConnection('portfolio_db')->hasMany(Course::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career cover letters.
+     * Get the career cover letters for the owner.
      */
     public function coverLetters(): HasMany
     {
-        return $this->hasMany(CoverLetter::class);
+        return $this->setConnection('career_db')->hasMany(CoverLetter::class, 'owner_id');
     }
 
     /**
-     * Get the owner's system databases.
+     * Get the system databases for the owner.
      */
     public function databases(): HasMany
     {
-        return $this->hasMany(Database::class);
+        return $this->hasMany(Database::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio educations.
+     * Get the career educations for the owner.
      */
     public function educations(): HasMany
     {
-        return $this->hasMany(Education::class);
+        return $this->setConnection('career_db')->hasMany(Education::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career events.
+     * Get the career events for the owner.
      */
     public function events(): HasMany
     {
-        return $this->hasMany(Event::class);
+        return $this->setConnection('career_db')->hasMany(Event::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career jobs.
+     * Get the portfolio jobs for the owner.
      */
     public function jobs(): HasMany
     {
-        return $this->hasMany(Job::class);
+        return $this->setConnection('portfolio_db')->hasMany(Job::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career job coworkers.
+     * Get the portfolio job coworkers for the owner.
      */
     public function jobCoworkers(): HasMany
     {
-        return $this->hasMany(JobCoworker::class);
+        return $this->setConnection('portfolio_db')->hasMany(JobCoworker::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career job tasks.
+     * Get the portfolio job tasks for the owner.
      */
     public function jobTasks(): HasMany
     {
-        return $this->hasMany(JobTask::class);
+        return $this->setConnection('portfolio_db')->hasMany(JobTask::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio links.
+     * Get the portfolio links for the owner.
      */
     public function links(): HasMany
     {
-        return $this->hasMany(Link::class);
+        return $this->setConnection('portfolio_db')->hasMany(Link::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio music.
+     * Get the portfolio music for the owner.
      */
     public function music(): HasMany
     {
-        return $this->hasMany(Music::class);
+        return $this->setConnection('portfolio_db')->hasMany(Music::class, 'owner_id');
     }
 
     /**
-     * Get the owner's career notes.
+     * Get the career notes for the owner.
      */
     public function notes(): HasMany
     {
-        return $this->hasMany(Note::class);
+        return $this->setConnection('career_db')->hasMany(Note::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio projects.
+     * Get the portfolio projects for the owner.
      */
     public function projects(): HasMany
     {
-        return $this->hasMany(Project::class);
+        return $this->setConnection('portfolio_db')->hasMany(Project::class, 'owner_id');
     }
 
     /**
-     * Get the owner's personal readings.
+     * Get the personal readings for the owner.
      */
     public function readings(): HasMany
     {
-        return $this->hasMany(Reading::class);
+        return $this->setConnection('personal_db')->hasMany(Reading::class, 'owner_id');
     }
 
     /**
-     * Get the owner's personal recipes.
+     * Get the personal recipes for the owner.
      */
     public function recipes(): HasMany
     {
-        return $this->hasMany(Recipe::class);
+        return $this->setConnection('personal_db')->hasMany(Recipe::class, 'owner_id');
     }
 
     /**
-     * Get the owner's recipe ingredients.
+     * Get the personal recipe ingredients for the owner.
      */
     public function recipeIngredients(): HasMany
     {
-        return $this->hasMany(RecipeIngredient::class);
+        return $this->setConnection('personal_db')->hasMany(RecipeIngredient::class, 'owner_id');
     }
 
     /**
-     * Get the owner's recipe steps.
+     * Get the personal recipe steps for the owner.
      */
     public function recipeSteps(): HasMany
     {
-        return $this->hasMany(RecipeStep::class);
+        return $this->setConnection('personal_db')->hasMany(RecipeStep::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio references.
+     * Get the career references for the owner.
      */
     public function references(): HasMany
     {
-        return $this->hasMany(Reference::class);
+        return $this->setConnection('career_db')->hasMany(Reference::class, 'owner_id');
     }
 
     /**
-     * Get the owner's system resources.
+     * Get the system resources for the owner.
      */
     public function resources(): HasMany
     {
-        return $this->hasMany(Resource::class);
+        return $this->hasMany(Resource::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio resumes.
+     * Get the career resumes for the owner.
      */
     public function resumes(): HasMany
     {
-        return $this->hasMany(Resume::class);
+        return $this->setConnection('career_db')->hasMany(Resume::class, 'owner_id');
     }
 
     /**
-     * Get the owner's portfolio skills.
+     * Get the portfolio skills for the owner.
      */
     public function skills(): HasMany
     {
-        return $this->hasMany(Skill::class);
+        return $this->setConnection('portfolio_db')->hasMany(Skill::class, 'owner_id');
     }
 
     /**
-     * Get the owner's user groups.
+     * Get the system user groups for the owner.
      */
     public function userGroups(): HasMany
     {
-        return $this->hasMany(UserGroup::class);
+        return $this->hasMany(UserGroup::class, 'owner_id');
     }
 
     /**
-     * Get the owner's user teams.
+     * Get the system user teams for the owner.
      */
     public function userTeams(): HasMany
     {
-        return $this->hasMany(UserTeam::class);
+        return $this->hasMany(UserTeam::class, 'owner_id');
     }
 
     /**
-     * Get the owner's  portfolio videos.
+     * Get the portfolio videos for the owner.
      */
     public function videos(): HasMany
     {
-        return $this->hasMany(Video::class);
+        return $this->setConnection('portfolio_db')->hasMany(Video::class, 'owner_id');
     }
 }

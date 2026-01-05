@@ -67,7 +67,7 @@ class Reading extends Model
     }
 
     /**
-     * Get the owner of the reading.
+     * Get the system owner of the reading.
      */
     public function owner(): BelongsTo
     {

@@ -6,8 +6,12 @@ use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use App\Models\System\AdminAdminTeam;
+use App\Models\System\AdminDatabase;
 use App\Models\System\AdminGroup;
+use App\Models\System\AdminResource;
 use App\Models\System\AdminTeam;
+use App\Models\System\Database;
+use App\Models\System\Resource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +22,8 @@ use function Laravel\Prompts\text;
 
 class InitSampleAdmin extends Command
 {
+    const DB_TAG = 'system_db';
+
     protected $adminId = null;
     protected $demo = 1;
     protected $silent = 0;
@@ -124,11 +130,11 @@ class InitSampleAdmin extends Command
             if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);
             if (empty($adminTeamId)) {
                 // default to the Demo Admin Team
-                $adminTeamId = DB::connection('system_db')->table('admin_teams')
+                $adminTeamId = DB::connection(self::DB_TAG)->table('admin_teams')
                     ->where('name', 'Demo Admin Team')->first()->id;
             } else {
                 // verify the specified team exists
-                if (DB::connection('system_db')->table('admin_teams')
+                if (DB::connection(self::DB_TAG)->table('admin_teams')
                         ->where('id', $adminTeamId)->count() == 0
                 ) {
                     $errors[] = "Admin team id `{$adminTeamId}` does not exist.";
@@ -141,11 +147,11 @@ class InitSampleAdmin extends Command
                 if (!empty($adminGroupId)) $adminGroupId = intval($adminGroupId);
                 if (empty($adminGroupId)) {
                     // default to the Demo Admin Group
-                    $adminGroupId = DB:: connection('system_db')->table('admin_groups')
+                    $adminGroupId = DB:: connection(self::DB_TAG)->table('admin_groups')
                         ->where('name', 'Demo Admin Group')->first()->id;
                 } else {
                     // verify the specified group exists
-                    if (!$group = DB::connection('system_db')->table('admin_groups')
+                    if (!$group = DB::connection(self::DB_TAG)->table('admin_groups')
                         ->where('id', $adminGroupId)->first()
                     ) {
                         $errors[] = "Admin group id `{$adminGroupId}` does not exist.";
@@ -226,42 +232,6 @@ class InitSampleAdmin extends Command
     }
 
     /**
-     * Adds timestamps, owner_id, and additional fields to each row in a data array.
-     *
-     * @param array $data
-     * @param bool $timestamps
-     * @param int|null $ownerId
-     * @param array $extraColumns
-     * @return array
-     */
-    protected function additionalColumns(array    $data,
-                                         bool     $timestamps = true,
-                                         int|null $ownerId = null,
-                                         array    $extraColumns = []): array
-    {
-        for ($i = 0; $i < count($data); $i++) {
-
-            // timestamps
-            if ($timestamps) {
-                $data[$i]['created_at'] = now();
-                $data[$i]['updated_at'] = now();
-            }
-
-            // owner_id
-            if (!empty($ownerId)) {
-                $data[$i]['owner_id'] = $ownerId;
-            }
-
-            // extra columns
-            foreach ($extraColumns as $name => $value) {
-                $data[$i][$name] = $value;
-            }
-        }
-
-        return $data;
-    }
-
-    /**
      * Add an admin to an admin group.
      *
      * @param string $username
@@ -332,13 +302,13 @@ class InitSampleAdmin extends Command
                 'id'                => $adminId,
                 'admin_team_id'     => $adminTeamId,
                 'username'          => $username,
+                'password'          => Hash::make($password),
                 'name'              => self::USER_DATA[$username]['name'] ?? null,
                 'label'             => self::USER_DATA[$username]['label'] ?? null,
                 'email'             => self::USER_DATA[$username]['email'] ?? null,
                 'role'              => self::USER_DATA[$username]['role'] ?? null,
                 'employer'          => self::USER_DATA[$username]['employer'] ?? null,
                 'email_verified_at' => now(),
-                'password'          => Hash::make($password),
                 'public'            => 1,
                 'status'            => 1,
                 'token'             => '',
@@ -348,6 +318,132 @@ class InitSampleAdmin extends Command
 
         if (!empty($data)) {
             Admin::insert($this->additionalColumns($data, true, null, ['demo' => $this->demo], boolval($this->demo)));
+        }
+    }
+
+    /**
+     * Insert system database entries into the admin_database table.
+     *
+     * @param int $adminId
+     * @return void
+     * @throws \Exception
+     */
+    protected function insertSystemAdminDatabaseRows(int $adminId): void
+    {
+        echo $this->username . ": Inserting into System\\AdminDatabase ...\n";
+
+        if (!$database = $this->getDatabase()) {
+            throw new \Exception('`system` database not found.');
+        }
+
+        $data = [];
+
+        $data[] = [
+            'admin_id'    => $adminId,
+            'database_id' => $database->id,
+            'menu'        => $database->menu,
+            'menu_level'  => $database->menu_level,
+            'public'      => $database->public,
+            'readonly'    => $database->readonly,
+            'disabled'    => $database->disabled,
+            'sequence'    => $database->sequence,
+            'created_at'  => now(),
+            'updated_at'  => now(),
+        ];
+
+        AdminDatabase::insert($data);
+    }
+
+    /**
+     * Insert system database resource entries into the admin_resource table.
+     *
+     * @param int $adminId
+     * @return void
+     */
+    protected function insertSystemAdminResourceRows(int $adminId): void
+    {
+        echo $this->username . ": Inserting into System\\AdminResource ...\n";
+
+        if ($resources = $this->getDbResources()) {
+
+            $data = [];
+
+            foreach ($resources as $resource) {
+                $data[] = [
+                    'admin_id'    => $adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $resource->public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
+            }
+
+            AdminResource::insert($data);
+        }
+    }
+
+    /**
+     * Adds timestamps, owner_id, and additional fields to each row in a data array.
+     *
+     * @param array $data
+     * @param bool $timestamps
+     * @param int|null $ownerId
+     * @param array $extraColumns
+     * @return array
+     */
+    protected function additionalColumns(array    $data,
+                                         bool     $timestamps = true,
+                                         int|null $ownerId = null,
+                                         array    $extraColumns = []): array
+    {
+        for ($i = 0; $i < count($data); $i++) {
+
+            // timestamps
+            if ($timestamps) {
+                $data[$i]['created_at'] = now();
+                $data[$i]['updated_at'] = now();
+            }
+
+            // owner_id
+            if (!empty($ownerId)) {
+                $data[$i]['owner_id'] = $ownerId;
+            }
+
+            // extra columns
+            foreach ($extraColumns as $name => $value) {
+                $data[$i][$name] = $value;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get a database.
+     *
+     * @return mixed
+     */
+    protected function getDatabase()
+    {
+        return Database::where('tag', self::DB_TAG)->first();
+    }
+
+    /**
+     * Get a database's resources.
+     *
+     * @return mixed
+     */
+    protected function getDbResources()
+    {
+        if (!$database = $this->getDatabase()) {
+            return [];
+        } else {
+            return Resource::where('database_id', $database->id)->get();
         }
     }
 }

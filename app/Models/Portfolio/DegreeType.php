@@ -31,10 +31,10 @@ class DegreeType extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the educations for the degree type.
+     * Get the portfolio educations for the degree type.
      */
     public function educations(): HasMany
     {
-        return $this->hasMany(Education::class, 'education_id');
+        return $this->hasMany(Education::class, 'degree_type_id');
     }
 }

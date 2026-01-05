@@ -35,11 +35,11 @@ class LogLogout
 
                 $admin = $event->user;
 
-                Log::info('Admin ' . $admin->username . ' (' . $admin->id . ') logged out from ' . $ipAddress);
+                Log::info('Admin ' . ($admin->username ?? '?') . ' (' . ($admin->id ?? '??') . ') logged out from ' . $ipAddress);
 
                 LoginAttemptsAdmin::insert([
-                    'admin_id'   => $admin->id,
-                    'username'   => $admin->username,
+                    'admin_id'   => $admin->id ?? null,
+                    'username'   => $admin->username ?? '?',
                     'ip_address' => $ipAddress,
                     'action'     => 'logout',
                     'success'    => true,
@@ -51,11 +51,11 @@ class LogLogout
 
                 $user = $event->user;
 
-                Log::info('User ' . $user->username . ' (' . $user->id . ') logged out from ' . $ipAddress);
+                Log::info('User ' . ($user->username ?? '?') . ' (' . ($user->id ?? '?') . ') logged out from ' . $ipAddress);
 
                 LoginAttemptsUser::insert([
-                    'user_id'    => $user->id,
-                    'username'   => $user->username,
+                    'user_id'    => $user->id->id ?? null,
+                    'username'   => $user->username->id ?? '?',
                     'ip_address' => $ipAddress,
                     'action'     => 'logout',
                     'success'    => true,

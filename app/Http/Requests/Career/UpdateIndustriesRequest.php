@@ -26,17 +26,37 @@ class UpdateIndustriesRequest extends FormRequest
      */
     public function rules(): array
     {
+        return [
+            'name'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id],
+            'slug'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id],
+            'abbreviation' => ['filled', 'string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id],
+        ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['name'], 'career_db.industries')
             ]);
         }
-
-        return [
-            'name'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id],
-            'slug'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id],
-            'abbreviation' => ['filled', 'string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id],
-        ];
     }
 }

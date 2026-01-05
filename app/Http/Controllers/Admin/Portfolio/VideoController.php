@@ -47,12 +47,12 @@ class VideoController extends BaseAdminController
     /**
      * Store a newly created video in storage.
      *
-     * @param StoreVideosRequest $storeVideosRequest
+     * @param StoreVideosRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreVideosRequest $storeVideosRequest): RedirectResponse
+    public function store(StoreVideosRequest $request): RedirectResponse
     {
-        $video = Video::create($storeVideosRequest->validated());
+        $video = Video::create($request->validated());
 
         return redirect()->route('admin.portfolio.video.show', $video)
             ->with('success', $video->name . ' successfully added.');
@@ -85,15 +85,15 @@ class VideoController extends BaseAdminController
     /**
      * Update the specified video in storage.
      *
-     * @param UpdateVideosRequest $updateVideosRequest
+     * @param UpdateVideosRequest $request
      * @param Video $video
      * @return RedirectResponse
      */
-    public function update(UpdateVideosRequest $updateVideosRequest, Video $video): RedirectResponse
+    public function update(UpdateVideosRequest $request, Video $video): RedirectResponse
     {
         Gate::authorize('update-resource', $video);
 
-        $video->update($updateVideosRequest->validated());
+        $video->update($request->validated());
 
         return redirect()->route('admin.portfolio.video.show', $video)
             ->with('success', $video->name . ' successfully updated.');

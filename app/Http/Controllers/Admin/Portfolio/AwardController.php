@@ -45,12 +45,12 @@ class AwardController extends BaseAdminController
      * Store a newly created award in storage.
      *
      *
-     * @param StoreAwardsRequest $StoreAwardsRequest
+     * @param StoreAwardsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreAwardsRequest $StoreAwardsRequest): RedirectResponse
+    public function store(StoreAwardsRequest $request): RedirectResponse
     {
-        $award = Award::create($StoreAwardsRequest->validated());
+        $award = Award::create($request->validated());
 
         return redirect()->route('admin.portfolio.award.show', $award)
             ->with('success', $award->name . ' successfully added.');
@@ -83,15 +83,15 @@ class AwardController extends BaseAdminController
     /**
      * Update the specified award in storage.
      *
-     * @param UpdateAwardsRequest $UpdateAwardsRequest
+     * @param UpdateAwardsRequest $request
      * @param Award $award
      * @return RedirectResponse
      */
-    public function update(UpdateAwardsRequest $UpdateAwardsRequest, Award $award): RedirectResponse
+    public function update(UpdateAwardsRequest $request, Award $award): RedirectResponse
     {
         Gate::authorize('update-resource', $award);
 
-        $award->update($UpdateAwardsRequest->validated());
+        $award->update($request->validated());
 
         return redirect()->route('admin.portfolio.award.show', $award)
             ->with('success', $award->name . ' successfully updated.');

@@ -66,7 +66,7 @@ class Award extends Model
     }
 
     /**
-     * Get the owner of the photograph.
+     * Get the system owner of the photograph.
      */
     public function owner(): BelongsTo
     {

@@ -47,12 +47,12 @@ class CertificateController extends BaseAdminController
     /**
      * Store a newly created certificate in storage.
      *
-     * @param StoreCertificatesRequest $storeCertificatesRequest
+     * @param StoreCertificatesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreCertificatesRequest $storeCertificatesRequest): RedirectResponse
+    public function store(StoreCertificatesRequest $request): RedirectResponse
     {
-        $certificate = Certificate::create($storeCertificatesRequest->validated());
+        $certificate = Certificate::create($request->validated());
 
         return redirect()->route('admin.portfolio.certificate.show', $certificate)
             ->with('success', $certificate->name . ' certificate successfully added.');
@@ -85,16 +85,16 @@ class CertificateController extends BaseAdminController
     /**
      * Update the specified certificate in storage.
      *
-     * @param UpdateCertificatesRequest $updateCertificatesRequest
+     * @param UpdateCertificatesRequest $request
      * @param Certificate $certificate
      * @return RedirectResponse
      */
-    public function update(UpdateCertificatesRequest $updateCertificatesRequest,
+    public function update(UpdateCertificatesRequest $request,
                            Certificate               $certificate): RedirectResponse
     {
         Gate::authorize('edit-resource', $certificate);
 
-        $certificate->update($updateCertificatesRequest->validated());
+        $certificate->update($request->validated());
 
         return redirect()->route('admin.portfolio.certificate.show', $certificate)
             ->with('success', $certificate->name . ' certificate successfully updated.');

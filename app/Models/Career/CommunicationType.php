@@ -32,7 +32,7 @@ class CommunicationType extends Model
     const SEARCH_ORDER_BY = ['sequence', 'asc'];
 
     /**
-     * Get the applications for the job schedule.
+     * Get the career applications for the job communication type.
      */
     public function communications(): HasMany
     {

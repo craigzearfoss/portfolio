@@ -35,6 +35,8 @@ class UpdateDatabasesRequest extends FormRequest
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],
             'global'      => ['integer', 'between:0,1'],
+            'menu_level'  => ['integer', 'between:0,1'],
+            'level'       => ['integer'],
             'icon'        => ['string', 'max:50', 'nullable'],
             'public'      => ['integer', 'between:0,1'],
             'readonly'    => ['integer', 'between:0,1'],
@@ -45,6 +47,11 @@ class UpdateDatabasesRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [

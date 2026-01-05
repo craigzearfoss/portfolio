@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\System\SettingType;
 use App\Models\System\SiteSetting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -30,7 +31,9 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('site_settings', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->foreignIdFor( \App\Models\System\SettingType::class);
+            $table->foreignId('setting_type_id')
+                ->constrained('setting_types', 'id')
+                ->onDelete('cascade');
             $table->string('value')->nullable();
             $table->timestamps();
         });

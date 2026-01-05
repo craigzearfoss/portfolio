@@ -48,12 +48,12 @@ class ReadingController extends BaseAdminController
     /**
      * Store a newly created reading in storage.
      *
-     * @param StoreReadingsRequest $storeReadingsRequest
+     * @param StoreReadingsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreReadingsRequest $storeReadingsRequest): RedirectResponse
+    public function store(StoreReadingsRequest $request): RedirectResponse
     {
-        $reading = Reading::create($storeReadingsRequest->validated());
+        $reading = Reading::create($request->validated());
 
         return redirect()->route('admin.personal.reading.show', $reading)
             ->with('success', $reading->title . ' successfully added.');
@@ -86,15 +86,15 @@ class ReadingController extends BaseAdminController
     /**
      * Update the specified reading in storage.
      *
-     * @param UpdateReadingsRequest $updateReadingsRequest
+     * @param UpdateReadingsRequest $request
      * @param Reading $reading
      * @return RedirectResponse
      */
-    public function update(UpdateReadingsRequest $updateReadingsRequest, Reading $reading): RedirectResponse
+    public function update(UpdateReadingsRequest $request, Reading $reading): RedirectResponse
     {
         Gate::authorize('update-resource', $reading);
 
-        $reading->update($updateReadingsRequest->validated());
+        $reading->update($request->validated());
 
         return redirect()->route('admin.personal.reading.show', $reading)
             ->with('success', $reading->title . ' successfully updated.');

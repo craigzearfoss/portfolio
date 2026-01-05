@@ -65,7 +65,7 @@ class Art extends Model
     }
 
     /**
-     * Get the owner of the art.
+     * Get the system owner of the art.
      */
     public function owner(): BelongsTo
     {

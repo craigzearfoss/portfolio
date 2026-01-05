@@ -61,12 +61,12 @@ class CommunicationController extends BaseAdminController
     /**
      * Store a newly created communication in storage.
      *
-     * @param StoreCommunicationsRequest $storeCommunicationsRequest
+     * @param StoreCommunicationsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreCommunicationsRequest $storeCommunicationsRequest): RedirectResponse
+    public function store(StoreCommunicationsRequest $request): RedirectResponse
     {
-        $applicationId = $storeCommunicationsRequest->query('application_id');
+        $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
@@ -77,7 +77,7 @@ class CommunicationController extends BaseAdminController
                 ->withInput();
         }
 
-        $communication = Communication::create($storeCommunicationsRequest->validated());
+        $communication = Communication::create($request->validated());
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
@@ -122,16 +122,16 @@ class CommunicationController extends BaseAdminController
     /**
      * Update the specified communication in storage.
      *
-     * @param UpdateCommunicationsRequest $updateCommunicationsRequest
+     * @param UpdateCommunicationsRequest $request
      * @param Communication $communication
      * @return RedirectResponse
      */
-    public function update(UpdateCommunicationsRequest $updateCommunicationsRequest,
+    public function update(UpdateCommunicationsRequest $request,
                            Communication               $communication): RedirectResponse
     {
         Gate::authorize('update-resource', $communication);
 
-        $applicationId = $updateCommunicationsRequest->query('application_id');
+        $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
@@ -142,7 +142,7 @@ class CommunicationController extends BaseAdminController
                 ->withInput();
         }
 
-        $communication->update($updateCommunicationsRequest->validated());
+        $communication->update($request->validated());
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

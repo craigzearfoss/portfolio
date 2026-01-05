@@ -15,11 +15,7 @@ class StoreResourceSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
-
-        return true;
+        return isRootAdmin();
     }
 
     /**
@@ -48,6 +44,11 @@ class StoreResourceSettingsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [

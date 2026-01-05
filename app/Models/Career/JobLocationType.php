@@ -31,7 +31,7 @@ class JobLocationType extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the applications for the job location type.
+     * Get the career applications for the job location type.
      */
     public function applications(): HasMany
     {

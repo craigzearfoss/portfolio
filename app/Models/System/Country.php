@@ -38,74 +38,74 @@ class Country extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the admins for the country.
+     * Get the system admins for the country.
      */
     public function admins(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Admin::class)
+        return $this->hasMany(Admin::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the admins for the country.
+     * Get the career companies for the country.
      */
     public function companies(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Company::class)
+        return $this->setConnection('career_db')->hasMany(Company::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the contacts for the country.
+     * Get the career contacts for the country.
      */
     public function contacts(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Contact::class)
+        return $this->setConnection('career_db')->hasMany(Contact::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the applications for the country.
+     * Get the career jobs for the country.
      */
     public function jobs(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Job::class)
+        return $this->setConnection('career_db')->hasMany(Job::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the recruiters for the country.
+     * Get the career recruiters for the country.
      */
     public function recruiters(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Recruiter::class)
+        return $this->setConnection('career_db')->hasMany(Recruiter::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the references for the country.
+     * Get the career references for the country.
      */
     public function references(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(Reference::class)
+        return $this->setConnection('career_db')->hasMany(Reference::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the schools for the country.
+     * Get the career schools for the country.
      */
     public function schools(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(School::class)
+        return $this->setConnection('career_db')->hasMany(School::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 
     /**
-     * Get the users for the country.
+     * Get the system users for the country.
      */
     public function users(): HasMany
     {
-        return $this->setConnection('career_db')->hasMany(User::class)
+        return $this->setConnection('system_db')->hasMany(User::class, 'country_id')
             ->orderBy('name', 'asc');
     }
 

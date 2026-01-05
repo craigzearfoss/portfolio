@@ -30,13 +30,6 @@ class StoreCertificatesRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.certificates', $this->owner_id)
-            ]);
-        }
-
         return[
             'owner_id'        => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
@@ -83,6 +76,11 @@ class StoreCertificatesRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -91,5 +89,20 @@ class StoreCertificatesRequest extends FormRequest
             'academy_id.required' => 'Please select an academy for the certificate.',
             'academy_id.exists'   => 'The specified academy does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.certificates', $this->owner_id)
+            ]);
+        }
     }
 }

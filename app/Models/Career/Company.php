@@ -84,7 +84,7 @@ class Company extends Model
     }
 
     /**
-     * Get the owner of the company.
+     * Get the system owner of the company.
      */
     public function owner(): BelongsTo
     {
@@ -92,11 +92,11 @@ class Company extends Model
     }
 
     /**
-     * Get the applications for the company.
+     * Get the career applications for the company.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'application_id')
+        return $this->hasMany(Application::class, 'company_id')
             ->orderBy('post_date', 'desc');
     }
 
@@ -110,7 +110,7 @@ class Company extends Model
     }
 
     /**
-     * Get the country that owns the company.
+     * Get the system country that owns the company.
      */
     public function country(): BelongsTo
     {
@@ -118,7 +118,7 @@ class Company extends Model
     }
 
     /**
-     * Get the industry that owns the company.
+     * Get the career industry that owns the company.
      */
     public function industry(): BelongsTo
     {
@@ -126,7 +126,7 @@ class Company extends Model
     }
 
     /**
-     * Get the state that owns the company.
+     * Get the system state that owns the company.
      */
     public function state(): BelongsTo
     {

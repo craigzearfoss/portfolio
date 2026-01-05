@@ -66,7 +66,7 @@ class Resume extends Model
     }
 
     /**
-     * Get the owner of the resume.
+     * Get the system owner of the resume.
      */
     public function owner(): BelongsTo
     {
@@ -74,11 +74,11 @@ class Resume extends Model
     }
 
     /**
-     * Get the applications for the resume.
+     * Get the career applications for the resume.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class)->orderBy('post_date', 'desc');
+        return $this->hasMany(Application::class, 'resume_id')->orderBy('post_date', 'desc');
     }
 
     /**

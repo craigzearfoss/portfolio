@@ -47,12 +47,12 @@ class ReferenceController extends BaseAdminController
     /**
      * Store a newly created reference in storage.
      *
-     * @param StoreReferencesRequest $storeReferencesRequest
+     * @param StoreReferencesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreReferencesRequest $storeReferencesRequest): RedirectResponse
+    public function store(StoreReferencesRequest $request): RedirectResponse
     {
-        $reference = Reference::create($storeReferencesRequest->validated());
+        $reference = Reference::create($request->validated());
 
         return redirect()->route('admin.career.reference.show', $reference)
             ->with('success', $reference->name . ' successfully added.');
@@ -85,15 +85,15 @@ class ReferenceController extends BaseAdminController
     /**
      * Update the specified reference in storage.
      *
-     * @param UpdateReferencesRequest $updateReferencesUpdateRequest
+     * @param UpdateReferencesRequest $request
      * @param Reference $reference
      * @return RedirectResponse
      */
-    public function update(UpdateReferencesRequest $updateReferencesUpdateRequest, Reference $reference): RedirectResponse
+    public function update(UpdateReferencesRequest $request, Reference $reference): RedirectResponse
     {
         Gate::authorize('update-resource', $reference);
 
-        $reference->update($updateReferencesUpdateRequest->validated());
+        $reference->update($request->validated());
 
         return redirect()->route('admin.career.reference.show', $reference)
             ->with('success', $reference->name . ' successfully updated.');

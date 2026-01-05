@@ -45,12 +45,12 @@ class RecipeController extends BaseAdminController
     /**
      * Store a newly created recipe in storage.
      *
-     * @param StoreRecipesRequest $storeRecipesRequest
+     * @param StoreRecipesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreRecipesRequest $storeRecipesRequest): RedirectResponse
+    public function store(StoreRecipesRequest $request): RedirectResponse
     {
-        $recipe = Recipe::create($storeRecipesRequest->validated());
+        $recipe = Recipe::create($request->validated());
 
         return redirect()->route('admin.personal.recipe.show', $recipe)
             ->with('success', $recipe->name . ' successfully added.');
@@ -83,15 +83,15 @@ class RecipeController extends BaseAdminController
     /**
      * Update the specified recipe in storage.
      *
-     * @param UpdateRecipesRequest $updateRecipesRequest
+     * @param UpdateRecipesRequest $request
      * @param Recipe $recipe
      * @return RedirectResponse
      */
-    public function update(UpdateRecipesRequest $updateRecipesRequest, Recipe $recipe): RedirectResponse
+    public function update(UpdateRecipesRequest $request, Recipe $recipe): RedirectResponse
     {
         Gate::authorize('update-resource', $recipe);
 
-        $recipe->update($updateRecipesRequest->validated());
+        $recipe->update($request->validated());
 
         return redirect()->route('admin.personal.recipe.show', $recipe)
             ->with('success', $recipe->name . ' successfully updated.');

@@ -38,8 +38,9 @@ class Resource extends Model
         'user',
         'admin',
         'global',   // the resource has no owner
+        'menu',
+        'menu_level',
         'icon',
-        'level',
         'public',
         'readonly',
         'root',
@@ -52,11 +53,11 @@ class Resource extends Model
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'database_id', 'name', 'parent_id', 'table', 'title', 'plural', 'guest',
-        'user', 'admin', 'icon', 'level', 'public', 'readonly', 'root', 'disabled', 'demo'];
+        'user', 'admin', 'global', 'menu', 'menu_level', 'icon', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the owner of the resource.
+     * Get the system owner of the resource.
      */
     public function owner(): BelongsTo
     {
@@ -64,7 +65,7 @@ class Resource extends Model
     }
 
     /**
-     * Get the database that owns the resource.
+     * Get the system database that owns the resource.
      */
     public function database(): BelongsTo
     {
@@ -80,7 +81,7 @@ class Resource extends Model
     }
 
     /**
-     * Get the children of the resource.
+     * Get the children of the system resource.
      */
     public function children(): HasMany
     {
@@ -88,7 +89,7 @@ class Resource extends Model
     }
 
     /**
-     * Get the settings of the resource.
+     * Get the system settings of the resource.
      */
     public function settings(): HasMany
     {

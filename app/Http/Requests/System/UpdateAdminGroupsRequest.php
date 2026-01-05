@@ -29,13 +29,6 @@ class UpdateAdminGroupsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.admin_groups', $this->owner_id)
-            ]);
-        }
-
         return [
             'owner_id'      => ['filled', 'integer', 'exists:system_db.admins,id'],
             'admin_team_id' => ['filled', 'integer', 'exists:system_db.admin_teams,id'],
@@ -82,6 +75,11 @@ class UpdateAdminGroupsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -90,5 +88,20 @@ class UpdateAdminGroupsRequest extends FormRequest
             'admin_team_id.filled' => 'Please select an admin team for the admin group.',
             'admin_team_id.exists' => 'The specified admin team does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'system_db.admin_groups', $this->owner_id)
+            ]);
+        }
     }
 }

@@ -60,17 +60,17 @@ class CompanyController extends BaseAdminController
     /**
      * Store a newly created company in storage.
      *
-     * @param StoreCompaniesRequest $storeCompaniesRequest
+     * @param StoreCompaniesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreCompaniesRequest $storeCompaniesRequest): RedirectResponse
+    public function store(StoreCompaniesRequest $request): RedirectResponse
     {
         $urlParams = [];
-        $newApplication = boolval($storeCompaniesRequest->query('new_application'));
-        if ($resumeId = $storeCompaniesRequest->query('resume_id')) $urlParams['resume_id'] = $resumeId;
-        if ($coverLetterId = $storeCompaniesRequest->query('cover_letter_id')) $urlParams['cover_letter_id'] = $coverLetterId;
+        $newApplication = boolval($request->query('new_application'));
+        if ($resumeId = $request->query('resume_id')) $urlParams['resume_id'] = $resumeId;
+        if ($coverLetterId = $request->query('cover_letter_id')) $urlParams['cover_letter_id'] = $coverLetterId;
 
-        $company = Company::create($storeCompaniesRequest->validated());
+        $company = Company::create($request->validated());
 
         $message = $company->name . ' successfully added.';
         if ($newApplication) {
@@ -110,15 +110,15 @@ class CompanyController extends BaseAdminController
     /**
      * Update the specified company in storage.
      *
-     * @param UpdateCompaniesRequest $updateCompaniesRequest
+     * @param UpdateCompaniesRequest $request
      * @param Company $company
      * @return RedirectResponse
      */
-    public function update(UpdateCompaniesRequest $updateCompaniesRequest, Company $company): RedirectResponse
+    public function update(UpdateCompaniesRequest $request, Company $company): RedirectResponse
     {
         Gate::authorize('update-resource', $company);
 
-        $company->update($updateCompaniesRequest->validated());
+        $company->update($request->validated());
 
         return redirect()->route('admin.career.company.show', $company)
             ->with('success', $company->name . ' successfully updated.');
@@ -155,14 +155,14 @@ class CompanyController extends BaseAdminController
      * Attach a contact to the company.
      *
      * @param int $companyId
-     * @param StoreCompanyContactsRequest $storeCompanyContactsRequest
+     * @param StoreCompanyContactsRequest $request
      * @return RedirectResponse
      */
-    public function attachContact(int $companyId, StoreCompanyContactsRequest $storeCompanyContactsRequest): RedirectResponse
+    public function attachContact(int $companyId, StoreCompanyContactsRequest $request): RedirectResponse
     {
         $company = Company::find($companyId);
 
-        $data = $storeCompanyContactsRequest->validated();
+        $data = $request->validated();
 
         if (!empty($data['contact_id'])) {
 

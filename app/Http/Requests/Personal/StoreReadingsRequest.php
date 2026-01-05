@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Models\Personal\Reading;
 use App\Traits\ModelPermissionsTrait;
+use http\Env\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,18 +32,9 @@ class StoreReadingsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['title'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['title'] . (!empty($this['author']) ? '-by-' . $this['author'] : '')),
-                'personal_db.readings',
-                $this->owner_id
-            ]);
-        }
-
         return [
             'owner_id'         => ['required', 'integer', 'exists:system_db.admins,id'],
-            'title'            => ['required', 'string', 'max:255', 'unique:personal_db.readings,name'],
+            'title'            => ['required', 'string', 'max:255', 'unique:'.Reading::class],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [
                 'required',
@@ -79,11 +72,33 @@ class StoreReadingsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
             'owner_id.required' => 'Please select an owner for the reading.',
             'owner_id.exists'   => 'The specified owner does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['title'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['title'] . (!empty($this['author']) ? '-by-' . $this['author'] : '')),
+                'personal_db.readings',
+                $this->owner_id
+            ]);
+        }
     }
 }

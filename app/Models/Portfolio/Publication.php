@@ -92,7 +92,7 @@ class Publication extends Model
     }
 
     /**
-     * Get the owner of the publication.
+     * Get the system owner of the publication.
      */
     public function owner(): BelongsTo
     {
@@ -100,7 +100,7 @@ class Publication extends Model
     }
 
     /**
-     * Get the parent of the publication.
+     * Get the parent of the portfolio publication.
      */
     public function parent(): BelongsTo
     {
@@ -108,7 +108,7 @@ class Publication extends Model
     }
 
     /**
-     * Get the children of the publication.
+     * Get the children of the portfolio publication.
      */
     public function children(): HasMany
     {

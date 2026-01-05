@@ -47,12 +47,12 @@ class MusicController extends BaseAdminController
     /**
      * Store a newly created music in storage.
      *
-     * @param StoreMusicRequest $storeMusicRequest
+     * @param StoreMusicRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreMusicRequest $storeMusicRequest): RedirectResponse
+    public function store(StoreMusicRequest $request): RedirectResponse
     {
-        $music = Music::create($storeMusicRequest->validated());
+        $music = Music::create($request->validated());
 
         return redirect()->route('admin.portfolio.music.show', $music)
             ->with('success', $music->name . ' successfully added.');
@@ -85,15 +85,15 @@ class MusicController extends BaseAdminController
     /**
      * Update the specified music in storage.
      *
-     * @param UpdateMusicRequest $updateMusicRequest
+     * @param UpdateMusicRequest $request
      * @param Music $music
      * @return RedirectResponse
      */
-    public function update(UpdateMusicRequest $updateMusicRequest, Music $music): RedirectResponse
+    public function update(UpdateMusicRequest $request, Music $music): RedirectResponse
     {
         Gate::authorize('update-resource', $music);
 
-        $music->update($updateMusicRequest->validated());
+        $music->update($request->validated());
 
         return redirect()->route('admin.portfolio.music.show', $music)
             ->with('success', $music->name . ' successfully updated.');

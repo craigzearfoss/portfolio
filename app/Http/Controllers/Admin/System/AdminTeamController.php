@@ -46,16 +46,16 @@ class AdminTeamController extends BaseAdminController
     /**
      * Store a newly created admin team in storage.
      *
-     * @param StoreAdminTeamsRequest $storeAdminTeamsRequest
+     * @param StoreAdminTeamsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreAdminTeamsRequest $storeAdminTeamsRequest): RedirectResponse
+    public function store(StoreAdminTeamsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only root admins can add new admin teams.');
         }
 
-        $adminTeam = AdminTeam::create($storeAdminTeamsRequest->validated());
+        $adminTeam = AdminTeam::create($request->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully added.');
@@ -88,15 +88,15 @@ class AdminTeamController extends BaseAdminController
     /**
      * Update the specified admin team in storage.
      *
-     * @param UpdateAdminTeamsRequest $updateAdminTeamsRequest
+     * @param UpdateAdminTeamsRequest $request
      * @param AdminTeam $adminTeam
      * @return RedirectResponse
      */
-    public function update(UpdateAdminTeamsRequest $updateAdminTeamsRequest, AdminTeam $adminTeam): RedirectResponse
+    public function update(UpdateAdminTeamsRequest $request, AdminTeam $adminTeam): RedirectResponse
     {
         Gate::authorize('update-resource', $adminTeam);
 
-        $adminTeam->update($updateAdminTeamsRequest->validated());
+        $adminTeam->update($request->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully updated.');

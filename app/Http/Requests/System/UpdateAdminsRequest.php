@@ -6,7 +6,9 @@ use App\Rules\CaseInsensitiveNotIn;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class UpdateAdminsRequest extends FormRequest
 {
@@ -33,19 +35,13 @@ class UpdateAdminsRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
-        // if the account is disabled then force current session to logout
-        if (!empty($this['disabled'])) {
-            $this->merge(['requires_relogin' => 1]);
-        }
-
         $ruleArray = [
             'admin_team_id'    => ['filled', 'integer', 'exists:system_db.admin_teams,id'],
             /* ADMIN USERNAMES CANNOT BE CHANGED
             'username'         => [
                 'filled',
                 'string',
+                'lowercase',
                 'min:6',
                 'max:200',
                 'unique:admins,username,'.$this->admin->id,
@@ -56,6 +52,7 @@ class UpdateAdminsRequest extends FormRequest
             'label'            => [
                 'filled',
                 'string',
+                'lowercase',
                 'min:6',
                 'max:200',
                 'unique:admins,label,'.$this->admin->id,
@@ -73,7 +70,7 @@ class UpdateAdminsRequest extends FormRequest
             'latitude'         => [Rule::numeric(), 'nullable'],
             'longitude'        => [Rule::numeric(), 'nullable'],
             'phone'            => ['string', 'max:50', 'nullable'],
-            'email'            => ['filled', 'email', 'max:255', 'unique:admins,email,'.$this->admin->id,],
+            'email'            => ['filled', 'string', 'lowercase', 'email', 'max:255', 'unique:admins,email,'.$this->admin->id,],
             'birthday'         => ['date', 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
@@ -83,8 +80,7 @@ class UpdateAdminsRequest extends FormRequest
             'image_credit'     => ['string', 'max:255', 'nullable'],
             'image_source'     => ['string', 'max:255', 'nullable'],
             'thumbnail'        => ['string', 'max:500', 'nullable'],
-            'password'         => ['string', 'min:8', 'max:255'],
-            'confirm_password' => ['string', 'same:password'],
+            'password'         => ['filled', 'confirmed', Password::defaults()->letters()->numbers()->symbols()],
             'remember_token'   => ['string', 'max:200', 'nullable'],
             'token'            => ['string', 'max:255', 'nullable'],
             'requires_relogin' => ['integer', 'between:0,1'],
@@ -110,6 +106,11 @@ class UpdateAdminsRequest extends FormRequest
         return $ruleArray;
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -117,5 +118,24 @@ class UpdateAdminsRequest extends FormRequest
             'state_id.exists'      => 'The specified state does not exist.',
             'country_id.exists'    => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'username' => Str::lower($this->username),
+            'label'    => Str::lower($this->label),
+            'email'    => Str::lower($this->email),
+        ]);
+
+        // if the account is disabled then force current session to logout
+        if (!empty($this['disabled'])) {
+            $this->merge(['requires_relogin' => 1]);
+        }
     }
 }

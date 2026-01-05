@@ -26,13 +26,6 @@ class UpdateLanguagesRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $this->owner_id)
-            ]);
-        }
-
         return [
             'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.languages,full_name,'.$this->language->id],
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.languages,name,'.$this->language->id],
@@ -57,5 +50,32 @@ class UpdateLanguagesRequest extends FormRequest
             'disabled'     => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $this->owner_id)
+            ]);
+        }
     }
 }

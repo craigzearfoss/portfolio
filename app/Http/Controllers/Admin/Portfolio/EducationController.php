@@ -45,12 +45,12 @@ class EducationController extends Controller
     /**
      * Store a newly created education in storage.
      *
-     * @param StoreEducationsRequest $storeEducationsRequest
+     * @param StoreEducationsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreEducationsRequest $storeEducationsRequest): RedirectResponse
+    public function store(StoreEducationsRequest $request): RedirectResponse
     {
-        $education = Education::create($storeEducationsRequest->validated());
+        $education = Education::create($request->validated());
 
         return redirect()->route('admin.portfolio.education.show', $education)
             ->with('success', $education->name . ' education successfully added.');
@@ -83,16 +83,16 @@ class EducationController extends Controller
     /**
      * Update the specified education in storage.
      *
-     * @param UpdateEducationsRequest $updateEducationsRequest
+     * @param UpdateEducationsRequest $request
      * @param Education $education
      * @return RedirectResponse
      */
-    public function update(UpdateEducationsRequest $updateEducationsRequest,
+    public function update(UpdateEducationsRequest $request,
                            Education               $education): RedirectResponse
     {
         Gate::authorize('update-resource', $education);
 
-        $education->update($updateEducationsRequest->validated());
+        $education->update($request->validated());
 
         return redirect()->route('admin.portfolio.education.show', $education)
             ->with('success', $education->name . ' education successfully updated.');

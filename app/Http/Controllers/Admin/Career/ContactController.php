@@ -49,12 +49,12 @@ class ContactController extends BaseAdminController
     /**
      * Store a newly created contact in storage.
      *
-     * @param StoreContactsRequest $storeContactsRequest
+     * @param StoreContactsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreContactsRequest $storeContactsRequest): RedirectResponse
+    public function store(StoreContactsRequest $request): RedirectResponse
     {
-        $contact = Contact::create($storeContactsRequest->validated());
+        $contact = Contact::create($request->validated());
 
         return redirect()->route('admin.career.contact.show', $contact)
             ->with('success', $contact->name . ' successfully added.');
@@ -87,15 +87,15 @@ class ContactController extends BaseAdminController
     /**
      * Update the specified contact in storage.
      *
-     * @param UpdateContactsRequest $updateContactsRequest
+     * @param UpdateContactsRequest $request
      * @param Contact $contact
      * @return RedirectResponse
      */
-    public function update(UpdateContactsRequest $updateContactsRequest, Contact $contact): RedirectResponse
+    public function update(UpdateContactsRequest $request, Contact $contact): RedirectResponse
     {
         Gate::authorize('update-resource', $contact);
 
-        $contact->update($updateContactsRequest->validated());
+        $contact->update($request->validated());
 
         return redirect()->route('admin.career.application.show', $contact)
             ->with('success', $contact->name . ' successfully updated.');
@@ -132,14 +132,14 @@ class ContactController extends BaseAdminController
      * Attach a company to the contact.
      *
      * @param int $contactId
-     * @param StoreCompanyContactsRequest $storeCompanyContactsRequest
+     * @param StoreCompanyContactsRequest $request
      * @return RedirectResponse
      */
-    public function attachCompany(int $contactId, StoreCompanyContactsRequest $storeCompanyContactsRequest): RedirectResponse
+    public function attachCompany(int $contactId, StoreCompanyContactsRequest $request): RedirectResponse
     {
         $contact = Contact::find($contactId);
 
-        $data = $storeCompanyContactsRequest->validated();
+        $data = $request->validated();
 
         if (!empty($data['company_id'])) {
 

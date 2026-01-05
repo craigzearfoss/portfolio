@@ -52,16 +52,16 @@ class AcademyController extends BaseAdminController
     /**
      * Store a newly created academy in storage.
      *
-     * @param StoreAcademiesRequest $storeAcademiesRequest
+     * @param StoreAcademiesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreAcademiesRequest $storeAcademiesRequest): RedirectResponse
+    public function store(StoreAcademiesRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add academies.');
         }
 
-        $academy = Academy::create($storeAcademiesRequest->validated());
+        $academy = Academy::create($request->validated());
 
         return redirect()->route('admin.portfolio.academy.show', $academy)
             ->with('success', $academy->name . ' successfully added.');
@@ -98,11 +98,11 @@ class AcademyController extends BaseAdminController
     /**
      * Update the specified academy in storage.
      *
-     * @param UpdateAcademiesRequest $updateAcademiesRequest
+     * @param UpdateAcademiesRequest $request
      * @param Academy $academy
      * @return RedirectResponse
      */
-    public function update(UpdateAcademiesRequest $updateAcademiesRequest, Academy $academy): RedirectResponse
+    public function update(UpdateAcademiesRequest $request, Academy $academy): RedirectResponse
     {
         Gate::authorize('update-resource', $academy);
 
@@ -110,7 +110,7 @@ class AcademyController extends BaseAdminController
             abort(403, 'Only admins with root access can update academies.');
         }
 
-        $academy->update($updateAcademiesRequest->validated());
+        $academy->update($request->validated());
 
         return redirect()->route('admin.portfolio.academy.show', $academy)
             ->with('success', $academy->name . ' successfully updated.');

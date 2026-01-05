@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Company;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,16 +26,9 @@ class StoreRecruitersRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.recruiters')
-            ]);
-        }
-
         return [
-            'name'            => ['required', 'string', 'max:255', 'unique:career_db.companies,name'],
-            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.companies,slug'],
+            'name'            => ['required', 'string', 'max:255', 'unique:'.Company::class],
+            'slug'            => ['required', 'string', 'max:255', 'unique:'.Company::class],
             'postings_url'    => ['string', 'max:255', 'nullable'],
             'local'           => ['integer', 'between:0,1'],
             'regional'        => ['integer', 'between:0,1'],
@@ -71,11 +65,31 @@ class StoreRecruitersRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
             'state_id.exists'   => 'The specified state does not exist.',
             'country_id.exists' => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'career_db.recruiters')
+            ]);
+        }
     }
 }

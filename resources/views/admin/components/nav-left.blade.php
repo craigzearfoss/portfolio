@@ -18,8 +18,6 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
 
-                /
-
                 @include('admin.components.link', [
                     'name'  => 'Admin',
                     'href'  => route('admin.index'),

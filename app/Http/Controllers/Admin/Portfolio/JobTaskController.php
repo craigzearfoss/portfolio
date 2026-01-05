@@ -60,12 +60,12 @@ class JobTaskController extends BaseAdminController
     /**
      * Store a newly created job task in storage.
      *
-     * @param StoreJobTasksRequest $updateJobTaskStoreRequest
+     * @param StoreJobTasksRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreJobTasksRequest $updateJobTaskStoreRequest): RedirectResponse
+    public function store(StoreJobTasksRequest $request): RedirectResponse
     {
-        $jobTask = JobTask::create($updateJobTaskStoreRequest->validated());
+        $jobTask = JobTask::create($request->validated());
 
         return redirect()->route('admin.portfolio.job-task.show', $jobTask)
             ->with('success', 'Job task successfully added.');
@@ -99,15 +99,15 @@ class JobTaskController extends BaseAdminController
     /**
      * Update the specified job task in storage.
      *
-     * @param UpdateJobTasksRequest $updateJobTasksRequest
+     * @param UpdateJobTasksRequest $request
      * @param JobTask $jobTask
      * @return RedirectResponse
      */
-    public function update(UpdateJobTasksRequest $updateJobTasksRequest, JobTask $jobTask): RedirectResponse
+    public function update(UpdateJobTasksRequest $request, JobTask $jobTask): RedirectResponse
     {
         Gate::authorize('update-resource', $jobTask);
 
-        $jobTask->update($updateJobTasksRequest->validated());
+        $jobTask->update($request->validated());
 
         return redirect()->route('admin.portfolio.job-task.show', $jobTask)
             ->with('success', 'Job task successfully updated.');

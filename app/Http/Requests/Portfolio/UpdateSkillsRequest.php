@@ -30,17 +30,6 @@ class UpdateSkillsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug(
-                    $this['name'] . (!empty($this['version']) ? '-' . $this['version'] : ''),
-                    'portfolio_db.skills',
-                    $this->owner_id
-                )
-            ]);
-        }
-
         return [
             'owner_id'                => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'                    => [
@@ -90,6 +79,11 @@ class UpdateSkillsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -98,5 +92,24 @@ class UpdateSkillsRequest extends FormRequest
             'category_id.filled' => 'Please select an category for the skill.',
             'category_id.exists' => 'The specified category does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug(
+                    $this['name'] . (!empty($this['version']) ? '-' . $this['version'] : ''),
+                    'portfolio_db.skills',
+                    $this->owner_id
+                )
+            ]);
+        }
     }
 }

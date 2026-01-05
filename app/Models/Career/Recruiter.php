@@ -75,7 +75,7 @@ class Recruiter extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the country that owns the recruiter.
+     * Get the system country that owns the recruiter.
      */
     public function country(): BelongsTo
     {
@@ -83,7 +83,7 @@ class Recruiter extends Model
     }
 
     /**
-     * Get the state that owns the recruiter.
+     * Get the system state that owns the recruiter.
      */
     public function state(): BelongsTo
     {

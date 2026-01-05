@@ -52,16 +52,16 @@ class FrameworkController extends BaseAdminController
     /**
      * Store a newly created framework in storage.
      *
-     * @param StoreFrameworksRequest $storeFrameworksRequest
+     * @param StoreFrameworksRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreFrameworksRequest $storeFrameworksRequest): RedirectResponse
+    public function store(StoreFrameworksRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add frameworks.');
         }
 
-        $framework = Framework::create($storeFrameworksRequest->validated());
+        $framework = Framework::create($request->validated());
 
         return redirect()->route('admin.dictionary.framework.show', $framework)
             ->with('success', $framework->name . ' successfully added.');
@@ -97,15 +97,15 @@ class FrameworkController extends BaseAdminController
     /**
      * Update the specified framework in storage.
      *
-     * @param UpdateFrameworksRequest $updateFrameworksRequest
+     * @param UpdateFrameworksRequest $request
      * @param Framework $framework
      * @return RedirectResponse
      */
-    public function update(UpdateFrameworksRequest $updateFrameworksRequest, Framework $framework): RedirectResponse
+    public function update(UpdateFrameworksRequest $request, Framework $framework): RedirectResponse
     {
         Gate::authorize('update-resource', $framework);
 
-        $framework->update($updateFrameworksRequest->validated());
+        $framework->update($request->validated());
 
         return redirect()->route('admin.dictionary.framework.show', $framework)
             ->with('success', $framework->name . ' successfully updated.');

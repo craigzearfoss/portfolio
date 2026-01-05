@@ -57,7 +57,7 @@ class ApplicationSkill extends Model
     }
 
     /**
-     * Get the owner of the application skill.
+     * Get the system owner of the application skill.
      */
     public function owner(): BelongsTo
     {
@@ -65,7 +65,7 @@ class ApplicationSkill extends Model
     }
 
     /**
-     * Get the application of the application skill.
+     * Get the career application of the application skill.
      */
     public function application(): BelongsTo
     {

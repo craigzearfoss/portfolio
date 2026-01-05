@@ -50,16 +50,16 @@ class IndustryController extends BaseAdminController
     /**
      * Store a newly created industry in storage.
      *
-     * @param StoreIndustriesRequest $storeIndustriesRequest
+     * @param StoreIndustriesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreIndustriesRequest $storeIndustriesRequest): RedirectResponse
+    public function store(StoreIndustriesRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add industries.');
         }
 
-        $industry = Industry::create($storeIndustriesRequest->validated());
+        $industry = Industry::create($request->validated());
 
         return redirect()->route('admin.career.industry.show', $industry)
             ->with('success', $industry->name . ' successfully added.');
@@ -96,11 +96,11 @@ class IndustryController extends BaseAdminController
     /**
      * Update the specified industry in storage.
      *
-     * @param UpdateIndustriesRequest $updateIndustriesRequest
+     * @param UpdateIndustriesRequest $request
      * @param Industry $industry
      * @return RedirectResponse
      */
-    public function update(UpdateIndustriesRequest $updateIndustriesRequest, Industry $industry): RedirectResponse
+    public function update(UpdateIndustriesRequest $request, Industry $industry): RedirectResponse
     {
         Gate::authorize('update-resource', $industry);
 
@@ -108,7 +108,7 @@ class IndustryController extends BaseAdminController
             abort(403, 'Only admins with root access can update industries.');
         }
 
-        $industry->update($updateIndustriesRequest->validated());
+        $industry->update($request->validated());
 
         return redirect()->route('admin.career.industry.show', $industry)
             ->with('success', $industry->name . ' successfully updated.');

@@ -48,18 +48,18 @@ class Academy extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the certificates for the academy.
+     * Get the portfolio certificates for the academy.
      */
     public function certificates(): HasMany
     {
-        return $this->hasMany(Certificate::class);
+        return $this->hasMany(Certificate::class, 'academy_id');
     }
 
     /**
-     * Get the courses for the academy.
+     * Get the portfolio courses for the academy.
      */
     public function courses(): HasMany
     {
-        return $this->hasMany(Course::class);
+        return $this->hasMany(Course::class, 'academy_id');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Portfolio\Music;
+use App\Models\Portfolio\Video;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,9 +21,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('music', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->constrained('music', 'id')
+                ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('artist')->nullable()->index('artist_idx');
             $table->string('slug');

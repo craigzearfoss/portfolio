@@ -15,17 +15,18 @@ use App\Models\Career\Reference;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
+use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\MenuItem;
 use App\Models\System\Resource;
-use App\Models\System\AdminResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class RickyRicardo extends Command
 {
-    const DATABASE = 'career';
+    const DB_TAG = 'career_db';
 
     const USERNAME = 'ricky-ricardo';
 
@@ -58,9 +59,12 @@ class RickyRicardo extends Command
      */
     public function handle()
     {
+        $this->demo   = $this->option('demo');
+        $this->silent = $this->option('silent');
+
         // get the database id
-        if (!$database = Database::where('name', self::DATABASE)->first()) {
-            echo PHP_EOL . 'Database `' .self::DATABASE . '` not found.' . PHP_EOL . PHP_EOL;
+        if (!$database = Database::where('tag', self::DB_TAG)->first()) {
+            echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
         $this->databaseId = $database->id;
@@ -74,11 +78,13 @@ class RickyRicardo extends Command
 
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
-            echo  'demo: ' . $this->demo . PHP_EOL;
+            echo 'demo: ' . $this->demo . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         // career
+        $this->insertSystemAdminDatabaseRows();
+        $this->insertSystemAdminResourceRows();
         $this->insertCareerCompanies();
         $this->insertCareerContacts();
         $this->insertCareerReferences();
@@ -201,9 +207,9 @@ class RickyRicardo extends Command
 
         $data = [];
         for ($i=1; $i<=count($this->contactId); $i++) {
-            //@TODO: NEED TO FIGURE THIS OUT
             /*
             $data[] = [
+                'admin_id'   => $this->>adminId,
                 'contact_id' => $this->contactId[$i],
                 'company_id' => $this->companyId[random_int(1, count($this->companyId))],
                 'active'     => 1,
@@ -444,6 +450,94 @@ class RickyRicardo extends Command
     }
 
     /**
+     * Get a database.
+     *
+     * @return mixed
+     */
+    protected function getDatabase()
+    {
+        return Database::where('tag', self::DB_TAG)->first();
+    }
+
+    /**
+     * Get a database's resources.
+     *
+     * @return mixed
+     */
+    protected function getDbResources()
+    {
+        if (!$database = $this->getDatabase()) {
+            return [];
+        } else {
+            return Resource::where('database_id', $database->id)->get();
+        }
+    }
+
+    /**
+     * Insert system database entries into the admin_database table.
+     *
+     * @return void
+     * @throws \Exception
+     */
+    protected function insertSystemAdminDatabaseRows(): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
+
+        if (!$database = $this->getDatabase()) {
+            throw new \Exception('`system` database not found.');
+        }
+
+        $data = [];
+
+        $data[] = [
+            'admin_id'    => $this->adminId,
+            'database_id' => $database->id,
+            'menu'        => $database->menu,
+            'menu_level'  => $database->menu_level,
+            'public'      => $database->public,
+            'readonly'    => $database->readonly,
+            'disabled'    => $database->disabled,
+            'sequence'    => $database->sequence,
+            'created_at'  => now(),
+            'updated_at'  => now(),
+        ];
+
+        AdminDatabase::insert($data);
+    }
+
+    /**
+     * Insert system database resource entries into the admin_resource table.
+     *
+     * @return void
+     */
+    protected function insertSystemAdminResourceRows(): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminResource ...\n";
+
+        if ($resources = $this->getDbResources()) {
+
+            $data = [];
+
+            foreach ($resources as $resource) {
+                $data[] = [
+                    'admin_id'    => $this->adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $resource->public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
+            }
+
+            AdminResource::insert($data);
+        }
+    }
+
+    /**
      * Attach a resource to the admin.
      *
      * @param string $resourceName
@@ -454,11 +548,28 @@ class RickyRicardo extends Command
     {
         if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
 
-            AdminResource::insert([
-                'admin_id'    => $this->adminId,
-                'resource_id' => $resource->id,
-                'public'      => $public,
-            ]);
+            if ($adminResource = AdminResource::where('admin_id', $this->adminId)
+                ->where('resource_id', $resource->id)->first()
+            ) {
+
+                $adminResource->public = $public;
+                $adminResource->save();
+
+            } else {
+
+                AdminResource::insert([
+                    'admin_id'    => $this->adminId,
+                    'resource_id' => $resource->id,
+                    'menu'        => $resource->menu,
+                    'menu_level'  => $resource->menu_level,
+                    'public'      => $public,
+                    'readonly'    => $resource->readonly,
+                    'disabled'    => $resource->disabled,
+                    'sequence'    => $resource->sequence,
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ]);
+            }
         }
     }
 }

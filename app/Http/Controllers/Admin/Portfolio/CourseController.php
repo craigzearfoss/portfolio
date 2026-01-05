@@ -47,12 +47,12 @@ class CourseController extends BaseAdminController
     /**
      * Store a newly created course in storage.
      *
-     * @param StoreCoursesRequest $storeCoursesRequest
+     * @param StoreCoursesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreCoursesRequest $storeCoursesRequest): RedirectResponse
+    public function store(StoreCoursesRequest $request): RedirectResponse
     {
-        $course = Course::create($storeCoursesRequest->validated());
+        $course = Course::create($request->validated());
 
         return redirect()->route('admin.portfolio.course.show', $course)
             ->with('success', $course-> name . ' successfully added.');
@@ -85,15 +85,15 @@ class CourseController extends BaseAdminController
     /**
      * Update the specified course in storage.
      *
-     * @param UpdateCoursesRequest $updateCourseUpdateRequest
+     * @param UpdateCoursesRequest $request
      * @param Course $course
      * @return RedirectResponse
      */
-    public function update(UpdateCoursesRequest $updateCourseUpdateRequest, Course $course): RedirectResponse
+    public function update(UpdateCoursesRequest $request, Course $course): RedirectResponse
     {
         Gate::authorize('update-resource', $course);
 
-        $course->update($updateCourseUpdateRequest->validated());
+        $course->update($request->validated());
 
         return redirect()->route('admin.portfolio.course.show', $course)
             ->with('success', $course->name . ' successfully updated.');

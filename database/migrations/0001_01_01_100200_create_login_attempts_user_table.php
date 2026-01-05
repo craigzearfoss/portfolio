@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('login_attempts_user', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('login_attempts_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('username', 200)->nullable();

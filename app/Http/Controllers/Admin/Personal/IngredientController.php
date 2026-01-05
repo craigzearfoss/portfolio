@@ -50,16 +50,16 @@ class IngredientController extends BaseAdminController
     /**
      * Store a newly created ingredient in storage.
      *
-     * @param StoreIngredientsRequest $storeIngredientsRequest
+     * @param StoreIngredientsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreIngredientsRequest $storeIngredientsRequest): RedirectResponse
+    public function store(StoreIngredientsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add ingredients.');
         }
 
-        $ingredient = Ingredient::create($storeIngredientsRequest->validated());
+        $ingredient = Ingredient::create($request->validated());
 
         return redirect()->route('admin.personal.ingredient.show', $ingredient)
             ->with('success', $ingredient->name . ' successfully added.');
@@ -92,15 +92,15 @@ class IngredientController extends BaseAdminController
     /**
      * Update the specified ingredient in storage.
      *
-     * @param UpdateIngredientsRequest $updateIngredientsRequest
+     * @param UpdateIngredientsRequest $request
      * @param Ingredient $ingredient
      * @return RedirectResponse
      */
-    public function update(UpdateIngredientsRequest $updateIngredientsRequest, Ingredient $ingredient): RedirectResponse
+    public function update(UpdateIngredientsRequest $request, Ingredient $ingredient): RedirectResponse
     {
         Gate::authorize('update-resource', $ingredient);
 
-        $ingredient->update($updateIngredientsRequest->validated());
+        $ingredient->update($request->validated());
 
         return redirect()->route('admin.personal.ingredient.show', $ingredient)
             ->with('success', $ingredient->name . ' successfully updated.');

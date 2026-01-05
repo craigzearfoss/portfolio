@@ -32,6 +32,8 @@ class DatabaseStack extends Pivot
     protected $touches = ['stacks', 'databases'];
 
     /**
+     * Get the dictionary stack that owns the database stack.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function stack()
@@ -40,6 +42,8 @@ class DatabaseStack extends Pivot
     }
 
     /**
+     * Get the dictionary database that owns the database stack.
+     * *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function database()

@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Career\Application;
+use App\Models\Career\Note;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,9 +22,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('notes', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignId('application_id', \App\Models\Career\Application::class);
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('application_id')
+                ->constrained('applications', 'id')
+                ->onDelete('cascade');
             $table->string('subject')->index('subject_idx');
             $table->text('body')->nullable();
             $table->boolean('public')->default(false);

@@ -31,11 +31,11 @@ class JobDurationType extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the applications for the job schedule.
+     * Get the career applications for the job duration type.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'job_employment_type_id')
+        return $this->hasMany(Application::class, 'job_duration_type_id')
             ->orderBy('post_date', 'desc');
     }
 }

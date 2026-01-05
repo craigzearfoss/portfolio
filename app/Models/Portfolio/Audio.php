@@ -83,7 +83,7 @@ class Audio extends Model
     }
 
     /**
-     * Get the owner of the audio.
+     * Get the system owner of the audio.
      */
     public function owner(): BelongsTo
     {
@@ -91,7 +91,7 @@ class Audio extends Model
     }
 
     /**
-     * Get the parent of the audio.
+     * Get the parent of the portfolio audio.
      */
     public function parent(): BelongsTo
     {
@@ -99,7 +99,7 @@ class Audio extends Model
     }
 
     /**
-     * Get the children of the audio.
+     * Get the children of the portfolio audio.
      */
     public function children(): HasMany
     {

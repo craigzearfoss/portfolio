@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Dictionary\Category;
+use App\Models\Portfolio\Job;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +17,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('job_skills', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+            $dictionaryDbName = Schema::connection('dictionary_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor( \App\Models\System\Owner::class);
-            $table->foreignIdFor( \App\Models\Portfolio\Job::class)->nullable();
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('job_id')
+                ->constrained('jobs', 'id')
+                ->onDelete('cascade');
             $table->string('name', 100)->index('name_idx');
             $table->boolean('type')->default(true);
-            $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
+            $table->foreignId('dictionary_category_id')
+                ->nullable()
+                ->constrained($dictionaryDbName . '.categories', 'id')
+                ->onDelete('cascade');
             $table->integer('dictionary_term_id')->nullable();
             $table->string('summary', 500)->nullable();
             $table->text('notes')->nullable();

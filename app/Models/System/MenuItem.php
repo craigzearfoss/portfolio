@@ -32,7 +32,7 @@ class MenuItem extends Model
         'guest',
         'user',
         'admin',
-        'level',
+        'menu_level',
         'public',
         'readonly',
         'root',
@@ -45,7 +45,7 @@ class MenuItem extends Model
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'parent_id', 'database_id', 'resource_id', 'name', 'icon', 'route', 'guest', 'user',
-        'admin', 'level', 'sequence', 'public', 'readonly', 'root', 'disabled', 'demo'];
+        'admin', 'menu_level', 'sequence', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
@@ -57,7 +57,7 @@ class MenuItem extends Model
     }
 
     /**
-     * Get the database of the menu item.
+     * Get the system database of the menu item.
      */
     public function database(): BelongsTo
     {
@@ -65,7 +65,7 @@ class MenuItem extends Model
     }
 
     /**
-     * Get the database of the menu item.
+     * Get the system database of the menu item.
      */
     public function resource(): BelongsTo
     {
@@ -77,7 +77,7 @@ class MenuItem extends Model
         self::where('admin', 1)
             ->orderBy('sequence', 'asc')
             //->orderBy('parent_id', 'asc')
-            ->orderBy('level', 'asc')
+            ->orderBy('menu_level', 'asc')
             ->get();
     }
 */

@@ -47,12 +47,12 @@ class PublicationController extends BaseAdminController
     /**
      * Store a newly created publication in storage.
      *
-     * @param StorePublicationsRequest $storePublicationsRequest
+     * @param StorePublicationsRequest $request
      * @return RedirectResponse
      */
-    public function store(StorePublicationsRequest $storePublicationsRequest): RedirectResponse
+    public function store(StorePublicationsRequest $request): RedirectResponse
     {
-        $publication = Publication::create($storePublicationsRequest->validated());
+        $publication = Publication::create($request->validated());
 
         return redirect()->route('admin.portfolio.publication.show', $publication)
             ->with('success', $publication->title . ' successfully added.');
@@ -85,15 +85,15 @@ class PublicationController extends BaseAdminController
     /**
      * Update the specified publication in storage.
      *
-     * @param UpdatePublicationsRequest $updatePublicationsRequest
+     * @param UpdatePublicationsRequest $request
      * @param Publication $publication
      * @return RedirectResponse
      */
-    public function update(UpdatePublicationsRequest $updatePublicationsRequest, Publication $publication): RedirectResponse
+    public function update(UpdatePublicationsRequest $request, Publication $publication): RedirectResponse
     {
         Gate::authorize('update-resource', $publication);
 
-        $publication->update($updatePublicationsRequest->validated());
+        $publication->update($request->validated());
 
         return redirect()->route('admin.portfolio.publication.show', $publication)
             ->with('success', $publication->title . ' successfully updated.');

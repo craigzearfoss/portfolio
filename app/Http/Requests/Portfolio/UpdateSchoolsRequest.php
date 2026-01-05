@@ -27,13 +27,6 @@ class UpdateSchoolsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.schools')
-            ]);
-        }
-
         return [
             'name'         => ['filled', 'string', 'max:255', 'unique:portfolio_db.schools,name,'.$this->school->id],
             'slug'         => ['filled', 'string', 'max:255', 'unique:portfolio_db.schools,slug,'.$this->school->id],
@@ -66,6 +59,11 @@ class UpdateSchoolsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -74,5 +72,20 @@ class UpdateSchoolsRequest extends FormRequest
             'state_id.exists'       => 'The specified state does not exist.',
             'country_id.exists'     => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.schools')
+            ]);
+        }
     }
 }

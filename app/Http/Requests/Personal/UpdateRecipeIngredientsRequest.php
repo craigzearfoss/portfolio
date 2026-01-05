@@ -57,6 +57,11 @@ class UpdateRecipeIngredientsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [

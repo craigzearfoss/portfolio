@@ -49,16 +49,16 @@ class UnitController extends BaseAdminController
     /**
      * Store a newly created unit in storage.
      *
-     * @param StoreUnitsRequest $storeUnitsRequest
+     * @param StoreUnitsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreUnitsRequest $storeUnitsRequest): RedirectResponse
+    public function store(StoreUnitsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add units.');
         }
 
-        $unit = Unit::create($storeUnitsRequest->validated());
+        $unit = Unit::create($request->validated());
 
         return redirect()->route('admin.personal.unit.show', $unit->id)
             ->with('success', $unit->name . $unit->name . ' successfully added.');
@@ -91,15 +91,15 @@ class UnitController extends BaseAdminController
     /**
      * Update the specified unit in storage.
      *
-     * @param UpdateUnitsRequest $updateUnitsRequest
+     * @param UpdateUnitsRequest $request
      * @param Unit $unit
      * @return RedirectResponse
      */
-    public function update(UpdateUnitsRequest $updateUnitsRequest, Unit $unit): RedirectResponse
+    public function update(UpdateUnitsRequest $request, Unit $unit): RedirectResponse
     {
         Gate::authorize('update-resource', $unit);
 
-        $unit->update($updateUnitsRequest->validated());
+        $unit->update($request->validated());
 
         return redirect()->route('admin.personal.unit.show', $unit)
             ->with('success', $unit->name . ' successfully updated.');

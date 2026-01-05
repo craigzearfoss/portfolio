@@ -83,7 +83,7 @@ class Video extends Model
     }
 
     /**
-     * Get the owner of the video.
+     * Get the system owner of the video.
      */
     public function owner(): BelongsTo
     {
@@ -91,7 +91,7 @@ class Video extends Model
     }
 
     /**
-     * Get the parent of the video.
+     * Get the parent of the portfolio video.
      */
     public function parent(): BelongsTo
     {
@@ -99,7 +99,7 @@ class Video extends Model
     }
 
     /**
-     * Get the children of the video.
+     * Get the children of the portfolio video.
      */
     public function children(): HasMany
     {

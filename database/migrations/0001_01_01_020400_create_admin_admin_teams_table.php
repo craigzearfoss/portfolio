@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\System\Admin;
 use App\Models\System\AdminAdminTeam;
+use App\Models\System\AdminTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,12 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admin_admin_team', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\System\Admin::class);
-            $table->foreignIdFor( \App\Models\System\AdminTeam::class);
+            $table->foreignId('admin_id')
+                ->constrained('admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('admin_team_id')
+                ->constrained('admin_teams', 'id')
+                ->onDelete('cascade');
         });
 
         $data = [

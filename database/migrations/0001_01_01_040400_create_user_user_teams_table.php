@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\System\User;
+use App\Models\System\UserTeam;
 use App\Models\System\UserUserTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,8 +18,12 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('user_user_teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\System\User::class);
-            $table->foreignIdFor( \App\Models\System\UserTeam::class);
+            $table->foreignId('user_id')
+                ->constrained('users', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('user_team_id')
+                ->constrained('user_teams', 'id')
+                ->onDelete('cascade');
         });
 
         $data = [

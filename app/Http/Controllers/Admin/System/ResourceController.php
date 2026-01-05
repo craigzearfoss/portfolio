@@ -46,16 +46,16 @@ class ResourceController extends BaseAdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreResourcesRequest $storeResourcesRequest
+     * @param StoreResourcesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreResourcesRequest $storeResourcesRequest): RedirectResponse
+    public function store(StoreResourcesRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only root admins can add new resources.');
         }
 
-        $resource = Resource::create($storeResourcesRequest->validated());
+        $resource = Resource::create($request->validated());
 
         return redirect()->route('admin.system.resource.show', $resource)
             ->with('success', $resource->name . ' resource successfully added.');
@@ -88,15 +88,15 @@ class ResourceController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateResourcesRequest $updateResourcesRequest
+     * @param UpdateResourcesRequest $request
      * @param Resource $resource
      * @return RedirectResponse
      */
-    public function update(UpdateResourcesRequest $updateResourcesRequest, Resource $resource): RedirectResponse
+    public function update(UpdateResourcesRequest $request, Resource $resource): RedirectResponse
     {
         Gate::authorize('update-resource', $resource);
 
-        $resource->update($updateResourcesRequest->validated());
+        $resource->update($request->validated());
 
         return redirect()->route('admin.system.resource.show', $resource)
             ->with('success', $resource->name . ' resource successfully updated.');

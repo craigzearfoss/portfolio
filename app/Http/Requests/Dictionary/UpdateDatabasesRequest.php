@@ -26,13 +26,6 @@ class UpdateDatabasesRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $this->owner_id)
-            ]);
-        }
-
         return [
             'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.databases,full_name,'.$this->database->id],
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.databases,name,'.$this->database->id],
@@ -57,5 +50,32 @@ class UpdateDatabasesRequest extends FormRequest
             'disabled'     => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $this->owner_id)
+            ]);
+        }
     }
 }

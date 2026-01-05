@@ -26,13 +26,6 @@ class UpdateJobBoardsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.job_boards')
-            ]);
-        }
-
         return [
             'name'          => ['filled','string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id],
             'slug'          => ['filled', 'string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->job_board->id],
@@ -55,5 +48,32 @@ class UpdateJobBoardsRequest extends FormRequest
             'demo'          => ['integer', 'between:0,1'],
             'sequence'      => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'career_db.job_boards')
+            ]);
+        }
     }
 }

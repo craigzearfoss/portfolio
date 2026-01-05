@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\SettingType;
+use Hamcrest\Core\Set;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSettingTypesRequest extends FormRequest
@@ -22,7 +24,7 @@ class StoreSettingTypesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:255', 'unique:system_db.setting_types,name'],
+            'name'        => ['required', 'string', 'max:255', 'unique:'.SettingType::class],
             'value'       => ['nullable'],
             'description' => ['nullable'],
         ];

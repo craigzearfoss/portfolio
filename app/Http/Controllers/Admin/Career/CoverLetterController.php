@@ -47,12 +47,12 @@ class CoverLetterController extends BaseAdminController
     /**
      * Store a newly created cover letter in storage.
      *
-     * @param StoreCoverLettersRequest $storeCoverLettersRequest
+     * @param StoreCoverLettersRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreCoverLettersRequest $storeCoverLettersRequest): RedirectResponse
+    public function store(StoreCoverLettersRequest $request): RedirectResponse
     {
-        $coverLetter = CoverLetter::create($storeCoverLettersRequest->validated());
+        $coverLetter = CoverLetter::create($request->validated());
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover Letter successfully added.');
@@ -85,16 +85,16 @@ class CoverLetterController extends BaseAdminController
     /**
      * Update the specified cover letter in storage.
      *
-     * @param UpdateCoverLettersRequest $updateCoverLettersRequest
+     * @param UpdateCoverLettersRequest $request
      * @param CoverLetter $coverLetter
      * @return RedirectResponse
      */
-    public function update(UpdateCoverLettersRequest $updateCoverLettersRequest,
+    public function update(UpdateCoverLettersRequest $request,
                            CoverLetter               $coverLetter): RedirectResponse
     {
         Gate::authorize('update-resource', $coverLetter);
 
-        $coverLetter->update($updateCoverLettersRequest->validated());
+        $coverLetter->update($request->validated());
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover letter successfully updated.');

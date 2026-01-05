@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Dictionary\Framework;
 use App\Models\Dictionary\FrameworkLanguage;
+use App\Models\Dictionary\Language;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,14 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('framework_language', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Dictionary\Framework::class);
-            $table->foreignIdFor( \App\Models\Dictionary\Language::class);
+            $table->foreignId('framework_id')
+                ->nullable()
+                ->constrained('frameworks', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('language_id')
+                ->nullable()
+                ->constrained('languages', 'id')
+                ->onDelete('cascade');
 
             $table->unique(['framework_id', 'language_id'], 'framework_language_unique');
         });

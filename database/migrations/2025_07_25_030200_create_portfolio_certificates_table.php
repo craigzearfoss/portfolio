@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Portfolio\Certificate;
+use App\Models\Portfolio\Academy;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,14 +21,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('certificates', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
             $table->string('organization')->nullable();
-            $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->default(1);
+            $table->foreignId('academy_id')
+                ->nullable()
+                ->constrained('academies', 'id')
+                ->onDelete('cascade');
             $table->integer('year')->nullable();
             $table->date('received')->nullable();
             $table->date('expiration')->nullable();

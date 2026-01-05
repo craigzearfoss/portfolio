@@ -52,16 +52,16 @@ class StackController extends BaseAdminController
     /**
      * Store a newly created stack in storage.
      *
-     * @param StoreStacksRequest $storeStacksRequest
+     * @param StoreStacksRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreStacksRequest $storeStacksRequest): RedirectResponse
+    public function store(StoreStacksRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add stacks.');
         }
 
-        $stack = Stack::create($storeStacksRequest->validated());
+        $stack = Stack::create($request->validated());
 
         return redirect()->route('admin.dictionary.stack.show', $stack)
             ->with('success', $stack->name . ' successfully added.');
@@ -94,15 +94,15 @@ class StackController extends BaseAdminController
     /**
      * Update the specified stack in storage.
      *
-     * @param UpdateStacksRequest $updateStacksRequest
+     * @param UpdateStacksRequest $request
      * @param Stack $stack
      * @return RedirectResponse
      */
-    public function update(UpdateStacksRequest $updateStacksRequest, Stack $stack): RedirectResponse
+    public function update(UpdateStacksRequest $request, Stack $stack): RedirectResponse
     {
         Gate::authorize('update-resource', $stack);
 
-        $stack->update($updateStacksRequest->validated());
+        $stack->update($request->validated());
 
         return redirect()->route('admin.dictionary.stack.show', $stack)
             ->with('success', $stack->name . ' successfully updated.');

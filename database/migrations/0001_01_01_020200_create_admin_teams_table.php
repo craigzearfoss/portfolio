@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\System\Admin;
 use App\Models\System\AdminTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,6 +18,9 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admin_teams', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('owner_id')
+                ->constrained('admins', 'id')
+                ->onDelete('cascade');
             $table->string('name', 100)->index('name_idx');
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
@@ -40,12 +44,14 @@ return new class extends Migration
         $data = [
             [
                 'id'           => 1,
+                'owner_id'     => 2,
                 'name'         => 'Default Admin Team',
                 'slug'         => 'default-admin-team',
                 'abbreviation' => 'DAT',
             ],
             [
                 'id'           => 2,
+                'owner_id'     => 3,
                 'name'         => 'Demo Admin Team',
                 'slug'         => 'demo-admin-team',
                 'abbreviation' => 'DEAT',
@@ -60,16 +66,19 @@ return new class extends Migration
 
         AdminTeam::insert($data);
 
-        /*
-        // Add admin_team_id column to the admins table.
+        // add admin_team_id column to the system.admins table
         Schema::connection($this->database_tag)->table('admins', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\System\AdminTeam::class)->after('id')->nullable();
+            $table->foreignId('admin_team_id')
+                ->nullable()
+                ->constrained('admin_teams', 'id')
+                ->onDelete('cascade')
+                ->after('id');
         });
 
-        // Set value for the admin.admin_team_id column.
-        $dbName = config('app.' . $this->database_tag);
-        DB::update("UPDATE `{$dbName}`.`admins` SET `admin_team_id` = ?", [1]);
-        */
+        // add admin_team_id values admins
+        Admin::where('username', 'root')->update(['admin_team_id' => 1]);
+        Admin::where('username', 'default')->update(['admin_team_id' => 2]);
+        Admin::where('username', 'demo')->update(['admin_team_id' => 2]);
     }
 
     /**
@@ -77,6 +86,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::connection($this->database_tag)->table('admins', function (Blueprint $table) {
+            $table->dropForeign(['admin_team_id']); // Drops the foreign key constraint
+        });
+
         Schema::connection($this->database_tag)->dropIfExists('admin_teams');
     }
 };

@@ -20,16 +20,25 @@ return new class extends Migration
 
         Schema::connection($this->database_tag)->create('menu_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\System\MenuItem::class, 'parent_id')->nullable();
-            $table->foreignIdFor(\App\Models\System\Database::class, 'database_id')->nullable();
-            $table->foreignIdFor(\App\Models\System\Resource::class, 'resource_id')->nullable();
+            $table->foreignId( 'parent_id')
+                ->nullable()
+                ->constrained('menu_items', 'id')
+                ->onDelete('cascade');
+            $table->foreignId( 'database_id')
+                ->nullable()
+                ->constrained('databases', 'id')
+                ->onDelete('cascade');
+            $table->foreignId( 'resource_id')
+                ->nullable()
+                ->constrained('resources', 'id')
+                ->onDelete('cascade');
             $table->string('name');
             $table->string('icon', 50)->nullable();
             $table->string('route')->nullable();
             $table->boolean('guest')->default(false);
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);
-            $table->integer('level')->default(0);
+            $table->integer('menu_level')->default(0);
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(true);
@@ -56,41 +65,11 @@ return new class extends Migration
                     'name'        => 'System',
                     'icon'        => 'fa-folder',
                     'route'       => 'admin.system.index',
-                    'level'       => 1,
+                    'menu_level'  => 1,
                     'sequence'    => $database->sequence,
-                    'guest'       => 0,
-                    'user'        => 0,
-                    'admin'       => 1,
-                    'created_at'  => now(),
-                    'updated_at'  => now(),
-                ],
-                [
-                    'parent_id'   => null,
-                    'database_id' => $database->id,
-                    'resource_id' => null,
-                    'name'        => 'System',
-                    'icon'        => 'fa-folder',
-                    'route'       => 'admin.system.index',
-                    'level'       => 1,
-                    'sequence'    => $database->sequence,
-                    'guest'       => 0,
-                    'user'        => 1,
-                    'admin'       => 0,
-                    'created_at'  => now(),
-                    'updated_at'  => now(),
-                ],
-                [
-                    'parent_id'   => null,
-                    'database_id' => $database->id,
-                    'resource_id' => null,
-                    'name'        => 'System',
-                    'icon'        => 'fa-folder',
-                    'route'       => 'admin.system.index',
                     'guest'       => 1,
-                    'user'        => 0,
-                    'admin'       => 0,
-                    'level'       => 1,
-                    'sequence'    => $database->sequence,
+                    'user'        => 1,
+                    'admin'       => 1,
                     'created_at'  => now(),
                     'updated_at'  => now(),
                 ],
@@ -127,7 +106,7 @@ return new class extends Migration
                         'guest'       => $dbMenuItem->guest,
                         'user'        => $dbMenuItem->user,
                         'admin'       => $dbMenuItem->admin,
-                        'level'       => $resource->level,
+                        'menu_level'       => $resource->menu_level,
                         'sequence'    => $resource->sequence,
                         'created_at'  => now(),
                         'updated_at'  => now(),

@@ -30,13 +30,6 @@ class UpdateCoursesRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.courses', $this->owner_id)
-            ]);
-        }
-
         return [
             'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
@@ -88,6 +81,11 @@ class UpdateCoursesRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -96,5 +94,20 @@ class UpdateCoursesRequest extends FormRequest
             'academy_id.filled' => 'Please select an academy for the course.',
             'academy_id.exists' => 'The specified academy does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.courses', $this->owner_id)
+            ]);
+        }
     }
 }

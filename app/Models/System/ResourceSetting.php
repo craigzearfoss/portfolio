@@ -36,7 +36,7 @@ class ResourceSetting extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the resource of the resource setting.
+     * Get the system resource of the resource setting.
      */
     public function resource(): BelongsTo
     {
@@ -44,7 +44,7 @@ class ResourceSetting extends Model
     }
 
     /**
-     * Get the type of the resource setting.
+     * Get the system setting type that owns the resource setting.
      */
     public function type(): BelongsTo
     {

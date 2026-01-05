@@ -52,16 +52,16 @@ class OperatingSystemController extends BaseAdminController
     /**
      * Store a newly created operating system in storage.
      *
-     * @param StoreOperatingSystemsRequest $storeOperatingSystemsRequest
+     * @param StoreOperatingSystemsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreOperatingSystemsRequest $storeOperatingSystemsRequest): RedirectResponse
+    public function store(StoreOperatingSystemsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add operating systems.');
         }
 
-        $operatingSystem = OperatingSystem::create($storeOperatingSystemsRequest->validated());
+        $operatingSystem = OperatingSystem::create($request->validated());
 
         return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
             ->with('success', $operatingSystem->name . ' successfully added.');
@@ -94,16 +94,16 @@ class OperatingSystemController extends BaseAdminController
     /**
      * Update the specified operating system in storage.
      *
-     * @param UpdateOperatingSystemsRequest $updateOperatingSystemsRequest
+     * @param UpdateOperatingSystemsRequest $request
      * @param OperatingSystem $operatingSystem
      * @return RedirectResponse
      */
-    public function update(UpdateOperatingSystemsRequest $updateOperatingSystemsRequest,
+    public function update(UpdateOperatingSystemsRequest $request,
                            OperatingSystem               $operatingSystem): RedirectResponse
     {
         Gate::authorize('update-resource', $operatingSystem);
 
-        $operatingSystem->update($updateOperatingSystemsRequest->validated());
+        $operatingSystem->update($request->validated());
 
         return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
             ->with('success', $operatingSystem->name . ' successfully updated.');

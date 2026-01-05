@@ -41,14 +41,14 @@ class ProfileController extends BaseUserController
     /**
      * Update the current user in storage.
      *
-     * @param UpdateUsersRequest $updateUsersRequest
+     * @param UpdateUsersRequest $request
      * @return RedirectResponse
      */
-    public function update(UpdateUsersRequest $updateUsersRequest): RedirectResponse
+    public function update(UpdateUsersRequest $request): RedirectResponse
     {
         $user = Auth::guard('user')->user();
 
-        $user->update($updateUsersRequest->validated());
+        $user->update($request->validated());
 
         return redirect()->route('user.show', $user)
             ->with('success', 'Profile successfully updated.');

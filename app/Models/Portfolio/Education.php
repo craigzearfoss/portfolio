@@ -70,7 +70,7 @@ class Education extends Model
     }
 
     /**
-     * Get the degree type of the education.
+     * Get the portfolio degree type that owne the education.
      */
     public function degreeType(): BelongsTo
     {
@@ -78,7 +78,7 @@ class Education extends Model
     }
 
     /**
-     * Get the owner of the education.
+     * Get the system owner of the education.
      */
     public function owner(): BelongsTo
     {
@@ -86,7 +86,7 @@ class Education extends Model
     }
 
     /**
-     * Get the school that owns the education.
+     * Get the portfolio school that owns the education.
      */
     public function school(): BelongsTo
     {

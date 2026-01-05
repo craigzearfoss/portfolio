@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Portfolio\Audio;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,11 +21,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::connection($this->database_tag)->create('audios', function (Blueprint $table) {
+
+            $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
+                ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
-            $table->foreignIdFor(\App\Models\Portfolio\Audio::class, 'parent_id')->nullable();
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->constrained('audios', 'id')
+                ->onDelete('cascade');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
             $table->boolean('full_episode')->default(false);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Portfolio\Certification;
+use App\Models\Portfolio\CertificationType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,7 +25,9 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('abbreviation', 50)->nullable();
-            $table->foreignIdFor(\App\Models\Portfolio\CertificationType::class, 'certification_type_id');
+            $table->foreignId('certification_type_id')
+                ->constrained('certification_types', 'id')
+                ->onDelete('cascade');
             $table->string('organization')->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

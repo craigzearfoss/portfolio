@@ -31,13 +31,6 @@ class UpdateReferencesRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.references', $this->owner_id)
-            ]);
-        }
-
         return [
             'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
@@ -103,6 +96,11 @@ class UpdateReferencesRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -111,5 +109,20 @@ class UpdateReferencesRequest extends FormRequest
             'state_id.exists'   => 'The specified state does not exist.',
             'country_id.exists' => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'career_db.references', $this->owner_id)
+            ]);
+        }
     }
 }

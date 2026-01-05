@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Dictionary\Library;
+use App\Models\Dictionary\Stack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,14 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('library_stack', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Dictionary\Library::class);
-            $table->foreignIdFor( \App\Models\Dictionary\Stack::class);
+            $table->foreignId('library_id')
+                ->nullable()
+                ->constrained('libraries', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('stack_id')
+                ->nullable()
+                ->constrained('stacks', 'id')
+                ->onDelete('cascade');
 
             $table->unique(['library_id', 'stack_id'], 'library_stack_unique');
         });

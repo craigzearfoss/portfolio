@@ -63,7 +63,7 @@ class Category extends Model
     }
 
     /**
-     * Get the job skills for the category.
+     * Get the career job skills for the dictionary category.
      */
     public function jobSkills(): HasMany
     {
@@ -72,7 +72,7 @@ class Category extends Model
     }
 
     /**
-     * Get the skills for the category.
+     * Get the career skills for the dictionary category.
      */
     public function skills(): HasMany
     {

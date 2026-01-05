@@ -46,16 +46,16 @@ class RecruiterController extends BaseAdminController
     /**
      * Store a newly created recruiter in storage.
      *
-     * @param StoreRecruitersRequest $storeRecruitersRequest
+     * @param StoreRecruitersRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreRecruitersRequest $storeRecruitersRequest): RedirectResponse
+    public function store(StoreRecruitersRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add recruiters.');
         }
 
-        $recruiter = Recruiter::create($storeRecruitersRequest->validated());
+        $recruiter = Recruiter::create($request->validated());
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
             ->with('success', $recruiter->name . ' successfully added.');
@@ -88,15 +88,15 @@ class RecruiterController extends BaseAdminController
     /**
      * Update the specified recruiter in storage.
      *
-     * @param UpdateRecruitersRequest $updateRecruitersRequest
+     * @param UpdateRecruitersRequest $request
      * @param Recruiter $recruiter
      * @return RedirectResponse
      */
-    public function update(UpdateRecruitersRequest $updateRecruitersRequest, Recruiter $recruiter): RedirectResponse
+    public function update(UpdateRecruitersRequest $request, Recruiter $recruiter): RedirectResponse
     {
         Gate::authorize('update-resource', $recruiter);
 
-        $recruiter->update($updateRecruitersRequest->validated());
+        $recruiter->update($request->validated());
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
             ->with('success', $recruiter->name . ' successfully updated.');

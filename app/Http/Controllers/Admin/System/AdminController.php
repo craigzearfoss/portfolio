@@ -51,22 +51,22 @@ class AdminController extends BaseAdminController
     /**
      * Store a newly created admin in storage.
      *
-     * @param StoreAdminsRequest $storeAdminsRequest
+     * @param StoreAdminsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreAdminsRequest $storeAdminsRequest): RedirectResponse
+    public function store(StoreAdminsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only root admins can create new admins.');
         }
 
-        $storeAdminsRequest->validate($storeAdminsRequest->rules());
+        $request->validate($request->rules());
 
         $admin = new Admin();
-        $admin->username = $storeAdminsRequest->username;
-        $admin->email = $storeAdminsRequest->email;
-        $admin->password = Hash::make($storeAdminsRequest->password);
-        $admin->disabled = $storeAdminsRequest->disabled;
+        $admin->username = $request->username;
+        $admin->email    = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->disabled = $request->disabled;
 
         $admin->save();
 
@@ -101,15 +101,15 @@ class AdminController extends BaseAdminController
     /**
      * Update the specified admin in storage.
      *
-     * @param UpdateAdminsRequest $updateAdminsRequest
+     * @param UpdateAdminsRequest $request
      * @param Admin $admin
      * @return RedirectResponse
      */
-    public function update(UpdateAdminsRequest $updateAdminsRequest, Admin $admin): RedirectResponse
+    public function update(UpdateAdminsRequest $request, Admin $admin): RedirectResponse
     {
         Gate::authorize('update-resource', $admin);
 
-        $admin->update($updateAdminsRequest->validated());
+        $admin->update($request->validated());
 
         return redirect()->route('admin.system.admin.show', $admin)
             ->with('success', $admin->username . ' successfully updated.');

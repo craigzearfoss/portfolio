@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\System\AdminGroupController as AdminSystemAdminGr
 use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTeamController;
 use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
 use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexController;
+use App\Http\Controllers\Admin\System\LogsController as AdminSystemLogsController;
 use App\Http\Controllers\Admin\System\MenuItemController as AdminSystemAdminMenuItemController;
 use App\Http\Controllers\Admin\System\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\System\ResourceController as AdminSystemResourceController;
@@ -106,6 +107,8 @@ Route::prefix('admin/system')->middleware('admin')->name('admin.system.')->group
     Route::resource('admin', AdminSystemAdminController::class);
     Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
     Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
+
+    Route::resource('logs', AdminSystemLogsController::class);
 
     Route::resource('user', AdminSystemUserController::class);
     Route::get('/user/{user}/change-password', [AdminSystemUserController::class, 'change_password'])->name('user.change-password');

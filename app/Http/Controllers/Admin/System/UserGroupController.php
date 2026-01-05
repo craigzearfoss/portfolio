@@ -46,12 +46,12 @@ class UserGroupController extends BaseAdminController
     /**
      * Store a newly created user group in storage.
      *
-     * @param StoreUserGroupsRequest $storeUserGroupRequest
+     * @param StoreUserGroupsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreUserGroupsRequest $storeUserGroupRequest): RedirectResponse
+    public function store(StoreUserGroupsRequest $request): RedirectResponse
     {
-        $userGroup = UserGroup::create($storeUserGroupRequest->validated());
+        $userGroup = UserGroup::create($request->validated());
 
         return redirect()->route('admin.system.user-group.show', $userGroup)
             ->with('success', $userGroup->name . ' successfully added.');
@@ -84,15 +84,15 @@ class UserGroupController extends BaseAdminController
     /**
      * Update the specified user group in storage.
      *
-     * @param UpdateUserGroupsRequest $updateUserGroupRequest
+     * @param UpdateUserGroupsRequest $request
      * @param UserGroup $userGroup
      * @return RedirectResponse
      */
-    public function update(UpdateUserGroupsRequest $updateUserGroupRequest, UserGroup $userGroup): RedirectResponse
+    public function update(UpdateUserGroupsRequest $request, UserGroup $userGroup): RedirectResponse
     {
         Gate::authorize('update-resource', $userGroup);
 
-        $userGroup->update($updateUserGroupRequest->validated());
+        $userGroup->update($request->validated());
 
         return redirect()->route('admin.system.user-group.show', $userGroup)
             ->with('success', $userGroup->name . ' successfully updated.');

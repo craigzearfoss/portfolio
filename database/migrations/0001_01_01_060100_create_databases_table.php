@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\System\Database;
+use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -29,7 +30,9 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('databases', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignId('owner_id')
+                ->constrained('admins', 'id')
+                ->onDelete('cascade');
             $table->string('name', 50)->unique();
             $table->string('database', 50)->unique();
             $table->string('tag', 50)->unique();
@@ -39,6 +42,8 @@ return new class extends Migration
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);
             $table->boolean('global')->default(false);
+            $table->boolean('menu')->default(false);
+            $table->integer('menu_level')->default(1);
             $table->string('icon', 50)->nullable();
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
@@ -54,20 +59,22 @@ return new class extends Migration
          ** ----------------------------------------------------- */
         $data = [
             [
-                'id'       => 1,
-                'name'     => 'system',
-                'database' => config('app.' . $this->database_tag),
-                'tag'      => 'system_db',
-                'title'    => 'System',
-                'plural'   => 'Systems',
-                'icon'     => 'fa-cog',
-                'guest'    => 0,
-                'user'     => 0,
-                'admin'    => 1,
-                'global'   => 0,
-                'sequence' => 10000,
-                'public'   => 1,
-                'disabled' => 0,
+                'id'         => 1,
+                'name'       => 'system',
+                'database'   => config('app.' . $this->database_tag),
+                'tag'        => 'system_db',
+                'title'      => 'System',
+                'plural'     => 'Systems',
+                'guest'      => 0,
+                'user'       => 0,
+                'admin'      => 1,
+                'global'     => 0,
+                'menu'       => 1,
+                'menu_level' => 1,
+                'icon'       => 'fa-cog',
+                'public'     => 1,
+                'disabled'   => 0,
+                'sequence'   => 10000,
             ],
         ];
 

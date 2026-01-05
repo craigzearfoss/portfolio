@@ -43,6 +43,11 @@ class UpdateNotesRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -53,6 +58,11 @@ class UpdateNotesRequest extends FormRequest
         ];
     }
 
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
     public function prepareForValidation()
     {
         if (!empty($this->time)) {

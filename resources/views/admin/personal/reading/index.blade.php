@@ -127,11 +127,11 @@
                     <td data-field="title">
                         {{ $reading->title }}
                     </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
-                    </td>
                     <td data-field="author">
                         {{ $reading->author }}
+                    </td>
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
                     </td>
                     <td data-field="fiction|nonfiction">
                         {{

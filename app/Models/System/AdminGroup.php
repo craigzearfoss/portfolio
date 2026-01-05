@@ -54,7 +54,7 @@ class AdminGroup extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the owner of the admin group.
+     * Get the system owner of the admin group.
      */
     public function owner(): BelongsTo
     {
@@ -62,7 +62,7 @@ class AdminGroup extends Model
     }
 
     /**
-     * Get the admin team that owns the admin group.
+     * Get the system  admin team that owns the admin group.
      */
     public function team(): BelongsTo
     {

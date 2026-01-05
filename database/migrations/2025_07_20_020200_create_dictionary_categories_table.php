@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Dictionary\Category;
+use App\Models\System\Database;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use PSpell\Dictionary;
 
 return new class extends Migration
 {
@@ -41,6 +43,21 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        if ($systemDB = Database::where('tag', 'system_db')->first()) {
+
+            // add dictionary_category_id column to the system.tags table
+            Schema::connection($systemDB->tag)->table('tags', function (Blueprint $table) {
+
+                $dictionaryDbName = Schema::connection('dictionary_db')->getCurrentSchemaName();
+
+                $table->foreignId('dictionary_category_id')
+                    ->nullable()
+                    ->constrained($dictionaryDbName . '.categories', 'id')
+                    ->onDelete('cascade')
+                    ->after('model_item_id');
+            });
+        }
 
         $data = [
             [ 'id' => 1,  'full_name' => 'algorithm',         'name' => 'algorithm',        'slug' => 'algorithm',        'abbreviation' => null, 'definition' => 'A finite sequence of mathematically rigorous instructions, typically used to solve a class of specific problems or to perform a computation.' ],
@@ -95,6 +112,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
+
+        Schema::table($systemDbName.'.tags', function (Blueprint $table) {
+            $table->dropForeign('tags_dictionary_category_id_foreign'); // Drops the foreign key constraint
+        });
+
         Schema::connection($this->database_tag)->dropIfExists('categories');
     }
 };

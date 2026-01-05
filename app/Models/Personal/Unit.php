@@ -43,10 +43,10 @@ class Unit extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the readingIngredients for the unit.
+     * Get the personal recipe ingredients for the unit.
      */
     public function recipeIngredients(): HasMany
     {
-        return $this->hasMany(RecipeIngredient::class);
+        return $this->hasMany(RecipeIngredient::class, 'unit_id');
     }
 }

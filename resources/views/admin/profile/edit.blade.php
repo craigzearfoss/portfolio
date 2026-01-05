@@ -38,6 +38,7 @@
                 'disabled'  => true,
                 'minlength' => 8,
                 'maxlength' => 255,
+                'style'     => 'text-transform: lowercase',
                 'message'   => $message ?? '',
             ])
 
@@ -61,6 +62,7 @@
                 'name'      => 'email',
                 'value'     => old('email') ?? $admin->email,
                 'maxlength' => 255,
+                'style'     => 'text-transform: lowercase',
                 'message'   => $message ?? '',
             ])
 

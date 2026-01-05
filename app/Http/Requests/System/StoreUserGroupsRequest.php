@@ -29,13 +29,6 @@ class StoreUserGroupsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.user_groups', $this->owner_id)
-            ]);
-        }
-
         return [
             'owner_id'      => ['required', 'integer', 'exists:system_db.admins,id'],
             'user_team_id'  => ['required', 'integer', 'exists:system_db.user_teams,id'],
@@ -79,6 +72,11 @@ class StoreUserGroupsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
@@ -87,5 +85,20 @@ class StoreUserGroupsRequest extends FormRequest
             'user_team_id.required' => 'Please select a user team for the user group.',
             'user_team_id.exists'   => 'The specified user team does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'system_db.user_groups', $this->owner_id)
+            ]);
+        }
     }
 }

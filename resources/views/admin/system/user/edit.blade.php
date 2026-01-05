@@ -51,6 +51,7 @@
                 'required'  => true,
                 'minlength' => 6,
                 'maxlength' => 255,
+                'style'     => 'text-transform: lowercase',
                 'message'   => $message ?? '',
             ])
 
@@ -70,6 +71,7 @@
                 'minlength' => 6,
                 'maxlength' => 200,
                 'required'  => true,
+                'style'     => 'text-transform: lowercase',
                 'message'   => $message ?? '',
             ])
 
@@ -127,6 +129,7 @@
                 'required'  => true,
                 'disabled'  => true,
                 'maxlength' => 255,
+                'style'     => 'text-transform: lowercase',
                 'message'   => $message ?? '',
             ])
 

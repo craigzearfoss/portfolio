@@ -64,12 +64,12 @@ class ResumeController extends BaseAdminController
     /**
      * Store a newly created resume in storage.
      *
-     * @param StoreResumesRequest $storeResumesRequest
+     * @param StoreResumesRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreResumesRequest $storeResumesRequest): RedirectResponse
+    public function store(StoreResumesRequest $request): RedirectResponse
     {
-        $applicationId = $storeResumesRequest->query('application_id');
+        $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
@@ -80,7 +80,7 @@ class ResumeController extends BaseAdminController
                 ->withInput();
         }
 
-        $resume = Resume::create($storeResumesRequest->validated());
+        $resume = Resume::create($request->validated());
 
         $application->update(['resume_id' => $resume->id]);
 
@@ -126,15 +126,15 @@ class ResumeController extends BaseAdminController
     /**
      * Update the specified resume in storage.
      *
-     * @param UpdateResumesRequest $updateResumesRequest
+     * @param UpdateResumesRequest $request
      * @param Resume $resume
      * @return RedirectResponse
      */
-    public function update(UpdateResumesRequest $updateResumesRequest, Resume $resume): RedirectResponse
+    public function update(UpdateResumesRequest $request, Resume $resume): RedirectResponse
     {
         Gate::authorize('update-resource', $resume);
 
-        $applicationId = $updateResumesRequest->query('application_id');
+        $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
@@ -145,7 +145,7 @@ class ResumeController extends BaseAdminController
                 ->withInput();
         }
 
-        $resume->update($updateResumesRequest->validated());
+        $resume->update($request->validated());
 
 
         if (!empty($application)) {

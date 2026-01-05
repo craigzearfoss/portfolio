@@ -43,12 +43,12 @@ class UserController extends BaseAdminController
     /**
      * Store a newly created user in storage.
      *
-     * @param StoreUsersRequest $storeUsersRequest
+     * @param StoreUsersRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreUsersRequest $storeUsersRequest): RedirectResponse
+    public function store(StoreUsersRequest $request): RedirectResponse
     {
-        $user = User::create($storeUsersRequest->validated());
+        $user = User::create($request->validated());
 
         return redirect()->route('admin.system.user.show', $user)
             ->with('success', $user->username . ' successfully added. User will need to verify email.');
@@ -81,15 +81,15 @@ class UserController extends BaseAdminController
     /**
      * Update the specified user in storage.
      *
-     * @param UpdateUsersRequest $updateUsersRequest
+     * @param UpdateUsersRequest $request
      * @param User $user
      * @return RedirectResponse
      */
-    public function update(UpdateUsersRequest $updateUsersRequest, User $user): RedirectResponse
+    public function update(UpdateUsersRequest $request, User $user): RedirectResponse
     {
         Gate::authorize('update-resource', $user);
 
-        $user->update($updateUsersRequest->validated());
+        $user->update($request->validated());
 
         return redirect()->route('admin.system.user.show', $user)
             ->with('success', $user->username . ' successfully updated.');

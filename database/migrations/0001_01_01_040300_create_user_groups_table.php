@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\System\Owner;
 use App\Models\System\UserGroup;
+use App\Models\System\UserTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,12 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('user_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->foreignIdFor( \App\Models\System\UserTeam::class);
+            $table->foreignId('owner_id')
+                ->constrained('admins', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('user_team_id')
+                ->constrained('user_teams', 'id')
+                ->onDelete('cascade');
             $table->string('name', 100)->index('name_idx');
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();

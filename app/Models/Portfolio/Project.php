@@ -67,7 +67,7 @@ class Project extends Model
     }
 
     /**
-     * Get the owner of the portfollio project.
+     * Get the system owner of the portfollio project.
      */
     public function owner(): BelongsTo
     {

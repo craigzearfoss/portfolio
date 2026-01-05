@@ -52,16 +52,16 @@ class JobBoardController extends BaseAdminController
     /**
      * Store a newly created job board in storage.
      *
-     * @param StoreJobBoardsRequest $storeJobBoardsRequest
+     * @param StoreJobBoardsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreJobBoardsRequest $storeJobBoardsRequest): RedirectResponse
+    public function store(StoreJobBoardsRequest $request): RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add job boards.');
         }
 
-        $jobBoard =JobBoard::create($storeJobBoardsRequest->validated());
+        $jobBoard =JobBoard::create($request->validated());
 
         return redirect()->route('admin.career.job-board.show', $jobBoard)
             ->with('success', $jobBoard->name . ' successfully added.');
@@ -99,15 +99,15 @@ class JobBoardController extends BaseAdminController
     /**
      * Update the specified job board in storage.
      *
-     * @param UpdateJobBoardsRequest $updateJobBoardsRequest
+     * @param UpdateJobBoardsRequest $request
      * @param JobBoard $jobBoard
      * @return RedirectResponse
      */
-    public function update(UpdateJobBoardsRequest $updateJobBoardsRequest, JobBoard $jobBoard): RedirectResponse
+    public function update(UpdateJobBoardsRequest $request, JobBoard $jobBoard): RedirectResponse
     {
         Gate::authorize('update-resource', $jobBoard);
 
-        $jobBoard->update($updateJobBoardsRequest->validated());
+        $jobBoard->update($request->validated());
 
         return redirect()->route('admin.career.job-board.show', $jobBoard)
             ->with('success', $jobBoard->name . ' successfully updated.');

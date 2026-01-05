@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Models\System\Database;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -26,17 +27,10 @@ class StoreDatabasesRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $this->owner_id)
-            ]);
-        }
-
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,full_name'],
-            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,slug'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:'.Database::class],
+            'name'         => ['required', 'string', 'max:255', 'unique:'.Database::class],
+            'slug'         => ['required', 'string', 'max:255', 'unique:'.Database::class],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
@@ -57,5 +51,32 @@ class StoreDatabasesRequest extends FormRequest
             'disabled'     => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $this->owner_id)
+            ]);
+        }
     }
 }

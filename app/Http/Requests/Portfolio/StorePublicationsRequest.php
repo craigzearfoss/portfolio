@@ -31,13 +31,6 @@ class StorePublicationsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['title'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['title'], 'portfolio_db.publications', $this->owner_id)
-            ]);
-        }
-
         return [
             'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
             'title'          => [
@@ -109,11 +102,31 @@ class StorePublicationsRequest extends FormRequest
         ];
     }
 
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
             'owner_id.required' => 'Please select an owner for the publication.',
             'owner_id.exists'   => 'The specified owner does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['title'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['title'], 'portfolio_db.publications', $this->owner_id)
+            ]);
+        }
     }
 }

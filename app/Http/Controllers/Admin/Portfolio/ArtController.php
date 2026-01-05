@@ -49,12 +49,12 @@ class ArtController extends BaseAdminController
      * Store a newly created art in storage.
      *
      *
-     * @param StoreArtRequest $storeArtRequest
+     * @param StoreArtRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreArtRequest $storeArtRequest): RedirectResponse
+    public function store(StoreArtRequest $request): RedirectResponse
     {
-        $art = Art::create($storeArtRequest->validated());
+        $art = Art::create($request->validated());
 
         return redirect()->route('admin.portfolio.art.show', $art)
             ->with('success', $art->name . ' successfully added.');
@@ -87,15 +87,15 @@ class ArtController extends BaseAdminController
     /**
      * Update the specified art in storage.
      *
-     * @param UpdateArtRequest $updateArtRequest
+     * @param UpdateArtRequest $request
      * @param Art $art
      * @return RedirectResponse
      */
-    public function update(UpdateArtRequest $updateArtRequest, Art $art): RedirectResponse
+    public function update(UpdateArtRequest $request, Art $art): RedirectResponse
     {
         Gate::authorize('update-resource', $art);
 
-        $art->update($updateArtRequest->validated());
+        $art->update($request->validated());
 
         return redirect()->route('admin.portfolio.art.show', $art)
             ->with('success', $art->name . ' successfully updated.');

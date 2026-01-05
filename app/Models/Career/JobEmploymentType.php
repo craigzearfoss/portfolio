@@ -31,7 +31,7 @@ class JobEmploymentType extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the applications for the job schedule.
+     * Get the career applications for the job employment type.
      */
     public function applications(): HasMany
     {

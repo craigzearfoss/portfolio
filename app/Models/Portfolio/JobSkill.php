@@ -66,7 +66,7 @@ class JobSkill extends Model
     }
 
     /**
-     * Get the owner of the job skill.
+     * Get the system owner of the job skill.
      */
     public function owner(): BelongsTo
     {
@@ -74,7 +74,7 @@ class JobSkill extends Model
     }
 
     /**
-     * Get the dictionary category of the job skill.
+     * Get the dictionary category that owns the job skill.
      */
     public function category(): BelongsTo
     {
@@ -82,7 +82,7 @@ class JobSkill extends Model
     }
 
     /**
-     * Get the job of the job skill.
+     * Get the career job of that owns the job skill.
      */
     public function job(): BelongsTo
     {

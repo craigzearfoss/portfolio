@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Models\Dictionary\Server;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -26,17 +27,10 @@ class StoreServersRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.servers ', $this->owner_id)
-            ]);
-        }
-
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.servers,full_name'],
-            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.servers,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.servers,slug'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:'.Server::class],
+            'name'         => ['required', 'string', 'max:255', 'unique:'.Server::class],
+            'slug'         => ['required', 'string', 'max:255', 'unique:'.Server::class],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
@@ -57,5 +51,32 @@ class StoreServersRequest extends FormRequest
             'disabled'     => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
+    }
+
+    /**
+     * Return error messages.
+     *
+     * @return string[]
+     */
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.servers ', $this->owner_id)
+            ]);
+        }
     }
 }
