@@ -98,7 +98,7 @@ class CopySourceImages extends Command
 
                             echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $resourcePath) . ' ...'
                                 . PHP_EOL;
-dd($resourcePath);
+
                             if ($resourceDefinition = Resource::where('name', $resourceSlug)->first()) {
 
                                 try {
@@ -124,7 +124,7 @@ dd($resourcePath);
                                         );
 
                                         foreach ($query->get() as $item) {
-dd($item);
+
                                             echo 'Copying files from ' . $itemPath . PHP_EOL;
 
                                             foreach (scandir($itemPath) as $itemSlug) {
@@ -140,9 +140,9 @@ dd($item);
                                                     $fileExt = File::extension($srcFile);
 
                                                     // determine the destination file
-                                                    // base64 encode known file names
+                                                    // Note that we encode the filename for enhanced security.
                                                     $destPath = $this->imagesDestPath . $DS . $databaseSlug . $DS
-                                                        . $resourceSlug . $DS . ($item->slug ?? $item->name ?? $item->id);
+                                                        . $resourceSlug . $DS . $item->id;
 
                                                     $destFileName = in_array($fileName, self::DEFINED_FILE_NAMES)
                                                         ? generateEncodedFilename(($item->slug ?? $item->name ?? $item->id), $fileName)
