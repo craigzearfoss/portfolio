@@ -20,25 +20,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $adminIds = $this->getAdminIds();
-        $careerResources = $this->getDbResources('career');
+        $ownerIds = $this->getAdminIds();
+        $careerResources = $this->getDbResources();
 
-        if (!empty($adminIds) && !empty($careerResources)) {
+        if (!empty($ownerIds) && !empty($careerResources)) {
 
             $data = [];
 
-            foreach ($adminIds as $adminId) {
+            foreach ($ownerIds as $ownerId) {
 
                 foreach ($careerResources as $careerResource) {
                     $data[] = [
-                        'admin_id'    => $adminId,
-                        'resource_id' => $careerResource->id,
-                        'menu'        => $careerResource->menu,
-                        'menu_level'  => $careerResource->menu_level,
-                        'public'      => $careerResource->public,
-                        'readonly'    => $careerResource->readonly,
-                        'disabled'    => $careerResource->disabled,
-                        'sequence'    => $careerResource->sequence,
+                        'owner_id'       => $ownerId,
+                        'resource_id'    => $careerResource->id,
+                        'database_id'    => $careerResource->database_id,
+                        'name'           => $careerResource->name,
+                        'parent_id'      => $careerResource->parent_id,
+                        'table'          => $careerResource->table,
+                        'class'          => $careerResource->class,
+                        'title'          => $careerResource->title,
+                        'plural'         => $careerResource->plural,
+                        'has_owner'      => $careerResource->has_owner,
+                        'guest'          => $careerResource->guest,
+                        'user'           => $careerResource->user,
+                        'admin'          => $careerResource->admin,
+                        'global'         => $careerResource->global,
+                        'menu'           => $careerResource->menu,
+                        'menu_level'     => $careerResource->menu_level,
+                        'menu_collapsed' => $careerResource->menu_collapsed,
+                        'icon'           => $careerResource->icon,
+                        'public'         => $careerResource->public,
+                        'readonly'       => $careerResource->readonly,
+                        'disabled'       => $careerResource->disabled,
+                        'demo'           => $careerResource->disabled,
+                        'sequence'       => $careerResource->sequence,
                     ];
                 }
             }
@@ -58,11 +73,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $adminIds = $this->getAdminIds();
+        $ownerIds = $this->getAdminIds();
 
-        if ($careerResources = $this->getDbResources('career')) {
-            if (!empty($adminIds) && !empty($careerResources)) {
-                AdminResource::whereIn('admin_id', $adminIds)
+        if ($careerResources = $this->getDbResources()) {
+            if (!empty($ownerIds) && !empty($careerResources)) {
+                AdminResource::whereIn('owner_id', $ownerIds)
                     ->whereIn('resource_id', $careerResources->pluck('id'))
                     ->delete();
             }
@@ -74,14 +89,14 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 
-    private function getDbResources(string $dbName)
+    private function getDbResources()
     {
-        if (!$database = $this->getDatabase($dbName)) {
+        if (!$database = $this->getDatabase()) {
             return [];
         }
 

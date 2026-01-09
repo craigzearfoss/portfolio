@@ -19,23 +19,36 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $adminIds = $this->getAdminIds();
-        $portfolioDatabase = $this->getDatabase('portfolio');
+        $ownerIds = $this->getAdminIds();
+        $portfolioDatabase = $this->getDatabase();
 
-        if (!empty($adminIds) && !empty($portfolioDatabase)) {
+        if (!empty($ownerIds) && !empty($portfolioDatabase)) {
 
             $data = [];
 
-            foreach ($adminIds as $adminId) {
+            foreach ($ownerIds as $ownerId) {
                 $data[] = [
-                    'admin_id'    => $adminId,
-                    'database_id' => $portfolioDatabase->id,
-                    'menu'        => $portfolioDatabase->menu,
-                    'menu_level'  => $portfolioDatabase->menu_level,
-                    'public'      => $portfolioDatabase->public,
-                    'readonly'    => $portfolioDatabase->readonly,
-                    'disabled'    => $portfolioDatabase->disabled,
-                    'sequence'    => $portfolioDatabase->sequence,
+                    'owner_id'       => $ownerId,
+                    'database_id'    => $portfolioDatabase->id,
+                    'name'           => $portfolioDatabase->name,
+                    'database'       => $portfolioDatabase->database,
+                    'tag'            => $portfolioDatabase->tag,
+                    'title'          => $portfolioDatabase->title,
+                    'plural'         => $portfolioDatabase->plural,
+                    'guest'          => $portfolioDatabase->guest,
+                    'user'           => $portfolioDatabase->user,
+                    'admin'          => $portfolioDatabase->admin,
+                    'global'         => $portfolioDatabase->global,
+                    'menu'           => $portfolioDatabase->menu,
+                    'menu_level'     => $portfolioDatabase->menu_level,
+                    'menu_collapsed' => $portfolioDatabase->menu_collapsed,
+                    'icon'           => $portfolioDatabase->icon,
+                    'public'         => $portfolioDatabase->public,
+                    'readonly'       => $portfolioDatabase->readonly,
+                    'root'           => $portfolioDatabase->root,
+                    'disabled'       => $portfolioDatabase->disabled,
+                    'demo'           => $portfolioDatabase->demo,
+                    'sequence'       => $portfolioDatabase->sequence,
                 ];
             }
 
@@ -54,11 +67,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $adminIds = $this->getAdminIds();
-        $systemDatabase = $this->getDatabase('portfolio');
+        $ownerIds = $this->getAdminIds();
+        $portfolioDatabase = $this->getDatabase();
 
-        if (!empty($adminIds) && !empty($systemDatabase)) {
-            AdminDatabase::whereIn('admin_id', $adminIds)->where('database_id', $systemDatabase->id)->delete();
+        if (!empty($ownerIds) && !empty($portfolioDatabase)) {
+            AdminDatabase::whereIn('owner_id', $ownerIds)->where('database_id', $portfolioDatabase->id)->delete();
         }
     }
 
@@ -67,8 +80,8 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 };

@@ -27,9 +27,12 @@ use App\Models\Portfolio\Music;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
+use App\Models\System\AdminDatabase;
+use App\Models\System\AdminResource;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Owner extends Model
 {
@@ -46,6 +49,22 @@ class Owner extends Model
         'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled',
         'demo'];
     const SEARCH_ORDER_BY = ['username', 'asc'];
+
+    /**
+     * Get the system admin_databases for the owner.
+     */
+    public function adminDatabases(): HasOne
+    {
+        return $this->hasOne(AdminDatabase::class, 'owner_id');
+    }
+
+    /**
+     * Get the system admin_resources for the owner.
+     */
+    public function adminResources(): HasOne
+    {
+        return $this->hasOne(AdminResource::class, 'owner_id');
+    }
 
     /**
      * Get the system admin groups for the owner.

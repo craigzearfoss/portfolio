@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guest\Personal;
 
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Personal\Recipe;
+use App\Models\Personal\RecipeStep;
 use App\Models\System\Admin;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -46,6 +47,8 @@ class RecipeController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
+        //$recipeSteps = RecipeStep::where('recipe_id', $recipe->id)->orderBy('step', 'asc')->ddRawSql();
+        //dd($recipe);
         return view(themedTemplate('guest.personal.recipe.show'), compact('recipe', 'admin'));
     }
 }

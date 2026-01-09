@@ -226,11 +226,11 @@
                                     @foreach($recipe->ingredients as $ingredient)
 
                                         <li>
-                                            {{ $ingredient['amount'] }}
-                                            {{ \App\Models\Personal\Unit::find($ingredient['unit_id'])->name }}
-                                            {{ \App\Models\Personal\Ingredient::find($ingredient['ingredient_id'])->name }}
-                                            @if(!empty($ingredient['qualifier']))
-                                                - {{ $ingredient['qualifier'] }}
+                                            {{ $ingredient->amount }}
+                                            {{ \App\Models\Personal\Unit::find($ingredient->unit_id)->name }}
+                                            {{ \App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name }}
+                                            @if(!empty($ingredient->qualifier))
+                                                - {{ $ingredient->qualifier }}
                                             @endif
                                         </li>
 
@@ -271,10 +271,10 @@
 
                                         <tr>
                                             <td>
-                                                {{ $step['step'] }}
+                                                {{ $step->step }}
                                             </td>
                                             <td>
-                                                {{ $step['description'] }}
+                                                {{ $step->description }}
                                             </td>
                                         </tr>
 

@@ -1,7 +1,7 @@
 @if($admin)
 
     @php
-        $portfolioResourceTypes = \App\Models\System\Database::getAdminResourceTypes(
+        $portfolioResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
             $admin->id,
             'portfolio',
             [

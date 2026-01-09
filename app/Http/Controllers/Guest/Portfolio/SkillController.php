@@ -20,7 +20,7 @@ class SkillController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = 50; //$request->query('per_page', $this->perPage);
 
         $skills = Skill::where('owner_id', $admin->id)
             ->orderBy('level', 'desc')->orderBy('name', 'asc')

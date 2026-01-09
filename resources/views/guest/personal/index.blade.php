@@ -12,7 +12,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => null,
+    'admin'         => $admin ?? null,
 ])
 
 @section('content')
@@ -30,13 +30,13 @@
 
                     <ul class="menu-list ml-4 mb-2">
 
-                        @foreach ($personalResourceTypes as $resourceType)
+                        @foreach ($resources as $resource)
 
-                            @if(empty($resourceType['global']) && Route::has('guest.admin.personal.'.$resourceType['name'].'.index'))
+                            @if(empty($resource->global) && Route::has('guest.admin.personal.'.$resource->name.'.index'))
                                 <li>
                                     @include('guest.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.admin.personal.'.$resourceType['name'].'.index', $admin),
+                                        'name'  => $resource->plural,
+                                        'href'  => route('guest.admin.personal.'.$resource->name.'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

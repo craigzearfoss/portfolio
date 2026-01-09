@@ -295,6 +295,12 @@ class AddCraigZearfoss extends Command
     {
         echo $this->username . ": Inserting into System\\Admin ...\n";
 
+        // generate the paths for the image and thumbnail
+        $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
+            . DIRECTORY_SEPARATOR . $this->label . DIRECTORY_SEPARATOR;
+        $imagePath =  $imageDir . generateEncodedFilename($this->label, 'image') . '.png';
+        $thumbnailPath = $imageDir . generateEncodedFilename($this->label, 'thumbnail') . '.png';
+
         $data = [
             [
                 'id'                => $adminId,
@@ -311,6 +317,8 @@ class AddCraigZearfoss extends Command
                 'status'            => 1,
                 'token'             => '',
                 'root'              => 0,
+                'image'             => $imagePath,
+                'thumbnail'         => $thumbnailPath,
             ]
         ];
 
@@ -320,65 +328,73 @@ class AddCraigZearfoss extends Command
     }
 
     /**
-     * Insert system database entries into the admin_database table.
+     * Insert system database entries into the admin_databases table.
      *
-     * @param int $adminId
+     * @param int $ownerId
      * @return void
      * @throws \Exception
      */
-    protected function insertSystemAdminDatabaseRows(int $adminId): void
+    protected function insertSystemAdminDatabaseRows(int $ownerId): void
     {
         echo $this->username . ": Inserting into System\\AdminDatabase ...\n";
 
-        if (!$database = $this->getDatabase()) {
-            throw new \Exception('`system` database not found.');
-        }
-
-        $data = [];
-
-        $data[] = [
-            'admin_id'    => $adminId,
-            'database_id' => $database->id,
-            'menu'        => $database->menu,
-            'menu_level'  => $database->menu_level,
-            'public'      => $database->public,
-            'readonly'    => $database->readonly,
-            'disabled'    => $database->disabled,
-            'sequence'    => $database->sequence,
-            'created_at'  => now(),
-            'updated_at'  => now(),
-        ];
-
-        AdminDatabase::insert($data);
-    }
-
-    /**
-     * Insert system database resource entries into the admin_resource table.
-     *
-     * @param int $adminId
-     * @return void
-     */
-    protected function insertSystemAdminResourceRows(int $adminId): void
-    {
-        echo $this->username . ": Inserting into System\\AdminResource ...\n";
-
-        if ($resources = $this->getDbResources()) {
+        if ($database = Database::where('tag', self::DB_TAG)->first()) {
 
             $data = [];
 
+            $dataRow = [];
+
+            foreach($database->toArray() as $key => $value) {
+                if ($key === 'id') {
+                    $dataRow['database_id'] = $value;
+                } elseif ($key === 'owner_id') {
+                    $dataRow['owner_id'] = $ownerId;
+                } else {
+                    $dataRow[$key] = $value;
+                }
+            }
+
+            $dataRow['created_at']  = now();
+            $dataRow['updated_at']  = now();
+
+            $data[] = $dataRow;
+
+            AdminDatabase::insert($data);
+        }
+    }
+
+    /**
+     * Insert system database resource entries into the admin_resources table.
+     *
+     * @param int $ownerId
+     * @return void
+     */
+    protected function insertSystemAdminResourceRows(int $ownerId): void
+    {
+        echo $this->username . ": Inserting into System\\AdminResource ...\n";
+
+        $data = [];
+
+        if ($resources = $this->getDbResources()) {
+
             foreach ($resources as $resource) {
-                $data[] = [
-                    'admin_id'    => $adminId,
-                    'resource_id' => $resource->id,
-                    'menu'        => $resource->menu,
-                    'menu_level'  => $resource->menu_level,
-                    'public'      => $resource->public,
-                    'readonly'    => $resource->readonly,
-                    'disabled'    => $resource->disabled,
-                    'sequence'    => $resource->sequence,
-                    'created_at'  => now(),
-                    'updated_at'  => now(),
-                ];
+
+                $dataRow = [];
+
+                foreach($resource->toArray() as $key => $value) {
+                    if ($key === 'id') {
+                        $dataRow['resource_id'] = $value;
+                    } elseif ($key === 'owner_id') {
+                        $dataRow['owner_id'] = $ownerId;
+                    } else {
+                        $dataRow[$key] = $value;
+                    }
+                }
+
+                $dataRow['created_at']  = now();
+                $dataRow['updated_at']  = now();
+
+                $data[] = $dataRow;
             }
 
             AdminResource::insert($data);

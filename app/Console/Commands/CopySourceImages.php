@@ -63,40 +63,41 @@ class CopySourceImages extends Command
         if ($imageDir = config('app.image_dir')) {
             $this->imagesDestPath = rtrim($imageDir, $DS);
         } else {
-            $this->imagesDestPath = rtrim(base_path() . $DS . $this->destination, $DS);
+            $this->imagesDestPath = imageDir();
         }
 
         // prompt to continue
         echo PHP_EOL . 'Copying images: ' . PHP_EOL;
         echo '    from: ' . $this->imagesSrcPath . PHP_EOL;
         echo '    to:   ' . $this->imagesDestPath . PHP_EOL;
+        echo '*Note that this will not overwrite existing files.' . PHP_EOL;
 
         $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
 
-        foreach (scandir($this->imagesSrcPath) as $databaseName) {
+        foreach (scandir($this->imagesSrcPath) as $databaseSlug) {
 
-            if ($databaseName == '.' || $databaseName == '..') continue;
+            if ($databaseSlug == '.' || $databaseSlug == '..') continue;
 
-            $databasePath = $this->imagesSrcPath . $DS . $databaseName;
+            $databasePath = $this->imagesSrcPath . $DS . $databaseSlug;
 
             if (File::isDirectory($databasePath)) {
 
                 echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $databasePath) . ' ...'. PHP_EOL;
 
-                if ($databaseDefinition = Database::where('name', $databaseName)->first()) {
+                if ($databaseDefinition = Database::where('name', $databaseSlug)->first()) {
 
-                    foreach (scandir($databasePath) as $resourceName) {
+                    foreach (scandir($databasePath) as $resourceSlug) {
 
-                        if ($resourceName == '.' || $resourceName == '..') continue;
+                        if ($resourceSlug == '.' || $resourceSlug == '..') continue;
 
-                        $resourcePath = $databasePath . $DS . $resourceName;
+                        $resourcePath = $databasePath . $DS . $resourceSlug;
 
                         if (File::isDirectory($resourcePath)) {
 
                             echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $resourcePath) . ' ...'
                                 . PHP_EOL;
 
-                            if ($resourceDefinition = Resource::where('name', $resourceName)->first()) {
+                            if ($resourceDefinition = Resource::where('name', $resourceSlug)->first()) {
 
                                 try {
                                     $reflectionClass = new \ReflectionClass($resourceDefinition->class);
@@ -124,11 +125,11 @@ class CopySourceImages extends Command
 
                                             echo 'Copying files from ' . $itemPath . PHP_EOL;
 
-                                            foreach (scandir($itemPath) as $itemName) {
+                                            foreach (scandir($itemPath) as $itemSlug) {
 
-                                                if ($itemName == '.' || $itemName == '..') continue;
+                                                if ($itemSlug == '.' || $itemSlug == '..') continue;
 
-                                                $srcFile = $itemPath . $DS . $itemName;
+                                                $srcFile = $itemPath . $DS . $itemSlug;
                                                 $property = File::name($srcFile);
 
                                                 if (File::isFile($srcFile)) {
@@ -138,11 +139,13 @@ class CopySourceImages extends Command
 
                                                     // determine the destination file
                                                     // base64 encode known file names
-                                                    $destPath = $this->imagesDestPath . $DS . $databaseName . $DS
-                                                        . $resourceName . $DS . $item->id;
+                                                    $destPath = $this->imagesDestPath . $DS . $databaseSlug . $DS
+                                                        . $resourceSlug . $DS . ($item->slug ?? $item->name ?? $item->id);
+
                                                     $destFileName = in_array($fileName, self::DEFINED_FILE_NAMES)
-                                                        ? rtrim(str_replace(['+', '/'], ['-', '_'], base64_encode($slug . $itemName)), '=')
-                                                        : $fileName;
+                                                        ? generateEncodedFilename(($item->slug ?? $item->name ?? $item->id), $fileName)
+                                                        : generateEncodedFilename($fileName);;
+
                                                     $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
 
                                                     if (!File::exists($destPath)) {
@@ -152,32 +155,32 @@ class CopySourceImages extends Command
                                                     if (File::exists($destFile) && !$this->overwrite) {
 
                                                         // the file already exists
-                                                        echo '    Skipping ' . $itemName . PHP_EOL;
+                                                        echo '    ' . $destFile . ' already exists.'. PHP_EOL;
 
                                                     } elseif ($this->overwrite || !File::exists($destFile)) {
 
                                                         // copy the file
-                                                        echo '    ' . $itemName . ' => '
+                                                        echo '    ' . $itemSlug . ' => '
                                                             . str_replace(base_path(), '', $destFile) . PHP_EOL;
                                                         File::copy($srcFile, $destFile);
+                                                    }
 
-                                                        // update the resource in the database
-                                                        try {
+                                                    // update the resource in the database
+                                                    try {
 
-                                                            $relativeDestPath = str_replace(
-                                                                base_path() .$DS . 'public',
-                                                                '',
-                                                                $destFile
-                                                            );
-                                                            $urlPath = str_replace(DIRECTORY_SEPARATOR, '/',  $relativeDestPath);
+                                                        $relativeDestPath = str_replace(
+                                                            base_path() .$DS . 'public',
+                                                            '',
+                                                            $destFile
+                                                        );
+                                                        $urlPath = str_replace(DIRECTORY_SEPARATOR, '/',  $relativeDestPath);
 
-                                                            $item->{$property} = $urlPath;
-                                                            $item->save();
+                                                        $item->{$property} = $urlPath;
+                                                        $item->save();
 
-                                                        } catch (\Throwable $e) {
-                                                            $this->failedUpdates[] = $item->id
-                                                                . ' [' . $property . '] => ' . $relativeDestPath;
-                                                        }
+                                                    } catch (\Throwable $e) {
+                                                        $this->failedUpdates[] = $item->id
+                                                            . ' [' . $property . '] => ' . $relativeDestPath;
                                                     }
                                                 }
                                             }

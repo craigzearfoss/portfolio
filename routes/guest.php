@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/{admin:label}', [GuestAdminController::class, 'show'])->name('guest.admin.show');
 
-Route::name('guest.')->group(function () {
+Route::name('guest.')->middleware('guest')->group(function () {
 
     Route::get('/{admin:label}/personal', [GuestPersonalIndexController::class, 'index'])->name('admin.personal.show');
     Route::get('/{admin:label}/personal/reading', [GuestPersonalReadingController::class, 'index'])->name('admin.personal.reading.index');

@@ -12,8 +12,14 @@ use Illuminate\View\View;
 
 class IndexController extends BaseSystemController
 {
-    public function index(Request $request): View
+    public function index(Request $request)//: View
     {
+        $menuItems = (new \App\Services\MenuService())->getLeftMenu(
+            \App\Services\PermissionService::ENV_GUEST,
+            $admin ?? null
+        );
+        //return response()->json($menuItems); die;
+
         $perPage = $request->query('per_page', $this->perPage);
 
         $admin = null;

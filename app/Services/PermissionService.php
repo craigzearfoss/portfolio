@@ -88,10 +88,10 @@ class PermissionService
 
         $permissions = [];
 
-        foreach (Resource::bySequence(null, $envType) as $resource) {
+        foreach (Resource::getResources($envType) as $resource) {
 
-            if (!array_key_exists($resource->db_name, $permissions)) {
-                $permissions[$resource->db_name] = [
+            if (!array_key_exists($resource->database_name, $permissions)) {
+                $permissions[$resource->database_name] = [
                     'CREATE' => [],
                     'READ' => [],
                     'UPDATE' => [],
@@ -99,13 +99,13 @@ class PermissionService
                 ];
             }
 
-            $permissions[$resource->db_name]['READ'][] = $resource->name;
+            $permissions[$resource->database_name]['READ'][] = $resource->name;
 
             if ($envType ===  self::ENV_ADMIN) {
                 if ($isRoot || empty($resource->root)) {
-                    $permissions[$resource->db_name]['CREATE'][] = $resource->name;
-                    $permissions[$resource->db_name]['UPDATE'][] = $resource->name;
-                    $permissions[$resource->db_name]['DELETE'][] = $resource->name;
+                    $permissions[$resource->database_name]['CREATE'][] = $resource->name;
+                    $permissions[$resource->database_name]['UPDATE'][] = $resource->name;
+                    $permissions[$resource->database_name]['DELETE'][] = $resource->name;
                 }
             }
         }

@@ -18,6 +18,8 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
 
+                /
+
                 @include('admin.components.link', [
                     'name'  => 'Admin',
                     'href'  => route('admin.index'),
@@ -67,7 +69,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
         <ul class="menu is-menu-main" style="font-size: 1rem;">
 
             <p class="menu-label pb-0 mb-0">
-                <a @if (!empty($menuItem->link))href="{{ $menuItem->link }}" @endif
+                <a @if (!empty($menuItem->url))href="{{ $menuItem->url }}" @endif
                    class="has-text-white {{ $menuItem->active ? 'is-active' : '' }}"
                    style="padding: 0.3rem;"
                 >
@@ -81,7 +83,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                     @foreach ($menuItem->children as $menuSubItem)
                         <li @if(($menuItem->name == 'portfolio') && in_array($menuSubItem->name, ['job'])) style="display: none !important" @endif>
-                            <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}"  @endif
+                            <a @if (!empty($menuSubItem->url))href="{{ $menuSubItem->url }}"  @endif
                                 class="{{ $menuSubItem->active ? 'is-active' : '' }}"
                                style="padding: 0.3rem;"
                             >

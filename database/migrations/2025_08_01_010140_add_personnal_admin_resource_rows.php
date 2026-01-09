@@ -20,25 +20,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $adminIds = $this->getAdminIds();
-        $personalResources = $this->getDbResources('personal');
+        $ownerIds = $this->getAdminIds();
+        $personalResources = $this->getDbResources();
 
-        if (!empty($adminIds) && !empty($personalResources)) {
+        if (!empty($ownerIds) && !empty($personalResources)) {
 
             $data = [];
 
-            foreach ($adminIds as $adminId) {
+            foreach ($ownerIds as $ownerId) {
 
                 foreach ($personalResources as $personalResource) {
                     $data[] = [
-                        'admin_id'    => $adminId,
-                        'resource_id' => $personalResource->id,
-                        'menu'        => $personalResource->menu,
-                        'menu_level'  => $personalResource->menu_level,
-                        'public'      => $personalResource->public,
-                        'readonly'    => $personalResource->readonly,
-                        'disabled'    => $personalResource->disabled,
-                        'sequence'    => $personalResource->sequence,
+                        'owner_id'       => $ownerId,
+                        'resource_id'    => $personalResource->id,
+                        'database_id'    => $personalResource->database_id,
+                        'name'           => $personalResource->name,
+                        'parent_id'      => $personalResource->parent_id,
+                        'table'          => $personalResource->table,
+                        'class'          => $personalResource->class,
+                        'title'          => $personalResource->title,
+                        'plural'         => $personalResource->plural,
+                        'has_owner'      => $personalResource->has_owner,
+                        'guest'          => $personalResource->guest,
+                        'user'           => $personalResource->user,
+                        'admin'          => $personalResource->admin,
+                        'global'         => $personalResource->global,
+                        'menu'           => $personalResource->menu,
+                        'menu_level'     => $personalResource->menu_level,
+                        'menu_collapsed' => $personalResource->menu_collapsed,
+                        'icon'           => $personalResource->icon,
+                        'public'         => $personalResource->public,
+                        'readonly'       => $personalResource->readonly,
+                        'disabled'       => $personalResource->disabled,
+                        'demo'           => $personalResource->disabled,
+                        'sequence'       => $personalResource->sequence,
                     ];
                 }
             }
@@ -58,11 +73,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $adminIds = $this->getAdminIds();
+        $ownerIds = $this->getAdminIds();
 
-        if ($personalResources = $this->getDbResources('personal')) {
-            if (!empty($adminIds) && !empty($personalResources)) {
-                AdminResource::whereIn('admin_id', $adminIds)
+        if ($personalResources = $this->getDbResources()) {
+            if (!empty($ownerIds) && !empty($personalResources)) {
+                AdminResource::whereIn('owner_id', $ownerIds)
                     ->whereIn('resource_id', $personalResources->pluck('id'))
                     ->delete();
             }
@@ -74,14 +89,14 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 
-    private function getDbResources(string $dbName)
+    private function getDbResources()
     {
-        if (!$database = $this->getDatabase($dbName)) {
+        if (!$database = $this->getDatabase()) {
             return [];
         }
 

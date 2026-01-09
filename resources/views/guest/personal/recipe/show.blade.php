@@ -16,7 +16,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => null,
+    'admin'         => $admin ?? null,
 ])
 
 @section('content')
@@ -135,19 +135,20 @@
 
     <div class="card p-4">
 
-        <h2 class="subtitle">
+        <h2 class="subtitle mb-1">
             Ingredients
         </h2>
+        <hr class="ml-0 mr-0 mt-1 mb-1">
         <ul>
 
             @foreach($recipe->ingredients as $ingredient)
 
-                <li>
-                    {{ $ingredient['amount'] }}
-                    {{ \App\Models\Personal\Unit::find($ingredient['unit_id'])->name }}
-                    {{ \App\Models\Personal\Ingredient::find($ingredient['ingredient_id'])->name }}
-                    @if(!empty($ingredient['qualifier']))
-                        - {{ $ingredient['qualifier'] }}
+                <li class="ml-4">
+                    {{ $ingredient->amount }}
+                    {{ \App\Models\Personal\Unit::find($ingredient->unit_id)->name }}
+                    {{ \App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name }}
+                    @if(!empty($ingredient->qualifier))
+                        - {{ $ingredient->qualifier }}
                     @endif
                 </li>
 
@@ -159,9 +160,10 @@
 
     <div class="card p-4">
 
-        <h2 class="subtitle">
+        <h2 class="subtitle mb-1">
             Instructions
         </h2>
+        <hr class="ml-0 mr-0 mt-1 mb-1">
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <tbody>
 
@@ -169,10 +171,10 @@
 
                 <tr>
                     <td>
-                        {{ $step['step'] }}
+                        {{ $step->step }}
                     </td>
                     <td>
-                        {{ $step['description'] }}
+                        {{ $step->description }}
                     </td>
                 </tr>
 

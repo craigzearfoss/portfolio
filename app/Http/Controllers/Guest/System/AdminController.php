@@ -9,6 +9,8 @@ use App\Mail\ForgotUsername;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
+use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Message;
 use App\Models\System\Resource;
@@ -47,26 +49,18 @@ class AdminController extends BaseGuestController
             abort(404);
         }
 
-        $portfolioResourceTypes = Database::getAdminResourceTypes(
-            $admin->id,
-            'portfolio',
-            [
-                'public'   => 1,
-                'disabled' => 0,
-            ]
-        );
+        $databases = AdminDatabase::where('owner_id', $admin->id)
+            ->where('guest', true)
+            ->orderBy('sequence', 'asc')->get();
 
-        $personalResourceTypes = Database::getAdminResourceTypes(
-            $admin->id,
-            'personal',
-            [
-                'public'   => 1,
-                'disabled' => 0,
-            ]);
+        $resources = [];
+        foreach(AdminResource::getResources($admin->id, PermissionService::ENV_GUEST) as $resource) {
+            $resources[$resource->database_id][] = $resource;
+        };
 
         return view(themedTemplate(
             'guest.system.admin.show'),
-            compact('admin', 'portfolioResourceTypes', 'personalResourceTypes')
+            compact('admin', 'databases', 'resources')
         );
     }
 }

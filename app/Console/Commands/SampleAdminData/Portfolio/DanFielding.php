@@ -24,7 +24,6 @@ use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
-use App\Models\System\MenuItem;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -87,8 +86,7 @@ class DanFielding extends Command
         }
 
         // portfolio
-        $this->insertSystemAdminDatabaseRows();
-        $this->insertSystemAdminResourceRows();
+        $this->insertSystemAdminDatabase($this->adminId);
         $this->insertPortfolioArt();
         $this->insertPortfolioAudios();
         $this->insertPortfolioAwards();
@@ -140,8 +138,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'art');
         }
-        $this->attachAdminResource('art', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioAudios(): void
@@ -176,8 +174,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'audios');
         }
-        $this->attachAdminResource('audio', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioAwards(): void
@@ -207,8 +205,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Award::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'awards');
         }
-        $this->attachAdminResource('award', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioCertificates(): void
@@ -235,8 +233,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
-        $this->attachAdminResource('certificate', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioCourses(): void
@@ -279,8 +277,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'courses');
         }
-        $this->attachAdminResource('course', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioEducations(): void
@@ -345,8 +343,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'education');
         }
-        $this->attachAdminResource('education', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobs(): void
@@ -386,8 +384,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
-        $this->attachAdminResource('job', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobCoworkers(): void
@@ -404,8 +402,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
-        $this->attachAdminResource('job-coworker', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobSkills(): void
@@ -426,8 +424,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
-        $this->attachAdminResource('job-skill', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobTasks(): void
@@ -447,8 +445,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
-        $this->attachAdminResource('job-task', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioLinks(): void
@@ -502,8 +500,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'links');
         }
-        $this->attachAdminResource('link', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioMusic(): void
@@ -582,8 +580,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'music');
         }
-        $this->attachAdminResource('music', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioProjects(): void
@@ -610,8 +608,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'projects');
         }
-        $this->attachAdminResource('project', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioPublications(): void
@@ -655,8 +653,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'publications');
         }
-        $this->attachAdminResource('publication', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioSkills(): void
@@ -687,8 +685,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'skills');
         }
-        $this->attachAdminResource('skill', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioVideos(): void
@@ -722,8 +720,8 @@ class DanFielding extends Command
 
         if (!empty($data)) {
             Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'videos');
         }
-        $this->attachAdminResource('video', count($data) ? 1 : 0);
     }
 
     /**
@@ -771,6 +769,77 @@ class DanFielding extends Command
     }
 
     /**
+     * Insert system database entries into the admin_databases table.
+     *
+     * @param int $ownerId
+     * @return void
+     * @throws \Exception
+     */
+    protected function insertSystemAdminDatabase(int $ownerId): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
+
+        if ($database = Database::where('tag', self::DB_TAG)->first()) {
+
+            $data = [];
+
+            $dataRow = [];
+
+            foreach($database->toArray() as $key => $value) {
+                if ($key === 'id') {
+                    $dataRow['database_id'] = $value;
+                } elseif ($key === 'owner_id') {
+                    $dataRow['owner_id'] = $ownerId;
+                } else {
+                    $dataRow[$key] = $value;
+                }
+            }
+
+            $dataRow['created_at']  = now();
+            $dataRow['updated_at']  = now();
+
+            $data[] = $dataRow;
+
+            AdminDatabase::insert($data);
+        }
+    }
+
+    /**
+     * Insert system database resource entries into the admin_resources table.
+     *
+     * @param int $ownerId
+     * @return void
+     */
+    protected function insertSystemAdminResource(int $ownerId, string $tableName): void
+    {
+        echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
+
+        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+
+            $data = [];
+
+            $dataRow = [];
+
+            foreach($resource->toArray() as $key => $value) {
+                if ($key === 'id') {
+                    $dataRow['resource_id'] = $value;
+                } elseif ($key === 'owner_id') {
+                    $dataRow['owner_id'] = $ownerId;
+                } else {
+                    $dataRow[$key] = $value;
+                }
+            }
+
+            $dataRow['created_at']  = now();
+            $dataRow['updated_at']  = now();
+
+            $data[] = $dataRow;
+
+            AdminResource::insert($data);
+        }
+    }
+
+    /**
      * Get a database.
      *
      * @return mixed
@@ -791,106 +860,6 @@ class DanFielding extends Command
             return [];
         } else {
             return Resource::where('database_id', $database->id)->get();
-        }
-    }
-
-    /**
-     * Insert system database entries into the admin_database table.
-     *
-     * @return void
-     * @throws \Exception
-     */
-    protected function insertSystemAdminDatabaseRows(): void
-    {
-        echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
-
-        if (!$database = $this->getDatabase()) {
-            throw new \Exception('`system` database not found.');
-        }
-
-        $data = [];
-
-        $data[] = [
-            'admin_id'    => $this->adminId,
-            'database_id' => $database->id,
-            'menu'        => $database->menu,
-            'menu_level'  => $database->menu_level,
-            'public'      => $database->public,
-            'readonly'    => $database->readonly,
-            'disabled'    => $database->disabled,
-            'sequence'    => $database->sequence,
-            'created_at'  => now(),
-            'updated_at'  => now(),
-        ];
-
-        AdminDatabase::insert($data);
-    }
-
-    /**
-     * Insert system database resource entries into the admin_resource table.
-     *
-     * @return void
-     */
-    protected function insertSystemAdminResourceRows(): void
-    {
-        echo self::USERNAME . ": Inserting into System\\AdminResource ...\n";
-
-        if ($resources = $this->getDbResources()) {
-
-            $data = [];
-
-            foreach ($resources as $resource) {
-                $data[] = [
-                    'admin_id'    => $this->adminId,
-                    'resource_id' => $resource->id,
-                    'menu'        => $resource->menu,
-                    'menu_level'  => $resource->menu_level,
-                    'public'      => $resource->public,
-                    'readonly'    => $resource->readonly,
-                    'disabled'    => $resource->disabled,
-                    'sequence'    => $resource->sequence,
-                    'created_at'  => now(),
-                    'updated_at'  => now(),
-                ];
-            }
-
-            AdminResource::insert($data);
-        }
-    }
-
-    /**
-     * Attach a resource to the admin.
-     *
-     * @param string $resourceName
-     * @param int|null $public
-     * @return void
-     */
-    protected function attachAdminResource(string $resourceName, int|null $public = 0)
-    {
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
-
-            if ($adminResource = AdminResource::where('admin_id', $this->adminId)
-                ->where('resource_id', $resource->id)->first()
-            ) {
-
-                $adminResource->public = $public;
-                $adminResource->save();
-
-            } else {
-
-                AdminResource::insert([
-                    'admin_id'    => $this->adminId,
-                    'resource_id' => $resource->id,
-                    'menu'        => $resource->menu,
-                    'menu_level'  => $resource->menu_level,
-                    'public'      => $public,
-                    'readonly'    => $resource->readonly,
-                    'disabled'    => $resource->disabled,
-                    'sequence'    => $resource->sequence,
-                    'created_at'  => now(),
-                    'updated_at'  => now(),
-                ]);
-            }
         }
     }
 }

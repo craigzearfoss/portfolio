@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTea
 use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
 use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexController;
 use App\Http\Controllers\Admin\System\LogsController as AdminSystemLogsController;
-use App\Http\Controllers\Admin\System\MenuItemController as AdminSystemAdminMenuItemController;
 use App\Http\Controllers\Admin\System\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\System\ResourceController as AdminSystemResourceController;
 use App\Http\Controllers\Admin\System\SessionController as AdminSystemSessionController;
@@ -95,7 +94,6 @@ Route::prefix('admin/system')->middleware('admin')->name('admin.system.')->group
     Route::resource('database', AdminSystemDatabaseController::class);
     Route::resource('resource', AdminSystemResourceController::class);
 
-    Route::get('menu/{envType?}', [AdminSystemAdminMenuItemController::class, 'index'])->name('menu-item.index');
     //Route::put('menu/{envType}', [AdminProfileController::class, 'change_password_submit'])->name('menu-item.update');
 
     Route::resource('message', AdminMessageController::class);

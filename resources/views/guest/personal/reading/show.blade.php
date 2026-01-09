@@ -16,7 +16,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => null,
+    'admin'         => $admin ?? null,
 ])
 
 @section('content')

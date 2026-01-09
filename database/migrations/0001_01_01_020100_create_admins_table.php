@@ -172,52 +172,69 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        $data = [
-            [
-                'id'                => 1,
-//                'admin_team_id'     => null,
-                'username'          => $this->rootUsername,
-                'name'              => $this->rootName,
-                'label'             => $this->rootLabel,
-                'email'             => 'root@sample.com',
-                'email_verified_at' => now(),
-                'password'          => Hash::make($this->rootPassword),
-                'status'            => 1,
-                'image'             => '/images/admin/1/profile.png',
-                'thumbnail'         => '/images/admin/1/thumbnail.png',
-                'token'             => '',
-                'root'              => 1,
-            ],
-            [
-                'id'                => 2,
-//                'admin_team_id'     => null,
-                'username'          => $this->defaultUsername,
-                'name'              => $this->defaultName,
-                'label'             => $this->defaultLabel,
-                'email'             => 'default-admin@sample.com',
-                'email_verified_at' => now(),
-                'password'          => Hash::make($this->defaultPassword),
-                'image'             => '/images/admin/2/profile.png',
-                'thumbnail'         => '/images/admin/2/thumbnail.png',
-                'status'            => 1,
-                'token'             => '',
-                'root'              => 0,
-            ],
-            [
-                'id'                => 3,
-//                'admin_team_id'     => null,
-                'username'          => $this->demoUsername,
-                'name'              => $this->demoName,
-                'label'             => $this->demoLabel,
-                'email'             => 'demo-admin@sample.com',
-                'email_verified_at' => now(),
-                'password'          => Hash::make($this->demoPassword),
-                'image'             => '/images/admin/3/profile.png',
-                'thumbnail'         => '/images/admin/3/thumbnail.png',
-                'status'            => 1,
-                'token'             => '',
-                'root'              => 0,
-            ]
+        $data = [];
+
+        $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
+            . DIRECTORY_SEPARATOR . $this->rootLabel . DIRECTORY_SEPARATOR;
+        $imagePath =  $imageDir . generateEncodedFilename($this->rootLabel, 'image') . '.png';
+        $thumbnailPath = $imageDir . generateEncodedFilename($this->rootLabel, 'thumbnail') . '.png';
+
+        $data[] =[
+            'id'                => 1,
+//            'admin_team_id'     => null,
+            'username'          => $this->rootUsername,
+            'name'              => $this->rootName,
+            'label'             => $this->rootLabel,
+            'email'             => 'root@sample.com',
+            'email_verified_at' => now(),
+            'password'          => Hash::make($this->rootPassword),
+            'status'            => 1,
+            'image'             => $imagePath,
+            'thumbnail'         => $thumbnailPath,
+            'token'             => '',
+            'root'              => 1,
+        ];
+
+        $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
+            . DIRECTORY_SEPARATOR . $this->defaultLabel . DIRECTORY_SEPARATOR;
+        $imagePath =  $imageDir . generateEncodedFilename($this->defaultLabel, 'image') . '.png';
+        $thumbnailPath = $imageDir . generateEncodedFilename($this->defaultLabel, 'thumbnail') . '.png';
+
+        $data[] = [
+            'id'                => 2,
+//            'admin_team_id'     => null,
+            'username'          => $this->defaultUsername,
+            'name'              => $this->defaultName,
+            'label'             => $this->defaultLabel,
+            'email'             => 'default-admin@sample.com',
+            'email_verified_at' => now(),
+            'password'          => Hash::make($this->defaultPassword),
+            'image'             => $imagePath,
+            'thumbnail'         => $thumbnailPath,
+            'status'            => 1,
+            'token'             => '',
+            'root'              => 0,
+        ];
+
+        $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
+            . DIRECTORY_SEPARATOR . $this->demoLabel . DIRECTORY_SEPARATOR;
+        $imagePath =  $imageDir . generateEncodedFilename($this->demoLabel, 'image') . '.png';
+        $thumbnailPath = $imageDir . generateEncodedFilename($this->demoLabel, 'thumbnail') . '.png';
+
+        $data[] = [
+            'id'                => 3,
+//            'admin_team_id'     => null,
+            'username'          => $this->demoUsername,
+            'name'              => $this->demoName,
+            'label'             => $this->demoLabel,
+            'email'             => 'demo-admin@sample.com',
+            'email_verified_at' => now(),
+            'password'          => Hash::make($this->demoPassword),
+            'image'             => $imagePath,
+            'thumbnail'         => $thumbnailPath,
+            'status'            => 1,
+            'token'             => '',
+            'root'              => 0,
         ];
 
         // add timestamps

@@ -20,25 +20,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $adminIds = $this->getAdminIds();
-        $portfolioResources = $this->getDbResources('portfolio');
+        $ownerIds = $this->getAdminIds();
+        $portfolioResources = $this->getDbResources();
 
-        if (!empty($adminIds) && !empty($portfolioResources)) {
+        if (!empty($ownerIds) && !empty($portfolioResources)) {
 
             $data = [];
 
-            foreach ($adminIds as $adminId) {
+            foreach ($ownerIds as $ownerId) {
 
                 foreach ($portfolioResources as $portfolioResource) {
                     $data[] = [
-                        'admin_id'    => $adminId,
-                        'resource_id' => $portfolioResource->id,
-                        'menu'        => $portfolioResource->menu,
-                        'menu_level'  => $portfolioResource->menu_level,
-                        'public'      => $portfolioResource->public,
-                        'readonly'    => $portfolioResource->readonly,
-                        'disabled'    => $portfolioResource->disabled,
-                        'sequence'    => $portfolioResource->sequence,
+                        'owner_id'       => $ownerId,
+                        'resource_id'    => $portfolioResource->id,
+                        'database_id'    => $portfolioResource->database_id,
+                        'name'           => $portfolioResource->name,
+                        'parent_id'      => $portfolioResource->parent_id,
+                        'table'          => $portfolioResource->table,
+                        'class'          => $portfolioResource->class,
+                        'title'          => $portfolioResource->title,
+                        'plural'         => $portfolioResource->plural,
+                        'has_owner'      => $portfolioResource->has_owner,
+                        'guest'          => $portfolioResource->guest,
+                        'user'           => $portfolioResource->user,
+                        'admin'          => $portfolioResource->admin,
+                        'global'         => $portfolioResource->global,
+                        'menu'           => $portfolioResource->menu,
+                        'menu_level'     => $portfolioResource->menu_level,
+                        'menu_collapsed' => $portfolioResource->menu_collapsed,
+                        'icon'           => $portfolioResource->icon,
+                        'public'         => $portfolioResource->public,
+                        'readonly'       => $portfolioResource->readonly,
+                        'disabled'       => $portfolioResource->disabled,
+                        'demo'           => $portfolioResource->disabled,
+                        'sequence'       => $portfolioResource->sequence,
                     ];
                 }
             }
@@ -58,11 +73,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $adminIds = $this->getAdminIds();
+        $ownerIds = $this->getAdminIds();
 
-        if ($portfolioResources = $this->getDbResources('portfolio')) {
-            if (!empty($adminIds) && !empty($portfolioResources)) {
-                AdminResource::whereIn('admin_id', $adminIds)
+        if ($portfolioResources = $this->getDbResources()) {
+            if (!empty($ownerIds) && !empty($portfolioResources)) {
+                AdminResource::whereIn('owner_id', $ownerIds)
                     ->whereIn('resource_id', $portfolioResources->pluck('id'))
                     ->delete();
             }
@@ -74,14 +89,14 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 
-    private function getDbResources(string $dbName)
+    private function getDbResources()
     {
-        if (!$database = $this->getDatabase($dbName)) {
+        if (!$database = $this->getDatabase()) {
             return [];
         }
 

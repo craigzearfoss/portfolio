@@ -61,7 +61,7 @@
                             <div class="navbar-dropdown">
 
                                 @foreach($menuItem->children as $menuSubItem)
-                                    <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}" @endif
+                                    <a @if (!empty($menuSubItem->url))href="{{ $menuSubItem->url }}" @endif
                                        class="navbar-item"
                                     >
                                         @if(!empty($menuSubItem->icon))
@@ -82,7 +82,7 @@
                 @else
 
                     <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
-                        <a @if(empty($menuItem->children) && !empty($menuItem->link))href="{{ $menuItem->link }}" @endif
+                        <a @if(empty($menuItem->children) && !empty($menuItem->url))href="{{ $menuItem->url }}" @endif
                                class="navbar-link is-arrowless">
                             <span>{{ $menuItem->title }}</span>
                         </a>
@@ -90,7 +90,7 @@
                         @if(!empty($menuItem->children))
                             <div class="navbar-dropdown">
                                 @foreach($menuItem->children as $menuSubItem)
-                                    <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}" @endif
+                                    <a @if (!empty($menuSubItem->url))href="{{ $menuSubItem->url }}" @endif
                                         class="navbar-item"
                                     >
                                         @if(!empty($menuSubItem->icon))

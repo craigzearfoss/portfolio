@@ -11,7 +11,6 @@ use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
-use App\Models\System\MenuItem;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -74,8 +73,7 @@ class RickyRicardo extends Command
         }
 
         // personal
-        $this->insertSystemAdminDatabaseRows();
-        $this->insertSystemAdminResourceRows();
+        $this->insertSystemAdminDatabase($this->adminId);
         $this->insertPersonalReadings();
         $this->insertPersonalRecipes();
         $this->insertPersonalRecipeIngredients();
@@ -131,8 +129,8 @@ class RickyRicardo extends Command
 
         if (!empty($data)) {
             Reading::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'readings');
         }
-        $this->attachAdminResource('reading', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipes(): void
@@ -155,8 +153,8 @@ class RickyRicardo extends Command
 
         if (!empty($data)) {
             Recipe::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->insertSystemAdminResource($this->adminId, 'recipes');
         }
-        $this->attachAdminResource('recipe', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipeIngredients(): void
@@ -214,8 +212,8 @@ class RickyRicardo extends Command
 
         if (!empty($data)) {
             RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients');
         }
-        $this->attachAdminResource('recipe-ingredient', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipeSteps(): void
@@ -223,28 +221,28 @@ class RickyRicardo extends Command
         echo self::USERNAME . ": Inserting into Personal\\RecipeStep ...\n";
 
         $data = [
-            [ 'recipe_id' => $this->recipeId[1],  'step' => 1,  'description' => 'Preheat oven to 375° F.' ],
-            [ 'recipe_id' => $this->recipeId[1],  'step' => 2,  'description' => 'Combine flour, baking soda and salt in small bowl. Beat butter, granulated sugar, brown sugar and vanilla extract in large mixer bowl until creamy. Add eggs, one at a time, beating well after each addition. Gradually beat in flour mixture. Stir in morsels and nuts. Drop by rounded tablespoon onto ungreased baking sheets.' ],
-            [ 'recipe_id' => $this->recipeId[1],  'step' => 3,  'description' => 'Bake for 9 to 11 minutes or until golden brown. Cool on baking sheets for 2 minutes; remove to wire racks to cool completely.' ],
-            [ 'recipe_id' => $this->recipeId[2],  'step' => 1,  'description' => 'Preheat oven to 380° F.' ],
-            [ 'recipe_id' => $this->recipeId[2],  'step' => 2,  'description' => 'Mix the ingredients in a large bowl and add 3/4 cups of boiling water. Let this sit for a few minutes.' ],
-            [ 'recipe_id' => $this->recipeId[2],  'step' => 3,  'description' => 'Spread out on parchment paper on a baking sheet to the thickness of a cracker.' ],
-            [ 'recipe_id' => $this->recipeId[2],  'step' => 4,  'description' => 'Bake for around 40 minutes until slightly browned and crispy.' ],
-            [ 'recipe_id' => $this->recipeId[3],  'step' => 1,  'description' => 'Put water (or broth) and lentils into a small sauce pan.' ],
-            [ 'recipe_id' => $this->recipeId[3],  'step' => 2,  'description' => 'Bring to a low boil, then reduce heat and simmer for 18 to 22 minutes or until tender for green lentils. (For red lentils simmer for 7 to 10 minutes.)' ],
-            [ 'recipe_id' => $this->recipeId[3],  'step' => 3,  'description' => 'Sauté onion, garlic, and green pepper over medium hear for 4 to 5 minutes.)' ],
-            [ 'recipe_id' => $this->recipeId[3],  'step' => 4,  'description'   => 'Combine all ingredients and lentils over medium low heat for 5 to 10 minutes.)' ],
-            [ 'recipe_id' => $this->recipeId[4],  'step' => 1,  'description'   => 'Mix all of ingredients in a pot and heat over medium heat.' ],
-            [ 'recipe_id' => $this->recipeId[5],  'step' => 1,  'description'   => 'Preheat oven to 375° F.' ],
-            [ 'recipe_id' => $this->recipeId[5],  'step' => 2,  'description'   => 'Grind the contents of a 3.75 oz package of John Cope\'s Dried Sweet Corn in a blender or food processor.' ],
-            [ 'recipe_id' => $this->recipeId[5],  'step' => 3,  'description'   => 'Add 2 1/2 cups of cold milk, 2 Tbsp. melted butter or margarine, 1 tsp. salt (optional), 1 1/2 Tbsp. sugar, and 2 well beaten eggs. Mix thoroughly' ],
-            [ 'recipe_id' => $this->recipeId[5],  'step' => 4,  'description'   => 'Bake in buttered 1.5 or 2 quart casserole dish for 40 to 50 minutes.' ],
+            [ 'recipe_id' => $this->recipeId[1],  'step' => 1,  'description' => 'Preheat oven to 375° F.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[1],  'step' => 2,  'description' => 'Combine flour, baking soda and salt in small bowl. Beat butter, granulated sugar, brown sugar and vanilla extract in large mixer bowl until creamy. Add eggs, one at a time, beating well after each addition. Gradually beat in flour mixture. Stir in morsels and nuts. Drop by rounded tablespoon onto ungreased baking sheets.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[1],  'step' => 3,  'description' => 'Bake for 9 to 11 minutes or until golden brown. Cool on baking sheets for 2 minutes; remove to wire racks to cool completely.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[2],  'step' => 1,  'description' => 'Preheat oven to 380° F.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[2],  'step' => 2,  'description' => 'Mix the ingredients in a large bowl and add 3/4 cups of boiling water. Let this sit for a few minutes.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[2],  'step' => 3,  'description' => 'Spread out on parchment paper on a baking sheet to the thickness of a cracker.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[2],  'step' => 4,  'description' => 'Bake for around 40 minutes until slightly browned and crispy.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[3],  'step' => 1,  'description' => 'Put water (or broth) and lentils into a small sauce pan.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[3],  'step' => 2,  'description' => 'Bring to a low boil, then reduce heat and simmer for 18 to 22 minutes or until tender for green lentils. (For red lentils simmer for 7 to 10 minutes.)', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[3],  'step' => 3,  'description' => 'Sauté onion, garlic, and green pepper over medium hear for 4 to 5 minutes.)', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[3],  'step' => 4,  'description'   => 'Combine all ingredients and lentils over medium low heat for 5 to 10 minutes.)', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[4],  'step' => 1,  'description'   => 'Mix all of ingredients in a pot and heat over medium heat.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[5],  'step' => 1,  'description'   => 'Preheat oven to 375° F.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[5],  'step' => 2,  'description'   => 'Grind the contents of a 3.75 oz package of John Cope\'s Dried Sweet Corn in a blender or food processor.', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[5],  'step' => 3,  'description'   => 'Add 2 1/2 cups of cold milk, 2 Tbsp. melted butter or margarine, 1 tsp. salt (optional), 1 1/2 Tbsp. sugar, and 2 well beaten eggs. Mix thoroughly', 'public' => 1 ],
+            [ 'recipe_id' => $this->recipeId[5],  'step' => 4,  'description'   => 'Bake in buttered 1.5 or 2 quart casserole dish for 40 to 50 minutes.', 'public' => 1 ],
         ];
 
         if (!empty($data)) {
             RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $this->insertSystemAdminResource($this->adminId, 'recipe_steps');
         }
-        $this->attachAdminResource('recipe-step', count($data) ? 1 : 0);
     }
 
     /**
@@ -292,6 +290,77 @@ class RickyRicardo extends Command
     }
 
     /**
+     * Insert system database entries into the admin_databases table.
+     *
+     * @param int $ownerId
+     * @return void
+     * @throws \Exception
+     */
+    protected function insertSystemAdminDatabase(int $ownerId): void
+    {
+        echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
+
+        if ($database = Database::where('tag', self::DB_TAG)->first()) {
+
+            $data = [];
+
+            $dataRow = [];
+
+            foreach($database->toArray() as $key => $value) {
+                if ($key === 'id') {
+                    $dataRow['database_id'] = $value;
+                } elseif ($key === 'owner_id') {
+                    $dataRow['owner_id'] = $ownerId;
+                } else {
+                    $dataRow[$key] = $value;
+                }
+            }
+
+            $dataRow['created_at']  = now();
+            $dataRow['updated_at']  = now();
+
+            $data[] = $dataRow;
+
+            AdminDatabase::insert($data);
+        }
+    }
+
+    /**
+     * Insert system database resource entries into the admin_resources table.
+     *
+     * @param int $ownerId
+     * @return void
+     */
+    protected function insertSystemAdminResource(int $ownerId, string $tableName): void
+    {
+        echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
+
+        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+
+            $data = [];
+
+            $dataRow = [];
+
+            foreach($resource->toArray() as $key => $value) {
+                if ($key === 'id') {
+                    $dataRow['resource_id'] = $value;
+                } elseif ($key === 'owner_id') {
+                    $dataRow['owner_id'] = $ownerId;
+                } else {
+                    $dataRow[$key] = $value;
+                }
+            }
+
+            $dataRow['created_at']  = now();
+            $dataRow['updated_at']  = now();
+
+            $data[] = $dataRow;
+
+            AdminResource::insert($data);
+        }
+    }
+
+    /**
      * Get a database.
      *
      * @return mixed
@@ -312,106 +381,6 @@ class RickyRicardo extends Command
             return [];
         } else {
             return Resource::where('database_id', $database->id)->get();
-        }
-    }
-
-    /**
-     * Insert system database entries into the admin_database table.
-     *
-     * @return void
-     * @throws \Exception
-     */
-    protected function insertSystemAdminDatabaseRows(): void
-    {
-        echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
-
-        if (!$database = $this->getDatabase()) {
-            throw new \Exception('`system` database not found.');
-        }
-
-        $data = [];
-
-        $data[] = [
-            'admin_id'    => $this->adminId,
-            'database_id' => $database->id,
-            'menu'        => $database->menu,
-            'menu_level'  => $database->menu_level,
-            'public'      => $database->public,
-            'readonly'    => $database->readonly,
-            'disabled'    => $database->disabled,
-            'sequence'    => $database->sequence,
-            'created_at'  => now(),
-            'updated_at'  => now(),
-        ];
-
-        AdminDatabase::insert($data);
-    }
-
-    /**
-     * Insert system database resource entries into the admin_resource table.
-     *
-     * @return void
-     */
-    protected function insertSystemAdminResourceRows(): void
-    {
-        echo self::USERNAME . ": Inserting into System\\AdminResource ...\n";
-
-        if ($resources = $this->getDbResources()) {
-
-            $data = [];
-
-            foreach ($resources as $resource) {
-                $data[] = [
-                    'admin_id'    => $this->adminId,
-                    'resource_id' => $resource->id,
-                    'menu'        => $resource->menu,
-                    'menu_level'  => $resource->menu_level,
-                    'public'      => $resource->public,
-                    'readonly'    => $resource->readonly,
-                    'disabled'    => $resource->disabled,
-                    'sequence'    => $resource->sequence,
-                    'created_at'  => now(),
-                    'updated_at'  => now(),
-                ];
-            }
-
-            AdminResource::insert($data);
-        }
-    }
-
-    /**
-     * Attach a resource to the admin.
-     *
-     * @param string $resourceName
-     * @param int|null $public
-     * @return void
-     */
-    protected function attachAdminResource(string $resourceName, int|null $public = 0)
-    {
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
-
-            if ($adminResource = AdminResource::where('admin_id', $this->adminId)
-                ->where('resource_id', $resource->id)->first()
-            ) {
-
-                $adminResource->public = $public;
-                $adminResource->save();
-
-            } else {
-
-                AdminResource::insert([
-                    'admin_id'    => $this->adminId,
-                    'resource_id' => $resource->id,
-                    'menu'        => $resource->menu,
-                    'menu_level'  => $resource->menu_level,
-                    'public'      => $public,
-                    'readonly'    => $resource->readonly,
-                    'disabled'    => $resource->disabled,
-                    'sequence'    => $resource->sequence,
-                    'created_at'  => now(),
-                    'updated_at'  => now(),
-                ]);
-            }
         }
     }
 }

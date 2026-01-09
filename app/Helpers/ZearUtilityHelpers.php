@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\System\Admin;
+use App\Services\PermissionService;
+use Illuminate\Support\Facades\Route;
+
 if (! function_exists('refererRouteName')) {
     /**
      * Returns the route name of the refering page or null if there was no refering page.
@@ -641,5 +645,107 @@ if (! function_exists('themedTemplate')) {
         return View::exists('_themes.'.$theme.'.' . $template) ?
             '_themes.'.$theme.'.' . $template
             : $template;
+    }
+
+    if (! function_exists('imageDir')) {
+        /**
+         * Returns the directory where images are stored.
+         * @TODO: Add the ability to use S3 or remote locations.
+         *
+         * @return string
+         */
+        function imageDir(): string
+        {
+            return config('app.imageDir') ?? '';
+        }
+    }
+
+    if (! function_exists('coverLetterDir')) {
+        /**
+         * Returns the directory where cover letters are stored.
+         * @TODO: Add the ability to use S3 or remote locations.
+         *
+         * @return string
+         */
+        function coverLetterDir(): string
+        {
+            return config('app.coverLetterDir') ?? '';
+        }
+    }
+
+    if (! function_exists('resumeDir')) {
+        /**
+         * Returns the directory where resumes are stored.
+         * @TODO: Add the ability to use S3 or remote locations.
+         *
+         * @return string
+         */
+        function resumeDir(): string
+        {
+            return config('app.resumeDir') ?? '';
+        }
+    }
+
+    if (! function_exists('generateEncodedFilename')) {
+        /**
+         * Generates a unique base64 encoded name for the file.
+         * For extra security the Laravel application key is included.
+         * @TODO: Add the ability to use S3 or remote locations.
+         *
+         * @param string $filename
+         * @param string $qualifier
+         * @param int $maxLength
+         * @return string
+         */
+        function generateEncodedFilename(string $filename, string $qualifier = '', int $maxLength = 20): string
+        {
+            $text = substr($filename, 0, ceil($maxLength / 3))
+                . substr($qualifier, 0, ceil($maxLength / 3))
+                . config('app.key');
+
+            $filename = rtrim(
+                str_replace(
+                    ['+', '/'], ['-', '_'],
+                    base64_encode($text)
+                ),
+                '='
+            );
+
+            return substr($filename, 0, $maxLength);
+        }
+    }
+
+    if (! function_exists('resourceRoute')) {
+        /**
+         * Generates a unique base64 encoded name for the file.
+         * For extra security the Laravel application key is included.
+         * @TODO: Add the ability to use S3 or remote locations.
+         *
+         * @param string $envType
+         * @param string $databaseName
+         * @param string $tableName
+         * @param \App\Models\System\Admin $admin
+         * @return string|null
+         */
+        function resourceRoute(string $envType,
+                               string $databaseName,
+                               string|null $tableName = null,
+                               \App\Models\System\Admin|null $admin = null): string|null
+        {
+            $routeParts   = [];
+            $routeParts[] = $envType;
+            if ($envType == PermissionService::ENV_GUEST) $routeParts[] = 'admin';
+            $routeParts[] = $databaseName;
+            if (!empty($tableName)) $routeParts[] = $tableName;
+            $routeParts[] = 'index';
+
+            $route = implode('.', $routeParts);
+
+            if (!Route::has($route)) {
+                $route = null;
+            }
+
+            return $route;
+        }
     }
 }

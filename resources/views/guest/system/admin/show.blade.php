@@ -73,53 +73,41 @@
 
             <div class="column is-two-thirds pt-0">
 
-                <div>
+                @foreach($databases as $database)
 
-                    <h1 class="title is-size-5 mt-2 mb-0">Portfolio</h1>
+                    @if (array_key_exists($database->database_id, $resources))
 
-                    <ul class="menu-list ml-4 mb-2">
+                        <div>
 
-                        @foreach ($portfolioResourceTypes as $resourceType)
+                            <h1 class="title is-size-5 mt-2 mb-0">{{$database->title}}</h1>
 
-                            @if(empty($resourceType['global']) && Route::has('guest.admin.portfolio.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('guest.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.admin.portfolio.'.$resourceType['name'].'.index', $admin),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
+                            <ul class="menu-list ml-4 mb-2">
 
-                        @endforeach
+                                @foreach ($resources[$database->database_id] as $resource)
 
-                    </ul>
+                                    @if($resource->guest || $resource->global)
+                                        <li style="padding-left: {{ $resource->menu_level - 2 }}em;">
+                                            @if(Route::has('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index'))
+                                                @include('guest.components.link', [
+                                                    'name'  => $resource->plural,
+                                                    'href'  => route('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index', $admin),
+                                                    'class' => 'pt-1 pb-1',
+                                                ])
+                                            @else
+                                                {{ $resource->plural }}
+                                            @endif
+                                        </li>
+                                    @endif
 
-                </div>
+                                @endforeach
 
-                <div>
+                            </ul>
 
-                    <h1 class="title is-size-5 mt-2 mb-0">Personal</h1>
+                        </div>
 
-                    <ul class="menu-list ml-4 mb-2">
+                    @endif
 
-                        @foreach ($personalResourceTypes as $resourceType)
-
-                            @if(empty($resourceType['global']) && Route::has('guest.admin.personal.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('guest.components.link', [
-                                        'name' => $resourceType['plural'],
-                                        'href' => route('guest.admin.personal.'.$resourceType['name'].'.index', $admin),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
+                @endforeach
 
             </div>
 

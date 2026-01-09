@@ -20,25 +20,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $adminIds = $this->getAdminIds();
-        $dictionaryResources = $this->getDbResources('dictionary');
+        $ownerIds = $this->getAdminIds();
+        $dictionaryResources = $this->getDbResources();
 
-        if (!empty($adminIds) && !empty($dictionaryResources)) {
+        if (!empty($ownerIds) && !empty($dictionaryResources)) {
 
             $data = [];
 
-            foreach ($adminIds as $adminId) {
+            foreach ($ownerIds as $ownerId) {
 
                 foreach ($dictionaryResources as $dictionaryResource) {
                     $data[] = [
-                        'admin_id'    => $adminId,
-                        'resource_id' => $dictionaryResource->id,
-                        'menu'        => $dictionaryResource->menu,
-                        'menu_level'  => $dictionaryResource->menu_level,
-                        'public'      => $dictionaryResource->public,
-                        'readonly'    => $dictionaryResource->readonly,
-                        'disabled'    => $dictionaryResource->disabled,
-                        'sequence'    => $dictionaryResource->sequence,
+                        'owner_id'       => $ownerId,
+                        'resource_id'    => $dictionaryResource->id,
+                        'database_id'    => $dictionaryResource->database_id,
+                        'name'           => $dictionaryResource->name,
+                        'parent_id'      => $dictionaryResource->parent_id,
+                        'table'          => $dictionaryResource->table,
+                        'class'          => $dictionaryResource->class,
+                        'title'          => $dictionaryResource->title,
+                        'plural'         => $dictionaryResource->plural,
+                        'has_owner'      => $dictionaryResource->has_owner,
+                        'guest'          => $dictionaryResource->guest,
+                        'user'           => $dictionaryResource->user,
+                        'admin'          => $dictionaryResource->admin,
+                        'global'         => $dictionaryResource->global,
+                        'menu'           => $dictionaryResource->menu,
+                        'menu_level'     => $dictionaryResource->menu_level,
+                        'menu_collapsed' => $dictionaryResource->menu_collapsed,
+                        'icon'           => $dictionaryResource->icon,
+                        'public'         => $dictionaryResource->public,
+                        'readonly'       => $dictionaryResource->readonly,
+                        'disabled'       => $dictionaryResource->disabled,
+                        'demo'           => $dictionaryResource->disabled,
+                        'sequence'       => $dictionaryResource->sequence,
                     ];
                 }
             }
@@ -58,11 +73,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $adminIds = $this->getAdminIds();
+        $ownerIds = $this->getAdminIds();
 
-        if ($dictionaryResources = $this->getDbResources('dictionary')) {
-            if (!empty($adminIds) && !empty($dictionaryResources)) {
-                AdminResource::whereIn('admin_id', $adminIds)
+        if ($dictionaryResources = $this->getDbResources()) {
+            if (!empty($ownerIds) && !empty($dictionaryResources)) {
+                AdminResource::whereIn('owner_id', $ownerIds)
                     ->whereIn('resource_id', $dictionaryResources->pluck('id'))
                     ->delete();
             }
@@ -74,14 +89,14 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 
-    private function getDbResources(string $dbName)
+    private function getDbResources()
     {
-        if (!$database = $this->getDatabase($dbName)) {
+        if (!$database = $this->getDatabase()) {
             return [];
         }
 

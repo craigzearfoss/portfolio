@@ -19,23 +19,36 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $adminIds = $this->getAdminIds();
-        $careerDatabase = $this->getDatabase('career');
+        $ownerIds = $this->getAdminIds();
+        $careerDatabase = $this->getDatabase();
 
-        if (!empty($adminIds) && !empty($careerDatabase)) {
+        if (!empty($ownerIds) && !empty($careerDatabase)) {
 
             $data = [];
 
-            foreach ($adminIds as $adminId) {
+            foreach ($ownerIds as $ownerId) {
                 $data[] = [
-                    'admin_id'    => $adminId,
-                    'database_id' => $careerDatabase->id,
-                    'menu'        => $careerDatabase->menu,
-                    'menu_level'  => $careerDatabase->menu_level,
-                    'public'      => $careerDatabase->public,
-                    'readonly'    => $careerDatabase->readonly,
-                    'disabled'    => $careerDatabase->disabled,
-                    'sequence'    => $careerDatabase->sequence,
+                    'owner_id'       => $ownerId,
+                    'database_id'    => $careerDatabase->id,
+                    'name'           => $careerDatabase->name,
+                    'database'       => $careerDatabase->database,
+                    'tag'            => $careerDatabase->tag,
+                    'title'          => $careerDatabase->title,
+                    'plural'         => $careerDatabase->plural,
+                    'guest'          => $careerDatabase->guest,
+                    'user'           => $careerDatabase->user,
+                    'admin'          => $careerDatabase->admin,
+                    'global'         => $careerDatabase->global,
+                    'menu'           => $careerDatabase->menu,
+                    'menu_level'     => $careerDatabase->menu_level,
+                    'menu_collapsed' => $careerDatabase->menu_collapsed,
+                    'icon'           => $careerDatabase->icon,
+                    'public'         => $careerDatabase->public,
+                    'readonly'       => $careerDatabase->readonly,
+                    'root'           => $careerDatabase->root,
+                    'disabled'       => $careerDatabase->disabled,
+                    'demo'           => $careerDatabase->demo,
+                    'sequence'       => $careerDatabase->sequence,
                 ];
             }
 
@@ -54,11 +67,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $adminIds = $this->getAdminIds();
-        $systemDatabase = $this->getDatabase('career');
+        $ownerIds = $this->getAdminIds();
+        $careerDatabase = $this->getDatabase();
 
-        if (!empty($adminIds) && !empty($systemDatabase)) {
-            AdminDatabase::whereIn('admin_id', $adminIds)->where('database_id', $systemDatabase->id)->delete();
+        if (!empty($ownerIds) && !empty($careerDatabase)) {
+            AdminDatabase::whereIn('owner_id', $ownerIds)->where('database_id', $careerDatabase->id)->delete();
         }
     }
 
@@ -67,8 +80,8 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 };

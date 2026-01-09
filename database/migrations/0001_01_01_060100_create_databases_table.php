@@ -44,6 +44,7 @@ return new class extends Migration
             $table->boolean('global')->default(false);
             $table->boolean('menu')->default(false);
             $table->integer('menu_level')->default(1);
+            $table->boolean('menu_collapsed')->default(false);
             $table->string('icon', 50)->nullable();
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
@@ -52,6 +53,7 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         /** -----------------------------------------------------
@@ -59,22 +61,26 @@ return new class extends Migration
          ** ----------------------------------------------------- */
         $data = [
             [
-                'id'         => 1,
-                'name'       => 'system',
-                'database'   => config('app.' . $this->database_tag),
-                'tag'        => 'system_db',
-                'title'      => 'System',
-                'plural'     => 'Systems',
-                'guest'      => 0,
-                'user'       => 0,
-                'admin'      => 1,
-                'global'     => 0,
-                'menu'       => 1,
-                'menu_level' => 1,
-                'icon'       => 'fa-cog',
-                'public'     => 1,
-                'disabled'   => 0,
-                'sequence'   => 10000,
+                'id'             => 1,
+                'name'           => 'system',
+                'database'       => config('app.' . $this->database_tag),
+                'tag'            => 'system_db',
+                'title'          => 'System',
+                'plural'         => 'Systems',
+                'guest'          => 0,
+                'user'           => 0,
+                'admin'          => 1,
+                'global'         => 0,
+                'menu'           => 1,
+                'menu_level'     => 0,
+                'menu_collapsed' => 1,
+                'icon'           => 'fa-cog',
+                'public'         => 1,
+                'readonly'       => 0,
+                'root'           => 1,
+                'disabled'       => 0,
+                'demo'           => 0,
+                'sequence'       => 10000,
             ],
         ];
 

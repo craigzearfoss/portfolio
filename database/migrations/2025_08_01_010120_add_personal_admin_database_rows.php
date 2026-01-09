@@ -19,23 +19,36 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $adminIds = $this->getAdminIds();
-        $personalDatabase = $this->getDatabase('personal');
+        $ownerIds = $this->getAdminIds();
+        $personalDatabase = $this->getDatabase();
 
-        if (!empty($adminIds) && !empty($personalDatabase)) {
+        if (!empty($ownerIds) && !empty($personalDatabase)) {
 
             $data = [];
 
-            foreach ($adminIds as $adminId) {
+            foreach ($ownerIds as $ownerId) {
                 $data[] = [
-                    'admin_id'    => $adminId,
-                    'database_id' => $personalDatabase->id,
-                    'menu'        => $personalDatabase->menu,
-                    'menu_level'  => $personalDatabase->menu_level,
-                    'public'      => $personalDatabase->public,
-                    'readonly'    => $personalDatabase->readonly,
-                    'disabled'    => $personalDatabase->disabled,
-                    'sequence'    => $personalDatabase->sequence,
+                    'owner_id'       => $ownerId,
+                    'database_id'    => $personalDatabase->id,
+                    'name'           => $personalDatabase->name,
+                    'database'       => $personalDatabase->database,
+                    'tag'            => $personalDatabase->tag,
+                    'title'          => $personalDatabase->title,
+                    'plural'         => $personalDatabase->plural,
+                    'guest'          => $personalDatabase->guest,
+                    'user'           => $personalDatabase->user,
+                    'admin'          => $personalDatabase->admin,
+                    'global'         => $personalDatabase->global,
+                    'menu'           => $personalDatabase->menu,
+                    'menu_level'     => $personalDatabase->menu_level,
+                    'menu_collapsed' => $personalDatabase->menu_collapsed,
+                    'icon'           => $personalDatabase->icon,
+                    'public'         => $personalDatabase->public,
+                    'readonly'       => $personalDatabase->readonly,
+                    'root'           => $personalDatabase->root,
+                    'disabled'       => $personalDatabase->disabled,
+                    'demo'           => $personalDatabase->demo,
+                    'sequence'       => $personalDatabase->sequence,
                 ];
             }
 
@@ -54,11 +67,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $adminIds = $this->getAdminIds();
-        $systemDatabase = $this->getDatabase('personal');
+        $ownerIds = $this->getAdminIds();
+        $personalDatabase = $this->getDatabase();
 
-        if (!empty($adminIds) && !empty($systemDatabase)) {
-            AdminDatabase::whereIn('admin_id', $adminIds)->where('database_id', $systemDatabase->id)->delete();
+        if (!empty($ownerIds) && !empty($personalDatabase)) {
+            AdminDatabase::whereIn('owner_id', $ownerIds)->where('database_id', $personalDatabase->id)->delete();
         }
     }
 
@@ -67,8 +80,8 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 };

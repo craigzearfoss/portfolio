@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Guest\Personal;
 
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
+use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Services\PermissionService;
@@ -15,22 +17,37 @@ class IndexController extends BaseGuestController
     /**
      * Display a listing of personal resources.
      *
-     * @param Admin $admin
+     * @param Admin|null $admin
      * @param Request $request
      * @return View
      * @throws \Exception
      */
-    public function index(Admin $admin, Request $request): View
+    public function index(Admin|null $admin, Request $request): View
     {
-        $personalResourceTypes = Database::getAdminResourceTypes(
-            $admin->id,
-            'personal',
-            [
-                'public'   => true,
-                'disabled' => false,
-            ]
-        );
+        if (!empty($admin)) {
 
-        return view(themedTemplate('guest.personal.index'), compact('personalResourceTypes', 'admin'));
+            $database = AdminDatabase::where('tag', 'personal_db')->where('owner_id', $admin->id)->first();
+            $resources = AdminResource::getResources(
+                $admin->id,
+                PermissionService::ENV_GUEST,
+                $database->database_id,
+                [],
+                [ 'title', 'asc' ]
+            );
+
+        } else {
+
+            $database = Database::where('tag', 'personal_db')->first();
+            $resources = Resource::getResources(
+                $admin->id,
+                PermissionService::ENV_GUEST,
+                $database->id,
+                [],
+                [ 'title', 'asc' ]
+            );
+
+        }
+
+        return view(themedTemplate('guest.personal.index'), compact('database', 'resources', 'admin'));
     }
 }

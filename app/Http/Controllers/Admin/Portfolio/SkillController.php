@@ -24,7 +24,7 @@ class SkillController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = 50; //$request->query('per_page', $this->perPage);
 
         $skills = Skill::orderBy('level', 'desc')->orderBy('featured', 'desc')
             ->orderBy('name', 'asc')->paginate($perPage);

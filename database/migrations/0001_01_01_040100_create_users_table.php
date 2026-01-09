@@ -145,33 +145,44 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        $data = [
-            [
-                'id'                => 1,
-                'username'          => $this->sampleUsername,
-                'name'              => $this->sampleName,
-                'label'             => $this->sampleLabel,
-                'email'             => 'sample-user@gsample.com',
-                'email_verified_at' => now(),
-                'password'          => Hash::make($this->samplePassword),
-                'status'            => 1,
-                'image'             => '/images/user/1/profile.png',
-                'thumbnail'         => '/images/user/1/thumbnail.png',
-                'token'             => ''
-            ],
-            [
-                'id'                => 2,
-                'username'          => $this->demoUsername,
-                'name'              => $this->demoName,
-                'label'             => $this->demoLabel,
-                'email'             => 'demo-user@sample.com',
-                'email_verified_at' => now(),
-                'password'          => Hash::make($this->demoPassword),
-                'image'             => '/images/admin/2/profile.png',
-                'thumbnail'         => '/images/admin/2/thumbnail.png',
-                'status'            => 1,
-                'token'             => '',
-            ],
+        $data = [];
+
+        $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
+            . DIRECTORY_SEPARATOR . $this->sampleLabel . DIRECTORY_SEPARATOR;
+        $imagePath =  $imageDir . generateEncodedFilename($this->sampleLabel, 'image') . '.png';
+        $thumbnailPath = $imageDir . generateEncodedFilename($this->sampleLabel, 'thumbnail') . '.png';
+
+        $data[] = [
+            'id'                => 1,
+            'username'          => $this->sampleUsername,
+            'name'              => $this->sampleName,
+            'label'             => $this->sampleLabel,
+            'email'             => 'sample-user@gsample.com',
+            'email_verified_at' => now(),
+            'password'          => Hash::make($this->samplePassword),
+            'status'            => 1,
+            'image'             => $imagePath,
+            'thumbnail'         => $thumbnailPath,
+            'token'             => ''
+        ];
+
+        $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
+            . DIRECTORY_SEPARATOR . $this->demoLabel . DIRECTORY_SEPARATOR;
+        $imagePath =  $imageDir . generateEncodedFilename($this->demoLabel, 'image') . '.png';
+        $thumbnailPath = $imageDir . generateEncodedFilename($this->demoLabel, 'thumbnail') . '.png';
+
+        $data[] = [
+            'id'                => 2,
+            'username'          => $this->demoUsername,
+            'name'              => $this->demoName,
+            'label'             => $this->demoLabel,
+            'email'             => 'demo-user@sample.com',
+            'email_verified_at' => now(),
+            'password'          => Hash::make($this->demoPassword),
+            'image'             => $imagePath,
+            'thumbnail'         => $thumbnailPath,
+            'status'            => 1,
+            'token'             => '',
         ];
 
         // add timestamps

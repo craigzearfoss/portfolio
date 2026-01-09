@@ -47,7 +47,8 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
             @include('guest.components.form-select-nolabel', [
                 'value'    => !empty($admin->label) ? $admin->label : '',
-                'list'     => \App\Models\System\Admin::listOptions([
+                'list'     => \App\Models\System\Admin::listOptions(
+                                    [
                                         'public' => 1,
                                     ],
                                     'label',
@@ -64,38 +65,78 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
     </div>
 
-    @foreach ($menuItems as $menuItem)
+    @for ($i = 0; $i < count($menuItems); $i++)
 
         <ul class="menu is-menu-main" style="font-size: 1rem;">
 
             <p class="menu-label pb-0 mb-0">
-                <a @if (!empty($menuItem->link))href="{{ $menuItem->link }}" @endif
-                   class="has-text-white {{ $menuItem->active ? 'is-active' : '' }}"
+                <a @if (!empty($menuItems[$i]->url))href="{{ $menuItems[$i]->url }}" @endif
+                   class="has-text-white {{ $menuItems[$i]->active ? 'is-active' : '' }}"
                    style="padding: 0.3rem;"
                 >
-                    {{ $menuItem->title }}
+                    {{ $menuItems[$i]->title }}
                 </a>
             </p>
 
-            @if(!empty($menuItem->children))
+            @if(!empty($menuItems[$i]->children))
 
-                <ul class="menu-list pl-2" style="{{ $menuItem->children[0]->level == 2 ? 'margin-left: 1rem;' : ''}}">
+                <ul class="menu-list pl-2" style="margin-left: 1em;">
 
-                    @foreach ($menuItem->children as $menuSubItem)
-                        <li @if(($menuItem->name == 'portfolio') && in_array($menuSubItem->name, ['job'])) style="display: none !important" @endif>
-                            <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}"  @endif
-                                class="{{ $menuSubItem->active ? 'is-active' : '' }}"
+                    @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
+                        <li>
+                            <a @if (!empty($menu2Item->url))href="{{ $menu2Item->url }}"  @endif
+                                class="{{ $menu2Item->active ? 'is-active' : '' }}"
                                style="padding: 0.3rem;"
                             >
                                 <div class="menu-item">
                                     <span class="text-xl">
-                                        <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
+                                        <i class="fa-solid {{ !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle' }}"></i>
                                     </span>
                                     <span class="menu-item-label">
-                                        {{ !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title }}
+                                        {{ !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title }}
                                     </span>
                                 </div>
                             </a>
+
+
+                            @if(!empty($menu2Item->children))
+@php //@TODO: This isn't working @endphp
+                                <ul class="menu-list pl-2" style="margin-left: 1em;">
+
+                                    @foreach ($menu2Item->children as $menu3Item)
+                                    <li>ffff
+                                        <a @if (!empty($menu3Item->url))href="{{ $$menu3Item->url }}"  @endif
+                                        class="{{ $menu3Item->active ? 'is-active' : '' }}"
+                                           style="padding: 0.3rem;"
+                                        >
+                                            <div class="menu-item">
+                                            <span class="text-xl">
+                                                <i class="fa-solid {{ !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle' }}"></i>
+                                            </span>
+                                                <span class="menu-item-label">
+                                                {{ !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title }}
+                                            </span>
+                                            </div>
+                                        </a>
+
+
+
+
+
+
+
+
+                                    </li>
+                                    @endforeach
+
+                                </ul>
+
+                            @endif
+
+
+
+
+
                         </li>
                     @endforeach
 
@@ -104,6 +145,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
             @endif
 
         </ul>
-    @endforeach
+
+    @endfor
 
 </aside>

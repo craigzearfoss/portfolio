@@ -1,4 +1,4 @@
-<?php
+7<?php
 
 use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
@@ -23,42 +23,72 @@ return new class extends Migration
     {
         $dbName = config('app.' . $this->database_tag);
 
-        Schema::connection($this->database_tag)->create('admin_database', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('admin_databases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('admin_id')
+            $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
             $table->foreignId('database_id')
                 ->constrained('databases', 'id')
                 ->onDelete('cascade');
+            $table->string('name', 50);
+            $table->string('database', 50);
+            $table->string('tag', 50);
+            $table->string('title', 50);
+            $table->string('plural', 50);
+            $table->boolean('guest')->default(false);
+            $table->boolean('user')->default(false);
+            $table->boolean('admin')->default(false);
+            $table->boolean('global')->default(false);
             $table->boolean('menu')->default(false);
             $table->integer('menu_level')->default(1);
+            $table->boolean('menu_collapsed')->default(false);
+            $table->string('icon', 50)->nullable();
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(true);
             $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->unique(['admin_id', 'database_id'], 'admin_id_database_id_unique');
+            $table->unique(['owner_id', 'database_id'], 'owner_id_database_id_unique');
+            $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
+            $table->unique(['owner_id', 'database'], 'owner_id_database_unique');
+            $table->unique(['owner_id', 'tag'], 'owner_id_tag_unique');
         });
 
-        $adminIds = $this->getAdminIds();
-        $systemDatabase = $this->getDatabase('system');
+        $ownerIds = $this->getAdminIds();
+        $systemDatabase = $this->getDatabase();
 
-        if (!empty($adminIds) && !empty($systemDatabase)) {
+        if (!empty($ownerIds) && !empty($systemDatabase)) {
 
             $data = [];
 
-            foreach ($adminIds as $adminId) {
+            foreach ($ownerIds as $ownerId) {
                 $data[] = [
-                    'admin_id'    => $adminId,
-                    'database_id' => $systemDatabase->id,
-                    'menu'        => $systemDatabase->menu,
-                    'menu_level'  => $systemDatabase->menu_level,
-                    'public'      => $systemDatabase->public,
-                    'readonly'    => $systemDatabase->readonly,
-                    'disabled'    => $systemDatabase->disabled,
-                    'sequence'    => $systemDatabase->sequence,
+                    'owner_id'       => $ownerId,
+                    'database_id'    => $systemDatabase->id,
+                    'name'           => $systemDatabase->name,
+                    'database'       => $systemDatabase->database,
+                    'tag'            => $systemDatabase->tag,
+                    'title'          => $systemDatabase->title,
+                    'plural'         => $systemDatabase->plural,
+                    'guest'          => $systemDatabase->guest,
+                    'user'           => $systemDatabase->user,
+                    'admin'          => $systemDatabase->admin,
+                    'global'         => $systemDatabase->global,
+                    'menu'           => $systemDatabase->menu,
+                    'menu_level'     => $systemDatabase->menu_level,
+                    'menu_collapsed' => $systemDatabase->menu_collapsed,
+                    'icon'           => $systemDatabase->icon,
+                    'public'         => $systemDatabase->public,
+                    'readonly'       => $systemDatabase->readonly,
+                    'root'           => $systemDatabase->root,
+                    'disabled'       => $systemDatabase->disabled,
+                    'demo'           => $systemDatabase->demo,
+                    'sequence'       => $systemDatabase->sequence,
                 ];
             }
 
@@ -77,7 +107,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('admin_database');
+        Schema::connection($this->database_tag)->dropIfExists('admin_databases');
     }
 
     private function getAdminIds()
@@ -85,8 +115,8 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 };
