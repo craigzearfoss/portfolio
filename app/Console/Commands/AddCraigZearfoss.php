@@ -77,14 +77,18 @@ class AddCraigZearfoss extends Command
      *
      * @var string
      */
-    protected $signature = 'app:add-czearfoss {--team_id=} {--password=} {--group_id=} {--demo=1}  {--silent}';
+    protected $signature = 'app:add-czearfoss
+                            {--team_id= : The id of the admin team for czearfoss}
+                            {--password= : The password for czearfoss}
+                            {--group_id= : The id of the admin group for czearfoss}
+                            {--demo=1 : Make czearfoss a demo admin}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the databases with initial data for admin czearfoss.';
+    protected $description = 'This will populate the databases with initial data for the admin czearfoss.';
 
     /**
      * Execute the console command.

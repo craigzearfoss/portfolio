@@ -35,14 +35,15 @@ class FredFlintstone extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-' . self::USERNAME . '-personal {--demo=1} {--silent}';
+    protected $signature = 'app:init-' . self::USERNAME . '-personal
+                            {--demo=1 : Mark all the resources for the admin ' . self::USERNAME . ' as demo}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the personal database with initial data for admin ' . self::USERNAME . '.';
+    protected $description = 'This will populate the personal database with initial data for the admin ' . self::USERNAME . '.';
 
     /**
      * Execute the console command.

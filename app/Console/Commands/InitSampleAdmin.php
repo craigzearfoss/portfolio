@@ -61,14 +61,18 @@ class InitSampleAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-sample-admin {username} {--team_id=} {--group_id=} {--demo=1} {--silent}';
+    protected $signature = 'app:init-sample-admin {username : The username of the admin to be added. Specify "all" to add all sample admins.}
+                            {--team_id= : The id of the admin team for the specified admin(s)}
+                            {--password= : The password for the specified admin(s)}
+                            {--group_id= : The id of the admin group for the specified admin(s)}
+                            {--demo=1 : Mark all the resources for the specified admin as demo}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the databases with initial data for a sample admin.';
+    protected $description = 'This will populate the databases with initial data for a sample admin (or all sample admins).';
 
     /**
      * Execute the console command.

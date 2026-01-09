@@ -40,14 +40,16 @@ class CopySourceImages extends Command
      *
      * @var string
      */
-    protected $signature = 'app:copy-source-images {--force}';
+    protected $signature = 'app:copy-source-images
+                           {--force : Overwrite existing files}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This copies resource images from /source_files/images to /public/images.';
+    protected $description = 'This copies resource images from /source_files/images to /public/images.
+  The files are renamed and updated in the database(s) for enhanced security.';
 
     /**
      * Execute the console command.

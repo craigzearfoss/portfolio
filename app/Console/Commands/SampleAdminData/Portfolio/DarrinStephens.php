@@ -48,14 +48,15 @@ class DarrinStephens extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-' . self::USERNAME . '-portfolio {--demo=1} {--silent}';
+    protected $signature = 'app:init-' . self::USERNAME . '-portfolio
+                            {--demo=1 : Mark all the resources for the admin ' . self::USERNAME . ' as demo}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the portfolio database with initial data for admin ' . self::USERNAME . '.';
+    protected $description = 'This will populate the portfolio database with initial data for the admin ' . self::USERNAME . '.';
 
     /**
      * Execute the console command.

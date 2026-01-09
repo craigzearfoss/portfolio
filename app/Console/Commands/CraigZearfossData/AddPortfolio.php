@@ -49,14 +49,15 @@ class AddPortfolio extends Command
      *
      * @var string
      */
-    protected $signature = 'app:add-' . self::USERNAME . '-portfolio {--demo=0} {--silent}';
+    protected $signature = 'app:add-' . self::USERNAME . '-portfolio
+                            {--demo=0 : Mark all the resources for the admin czearfoss as demo}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the portfolio database with initial data for admin ' . self::USERNAME . '.';
+    protected $description = 'This will populate the portfolio database with initial data for the admin ' . self::USERNAME . '.';
 
     /**
      * Execute the console command.
