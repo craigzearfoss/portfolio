@@ -564,7 +564,10 @@ if (! function_exists('reservedKeywords')) {
          */
         function isDemo(): bool
         {
-            if (!empty(config('app.demo_admin_enabled')) || !empty(config('app.demo_user_enabled'))) {
+            if (!empty(config('app.demo_mode'))
+                || !empty(config('app.demo_admin_enabled'))
+                || !empty(config('app.demo_user_enabled'))
+            ) {
                 return true;
             } else {
                 return false;

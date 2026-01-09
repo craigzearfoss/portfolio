@@ -77,7 +77,7 @@ class VideoController extends BaseAdminController
      */
     public function edit(Video $video): View
     {
-        Gate::authorize('update-resource', $video);
+        //Gate::authorize('update-resource', $video);
 
         return view('admin.portfolio.video.edit', compact('video'));
     }

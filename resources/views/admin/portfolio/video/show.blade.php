@@ -136,7 +136,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $video->link_name >> 'link',
+            'name'   => $video->link_name,
             'href'   => $video->link,
             'target' => '_blank'
         ])

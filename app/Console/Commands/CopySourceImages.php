@@ -98,7 +98,7 @@ class CopySourceImages extends Command
 
                             echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $resourcePath) . ' ...'
                                 . PHP_EOL;
-
+dd($resourcePath);
                             if ($resourceDefinition = Resource::where('name', $resourceSlug)->first()) {
 
                                 try {
@@ -124,7 +124,7 @@ class CopySourceImages extends Command
                                         );
 
                                         foreach ($query->get() as $item) {
-
+dd($item);
                                             echo 'Copying files from ' . $itemPath . PHP_EOL;
 
                                             foreach (scandir($itemPath) as $itemSlug) {

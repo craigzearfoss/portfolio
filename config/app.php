@@ -32,6 +32,7 @@ return [
     'open_enrollment'       => boolval(env('APP_OPEN_ENROLLMENT', false)),
     'owner'                 => env('APP_OWNER', ''),
     'featured_admin'        => env('APP_FEATURED_ADMIN', null),
+    'demo_mode'             => boolval(env('APP_DEMO_MODE', false)),
     'admin_login_enabled'   => boolval(env('APP_ADMIN_LOGIN_ENABLED', false)),
     'user_login_enabled'    => boolval(env('APP_USER_LOGIN_ENABLED', false)),
     'demo_admin_enabled'    => boolval(env('APP_DEMO_ADMIN_ENABLED', false)),

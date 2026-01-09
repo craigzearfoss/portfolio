@@ -62,8 +62,8 @@ class InitSampleAdmin extends Command
      * @var string
      */
     protected $signature = 'app:init-sample-admin {username : The username of the admin to be added. Specify "all" to add all sample admins.}
-                            {--team_id= : The id of the admin team for the specified admin(s)}
                             {--password= : The password for the specified admin(s)}
+                            {--team_id= : The id of the admin team for the specified admin(s)}
                             {--group_id= : The id of the admin group for the specified admin(s)}
                             {--demo=1 : Mark all the resources for the specified admin as demo}';
 
@@ -80,6 +80,7 @@ class InitSampleAdmin extends Command
     public function handle()
     {
         $username     = $this->argument('username');
+        $password     = $this->option('password');
         $adminTeamId  = $this->option('team_id');
         $adminGroupId = $this->option('group_id');
         $this->demo   = $this->option('demo');
@@ -103,19 +104,53 @@ class InitSampleAdmin extends Command
         if (!empty($undefinedUsernames)) {
             if (count($undefinedUsernames) == 1) {
                 $this->error("Username {$undefinedUsernames[0]} not defined.");
-
             } else {
                 $this->error('These usernames are not defined: ' . implode(', ', $undefinedUsernames));
             }
             die;
         }
 
+        if (!empty($password) && (strlen($password) < 8)) {
+            $this->error('Password must be at least 8 characters.');
+            die;
+        }
+
+        if (!$this->silent) {
+
+            if ($this->processAll) {
+                echo PHP_EOL . 'Import all sample admins.' . PHP_EOL;
+            } else {
+                echo PHP_EOL . 'Import ' . $username . PHP_EOL;
+            }
+
+            if (!empty($password)) {
+                echo '    password: ' . $password . PHP_EOL;
+            }
+
+            if (!empty($adminTeamId)) echo '    admin_team_id: ' . $adminTeamId . PHP_EOL;
+            if (!empty($adminGroupId)) echo '    admin_group_id: ' . $adminGroupId . PHP_EOL;
+            echo '    demo:     ' . $this->demo . PHP_EOL;
+
+            if (empty($password)) {
+                if ($this->processAll) {
+                    echo PHP_EOL . 'Random passwords will be assigned to all admins.' . $password . PHP_EOL;
+                } else {
+                    echo PHP_EOL . 'A random password will be assigned to the admin.' . $password . PHP_EOL;
+                }
+                echo 'If you want to assign a password, re-run the command with the --password option.' . $password . PHP_EOL;
+            }
+
+            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+        }
+
+        $this->silent = true;
+
         foreach ($usernames as $username) {
-            $this->insertAdmin($username, $adminTeamId, $adminGroupId);
+            $this->insertAdmin($username, $password, $adminTeamId, $adminGroupId);
         }
     }
 
-    protected function insertAdmin($username, $adminTeamId = null, $adminGroupId = null)
+    protected function insertAdmin($username, $password, $adminTeamId = null, $adminGroupId = null)
     {
         $DS = DIRECTORY_SEPARATOR;
         $sampleAdminDataDirectory = base_path() . $DS . 'app' . $DS . 'Console' . $DS . 'Commands' . $DS . 'SampleAdminData';
@@ -174,23 +209,6 @@ class InitSampleAdmin extends Command
             die;
         }
 
-        if (!$this->silent) {
-            if ($this->processAll) {
-                echo PHP_EOL . 'Import all sample admins.' . PHP_EOL;
-            } else {
-                echo PHP_EOL . 'username: ' . $username . PHP_EOL;
-                echo 'admin_id: ' . $adminId . PHP_EOL;
-                echo 'team_id:  ' . $adminTeamId . PHP_EOL;
-                echo 'group_id: ' . $adminGroupId . PHP_EOL;
-                echo 'demo:     ' . $this->demo . PHP_EOL;
-            }
-
-            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
-        }
-
-        // we only prompt for the first user
-        $this->silent = true;
-
         /* --------------------------------------------------------------------------- */
         /* Import into the system database.                                            */
         /* Note that the demo admin was added in the initial migration.                */
@@ -199,7 +217,7 @@ class InitSampleAdmin extends Command
 
             echo PHP_EOL . "Importing Portfolio data for {$username} ..." . PHP_EOL;
 
-            $this->insertSystemAdmin($username, $adminId, $adminTeamId);
+            $this->insertSystemAdmin($username, $password, $adminId, $adminTeamId);
             $this->insertSystemAdminAdminTeams($username, $adminId, $adminTeamId);
             $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
             $this->insertSystemAdminDatabaseRows($adminId, $username);
@@ -295,19 +313,22 @@ class InitSampleAdmin extends Command
      * Insert an admin into the system admins table
      *
      * @param string $username
+     * @param string|null $password
      * @param int $adminId
      * @param int $adminTeamId
      * @return void
      * @throws \Random\RandomException
      */
-    protected function insertSystemAdmin(string $username, int $adminId, int $adminTeamId): void
+    protected function insertSystemAdmin(string $username, string|null $password, int $adminId, int $adminTeamId): void
     {
         echo $username . ": Inserting into System\\Admin ...\n";
 
-        // generate a random password
-        $bytes = random_bytes(ceil(16 / 2));
-        $randomString = bin2hex($bytes);
-        $password = substr($randomString, 0, 16);
+        if (empty($password)) {
+            // generate a random password
+            $bytes = random_bytes(ceil(16 / 2));
+            $randomString = bin2hex($bytes);
+            $password = substr($randomString, 0, 16);
+        }
 
         // generate the paths for the image and thumbnail
         $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
