@@ -2276,7 +2276,7 @@ class Demo extends Command
                 'name'             => 'Sleazefest: The Movie',
                 'slug'             => 'sleazefest-the-movie',
                 'featured'         => 1,
-                'summary'          => 'This is a documentary of the inaugural <b>Sleazefest</b>, an annual weekend of "bands, b-movies, and barbecue" that took place at Local 506 in Chapel Hill, NC every August from 1994 until the early 2000s. Craig Zearfoss organized the video production for the event and, along with Rob Linder and Matt Johnson, created this full-length video. An audio CD and full-length double album was also produced of the event.',
+                'summary'          => 'This is a documentary of the inaugural <b>Sleazefest</b>, an annual weekend of "bands, B-movies, and barbecue" that took place at Local 506 in Chapel Hill, NC every August from 1994 until the early 2000s. Craig Zearfoss organized the video production for the event and, along with Rob Linder and Matt Johnson, created this full-length video. An audio CD and full-length double album was also produced of the event.',
                 'full_episode'     => 1,
                 'clip'             => 0,
                 'public_access'    => 0,
