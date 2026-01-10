@@ -72,58 +72,53 @@
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.career.recruiter.destroy', $recruiter->id) }}" method="POST">
 
                             @if(canRead($recruiter))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.recruiter.show', $recruiter->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.career.recruiter.show', $recruiter->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($recruiter))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.recruiter.edit', $recruiter->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.career.recruiter.edit', $recruiter->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($recruiter->link))
-                                <a title="{{ htmlspecialchars((!empty($recruiter->link_name) ? $recruiter->link_name : 'link') ?? '') }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $recruiter->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($recruiter->link_name) ? $recruiter->link_name : 'link') ?? ''),
+                                    'href'   => $recruiter->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
-                            @endif
-
-                            @if (!empty($recruiter->postings_url))
-                                <a title="job postings"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $recruiter->postings_url }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link-square"></i>
-                                </a>
-                            @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($recruiter))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
+
                         </form>
+
                     </td>
                 </tr>
 

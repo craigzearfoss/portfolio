@@ -76,30 +76,37 @@
                         @include('admin.components.checkmark', [ 'checked' => $adminGroup->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.system.admin-group.destroy', $adminGroup->id) }}" method="POST">
 
                             @if(canRead($adminGroup))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.system.admin-group.show', $adminGroup->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.system.admin-group.show', $adminGroup->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($adminGroup))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.system.admin-group.edit', $adminGroup->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.system.admin-group.edit', $adminGroup->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
-                            @if(canRead($adminGroup))
+                            @if(canDelete($adminGroup))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

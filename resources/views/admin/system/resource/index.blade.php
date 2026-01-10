@@ -81,12 +81,12 @@
                         {{ htmlspecialchars($resource->database['name'] ?? '') }}
                     </td>
                     <td data-field="table">
-                        {{ $resource->table }}
+                        {{ htmlspecialchars($resource->table ?? '') }}
                     </td>
                     <td data-field="icon">
                         @if (!empty($resource->icon))
                             <span class="text-xl">
-                                <i class="fa-solid {{ $resource->icon }}"></i>
+                                <i class="fa-solid {{ htmlspecialchars($resource->icon ?? '') }}"></i>
                             </span>
                         @else
                         @endif
@@ -113,28 +113,37 @@
                         @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
                     </td>
                     <td>
+
                         <form action="{{ route('admin.system.resource.destroy', $resource->id) }}" method="POST">
 
                             @if(canRead($resource))
-                                <a class="button is-small px-1 py-0" href="{{ route('admin.system.resource.show', $resource->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.system.resource.show', $resource->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($resource))
-                                <a class="button is-small px-1 py-0" href="{{ route('admin.system.resource.edit', $resource->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.system.resource.edit', $resource->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if(canDelete($resource))
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

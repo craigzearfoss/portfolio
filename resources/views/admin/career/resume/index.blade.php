@@ -97,72 +97,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $resume->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.career.resume.destroy', $resume->id) }}" method="POST">
 
                             @if(canRead($resume))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.resume.show', $resume->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.career.resume.show', $resume->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($resume))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.resume.edit', $resume->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                            @endif
-
-                            @if (!empty($resume->doc_url))
-                                <a title="Open Microsoft Word document"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $resume->doc_url }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-file-word"></i>
-                                </a>
-                            @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-file-word"></i>
-                                </a>
-                            @endif
-
-                            @if (!empty($resume->pdf_url))
-                                <a title="Open PDF document"
-                                   class="button is-small
-                                   px-1 py-0" href="{{ $resume->pdf_url }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-file-pdf"></i>
-                                </a>
-                            @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-file-pdf"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.career.resume.edit', $resume->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($resume->link))
-                                <a title="{{ htmlspecialchars((!empty($resume->link_name) ? $resume->link_name : 'link') }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $resume->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($resume->link_name) ? $resume->link_name : 'link') ?? ''),
+                                    'href'   => $resume->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($resume))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

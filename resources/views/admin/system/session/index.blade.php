@@ -70,7 +70,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ 6 }}>There are no sessions.</td>
+                    <td colspan="{{ 6 }}">There are no sessions.</td>
                 </tr>
 
             @endforelse

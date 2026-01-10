@@ -72,59 +72,68 @@
                     <td class="is-1" style="white-space: nowrap;">
 
                         @if(canRead($database))
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.database.show', $database->id) }}">
-                                <i class="fa-solid fa-list"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title' => 'show',
+                                'href'  => route('admin.dictionary.database.show', $database->id),
+                                'icon'  => 'fa-list'
+                            ])
                         @endif
 
-
                         @if(canUpdate($database))
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.database.edit', $database->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title' => 'edit',
+                                'href'  => route('admin.dictionary.database.edit', $database->id),
+                                'icon'  => 'fa-pen-to-square'
+                            ])
                         @endif
 
                         @if (!empty($database->link))
-                            <a title="{{ htmlspecialchars(!empty($database->link_name) ? $database->link_name: 'link') }}"
-                               class="button is-small px-1 py-0"
-                               href="{{ $database->link }}"
-                               target="_blank"
-                            >
-                                <i class="fa-solid fa-external-link"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'  => htmlspecialchars((!empty($database->link_name) ? $database->link_name : 'link') ?? ''),
+                                'href'   => $database->link,
+                                'icon'   => 'fa-external-link',
+                                'target' => '_blank'
+                            ])
                         @else
-                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'    => 'link',
+                                'icon'     => 'fa-external-link',
+                                'disabled' => true
+                            ])
                         @endif
 
                         @if (!empty($database->wikipedia))
-                            <a title="Wikipedia page"
-                               class="button is-small px-1 py-0"
-                               href="{{ $database->wikipedia }}"
-                               target="_blank"
-                            >
-                                <i class="fa-solid fa-file"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'  => 'Wikipedia page',
+                                'href'   => $database->wikipedia,
+                                'icon'   => 'fa-external-link',
+                                'target' => '_blank'
+                            ])
                         @else
-                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-file"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'    => 'link',
+                                'icon'     => 'fa-external-link',
+                                'disabled' => true
+                            ])
                         @endif
 
                         @if(canDelete($database))
+
                             <form action="{{ route('admin.dictionary.database.destroy', $database->id) }}"
                                   method="POST"
                                   style="display:inline-flex"
                             >
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
+
                             </form>
+
                         @endif
 
                     </td>

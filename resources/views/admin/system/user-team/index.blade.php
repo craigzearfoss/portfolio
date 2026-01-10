@@ -59,36 +59,58 @@
                         {{ htmlspecialchars($userTeam->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($userTeam->abbreviation ?? ''0 }}
+                        {{ htmlspecialchars($userTeam->abbreviation ?? '') }}
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $userTeam->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.system.user-team.destroy', $userTeam->id) }}" method="POST">
 
                             @if(canRead($userTeam))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.system.user-team.show', $userTeam->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.system.user-team.show', $userTeam->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($userTeam))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.system.user-team.edit', $userTeam->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.system.user-team.edit', $userTeam->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
+
+                            @if (!empty($userTeam->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($userTeam->link_name) ? $userTeam->link_name : 'link') ?? ''),
+                                    'href'   => $userTeam->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($userTeam))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

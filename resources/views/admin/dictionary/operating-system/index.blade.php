@@ -72,58 +72,78 @@
                     <td class="is-1" style="white-space: nowrap;">
 
                         @if(canRead($operatingSystem))
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.operating-system.show', $operatingSystem->id) }}">
-                                <i class="fa-solid fa-list"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title' => 'show',
+                                'href'  => route('admin.dictionary.operating-system.show', $operatingSystem->id),
+                                'icon'  => 'fa-list'
+                            ])
                         @endif
 
                         @if(canUpdate($operatingSystem))
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.operating-system.edit', $operatingSystem->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title' => 'edit',
+                                'href'  => route('admin.dictionary.operating-system.edit', $operatingSystem->id),
+                                'icon'  => 'fa-pen-to-square'
+                            ])
                         @endif
 
                         @if (!empty($operatingSystem->link))
-                            <a title="link"
-                               class="button is-small px-1 py-0"
-                               href="{{ htmlspecialchars((!empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link') ?? '') }}"
-                               target="_blank"
-                            >
-                                <i class="fa-solid fa-external-link"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'  => htmlspecialchars((!empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link') ?? ''),
+                                'href'   => $operatingSystem->link,
+                                'icon'   => 'fa-external-link',
+                                'target' => '_blank'
+                            ])
                         @else
-                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'    => 'link',
+                                'icon'     => 'fa-external-link',
+                                'disabled' => true
+                            ])
                         @endif
 
                         @if (!empty($operatingSystem->wikipedia))
-                            <a title="Wikipedia page"
-                               class="button is-small px-1 py-0"
-                               href="{{ $operatingSystem->wikipedia }}"
-                               target="_blank"
-                            >
-                                <i class="fa-solid fa-file"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'  => 'Wikipedia page',
+                                'href'   => $operatingSystem->wikipedia,
+                                'icon'   => 'fa-external-link',
+                                'target' => '_blank'
+                            ])
                         @else
-                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-file"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'    => 'link',
+                                'icon'     => 'fa-external-link',
+                                'disabled' => true
+                            ])
                         @endif
 
                         @if(canDelete($operatingSystem))
+                            @csrf
+                            @method('DELETE')
+                            @include('admin.components.button-icon', [
+                                'title' => 'delete',
+                                'class' => 'delete-btn',
+                                'icon'  => 'fa-trash'
+                            ])
+                        @endif
+
+                        @if(canDelete($operatingSystem))
+
                             <form action="{{ route('admin.dictionary.operating-system.destroy', $operatingSystem->id) }}"
                                   method="POST"
                                   style="display:inline-flex"
                             >
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
+
                             </form>
+
                         @endif
 
                     </td>

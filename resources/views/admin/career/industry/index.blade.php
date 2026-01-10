@@ -52,44 +52,52 @@
                         {{ htmlspecialchars($industry->abbreviation, '') }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.career.industry.destroy', $industry->id) }}" method="POST">
 
                             @if(canRead($industry))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.industry.show', $industry->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.career.industry.show', $industry->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($industry))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.industry.edit', $industry->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.career.industry.edit', $industry->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($industry->link))
-                                <a title="{{ htmlspecialchars((!empty($industry->link_name) ? $industry->link_name : 'link') ?? '') }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $industry->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($industry->link_name) ? $industry->link_name : 'link') ?? ''),
+                                    'href'   => $industry->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($industry))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                @endif
-                            </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
+                            @endif
+
                         </form>
+
                     </td>
                 </tr>
 

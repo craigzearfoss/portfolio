@@ -42,7 +42,7 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
-                @if(empty($application))
+                @if(!empty($event->application))
                     <th>application</th>
                 @endif
                 <th>name</th>
@@ -60,7 +60,7 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
-                @if(empty($application))
+                @if(!empty($event->application))
                     <th>application</th>
                 @endif
                 <th>name</th>
@@ -83,7 +83,7 @@
                             {{ $event->owner->username ?? '' }}
                         </td>
                     @endif
-                    @if(empty($application))
+                    @if(!empty($event->application))
                         <td data-field="application_id">
                             @include('admin.components.link', [
                                 'name' => htmlspecialchars($event->application->name ?? ''),
@@ -91,9 +91,6 @@
                             ])
                         </td>
                     @endif
-                    <td data-field="application_id" style="white-space: nowrap;">
-                        {{ htmlspecialchars($event->application->name ?? '') }}
-                    </td>
                     <td data-field="name" style="white-space: nowrap;">
                         {{ htmlspecialchars($event->name ?? '') }}
                     </td>
@@ -113,30 +110,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $event->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.career.event.destroy', $event->id) }}" method="POST">
 
                             @if(canRead($event))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.event.show', $event->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.career.event.show', $event->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
-                            @if(canRead($event))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.event.edit', $event->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                            @if(canUpdate($event))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.career.event.edit', $event->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
+
+                            @if (!empty($event->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($event->link_name) ? $event->link_name : 'link') ?? ''),
+                                    'href'   => $event->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($event))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

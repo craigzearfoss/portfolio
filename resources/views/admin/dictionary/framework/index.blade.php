@@ -72,58 +72,68 @@
                     <td class="is-1" style="white-space: nowrap;">
 
                         @if(canRead($framework))
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.framework.show', $framework->id) }}">
-                                <i class="fa-solid fa-list"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title' => 'show',
+                                'href'  => route('admin.dictionary.framework.show', $framework->id),
+                                'icon'  => 'fa-list'
+                            ])
                         @endif
 
                         @if(canUpdate($framework))
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.framework.edit', $framework->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title' => 'edit',
+                                'href'  => route('admin.dictionary.framework.edit', $framework->id),
+                                'icon'  => 'fa-pen-to-square'
+                            ])
                         @endif
 
                         @if (!empty($framework->link))
-                            <a title="link"
-                               class="button is-small px-1 py-0"
-                               href="{{ htmlspecialchars((!empty($framework->link_name) ? $framework->link_name : 'link') ?? '') }}"
-                               target="_blank"
-                            >
-                                <i class="fa-solid fa-external-link"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'  => htmlspecialchars((!empty($framework->link_name) ? $framework->link_name : 'link') ?? ''),
+                                'href'   => $framework->link,
+                                'icon'   => 'fa-external-link',
+                                'target' => '_blank'
+                            ])
                         @else
-                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'    => 'link',
+                                'icon'     => 'fa-external-link',
+                                'disabled' => true
+                            ])
                         @endif
 
                         @if (!empty($framework->wikipedia))
-                            <a title="Wikipedia page"
-                               class="button is-small px-1 py-0"
-                               href="{{ $framework->wikipedia }}"
-                               target="_blank"
-                            >
-                                <i class="fa-solid fa-file"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'  => 'Wikipedia page',
+                                'href'   => $framework->wikipedia,
+                                'icon'   => 'fa-external-link',
+                                'target' => '_blank'
+                            ])
                         @else
-                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-file"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title'    => 'link',
+                                'icon'     => 'fa-external-link',
+                                'disabled' => true
+                            ])
                         @endif
 
                         @if(canDelete($framework))
+
                             <form action="{{ route('admin.dictionary.framework.destroy', $framework->id) }}"
                                   method="POST"
                                   style="display:inline-flex"
                             >
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
+
                             </form>
+
                         @endif
 
                     </td>

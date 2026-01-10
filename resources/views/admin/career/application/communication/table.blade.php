@@ -20,7 +20,7 @@ $communications = $communications ?? [];
                 {{ htmlspecialchars($communication->subject ?? '') }}
             </td>
             <td>
-                {!! longDate($communication->date) !!}
+                {{ longDate($communication->date) }}
             </td>
             <td>
                 {{ $communication->time }}

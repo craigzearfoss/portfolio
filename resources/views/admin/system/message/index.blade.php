@@ -63,19 +63,31 @@
                     </td>
                     <td style="white-space: nowrap;">
 
-                        @if(canRead($message))
-                            <a class="btn btn-sm" href="{{ route('admin.system.message.show', $message->id) }}">
-                                <i class="fa-solid fa-list"></i>
-                            </a>
+                        @if(canRead($art))
+                            @include('admin.components.link-icon', [
+                                'title' => 'show',
+                                'href'  => route('admin.system.message.show', $message->id),
+                                'icon'  => 'fa-list'
+                            ])
                         @endif
 
-                        <?php /*
                         @if(canUpdate($message))
-                            <a class="btn btn-sm" href="{{ route('admin.system.message.edit', $message->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
+                            @include('admin.components.link-icon', [
+                                'title' => 'edit',
+                                'href'  => route('admin.system.message.edit', $message->id),
+                                'icon'  => 'fa-pen-to-square'
+                            ])
                         @endif
-                        */ ?>
+
+                        @if(canDelete($message))
+                            @csrf
+                            @method('DELETE')
+                            @include('admin.components.button-icon', [
+                                'title' => 'delete',
+                                'class' => 'delete-btn',
+                                'icon'  => 'fa-trash'
+                            ])
+                        @endif
 
                         @if(canDelete($message))
                             <form action="{{ route('admin.system.message.destroy', $message->id) }}"
@@ -84,9 +96,11 @@
                             >
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             </form>
                         @endif
 

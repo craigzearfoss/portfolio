@@ -42,7 +42,7 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
-                @if(empty($application))
+                @if(!empty($application))
                     <th>application</th>
                 @endif
                 <th>subject</th>
@@ -56,7 +56,7 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
-                @if(empty($application))
+                @if(!empty($application))
                     <th>application</th>
                 @endif
                 <th>subject</th>
@@ -75,7 +75,7 @@
                             {{ $note->owner->username ?? '' }}
                         </td>
                     @endif
-                    @if(empty($application))
+                    @if(!empty($application))
                         <td data-field="application_id">
                             @include('admin.components.link', [
                                 'name' => htmlspecialchars($note->application->name ?? '') ,
@@ -90,30 +90,52 @@
                         {{ shortDateTime($note->created_at) }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.career.note.destroy', $note->id) }}" method="POST">
 
                             @if(canRead($note))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.note.show', $note->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.career.note.show', $note->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($note))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.note.edit', $note->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.career.note.edit', $note->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
-                            @if(canRead($note))
+                            @if (!empty($note->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($note->link_name) ? $note->link_name : 'link') ?? ''),
+                                    'href'   => $note->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
+
+                            @if(canDelete($note))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

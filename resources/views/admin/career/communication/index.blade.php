@@ -101,7 +101,49 @@
                         {{ $communication->time }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.career.communication.destroy', $communication->id) }}" method="POST">
+
+                            @if(canRead($communication))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.career.communication.show', $communication->id),
+                                    'icon'  => 'fa-list'
+                                ])
+                            @endif
+
+                            @if(canUpdate($communication))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.career.communication.edit', $communication->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
+
+                            @if (!empty($communication->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($communication->link_name) ? $communication->link_name : 'link') ?? ''),
+                                    'href'   => $communication->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
+
+                            @if(canDelete($communication))
+                                @csrf
+                                @method('DELETE')
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
+                            @endif
 
                             @if(canRead($communication))
                                 <a title="show" class="button is-small px-1 py-0"
@@ -124,7 +166,9 @@
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

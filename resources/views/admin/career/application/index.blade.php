@@ -107,7 +107,7 @@ if (!empty($resume)) {
                 <tr data-id="{{ $application->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ htmlspecialchars($application->owner->username ?? '') }}
+                            {{ $application->owner->username }}
                         </td>
                     @endif
                     <td data-field="name">
@@ -123,7 +123,7 @@ if (!empty($resume)) {
                         @endif
                     </td>
                     <td data-field="role">
-                        {{ $application->role }}
+                        {{ htmlspeciagchars($application->role ?? '') }}
                     </td>
                     */ ?>
                     <td data-field="active" class="has-text-centered">
@@ -152,7 +152,7 @@ if (!empty($resume)) {
                     </td>
                     <?php /*
                     <td data-field="job_duration_id">
-                        {{ $application->durationType['name'] ?? '' }}
+                        {{ htmlspecialchars($application->durationType['name'] ?? '') }}
                     </td>
                     */ ?>
                     <td data-field="job_employment_type_id" class="has-text-centered" style="white-space: nowrap;">
@@ -186,48 +186,56 @@ if (!empty($resume)) {
                         @include('admin.components.checkmark', [ 'checked' => $application->health ])
                     </td>
                     <td data-field="job_board_id">
-                        {{ $application->jobBoard['name'] ?? '' }}
+                        {{ htmlspecialchars($application->jobBoard['name'] ?? '') }}
                     </td>
                     */ ?>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.career.application.destroy', $application->id) }}" method="POST">
 
                             @if(canRead($application))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.application.show', $application->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.career.application.show', $application->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($application))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.application.edit', $application->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.career.application.edit', $application->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($application->link))
-                                <a title="{{ htmlspecialchars(!empty($application->link_name) ? $application->link_name : 'link') ?? '') }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $application->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($application->link_name) ? $application->link_name : 'link') ?? ''),
+                                    'href'   => $application->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($application))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

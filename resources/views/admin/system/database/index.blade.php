@@ -118,28 +118,37 @@
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
                     <td>
+
                         <form action="{{ route('admin.system.database.destroy', $database->id) }}" method="POST">
 
                             @if(canRead($database))
-                                <a class="button is-small px-1 py-0" href="{{ route('admin.system.database.show', $database->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.system.database.show', $database->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($database))
-                                <a class="button is-small px-1 py-0" href="{{ route('admin.system.database.edit', $database->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.system.database.edit', $database->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if(canDelete($database))
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 
