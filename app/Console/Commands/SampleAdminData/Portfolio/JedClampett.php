@@ -393,7 +393,7 @@ class JedClampett extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Milburn Drysdale',
-                'job_title'      => 'Banker',
+                'title'          => 'Banker',
                 'level_id'       => 3,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -404,7 +404,7 @@ class JedClampett extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Jane Hathaway',
-                'job_title'      => 'Bank Secretary',
+                'title'          => 'Bank Secretary',
                 'level_id'       => 3,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -416,7 +416,7 @@ class JedClampett extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

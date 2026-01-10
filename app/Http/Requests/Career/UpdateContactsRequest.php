@@ -52,8 +52,7 @@ class UpdateContactsRequest extends FormRequest
                         ->where('id', '!-', $this->contact->id);
                 })
             ],
-            'title'           => ['string', 'max:20', 'nullable'],
-            'job_title'       => ['string', 'max:100', 'nullable'],
+            'title'           => ['string', 'max:100', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],

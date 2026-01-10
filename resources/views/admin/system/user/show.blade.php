@@ -45,6 +45,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'salutation',
+            'value' => htmlspecialchars($user->salutation ?? '')
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'title',
             'value' => htmlspecialchars($user->title ?? '')
         ])

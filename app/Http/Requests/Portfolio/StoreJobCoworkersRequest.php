@@ -42,7 +42,7 @@ class StoreJobCoworkersRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'job_title'       => ['string', 'max:100', 'nullable'],
+            'title'           => ['string', 'max:100', 'nullable'],
             'level_id'        => ['integer', 'between:1,3'],
             'work_phone'      => ['string', 'max:50', 'nullable'],
             'personal_phone'  => ['string', 'max:50', 'nullable'],

@@ -378,7 +378,7 @@ class SamMalone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Woody Boyd',
-                'job_title'      => 'Bartender',
+                'title'          => 'Bartender',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -389,7 +389,7 @@ class SamMalone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Rebecca Howe',
-                'job_title'      => 'Manager',
+                'title'          => 'Manager',
                 'level_id'       => 2,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -400,7 +400,7 @@ class SamMalone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Diane Chambers',
-                'job_title'      => 'Bar Waitress',
+                'title'          => 'Bar Waitress',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -411,7 +411,7 @@ class SamMalone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Ernie Pantusso',
-                'job_title'      => 'Bartender',
+                'title'          => 'Bartender',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -422,7 +422,7 @@ class SamMalone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Carla Tortelli',
-                'job_title'      => 'Bar Waitress',
+                'title'          => 'Bar Waitress',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -434,7 +434,7 @@ class SamMalone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

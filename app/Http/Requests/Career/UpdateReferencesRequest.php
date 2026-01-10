@@ -53,6 +53,7 @@ class UpdateReferencesRequest extends FormRequest
                         ->where('id', '!-', $this->reference->id);
                 })
             ],
+            'title'           => ['string', 'max:100', 'nullable'],
             'friend'          => ['integer', 'between:0,1'],
             'family'          => ['integer', 'between:0,1'],
             'coworker'        => ['integer', 'between:0,1'],

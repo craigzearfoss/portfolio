@@ -28,6 +28,7 @@ class User extends Authenticatable
         'username',
         'label',
         'name',
+        'salutation',
         'title',
         'role',
         'employer',
@@ -80,7 +81,7 @@ class User extends Authenticatable
         'active',
     ];
 
-    const TITLES = [
+    const SALUTATIONS = [
         'Dr.',
         'Miss',
         'Mr.',
@@ -94,8 +95,8 @@ class User extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'username', 'label', 'name', 'title', 'street', 'street2', 'city', 'state_id', 'zip',
-        'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['id', 'username', 'label', 'name', 'salutation', 'title', 'street', 'street2', 'city',
+        'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
@@ -150,28 +151,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns the title name for the given id or null if not found.
-     *
-     * @param int $id
-     * @return string|null
-     */
-    public static function titleName(int $id): string|null
-    {
-        return self::TITLES[$id] ?? null;
-    }
-
-    /**
-     * Returns the title id for the giving name or false if not found.
-     *
-     * @param string $name
-     * @return int|bool
-     */
-    public static function titleIndex(string $name): string |bool
-    {
-        return array_search($name, self::TITLES);
-    }
-
-    /**
      * Returns an array of options for a select list for statuses.
      *
      * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
@@ -196,23 +175,45 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns an array of options for a select list for title.
+     * Returns the salutation name for the given id or null if not found.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    public static function salutationName(int $id): string|null
+    {
+        return self::SALUTATIONS[$id] ?? null;
+    }
+
+    /**
+     * Returns the salutation id for the giving name or false if not found.
+     *
+     * @param string $name
+     * @return int|bool
+     */
+    public static function salutationIndex(string $name): string |bool
+    {
+        return array_search($name, self::SALUTATIONS);
+    }
+
+    /**
+     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
      *
      * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function titleListOptions(array $filters = [],
-                                            bool $includeBlank = false,
-                                            bool $nameAsKey = false): array
+    public static function salutationListOptions(array $filters = [],
+                                                 bool $includeBlank = false,
+                                                 bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
             $options[$nameAsKey ? '' : 0] = '';
         }
 
-        foreach (self::TITLES as $i=>$title) {
+        foreach (self::SALUTATIONS as $i=>$title) {
             $options[$nameAsKey ? $title : $i] = $title;
         }
 

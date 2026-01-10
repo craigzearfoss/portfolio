@@ -347,16 +347,16 @@ class PeterGibbons extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Bill Lumbergh,',      'job_title' => 'Vice President',  'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Milton Waddams',      'job_title' => 'Collator',        'level_id' => 1, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Michael Bolton',      'job_title' => 'Programmer',      'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Samir Nagheenanajar', 'job_title' => 'Programmer',      'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Tom Smykowski,',      'job_title' => 'Product Manager', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Bill Lumbergh,',      'title' => 'Vice President',  'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Milton Waddams',      'title' => 'Collator',        'level_id' => 1, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Michael Bolton',      'title' => 'Programmer',      'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Samir Nagheenanajar', 'title' => 'Programmer',      'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Tom Smykowski,',      'title' => 'Product Manager', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
             /*
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

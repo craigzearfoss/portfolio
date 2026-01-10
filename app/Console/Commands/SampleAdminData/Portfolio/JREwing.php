@@ -364,14 +364,14 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Eleanor Ewing Farlow', 'job_title' => 'Matriarch', 'level_id' => 1, 'work_phone' => null,          'personal_phone' => null, 'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'John Ross Ewing Sr.',  'job_title' => 'Founder',   'level_id' => 2, 'work_phone' => null,          'personal_phone' => null, 'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Bobby Ewing.',         'job_title' => 'Executive', 'level_id' => 1, 'work_phone' => null,          'personal_phone' => null, 'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null, 'public' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Eleanor Ewing Farlow', 'title' => 'Matriarch', 'level_id' => 1, 'work_phone' => null,          'personal_phone' => null, 'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null, 'public' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'John Ross Ewing Sr.',  'title' => 'Founder',   'level_id' => 2, 'work_phone' => null,          'personal_phone' => null, 'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null, 'public' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Bobby Ewing.',         'title' => 'Executive', 'level_id' => 1, 'work_phone' => null,          'personal_phone' => null, 'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null, 'public' => 1 ],
             /*
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

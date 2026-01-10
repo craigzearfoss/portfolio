@@ -54,6 +54,12 @@
             'value' => htmlspecialchars(implode(',', $admin->teams->pluck('name')->toArray()))
         ])
 
+
+        @include('admin.components.show-row', [
+            'name'  => 'salutation',
+            'value' => htmlspecialchars($admin->salutation ?? '')
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'title',
             'value' => htmlspecialchars($admin->title ?? '')

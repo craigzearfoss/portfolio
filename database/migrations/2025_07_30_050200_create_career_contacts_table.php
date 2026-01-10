@@ -30,8 +30,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
-            $table->string('title', 20)->nullable();
-            $table->string('job_title', 100)->nullable();
+            $table->string('title', 100)->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();

@@ -50,6 +50,7 @@ class StoreUsersRequest extends FormRequest
                 'unique:users,label',
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
+            'salutation'        => ['string', 'max:20', 'nullable'],
             'title'             => ['string', 'max:100', 'nullable'],
             'role'              => ['string', 'max:100', 'nullable'],
             'employer'          => ['string', 'max:100', 'nullable'],

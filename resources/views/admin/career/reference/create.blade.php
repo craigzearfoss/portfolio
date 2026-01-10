@@ -54,6 +54,13 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'title',
+                'value'     => old('title') ?? '',
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
+
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                 </div>

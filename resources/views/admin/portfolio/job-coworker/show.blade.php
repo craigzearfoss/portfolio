@@ -56,8 +56,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name' => 'job title',
-            'value' => htmlspecialchars($jobCoworker->job_title ?? '')
+            'name' => 'title',
+            'value' => htmlspecialchars($jobCoworker->title ?? '')
         ])
 
         @include('admin.components.show-row', [

@@ -33,7 +33,6 @@ class Contact extends Model
         'name',
         'slug',
         'title',
-        'job_title',
         'street',
         'street2',
         'city',
@@ -68,18 +67,11 @@ class Contact extends Model
         'sequence',
     ];
 
-    const TITLES = [
-        'Miss',
-        'Mr.',
-        'Mrs.',
-        'Ms',
-    ];
-
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'title', 'job_title', 'street', 'street2', 'city', 'state_id',
-        'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'link', 'link_name', 'public',
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'title', 'street', 'street2', 'city', 'state_id', 'zip',
+        'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'link', 'link_name', 'public',
         'readonly', 'root','disabled','demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 

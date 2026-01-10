@@ -62,9 +62,8 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'    => 'job_title',
-                'label'   => 'job title',
-                'value'   => old('job_title') ?? '',
+                'name'    => 'title',
+                'value'   => old('title') ?? '',
                 'message' => $message ?? '',
             ])
 

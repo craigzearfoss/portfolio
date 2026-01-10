@@ -51,6 +51,7 @@ class StoreReferencesRequest extends FormRequest
                         ->where('slug', $this->slug);
                 })
             ],
+            'title'           => ['string', 'max:100', 'nullable'],
             'friend'          => ['integer', 'between:0,1'],
             'family'          => ['integer', 'between:0,1'],
             'coworker'        => ['integer', 'between:0,1'],

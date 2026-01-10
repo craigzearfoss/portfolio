@@ -405,7 +405,7 @@ class GabeKotter extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Michael Woodman',
-                'job_title'      => 'Principal',
+                'title'          => 'Principal',
                 'level_id'       => 2,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -417,7 +417,7 @@ class GabeKotter extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

@@ -74,10 +74,17 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'title',
-                'value'   => old('title') ?? $admin->title,
-                'list'    => \App\Models\System\User::titleListOptions([], true, true),
+                'name'    => 'salutation',
+                'value'   => old('salutation') ?? $admin->salutation,
+                'list'    => \App\Models\System\Admin::salutationListOptions([], true, true),
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'title',
+                'value'     => old('role') ?? $admin->title,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

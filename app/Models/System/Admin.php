@@ -31,6 +31,7 @@ class Admin extends Authenticatable
         'username',
         'label',
         'name',
+        'slautation',
         'title',
         'role',
         'employer',
@@ -66,6 +67,17 @@ class Admin extends Authenticatable
         'disabled',
         'demo',
         'sequence',
+    ];
+
+    const SALUTATIONS = [
+        'Dr.',
+        'Miss',
+        'Mr.',
+        'Mrs.',
+        'Ms',
+        'Prof.',
+        'Rev.',
+        'Sir',
     ];
 
     /**
@@ -106,5 +118,51 @@ class Admin extends Authenticatable
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(AdminTeam::class)->orderBy('name', 'asc');
+    }
+
+    /**
+     * Returns the salutation name for the given id or null if not found.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    public static function salutationName(int $id): string|null
+    {
+        return self::SALUTATIONS[$id] ?? null;
+    }
+
+    /**
+     * Returns the salutation id for the giving name or false if not found.
+     *
+     * @param string $name
+     * @return int|bool
+     */
+    public static function salutationIndex(string $name): string |bool
+    {
+        return array_search($name, self::SALUTATIONS);
+    }
+
+    /**
+     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
+     *
+     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function salutationListOptions(array $filters = [],
+                                                 bool $includeBlank = false,
+                                                 bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        foreach (self::SALUTATIONS as $i=>$title) {
+            $options[$nameAsKey ? $title : $i] = $title;
+        }
+
+        return $options;
     }
 }

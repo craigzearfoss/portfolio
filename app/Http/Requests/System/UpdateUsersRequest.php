@@ -64,6 +64,7 @@ class UpdateUsersRequest extends FormRequest
                 'unique:users,label,'.$this->user->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
+            'salutation'        => ['string', 'max:20', 'nullable'],
             'title'             => ['string', 'max:100', 'nullable'],
             'role'              => ['string', 'max:100', 'nullable'],
             'employer'          => ['string', 'max:100', 'nullable'],

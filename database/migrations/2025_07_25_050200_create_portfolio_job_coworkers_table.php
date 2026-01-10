@@ -40,7 +40,7 @@ return new class extends Migration
                 ->constrained('jobs', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('job_title', 100)->nullable();
+            $table->string('title', 100)->nullable();
             $table->integer('level_id')->default(1);  // 1-coworker, 2-superior, 3-subordinate
             $table->string('work_phone', 20)->nullable();
             $table->string('personal_phone', 20)->nullable();
@@ -72,7 +72,7 @@ return new class extends Migration
             [
                 'job_id'         => 1,
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

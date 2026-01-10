@@ -424,7 +424,7 @@ class FrankReynolds extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Charlie Kelly',
-                'job_title'      => 'Co-owner and Janitor',
+                'title'          => 'Co-owner and Janitor',
                 'level_id'       => 3,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -435,7 +435,7 @@ class FrankReynolds extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Dennis Reynolds',
-                'job_title'      => 'Co-owner and Main Bartender',
+                'title'          => 'Co-owner and Main Bartender',
                 'level_id'       => 3,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -446,7 +446,7 @@ class FrankReynolds extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Ronald "Mac" McDonald',
-                'job_title'      => 'Co-owner and Self-proclaimed Bouncer',
+                'title'          => 'Co-owner and Self-proclaimed Bouncer',
                 'level_id'       => 3,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -457,7 +457,7 @@ class FrankReynolds extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Deandra Reynolds',
-                'job_title'      => 'Waitress / Bartender',
+                'title'          => 'Waitress / Bartender',
                 'level_id'       => 3,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -469,7 +469,7 @@ class FrankReynolds extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

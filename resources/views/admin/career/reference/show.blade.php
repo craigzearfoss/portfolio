@@ -51,6 +51,16 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'salutation',
+            'value' => htmlspecialchars($reference->salutation ?? '')
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'title',
+            'value' => htmlspecialchars($reference->title ?? '')
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'relation',
             'value' => $reference->relation ?? ''
         ])

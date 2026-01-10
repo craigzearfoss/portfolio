@@ -25,7 +25,7 @@ class JobCoworkerFactory extends Factory
             'owner_id'        => \App\Models\System\Owner::all()->random()->id,
             'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'name'            => $name,
-            'job_title'       => fake()->jobTitle(),
+            'title'           => fake()->jobTitle(),
             'level_id'        => fake()->numberBetween([1, 2, 3]), // 1-coworker, 2-superior, 3-subordinate
             'work_phone'      => fake()->phoneNumber(),
             'personal_phone'  => fake()->phoneNumber(),

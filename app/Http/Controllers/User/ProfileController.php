@@ -22,9 +22,8 @@ class ProfileController extends BaseUserController
     public function show(): View
     {
         $user = Auth::user();
-        $title = $user->name;
 
-        return view(themedTemplate('user.profile.show'), compact('user', 'title'));
+        return view(themedTemplate('user.profile.show'), compact('user'));
     }
 
     /**

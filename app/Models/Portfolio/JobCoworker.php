@@ -30,7 +30,7 @@ class JobCoworker extends Model
         'owner_id',
         'job_id',
         'name',
-        'job_title',
+        'title',
         'level_id',
         'work_phone',
         'personal_phone',
@@ -62,7 +62,7 @@ class JobCoworker extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'job_id', 'name', 'job_title', 'level_id', 'work_phone', 'personal_phone',
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'job_id', 'name', 'title', 'level_id', 'work_phone', 'personal_phone',
         'work_email', 'personal_email', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 

@@ -376,7 +376,7 @@ class FredFlintstone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Barney Rubble',
-                'job_title'      => 'Quarry Worker',
+                'title'          => 'Quarry Worker',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -387,7 +387,7 @@ class FredFlintstone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Nate Slate',
-                'job_title'      => 'Owner and Founder',
+                'title'          => 'Owner and Founder',
                 'level_id'       => 2,
                 'work_phone'     => null,
                 'personal_phone' => null,
@@ -399,7 +399,7 @@ class FredFlintstone extends Command
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

@@ -354,13 +354,13 @@ class LaverneDeFazio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Shirley Feeney',     'job_title' => 'Bottle Capper', 'level_id' => 1, 'work_phone' => null, 'personal_phone' => null, 'work_email' => null, 'personal_email' => null, 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Lenny Kosnowski',   'job_title' => 'Truck Driver',   'level_id' => 1, 'work_phone' => null, 'personal_phone' => null, 'work_email' => null, 'personal_email' => null, 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Shirley Feeney',    'title' => 'Bottle Capper', 'level_id' => 1, 'work_phone' => null, 'personal_phone' => null, 'work_email' => null, 'personal_email' => null, 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Lenny Kosnowski',   'title' => 'Truck Driver',   'level_id' => 1, 'work_phone' => null, 'personal_phone' => null, 'work_email' => null, 'personal_email' => null, 'link' => null, 'link_name' => null ],
             /*
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => '',
-                'job_title'      => '',
+                'title'          => '',
                 'level_id'       => 1,
                 'work_phone'     => null,
                 'personal_phone' => null,

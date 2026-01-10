@@ -83,6 +83,7 @@ return new class extends Migration
             $table->string('username', 200)->unique();
             $table->string('name');
             $table->string('label', 200)->unique();
+            $table->string('salutation', 20)->nullable();
             $table->string('title', 100)->nullable();
             $table->string('role', 100)->nullable();
             $table->string('employer', 100)->nullable();

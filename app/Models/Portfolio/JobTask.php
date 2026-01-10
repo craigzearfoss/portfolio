@@ -28,7 +28,7 @@ class JobTask extends Model
     protected $fillable = [
         'owner_id',
         'job_id',
-        'job_title',
+        'title',
         'summary',
         'notes',
         'link',
@@ -49,7 +49,7 @@ class JobTask extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['owner_id', 'job_id', 'job_title', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['owner_id', 'job_id', 'title', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

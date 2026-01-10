@@ -23,9 +23,8 @@ class ProfileController extends BaseAdminController
     public function show(): View
     {
         $admin = Auth::guard('admin')->user();
-        $title = $admin->name;
 
-        return view(themedTemplate('admin.profile.show'), compact('admin', 'title'));
+        return view(themedTemplate('admin.profile.show'), compact('admin'));
     }
 
     /**

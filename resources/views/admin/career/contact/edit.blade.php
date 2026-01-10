@@ -61,17 +61,10 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'title',
-                'value'   => old('title') ?? $contact->title,
-                'list'    => \App\Models\System\User::titleListOptions([], true, true),
-                'message' => $message ?? '',
-            ])
-
             @include('admin.components.form-input-horizontal', [
-                'name'    => 'job_title',
-                'label'   => ' job title',
-                'value'   => old('job_title') ?? $contact->job_title,
+                'name'    => 'title',
+                'label'   => 'title',
+                'value'   => old('title') ?? $contact->title,
                 'message' => $message ?? '',
             ])
 

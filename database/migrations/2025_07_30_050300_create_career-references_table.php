@@ -31,6 +31,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
+            $table->string('title', 100)->nullable();
             $table->boolean('friend')->default(false);
             $table->boolean('family')->default(false);
             $table->boolean('coworker')->default(false);

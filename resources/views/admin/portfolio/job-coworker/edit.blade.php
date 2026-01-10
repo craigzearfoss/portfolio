@@ -72,9 +72,8 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'job_title',
-                'label'     => 'job title',
-                'value'     => old('job_title') ?? $jobCoworker->job_title,
+                'name'      => 'title',
+                'value'     => old('title') ?? $jobCoworker->title,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
