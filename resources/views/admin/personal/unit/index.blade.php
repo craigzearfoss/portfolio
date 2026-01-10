@@ -57,43 +57,52 @@
                         {{ htmlspecialchars($unit->system ?? '') }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.personal.unit.destroy', $unit->id) }}" method="POST">
 
                             @if(canRead($unit))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.personal.unit.show', $unit->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.personal.unit.show', $unit->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
-                            @if(canRead($unit))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.personal.unit.edit', $unit->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                            @if(canUpdate($unit))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.personal.unit.edit', $unit->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($unit->link))
-                                <a title="{{ htmlspecialchars((!empty($unit->link_name) ? $unit->link_name : 'link') ?? '') }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $unit->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($unit->link_name) ? $unit->link_name : 'link') ?? ''),
+                                    'href'   => $unit->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($unit))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

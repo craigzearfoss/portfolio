@@ -83,44 +83,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $recipe->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.personal.recipe.destroy', $recipe->id) }}" method="POST">
 
                             @if(canRead($recipe))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.personal.recipe.show', $recipe->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.personal.recipe.show', $recipe->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($recipe))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.personal.recipe.edit', $recipe->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.personal.recipe.edit', $recipe->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($recipe->link))
-                                <a title="{{ htmlspecialchars((!empty($recipe->link_name) ? $recipe->link_name : 'link') ?? '') }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $recipe->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($recipe->link_name) ? $recipe->link_name : 'link') ?? ''),
+                                    'href'   => $recipe->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($recipe))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 
