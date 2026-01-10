@@ -42,12 +42,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($reading->title)
+            'value' => htmlspecialchars($reading->title ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'author',
-            'value' => htmlspecialchars($reading->author)
+            'value' => htmlspecialchars($reading->author ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => htmlspecialchars($reading->summary)
+            'value' => $reading->summary ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -97,23 +97,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($reading->notes))
+            'value' => $reading->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $reading->link_name ?? 'link',
-            'href'   => $reading->link,
+            'name'   => htmlspecialchars($reading->link_name ?? 'link'),
+            'href'   => htmlspecialchars($reading->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($reading->description ?? '')
+            'value' => $reading->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $reading->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($reading->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

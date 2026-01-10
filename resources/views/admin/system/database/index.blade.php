@@ -77,21 +77,21 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $database->name }}
+                        {{ htmlspecialchars($database->name ?? '') }}
                     </td>
                     <td data-field="database">
-                        {{ $database->database }}
+                        {{ htmlspecialchars($database->database ?? '') }}
                     </td>
                     <td data-field="tag">
-                        {{ $database->tag }}
+                        {{ htmlspecialchars($database->tag ?? '') }}
                     </td>
                     <td data-field="title">
-                        {{ $database->title }}
+                        {{ htmlspecialchars($database->title ?? '') }}
                     </td>
                     <td data-field="icon">
                         @if (!empty($database->icon))
                             <span class="text-xl">
-                                <i class="fa-solid {{ $database->icon }}"></i>
+                                <i class="fa-solid {{ htmlspecialchars($database->icon ?? '') }}"></i>
                             </span>
                         @else
                         @endif

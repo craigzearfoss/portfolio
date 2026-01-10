@@ -125,10 +125,10 @@
                         </td>
                     @endif
                     <td data-field="title">
-                        {{ $reading->title }}
+                        {{ htmlspecialchars($reading->title ?? '') }}
                     </td>
                     <td data-field="author">
-                        {{ $reading->author }}
+                        {{ htmlspecialchars($reading->author ?? '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
@@ -177,7 +177,7 @@
                             @endif
 
                             @if (!empty($reading->link))
-                                <a title="{{ !empty($reading->link_name) ? $reading->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($reading->link_name) ? $reading->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $reading->link }}"
                                    target="_blank">

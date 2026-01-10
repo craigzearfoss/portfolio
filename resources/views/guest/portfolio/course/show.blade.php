@@ -27,7 +27,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $course->name
+            'value' => htmlspecialchars($course->name ?? '')
         ])
 
         <?php /*
@@ -40,7 +40,7 @@
         @if(!empty($course->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $course->summary
+                'value' => $course->summary ?? ''
             ])
         @endif
 
@@ -74,7 +74,7 @@
             @include('guest.components.show-row', [
                 'name' => 'academy',
                 'value' => view('guest.components.link', [
-                                'name' => $course->academy['name'] ?? '',
+                                'name' => htmlspecialchars($course->academy['name'] ?? ''),
                                 'href' => $course->academy['link'] ?? null,
                                 'target' =>'_blank'
                             ])
@@ -84,21 +84,21 @@
         @if(!empty($course->school))
             @include('guest.components.show-row', [
                 'name'  => 'school',
-                'value' => $course->school
+                'value' => htmlspecialchars($course->school ?? '')
             ])
         @endif
 
         @if(!empty($course->instructor))
             @include('guest.components.show-row', [
                 'name'  => 'instructor',
-                'value' => $course->instructor
+                'value' => htmlspecialchars($course->instructor ?? '')
             ])
         @endif
 
         @if(!empty($course->sponsor))
             @include('guest.components.show-row', [
                 'name'  => 'sponsor',
-                'value' => $course->sponsor
+                'value' => htmlspecialchars($course->sponsor ?? '')
             ])
         @endif
 
@@ -115,7 +115,7 @@
 
         @if(!empty($course->link))
             @include('guest.components.show-row-link', [
-                'name'   => $course->link_name ?? 'link',
+                'name'   => htmlspecialchars($course->link_name ?? 'link'),
                 'href'   => $course->link,
                 'target' => '_blank'
             ])
@@ -124,7 +124,7 @@
         @if(!empty($course->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => nl2br($course->description ?? '')
+                'value' => $course->description ?? ''
             ])
         @endif
 

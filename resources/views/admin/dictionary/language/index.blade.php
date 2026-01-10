@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $language->id }}">
                     <td data-field="name">
-                        {{ $language->name }}
+                        {{ htmlspecialchars($language->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $language->abbreviation }}
+                        {{ htmlspecialchars($language->abbreviation ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $language->public ])
@@ -86,7 +86,7 @@
                         @endif
 
                         @if (!empty($language->link))
-                            <a title="{{ !empty($language->link_name) ? $language->link_name : 'link' }}"
+                            <a title="{{ htmlspecialchars((!empty($language->link_name) ? $language->link_name : 'link') ?? '') }}"
                                class="button is-small px-1 py-0"
                                href="{{ $language->link }}"
                                target="_blank"

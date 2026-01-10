@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => htmlspecialchars($art->summary)
+            'value' => $art->summary ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -72,23 +72,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($art->notes))
+            'value' => $art->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $art->link_name ?? 'link',
-            'href'   => $art->link,
+            'name'   => htmlspecialchars($art->link_name ?? 'link'),
+            'href'   => htmlspecialchars($art->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($art->description ?? '')
+            'value' => $art->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $art->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($art->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

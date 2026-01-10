@@ -116,6 +116,7 @@ class AddPortfolio extends Command
                 'name'        => 'unnamed acrylic painting',
                 'artist'      => 'Laird Dixon',
                 'slug'        => 'former-painting-from-cats-cradle-by-laird-dixon',
+                'summary'     => 'I purchased this unique painting from Chapel Hill, NC artist Laird Dixon shortly after the release of his band Zen Frisbee\'s debut 1994 CD I\'m As Mad As Faust.',
                 'year'        => 1992,
                 'featured'    => 1,
                 'public'      => 1,
@@ -123,13 +124,13 @@ class AddPortfolio extends Command
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
-                'description' => '<p>I purchased this unique painting from Chapel Hill, NC artist Laird Dixon shortly after the release of his band Zen Frisbee\'s debut 1994 CD I\'m As Mad As Faust.</p>',
-                'summary'     => null,
+                'description' => null,
             ],
             [
                 'name'        => 'Sleazefest! CD cover art',
                 'artist'      => 'Devlin Thompson',
                 'slug'        => 'sleazefest-cover-art-devlin-thompson',
+                'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 CD Sleazefest - Two Nights or Bands, Bar-BQ & Beer.',
                 'year'        => 1994,
                 'featured'    => 1,
                 'public'      => 1,
@@ -137,13 +138,13 @@ class AddPortfolio extends Command
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
-                'description' => '<p>I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 CD Sleazefest - Two Nights or Bands, Bar-BQ & Beer.</p>',
-                'summary'     => null,
+                'description' => null,
             ],
             [
                 'name'        => 'Sleazefest! CD back cover art',
                 'artist'      => 'Devlin Thompson',
                 'slug'        => 'sleazefest-back-cover-art-devlin-thompson',
+                'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the 1994 CD Sleazefest - Two Nights or Bands, Bar-BQ & Beer.',
                 'year'        => 1994,
                 'featured'    => 0,
                 'public'      => 1,
@@ -151,13 +152,13 @@ class AddPortfolio extends Command
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
-                'description' => '<p>I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the 1994 CD Sleazefest - Two Nights or Bands, Bar-BQ & Beer.</p>',
-                'summary'     => null,
+                'description' => null,
             ],
             [
                 'name'        => 'Sleazefest! VHS cover art',
                 'artist'      => 'Devlin Thompson',
                 'slug'        => 'sleazefest-vhs-cover-art-devlin-thompson',
+                'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of Sleazefest - Two Nights or Bands, Bar-BQ & Beer.',
                 'year'        => 1994,
                 'featured'    => 1,
                 'public'      => 1,
@@ -165,13 +166,13 @@ class AddPortfolio extends Command
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
-                'description' => '<p>I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of Sleazefest - Two Nights or Bands, Bar-BQ & Beer.</p>',
-                'summary'     => null,
+                'description' => null,
             ],
             [
                 'name'        => 'Sleazefest! VHS back cover art',
                 'artist'      => 'Devlin Thompson',
                 'slug'        => 'sleazefest-vhs-back-cover-art-devlin-thompson',
+                'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of Sleazefest - Two Nights or Bands, Bar-BQ & Beer.',
                 'year'        => 1994,
                 'featured'    => 0,
                 'public'      => 1,
@@ -179,13 +180,13 @@ class AddPortfolio extends Command
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
-                'description' => '<p>I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of Sleazefest - Two Nights or Bands, Bar-BQ & Beer.</p>',
-                'summary'     => null,
+                'description' => null,
             ],
             [
                 'name'        => 'microphone / knife',
                 'artist'      => 'Dexter Romweber',
                 'slug'        => 'microphone-knife-dexter-romweber',
+                'summary'     => 'This was one of the many works of Chapel Hill, NC rock and roll legend Dexter Romweber, who was posthumously inducted into the North Carolina Musicians Hall of Fame in 2025. He used to stay at my apartment quite frequently because he was best friends with my roommate, record producer Dave Schmitt. I\'ll always treasure it.',
                 'year'        => 1998,
                 'featured'    => 1,
                 'public'      => 1,
@@ -193,14 +194,14 @@ class AddPortfolio extends Command
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
-                'description' => '<p>This was one of the many works of Chapel Hill, NC rock and roll legend Dexter Romweber, who was posthumously inducted into the North Carolina Musicians Hall of Fame in 2025. He used to stay at my apartment quite frequently because he was best friends with my roommate, record producer Dave Schmitt. I\'ll always treasure it.</p>',
-                'summary'     => null,
+                'description' => null,
             ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -209,7 +210,6 @@ class AddPortfolio extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];
@@ -2699,7 +2699,7 @@ class AddPortfolio extends Command
                 'name'             => 'Multi-guard Framework',
                 'slug'             => 'multi-guard-framework',
                 'featured'         => 1,
-                'summary'          => null,
+                'summary'          => 'This is a base Laravel 12 framework for a multi-guard website. It has both an admin and a user area. People can request user access, but new admin\'s must be added by an admin with root permissions.',
                 'year'             => 2025,
                 'language'         => 'Laravel',
                 'language_version' => '12.29',
@@ -2707,14 +2707,14 @@ class AddPortfolio extends Command
                 'repository_name'  => 'craigzearfoss/laravel-multi-guard',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Laravel 12 framework for a multi-guard website.',
+                'description'      => null,
                 'sequence'         => 0,
             ],
             [
                 'name'             => 'Portfolio Framework',
                 'slug'             => 'portfolio-framework',
                 'featured'         => 1,
-                'summary'          => null,
+                'summary'          => 'This is a Laravel 12 project for a website to create professional and personal portfolios and manage a job search. It also includes a dictionary of technical terminology and computer-related skills and products.',
                 'year'             => 2025,
                 'language'         => 'Laravel',
                 'language_version' => '12.29',
@@ -2722,14 +2722,14 @@ class AddPortfolio extends Command
                 'repository_name'  => 'craigzearfoss/portfolio',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Laravel 12 website for a personal portfolio.',
+                'description'      => null,
                 'sequence'         => 1,
             ],
             [
                 'name'             => 'Laravel 12 Helper Functions',
                 'slug'             => 'laravel-12-helper-functions',
                 'featured'         => 1,
-                'summary'          => null,
+                'summary'          => 'This contains a lot of helpful Laravel 12 helper functions that are used by the <a href="https://github.com/craigzearfoss/laravel-multi-guard" target="_blank">craig-zearfoss/laravel-multi-guard</a> and <a href="https://github.com/craigzearfoss/portfolio" target="_blank">craigzearfoss/portfolio</a> repositories.',
                 'year'             => 2025,
                 'language'         => 'Laravel',
                 'language_version' => '12.29',
@@ -2737,14 +2737,34 @@ class AddPortfolio extends Command
                 'repository_name'  => 'craigzearfoss/laravel-12-helper-functions',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Useful helper functions for a Laravel 12 project.',
+                'description'      => <<<EOD
+This includes the following functions:<ul>
+<li><b>canCreate</b> / <b>canDelete</b> / <b>canRead</b> / <b>canUpdate</b> : Returns true if the account can create, delete, read, or update a resource.</li>
+<li><b>currentAdmin</b> / <b>currentAdminId</b> : Returns the current admin or id of the current admin.</li>
+<li><b>currentUserId</b> : Returns the id of the current user.</li>
+<li><b>dateRangeDetails</b> : Returns an array of details about a date.</li>
+<li><b>formatCompensation</b> : Returns a formatted compensation. </li>
+<li><b>formatLocation</b> : Returns a formatted address.</li>
+<li><b>getFileSlug</b> : Generates a slug for a file from a text string.</li>
+<li><b>coverLetterDir</b> / <b>imageDir</b> / <b>resumeDir</b> : Returns the directory where the cover letters, images, or resumes are stored.</li>
+<li><b>generateEncodedFilename</b> : Generates a unique base64 encoded name for the file.</li>
+<li><b>imageUrl</b> : Returns the url for an image.</li>
+<li><b>isAdmin</b> / <b>isUser</b> / <b>isRootAdmin</b> : Returns true if the current logged in account is for an admin, a user, or an admin with root privileges.</li>
+<li><b>isDemo</b> : Returns true if the site is in demo mode.</li>
+<li><b>referer</b>: Returns the url of the refering page or the specified fallback route if there was no referer.</li>
+<li><b>refererRouteName</b> : Returns the route name of the refering page or null if there was no refering page.</li>
+<li><b>reservedKeywords</b> : Returns a list of reserved keywords.</li>
+<li><b>resourceRoute</b>: Returns the route for a resource.</li>
+<li><b>themedTemplate</b> : Returns the path to a themed template file if it exists, otherwise it returns the default template file.</li>
+<li><b>uniqueSlug</b>: Generates a unique slug for a text string.</li>
+EOD,
                 'sequence'         => 2,
             ],
             [
                 'name'             => 'Laravel 12 SearchableModelTrait',
                 'slug'             => 'laravel-12-searchablemodeltrait',
                 'featured'         => 1,
-                'summary'          => null,
+                'summary'          => 'This is a Laravel 12 trait file that adds standardized search and listOptions functions to database models.',
                 'year'             => 2025,
                 'language'         => 'Laravel',
                 'language_version' => '12.29',
@@ -2752,14 +2772,14 @@ class AddPortfolio extends Command
                 'repository_name'  => 'craigzearfoss/laravel-12-SearchableModelTrait',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Adds standardized search and listOptions functions to models.',
+                'description'      => null,
                 'sequence'         => 3,
             ],
             [
                 'name'             => 'Addressable Trait',
                 'slug'             => 'addressable-trait',
                 'featured'         => 0,
-                'summary'          => null,
+                'summary'          => 'This is a Laravel 5.1 trait file that adds geocode and address functionality to a database model.',
                 'year'             => 2016,
                 'language'         => 'Laravel',
                 'language_version' => '5.1',
@@ -2767,14 +2787,14 @@ class AddPortfolio extends Command
                 'repository_name'  => 'craigzearfoss/addressable-trait',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Add geocode and address functionality to a Laravel 5.1 model.',
+                'description'      => null,
                 'sequence'         => 4,
             ],
             [
                 'name'             => 'Speedmon',
                 'slug'             => 'speedmon',
                 'featured'         => 0,
-                'summary'          => null,
+                'summary'          => 'This is a Python script to monitor internet speeds using cli speedtest.',
                 'year'             => 2020,
                 'language'         => 'Python',
                 'language_version' => '3',
@@ -2782,7 +2802,7 @@ class AddPortfolio extends Command
                 'repository_name'  => 'craigzearfoss/speedmon',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Python script to monitor internet speeds using cli speedtest.',
+                'description'      => null,
                 'sequence'         => 5,
             ],
         ];

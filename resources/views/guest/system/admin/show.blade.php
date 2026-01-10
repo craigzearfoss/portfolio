@@ -49,14 +49,14 @@
                     @if(!empty($admin->role))
                         @include('guest.components.show-row', [
                             'name'  => 'role',
-                            'value' => $admin->role ?? ''
+                            'value' => htmlspecialchars($admin->role ?? '')
                         ])
                     @endif
 
                     @if(!empty($admin->employer))
                         @include('guest.components.show-row', [
                             'name'  => 'employer',
-                            'value' => '<br>' . $admin->employer ?? ''
+                            'value' => '<br>' . htmlspecialchars($admin->employer ?? '')
                         ])
                     @endif
 
@@ -89,7 +89,7 @@
                                         <li style="padding-left: {{ $resource->menu_level - 2 }}em;">
                                             @if(Route::has('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index'))
                                                 @include('guest.components.link', [
-                                                    'name'  => $resource->plural,
+                                                    'name'  => htmlspecialchars($resource->plural ?? ''),
                                                     'href'  => route('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index', $admin),
                                                     'class' => 'pt-1 pb-1',
                                                 ])

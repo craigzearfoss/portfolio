@@ -42,7 +42,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($project->name)
+            'value' => htmlspecialchars($project->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -57,7 +57,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $project->summary
+            'value' => $project->summary ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -67,44 +67,46 @@
 
         @include('admin.components.show-row', [
             'name'  => 'language',
-            'value' => $project->language
+            'value' => htmlspecialchars($project->language ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'language version',
-            'value' => $project->language_version
+            'value' => htmlspecialchars($project->language_version ?? '')
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'repository',
-            'href'    => $project->repository_url,
+            'href'    => htmlspecialchars($project->repository_url ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'repository name',
-            'value' => htmlspecialchars($project->repository_name),
+            'value' => htmlspecialchars($project->repository_name ?? ''),
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($project->notes))
+            'value' => $project->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $project->link_name ?? 'link',
-            'href'   => $project->link,
+            'name'   => htmlspecialchars($project->link_name ?? 'link'),
+            'href'   => htmlspecialchars($project->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($project->description ?? '')
+            'value' => $project->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $project->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($project->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

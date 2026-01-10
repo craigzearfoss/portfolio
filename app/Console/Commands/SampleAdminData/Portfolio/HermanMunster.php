@@ -111,14 +111,15 @@ class HermanMunster extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Water Lily Pond, (Symphony in Green)', 'artist' => 'Claude Monet',                  'slug' => 'water-lily-pond-(symphony-in-green)-by-claude-monet',   'year' => 1899, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet018.jpg',             'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Grande Odalisque',                 'artist' => 'Jean Auguste Dominique Ingres', 'slug' => 'the-grande-odalisque-by-jean-auguste-dominique-ingres', 'year' => 1814, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jean_Auguste_Dominique_Ingres/paintings-wm/ingres026.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Birthday Card',      'artist' => 'Kevin Dixon',                   'slug' => 'birthday-card-by-kevin-dixon',                          'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                               'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Water Lily Pond, (Symphony in Green)', 'artist' => 'Claude Monet',                  'slug' => 'water-lily-pond-(symphony-in-green)-by-claude-monet',   'summary' => null, 'year' => 1899, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet018.jpg',             'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'The Grande Odalisque',                 'artist' => 'Jean Auguste Dominique Ingres', 'slug' => 'the-grande-odalisque-by-jean-auguste-dominique-ingres', 'summary' => null, 'year' => 1814, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jean_Auguste_Dominique_Ingres/paintings-wm/ingres026.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Birthday Card',      'artist' => 'Kevin Dixon',                   'slug' => 'birthday-card-by-kevin-dixon',                          'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                               'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -127,7 +128,6 @@ class HermanMunster extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];

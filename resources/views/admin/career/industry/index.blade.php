@@ -46,10 +46,10 @@
 
                 <tr data-id="{{ $industry->id }}">
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $industry->name }}
+                        {{ htmlspecialchars($industry->name, '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $industry->abbreviation }}
+                        {{ htmlspecialchars($industry->abbreviation, '') }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.industry.destroy', $industry->id) }}" method="POST">
@@ -69,7 +69,7 @@
                             @endif
 
                             @if (!empty($industry->link))
-                                <a title="{{ !empty($industry->link_name) ? $industry->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($industry->link_name) ? $industry->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $industry->link }}"
                                    target="_blank"

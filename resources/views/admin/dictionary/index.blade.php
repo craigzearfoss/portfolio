@@ -32,7 +32,7 @@
 
                 <li>
                     @include('admin.components.dictionary-definition', [
-                        'word'  => $word,
+                        'word'  => htmlspecialchars($word ?? ''),
                         'route' => route('admin.dictionary.'.$word->table_slug.'.show', $word->id)
                     ])
                 </li>

@@ -27,7 +27,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $link->name
+            'value' => htmlspecialchars($link->name ?? '')
         ])
 
         <?php /*
@@ -40,21 +40,21 @@
         @if(!empty($link->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $link->summary
+                'value' => $link->summary ?? ''
             ])
         @endif
 
         @if(!empty($link->url))
             @include('guest.components.show-row-link', [
                 'name'   => 'url',
-                'href'    => $link->url,
+                'href'   => $link->url,
                 'target' => '_blank'
             ])
         @endif
 
         @if(!empty($link->link))
             @include('guest.components.show-row-link', [
-                'name'   => $link->link_name ?? 'link',
+                'name'   => htmlspecialchars($link->link_name ?? 'link'),
                 'href'   => $link->link,
                 'target' => '_blank'
             ])
@@ -63,7 +63,7 @@
         @if(!empty($link->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => nl2br($link->description ?? '')
+                'value' => $link->description ?? ''
             ])
         @endif
 

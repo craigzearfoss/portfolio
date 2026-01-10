@@ -111,16 +111,17 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Dance at the Moulin de la Galette',  'artist' => 'Pierre-Auguste Renoir',  'slug' => 'dance-at-the-moulin-de-la-galette-by-pierre-auguste-renoir', 'year' => 1876, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir061.jpg',                                              'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Hands Up',                           'artist' => 'Ron Liberti',            'slug' => 'hands-up-by-ron-liberti',                                    'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1679254976779-P7HOW9DDTRTKFQFGV2JD/Hands+up%21.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Boulevard des Capucines',            'artist' => 'Claude Monet',           'slug' => 'boulevard-des-capucines-by-claude-monet',                    'year' => 1873, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet195.jpg',                                                  'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Liberty Leading the People',         'artist' => 'Eugene Delacroix',       'slug' => 'liberty-leading-the-people-by-eugene-delacroix',             'year' => 1830, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Delacroix/paintings-wm/delacroix-005.jpg',                                                      'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Polar Sea (The Sea of Ice)',     'artist' => 'Caspar David Friedrich', 'slug' => 'the-polar-sea-(the-sea-of-ice)-by-caspar-david-friedrich',   'year' => 1823, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich003.jpg',                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Dance at the Moulin de la Galette',  'artist' => 'Pierre-Auguste Renoir',  'slug' => 'dance-at-the-moulin-de-la-galette-by-pierre-auguste-renoir', 'summary' => null, 'year' => 1876, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir061.jpg',                                              'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'Hands Up',                           'artist' => 'Ron Liberti',            'slug' => 'hands-up-by-ron-liberti',                                    'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1679254976779-P7HOW9DDTRTKFQFGV2JD/Hands+up%21.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => 'Boulevard des Capucines',            'artist' => 'Claude Monet',           'slug' => 'boulevard-des-capucines-by-claude-monet',                    'summary' => null, 'year' => 1873, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet195.jpg',                                                  'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'Liberty Leading the People',         'artist' => 'Eugene Delacroix',       'slug' => 'liberty-leading-the-people-by-eugene-delacroix',             'summary' => null, 'year' => 1830, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Delacroix/paintings-wm/delacroix-005.jpg',                                                      'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'The Polar Sea (The Sea of Ice)',     'artist' => 'Caspar David Friedrich', 'slug' => 'the-polar-sea-(the-sea-of-ice)-by-caspar-david-friedrich',   'summary' => null, 'year' => 1823, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich003.jpg',                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -129,7 +130,6 @@ class GabeKotter extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];

@@ -51,17 +51,17 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $certificate->name,
+                            'name'  => htmlspecialchars($certificate->name ?? ''),
                             'href'  => route('guest.admin.portfolio.certificate.show', [$certificate->owner->label, $certificate->slug]),
                             'class' => $certificate->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
                         @if(!empty($certificate->academy['link']))
-                            {{ $certificate->academy['name'] }}
+                            {{ htmlspecialchars($certificate->academy['name'] ?? '') }}
                         @else
                             @include('guest.components.link', [
-                                'name'   => $certificate->academy['name'],
+                                'name'   => htmlspecialchars($certificate->academy['name'] ?? ''),
                                 'href'   => $certificate->academy['link'],
                                 'target' => '_blank',
                             ])

@@ -61,15 +61,15 @@
                     </td>
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name' => !empty($admin->name) ? $admin->name : $admin->label,
+                            'name' => htmlspecialchars(!empty($admin->name) ? $admin->name : $admin->label),
                             'href' => route('guest.admin.show', $admin),
                         ])
                     </td>
                     <td data-field="role">
-                        {{ $admin->role ?? '' }}
+                        {{ htmlspecialchars($admin->role ?? '') }}
                     </td>
                     <td data-field="employer">
-                        {{ $admin->employer ?? '' }}
+                        {{ htmlspecialchars($admin->employer ?? '') }}
                     </td>
                 </tr>
 

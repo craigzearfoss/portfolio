@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $operatingSystem->id }}">
                     <td data-field="name">
-                        {{ $operatingSystem->name }}
+                        {{ htmlspecialchars($operatingSystem->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $operatingSystem->abbreviation }}
+                        {{ htmlspecialchars($operatingSystem->abbreviation ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $operatingSystem->public ])
@@ -88,7 +88,7 @@
                         @if (!empty($operatingSystem->link))
                             <a title="link"
                                class="button is-small px-1 py-0"
-                               href="{{ !empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link' }}"
+                               href="{{ htmlspecialchars((!empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link') ?? '') }}"
                                target="_blank"
                             >
                                 <i class="fa-solid fa-external-link"></i>

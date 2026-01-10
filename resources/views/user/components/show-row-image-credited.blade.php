@@ -3,7 +3,7 @@
     <span class="column is-10 pl-0">
         @include('user.components.image', [
             'src'      => $src ?? '',
-            'alt'      => $alt ?? '',
+            'alt'      => htmlspecialchars($alt ?? ''),
             'class'    => $class ?? '',
             'style'    => $style ?? [],
             'width'    => $width ?? '',
@@ -15,13 +15,13 @@
         <span>
             @if(!empty($image_credit))
                 <span class="mr-2">
-                    <i>credit: {{$image_credit}}@if(!empty($image_credit)),@endif</i>
+                    <i>credit: {{ $image_credit ?? '' }}</i>
                 </span>
             @endif
             @if(!empty($image_credit))
                 <span>
-                        <i> source: {{$image_source}}</i>
-                    </span>
+                    <i> source: {{ $image_source ?? '' }}</i>
+                </span>
             @endif
         </span>
     </span>

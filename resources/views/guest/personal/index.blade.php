@@ -25,7 +25,7 @@
                 <div class="content">
 
                     <h3 class="title">
-                        {{ $admin->name }} Personal
+                        {{ htmlspecialchars($admin->name ?? '') }} Personal
                     </h3>
 
                     <ul class="menu-list ml-4 mb-2">
@@ -35,7 +35,7 @@
                             @if(empty($resource->global) && Route::has('guest.admin.personal.'.$resource->name.'.index'))
                                 <li>
                                     @include('guest.components.link', [
-                                        'name'  => $resource->plural,
+                                        'name'  => htmlspecialchars($resource->plural ?? ''),
                                         'href'  => route('guest.admin.personal.'.$resource->name.'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])

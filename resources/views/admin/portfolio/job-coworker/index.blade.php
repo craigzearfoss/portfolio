@@ -75,7 +75,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $jobCoworker->name }}
+                        {{ htmlspecialchars($jobCoworker->name ?? '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobCoworker->featured ])
@@ -85,7 +85,7 @@
                     </td>
                     <td data-field="job.company">
                         @if($jobCoworker->job)
-                            {{ $jobCoworker->job['company'] }}
+                            {{ htmlspecialchars($jobCoworker->job['company'] ?? '') }}
                         @endif
                     </td>
                     <td data-field="public" class="has-text-centered">
@@ -95,44 +95,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $jobCoworker->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.portfolio.job-coworker.destroy', $jobCoworker->id) }}" method="POST">
 
                             @if(canRead($jobCoworker))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.job-coworker.show', $jobCoworker->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.portfolio.job-coworker.show', $jobCoworker->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($jobCoworker))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.job-coworker.edit', $jobCoworker->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.portfolio.job-coworker.edit', $jobCoworker->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($jobCoworker->link))
-                                <a title="{{ !empty($jobCoworkers->link_name) ? $jobCoworker->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $jobCoworker->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($jobCoworker->link_name) ? $jobCoworker->link_name : 'link') ?? ''),
+                                    'href'   => $jobCoworker->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($jobCoworker))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

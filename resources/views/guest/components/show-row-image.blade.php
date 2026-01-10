@@ -3,7 +3,7 @@
     <span class="column is-10 pl-0">
         @include('guest.components.image', [
             'src'      => $src ?? '',
-            'alt'      => $alt ?? '',
+            'alt'      => htmlspecialchars($alt ?? ''),
             'class'    => $class ?? '',
             'style'    => $style ?? [],
             'width'    => $width ?? '',

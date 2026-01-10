@@ -49,14 +49,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $ingredient->link_name ?? 'link',
-            'href'   => $ingredient->link,
+            'name'   => htmlspecialchars($ingredient->link_name ?? 'link'),
+            'href'   => htmlspecialchars($ingredient->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($ingredient->description ?? '')
+            'value' => $ingredient->description ?? ''
         ])
 
         @include('admin.components.show-row-images', [

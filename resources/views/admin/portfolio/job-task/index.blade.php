@@ -73,11 +73,11 @@
                     @endif
                     <td data-field="job.company">
                         @if($jobTask->job)
-                            {{ $jobTask->job['company'] }}
+                            {{ htmlspecialchars($jobTask->job['company'] ?? '') }}
                         @endif
                     </td>
                     <td data-field="summary">
-                        {{ $jobTask->summary }}
+                        {{ $jobTask->summary ?? '' }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobTask->public ])
@@ -86,44 +86,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $jobTask->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.portfolio.job-task.destroy', $jobTask->id) }}" method="POST">
 
                             @if(canRead($jobTask))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.job-task.show', $jobTask->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.portfolio.job-task.show', $jobTask->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($jobTask))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.job-task.edit', $jobTask->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.portfolio.job-task.edit', $jobTask->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($jobTask->link))
-                                <a title="{{ !empty($jobTask->link_name) ? $jobTask->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $jobTask->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($jobTask->link_name) ? $jobTask->link_name : 'link') ?? ''),
+                                    'href'   => $jobTask->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($jobTask))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

@@ -66,14 +66,14 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $project->name }}
+                        {{ htmlspecialchars($project->name ?? '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->featured ])
                     </td>
                     <td data-field="language">
                         {{ !empty($project->language)
-                            ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
+                            ? htmlspecialchars(($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : '')) ?? '')
                             : ''
                         }}
                     </td>
@@ -83,7 +83,7 @@
                     <td data-field="repository_url">
                         @if(!empty($project->repository_url))
                             @include('admin.components.link', [
-                                'name'   => $project->repository_name ?? '',
+                                'name'   => htmlspecialchars($project->repository_name ?? ''),
                                 'href'   => $project->repository_url,
                                 'target' => '_blank'
                             ])
@@ -96,44 +96,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.portfolio.project.destroy', $project->id) }}" method="POST">
 
                             @if(canRead($project))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.project.show', $project->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
-                           @endif
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.portfolio.project.show', $project->id),
+                                    'icon'  => 'fa-list'
+                                ])
+                            @endif
 
                             @if(canUpdate($project))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.project.edit', $project->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.portfolio.project.edit', $project->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($project->link))
-                                <a title="{{ !empty($project->link_name) ? $project->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $project->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($project->link_name) ? $project->link_name : 'link') ?? ''),
+                                    'href'   => $project->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($project))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

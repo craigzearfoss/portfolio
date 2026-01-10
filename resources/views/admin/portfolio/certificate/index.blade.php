@@ -69,7 +69,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $certificate->name }}
+                        {{ htmlspecialchars($certificate->name ?? '') }}
                     </td>
                     <td data-field="feature" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certificate->feature ])
@@ -77,7 +77,7 @@
                     <td data-field="academy.name">
                         @if (!empty($certificate->academy))
                             @include('admin.components.link', [
-                                'name'   => $certificate->academy['name'],
+                                'name'   => htmlspecialchars($certificate->academy['name'] ?? ''),
                                 'href'   => route('admin.portfolio.academy.show', $certificate->academy),
                             ])
                         @endif
@@ -98,44 +98,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.portfolio.certificate.destroy', $certificate->id) }}" method="POST">
 
                             @if(canRead($certificate))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.certificate.show', $certificate->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.portfolio.certificate.show', $certificate->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($certificate))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.certificate.edit', $certificate->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.portfolio.certificate.edit', $certificate->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($certificate->link))
-                                <a title="{{ !empty($certificate->link_name) ? $certificate->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $certificate->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($certificate->link_name) ? $certificate->link_name : 'link') ?? ''),
+                                    'href'   => $certificate->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($certificate))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

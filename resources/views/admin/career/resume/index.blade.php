@@ -82,7 +82,7 @@
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $resume->name }}
+                        {{ htmlspecialchars($resume->name ?? '') }}
                     </td>
                     <td data-field="date" style="white-space: nowrap;">
                         {{ shortDate($resume->date) }}
@@ -142,7 +142,7 @@
                             @endif
 
                             @if (!empty($resume->link))
-                                <a title="{{ !empty($resume->link_name) ? $resume->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($resume->link_name) ? $resume->link_name : 'link') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $resume->link }}"
                                    target="_blank"

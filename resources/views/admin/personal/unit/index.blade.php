@@ -48,13 +48,13 @@
 
                 <tr data-id="{{ $unit->id }}">
                     <td data-field="name">
-                        {{ $unit->name }}
+                        {{ htmlspecialchars($unit->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $unit->abbreviation }}
+                        {{ htmlspecialchars($unit->abbreviation ?? '') }}
                     </td>
                     <td data-field="system" class="has-text-centered">
-                        {{ $unit->system }}
+                        {{ htmlspecialchars($unit->system ?? '') }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.personal.unit.destroy', $unit->id) }}" method="POST">
@@ -74,7 +74,7 @@
                             @endif
 
                             @if (!empty($unit->link))
-                                <a title="{{ !empty($unit->link_name) ? $unit->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($unit->link_name) ? $unit->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $unit->link }}"
                                    target="_blank">

@@ -27,12 +27,12 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $art->name
+            'value' => htmlspecialchars($art->name ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'artist',
-            'value' => $art->artist
+            'value' => htmlspecialchars($art->artist ?? '')
         ])
 
         <?php /*
@@ -45,7 +45,7 @@
         @if(!empty($art->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $art->summary
+                'value' => $art->summary ?? ''
             ])
         @endif
 
@@ -60,7 +60,7 @@
 
             @include('guest.components.show-row-image', [
                 'name'     => 'image',
-                'src'      => $art->image_url,
+                'src'      => $art->image_url ?? '',
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
@@ -70,8 +70,8 @@
 
         @if(!empty($art->link))
             @include('guest.components.show-row-link', [
-                'name'   => $art->link_name ?? 'link',
-                'href'   => $art->link,
+                'name'   => htmlspecialchars($art->link_name ?? 'link'),
+                'href'   => htmlspecialchars($art->link ?? ''),
                 'target' => '_blank'
             ])
         @endif
@@ -79,7 +79,7 @@
         @if(!empty($art->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => nl2br($art->description ?? '')
+                'value' => $art->description ?? ''
             ])
         @endif
 

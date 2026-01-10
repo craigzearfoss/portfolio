@@ -23,22 +23,22 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => $operatingSystem->full_name
+            'value' => htmlspecialchars($operatingSystem->full_name ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $operatingSystem->name
+            'value' => htmlspecialchars($operatingSystem->name ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $operatingSystem->abbreviation
+            'value' => htmlspecialchars($operatingSystem->abbreviation ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => $operatingSystem->definition
+            'value' => htmlspecialchars($operatingSystem->definition ?? '')
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => $operatingSystem->owner
+            'value' => htmlspecialchars($operatingSystem->owner ?? '')
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,14 +63,14 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => $operatingSystem->link_name ?? 'link',
-            'href'   => $operatingSystem->link,
+            'name'   => htmlspecialchars($operatingSystem->link_name ?? 'link'),
+            'href'   => htmlspecialchars($operatingSystem->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($operatingSystem->description ?? '')
+            'value' => $operatingSystem->description ?? ''
         ])
 
         @if(!empty($operatingSystem->image))
@@ -84,12 +84,12 @@
 
             @include('guest.components.show-row', [
                 'name'  => 'image credit',
-                'value' => $operatingSystem->image_credit
+                'value' => htmlspecialchars($operatingSystem->image_credit ?? '')
             ])
 
             @include('guest.components.show-row', [
                 'name'  => 'image source',
-                'value' => $operatingSystem->image_source
+                'value' => htmlspecialchars($operatingSystem->image_source ?? '')
             ])
 
         @endif

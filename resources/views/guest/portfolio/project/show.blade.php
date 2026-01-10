@@ -27,7 +27,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $project->name
+            'value' => htmlspecialchars($project->name ?? '')
         ])
 
         <?php /*
@@ -36,6 +36,13 @@
             'checked' => $project->featured
         ])
         */ ?>
+
+        @if(!empty($project->summary ))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $project->summary ?? ''
+            ])
+        @endif
 
         @if(!empty($project->year))
             @include('guest.components.show-row', [
@@ -47,21 +54,21 @@
         @if(!empty($project->language))
             @include('guest.components.show-row', [
                 'name'  => 'language',
-                'value' => $project->language
+                'value' => htmlspecialchars($project->language ?? '')
             ])
         @endif
 
         @if(!empty($project->language_version))
             @include('guest.components.show-row', [
                 'name'  => 'language version',
-                'value' => $project->language_version
+                'value' => htmlspecialchars($project->language_version ?? '')
             ])
         @endif
 
         @if(!empty($project->repository_url))
             @include('guest.components.show-row-link', [
                 'name'   => 'repository',
-                'label'  => $project->repository_name,
+                'label'  => htmlspecialchars($project->repository_name ?? ''),
                 'href'   => $project->repository_url,
                 'target' => '_blank'
             ])
@@ -69,7 +76,7 @@
 
         @if(!empty($project->link))
             @include('guest.components.show-row-link', [
-                'name'   => $project->link_name ?? 'link',
+                'name'   => htmlspecialchars($project->link_name ?? 'link' ?? ''),
                 'href'   => $project->link,
                 'target' => '_blank'
             ])
@@ -78,7 +85,7 @@
         @if(!empty($project->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $project->description
+                'value' => $project->description ?? ''
             ])
         @endif
 

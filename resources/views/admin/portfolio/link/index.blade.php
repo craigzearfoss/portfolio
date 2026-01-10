@@ -61,7 +61,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $link->name }}
+                        {{ htmlspecialchars($link->name ?? '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->featured ])
@@ -73,57 +73,67 @@
                         @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.portfolio.link.destroy', $link->id) }}" method="POST">
 
                             @if(canRead($link))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.link.show', $link->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.portfolio.link.show', $link->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($link))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.link.edit', $link->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.portfolio.link.edit', $link->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($link->url))
-                                <a title="Open link in new window"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $link->url }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'open link in new window',
+                                    'href'   => $link->url,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if (!empty($link->link))
-                                <a title="{{ !empty($link->link_name) ? $link->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $link->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($link->link_name) ? $link->link_name : 'link') ?? ''),
+                                    'href'   => $link->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($link))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

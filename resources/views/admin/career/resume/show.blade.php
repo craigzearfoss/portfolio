@@ -61,7 +61,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($resume->name)
+            'value' => htmlspecialchars($resume->name ?? '')
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -81,37 +81,39 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'doc url',
-            'label'  => $resume->doc_url,
-            'href'   => $resume->doc_url,
+            'label'  => htmlspecialchars($resume->doc_url),
+            'href'   => htmlspecialchars($resume->doc_url),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'pdf url',
-            'label'  => $resume->pdf_url,
-            'href'   => $resume->pdf_url,
+            'label'  => htmlspecialchars($resume->pdf_url),
+            'href'   => htmlspecialchars($resume->pdf_url),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($resume->notes))
+            'value' => $resume->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $resume->link_name ?? 'link',
-            'href'   => $resume->link,
+            'name'   => htmlspecialchars($resume->link_name ?? 'link'),
+            'href'   => htmlspecialchars($resume->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($resume->description ?? '')
+            'value' => $resume->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $resume->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($resume->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

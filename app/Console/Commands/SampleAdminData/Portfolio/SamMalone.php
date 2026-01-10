@@ -111,16 +111,17 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'M-Maybe',                     'artist' => 'Roy Lichtenstein',                  'slug' => 'm-maybe-by-roy-lichtenstein',                             'year' => 1965, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/CZOnngqWwAEswhO.jpg',                                                        'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Summer Sissy',                'artist' => 'Ron Liberti',                       'slug' => 'summer-sissy-by-ron-liberti',                             'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1661292044799-N2HGQXCCF98VWL7RKI5L/image-asset.jpeg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Sleeping Venus',          'artist' => 'Giorgio da Castelfranco Giorgione', 'slug' => 'the-sleeping-venus-by-giorgio-da-castelfranco-giorgione', 'year' => 1508, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Giorgio_da_Castelfranco_Giorgione/paintings-wm/giorgione003.jpg',                                'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Lady Godiva',                 'artist' => 'John Collier',                      'slug' => 'lady-godiva-by-john-collier',                             'year' => 1898, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/John_Collier/paintings-wm/collier004.jpg',                                                       'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'A Bar at the Folies-Bergere', 'artist' => 'Edouard Manet',                     'slug' => 'a-bar-at-the-folies-bergere-by-edouard-manet',            'year' => 1881, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Edouard_Manet/paintings-wm/manet015.jpg',                                                        'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'M-Maybe',                     'artist' => 'Roy Lichtenstein',                  'slug' => 'm-maybe-by-roy-lichtenstein',                             'summary' => null, 'year' => 1965, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/CZOnngqWwAEswhO.jpg',                                                        'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Summer Sissy',                'artist' => 'Ron Liberti',                       'slug' => 'summer-sissy-by-ron-liberti',                             'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1661292044799-N2HGQXCCF98VWL7RKI5L/image-asset.jpeg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Sleeping Venus',          'artist' => 'Giorgio da Castelfranco Giorgione', 'slug' => 'the-sleeping-venus-by-giorgio-da-castelfranco-giorgione', 'summary' => null, 'year' => 1508, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Giorgio_da_Castelfranco_Giorgione/paintings-wm/giorgione003.jpg',                                'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Lady Godiva',                 'artist' => 'John Collier',                      'slug' => 'lady-godiva-by-john-collier',                             'summary' => null, 'year' => 1898, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/John_Collier/paintings-wm/collier004.jpg',                                                       'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'A Bar at the Folies-Bergere', 'artist' => 'Edouard Manet',                     'slug' => 'a-bar-at-the-folies-bergere-by-edouard-manet',            'summary' => null, 'year' => 1881, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Edouard_Manet/paintings-wm/manet015.jpg',                                                        'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -129,7 +130,6 @@ class SamMalone extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];

@@ -42,12 +42,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($skill->name)
+            'value' => htmlspecialchars($skill->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'version',
-            'value' => $skill->version
+            'value' => htmlspecialchars($skill->version ?? '')
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -57,7 +57,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $skill->summary
+            'value' => $skill->summary ?? ''
         ])
 
         @include('admin.components.show-row-rating', [
@@ -68,7 +68,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'category',
-            'value' => $skill->category->name ?? ''
+            'value' => htmlspecialchars($skill->category->name ?? '')
         ])
 
         @if(!empty($skill->start_year))
@@ -94,23 +94,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($skill->notes))
+            'value' => $skill->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $skill->link_name ?? 'link',
-            'href'   => $skill->link,
+            'name'   => htmlspecialchars($skill->link_name ?? 'link'),
+            'href'   => htmlspecialchars($skill->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($skill->description ?? '')
+            'value' => $skill->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $skill->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($skill->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

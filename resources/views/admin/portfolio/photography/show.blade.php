@@ -42,12 +42,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($photo->name)
+            'value' => htmlspecialchars($photo->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'artist',
-            'value' => htmlspecialchars($photo->artist)
+            'value' => htmlspecialchars($photo->artist ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $photo->summary
+            'value' => $photo->summary ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -72,23 +72,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($photo->notes))
+            'value' => $photo->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $photo->link_name ?? 'link',
-            'href'   => $photo->link,
+            'name'   => htmlspecialchars($photo->link_name ?? 'link'),
+            'href'   => htmlspecialchars($photo->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($photo->description ?? '')
+            'value' => $photo->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $photo->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($photo->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

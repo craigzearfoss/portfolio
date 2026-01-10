@@ -67,16 +67,16 @@
                         </td>
                     @endif
                     <td data-field="title">
-                        {{ $publication->title }}
+                        {{ htmlspecialchars($publication->title ?? '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $publication->featured ])
                     </td>
                     <td data-field="publication_name">
-                        {{ $publication->publication }}
+                        {{ htmlspecialchars($publication->publication ?? '') }}
                     </td>
                     <td data-field="publisher">
-                        {{ $publication->publisher }}
+                        {{ htmlspecialchars($publication->publisher ?? '') }}
                     </td>
                     <td data-field="year">
                         {{ $publication->year }}
@@ -88,44 +88,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $publication->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.portfolio.publication.destroy', $publication->id) }}" method="POST">
 
                             @if(canRead($publication))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.publication.show', $publication->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.portfolio.publication.show', $publication->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($publication))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.publication.edit', $publication->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.portfolio.publication.edit', $publication->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($publication->link))
-                                <a title="{{ !empty($publication->link_name) ? $publication->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $publication->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($publication->link_name) ? $publication->link_name : 'link') ?? ''),
+                                    'href'   => $publication->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($publication))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

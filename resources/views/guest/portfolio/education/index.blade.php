@@ -52,19 +52,19 @@
                 <tr>
                     <td data-field="degreeType.name">
                         @include('guest.components.link', [
-                            'name'  => $education->degreeType->name,
+                            'name'  => htmlspecialchars($education->degreeType->name),
                             'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
                         ])
                     </td>
                     <td data-field="major">
                         @include('guest.components.link', [
-                            'name'  => $education->major,
+                            'name'  => htmlspecialchars($education->major),
                             'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
                         ])
                     </td>
                     <td data-field="minor">
                         @include('guest.components.link', [
-                            'name'  => $education->minor ?? '',
+                            'name'  => htmlspecialchars($education->minor ?? ''),
                             'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
                         ])
                     </td>

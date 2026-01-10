@@ -111,15 +111,16 @@ class AlexReiger extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Blossoming Almond Tree',                       'artist' => 'Vincent van Gogh',    'slug' => 'blossoming-almond-tree-by-vincent-van-gogh',                       'year' => 1890, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh103.jpg',       'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Oath of the Horatii',                      'artist' => 'Jacques-Louis David', 'slug' => 'the-oath-of-the-horatii-by-jacques-louis-david',                   'year' => 1784, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jacques-Louis_David/paintings-wm/davidjl002.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Vase with Irises Against a Yellow Background', 'artist' => 'Vincent van Gogh',    'slug' => 'vase-with-irises-against-a-yellow-background-by-vincent-van-gogh', 'year' => 1890, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh108.jpg',       'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Overkill',                                     'artist' => 'Kevin Dixon',         'slug' => 'overkill-by-kevin-dixon',                                          'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                      'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Blossoming Almond Tree',                       'artist' => 'Vincent van Gogh',    'slug' => 'blossoming-almond-tree-by-vincent-van-gogh',                       'summary' => null, 'year' => 1890, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh103.jpg',       'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'The Oath of the Horatii',                      'artist' => 'Jacques-Louis David', 'slug' => 'the-oath-of-the-horatii-by-jacques-louis-david',                   'summary' => null, 'year' => 1784, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jacques-Louis_David/paintings-wm/davidjl002.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Vase with Irises Against a Yellow Background', 'artist' => 'Vincent van Gogh',    'slug' => 'vase-with-irises-against-a-yellow-background-by-vincent-van-gogh', 'summary' => null, 'year' => 1890, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh108.jpg',       'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Overkill',                                     'artist' => 'Kevin Dixon',         'slug' => 'overkill-by-kevin-dixon',                                          'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                      'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -128,7 +129,6 @@ class AlexReiger extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];

@@ -14,10 +14,10 @@ $communications = $communications ?? [];
 
         <tr>
             <td>
-                {!! $communication->communicationType->name !!}
+                {{ htmlspecialchars($communication->communicationType->name ?? '' }}
             </td>
             <td>
-                {!! htmlspecialchars($communication->subject) !!}
+                {{ htmlspecialchars($communication->subject ?? '') }}
             </td>
             <td>
                 {!! longDate($communication->date) !!}

@@ -111,16 +111,17 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'The Scream',                       'artist' => 'Edvard Munch',           'slug' => 'the-scream-by-edvard-munch',                                 'year' => 1893, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Edvard-Munch/paintings-wm/munch004.jpg',               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Wanderer Above a Sea of Mist', 'artist' => 'Caspar David Friedrich', 'slug' => 'the-wanderer-above-a-sea-of-mist-by-caspar-david-friedrich', 'year' => 1818, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich016.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Nude Descending a Staircase II',   'artist' => 'Marcel Duchamp',         'slug' => 'nude-descending-a-staircase-ii-by-marcel-duchamp',           'year' => 1912, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Marcel-Duchamp/paintings-wm/duchamp-001.jpg',          'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'American Gothic',                  'artist' => 'Grant Wood',             'slug' => 'american-gothic-by-grant-wood',                              'year' => 1930, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Grant-Wood/paintings-wm/grant-wood-001.jpg',           'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'There Is a God',                   'artist' => 'Kevin Dixon',            'slug' => 'there-is-a-god-by-kevin-dixon',                              'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                           'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Scream',                       'artist' => 'Edvard Munch',           'slug' => 'the-scream-by-edvard-munch',                                 'summary' => null, 'year' => 1893, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Edvard-Munch/paintings-wm/munch004.jpg',               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'The Wanderer Above a Sea of Mist', 'artist' => 'Caspar David Friedrich', 'slug' => 'the-wanderer-above-a-sea-of-mist-by-caspar-david-friedrich', 'summary' => null, 'year' => 1818, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich016.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Nude Descending a Staircase II',   'artist' => 'Marcel Duchamp',         'slug' => 'nude-descending-a-staircase-ii-by-marcel-duchamp',           'summary' => null, 'year' => 1912, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Marcel-Duchamp/paintings-wm/duchamp-001.jpg',          'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'American Gothic',                  'artist' => 'Grant Wood',             'slug' => 'american-gothic-by-grant-wood',                              'summary' => null, 'year' => 1930, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Grant-Wood/paintings-wm/grant-wood-001.jpg',           'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'There Is a God',                   'artist' => 'Kevin Dixon',            'slug' => 'there-is-a-god-by-kevin-dixon',                              'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                           'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -129,7 +130,6 @@ class DarrinStephens extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];

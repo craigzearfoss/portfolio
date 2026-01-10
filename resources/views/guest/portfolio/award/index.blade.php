@@ -49,7 +49,7 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $award->name,
+                            'name'  => htmlspecialchars($award->name ?? ''),
                             'href'  => route('guest.admin.portfolio.award.show', [$admin, $award->slug]),
                             'class' => $award->featured ? 'has-text-weight-bold' : ''
                         ])
@@ -57,7 +57,7 @@
                     <td>
                         @if(!empty($award->category))
                             @include('guest.components.link', [
-                                'name'  => $award->category,
+                                'name'  => htmlspecialchars($award->category, ''),
                                 'href'  => route('guest.admin.portfolio.award.show', [$admin, $award->slug]),
                                 'class' => $award->featured ? 'has-text-weight-bold' : ''
                             ])

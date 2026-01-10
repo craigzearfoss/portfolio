@@ -27,13 +27,13 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $skill->name
+            'value' => htmlspecialchars($skill->name ?? '')
         ])
 
         @if(!empty($skill->version))
             @include('guest.components.show-row', [
                 'name'  => 'version',
-                'value' => $skill->version
+                'value' => htmlspecialchars($skill->version ?? '')
             ])
         @endif
 
@@ -47,7 +47,7 @@
         @if(!empty($skill->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $skill->summary
+                'value' => $skill->summary ?? ''
             ])
         @endif
 
@@ -62,7 +62,7 @@
         @if(!empty($skill->category))
             @include('guest.components.show-row', [
                 'name'  => 'category',
-                'value' => $skill->category->name ?? ''
+                'value' => htmlspecialchars($skill->category->name ?? '')
             ])
         @endif
 
@@ -93,7 +93,7 @@
 
         @if(!empty($skill->link))
             @include('guest.components.show-row-link', [
-                'name'   => $skill->link_name ?? 'link',
+                'name'   => htmlspecialchars($skill->link_name ?? 'link'),
                 'href'   => $skill->link,
                 'target' => '_blank'
             ])
@@ -102,7 +102,7 @@
         @if(!empty($skill->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $skill->description
+                'value' => $skill->description ?? ''
             ])
         @endif
 

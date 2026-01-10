@@ -50,13 +50,13 @@
 
                 <tr data-id="{{ $message->id }}">
                     <td data-field="name">
-                        {{ $message->name }}
+                        {{ htmlspecialchars($message->name ?? '') }}
                     </td>
                     <td data-field="email">
-                        {{ $message->email }}
+                        {{ htmlspecialchars($message->email ?? '' }}
                     </td>
                     <td data-field="subject">
-                        {{ $message->subject }}
+                        {{ htmlspecialchars($message->subject ?? '')  }}
                     </td>
                     <td data-field="created_at">
                         {{ shortDateTime($message->created_at) }}

@@ -31,7 +31,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $title ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'   => $breadcruumbs,
+    'breadcrumbs'   => $breadcrumbs,
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
@@ -63,7 +63,7 @@
         @include('admin.components.show-row', [
             'name'  => 'application_id',
             'value' => !empty($application)
-                ? ($application->company['name'] . ' - ' . $application->role . ' [' . $application->apply_date . ']')
+                ? htmlspecialchars((($application->company['name'] ?? '') . ' - ' . ($application->role ?? '') . ' [' . ($application->apply_date ?? '') . ']'))
                 : ''
         ])
 
@@ -74,17 +74,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => htmlspecialchars($communication->subject)
+            'value' => htmlspecialchars($communication->subject ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'to',
-            'value' => htmlspecialchars($event->to)
+            'value' => htmlspecialchars($event->to ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'from',
-            'value' => htmlspecialchars($event->from)
+            'value' => htmlspecialchars($event->from ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -99,7 +99,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => nl2br($communication->body ?? '')
+            'value' => $communication->body ?? ''
         ])
 
         @include('admin.components.show-row-settings', [

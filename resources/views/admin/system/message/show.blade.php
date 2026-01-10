@@ -35,22 +35,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($message->name)
+            'value' => htmlspecialchars($message->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'email',
-            'value' => htmlspecialchars($message->email)
+            'value' => htmlspecialchars($message->email ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => htmlspecialchars($message->subject)
+            'value' => htmlspecialchars($message->subject ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => nl2br($message->body ?? '')
+            'value' => $message->body ?? ''
         ])
 
         <?php /*

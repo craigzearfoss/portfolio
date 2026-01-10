@@ -43,7 +43,7 @@
         @include('admin.components.show-row', [
             'name'    => 'application',
             'value'   => view('admin.components.link', [
-                             'name' => $coverLetter->name ?? '',
+                             'name' => htmlspecialchars($coverLetter->name ?? ''),
                              'href' => route('admin.career.application.show', $coverLetter->application),
                          ]),
             'message' => $message ?? '',
@@ -61,29 +61,31 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'url',
-            'href'   => $coverLetter->url,
+            'href'   => htmlspecialchars($coverLetter->url),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($coverLetter->notes))
+            'value' => $coverLetter->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $coverLetter->link_name ?? 'link',
+            'name'   => htmlspecialchars($coverLetter->link_name ?? 'link'),
             'href'   => $coverLetter->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($coverLetter->description ?? '')
+            'value' => $coverLetter->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $coverLetter->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($coverLetter->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

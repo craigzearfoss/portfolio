@@ -68,13 +68,13 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $reading->title,
+                            'name'  => htmlspecialchars($reading->title ?? ''),
                             'href'  => route('guest.admin.personal.reading.show', [$admin, $reading->slug]),
                             'class' => $reading->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
-                        {{ $reading->author }}
+                        {{ htmlspecialchars($reading->author ?? '') }}
                     </td>
                     <td class="has-text-centered">
                         {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}

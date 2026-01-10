@@ -37,7 +37,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'ip_address',
-            'value' => $session->ipp_address
+            'value' => $session->ip_address ?? ''
         ])
 
         @include('admin.components.show-row', [

@@ -62,10 +62,10 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $adminTeam->name }}
+                        {{ htmlspecialchars($adminTeam->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $adminTeam->abbreviation }}
+                        {{ htmlspecialchars($adminTeam->abbreviation ?? '') }}
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $adminTeam->disabled ])

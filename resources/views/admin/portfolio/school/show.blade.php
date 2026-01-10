@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $school->name
+            'value' => htmlspecialchars($school->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -56,11 +56,11 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'          => htmlspecialchars($school->street),
-                           'street2'         => htmlspecialchars($school->street2),
-                           'city'            => htmlspecialchars($school->city),
+                           'street'          => htmlspecialchars($school->street ?? ''),
+                           'street2'         => htmlspecialchars($school->street2 ?? ''),
+                           'city'            => htmlspecialchars($school->city ?? ''),
                            'state'           => $school->state->code ?? '',
-                           'zip'             => htmlspecialchars($school->zip),
+                           'zip'             => htmlspecialchars($school->zip ?? ''),
                            'country'         => $school->country->iso_alpha3 ?? '',
                            'streetSeparator' => '<br>',
                        ])
@@ -72,23 +72,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($school->notes))
+            'value' => $school->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $school->link_name ?? 'link',
-            'href'   => $school->link,
+            'name'   => htmlspecialchars($school->link_name ?? 'link'),
+            'href'   => htmlspecialchars($school->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($school->description ?? '')
+            'value' => $school->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $school->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($school->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $certification->name
+            'value' => htmlspecialchars($certification->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -45,7 +45,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $certification->abbreviation
+            'value' => htmlspecialchars($certification->abbreviation ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -55,23 +55,23 @@
 
         @include('admin.components.show-row', [
             'name'  => 'organization',
-            'value' => $certification->organization
+            'value' => htmlspecialchars($certification->organization ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($certification->notes))
+            'value' => $certification->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $certification->link_name ?? 'link',
-            'href'   => $certification->link,
+            'name'   => htmlspecialchars($certification->link_name ?? 'link'),
+            'href'   => htmlspecialchars($certification->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($certification->description ?? '')
+            'value' => $certification->description ?? ''
         ])
 
         @include('admin.components.show-row-images', [

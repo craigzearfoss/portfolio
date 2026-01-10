@@ -75,10 +75,10 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $resource->name }}
+                        {{ htmlspecialchars($resource->name ?? '') }}
                     </td>
                     <td data-field="database.name">
-                        {{ $resource->database['name'] }}
+                        {{ htmlspecialchars($resource->database['name'] ?? '') }}
                     </td>
                     <td data-field="table">
                         {{ $resource->table }}
@@ -101,7 +101,7 @@
                         @include('admin.components.checkmark', [ 'checked' => $resource->admin ])
                     </td>
                     <td data-field="admin" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->globale ])
+                        @include('admin.components.checkmark', [ 'checked' => $resource->global ])
                     </td>
                     <td data-field="sequence">
                         {{ $resource->sequence }}

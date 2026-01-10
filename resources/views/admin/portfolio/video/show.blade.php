@@ -42,7 +42,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $video->name
+            'value' => htmlspecialchars($video->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -54,7 +54,7 @@
             'name'  => 'parent',
             'value' => !empty($video->parent)
                 ? view('admin.components.link', [
-                        'name' => htmlspecialchars($video->parent->name),
+                        'name' => htmlspecialchars($video->parent->name ?? ''),
                         'href' => route('admin.portfolio.video.show', $video->parent)
                     ])
                 : ''
@@ -67,7 +67,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $video->summary
+            'value' => $video->summary ?? ''
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -102,22 +102,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => htmlspecialchars($video->company)
+            'value' => htmlspecialchars($video->company ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'credit',
-            'value' => htmlspecialchars($video->credit)
+            'value' => htmlspecialchars($video->credit ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'show',
-            'value' => htmlspecialchars($video->show)
+            'value' => htmlspecialchars($video->show ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => htmlspecialchars($video->location)
+            'value' => htmlspecialchars($video->location ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -127,28 +127,30 @@
 
         @include('admin.components.show-row', [
             'name'  => 'video url',
-            'value' => $video->video_url,
+            'value' => htmlspecialchars($video->video_url ?? ''),
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($video->notes))
+            'value' => $video->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $video->link_name,
-            'href'   => $video->link,
+            'name'   => htmlspecialchars($video->link_name ?? ''),
+            'href'   => htmlspecialchars($video->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($video->description ?? '')
+            'value' => $video->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $video->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($video->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

@@ -83,16 +83,16 @@
                     @if(empty($application))
                         <td data-field="application_id">
                             @include('admin.components.link', [
-                                'name' => $communication->application->name,
+                                'name' => htmlspecialchars($communication->application->name ?? ''),
                                 'href' => route('admin.career.application.show', $communication->application->id)
                             ])
                         </td>
                     @endif
                     <td data-field="communication_type_id" style="white-space: nowrap;">
-                        {{ $communication->communicationType->name }}
+                        {{ htmlspecialchars($communication->communicationType->name ?? '') }}
                     </td>
                     <td data-field="subject" style="white-space: nowrap;">
-                        {{ $communication->subject }}
+                        {{ htmlspecialchars($communication->subject ?? '') }}
                     </td>
                     <td data-field="date" style="white-space: nowrap;">
                         {{ shortDate($communication->date) }}

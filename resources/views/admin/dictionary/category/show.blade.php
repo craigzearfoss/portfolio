@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $category->full_name
+            'value' => htmlspecialchars($category->full_name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $category->name
+            'value' => htmlspecialchars($category->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -50,12 +50,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $category->abbreviation
+            'value' => htmlspecialchars($category->abbreviation ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $category->definition
+            'value' => $category->definition ?? ''
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -75,7 +75,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => $category->owner
+            'value' => htmlspecialchars($category->owner ?? '')
         ])
 
         @include('admin.components.show-row-link', [
@@ -85,14 +85,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $category->link_name ?? 'link',
-            'href'   => $category->link,
+            'name'   => htmlspecialchars($category->link_name ?? 'link'),
+            'href'   => htmlspecialchars($category->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($category->description ?? '')
+            'value' => $category->description ?? ''
         ])
 
         @include('admin.components.show-row-image', [

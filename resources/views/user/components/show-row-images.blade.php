@@ -80,7 +80,7 @@ $resource = $resource ?? null;
                             @include('user.components.image', [
                                 'name'     => 'image',
                                 'src'      => $src,
-                                'alt'      => $imageName,
+                                'alt'      => htmlspecialchars($imageName ?? ''),
                                 'width'    => $width,
                                 'download' => $download ?? false,
                                 'external' => $external ?? false,
@@ -89,11 +89,11 @@ $resource = $resource ?? null;
                             @if($imageName === 'image')
                                 <div class=flex">
                                     <strong>image credit:</strong>
-                                    <span>{{  htmlspecialchars($resource->image_credit ?? '') }}</span>
+                                    <span>{{ $resource->image_credit }}</span>
                                 </div>
                                 <div class=flex">
                                     <strong>image source:</strong>
-                                    <span>{{  htmlspecialchars($resource->image_source ?? '') }}</span>
+                                    <span>{{ $resource->image_source ?? '' }}</span>
                                 </div>
                             @endif
 

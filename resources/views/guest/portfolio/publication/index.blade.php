@@ -47,16 +47,16 @@
                 <tr data-id="{{ $publication->id }}">
                     <td data-field="title">
                         @include('guest.components.link', [
-                            'name'  => $publication->name,
+                            'name'  => htmlspecialchars($publication->name ?? ''),
                             'href'  => route('guest.admin.portfolio.publication.show', [$admin, $publication->slug]),
                             'class' => $publication->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td data-field="publication_name">
-                        {{ $publication->publication_name }}
+                        {{ htmlspecialchars($publication->publication_name ?? '') }}
                     </td>
                     <td data-field="publisher">
-                        {{ $publication->publisher }}
+                        {{ htmlspecialchars($publication->publisher ?? '') }}
                     </td>
                     <td data-field="year" class="has-text-centered">
                         {{ $publication->year }}

@@ -69,10 +69,10 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $music->name }}
+                        {{ htmlspecialchars($music->name ?? '') }}
                     </td>
                     <td data-field="artist">
-                        {{ $music->artist }}
+                        {{ htmlspecialchars($music->artist ?? '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->featured ])
@@ -81,10 +81,10 @@
                         {{ $music->year }}
                     </td>
                     <td data-field="label">
-                        {{ $music->label }}
+                        {{ htmlspecialchars($music->label ?? '') }}
                     </td>
                     <td data-field="catalog_number">
-                        {{ $music->catalog_number }}
+                        {{ htmlspecialchars($music->catalog_number ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->public ])
@@ -93,43 +93,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $music->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.portfolio.music.destroy', $music->id) }}" method="POST">
 
                             @if(canRead($music))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.music.show', $music->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.portfolio.music.show', $music->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($music))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.music.edit', $music->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.portfolio.music.edit', $music->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($music->link))
-                                <a title="{{ !empty($music->link_name) ? $music->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $music->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($music->link_name) ? $music->link_name : 'link') ?? ''),
+                                    'href'   => $music->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($music))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

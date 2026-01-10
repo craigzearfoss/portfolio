@@ -62,18 +62,18 @@
         @include('admin.components.show-row', [
             'name'  => 'application_id',
             'value' => !empty($application)
-                ? ($application->company['name'] . ' - ' . $application->role . ' [' . $application->apply_date . ']')
+                ? htmlspecialchars(($application->company['name'] ?? '') . ' - ' . ($application->role ?? '') . ' [' . ($application->apply_date ?? '') . ']')
                 : ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => htmlspecialchars($note->subject)
+            'value' => htmlspecialchars($note->subject ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => nl2br($note->body ?? '')
+            'value' => $note->body ?? ''
         ])
 
         @include('admin.components.show-row-settings', [

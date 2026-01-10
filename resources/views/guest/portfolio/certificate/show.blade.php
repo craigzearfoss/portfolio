@@ -27,7 +27,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $certificate->name
+            'value' => htmlspecialchars($certificate->name ?? '')
         ])
 
         <?php /*
@@ -40,14 +40,14 @@
         @if(!empty($certificate->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $certificate->summary
+                'value' => $certificate->summary ?? ''
             ])
         @endif
 
         @if(!empty($certificate->organization))
             @include('guest.components.show-row', [
                 'name'  => 'organization',
-                'value' => $certificate->organization
+                'value' => htmlspecialchars($certificate->organization ?? '')
             ])
         @endif
 
@@ -62,8 +62,8 @@
             @include('guest.components.show-row', [
                 'name'  => 'academy',
                 'value' => view('guest.components.show-row', [
-                                'name'   => $certificate->academy['name'],
-                                'href'   => $certificate->academy['link'],
+                                'name'   => htmlspecialchars($certificate->academy['name'] ?? ''),
+                                'href'   => htmlspecialchars($certificate->academy['link'] ?? ''),
                                 'target' => '_blank',
                             ]),
                 'raw'   => true
@@ -83,8 +83,8 @@
 
         @if(!empty($certificate->link))
             @include('guest.components.show-row-link', [
-                'name'   => $certificate->link_name ?? 'link',
-                'href'   => $certificate->link,
+                'name'   => htmlspecialchars($certificate->link_name ?? 'link'),
+                'href'   => htmlspecialchars($certificate->link ?? ''),
                 'target' => '_blank'
             ])
         @endif
@@ -92,7 +92,7 @@
         @if(!empty($certificate->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $certificate->description
+                'value' => $certificate->description ?? ''
             ])
         @endif
 

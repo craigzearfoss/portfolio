@@ -65,7 +65,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $course->name }}
+                        {{ htmlspecialchars($course->name ?? '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->featured ])
@@ -73,7 +73,7 @@
                     <td data-field="academy.name">
                         @if (!empty($course->academy))
                             @include('admin.components.link', [
-                                'name'   => $course->academy['name'],
+                                'name'   => htmlspecialchars($course->academy['name'] ?? ''),
                                 'href'   => route('admin.portfolio.academy.show', $course->academy),
                             ])
                         @endif
@@ -88,55 +88,52 @@
                         @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
+
                         <form action="{{ route('admin.portfolio.course.destroy', $course->id) }}" method="POST">
 
                             @if(canRead($course))
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.course.show', $course->id) }}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.portfolio.course.show', $course->id),
+                                    'icon'  => 'fa-list'
+                                ])
                             @endif
 
                             @if(canUpdate($course))
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.portfolio.course.edit', $course->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                            @endif
-
-                            @if (!empty($course->certificate_url))
-                                <a title="open certificate in a new window" class="button is-small px-1 py-0" href="{{ $course->certificate_url }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
-                            @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.portfolio.course.edit', $course->id),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
                             @endif
 
                             @if (!empty($course->link))
-                                <a title="{{ !empty($course->link_name) ? $course->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $course->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'  => htmlspecialchars((!empty($course->link_name) ? $course->link_name : 'link') ?? ''),
+                                    'href'   => $course->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
                             @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>
-                                </a>
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
                             @endif
 
                             @if(canDelete($course))
                                 @csrf
                                 @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                @include('admin.components.button-icon', [
+                                    'title' => 'delete',
+                                    'class' => 'delete-btn',
+                                    'icon'  => 'fa-trash'
+                                ])
                             @endif
+
                         </form>
+
                     </td>
                 </tr>
 

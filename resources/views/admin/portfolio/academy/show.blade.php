@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $academy->name
+            'value' => htmlspecialchars($academy->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -44,14 +44,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $academy->link_name ?? 'link',
-            'href'   => $academy->link,
+            'name'   => htmlspecialchars($academy->link_name ?? 'link'),
+            'href'   => htmlspecialchars($academy->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($academy->description ?? '')
+            'value' => $academy->description ?? ''
         ])
 
         @include('admin.components.show-row-images', [

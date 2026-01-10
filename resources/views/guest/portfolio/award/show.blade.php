@@ -27,27 +27,27 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $award->name
+            'value' => htmlspecialchars($award->name ?? '')
         ])
 
         @if(!empty($award->category))
             @include('guest.components.show-row', [
                 'name'  => 'category',
-                'value' => $award->category
+                'value' => htmlspecialchars($award->category ?? '')
             ])
         @endif
 
         @if(!empty($award->category))
             @include('guest.components.show-row', [
                 'name'  => 'nominated_work',
-                'value' => $award->nominated_work
+                'value' => htmlspecialchars($award->nominated_work ?? '')
             ])
         @endif
 
         @if(!empty($award->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $award->summary
+                'value' => $award->summary ?? ''
             ])
         @endif
 
@@ -68,14 +68,14 @@
         @if(!empty($award->organization))
             @include('guest.components.show-row', [
                 'name'  => 'organization',
-                'value' => $award->organization
+                'value' => htmlspecialchars($award->organization ?? '')
             ])
         @endif
 
         @if(!empty($award->link))
             @include('guest.components.show-row-link', [
-                'name'   => $award->link_name ?? 'link',
-                'href'   => $award->link,
+                'name'   => htmlspecialchars($award->link_name ?? 'link'),
+                'href'   => htmlspecialchars($award->link ?? ''),
                 'target' => '_blank'
             ])
         @endif
@@ -83,7 +83,7 @@
         @if(!empty($award->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => nl2br($award->description ?? '')
+                'value' => $award->description ?? ''
             ])
         @endif
 

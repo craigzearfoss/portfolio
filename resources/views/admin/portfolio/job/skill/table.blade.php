@@ -12,7 +12,7 @@
 
         <tr>
             <td>
-                {{ $skill->name ?? '' }}
+                {{ htmlspecialchars($skill->name ?? '') }}
             </td>
             <td>
             <td class="is-1" style="white-space: nowrap;">

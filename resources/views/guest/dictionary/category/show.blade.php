@@ -23,22 +23,22 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => $category->full_name
+            'value' => htmlspecialchars($category->full_name ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $category->name
+            'value' => htmlspecialchars($category->name ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $category->abbreviation
+            'value' => htmlspecialchars($category->abbreviation ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => $category->definition
+            'value' => $category->definition ?? ''
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => $category->owner
+            'value' => $category->owner ?? ''
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,14 +63,14 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => $category->link_name ?? 'link',
-            'href'   => $category->link,
+            'name'   => htmlspecialchars($category->link_name ?? 'link'),
+            'href'   => htmlspecialchars($category->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($category->description ?? '')
+            'value' => $category->description ?? ''
         ])
 
         @if(!empty($category->image))
@@ -84,12 +84,12 @@
 
             @include('guest.components.show-row', [
                 'name'  => 'image credit',
-                'value' => $category->image_credit
+                'value' => htmlspecialchars($category->image_credit ?? '')
             ])
 
             @include('guest.components.show-row', [
                 'name'  => 'image source',
-                'value' => $category->image_source
+                'value' => htmlspecialchars($category->image_source ?? '')
             ])
 
         @endif

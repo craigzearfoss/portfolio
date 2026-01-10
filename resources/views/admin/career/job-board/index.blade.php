@@ -52,7 +52,7 @@
 
                 <tr data-id="{{ $jobBoard->id }}">
                     <td data-field="name">
-                        {{ $jobBoard->name }}
+                        {{ htmlspecialchars($jobBoard->name ?? '') }}
                     </td>
                     <td data-field="primary" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
@@ -84,7 +84,7 @@
                             @endif
 
                             @if (!empty($jobBoard->link))
-                                <a title="{{ !empty($jobBoard->link_name) ? $jobBoard->link_name : 'link' }}link"
+                                <a title="{{ htmlspecialchars((!empty($jobBoard->link_name) ? $jobBoard->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $jobBoard->link }}"
                                    target="_blank">

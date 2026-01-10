@@ -42,7 +42,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($contact->name)
+            'value' => htmlspecialchars($contact->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -57,17 +57,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'job title',
-            'value' => htmlspecialchars($contact->job_title)
+            'value' => htmlspecialchars($contact->job_title ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'          => htmlspecialchars($contact->street),
-                           'street2'         => htmlspecialchars($company->street2),
-                           'city'            => htmlspecialchars($contact->city),
+                           'street'          => htmlspecialchars($contact->street ?? ''),
+                           'street2'         => htmlspecialchars($company->street2 ?? ''),
+                           'city'            => htmlspecialchars($contact->city ?? ''),
                            'state'           => $contact->state->code ?? '',
-                           'zip'             => htmlspecialchars($contact->zip),
+                           'zip'             => htmlspecialchars($contact->zip ?? ''),
                            'country'         => $contact->country->iso_alpha3 ?? '',
                            'streetSeparator' => '<br>',
                        ])
@@ -79,22 +79,22 @@
 
         @include('admin.components.show-row', [
             'name'  => htmlspecialchars(!empty($contact->phone_label) ? $contact->phone_label : 'phone'),
-            'value' => htmlspecialchars($contact->phone)
+            'value' => htmlspecialchars($contact->phone ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => htmlspecialchars(!empty($contact->alt_phone_label) ? $contact->alt_phone_label : 'alt phone'),
-            'value' => htmlspecialchars($contact->alt_phone)
+            'value' => htmlspecialchars($contact->alt_phone ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => htmlspecialchars(!empty($contact->email_label) ? $contact->email_label : 'email'),
-            'value' => htmlspecialchars($contact->email)
+            'value' => htmlspecialchars($contact->email ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => htmlspecialchars(!empty($contact->alt_email_label) ? $contact->alt_email_label : 'alt email'),
-            'value' => htmlspecialchars($contact->alt_email)
+            'value' => htmlspecialchars($contact->alt_email ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -104,23 +104,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($contact->notes))
+            'value' => $contact->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $contact->link_name ?? 'link',
-            'href'   => $contact->link,
+            'name'   => htmlspecialchars($contact->link_name ?? 'link'),
+            'href'   => htmlspecialchars($contact->link),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($contact->description ?? '')
+            'value' => $contact->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $contact->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($contact->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

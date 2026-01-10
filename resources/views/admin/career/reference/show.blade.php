@@ -42,7 +42,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($reference->name)
+            'value' => htmlspecialchars($reference->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -63,11 +63,11 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                'street'          => htmlspecialchars($reference->street),
-                'street2'         => htmlspecialchars($reference->street2),
-                'city'            => htmlspecialchars($reference->city),
+                'street'          => htmlspecialchars($reference->street ?? ''),
+                'street2'         => htmlspecialchars($reference->street2 ?? ''),
+                'city'            => htmlspecialchars($reference->city ?? ''),
                 'state'           => $reference->state->code ?? '',
-                'zip'             => htmlspecialchars($reference->zip),
+                'zip'             => htmlspecialchars($reference->zip ?? ''),
                 'country'         => $reference->country->iso_alpha3 ?? '',
                 'streetSeparator' => '<br>',
             ])
@@ -79,22 +79,22 @@
 
         @include('admin.components.show-row', [
             'name'  => htmlspecialchars(!empty($reference->phone_label) ? $reference->phone_label : 'phone'),
-            'value' => htmlspecialchars($reference->phone)
+            'value' => htmlspecialchars($reference->phone ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => htmlspecialchars(!empty($reference->alt_phone_label) ? $reference->alt_phone_label : 'alt phone'),
-            'value' => htmlspecialchars($reference->alt_phone)
+            'value' => htmlspecialchars($reference->alt_phone ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => htmlspecialchars(!empty($reference->email_label) ? $reference->email_label : 'email'),
-            'value' => htmlspecialchars($reference->email)
+            'value' => htmlspecialchars($reference->email ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => htmlspecialchars(!empty($reference->alt_email_label) ? $reference->alt_email_label : 'alt email'),
-            'value' => htmlspecialchars($reference->alt_email)
+            'value' => htmlspecialchars($reference->alt_email ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -104,23 +104,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($reference->notes))
+            'value' => $reference->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $reference->link_name ?? 'link',
-            'href'   => $reference->link,
+            'name'   => htmlspecialchars($reference->link_name ?? 'link'),
+            'href'   => htmlspecialchars($reference->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($reference->description ?? '')
+            'value' => $reference->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $reference->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($reference->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

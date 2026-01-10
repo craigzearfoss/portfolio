@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $recruiter->name
+            'value' => htmlspecialchars($recruiter->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -50,8 +50,8 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'postings url',
-            'label'  => $recruiter->postings_url,
-            'href'   => $recruiter->postings_url,
+            'label'  => htmlspecialchars($recruiter->postings_url ?? ''),
+            'href'   => htmlspecialchars($recruiter->postings_url ?? ''),
             'target' => '_blank'
         ])
 
@@ -78,12 +78,12 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'          => htmlspecialchars($recruiter->street),
-                           'street2'         => htmlspecialchars($recruiter->street2),
-                           'city'            => htmlspecialchars($recruiter->city),
-                           'state'           => htmlspecialchars($recruiter->state->code),
-                           'zip'             => $recruiter->zip ?? null,
-                           'country'         => htmlspecialchars($recruiter->country->iso_alpha3),
+                           'street'          => htmlspecialchars($recruiter->street ?? ''),
+                           'street2'         => htmlspecialchars($recruiter->street2 ?? ''),
+                           'city'            => htmlspecialchars($recruiter->city ?? ''),
+                           'state'           => $recruiter->state->code ?? '',
+                           'zip'             => htmlspecialchars($recruiter->zip ?? ''),
+                           'country'         => $recruiter->country->iso_alpha3 ?? '',
                            'streetSeparator' => '<br>',
                        ])
         ])
@@ -93,34 +93,34 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->phone_label) ? $recruiter->phone_label : 'phone',
-            'value' => $recruiter->phone
+            'name'  => htmlspecialchars(!empty($recruiter->phone_label) ? $recruiter->phone_label : 'phone'),
+            'value' => htmlspecialchars($recruiter->phone ?? '')
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->alt_phone_label) ? $recruiter->alt_phone_label : 'alt phone',
-            'value' => $recruiter->alt_phone
+            'name'  => htmlspecialchars(!empty($recruiter->alt_phone_label) ? $recruiter->alt_phone_label : 'alt phone'),
+            'value' => htmlspecialchars($recruiter->alt_phone ?? '')
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->email_label) ? $recruiter->email_label : 'email',
-            'value' => $recruiter->email
+            'name'  => htmlspecialchars(!empty($recruiter->email_label) ? $recruiter->email_label : 'email'),
+            'value' => htmlspecialchars($recruiter->email ?? '')
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($recruiter->alt_email_label) ? $recruiter->alt_email_label : 'alt email',
-            'value' => $recruiter->alt_email
+            'name'  => htmlspecialchars(!empty($recruiter->alt_email_label) ? $recruiter->alt_email_label : 'alt email'),
+            'value' => htmlspecialchars($recruiter->alt_email ?? '')
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $recruiter->link_name ?? 'link',
-            'href'   => $recruiter->link,
+            'name'   => htmlspecialchars($recruiter->link_name ?? 'link'),
+            'href'   => htmlspecialchars($recruiter->link ? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($recruiter->description ?? '')
+            'value' => $recruiter->description ?? ''
         ])
 
         @include('admin.components.show-row-images', [

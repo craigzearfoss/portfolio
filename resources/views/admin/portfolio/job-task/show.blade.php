@@ -45,7 +45,7 @@
         @include('admin.components.show-row', [
             'name'  => 'job',
             'value' =>  view('admin.components.link', [
-                'name' => htmlspecialchars($jobTask->job->name),
+                'name' => htmlspecialchars($jobTask->job->name ?? ''),
                 'href' => route('admin.portfolio.job.show', $jobTask->job)
             ])
         ])
@@ -57,28 +57,30 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $jobTask->summary
+            'value' => $jobTask->summary ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($jobTask->notes))
+            'value' => $jobTask->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $jobTask->link_name ?? 'link',
-            'href'   => $jobTask->link,
+            'name'   => htmlspecialchars($jobTask->link_name ?? 'link'),
+            'href'   => htmlspecialchars($jobTask->link, ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($jobTask->description ?? '')
+            'value' => $jobTask->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $jobTask->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($jobTask->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

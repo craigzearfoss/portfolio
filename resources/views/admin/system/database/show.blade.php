@@ -42,27 +42,27 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($database->name)
+            'value' => htmlspecialchars($database->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'database',
-            'value' => htmlspecialchars($database->database)
+            'value' => htmlspecialchars($database->database ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'tag',
-            'value' => htmlspecialchars($database->tag)
+            'value' => htmlspecialchars($database->tag ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($database->title)
+            'value' => htmlspecialchars($database->title ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'plural',
-            'value' => htmlspecialchars($database->plural)
+            'value' => htmlspecialchars($database->plural ?? '')
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -97,7 +97,7 @@
 
         @include('admin.components.show-row-icon', [
             'name' => 'icon',
-            'icon' => $database->icon
+            'icon' => htmlspecialchars($database->icon ?? '')
         ])
 
         @include('admin.components.show-row-settings', [

@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $database->id }}">
                     <td data-field="name">
-                        {{ $database->name }}
+                        {{ htmlspecialchars($database->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $database->abbreviation }}
+                        {{ htmlspecialchars($database->abbreviation ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
@@ -87,7 +87,7 @@
                         @endif
 
                         @if (!empty($database->link))
-                            <a title="{{ !empty($database->link_name) ? $database->link_name : 'link' }}"
+                            <a title="{{ htmlspecialchars(!empty($database->link_name) ? $database->link_name: 'link') }}"
                                class="button is-small px-1 py-0"
                                href="{{ $database->link }}"
                                target="_blank"

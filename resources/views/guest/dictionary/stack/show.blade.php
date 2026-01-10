@@ -23,22 +23,22 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => $stack->full_name
+            'value' => htmlspecialchars($stack->full_name ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $stack->name
+            'value' => htmlspecialchars($stack->name ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $stack->abbreviation
+            'value' => htmlspecialchars($stack->abbreviation ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => $stack->definition
+            'value' => $stack->definition ?? ''
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => $stack->owner
+            'value' => htmlspecialchars($stack->owner ?? '')
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,8 +63,8 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => $stack->link_name ?? 'link',
-            'href'   => $stack->link,
+            'name'   => htmlspecialchars($stack->link_name ?? 'link'),
+            'href'   => htmlspecialchars($stack->link ?? ''),
             'target' => '_blank'
         ])
 
@@ -84,12 +84,12 @@
 
             @include('guest.components.show-row', [
                 'name'  => 'image credit',
-                'value' => $stack->image_credit
+                'value' => htmlspecialchars($stack->image_credit >> '')
             ])
 
             @include('guest.components.show-row', [
                 'name'  => 'image source',
-                'value' => $stack->image_source
+                'value' => htmlspecialchars($stack->image_source ?? '')
             ])
 
         @endif

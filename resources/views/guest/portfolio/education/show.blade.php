@@ -28,28 +28,28 @@
         @if(!empty($education->degreeType))
             @include('guest.components.show-row', [
                 'name'  => 'degree type',
-                'value' => $education->degreeType->name
+                'value' => htmlspecialchars($education->degreeType->name ?? '')
             ])
         @endif
 
         @if(!empty($education->major))
             @include('guest.components.show-row', [
                 'name'  => 'major',
-                'value' => $education->major
+                'value' => htmlspecialchars($education->major ?? '')
             ])
         @endif
 
         @if(!empty($education->minor))
             @include('guest.components.show-row', [
                 'name'  => 'minor',
-                'value' => $education->minor
+                'value' => htmlspecialchars($education->minor ?? '')
             ])
         @endif
 
         @if(!empty($education->school))
             @include('guest.components.show-row', [
                 'name'  => 'school',
-                'value' => $education->school->name ?? ''
+                'value' => htmlspecialchars($education->school->name ?? '')
             ])
         @endif
 
@@ -82,13 +82,13 @@
         @if(!empty($education->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $education->summary
+                'value' => $education->summary ?? ''
             ])
         @endif
 
         @if(!empty($education->link))
             @include('guest.components.show-row-link', [
-                'name'   => $education->link_name ?? 'link',
+                'name'   => htmlspecialchars($education->link_name ?? 'link'),
                 'href'   => $education->link,
                 'target' => '_blank'
             ])
@@ -97,7 +97,7 @@
         @if(!empty($education->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => nl2br($education->description ?? '')
+                'value' => $education->description ?? ''
             ])
         @endif
 

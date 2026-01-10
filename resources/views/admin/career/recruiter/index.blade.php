@@ -52,7 +52,7 @@
 
                 <tr data-id="{{ $recruiter->id }}">
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $recruiter->name }}
+                        {{ htmlspecialchars($recruiter->name ?? '') }}
                     </td>
                     <td data-field="international|national|regional|local" style="white-space: nowrap;">
                         {{ implode(', ', $recruiter->coverageAreas ?? []) }}
@@ -60,8 +60,8 @@
                     <td data-field="location">
                         {!!
                             formatLocation([
-                                'city'    => $recruiter->city ?? null,
-                                'state'   => $recruiter->state['code'] ?? null,
+                                'city'    => htmlspecialchars($recruiter->city ?? ''),
+                                'state'   => $recruiter->state['code'] ?? '',
                             ])
                         !!}
                     </td>
@@ -89,7 +89,7 @@
                             @endif
 
                             @if (!empty($recruiter->link))
-                                <a title="{{ !empty($recruiter->link_name) ? $recruiter->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($recruiter->link_name) ? $recruiter->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $recruiter->link }}"
                                    target="_blank"

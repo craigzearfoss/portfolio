@@ -64,17 +64,17 @@
 
                 <tr data-id="{{ $admin->id }}">
                     <td data-field="name">
-                        {{ $admin->name }}
+                        {{ htmlspecialchars($admin->name ?? '') }}
                     </td>
                     <td data-field="username">
                         {{ $admin->username }}
                     </td>
                     <td data-field="label">
-                        {{ $admin->label }}
+                        {{ htmlspecialchars($admin->label ?? '') }}
                     </td>
                     <td data-field="admin_team_id">
                         @include('admin.components.link', [
-                            'name' => $admin->team->name,
+                            'name' => htmlspecialchars($admin->team->name ?? ''),
                             'href' => route('admin.system.admin-team.show', $admin->team->id)
                         ])
                     </td>
@@ -108,7 +108,7 @@
                             @endif
 
                             @if (!empty($admin->link))
-                                <a title="{{ !empty($admin->link_name) ? $admin->$project : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($admin->link_name) ? $admin->$project : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $admin->link }}"
                                    target="_blank"

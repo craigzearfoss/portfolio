@@ -71,20 +71,20 @@
                         <td data-field="recipe.name">
                             @if(!empty($recipeIngredient->recipe))
                                 @include('admin.components.link', [
-                                    'name' => $recipeIngredient->recipe['name'],
+                                    'name' => htmlspecialchars($recipeIngredient->recipe['name'] ?? ''),
                                     'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
                                 ])
                             @endif
                         </td>
                     @endif
                     <td data-field="ingredient.name">
-                        {{ $recipeIngredient->ingredient['name'] ?? '' }}
+                        {{ htmlspecialchars($recipeIngredient->ingredient['name'] ?? '') }}
                     </td>
                     <td data-field="amount">
-                        {{ $recipeIngredient->amount }}
+                        {{ htmlspecialchars($recipeIngredient->amount ?? '') }}
                     </td>
                     <td data-field="unit.name">
-                        {{ $recipeIngredient->unit['name'] ?? ''}}
+                        {{ htmlspecialchars($recipeIngredient->unit['name'] ?? '') }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.personal.recipe-ingredient.destroy', $recipeIngredient->id) }}" method="POST">
@@ -105,7 +105,7 @@
 
                             @if (!empty($recipeIngredient->link))
                                 <a title="link" class="button is-small px-1 py-0"
-                                   href="{{ !empty($recipeIngredient->link_name) ? $recipeIngredient->link_name : 'link' }}"
+                                   href="{{ htmlspecialchars((!empty($recipeIngredient->link_name) ? $recipeIngredient->link_name : 'link') ?? '') }}"
                                    target="_blank"
                                 >
                                     <i class="fa-solid fa-external-link"></i>

@@ -45,7 +45,7 @@
                 <tr data-id="{{ $audio->id }}">
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name'  => $audio->name,
+                            'name'  => htmlspecialchars($audio->name ?? ''),
                             'href'  => route('guest.admin.portfolio.audio.show', [$admin, $audio->slug]),
                             'class' => $audio->featured ? 'has-text-weight-bold' : ''
                         ])

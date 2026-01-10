@@ -65,16 +65,16 @@
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $contact->name }}
+                        {{ htmlspecialchars($contact->name ?? '') }}
                     </td>
                     <td data-field="contact.company.names" style="white-space: nowrap;">
                         {{ implode(', ', $contact->companies->pluck('name')->toArray()) }}
                     </td>
                     <td data-field="phone" style="white-space: nowrap;">
-                        {{ $contact->phone }}
+                        {{ htmlspecialchars($contact->phone ?? '') }}
                     </td>
                     <td data-field="email" style="white-space: nowrap;">
-                        {{ $contact->email }}
+                        {{ htmlspecialchars($contact->email ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $contact->public ])
@@ -100,7 +100,7 @@
                             @endif
 
                             @if (!empty($contact->link))
-                                <a title="{{ !empty($contact->link_name) ? $contact->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars(!empty(($contact->link_name) ? $contact->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $contact->link }}"
                                    target="_blank"

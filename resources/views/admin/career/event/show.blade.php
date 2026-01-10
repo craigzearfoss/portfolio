@@ -62,7 +62,7 @@
         @include('admin.components.show-row', [
             'name'  => 'application_id',
             'value' => !empty($application)
-                ? ($application->company['name'] . ' - ' . $application->role . ' [' . $application->apply_date . ']')
+                ? htmlspecialchars(($application->company['name'] ?? '') . ' - ' . ($application->role ?? '') . ' [' . ($application->apply_date ?? '') . ']')
                 : ''
         ])
 
@@ -78,17 +78,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => htmlspecialchars($event->location)
+            'value' => htmlspecialchars($event->location ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'attendees',
-            'value' => htmlspecialchars($event->attendees)
+            'value' => htmlspecialchars($event->attendees ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($event->description ?? '')
+            'value' => $event->description ?? ''
         ])
 
         @include('admin.components.show-row-settings', [

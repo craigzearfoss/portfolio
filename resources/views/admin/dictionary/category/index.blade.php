@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $category->id }}">
                     <td data-field="name">
-                        {{ $category->name }}
+                        {{ htmlspecialchars($category->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $category->abbreviation }}
+                        {{ htmlspecialchars($category->abbreviation ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $category->public ])
@@ -86,7 +86,7 @@
                         @endif
 
                         @if (!empty($category->link))
-                            <a title="{{ !empty($category->link_name) ? $category->link_name : 'link' }}"
+                            <a title="{{ htmlspecialchars((!empty($category->link_name) ? $category->link_name : 'link') ?? '') }}"
                                class="button is-small px-1 py-0"
                                href="{{ $category->link }}"
                                target="_blank"

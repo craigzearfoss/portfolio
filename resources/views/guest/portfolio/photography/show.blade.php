@@ -27,7 +27,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $photo->name
+            'value' => htmlspecialchars($photo->name ?? '')
         ])
 
         <?php /*
@@ -40,7 +40,7 @@
         @if(!empty($photo->year))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $photo->summary
+                'value' => $photo->summary ?? ''
             ])
         @endif
 
@@ -54,27 +54,27 @@
         @if(!empty($photo->model))
             @include('guest.components.show-row', [
                 'name'    => 'model',
-                'checked' => $photo->model
+                'checked' => htmlspecialchars($photo->model ?? '')
             ])
         @endphp
 
         @if(!empty($photo->location))
             @include('guest.components.show-row', [
                 'name'    => 'location',
-                'checked' => $photo->location
+                'checked' => htmlspecialchars($photo->location ?? '')
             ])
         @endphp
 
         @if(!empty($photo->copyright))
             @include('guest.components.show-row', [
                 'name'    => 'copyright',
-                'checked' => $photo->copyright
+                'checked' => htmlspecialchars($photo->copyright ?? '')
             ])
         @endphp
 
         @if(!empty($photo->link))
             @include('guest.components.show-row-link', [
-                'name'   => $photo->link_name ?? 'link',
+                'name'   => htmlspecialchars($photo->link_name ?? 'link'),
                 'href'   => $photo->link,
                 'target' => '_blank'
             ])
@@ -83,7 +83,7 @@
         @if(!empty($photo->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => nl2br($photo->description ?? '')
+                'value' => $photo->description ?? ''
             ])
         @endif
 

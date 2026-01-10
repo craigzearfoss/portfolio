@@ -720,14 +720,12 @@ if (! function_exists('themedTemplate')) {
 
     if (! function_exists('resourceRoute')) {
         /**
-         * Generates a unique base64 encoded name for the file.
-         * For extra security the Laravel application key is included.
-         * @TODO: Add the ability to use S3 or remote locations.
+         * Returns the route for a resource.
          *
          * @param string $envType
          * @param string $databaseName
-         * @param string $tableName
-         * @param \App\Models\System\Admin $admin
+         * @param string|null $tableName
+         * @param Admin|null $admin
          * @return string|null
          */
         function resourceRoute(string $envType,

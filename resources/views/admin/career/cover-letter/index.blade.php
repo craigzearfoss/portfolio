@@ -63,10 +63,10 @@
                         </td>
                     @endif
                     <td data-field="company.name" style="white-space: nowrap;">
-                        {{ $coverLetter->application->company['name'] ?? '' }}
+                        {{ htmlspecialchars($coverLetter->application->company['name'] ?? '') }}
                     </td>
                     <td data-field="role" style="white-space: nowrap;">
-                        {{ $coverLetter->application['role'] ?? '' }}
+                        {{ htmlspecialchars($coverLetter->application['role'] ?? '') }}
                     </td>
                     <td data-field="post_date" style="white-space: nowrap;">
                         {{ shortDate($coverLetter->application['apply_date'] ?? null) }}
@@ -95,7 +95,7 @@
                             @endif
 
                             @if (!empty($coverLetter->link))
-                                <a title="{{ !empty($coverLetter->link_name) ? $coverLetter->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars(!empty($coverLetter->link_name) ? $coverLetter->link_name : 'link') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $coverLetter->link }}"
                                    target="_blank"

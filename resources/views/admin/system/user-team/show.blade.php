@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => htmlspecialchars($userTeam->owner->username ?? '')
+                'value' => $userTeam->owner->username ?? ''
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($userTeam->name)
+            'value' => htmlspecialchars($userTeam->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -52,12 +52,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($userTeam->abbreviation)
+            'value' => htmlspecialchars($userTeam->abbreviation ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($userTeam->description)
+            'value' => $userTeam->description ?? ''
         ])
 
         @include('admin.components.show-row-settings', [
@@ -101,10 +101,10 @@
                                 {{ $member->username }}
                             </td>
                             <td>
-                                {{ $member->name }}
+                                {{ htmlspecialchars($member->name) }}
                             </td>
                             <td>
-                                {{ $member->email }}
+                                {{ htmlspecialchars($member->email ?? '') }}
                             </td>
                             <td>
                                 <a title="show" class="button is-small px-1 py-0"

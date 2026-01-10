@@ -48,7 +48,7 @@
 
                 <tr data-id="{{ $ingredient->id }}">
                     <td data-field="name">
-                        {{ $ingredient->name }}
+                        {{ htmlspecialchars($ingredient->name ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $ingredient->public ])
@@ -74,7 +74,7 @@
                             @endif
 
                             @if (!empty($ingredient->link))
-                                <a title="{{ !empty($ingredient->link_name) ? $ingredient->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($ingredient->link_name) ? $ingredient->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $ingredient->link }}"
                                    target="_blank"

@@ -86,16 +86,16 @@
                     @if(empty($application))
                         <td data-field="application_id">
                             @include('admin.components.link', [
-                                'name' => $event->application->name,
-                                'href' => route('admin.career.application.show', event->application->id)
+                                'name' => htmlspecialchars($event->application->name ?? ''),
+                                'href' => route('admin.career.application.show', $event->application->id)
                             ])
                         </td>
                     @endif
                     <td data-field="application_id" style="white-space: nowrap;">
-                        {{ $event->application->name ?? '' }}
+                        {{ htmlspecialchars($event->application->name ?? '') }}
                     </td>
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $event->name }}
+                        {{ htmlspecialchars($event->name ?? '') }}
                     </td>
                     <td data-field="date" style="white-space: nowrap;">
                         {{ shortDate($event->date) }}
@@ -104,7 +104,7 @@
                         {{ $event->time }}
                     </td>
                     <td data-field="location" style="white-space: nowrap;">
-                        {{ $event->location }}
+                        {{ htmlspecialchars($event->location ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $event->public ])

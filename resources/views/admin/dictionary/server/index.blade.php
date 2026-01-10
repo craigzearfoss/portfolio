@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $server->id }}">
                     <td data-field="name">
-                        {{ $server->name }}
+                        {{ htmlspecialchars($server->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $server->abbreviation }}
+                        {{htmlspecialchars( $server->abbreviation ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $server->public ])
@@ -88,7 +88,7 @@
                         @if (!empty($server->link))
                             <a title="link"
                                class="button is-small px-1 py-0"
-                               href="{{ !empty($server->link_name) ? $server->link_name : 'link' }}"
+                               href="{{ htmlspecialchars((!empty($server->link_name) ? $server->link_name : 'link') ?? '') }}"
                                target="_blank"
                             >
                                 <i class="fa-solid fa-external-link"></i>

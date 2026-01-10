@@ -67,29 +67,31 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'url',
-            'href'   => $coverLetter->url,
+            'href'   => htmlspecialchars($coverLetter->url),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($coverLetter->notes))
+            'value' => $coverLetter->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $coverLetter->link_name ?? 'link',
-            'href'   => $coverLetter->link,
+            'name'   => !empty($coverLetter->link_name) ? htmlspecialchars($coverLetter->link_name) ?? 'link',
+            'href'   => htmlspecialchars($coverLetter->link),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($coverLetter->description ?? '')
+            'value' => $coverLetter->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $coverLetter->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => !empty($coverLetter->disclaimer) ? htmlspecialchars($coverLetter->disclaimer) : ''
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

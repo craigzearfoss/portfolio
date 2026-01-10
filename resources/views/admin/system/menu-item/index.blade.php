@@ -66,26 +66,26 @@
             @forelse ($menuItems as $menuItem)
 
                 <tr data-id="{{ $menuItem->id }}">
-                    <td data-field="parent_id" data-value="{{$menuItem->parent_id}}" style="white-space: nowrap;">
+                    <td data-field="parent_id" data-value="{{ $menuItem->parent_id }}" style="white-space: nowrap;">
                         @if(empty($menuItem->parent_id))
-                            {{$menuItem->name}}
+                            {{ htmlspecialchars($menuItem->name ?? '') }}
                         @else
-                            {{ \App\Models\System\MenuItem::find($menuItem->parent_id)->name ?? '' }}
+                            {{ htmlspecialchars(\App\Models\System\MenuItem::find($menuItem->parent_id)->name ?? '') }}
                         @endif
                     </td>
-                    <td data-field="resource_id" data-value="{{$menuItem->resource_id}}" style="white-space: nowrap;">
+                    <td data-field="resource_id" data-value="{{ $menuItem->resource_id }}" style="white-space: nowrap;">
                         @if(!empty($menuItem->parent_id))
-                            {{$menuItem->name}}
+                            {{ htmlspecialchars($menuItem->name ?? '') }}
                         @endif
                     </td>
-                    <td data-field="route" data-value="{{$menuItem->route}}" style="white-space: nowrap;">
-                        {{$menuItem->route}}
+                    <td data-field="route" data-value="{{ $menuItem->route }}" style="white-space: nowrap;">
+                        {{ htmlspecialchars($menuItem->route ?? '') }}
                     </td>
-                    <td data-field="icon" data-value="{{$menuItem->icon}}">
+                    <td data-field="icon" data-value="{{ $menuItem->icon }}">
                         @if (!empty($menuItem->icon))
                             @include('admin.components.icon', [ 'icon' => $menuItem->icon ])
                         @endif
-                        {{$menuItem->name}}
+                        {{ htmlspecialchars($menuItem->name ?? '') }}
                     </td>
                     <td data-field="sequence" class="has-text-right">
                         {{ $menuItem->sequence }}

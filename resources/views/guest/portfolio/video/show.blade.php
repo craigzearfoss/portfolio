@@ -35,7 +35,7 @@
                 'name'  => 'parent',
                 'value' => !empty($video->parent)
                     ? view('guest.components.link', [
-                            'name' => $video->parent['name'],
+                            'name' => htmlspecialchars($video->parent['name'] ?? ''),
                             'href' => route('guest.admin.portfolio.video.show', [$admin, $video->parent->slug])
                         ])
                     : ''
@@ -52,7 +52,7 @@
         @if(!empty($video->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $video->summary
+                'value' => $video->summary ?? ''
             ])
         @endif
 
@@ -64,7 +64,7 @@
                         @foreach($video->children as $child)
                             <li>
                                 @include('guest.components.link', [
-                                    'name' => $child['name'],
+                                    'name' => htmlspecialchars($child['name'] ?? ''),
                                     'href' => route('guest.admin.portfolio.video.show', [$admin, $child->slug])
                                 ])
                             </li>
@@ -119,28 +119,28 @@
         @if(!empty($video->company))
             @include('guest.components.show-row', [
                 'name'  => 'company',
-                'value' => $video->company
+                'value' => htmlspecialchars($video->company ?? '')
             ])
         @endif
 
         @if(!empty($video->credit))
             @include('guest.components.show-row', [
                 'name'  => 'credit',
-                'value' => $video->credit
+                'value' => htmlspecialchars($video->credit ?? '')
             ])
         @endif
 
         @if(!empty($video->show))
             @include('guest.components.show-row', [
                 'name'  => 'show',
-                'value' => $video->show
+                'value' => htmlspecialchars($video->show ?? '')
             ])
         @endif
 
         @if(!empty($video->location))
             @include('guest.components.show-row', [
                 'name'  => 'location',
-                'value' => $video->location
+                'value' => htmlspecialchars($video->location ?? '')
             ])
         @endif
 
@@ -160,7 +160,7 @@
 
         @if(!empty($video->link))
             @include('guest.components.show-row-link', [
-                'name'   => $video->link_name ?? 'link',
+                'name'   => htmlspecialchars($video->link_name ?? 'link'),
                 'href'   => $video->link,
                 'target' => '_blank'
             ])
@@ -169,7 +169,7 @@
         @if(!empty($video->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $video->description
+                'value' => $video->description ?? ''
             ])
         @endif
 

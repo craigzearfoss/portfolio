@@ -31,7 +31,7 @@
 
                 <li>
                     @include('guest.components.dictionary-definition', [
-                        'word'  => $word,
+                        'word'  => htmlspecialchars($word ?? ''),
                         'route' => route('guest.dictionary.'.$word->table_slug.'.show', $word->slug)
                     ])
                 </li>

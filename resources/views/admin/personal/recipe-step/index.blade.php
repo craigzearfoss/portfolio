@@ -81,17 +81,17 @@
                         <td data-field="recipe.name">
                             @if(!empty($recipeStep->recipe))
                                 @include('admin.components.link', [
-                                    'name' => $recipeStep->recipe['name'],
+                                    'name' => htmlspecialchars($recipeStep->recipe['name'] ?? ''),
                                     'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
                                 ])
                             @endif
                         </td>
                     @endif
                     <td data-field="step" class="has-text-centered">
-                        {{ $recipeStep->step }}
+                        {{ htmlspecialchars($recipeStep->step ?? '' }}
                     </td>
                     <td data-field="description">
-                        {!! nl2br($recipeStep->description ?? '') !!}
+                        {!! $recipeStep->description ?? '' !!}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.personal.recipe-step.destroy', $recipeStep->id) }}" method="POST">

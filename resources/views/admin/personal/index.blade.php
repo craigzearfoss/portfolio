@@ -26,7 +26,7 @@
 
                         <li>
                             @include('admin.components.link', [
-                                'name'  => $personal->plural,
+                                'name'  => htmlspecialchars($personal->plural ?? ''),
                                 'href'  => route('admin.personal.'.$personal->name.'.index'),
                                 'class' => 'list-item',
                             ])

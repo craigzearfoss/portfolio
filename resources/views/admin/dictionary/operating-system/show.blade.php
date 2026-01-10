@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $operatingSystem->full_name
+            'value' => htmlspecialchars($operatingSystem->full_name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $operatingSystem->name
+            'value' => htmlspecialchars($operatingSystem->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -50,17 +50,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $operatingSystem->abbreviation
+            'value' => htmlspecialchars($operatingSystem->abbreviation ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $operatingSystem->definition
+            'value' => $operatingSystem->definition ?? ''
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'open source',
-            'checked' => $operatingSystem->open_source
+            'checked' => $operatingSystem->open_source ?? ''
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -75,7 +75,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => $operatingSystem->owner
+            'value' => htmlspecialchars($operatingSystem->owner ?? '')
         ])
 
         @include('admin.components.show-row-link', [
@@ -85,14 +85,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $operatingSystem->link_name ?? 'link',
-            'href'   => $operatingSystem->link,
+            'name'   => htmlspecialchars($operatingSystem->link_name ?? 'link'),
+            'href'   => htmlspecialchars($operatingSystem->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($operatingSystem->description ?? '')
+            'value' => $operatingSystem->description ?? ''
         ])
 
         @include('admin.components.show-row-image', [

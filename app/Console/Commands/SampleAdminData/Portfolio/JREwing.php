@@ -111,13 +111,14 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Sgt. Pepper\'s Lonely Hearts Club Band', 'artist' => 'Peter Blake',             'slug' => 'sgt-peppers-lonely-hearts-club-band-by-peter-blake', 'year' => 1967, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/article-2123734-003A1F8A00000258-74_964x911.jpg','link_name' => null,         'link' => null,                        'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Lady of Shalott',                    'artist' => 'John William Waterhouse', 'slug' => 'the-lady-of-shalott-by-john-william-waterhouse',     'year' => 1888, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/John_William_Waterhouse/paintings-wm/waterhouse001.jpg',             'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Sgt. Pepper\'s Lonely Hearts Club Band', 'artist' => 'Peter Blake',             'slug' => 'sgt-peppers-lonely-hearts-club-band-by-peter-blake', 'summary' => null, 'year' => 1967, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/article-2123734-003A1F8A00000258-74_964x911.jpg','link_name' => null,         'link' => null,                        'notes' => null, 'description' => null ],
+            [ 'name' => 'The Lady of Shalott',                    'artist' => 'John William Waterhouse', 'slug' => 'the-lady-of-shalott-by-john-william-waterhouse',     'summary' => null, 'year' => 1888, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/John_William_Waterhouse/paintings-wm/waterhouse001.jpg',             'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -126,7 +127,6 @@ class JREwing extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];

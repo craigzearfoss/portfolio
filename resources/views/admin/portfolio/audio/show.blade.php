@@ -42,7 +42,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($audio->name)
+            'value' => htmlspecialchars($audio->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -54,7 +54,7 @@
             'name'  => 'parent',
             'value' => !empty($audio->parent)
                 ? view('admin.components.link', [
-                        'name' => htmlspecialchars($audio->parent['name']),
+                        'name' => htmlspecialchars($audio->parent['name'] ?? ''),
                         'href' => route('admin.portfolio.audio.show', $audio->parent)
                     ])
                 : ''
@@ -67,7 +67,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $audio->summary
+            'value' => $audio->summary ?? ''
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -102,22 +102,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => htmlspecialchars($audio->company)
+            'value' => htmlspecialchars($audio->company ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'credit',
-            'value' => htmlspecialchars($audio->credit)
+            'value' => htmlspecialchars($audio->credit ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'show',
-            'value' => htmlspecialchars($audio->show)
+            'value' => htmlspecialchars($audio->show ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => htmlspecialchars($audio->location)
+            'value' => htmlspecialchars($audio->location ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -127,28 +127,30 @@
 
         @include('admin.components.show-row', [
             'name'  => 'audio url',
-            'value' => $audio->audio_url,
+            'value' => htmlspecialchars($audio->audio_url ?? ''),
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($audio->notes))
+            'value' => $audio->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $audio->link_name ?? 'link',
-            'href'   => $audio->link,
+            'name'   => htmlspecialchars($audio->link_name ?? 'link'),
+            'href'   => htmlspecialchars($audio->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($audio->description ?? '')
+            'value' => $audio->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $audio->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($audio->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

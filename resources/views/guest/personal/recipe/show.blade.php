@@ -25,7 +25,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $recipe->name
+            'value' => htmlspecialchars($recipe->name ?? '')
         ])
 
         <?php /*
@@ -38,21 +38,21 @@
         @if(!empty($recipe->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $recipe->summary
+                'value' => $recipe->summary ?? ''
             ])
         @endif
 
         @if(!empty($recipe->source))
             @include('guest.components.show-row', [
                 'name'  => 'source',
-                'value' => $recipe->source
+                'value' => htmlspecialchars($recipe->source ?? '')
             ])
         @endif
 
         @if(!empty($recipe->author))
             @include('guest.components.show-row', [
                 'name'  => 'author',
-                'value' => $recipe->author
+                'value' => htmlspecialchars($recipe->author ?? '')
             ])
         @endif
 
@@ -92,8 +92,8 @@
 
         @if(!empty($recipe->link))
             @include('guest.components.show-row-link', [
-                'name'   => $recipe->link_name ?? 'link',
-                'href'   => $recipe->link,
+                'name'   => htmlspecialchars($recipe->link_name ?? 'link'),
+                'href'   => htmlspecialchars($recipe->link ?? ''),
                 'target' => '_blank'
             ])
         @endif
@@ -101,7 +101,7 @@
         @if(!empty($recipe->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $recipe->description
+                'value' => $recipe->description ?? ''
             ])
         @endif
 
@@ -144,11 +144,11 @@
             @foreach($recipe->ingredients as $ingredient)
 
                 <li class="ml-4">
-                    {{ $ingredient->amount }}
+                    {{ htmlspecialchars($ingredient->amount ?? '') }}
                     {{ \App\Models\Personal\Unit::find($ingredient->unit_id)->name }}
-                    {{ \App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name }}
+                    {{ htmlspecialchars(\App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name ? '') }}
                     @if(!empty($ingredient->qualifier))
-                        - {{ $ingredient->qualifier }}
+                        - {{ htmlspecialchars($ingredient->qualifier, '') }}
                     @endif
                 </li>
 
@@ -174,7 +174,7 @@
                         {{ $step->step }}
                     </td>
                     <td>
-                        {{ $step->description }}
+                        {{ $step->description ?? '' }}
                     </td>
                 </tr>
 

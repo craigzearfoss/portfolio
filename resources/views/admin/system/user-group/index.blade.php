@@ -64,13 +64,13 @@ if (canRead('user-team', currentAdminId())) {
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $userGroup->name }}
+                        {{ htmlspecialchars($userGroup->name ?? '') }}
                     </td>
                     <td data-field="team.name">
-                        {{ $userGroup->team['name'] ?? '' }}
+                        {{ htmlspecialchars($userGroup->team['name'] ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $userGroup->abbreviation }}
+                        {{ htmlspecialchars($userGroup->abbreviation ?? '') }}
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $userGroup->disabled ])

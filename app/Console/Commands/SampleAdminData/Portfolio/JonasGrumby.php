@@ -111,12 +111,13 @@ class JonasGrumby extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Nude Descending to the Center of the Earth', 'artist' => 'Kevin Dixon', 'slug' => 'nude-descending-to-the-center-of-the-earth-by-kevin-dixon', 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null, 'link_name' => null, 'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Nude Descending to the Center of the Earth', 'artist' => 'Kevin Dixon', 'slug' => 'nude-descending-to-the-center-of-the-earth-by-kevin-dixon', 'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null, 'link_name' => null, 'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -125,7 +126,6 @@ class JonasGrumby extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];

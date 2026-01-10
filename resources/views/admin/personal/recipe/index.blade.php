@@ -65,7 +65,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $recipe->name }}
+                        {{ htmlspecialchars($recipe->name ?? '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->featured ])
@@ -100,7 +100,7 @@
                             @endif
 
                             @if (!empty($recipe->link))
-                                <a title="{{ !empty($recipe->link_name) ? $recipe->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($recipe->link_name) ? $recipe->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $recipe->link }}"
                                    target="_blank"

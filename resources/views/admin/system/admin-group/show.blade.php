@@ -47,7 +47,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($adminGroup->name)
+            'value' => htmlspecialchars($adminGroup->name ?? '')
         ])
 
             @include('admin.components.show-row', [
@@ -57,12 +57,12 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'abbreviation',
-                'value' => htmlspecialchars($adminGroup->abbreviation)
+                'value' => htmlspecialchars($adminGroup->abbreviation ?? '')
             ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($adminGroup->description)
+            'value' => $adminGroup->description ?? ''
         ])
 
         @include('admin.components.show-row-settings', [
@@ -106,10 +106,10 @@
                                 {{ $member->username }}
                             </td>
                             <td>
-                                {{ $member->name }}
+                                {{ htmlspecialchars($member->name ?? '') }}
                             </td>
                             <td>
-                                {{ $member->email }}
+                                {{ htmlspecialchars($member->email ?? '') }}
                             </td>
                             <td>
                                 <a title="show" class="button is-small px-1 py-0"

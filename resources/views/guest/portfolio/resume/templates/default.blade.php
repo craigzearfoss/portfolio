@@ -32,7 +32,7 @@
                 <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
                     @include('guest.components.image', [
                         'src'   => $job->logo_small,
-                        'alt'   => (!empty($job->company) ?$job->company : 'company') . ' logo',
+                        'alt'   => htmlspecialchars((!empty($job->company) ?$job->company : 'company') . ' logo'),
                         'width' => '48px',
                     ])
                 </div>
@@ -40,11 +40,11 @@
                 <div style="display: inline-block;">
 
                     <div class="list-item-title">
-                        {{ $job->role }}
+                        {{ htmlspecialchars($job->role ?? '') }}
                     </div>
 
                     <div class="list-item-description pt-1 pb-1">
-                        {{ $job->company }} · {{ $job->employmentType->name ?? '' }}
+                        {{ htmlspecialchars($job->company ?? '') }} · {{ htmlspecialchars($job->employmentType->name ?? '') }}
                     </div>
 
                     <div class="list-item-description gray">
@@ -63,25 +63,25 @@
                         <div>
                             {{
                                 formatLocation([
-                                    'city'  => $job->city ?? null,
-                                    'state' => $job->state['code'] ?? null
+                                    'city'  => htmlspecialchars($job->city ?? ''),
+                                    'state' => htmlspecialchars($job->state['code'] ?? '')
                                 ])
                             }}
                             <div class="tag is-rounded">
-                                {{ $job->locationType['name'] ?? '' }}
+                                {{ htmlspecialchars($job->locationType['name'] ?? '') }}
                             </div>
                         </div>
                     </div>
 
                     <div class="list-item-description pt-2">
-                        {{ $job->summary }}
+                        {{ $job->summary ?? '' }}
                     </div>
 
                     <div class="list-item-description pt-1">
                         @if(!empty($job->tasks))
                             <ul>
                             @foreach($job->tasks as $task)
-                                <li>• {{ $task->summary }}</li>
+                                <li>• {{ $task->summary ?? '' }}</li>
                             @endforeach
                             </ul>
                         @endif
@@ -91,7 +91,7 @@
 
                         <div class="list-item-description pt-2">
                             <strong>Skills:</strong>
-                            {{ implode(' · ', array_column($job->skills->toArray(), 'name')) }}
+                            {{ htmlspecialchars(implode(' · ', array_column($job->skills->toArray(), 'name'))) }}
                         </div>
 
                     @endif
@@ -117,13 +117,13 @@
                     <div style="display: inline-block;">
 
                         <div class="list-item-description pt-1">
-                            {{ $education->degreeType->name }} in {{ $education->major }}
+                            {{ htmlspecialchars($education->degreeType->name ?? '') }} in {{ htmlspecialchars($education->major ?? '')}}
                             -
                             {{ (months()[$education->graduation_month] ?? '') }}, {{ $education->graduation_year }}
                         </div>
 
                         <div class="list-item-description pt-1">
-                            {{ $education->school->name ?? '' }}
+                            {{ htmlspecialchars($education->school->name ?? '') }}
                         </div>
 
                     </div>
@@ -149,7 +149,7 @@
                     <div style="display: inline-block;">
 
                         <div class="list-item-description pt-1">
-                            {{ $certificate->name }}
+                            {{ htmlspecialchars($certificate->name) }}
                             -
                             {{ longDate($certificate->received) }}
                         </div>
@@ -174,9 +174,9 @@
 
                         <div class="list-item-description pt-1">
                             {{ $award->year ?? '' }}
-                            {{ $award->name ?? '' }}{{ !empty($award->category) ? ', ' . $award->category : '' }}
-                            {{ !empty($award->nominated_work) ? 'for ' . $award->nominated_work : '' }}
-                            {{ (!empty($award->organization) && empty($award->category)) ? '- ' . $award->organization : '' }}
+                            {{ htmlspecialchars($award->name ?? '') }}{{ htmlspecialchars(!empty($award->category) ? ', ' . $award->category : '') }}
+                            {{ !empty($award->nominated_work) ? 'for ' . htmlspecialchars($award->nominated_work ?? '') : '' }}
+                            {{ (!empty($award->organization) && empty($award->category)) ? '- ' . htmlspecialchars($award->organization ?? ''): '' }}
                         </div>
 
                     </div>

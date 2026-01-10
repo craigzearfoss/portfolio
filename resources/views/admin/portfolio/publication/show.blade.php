@@ -30,7 +30,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => $publication->title
+            'value' => htmlspecialchars($publication->title ?? '')
         ])
 
         @if(!empty($publication->parent))
@@ -38,7 +38,7 @@
                 'name'  => 'parent',
                 'value' => !empty($publication->parent)
                     ? view('admin.components.link', [
-                            'name' => htmlspecialchars($publication->parent->title),
+                            'name' => htmlspecialchars($publication->parent->title ?? ''),
                             'href' => route('admin.portfolio.publication.show', $publication->parent->slug)
                         ])
                     : ''
@@ -52,17 +52,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $publication->summary
+            'value' => $publication->summary ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'publication name',
-            'value' => htmlspecialchars($publication->publication_name)
+            'value' => htmlspecialchars($publication->publication_name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'publisher',
-            'value' => htmlspecialchars($publication->publisher)
+            'value' => htmlspecialchars($publication->publisher ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -77,7 +77,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'credit',
-            'value' => htmlspecialchars($publication->credit)
+            'value' => htmlspecialchars($publication->credit ?? '')
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -147,28 +147,30 @@
 
         @include('admin.components.show-row', [
             'name'  => 'publication url',
-            'value' => $publication->publication_url,
+            'value' => htmlspecialchars($publication->publication_url ?? ''),
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($publication->notes))
+            'value' => $publication->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $publication->link_name ?? 'link',
-            'href'   => $publication->link,
+            'name'   => htmlspecialchars($publication->link_name ?? 'link'),
+            'href'   => htmlspecialchars($publication->link, ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($publication->description ?? '')
+            'value' => $publication->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $publication->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($publication->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

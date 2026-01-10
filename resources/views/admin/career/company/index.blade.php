@@ -59,7 +59,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $company->name }}
+                        {{ htmlspecialchars($company->name ?? '') }}
                     </td>
                         <td data-field="industry.name">
                             {{ $company->industry['name'] ?? '' }}
@@ -67,8 +67,8 @@
                     <td data-field="location" style="white-space: nowrap;">
                         {!!
                             formatLocation([
-                                'city'    => $company->city ?? null,
-                                'state'   => $company->state['code'] ?? null,
+                                'city'    => htmlspecialchars($company->city ?? ''),
+                                'state'   => $company->state['code'] ?? '',
                             ])
                         !!}
                     </td>
@@ -90,7 +90,7 @@
                             @endif
 
                             @if (!empty($company->link))
-                                <a title="{{ !empty($company->link_name) ? $company->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($company->link_name) ? $company->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $company->link }}"
                                    target="_blank"

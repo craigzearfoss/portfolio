@@ -45,13 +45,13 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $art->name,
+                            'name'  => htmlspecialchars($art->name ?? ''),
                             'href'  => route('guest.admin.portfolio.art.show', [$admin, $art->slug]),
                             'class' => $art->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
-                        {{ $art->artist }}
+                        {{ htmlspecialchars($art->artist ?? '') }}
                     </td>
                     <td class="has-text-centered">
                         {{ $art->year }}

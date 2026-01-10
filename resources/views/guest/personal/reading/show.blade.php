@@ -25,12 +25,12 @@
 
         @include('guest.components.show-row', [
             'name'  => 'title',
-            'value' => $reading->title
+            'value' => htmlspecialchars($reading->title ?? '')
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'author',
-            'value' => $reading->author
+            'value' => htmlspecialchars($reading->author ?? '')
         ])
 
         @include('guest.components.show-row', [
@@ -60,15 +60,15 @@
 
         @if(!empty($reading->link))
             @include('guest.components.show-row-link', [
-                'name'   => $reading->link_name ?? 'link',
-                'href'   => $reading->link,
+                'name'   => htmlspecialchars($reading->link_name ?? 'link'),
+                'href'   => htmlspecialchars($reading->link ?? ''),
                 'target' => '_blank'
             ])
         @endif
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($reading->description ?? '')
+            'value' => $reading->description ?? ''
         ])
 
         @if(!empty($reading->image))

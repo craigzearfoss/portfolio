@@ -51,12 +51,12 @@
 
                     @include('guest.components.show-row', [
                         'name'  => 'role',
-                        'value' => $admin->role ?? ''
+                        'value' => htmlspecialchars($admin->role ?? '')
                     ])
 
                     @include('guest.components.show-row', [
                         'name'  => 'employer',
-                        'value' => '<br>' . $admin->employer ?? ''
+                        'value' => '<br>' . htmlspecialchars($admin->employer ?? '')
                     ])
 
                     @include('guest.components.show-row', [
@@ -77,7 +77,7 @@
                         @if(empty($resourceType['global']) && Route::has('guest.admin.portfolio.'.$resourceType['name'].'.index'))
                             <li>
                                 @include('guest.components.link', [
-                                    'name' => $resourceType['plural'],
+                                    'name' => htmlspecialchars($resourceType['plural'] ?? ''),
                                     'href' => route('guest.admin.portfolio.'.$resourceType['name'].'.index', $admin),
                                 ])
                             </li>

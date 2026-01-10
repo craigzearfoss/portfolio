@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $stack->full_name
+            'value' => htmlspecialchars($stack->full_name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $stack->name
+            'value' => htmlspecialchars($stack->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -50,17 +50,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $stack->abbreviation
+            'value' => htmlspecialchars($stack->abbreviation ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $stack->definition
+            'value' => $stack->definition ?? ''
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'open source',
-            'checked' => $stack->open_source
+            'checked' => $stack->open_source ?? ''
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -75,7 +75,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => $stack->owner
+            'value' => htmlspecialchars($stack->owner ?? '')
         ])
 
         @include('admin.components.show-row-link', [
@@ -85,14 +85,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $stack->link_name ?? 'link',
-            'href'   => $stack->link,
+            'name'   => htmlspecialchars($stack->link_name ?? 'link'),
+            'href'   => htmlspecialchars($stack->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($stack->description ?? '')
+            'value' => $stack->description ?? ''
         ])
 
         @include('admin.components.show-row-image', [

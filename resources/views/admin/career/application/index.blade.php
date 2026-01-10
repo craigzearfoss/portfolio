@@ -107,17 +107,17 @@ if (!empty($resume)) {
                 <tr data-id="{{ $application->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $application->owner->username ?? '' }}
+                            {{ htmlspecialchars($application->owner->username ?? '') }}
                         </td>
                     @endif
                     <td data-field="name">
-                        {{$application->name}}
+                        {{ htmlspecialchars($application->name ?? '') }}
                     </td>
                     <?php /*
                     <td data-field="company.name" style="white-space: nowrap;">
                         @if(!empty($application->company))
                             @include('admin.components.link', [
-                                'name' => $application->company['name'],
+                                'name' => htmlspecialchars($application->company['name'] ?? ''),
                                 'href' => route('admin.career.company.show', $application->company['id'])
                             ])
                         @endif
@@ -145,27 +145,27 @@ if (!empty($resume)) {
                             formatCompensation([
                                 'min'   => $application->compensation_min ?? '',
                                 'max'   => $application->compensation_max ?? '',
-                                'unit'  => $application->compensationUnit['abbreviation'] ?? '',
+                                'unit'  => htmlspecialchars($application->compensationUnit['abbreviation'] ?? ''),
                                 'short' => true
                             ])
                         !!}
                     </td>
                     <?php /*
                     <td data-field="job_duration_id">
-                        {{ $application->durationType['name'] }}
+                        {{ $application->durationType['name'] ?? '' }}
                     </td>
                     */ ?>
                     <td data-field="job_employment_type_id" class="has-text-centered" style="white-space: nowrap;">
-                        {{ $application->employmentType['name'] ?? '' }}
+                        {{ htmlspecialchars($application->employmentType['name'] ?? '') }}
                     </td>
                     <td data-field="job_location_type_id" class="has-text-centered">
-                        {{ $application->locationType['name'] ?? '' }}
+                        {{ htmlspecialchars($application->locationType['name'] ?? '') }}
                     </td>
                     <td data-field="location">
                         {!!
                             formatLocation([
-                                'city'    => $application->city ?? null,
-                                'state'   => $application->state['code'] ?? null,
+                                'city'    => htmlspecialchars($application->city ?? ''),
+                                'state'   => $application->state['code'] ?? '',
                             ])
                         !!}
                     </td>
@@ -207,7 +207,7 @@ if (!empty($resume)) {
                             @endif
 
                             @if (!empty($application->link))
-                                <a title="{{ !empty($application->link_name) ? $application->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars(!empty($application->link_name) ? $application->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $application->link }}"
                                    target="_blank"

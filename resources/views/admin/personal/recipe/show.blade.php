@@ -85,17 +85,17 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'summary',
-                                    'value' => htmlspecialchars($recipe->summary)
+                                    'value' => $recipe->summary ?? ''
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'source',
-                                    'value' => htmlspecialchars($recipe->source)
+                                    'value' => htmlspecialchars($recipe->source ?? '')
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'author',
-                                    'value' => htmlspecialchars($recipe->author)
+                                    'value' => htmlspecialchars($recipe->author ?? '')
                                 ])
 
                                 @include('admin.components.show-row-checkbox', [
@@ -155,23 +155,25 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
-                                    'value' => nl2br(htmlspecialchars($recipe->notes))
+                                    'value' => $recipe->notes ?? ''
                                 ])
 
                                 @include('admin.components.show-row-link', [
-                                    'name'   => $recipe->link_name ?? 'link',
-                                    'href'   => $recipe->link,
+                                    'name'   => htmlspecialchars($recipe->link_name ?? 'link'),
+                                    'href'   => htmlspecialchars($recipe->link ?? ''),
                                     'target' => '_blank'
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'description',
-                                    'value' => nl2br($recipe->description ?? '')
+                                    'value' => $recipe->description ?? ''
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'disclaimer',
-                                    'value' => view('admin.components.disclaimer', [ 'value' => $recipe->disclaimer ?? '' ])
+                                    'value' => view('admin.components.disclaimer', [
+                                                    'value' => htmlspecialchars($recipe->disclaimer ?? '')
+                                               ])
                                 ])
 
                                 @include('admin.components.show-row-images', [
@@ -226,11 +228,11 @@
                                     @foreach($recipe->ingredients as $ingredient)
 
                                         <li>
-                                            {{ $ingredient->amount }}
+                                            {{ htmlspecialchars($ingredient->amount) }}
                                             {{ \App\Models\Personal\Unit::find($ingredient->unit_id)->name }}
                                             {{ \App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name }}
                                             @if(!empty($ingredient->qualifier))
-                                                - {{ $ingredient->qualifier }}
+                                                - {{ htmlspecialchars($ingredient->qualifier) }}
                                             @endif
                                         </li>
 

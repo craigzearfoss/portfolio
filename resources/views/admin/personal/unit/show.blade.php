@@ -35,34 +35,34 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $unit->name
+            'value' => htmlspecialchars($unit->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $unit->abbreviation
+            'value' => htmlspecialchars($unit->abbreviation ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'system',
-            'value' => $unit->system
+            'value' => htmlspecialchars($unit->system ?? '')
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'href'   => $unit->link,
+            'href'   => htmlspecialchars($unit->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
-            'name'   => $unit->link_name ?? 'link',
-            'href'   => $unit->link,
+            'name'   => htmlspecialchars($unit->link_name ?? 'link'),
+            'href'   => htmlspecialchars($unit->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($unit->description ?? '')
+            'value' => $unit->description ?? ''
         ])
 
         @include('admin.components.show-row-images', [

@@ -17,21 +17,21 @@
         <tr>
             <td>
                 @include('admin.components.link', [
-                    'name' => $coworker->name,
+                    'name' => htmlspecialchars($coworker->name ?? ''),
                     'href' => route('admin.portfolio.job-coworker.show', $coworker)
                 ])
             </td>
             <td data-field="featured" class="has-text-centered">
-                {{ $coworker['title'] ?? '' }}
+                {{ htmlspecialchars($coworker['title'] ?? '') }}
             </td>
             <td>
                 {{ $coworker->level ?? '' }}
             </td>
             <td>
-                {{ $coworker->phone ?? '' }}
+                {{ htmlspecialchars($coworker->phone ?? '') }}
             </td>
             <td>
-                {{ $coworker->email ?? '' }}
+                {{ htmlspecialchars($coworker->email ?? '') }}
             </td>
             <td class="is-1" style="white-space: nowrap;">
 
@@ -46,7 +46,7 @@
                 </a>
 
                 @if (!empty($coworker->link))
-                    <a title="{{ !empty($coworker->link_name) ? $coworker->link_name : 'link' }}"
+                    <a title="{{ htmlspecialchars((!empty($coworker->link_name) ? $coworker->link_name : 'link' ?? '') }}"
                        class="button is-small px-1 py-0"
                        href="{{ $coworker->link }}"
                        target="_blank"

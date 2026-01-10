@@ -19,6 +19,13 @@ div.field.is-horizontal div.field-label label.label {
     padding: .1em .4em !important;
 }
 
+.show-container ul {
+    list-style: disc;
+}
+.show-container ul li {
+    margin-left: 2em;
+}
+
 /* edit container */
 .edit-container .input,
 .edit-container span.file-cta,
@@ -178,6 +185,10 @@ div.field.is-horizontal div.field-label label.label {
     text-align: center;
 }
 
+div.content ul.menu-list li {
+    list-style: none;
+}
+
 .tabs-content li {
     display: none;
     list-style: none;
@@ -189,4 +200,8 @@ div.field.is-horizontal div.field-label label.label {
 
 table tbody tr td p {
     margin-bottom: 0 !important;
+}
+
+div.content ul.menu-list li {
+    list-style: none;
 }

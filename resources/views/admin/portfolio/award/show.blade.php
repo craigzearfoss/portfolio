@@ -42,17 +42,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($award->name)
+            'value' => htmlspecialchars($award->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'category',
-            'value' => htmlspecialchars($award->category)
+            'value' => htmlspecialchars($award->category ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($award->nominated_work)
+            'value' => htmlspecialchars($award->nominated_work ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -67,7 +67,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => htmlspecialchars($award->summary)
+            'value' => $award->summary
         ])
 
         @include('admin.components.show-row', [
@@ -88,23 +88,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($award->notes))
+            'value' => $award->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $award->link_name ?? 'link',
-            'href'   => $award->link,
+            'name'   => htmlspecialchars($award->link_name ?? 'link'),
+            'href'   => htmlspecialchars($award->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($award->description ?? '')
+            'value' => $award->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $award->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($award->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

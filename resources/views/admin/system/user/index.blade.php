@@ -63,10 +63,10 @@ if (canRead('user', currentAdminId())) {
                         {{ $user->username }}
                     </td>
                     <td data-field="name">
-                        {{ $user->name }}
+                        {{ htmlspecialchars($user->name ?? '') }}
                     </td>
                     <td data-field="email">
-                        {{ $user->email }}
+                        {{ htmlspecialchars($user->email ?? '') }}
                     </td>
                     <td data-field="email_verified_at" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
@@ -88,7 +88,7 @@ if (canRead('user', currentAdminId())) {
                             @endif
 
                             @if (!empty($user->link))
-                                <a title="{{ !empty($user->link_name) ? $user->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($user->link_name) ? $user->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $user->link }}"
                                    target="_blank"

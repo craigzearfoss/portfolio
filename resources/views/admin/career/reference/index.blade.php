@@ -65,16 +65,16 @@
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $reference->name }}
+                        {{ htmlspecialchars($reference->name ?? '') }}
                     </td>
                     <td data-field="relation">
-                        {{ $reference->relation ?? '' }}
+                        {{ htmlspecialchars($reference->relation ?? '') }}
                     </td>
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $reference->phone }}
+                        {{ htmlspecialchars($reference->phone ?? '') }}
                     </td>
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $reference->email }}
+                        {{ htmlspecialchars($reference->email ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reference->public ])
@@ -100,7 +100,7 @@
                             @endif
 
                         @if (!empty($reference->link))
-                                <a title="{{ !empty($reference->link_name) ? $reference->link_name : 'link' }}"
+                                <a title="{{ htmlspecialchars((!empty($reference->link_name) ? $reference->link_name : 'link') ?? '') }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $reference->link }}"
                                    target="_blank"

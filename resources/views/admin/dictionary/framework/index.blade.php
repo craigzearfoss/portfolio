@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $framework->id }}">
                     <td data-field="name">
-                        {{ $framework->name }}
+                        {{ htmlspecialchars($framework->name ?? '') }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $framework->abbreviation }}
+                        {{ htmlspecialchars($framework->abbreviation ?? '') }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $framework->public ])
@@ -88,7 +88,7 @@
                         @if (!empty($framework->link))
                             <a title="link"
                                class="button is-small px-1 py-0"
-                               href="{{ !empty($framework->link_name) ? $framework->link_name : 'link' }}"
+                               href="{{ htmlspecialchars((!empty($framework->link_name) ? $framework->link_name : 'link') ?? '') }}"
                                target="_blank"
                             >
                                 <i class="fa-solid fa-external-link"></i>

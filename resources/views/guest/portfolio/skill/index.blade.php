@@ -47,13 +47,13 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $skill->name,
+                            'name'  => htmlspecialchars($skill->name ?? ''),
                             'href'  => route('guest.admin.portfolio.skill.show', [$admin, $skill->slug]),
                             'class' => $skill->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
-                        {{ $skill->category['name'] ?? '' }}
+                        {{ htmlspecialchars($skill->category['name'] ?? '') }}
                     </td>
                     <td data-field="level" style="white-space: nowrap;" class="is">
                         @if(!empty($skill->level))

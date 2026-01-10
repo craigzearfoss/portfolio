@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $language->full_name
+            'value' => htmlspecialchars($language->full_name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $language->name
+            'value' => htmlspecialchars($language->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -50,12 +50,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $language->abbreviation
+            'value' => htmlspecialchars($language->abbreviation ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $language->definition
+            'value' => $language->definition ?? ''
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -75,7 +75,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => $language->owner
+            'value' => htmlspecialchars($language->owner ?? '')
         ])
 
         @include('admin.components.show-row-link', [
@@ -85,14 +85,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $language->link_name ?? 'link',
-            'href'   => $language->link,
+            'name'   => htmlspecialchars($language->link_name ?? 'link'),
+            'href'   => htmlspecialchars($language->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($language->description ?? '')
+            'value' => $language->description ?? ''
         ])
 
         @include('admin.components.show-row-image', [

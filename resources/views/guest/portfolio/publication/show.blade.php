@@ -27,7 +27,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'title',
-            'value' => $publication->title
+            'value' => htmlspecialchars($publication->title ?? '')
         ])
 
         @if(!empty($publication->parent))
@@ -35,7 +35,7 @@
                 'name'  => 'parent',
                 'value' => !empty($publication->parent)
                     ? view('guest.components.link', [
-                            'name' => $publication->parent['title'],
+                            'name' => htmlspecialchars($publication->parent['title'] ?? ''),
                             'href' => route('guest.admin.portfolio.publication.show', $admin, $publication->parent->slug)
                         ])
                     : ''
@@ -52,7 +52,7 @@
         @if(!empty($publication->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $publication->summary
+                'value' => $publication->summary ?? ''
             ])
         @endif
 
@@ -64,7 +64,7 @@
                         @foreach($publication->children as $child)
                             <li>
                                 @include('guest.components.link', [
-                                    'name' => $child['name'],
+                                    'name' => htmlspecialchars($child['name'] ?? ''),
                                     'href' => route('guest.admin.portfolio.publication.show', [$admin, $child->slug])
                                 ])
                             </li>
@@ -77,14 +77,14 @@
         @if(empty($publication->publication_name))
             @include('guest.components.show-row', [
                 'name'  => 'publication name',
-                'value' => $publication->publication_name
+                'value' => htmlspecialchars($publication->publication_name)
             ])
         @endif
 
         @if(empty($publication->publisher))
             @include('guest.components.show-row', [
                 'name'  => 'publisher',
-                'value' => $publication->publisher
+                'value' => htmlspecialchars($publication->publisher ?? '')
             ])
         @endif
 
@@ -105,7 +105,7 @@
         @if(empty($publication->credit))
             @include('guest.components.show-row', [
                 'name'  => 'credit',
-                'value' => $publication->credit
+                'value' => htmlspecialchars($publication->credit ?? '')
             ])
         @endif
 
@@ -216,7 +216,7 @@
 
         @if(!empty($publication->link))
             @include('guest.components.show-row-link', [
-                'name'   => $publication->link_name ?? 'link',
+                'name'   => htmlspecialchars($publication->link_name ?? 'link' ?? ''),
                 'href'   => $publication->link,
                 'target' => '_blank'
             ])
@@ -225,7 +225,7 @@
         @if(!empty($publication->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $publication->description
+                'value' => $publication->description ?? ''
             ])
         @endif
 

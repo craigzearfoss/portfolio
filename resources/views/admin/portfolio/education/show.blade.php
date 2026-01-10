@@ -57,7 +57,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'school',
-            'value' => $education->school->name ?? ''
+            'value' => htmlspecialchars($education->school->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -87,28 +87,30 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => htmlspecialchars($education->summary)
+            'value' => $education->summary ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($education->notes))
+            'value' => $education->notes ?? ''
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $education->link_name ?? 'link',
-            'href'   => $education->link,
+            'name'   => htmlspecialchars($education->link_name ?? 'link'),
+            'href'   => htmlspecialchars($education->link ?? ''),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($education->description ?? '')
+            'value' => $education->description ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $education->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [
+                            'value' => htmlspecialchars($education->disclaimer ?? '')
+                       ])
         ])
 
         @include('admin.components.show-row-images', [

@@ -47,17 +47,17 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $course->name,
+                            'name'  => htmlspecialchars($course->name ?? ''),
                             'href'  => route('guest.admin.portfolio.course.show', [$admin, $course->slug]),
                             'class' => $course->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
                         @if(!empty($course->academy['link']))
-                            {{ $course->academy['name'] }}
+                            {{ htmlspecialchars($course->academy['name'] ?? '') }}
                         @else
                             @include('guest.components.link', [
-                                'name'   => $course->academy['name'],
+                                'name'   => htmlspecialchars($course->academy['name'] ?? ''),
                                 'href'   => $course->academy['link'],
                                 'target' => '_blank',
                             ])

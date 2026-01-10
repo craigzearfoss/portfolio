@@ -111,15 +111,16 @@ class FrankReynolds extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Napoleon Crossing the Alps on 20th May 1800', 'artist' => 'Jacques-Louis David',         'slug' => 'napoleon-crossing-the-alps-on-20th-may-1800-by-jacques-louis-david', 'year' => 1803, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jacques-Louis_David/paintings-wm/davidjl006.jpg',        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Kiss',                                    'artist' => 'Gustav Klimt',                'slug' => 'the-kiss-by-gustav-klimt',                                           'year' => 1907, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Gustav_Klimt/paintings-wm/klimt001.jpg',                 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Irises',                                      'artist' => 'Vincent van Gogh',            'slug' => 'irises-by-vincent-van-gogh',                                         'year' => 1889, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh002.jpg',              'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Girl with a Pearl Earring',               'artist' => 'Johannes Vermeer, van Delft', 'slug' => 'the-girl-with-a-pearl-earring-by-johannes-vermeer-van-delft',        'year' => 1665, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Johannes_van_Delft_Vermeer/paintings-wm/vermeer005.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Napoleon Crossing the Alps on 20th May 1800', 'artist' => 'Jacques-Louis David',         'slug' => 'napoleon-crossing-the-alps-on-20th-may-1800-by-jacques-louis-david', 'summary' => null, 'year' => 1803, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jacques-Louis_David/paintings-wm/davidjl006.jpg',        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => 'The Kiss',                                    'artist' => 'Gustav Klimt',                'slug' => 'the-kiss-by-gustav-klimt',                                           'summary' => null, 'year' => 1907, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Gustav_Klimt/paintings-wm/klimt001.jpg',                 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => 'Irises',                                      'artist' => 'Vincent van Gogh',            'slug' => 'irises-by-vincent-van-gogh',                                         'summary' => null, 'year' => 1889, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh002.jpg',              'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => 'The Girl with a Pearl Earring',               'artist' => 'Johannes Vermeer, van Delft', 'slug' => 'the-girl-with-a-pearl-earring-by-johannes-vermeer-van-delft',        'summary' => null, 'year' => 1665, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Johannes_van_Delft_Vermeer/paintings-wm/vermeer005.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
                 'artist'      => null,
                 'slug'        => '',
+                'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
@@ -128,7 +129,6 @@ class FrankReynolds extends Command
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
-                'summary'     => null,
             ],
             */
         ];
