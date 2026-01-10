@@ -40,7 +40,7 @@ return new class extends Migration
             $table->foreignId('degree_type_id')
                 ->constrained('degree_types', 'id')
                 ->onDelete('cascade');
-            $table->string('major');
+            $table->string('major')->index('major_idx');
             $table->string('minor')->nullable();
             $table->foreignId('school_id')
                 ->constrained('schools', 'id')

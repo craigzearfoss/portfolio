@@ -63,6 +63,9 @@
                             {{ $photo->owner->username ?? '' }}
                         </td>
                     @endif
+                    <td data-field="year">
+                        {{ htmlspecialchars($photo->name ?? '') }}
+                    </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $photo->featured ])
                     </td>
@@ -82,7 +85,7 @@
                             @if(canRead($photo))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.photo.show', $photo->id),
+                                    'href'  => route('admin.portfolio.photography.show', $photo->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -90,7 +93,7 @@
                             @if(canUpdate($photo))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.photo.edit', $photo->id),
+                                    'href'  => route('admin.portfolio.photography.edit', $photo->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

@@ -31,9 +31,9 @@ return new class extends Migration
             $table->foreignId('database_id')
                 ->constrained('databases', 'id')
                 ->onDelete('cascade');
-            $table->string('name', 50);
-            $table->string('database', 50);
-            $table->string('tag', 50);
+            $table->string('name', 50)->index('name_idx');
+            $table->string('database', 50)->index('database_idx');
+            $table->string('tag', 50)->index('tag_idx');
             $table->string('title', 50);
             $table->string('plural', 50);
             $table->boolean('guest')->default(false);

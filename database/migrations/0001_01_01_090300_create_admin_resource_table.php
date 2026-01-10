@@ -38,7 +38,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('resources', 'id')
                 ->onDelete('cascade');
-            $table->string('table', 50);
+            $table->string('table', 50)->index('table_idx');
             $table->string('class');
             $table->string('title', 50);
             $table->string('plural', 50);

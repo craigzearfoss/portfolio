@@ -81,7 +81,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username', 200)->unique();
-            $table->string('name');
+            $table->string('name')->index('name_idx');
             $table->string('label', 200)->unique();
             $table->string('salutation', 20)->nullable();
             $table->string('title', 100)->nullable();
