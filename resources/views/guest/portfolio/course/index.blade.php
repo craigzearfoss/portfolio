@@ -47,27 +47,27 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($course->name ?? ''),
+                            'name'  => $course->name,
                             'href'  => route('guest.admin.portfolio.course.show', [$admin, $course->slug]),
                             'class' => $course->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
-                        @if(!empty($course->academy['link']))
-                            {{ htmlspecialchars($course->academy['name'] ?? '') }}
+                        @if(!empty($course->academy->link))
+                            {!! $course->academy->name !!}
                         @else
                             @include('guest.components.link', [
-                                'name'   => htmlspecialchars($course->academy['name'] ?? ''),
-                                'href'   => $course->academy['link'],
+                                'name'   => $course->academy->name] ?? ''),
+                                'href'   => $course->academy->link ?? '',
                                 'target' => '_blank',
                             ])
                         @endif
                     </td>
                     <td>
-                        {{ $course->instructor }}
+                        {!! $course->instructor !!}
                     </td>
                     <td>
-                        {{ longDate($course->completion_date) }}
+                        {!! longDate($course->completion_date) !!}
                     </td>
                 </tr>
 

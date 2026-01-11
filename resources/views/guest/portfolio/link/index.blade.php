@@ -43,7 +43,7 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($link->name ?? ''),
+                            'name'  => $link->name,
                             'href'  => route('guest.admin.portfolio.link.show', [$admin, $link->slug]),
                             'class' => $link->featured ? 'has-text-weight-bold' : ''
                         ])

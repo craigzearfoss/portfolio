@@ -51,33 +51,33 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($certificate->name ?? ''),
+                            'name'  => $certificate->name,
                             'href'  => route('guest.admin.portfolio.certificate.show', [$certificate->owner->label, $certificate->slug]),
                             'class' => $certificate->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
-                        @if(!empty($certificate->academy['link']))
-                            {{ htmlspecialchars($certificate->academy['name'] ?? '') }}
+                        @if(!empty($certificate->academy->link))
+                            {{ $certificate->academy->name }}
                         @else
                             @include('guest.components.link', [
-                                'name'   => htmlspecialchars($certificate->academy['name'] ?? ''),
-                                'href'   => $certificate->academy['link'],
+                                'name'   => $certificate->academy->name ?? '',
+                                'href'   => $certificate->academy->link ?? '',
                                 'target' => '_blank',
                             ])
                         @endif
                     </td>
                     <td class="has-text-centered">
-                        {{ $certificate->organization }}
+                        {!! $certificate->organization !!}
                     </td>
                     <td class="has-text-centered">
-                        {{ $certificate->year }}
+                        {!! $certificate->year !!}
                     </td>
                     <td class="has-text-centered">
-                        {{ shortDate($certificate->received) }}
+                        {!! shortDate($certificate->received) !!}
                     </td>
                     <td class="has-text-centered">
-                        {{ shortDate($certificate->expiration) }}
+                        {!! shortDate($certificate->expiration) !!}
                     </td>
                 </tr>
 

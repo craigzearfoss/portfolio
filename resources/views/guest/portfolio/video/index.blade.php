@@ -47,19 +47,19 @@
                 <tr data-id="{{ $video->id }}">
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($video->name ?? ''),
+                            'name'  => $video->name,
                             'href'  => route('guest.admin.portfolio.video.show', [$admin, $video->slug]),
                             'class' => $video->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td data-field="year" class="has-text-centered">
-                        {{ $video->year }}
+                        {!! $video->year !!}
                     </td>
                     <td data-field="show">
-                        {{ htmlspecialchars($video->show ?? '') }}
+                        {!! $video->show !!}
                     </td>
                     <td data-field="company">
-                        {{ htmlspecialchars($video->company ?? '') }}
+                        {!! $video->company !!}
                     </td>
                 </tr>
 

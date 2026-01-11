@@ -45,7 +45,7 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($recipe->name ?? ''),
+                            'name'  => $recipe->name,
                             'href'  => route('guest.admin.personal.recipe.show', [$admin, $recipe->slug]),
                             'class' => $recipe->featured ? 'has-text-weight-bold' : ''
                         ])

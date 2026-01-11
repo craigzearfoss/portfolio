@@ -48,22 +48,22 @@
                 <tr data-id="{{ $music->id }}">
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($music->name ?? ''),
+                            'name'  => $music->name,
                             'href'  => route('guest.admin.portfolio.music.show', [$admin, $music->slug]),
                             'class' => $music->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td data-field="artist">
-                        {{ htmlspecialchars($music->artist ?? '') }}
+                        {!! $music->artist !!}
                     </td>
                     <td data-field="year">
-                        {{ $music->year }}
+                        {!! $music->year !!}
                     </td>
                     <td data-field="label">
-                        {{ htmlspecialchars($music->label ?? '') }}
+                        {!! $music->label !!}
                     </td>
                     <td data-field="catalog_number">
-                        {{ htmlspecialchars($music->catalog_number ?? '') }}
+                        {!! $music->catalog_number !!}
                     </td>
                 </tr>
 

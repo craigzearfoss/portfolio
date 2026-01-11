@@ -33,7 +33,6 @@
                 <th>name</th>
                 <th>year</th>
             </tr>
-            </tr>
             </tfoot>
             */ ?>
             <tbody>
@@ -43,13 +42,13 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($photo->name),
+                            'name'  => $photo->name,
                             'href'  => route('guest.admin.portfolio.photography.show', [$admin, $photo->slug]),
                             'class' => $photo->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td class="has-text-centered">
-                        {{ $photo->year }}
+                        {!! $photo->year !!}
                     </td>
                 </tr>
 

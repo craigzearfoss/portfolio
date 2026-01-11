@@ -47,19 +47,19 @@
                 <tr data-id="{{ $project->id }}">
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($project->name ?? ''),
+                            'name'  => $project->name,
                             'href'  => route('guest.admin.portfolio.project.show', [$project->owner->label, $project->slug]),
                             'class' => $project->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td data-field="language">
-                        {{ !empty($project->language)
-                            ? htmlspecialchars(($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : '')))
+                        {!! !empty($project->language)
+                            ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                             : ''
-                        }}
+                        !!}
                     </td>
                     <td data-field="year">
-                        {{ $project->year }}
+                        {!! $project->year !!}
                     </td>
                     <td data-field="year">
                         @if(!empty($project->repository_url))

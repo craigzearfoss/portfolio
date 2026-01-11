@@ -47,21 +47,21 @@
                 <tr data-id="{{ $publication->id }}">
                     <td data-field="title">
                         @include('guest.components.link', [
-                            'name'  => $publication->title ?? '',
+                            'name'  => $publication->title,
                             'href'  => route('guest.admin.portfolio.publication.show', [$publication->owner->label, $publication]),
                             'class' => $publication->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td data-field="publication_name">
-                        {{ $publication->publication_name ?? '' }}
+                        {!! $publication->publication_name !!}
                     </td>
                     <?php /*
                     <td data-field="publisher">
-                        {{ $publication->publisher ?? '' }}
+                        {!! $publication->publisher !!}
                     </td>
                     */ ?>
                     <td data-field="year" class="has-text-centered">
-                        {{ $publication->year }}
+                        {!! $publication->year !!}
                     </td>
                 </tr>
 

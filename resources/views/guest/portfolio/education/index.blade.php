@@ -52,24 +52,24 @@
                 <tr>
                     <td data-field="degreeType.name">
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($education->degreeType->name),
+                            'name'  => $education->degreeType->name ?? '',
                             'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
                         ])
                     </td>
                     <td data-field="major">
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($education->major),
+                            'name'  => $education->major,
                             'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
                         ])
                     </td>
                     <td data-field="minor">
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($education->minor ?? ''),
+                            'name'  => $education->minor,
                             'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
                         ])
                     </td>
                     <td data-field="school.name">
-                        {{ $education->school->name }}
+                        {!! $education->school->name ?? '' !!}
                     </td>
                     <td data-field="graduated" class="has-text-centered">
                         @include('guest.components.checkmark', [ 'checked' => $education->graduated ])
@@ -85,7 +85,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There is no education.</td>
+                    <td colspan="7">There is no education.</td>
                 </tr>
 
             @endforelse

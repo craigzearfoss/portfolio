@@ -32,7 +32,7 @@
                 <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
                     @include('guest.components.image', [
                         'src'   => $job->logo_small,
-                        'alt'   => htmlspecialchars((!empty($job->company) ?$job->company : 'company') . ' logo'),
+                        'alt'   => (!empty($job->company) ?$job->company : 'company') . ' logo',
                         'width' => '48px',
                     ])
                 </div>
@@ -40,11 +40,11 @@
                 <div style="display: inline-block;">
 
                     <div class="list-item-title">
-                        {{ htmlspecialchars($job->role ?? '') }}
+                        {!! $job->role !!}
                     </div>
 
                     <div class="list-item-description pt-1 pb-1">
-                        {{ htmlspecialchars($job->company ?? '') }} · {{ htmlspecialchars($job->employmentType->name ?? '') }}
+                        {!! $job->company !!} · {!! $job->employmentType->name ?? '' !!}
                     </div>
 
                     <div class="list-item-description gray">
@@ -55,7 +55,7 @@
                                     $job->end_year . (!empty($job->end_month) ? '-' . $job->end_month : '')
                                 );
                             @endphp
-                            {{ $rangeData['start'] . ' - ' . $rangeData['end'] . ' · ' . $rangeData['range'] }}
+                            {!! $rangeData['start'] . ' - ' . $rangeData['end'] . ' · ' . $rangeData['range'] !!}
                         </div>
                     </div>
 
@@ -63,25 +63,25 @@
                         <div>
                             {{
                                 formatLocation([
-                                    'city'  => htmlspecialchars($job->city ?? ''),
-                                    'state' => htmlspecialchars($job->state['code'] ?? '')
+                                    'city'  => $job->city,
+                                    'state' => $job->state->code
                                 ])
                             }}
                             <div class="tag is-rounded">
-                                {{ htmlspecialchars($job->locationType['name'] ?? '') }}
+                                {!! $job->locationType->name !!}
                             </div>
                         </div>
                     </div>
 
                     <div class="list-item-description pt-2">
-                        {{ $job->summary ?? '' }}
+                        {!! $job->summary !!}
                     </div>
 
                     <div class="list-item-description pt-1">
                         @if(!empty($job->tasks))
                             <ul>
                             @foreach($job->tasks as $task)
-                                <li>• {{ $task->summary ?? '' }}</li>
+                                <li>• {!! $task->summary !!}</li>
                             @endforeach
                             </ul>
                         @endif
@@ -117,13 +117,13 @@
                     <div style="display: inline-block;">
 
                         <div class="list-item-description pt-1">
-                            {{ htmlspecialchars($education->degreeType->name ?? '') }} in {{ htmlspecialchars($education->major ?? '')}}
+                            {!! $education->degreeType->name ?? '' !!} in {!! $education->major !!}
                             -
-                            {{ (months()[$education->graduation_month] ?? '') }}, {{ $education->graduation_year }}
+                            {!! (months()[$education->graduation_month] ?? '') !!}, {!! $education->graduation_year !!}
                         </div>
 
                         <div class="list-item-description pt-1">
-                            {{ htmlspecialchars($education->school->name ?? '') }}
+                            {!! $education->school->name !!}
                         </div>
 
                     </div>
@@ -149,9 +149,9 @@
                     <div style="display: inline-block;">
 
                         <div class="list-item-description pt-1">
-                            {{ htmlspecialchars($certificate->name) }}
+                            {!! $certificate->name !!}
                             -
-                            {{ longDate($certificate->received) }}
+                            {!! longDate($certificate->received) !!}
                         </div>
 
                     </div>
@@ -173,10 +173,10 @@
                     <div style="display: inline-block;">
 
                         <div class="list-item-description pt-1">
-                            {{ $award->year ?? '' }}
-                            {{ htmlspecialchars($award->name ?? '') }}{{ htmlspecialchars(!empty($award->category) ? ', ' . $award->category : '') }}
-                            {{ !empty($award->nominated_work) ? 'for ' . htmlspecialchars($award->nominated_work ?? '') : '' }}
-                            {{ (!empty($award->organization) && empty($award->category)) ? '- ' . htmlspecialchars($award->organization ?? ''): '' }}
+                            {!! $award->year !!}
+                            {!! $award->name !!}{!! empty($award->category) ? ', ' . $award->category : '' !!}
+                            {!! !empty($award->nominated_work) ? 'for ' . $award->nominated_work : '' !!}
+                            {!! (!empty($award->organization) && empty($award->category)) ? '- ' . $award->organization : '' !!}
                         </div>
 
                     </div>

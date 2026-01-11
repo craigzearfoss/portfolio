@@ -47,24 +47,24 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($skill->name ?? ''),
+                            'name'  => $skill->name,
                             'href'  => route('guest.admin.portfolio.skill.show', [$admin, $skill->slug]),
                             'class' => $skill->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
-                        {{ htmlspecialchars($skill->category['name'] ?? '') }}
+                        {!! $skill->category->name ?? '' !!}
                     </td>
                     <td data-field="level" style="white-space: nowrap;" class="is">
                         @if(!empty($skill->level))
                             @include('guest.components.star-ratings', [
-                                'rating' => $skill->level ?? 1,
-                                'label'  => '(' . ($skill->level ?? 1) . ')'
+                                'rating' => $skill->level,
+                                'label'  => "({$skill->level})"
                             ])
                         @endif
                     </td>
                     <td class="has-text-centered">
-                        {{ $skill->years }}
+                        {!! $skill->years !!}
                     </td>
                 </tr>
 

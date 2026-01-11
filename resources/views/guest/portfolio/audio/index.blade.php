@@ -45,7 +45,7 @@
                 <tr data-id="{{ $audio->id }}">
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($audio->name ?? ''),
+                            'name'  => $audio->name,
                             'href'  => route('guest.admin.portfolio.audio.show', [$admin, $audio->slug]),
                             'class' => $audio->featured ? 'has-text-weight-bold' : ''
                         ])
@@ -56,10 +56,10 @@
                             if ($audio->podcast) $types[] = 'podcast';
                             if ($audio->clip) $types[] = 'clip';
                         @endphp
-                        {{ implode(', ', $types) }}
+                        {!! implode(', ', $types) !!}
                     </td>
                     <td data-field="year">
-                        {{ $audio->year }}
+                        {!! $audio->year !!}
                     </td>
                 </tr>
 

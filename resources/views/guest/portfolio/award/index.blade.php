@@ -49,7 +49,7 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($award->name ?? ''),
+                            'name'  => $award->name,
                             'href'  => route('guest.admin.portfolio.award.show', [$admin, $award->slug]),
                             'class' => $award->featured ? 'has-text-weight-bold' : ''
                         ])
@@ -57,27 +57,27 @@
                     <td>
                         @if(!empty($award->category))
                             @include('guest.components.link', [
-                                'name'  => htmlspecialchars($award->category, ''),
+                                'name'  => $award->category,
                                 'href'  => route('guest.admin.portfolio.award.show', [$admin, $award->slug]),
                                 'class' => $award->featured ? 'has-text-weight-bold' : ''
                             ])
                         @endif
                     </td>
                     <td>
-                        {{ $award->nominated_work }}
+                        {!! $award->nominated_work !!}
                     </td>
                     <td class="has-text-centered">
-                        {{ $award->year }}
+                        {!! $award->year !!}
                     </td>
                     <td>
-                        {{ $award->organization }}
+                        {!! $award->organization !!}
                     </td>
                 </tr>
 
             @empty
 
                 <tr>
-                    <td colspan="3">There are no awards.</td>
+                    <td colspan="5">There are no awards.</td>
                 </tr>
 
             @endforelse
