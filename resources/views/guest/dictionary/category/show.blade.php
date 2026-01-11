@@ -63,7 +63,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => $category->link_name,
+            'name'   => !empty($category->link_name) ? $category->link_name : 'link',
             'href'   => $category->link,
             'target' => '_blank'
         ])

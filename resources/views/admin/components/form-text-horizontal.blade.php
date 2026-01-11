@@ -4,7 +4,7 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <label class="label">{{ $label ?? $name ?? '#label#' }}</label>
+        <label class="label">{!! $label ?? $name ?? '' !!}</label>
     </div>
     <div class="field-body">
         <div class="field">

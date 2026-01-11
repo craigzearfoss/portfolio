@@ -85,6 +85,13 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'credit',
+                'value'     => old('credit') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
                 'value'   => old('notes') ?? '',

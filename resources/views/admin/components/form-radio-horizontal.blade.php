@@ -3,7 +3,7 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">@TODO: {{ $label ?? $name ?? '#label#' }}</label>
+        <label class="label">@TODO: {!! $label ?? $name ?? '' !!}</label>
     </div>
     <div class="field-body">
         <div class="field is-narrow">
@@ -18,7 +18,7 @@
                 </label>
 
                 @error($name ?? 'name')
-                    <p class="help is-danger">{{ $message }}</p>
+                    <p class="help is-danger">{!! $message !!}</p>
                 @enderror
 
             </div>

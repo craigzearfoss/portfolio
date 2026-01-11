@@ -17,14 +17,14 @@
 
         <div class="column has-text-centered">
 
-            <h1 class="title">{{ config('app.name') }}</h1>
+            <h1 class="title">{!! config('app.name') !!}</h1>
 
             <div class="has-text-centered">
-                <a class="is-size-6" href="{{ route('user.login') }}">
+                <a class="is-size-6" href="{!! route('user.login') !!}">
                     User Login
                 </a>
                 |
-                <a class="is-size-6" href="{{ route('admin.login') }}">
+                <a class="is-size-6" href="{!! route('admin.login') !!}">
                     Admin Login
                 </a>
             </div>
@@ -51,12 +51,12 @@
 
                     @include('guest.components.show-row', [
                         'name'  => 'role',
-                        'value' => htmlspecialchars($admin->role ?? '')
+                        'value' => $admin->role
                     ])
 
                     @include('guest.components.show-row', [
                         'name'  => 'employer',
-                        'value' => '<br>' . htmlspecialchars($admin->employer ?? '')
+                        'value' => '<br>' . $admin->employer
                     ])
 
                     @include('guest.components.show-row', [
@@ -74,11 +74,11 @@
 
                     @foreach ($portfolioResourceTypes as $resourceType)
 
-                        @if(empty($resourceType['global']) && Route::has('guest.admin.portfolio.'.$resourceType['name'].'.index'))
+                        @if(empty($resourceType->global) && Route::has('guest.admin.portfolio.'.$resourceType->name.'.index'))
                             <li>
                                 @include('guest.components.link', [
-                                    'name' => htmlspecialchars($resourceType['plural'] ?? ''),
-                                    'href' => route('guest.admin.portfolio.'.$resourceType['name'].'.index', $admin),
+                                    'name' => $resourceType->plural,
+                                    'href' => route('guest.admin.portfolio.'.$resourceType->name.'.index', $admin),
                                 ])
                             </li>
                         @endif

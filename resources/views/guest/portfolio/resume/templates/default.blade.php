@@ -61,12 +61,12 @@
 
                     <div class="list-item-description gray">
                         <div>
-                            {{
+                            {!!
                                 formatLocation([
                                     'city'  => $job->city,
                                     'state' => $job->state->code
                                 ])
-                            }}
+                            !!}
                             <div class="tag is-rounded">
                                 {!! $job->locationType->name !!}
                             </div>
@@ -91,7 +91,7 @@
 
                         <div class="list-item-description pt-2">
                             <strong>Skills:</strong>
-                            {{ htmlspecialchars(implode(' · ', array_column($job->skills->toArray(), 'name'))) }}
+                            {!! implode(' · ', array_column($job->skills->toArray(), 'name')) !!}
                         </div>
 
                     @endif

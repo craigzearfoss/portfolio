@@ -29,6 +29,7 @@ class Photography extends Model
         'featured',
         'summary',
         'year',
+        'credit',
         'model',
         'location',
         'photo_url',
@@ -53,8 +54,8 @@ class Photography extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'year', 'model', 'location', 'copyright', 'public',
-        'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'credit', 'year', 'model', 'location', 'copyright',
+        'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

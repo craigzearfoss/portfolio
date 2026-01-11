@@ -21,7 +21,7 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $video->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $video->disclaimer ])
 
     <div class="show-container card p-4">
 
@@ -33,12 +33,10 @@
         @if(!empty($video->parent))
             @include('guest.components.show-row', [
                 'name'  => 'parent',
-                'value' => !empty($video->parent)
-                    ? view('guest.components.link', [
-                            'name' => htmlspecialchars($video->parent['name'] ?? ''),
-                            'href' => route('guest.admin.portfolio.video.show', [$admin, $video->parent->slug])
-                        ])
-                    : ''
+                'value' => view('guest.components.link', [
+                                'name' => $video->parent->name,
+                                'href' => route('guest.admin.portfolio.video.show', [$admin, $video->parent->slug])
+                           ])
             ])
         @endif
 
@@ -52,7 +50,7 @@
         @if(!empty($video->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $video->summary ?? ''
+                'value' => $video->summary
             ])
         @endif
 
@@ -64,7 +62,7 @@
                         @foreach($video->children as $child)
                             <li>
                                 @include('guest.components.link', [
-                                    'name' => htmlspecialchars($child['name'] ?? ''),
+                                    'name' => $child->name,
                                     'href' => route('guest.admin.portfolio.video.show', [$admin, $child->slug])
                                 ])
                             </li>
@@ -119,28 +117,28 @@
         @if(!empty($video->company))
             @include('guest.components.show-row', [
                 'name'  => 'company',
-                'value' => htmlspecialchars($video->company ?? '')
+                'value' => $video->company
             ])
         @endif
 
         @if(!empty($video->credit))
             @include('guest.components.show-row', [
                 'name'  => 'credit',
-                'value' => htmlspecialchars($video->credit ?? '')
+                'value' => $video->credit
             ])
         @endif
 
         @if(!empty($video->show))
             @include('guest.components.show-row', [
                 'name'  => 'show',
-                'value' => htmlspecialchars($video->show ?? '')
+                'value' => $video->show
             ])
         @endif
 
         @if(!empty($video->location))
             @include('guest.components.show-row', [
                 'name'  => 'location',
-                'value' => htmlspecialchars($video->location ?? '')
+                'value' => $video->location
             ])
         @endif
 
@@ -160,7 +158,7 @@
 
         @if(!empty($video->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($video->link_name ?? 'link'),
+                'name'   => !empty($video->link_name) ? $video->link_name : 'link',
                 'href'   => $video->link,
                 'target' => '_blank'
             ])
@@ -169,7 +167,7 @@
         @if(!empty($video->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $video->description ?? ''
+                'value' => nl2br($video->description)
             ])
         @endif
 

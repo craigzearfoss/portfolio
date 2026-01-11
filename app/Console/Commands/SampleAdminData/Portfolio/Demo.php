@@ -101,6 +101,7 @@ class Demo extends Command
         $this->insertPortfolioJobTasks();
         $this->insertPortfolioLinks();
         $this->insertPortfolioMusic();
+        $this->insertPortfolioPhotography();
         $this->insertPortfolioProjects();
         $this->insertPortfolioPublications();
         $this->insertPortfolioSkills();
@@ -1878,6 +1879,86 @@ class Demo extends Command
         }
     }
 
+
+    protected function insertPortfolioPhotography(): void
+    {
+        echo self::USERNAME . ": Inserting into Portfolio\\Photography ...\n";
+
+        $data = [
+            [
+                'owner_id'          => $this->adminId,
+                'name'              => 'Abbey Road album cover',
+                'slug'              => 'abey-road-album-cover',
+                'credit'            => 'Iain Macmillan',
+                'featured'          => 1,
+                'summary'           => 'Cover photograph from the Beatles\' 1969 album <i>Abbey Road</i>.',
+                'year'              => 1969,
+                'model'             => null,
+                'location'          => 'Abbey Road Studios, London, UK',
+                'photo_url'         => 'https://www.invaluable.com/blog/wp-content/uploads/sites/77/2023/01/Abbey-Road-666x670.jpg',
+                'copyright'         => null,
+                'link'              => null,
+                'link_name'         => null,
+                'public'            => 1,
+            ],
+            [
+                'owner_id'          => $this->adminId,
+                'name'              => 'Charles Ebbets - Lunch Atop a Skyscraper',
+                'slug'              => 'charles-ebbets-lunch-atop-a-skyscraper',
+                'featured'          => 0,
+                'summary'           => 'A black-and-white photograph taken on September 20, 1932, of eleven ironworkers sitting on a steel beam of the RCA Building, 850 feet above the ground during the construction of Rockefeller Center in Manhattan, New York City.',
+                'year'              => 1932,
+                'credit'            => 'Charles Ebbets',
+                'model'             => null,
+                'location'          => 'Manhattan, New York City, NY, USA',
+                'photo_url'         => 'https://www.invaluable.com/blog/wp-content/uploads/sites/77/2023/01/Lunch-Atop-Skyscraper.jpg',
+                'copyright'         => null,
+                'link'              => null,
+                'link_name'         => null,
+                'public'            => 1,
+            ],
+            [
+                'owner_id'          => $this->adminId,
+                'name'              => 'Tank Man',
+                'slug'              => 'tank-man',
+                'featured'          => 0,
+                'summary'           => 'A photo of a man standing alone before a line of tanks on Chang\'an Avenue near Tiananmen Square during the 1989 protests.',
+                'year'              => 1989,
+                'credit'            => 'Jeff Widener',
+                'model'             => null,
+                'location'          => 'Tiananmen Square, Beijing, China',
+                'photo_url'         => 'https://www.invaluable.com/blog/wp-content/uploads/sites/77/2023/01/Tank-Man-670x448.jpg',
+                'copyright'         => null,
+                'link'              => null,
+                'link_name'         => null,
+                'public'            => 1,
+            ]
+            /*
+            [
+                'owner_id'          => $this->adminId,
+                'name'              => null,
+                'slug'              => null,
+                'featured'          => 0,
+                'summary'           => null,
+                'year'              => null,
+                'credit'            => null,
+                'model'             => null,
+                'location'          => null,
+                'photo_url'         => null,
+                'copyright'         => null,
+                'link'              => null,
+                'link_name'         => null,
+                'public'            => 1,
+            ]
+            */
+        ];
+
+        if (!empty($data)) {
+            Photography::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            //$this->insertSystemAdminResource($this->adminId, 'audio');
+        }
+    }
+
     protected function insertPortfolioMusic(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
@@ -2455,7 +2536,7 @@ class Demo extends Command
                 'name'             => 'Sleazefest: The Movie',
                 'slug'             => 'sleazefest-the-movie',
                 'featured'         => 1,
-                'summary'          => 'This is a documentary of the inaugural <b>Sleazefest</b>, an annual weekend of "bands, B-movies, and barbecue" that took place at Local 506 in Chapel Hill, NC every August from 1994 until the early 2000s. Craig Zearfoss organized the video production for the event and, along with Rob Linder and Matt Johnson, created this full-length video. An audio CD and full-length double album was also produced of the event.',
+                'summary'          => 'This is a documentary of the inaugural <i>Sleazefest!</i>, an annual weekend of "bands, B-movies, and barbecue" that took place at Local 506 in Chapel Hill, NC every August from 1994 until the early 2000s. Craig Zearfoss organized the video production for the event and, along with Rob Linder and Matt Johnson, created this full-length video. An audio CD and full-length double album was also produced of the event.',
                 'full_episode'     => 1,
                 'clip'             => 0,
                 'public_access'    => 0,

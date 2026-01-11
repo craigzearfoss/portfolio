@@ -24,6 +24,7 @@
             <thead>
             <tr>
                 <th>name</th>
+                <th>credit</th>
                 <th>year</th>
             </tr>
             </thead>
@@ -31,6 +32,7 @@
             <tfoot>
             <tr>
                 <th>name</th>
+                <th>credit</th>
                 <th>year</th>
             </tr>
             </tfoot>
@@ -46,6 +48,9 @@
                             'href'  => route('guest.admin.portfolio.photography.show', [$admin, $photo->slug]),
                             'class' => $photo->featured ? 'has-text-weight-bold' : ''
                         ])
+                    </td>
+                    <td>
+                        {!! $photo->credit !!}
                     </td>
                     <td class="has-text-centered">
                         {!! $photo->year !!}

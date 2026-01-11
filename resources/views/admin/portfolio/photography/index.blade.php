@@ -31,6 +31,7 @@
                 @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
+                <th>credit</th>
                 <th>year</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -45,6 +46,7 @@
                 @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
+                <th>credit</th>
                 <th>year</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -60,17 +62,20 @@
                 <tr data-id="{{ $photo->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $photo->owner->username ?? '' }}
+                            {!! $photo->owner->username !!}
                         </td>
                     @endif
                     <td data-field="year">
-                        {{ htmlspecialchars($photo->name ?? '') }}
+                        {!! $photo->name !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $photo->featured ])
                     </td>
                     <td data-field="year">
-                        {{ $photo->year }}
+                        {!! $photo->name !!}
+                    </td>
+                    <td data-field="year">
+                        {!! $photo->year !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $photo->public ])
@@ -100,7 +105,7 @@
 
                             @if (!empty($photo->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($photo->link_name) ? $photo->link_name : 'link') ?? ''),
+                                    'title'  => !empty($photo->link_name) ? $photo->link_name : 'link',
                                     'href'   => $photo->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

@@ -21,24 +21,22 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $audio->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $audio->disclaimer ])
 
     <div class="show-container card p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($audio->name ?? '')
+            'value' => $audio->name
         ])
 
         @if(!empty($audio->parent))
             @include('guest.components.show-row', [
                 'name'  => 'parent',
-                'value' => !empty($audio->parent)
-                    ? view('guest.components.link', [
-                            'name' => htmlspecialchars($audio->parent['name'] ?? ''),
-                            'href' => route('guest.admin.portfolio.audio.show', [$admin, $audio->parent->slug])
-                        ])
-                    : ''
+                'value' => view('guest.components.link', [
+                                'name' => $audio->parent->name,
+                                'href' => route('guest.admin.portfolio.audio.show', [$admin, $audio->parent->slug])
+                           ])
             ])
         @endif
 
@@ -63,7 +61,7 @@
                         @foreach($audio->children as $child)
                             <li>
                                 @include('guest.components.link', [
-                                    'name' => htmlspecialchars($child['name'] ?? ''),
+                                    'name' => $child->name,
                                     'href' => route('guest.admin.portfolio.audio.show', [$admin, $child->slug])
                                 ])
                             </li>
@@ -118,28 +116,28 @@
         @if(!empty($audio->company))
             @include('guest.components.show-row', [
                 'name'  => 'company',
-                'value' => htmlspecialchars($audio->company ?? '')
+                'value' => $audio->company
             ])
         @endif
 
         @if(!empty($audio->credit))
             @include('guest.components.show-row', [
                 'name'  => 'credit',
-                'value' => htmlspecialchars($audio->credit ?? '')
+                'value' => $audio->credit
             ])
         @endif
 
         @if(!empty($audio->show))
             @include('guest.components.show-row', [
                 'name'  => 'show',
-                'value' => htmlspecialchars($audio->show ?? '')
+                'value' => $audio->show
             ])
         @endif
 
         @if(!empty($audio->location))
             @include('guest.components.show-row', [
                 'name'  => 'location',
-                'value' => htmlspecialchars($audio->location ?? '')
+                'value' => $audio->location
             ])
         @endif
 
@@ -153,14 +151,14 @@
         @if(!empty($audio->audio_url))
             @include('guest.components.show-row', [
                 'name'  => 'audio url',
-                'value' => htmlspecialchars($audio->audio_url ?? ''),
+                'value' => $audio->audio_url,
             ])
         @endif
 
         @if(!empty($audio->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($audio->link_name ?? 'link'),
-                'href'   => htmlspecialchars($audio->link ?? ''),
+                'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
+                'href'   => $audio->link,
                 'target' => '_blank'
             ])
         @endif
@@ -168,7 +166,7 @@
         @if(!empty($audio->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $audio->description ?? ''
+                'value' => nl2br($audio->description)
             ])
         @endif
 

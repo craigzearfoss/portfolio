@@ -23,11 +23,11 @@
 
     <div class="show-container card p-4">
 
-        @include('guest.components.disclaimer', [ 'value' => $certificate->disclaimer ?? null ])
+        @include('guest.components.disclaimer', [ 'value' => $certificate->disclaimer ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($certificate->name ?? '')
+            'value' => $certificate->name
         ])
 
         <?php /*
@@ -40,14 +40,14 @@
         @if(!empty($certificate->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $certificate->summary ?? ''
+                'value' => $certificate->summary
             ])
         @endif
 
         @if(!empty($certificate->organization))
             @include('guest.components.show-row', [
                 'name'  => 'organization',
-                'value' => htmlspecialchars($certificate->organization ?? '')
+                'value' => $certificate->organization
             ])
         @endif
 
@@ -62,8 +62,8 @@
             @include('guest.components.show-row', [
                 'name'  => 'academy',
                 'value' => view('guest.components.show-row', [
-                                'name'   => htmlspecialchars($certificate->academy['name'] ?? ''),
-                                'href'   => htmlspecialchars($certificate->academy['link'] ?? ''),
+                                'name'   => $certificate->academy['name'],
+                                'href'   => $certificate->academy['link'],
                                 'target' => '_blank',
                             ]),
                 'raw'   => true
@@ -83,8 +83,8 @@
 
         @if(!empty($certificate->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($certificate->link_name ?? 'link'),
-                'href'   => htmlspecialchars($certificate->link ?? ''),
+                'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
+                'href'   => $certificate->link,
                 'target' => '_blank'
             ])
         @endif
@@ -92,7 +92,7 @@
         @if(!empty($certificate->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $certificate->description ?? ''
+                'value' => nl2br($certificate->description)
             ])
         @endif
 

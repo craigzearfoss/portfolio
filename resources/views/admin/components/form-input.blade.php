@@ -1,5 +1,5 @@
 @php
-    $name    = !empty($name)  ? $name : '#name#';
+    $name    = !empty($name)  ? $name : '';
     $id      = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst(trim($name, '#')) : 'Name'));
     $type    = !empty($type) ? $type : 'text';
     $value   = $value ?? '';
@@ -21,25 +21,25 @@
 <div class="field">
     @if(isset($label) && ($label === '') )
     @else
-        <label class="label">{{ $label ?? $name }}</label>
+        <label class="label">{!! $label ?? $name !!}</label>
     @endif
     <div class="control {{ $hasIcon ? 'has-icons-left' : '' }}">
-        <input class="input {{ $class }} @error('role') is-invalid @enderror"
+        <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                type="{{ $type }}"
-               id="{{ $id }}"
-               name="{{ $name }}"
-               value="{{ $value }}"
+               id="{!! $id !!}"
+               name="{!! $name !!}"
+               value="{!! $value !!}"
                style="{{ $style }}"
                @if (!empty($autocomplete))autocomplete="{{ $autocomplete }}" @endif
-               @if (!empty($autofocus))autofocus="{{ $autofocus }}" @endif
+               @if (!empty($autofocus))autofocus @endif
                @if (!empty($disabled))disabled @endif
-               @if (!empty($form))form="{{ $form }}" @endif
+               @if (!empty($form))form="{!! $form !!}" @endif
                @if (!empty($height))height="{{ $height }}" @endif
                @if (!empty($max))max="{{ $max }}" @endif
                @if (!empty($maxlength))maxlength="{{ $maxlength }}" @endif
                @if (!empty($min))min="{{ $min }}" @endif
                @if (!empty($minlength))minlength="{{ $minlength }}" @endif
-               @if (!empty($placeholder))placeholder="{{ $placeholder }}" @endif
+               @if (!empty($placeholder))placeholder="{!! $placeholder !!}" @endif
                @if (!empty($readonly))readonly @endif
                @if (!empty($required))required @endif
                @if (!empty($width))width="{{ $width }}" @endif
@@ -67,7 +67,7 @@
     </div>
 
     @error($name ?? 'name')
-        <p class="help is-danger">{{ $message }}</p>
+        <p class="help is-danger">{!! $message !!}</p>
     @enderror
 
 </div>

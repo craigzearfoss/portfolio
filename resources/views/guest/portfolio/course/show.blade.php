@@ -21,13 +21,13 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $course->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $course->disclaimer ])
 
     <div class="show-container card p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($course->name ?? '')
+            'value' => $course->name
         ])
 
         <?php /*
@@ -40,7 +40,7 @@
         @if(!empty($course->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $course->summary ?? ''
+                'value' => $course->summary
             ])
         @endif
 
@@ -74,8 +74,8 @@
             @include('guest.components.show-row', [
                 'name' => 'academy',
                 'value' => view('guest.components.link', [
-                                'name' => htmlspecialchars($course->academy['name'] ?? ''),
-                                'href' => $course->academy['link'] ?? null,
+                                'name' => $course->academy['name'],
+                                'href' => $course->academy['link'],
                                 'target' =>'_blank'
                             ])
             ])
@@ -84,21 +84,21 @@
         @if(!empty($course->school))
             @include('guest.components.show-row', [
                 'name'  => 'school',
-                'value' => htmlspecialchars($course->school ?? '')
+                'value' => $course->school
             ])
         @endif
 
         @if(!empty($course->instructor))
             @include('guest.components.show-row', [
                 'name'  => 'instructor',
-                'value' => htmlspecialchars($course->instructor ?? '')
+                'value' => $course->instructor
             ])
         @endif
 
         @if(!empty($course->sponsor))
             @include('guest.components.show-row', [
                 'name'  => 'sponsor',
-                'value' => htmlspecialchars($course->sponsor ?? '')
+                'value' => $course->sponsor
             ])
         @endif
 
@@ -115,7 +115,7 @@
 
         @if(!empty($course->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($course->link_name ?? 'link'),
+                'name'   => $course->link_name,
                 'href'   => $course->link,
                 'target' => '_blank'
             ])
@@ -124,7 +124,7 @@
         @if(!empty($course->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $course->description ?? ''
+                'value' => nl2br($course->description)
             ])
         @endif
 

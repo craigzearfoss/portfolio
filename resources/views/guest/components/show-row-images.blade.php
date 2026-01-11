@@ -80,7 +80,7 @@ $resource = $resource ?? null;
                             @include('guest.components.image', [
                                 'name'     => 'image',
                                 'src'      => $src,
-                                'alt'      => htmlspecialchars($imageName ?? ''),
+                                'alt'      => $imageName,
                                 'width'    => $width,
                                 'download' => $download ?? false,
                                 'external' => $external ?? false,

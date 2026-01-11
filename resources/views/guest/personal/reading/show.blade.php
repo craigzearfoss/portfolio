@@ -21,16 +21,18 @@
 
 @section('content')
 
+    @include('guest.components.disclaimer', [ 'value' => $reading->disclaimer ])
+
     <div class="show-container card p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($reading->title ?? '')
+            'value' => $reading->title
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'author',
-            'value' => htmlspecialchars($reading->author ?? '')
+            'value' => $reading->author ?? ''
         ])
 
         @include('guest.components.show-row', [
@@ -60,15 +62,15 @@
 
         @if(!empty($reading->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($reading->link_name ?? 'link'),
-                'href'   => htmlspecialchars($reading->link ?? ''),
+                'name'   => !empty($reading->link_name) ? $reading->link_name : 'link',
+                'href'   => $reading->link,
                 'target' => '_blank'
             ])
         @endif
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => $reading->description ?? ''
+            'value' => nl2br($reading->description)
         ])
 
         @if(!empty($reading->image))

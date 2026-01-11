@@ -21,18 +21,18 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $art->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $art->disclaimer ])
 
     <div class="show-container p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($art->name ?? '')
+            'value' => $art->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'artist',
-            'value' => htmlspecialchars($art->artist ?? '')
+            'value' => $art->artist
         ])
 
         <?php /*
@@ -45,7 +45,7 @@
         @if(!empty($art->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $art->summary ?? ''
+                'value' => $art->summary
             ])
         @endif
 
@@ -60,7 +60,7 @@
 
             @include('guest.components.show-row-image', [
                 'name'     => 'image',
-                'src'      => $art->image_url ?? '',
+                'src'      => $art->image_url,
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
@@ -70,8 +70,8 @@
 
         @if(!empty($art->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($art->link_name ?? 'link'),
-                'href'   => htmlspecialchars($art->link ?? ''),
+                'name'   => !empty($art->link_name) ? $art->link_name : 'link',
+                'href'   => $art->link,
                 'target' => '_blank'
             ])
         @endif
@@ -79,7 +79,7 @@
         @if(!empty($art->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $art->description ?? ''
+                'value' => nl2br($art->description)
             ])
         @endif
 

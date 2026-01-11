@@ -1,11 +1,11 @@
 @extends('guest.layouts.default', [
     'title'         => $title ?? 'Photography: ' . $photo->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
-        [ 'name' => 'Award',      'href' => route('guest.admin.portfolio.photography.index', $admin) ],
+        [ 'name' => 'Home',        'href' => route('system.index') ],
+        [ 'name' => 'Users',       'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name,  'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',   'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Photography', 'href' => route('guest.admin.portfolio.photography.index', $admin) ],
         [ 'name' => $photo->name ],
     ],
     'buttons'       => [
@@ -21,13 +21,13 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $photography->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $photo->disclaimer ])
 
     <div class="show-container p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($photo->name ?? '')
+            'value' => $photo->name
         ])
 
         <?php /*
@@ -37,10 +37,10 @@
         ])
         */ ?>
 
-        @if(!empty($photo->year))
+        @if(!empty($photo->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $photo->summary ?? ''
+                'value' => $photo->summary
             ])
         @endif
 
@@ -51,30 +51,37 @@
             ])
         @endif
 
+        @if(empty($photo->credit))
+            @include('guest.components.show-row', [
+                'name'  => 'credit',
+                'value' => $photo->credit
+            ])
+        @endif
+
         @if(!empty($photo->model))
             @include('guest.components.show-row', [
-                'name'    => 'model',
-                'checked' => htmlspecialchars($photo->model ?? '')
+                'name'  => 'model',
+                'value' => $photo->model
             ])
-        @endphp
+        @endif
 
         @if(!empty($photo->location))
             @include('guest.components.show-row', [
-                'name'    => 'location',
-                'checked' => htmlspecialchars($photo->location ?? '')
+                'name'  => 'location',
+                'value' => $photo->location
             ])
-        @endphp
+        @endif
 
         @if(!empty($photo->copyright))
             @include('guest.components.show-row', [
-                'name'    => 'copyright',
-                'checked' => htmlspecialchars($photo->copyright ?? '')
+                'name'  => 'copyright',
+                'value' => $photo->copyright
             ])
-        @endphp
+        @endif
 
         @if(!empty($photo->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($photo->link_name ?? 'link'),
+                'name'   => $photo->link_name,
                 'href'   => $photo->link,
                 'target' => '_blank'
             ])
@@ -83,7 +90,19 @@
         @if(!empty($photo->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $photo->description ?? ''
+                'value' => nl2br($photo->description)
+            ])
+        @endif
+
+        @if(!empty($photo->photo_url))
+            @include('guest.components.show-row-image', [
+                'name'     => 'photo',
+                'src'      => $photo->photo_url,
+                'alt'      => $photo->name . ' photo',
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($photo->name . '-photo_url', $photo->photo_url)
             ])
         @endif
 
@@ -95,7 +114,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($award->name, $photo->image),
+                'filename'     => getFileSlug($photo->name, $photo->image),
                 'image_credit' => $photo->image_credit,
                 'image_source' => $photo->image_source,
             ])

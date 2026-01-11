@@ -21,13 +21,13 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $link->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $link->disclaimer ])
 
     <div class="show-container card p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($link->name ?? '')
+            'value' => $link->name
         ])
 
         <?php /*
@@ -40,7 +40,7 @@
         @if(!empty($link->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $link->summary ?? ''
+                'value' => $link->summary
             ])
         @endif
 
@@ -54,7 +54,7 @@
 
         @if(!empty($link->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($link->link_name ?? 'link'),
+                'name'   => !empty($link->link_name) ? $link->link_name : 'link',
                 'href'   => $link->link,
                 'target' => '_blank'
             ])
@@ -63,7 +63,7 @@
         @if(!empty($link->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $link->description ?? ''
+                'value' => nl2br($link->description)
             ])
         @endif
 
@@ -75,7 +75,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($award->name, $link->image),
+                'filename'     => getFileSlug($link->name, $link->image),
                 'image_credit' => $link->image_credit,
                 'image_source' => $link->image_source,
             ])

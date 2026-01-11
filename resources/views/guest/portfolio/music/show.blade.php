@@ -21,7 +21,7 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $music->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $music->disclaimer ])
 
     <div class="show-container card p-4">
 
@@ -33,19 +33,17 @@
         @if(!empty($music->artist))
             @include('guest.components.show-row', [
                 'name'  => 'artist',
-                'value' => htmlspecialchars($music->artist ?? '')
+                'value' => $music->artist
             ])
         @endif
 
-        @if(!empty($music->parent_id))
+        @if(!empty($music->parent))
             @include('guest.components.show-row', [
                 'name'  => 'parent',
-                'value' => !empty($music->parent)
-                    ? view('guest.components.link', [
-                            'name' => htmlspecialchars($music->parent['name'] ?? ''),
-                            'href' => route('guest.admin.portfolio.music.show', [$admin, $music->parent->slug])
-                        ])
-                    : ''
+                'value' => view('guest.components.link', [
+                                'name' => $music->parent->name,
+                                'href' => route('guest.admin.portfolio.music.show', [$admin, $music->parent->slug])
+                           ])
             ])
         @endif
 
@@ -59,7 +57,7 @@
         @if(!empty($music->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $music->summary ?? ''
+                'value' => $music->summary
             ])
         @endif
 
@@ -71,7 +69,7 @@
                         @foreach($music->children as $child)
                             <li>
                                 @include('guest.components.link', [
-                                    'name' => htmlspecialchars($child['name'] ?? ''),
+                                    'name' => $child->name,
                                     'href' => route('guest.admin.portfolio.music.show', [$admin, $child->slug])
                                 ])
                             </li>
@@ -98,14 +96,14 @@
         @if(!empty($music->label))
             @include('guest.components.show-row', [
                 'name'  => 'label',
-                'value' => htmlspecialchars($music->label ?? '')
+                'value' => $music->label
             ])
         @endif
 
         @if(!empty($music->catalog_number))
             @include('guest.components.show-row', [
                 'name'  => 'catalog number',
-                'value' => htmlspecialchars($music->catalog_number ?? '')
+                'value' => $music->catalog_number
             ])
         @endif
 
@@ -140,7 +138,7 @@
 
         @if(!empty($music->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($music->link_name ?? 'link'),
+                'name'   => !empty($music->link_name) ? $music->link_name : 'link',
                 'href'   => $music->link,
                 'target' => '_blank'
             ])
@@ -149,7 +147,7 @@
         @if(!empty($music->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $music->description ?? ''
+                'value' => nl2br($music->description)
             ])
         @endif
 

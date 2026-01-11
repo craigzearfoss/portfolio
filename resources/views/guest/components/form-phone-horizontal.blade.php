@@ -20,23 +20,23 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{{ empty($alt) ? 'phone' : 'alt phone'}}</label>
+        <label class="label">{!! empty($alt) ? 'phone' : 'alt phone' !!}</label>
     </div>
     <div class="field-body">
         <div class="content mb-0 mr-2">
             <div class="control has-icons-left">
-                <input class="input {{ $class }} @error('role') is-invalid @enderror"
+                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                        type="tel"
-                       id="{{$phoneId}}"
-                       name="{{$phoneName}}"
-                       value="{{ $phone }}"
+                       id="{!! $phoneId !!}"
+                       name="{!! $phoneName !!}"
+                       value="{!! $phone !!}"
                        maxlength="20"
                 >
                 <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
             </div>
 
             @error($phoneName ?? 'name')
-                <p class="help is-danger">{{ $message }}</p>
+                <p class="help is-danger">{!! $message !!}</p>
             @enderror
 
         </div>
@@ -46,12 +46,12 @@ if (!empty($style)) {
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input class="input {{ $class }} @error('role') is-invalid @enderror"
+                            <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                                    type="text"
-                                   id="{{$phoneLabelId}}"
-                                   name="{{$phoneLabelName}}"
+                                   id="{!! $phoneLabelId !!}"
+                                   name="{!! $phoneLabelName !!}"
                                    placeholder="label"
-                                   value="{{ $label }}"
+                                   value="{!! $label !!}"
                                    maxlength="255"
                             >
                         </div>
@@ -60,7 +60,7 @@ if (!empty($style)) {
             </div>
 
             @error($phoneLabelName ?? 'name')
-                <p class="help is-danger">{{ $message }}</p>
+                <p class="help is-danger">{!! $message !!}</p>
             @enderror
 
         </div>

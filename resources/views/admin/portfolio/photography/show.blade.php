@@ -36,18 +36,18 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $photo->owner->username ?? ''
+                'value' => $photo->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($photo->name ?? '')
+            'value' => $photo->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'artist',
-            'value' => htmlspecialchars($photo->artist ?? '')
+            'value' => $photo->artist
         ])
 
         @include('admin.components.show-row', [
@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $photo->summary ?? ''
+            'value' => $photo->summary
         ])
 
         @include('admin.components.show-row', [
@@ -71,25 +71,30 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'credit',
+            'value' => $photo->credit
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $photo->notes ?? ''
+            'value' => $photo->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($photo->link_name ?? 'link'),
-            'href'   => htmlspecialchars($photo->link ?? ''),
+            'name'   => !empty($photo->link_name) ? $photo->link_name : 'link',
+            'href'   => $photo->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $photo->description ?? ''
+            'value' => $photo->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($photo->disclaimer ?? '')
+                            'value' => $photo->disclaimer
                        ])
         ])
 

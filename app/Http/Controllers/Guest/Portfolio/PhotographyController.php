@@ -43,6 +43,6 @@ class PhotographyController extends Controller
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.photo.show'), compact('photo', 'admin'));
+        return view(themedTemplate('guest.portfolio.photography.show'), compact('photo', 'admin'));
     }
 }

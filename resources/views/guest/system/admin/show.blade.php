@@ -16,7 +16,7 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $admin->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $admin->disclaimer ])
 
     <div class="card column p-4">
 
@@ -49,21 +49,21 @@
                     @if(!empty($admin->role))
                         @include('guest.components.show-row', [
                             'name'  => 'role',
-                            'value' => htmlspecialchars($admin->role ?? '')
+                            'value' => $admin->role
                         ])
                     @endif
 
                     @if(!empty($admin->employer))
                         @include('guest.components.show-row', [
                             'name'  => 'employer',
-                            'value' => '<br>' . htmlspecialchars($admin->employer ?? '')
+                            'value' => '<br>' . $admin->employer
                         ])
                     @endif
 
                     @if(!empty($admin->bio))
                         @include('guest.components.show-row', [
                             'name'  => 'bio',
-                            'value' => $admin->bio ?? ''
+                            'value' => $admin->bio
                         ])
                     @endif
 
@@ -79,7 +79,7 @@
 
                         <div>
 
-                            <h1 class="title is-size-5 mt-2 mb-0">{{$database->title}}</h1>
+                            <h1 class="title is-size-5 mt-2 mb-0">{!! $database->title !!}</h1>
 
                             <ul class="menu-list ml-4 mb-2">
 
@@ -89,12 +89,12 @@
                                         <li style="padding-left: {{ $resource->menu_level - 2 }}em;">
                                             @if(Route::has('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index'))
                                                 @include('guest.components.link', [
-                                                    'name'  => htmlspecialchars($resource->plural ?? ''),
+                                                    'name'  => $resource->plural,
                                                     'href'  => route('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index', $admin),
                                                     'class' => 'pt-1 pb-1',
                                                 ])
                                             @else
-                                                {{ $resource->plural }}
+                                                {!! $resource->plural !!}
                                             @endif
                                         </li>
                                     @endif

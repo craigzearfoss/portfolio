@@ -21,35 +21,35 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $education->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $education->disclaimer ])
 
     <div class="show-container card p-4">
 
         @if(!empty($education->degreeType))
             @include('guest.components.show-row', [
                 'name'  => 'degree type',
-                'value' => htmlspecialchars($education->degreeType->name ?? '')
+                'value' => $education->degreeType->name ?? ''
             ])
         @endif
 
         @if(!empty($education->major))
             @include('guest.components.show-row', [
                 'name'  => 'major',
-                'value' => htmlspecialchars($education->major ?? '')
+                'value' => $education->major
             ])
         @endif
 
         @if(!empty($education->minor))
             @include('guest.components.show-row', [
                 'name'  => 'minor',
-                'value' => htmlspecialchars($education->minor ?? '')
+                'value' => $education->minor
             ])
         @endif
 
         @if(!empty($education->school))
             @include('guest.components.show-row', [
                 'name'  => 'school',
-                'value' => htmlspecialchars($education->school->name ?? '')
+                'value' => $education->school->name ?? ''
             ])
         @endif
 
@@ -82,13 +82,13 @@
         @if(!empty($education->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $education->summary ?? ''
+                'value' => $education->summary
             ])
         @endif
 
         @if(!empty($education->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($education->link_name ?? 'link'),
+                'name'   => !empty($education->link_name) ? $education->link_name : 'link',
                 'href'   => $education->link,
                 'target' => '_blank'
             ])
@@ -97,7 +97,7 @@
         @if(!empty($education->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $education->description ?? ''
+                'value' => nl2br($education->description)
             ])
         @endif
 

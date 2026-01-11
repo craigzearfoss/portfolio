@@ -63,7 +63,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => $server->link_name,
+            'name'   => !empty($server->link_name) ? $server->link_name : 'link',
             'href'   => $server->link,
             'target' => '_blank'
         ])

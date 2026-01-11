@@ -21,33 +21,33 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $award->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $award->disclaimer ])
 
     <div class="show-container p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($award->name ?? '')
+            'value' => $award->name
         ])
 
         @if(!empty($award->category))
             @include('guest.components.show-row', [
                 'name'  => 'category',
-                'value' => htmlspecialchars($award->category ?? '')
+                'value' => $award->category
             ])
         @endif
 
         @if(!empty($award->category))
             @include('guest.components.show-row', [
                 'name'  => 'nominated_work',
-                'value' => htmlspecialchars($award->nominated_work ?? '')
+                'value' => $award->nominated_work
             ])
         @endif
 
         @if(!empty($award->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $award->summary ?? ''
+                'value' => $award->summary
             ])
         @endif
 
@@ -68,14 +68,14 @@
         @if(!empty($award->organization))
             @include('guest.components.show-row', [
                 'name'  => 'organization',
-                'value' => htmlspecialchars($award->organization ?? '')
+                'value' => $award->organization
             ])
         @endif
 
         @if(!empty($award->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($award->link_name ?? 'link'),
-                'href'   => htmlspecialchars($award->link ?? ''),
+                'name'   => !empty($award->link_name) ? $award->link_name : 'link',
+                'href'   => $award->link,
                 'target' => '_blank'
             ])
         @endif
@@ -83,7 +83,7 @@
         @if(!empty($award->description))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $award->description ?? ''
+                'value' => nl2br($award->description)
             ])
         @endif
 

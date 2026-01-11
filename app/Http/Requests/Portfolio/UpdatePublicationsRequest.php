@@ -64,7 +64,7 @@ class UpdatePublicationsRequest extends FormRequest
             'publisher'         => ['string', 'max:255', 'nullable'],
             'date'              => ['date', 'nullable'],
             'year'              => ['integer', 'between:1980,'.date("Y"), 'nullable'],
-            'credit'            => ['nullable'],
+            'credit'            => ['string', 'max:255', 'nullable'],
             'freelance'         => ['integer', 'between:0,1'],
             'fiction'           => ['integer', 'between:0,1'],
             'nonfiction'        => ['integer', 'between:0,1'],

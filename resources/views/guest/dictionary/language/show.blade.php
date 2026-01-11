@@ -63,7 +63,7 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => $language->link_name,
+            'name'   => !empty($language->link_name) ? $language->link_name : 'link',
             'href'   => $language->link,
             'target' => '_blank'
         ])

@@ -77,7 +77,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'credit',
-            'value' => htmlspecialchars($publication->credit ?? '')
+            'value' => $publication->credit
         ])
 
         @include('admin.components.show-row-checkbox', [

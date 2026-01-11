@@ -21,19 +21,19 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $skill->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $skill->disclaimer ])
 
     <div class="show-container card p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($skill->name ?? '')
+            'value' => $skill->name
         ])
 
         @if(!empty($skill->version))
             @include('guest.components.show-row', [
                 'name'  => 'version',
-                'value' => htmlspecialchars($skill->version ?? '')
+                'value' => $skill->version
             ])
         @endif
 
@@ -47,7 +47,7 @@
         @if(!empty($skill->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $skill->summary ?? ''
+                'value' => $skill->summary
             ])
         @endif
 
@@ -62,7 +62,7 @@
         @if(!empty($skill->category))
             @include('guest.components.show-row', [
                 'name'  => 'category',
-                'value' => htmlspecialchars($skill->category->name ?? '')
+                'value' => $skill->category->name
             ])
         @endif
 
@@ -77,7 +77,7 @@
         if (!empty($skill->years)) {
             $years = $skill->years;
         } elseif (!empty($skill->start_year)) {
-            $years = !empty($skill->start_year)
+            $years = !empty($skill->end_year)
                 ? intval($skill->end_year) - intval($skill->start_year) + 1
                 : date("Y") - intval($skill->start_year);
         } else {
@@ -93,7 +93,7 @@
 
         @if(!empty($skill->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($skill->link_name ?? 'link'),
+                'name'   => !empty($skill->link_name) ? $skill->link_name : 'link',
                 'href'   => $skill->link,
                 'target' => '_blank'
             ])
@@ -102,7 +102,7 @@
         @if(!empty($skill->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $skill->description ?? ''
+                'value' => nl2br($skill->description)
             ])
         @endif
 

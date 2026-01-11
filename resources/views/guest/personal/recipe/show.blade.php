@@ -21,11 +21,13 @@
 
 @section('content')
 
+    @include('guest.components.disclaimer', [ 'value' => $recipe->disclaimer ])
+
     <div class="show-container card p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($recipe->name ?? '')
+            'value' => $recipe->name
         ])
 
         <?php /*
@@ -38,21 +40,21 @@
         @if(!empty($recipe->summary))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $recipe->summary ?? ''
+                'value' => $recipe->summary
             ])
         @endif
 
         @if(!empty($recipe->source))
             @include('guest.components.show-row', [
                 'name'  => 'source',
-                'value' => htmlspecialchars($recipe->source ?? '')
+                'value' => $recipe->source
             ])
         @endif
 
         @if(!empty($recipe->author))
             @include('guest.components.show-row', [
                 'name'  => 'author',
-                'value' => htmlspecialchars($recipe->author ?? '')
+                'value' => $recipe->author
             ])
         @endif
 
@@ -92,8 +94,8 @@
 
         @if(!empty($recipe->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($recipe->link_name ?? 'link'),
-                'href'   => htmlspecialchars($recipe->link ?? ''),
+                'name'   => !empty($recipe->link_name) ? $recipe->link_name : 'link',
+                'href'   => $recipe->link,
                 'target' => '_blank'
             ])
         @endif
@@ -101,7 +103,7 @@
         @if(!empty($recipe->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $recipe->description ?? ''
+                'value' => nl2br($recipe->description)
             ])
         @endif
 
@@ -144,11 +146,11 @@
             @foreach($recipe->ingredients as $ingredient)
 
                 <li class="ml-4">
-                    {{ htmlspecialchars($ingredient->amount ?? '') }}
-                    {{ \App\Models\Personal\Unit::find($ingredient->unit_id)->name }}
-                    {{ htmlspecialchars(\App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name ? '') }}
+                    {!! $ingredient->amount !!}
+                    {!! \App\Models\Personal\Unit::find($ingredient->unit_id)->name !!}
+                    {!! \App\Models\Personal\Ingredient::find($ingredient->ingredient_id)->name !!}
                     @if(!empty($ingredient->qualifier))
-                        - {{ htmlspecialchars($ingredient->qualifier, '') }}
+                        - {!! $ingredient->qualifier !!}
                     @endif
                 </li>
 
@@ -171,10 +173,10 @@
 
                 <tr>
                     <td>
-                        {{ $step->step }}
+                        {!! $step->step !!}
                     </td>
                     <td>
-                        {{ $step->description ?? '' }}
+                        {!! nl2br($step->description) !!}
                     </td>
                 </tr>
 

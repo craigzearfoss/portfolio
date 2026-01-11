@@ -21,13 +21,13 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $project->disclaimer ?? null ])
+    @include('guest.components.disclaimer', [ 'value' => $project->disclaimer ])
 
     <div class="show-container card p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($project->name ?? '')
+            'value' => $project->name
         ])
 
         <?php /*
@@ -40,7 +40,7 @@
         @if(!empty($project->summary ))
             @include('guest.components.show-row', [
                 'name'  => 'summary',
-                'value' => $project->summary ?? ''
+                'value' => $project->summary
             ])
         @endif
 
@@ -54,21 +54,21 @@
         @if(!empty($project->language))
             @include('guest.components.show-row', [
                 'name'  => 'language',
-                'value' => htmlspecialchars($project->language ?? '')
+                'value' => $project->language
             ])
         @endif
 
         @if(!empty($project->language_version))
             @include('guest.components.show-row', [
                 'name'  => 'language version',
-                'value' => htmlspecialchars($project->language_version ?? '')
+                'value' => $project->language_version
             ])
         @endif
 
         @if(!empty($project->repository_url))
             @include('guest.components.show-row-link', [
                 'name'   => 'repository',
-                'label'  => htmlspecialchars($project->repository_name ?? ''),
+                'label'  => $project->repository_name,
                 'href'   => $project->repository_url,
                 'target' => '_blank'
             ])
@@ -76,7 +76,7 @@
 
         @if(!empty($project->link))
             @include('guest.components.show-row-link', [
-                'name'   => htmlspecialchars($project->link_name ?? 'link' ?? ''),
+                'name'   => !empty($project->link_name) ? $project->link_name : 'link',
                 'href'   => $project->link,
                 'target' => '_blank'
             ])
@@ -85,7 +85,7 @@
         @if(!empty($project->description ))
             @include('guest.components.show-row', [
                 'name'  => 'description',
-                'value' => $project->description ?? ''
+                'value' => nl2br($project->description)
             ])
         @endif
 
