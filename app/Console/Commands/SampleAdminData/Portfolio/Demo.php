@@ -2188,7 +2188,7 @@ class Demo extends Command
                 'publication_url'   => null,
                 'notes'             => null,
                 'description'       => null,
-                'link'              => null,
+                'link'              => 'https://www.niemanlab.org/2025/08/independent-journalist-molly-white-knows-how-to-follow-the-memecoin/',
                 'link_name'         => null,
                 'public'            => 1,
             ]
@@ -2202,7 +2202,7 @@ class Demo extends Command
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => '0000-00-00',
+                'date'              => null,
                 'year'              => 2025,
                 'credit'            => null,
                 'freelance'         => 0,

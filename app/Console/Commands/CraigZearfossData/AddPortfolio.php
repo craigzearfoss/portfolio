@@ -2818,7 +2818,40 @@ EOD,
         echo self::USERNAME . ": Inserting into Portfolio\\Publication ...\n";
 
         $data = [
-
+            /*
+            [
+                'title'             => '',
+                'slug'              => '',
+                'parent_id'         => null,
+                'featured'          => 0,
+                'summary'           => null,
+                'publication_name'  => null,
+                'publisher'         => null,
+                'date'              => null,
+                'year'              => 2025,
+                'credit'            => null,
+                'freelance'         => 0,
+                'fiction'           => 0,
+                'nonfiction'        => 0,
+                'technical'         => 0,
+                'research'          => 0,
+                'poetry'            => 0,
+                'online'            => 0,
+                'novel'             => 0,
+                'book'              => 0,
+                'textbook'          => 0,
+                'story'             => 0,
+                'article'           => 0,
+                'paper'             => 0,
+                'pamphlet'          => 0,
+                'publication_url'   => null,
+                'notes'             => null,
+                'description'       => null,
+                'link'              => null,
+                'link_name'         => null,
+                'public'            => 1,
+            ]
+            */
         ];
 
         if (!empty($data)) {

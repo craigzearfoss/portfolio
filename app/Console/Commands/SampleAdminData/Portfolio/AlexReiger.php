@@ -641,11 +641,11 @@ class AlexReiger extends Command
                 'title'             => '',
                 'slug'              => '',
                 'parent_id'         => null,
-                'featured'          => 1,
+                'featured'          => 0,
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => '0000-00-00',
+                'date'              => null,
                 'year'              => 2025,
                 'credit'            => null,
                 'freelance'         => 0,
@@ -665,6 +665,8 @@ class AlexReiger extends Command
                 'publication_url'   => null,
                 'notes'             => null,
                 'description'       => null,
+                'link'              => null,
+                'link_name'         => null,
                 'public'            => 1,
             ]
             */
