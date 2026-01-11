@@ -3,7 +3,6 @@
         \App\Services\PermissionService::ENV_GUEST,
         $admin ?? null
     );
-//dd($menuItems);
 @endphp
 <nav id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">
@@ -62,7 +61,7 @@
                             <div class="navbar-dropdown">
 
                                 @foreach($menuItem->children as $menuSubItem)
-                                    <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}" @endif
+                                    <a @if (!empty($menuSubItem->url))href="{{ $menuSubItem->url }}" @endif
                                        class="navbar-item"
                                     >
                                         @if(!empty($menuSubItem->icon))

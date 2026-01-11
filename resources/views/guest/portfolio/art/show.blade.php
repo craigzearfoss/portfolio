@@ -95,8 +95,8 @@
                     $art->name . (!empty($art->artist) ? '-by-' . $art->artist : ''),
                     $art->image
                  ),
-                'image_credit' => $course->image_credit,
-                'image_source' => $course->image_source,
+                'image_credit' => $art->image_credit,
+                'image_source' => $art->image_source,
             ])
         @endif
 

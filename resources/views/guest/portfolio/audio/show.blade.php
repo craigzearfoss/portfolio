@@ -118,7 +118,7 @@
         @if(!empty($audio->company))
             @include('guest.components.show-row', [
                 'name'  => 'company',
-                'value' => htmlspecialchars($audio->company ??)
+                'value' => htmlspecialchars($audio->company ?? '')
             ])
         @endif
 

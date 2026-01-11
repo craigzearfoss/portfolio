@@ -193,6 +193,7 @@ return new class extends Migration
             'image'             => $imagePath,
             'thumbnail'         => $thumbnailPath,
             'token'             => '',
+            'public'            => 0,
             'root'              => 1,
         ];
 
@@ -214,6 +215,7 @@ return new class extends Migration
             'thumbnail'         => $thumbnailPath,
             'status'            => 1,
             'token'             => '',
+            'public'            => 0,
             'root'              => 0,
         ];
 
@@ -235,6 +237,7 @@ return new class extends Migration
             'thumbnail'         => $thumbnailPath,
             'status'            => 1,
             'token'             => '',
+            'public'            => 1,
             'root'              => 0,
         ];
 

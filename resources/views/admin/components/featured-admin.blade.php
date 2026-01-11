@@ -9,6 +9,15 @@
                 'disabled' => 0,
             ],
         );
+
+        $personalResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
+            $admin->id,
+            'personal',
+            [
+                'public'   => 1,
+                'disabled' => 0,
+            ],
+        );
     @endphp
 
     <div class="card column p-4 mb-2">
@@ -31,7 +40,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('admin.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('guest.admin.resume', $admin),
+                                'href'   => route('admin.admin.resume', $admin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
@@ -74,11 +83,35 @@
 
                         @foreach ($portfolioResourceTypes as $resourceType)
 
-                            @if(empty($resourceType['global']) && Route::has('guest.admin.portfolio.'.$resourceType['name'].'.index'))
+                            @if(empty($resourceType['global']) && Route::has('admin.admin.portfolio.'.$resourceType['name'].'.index'))
                                 <li>
                                     @include('admin.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.admin.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => route('admin.admin.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'class' => 'pt-1 pb-1',
+                                    ])
+                                </li>
+                            @endif
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+                <div>
+
+                    <h1 class="title is-size-5 mt-2 mb-0">Personal</h1>
+
+                    <ul class="menu-list ml-4 mb-2">
+
+                        @foreach ($personalResourceTypes as $resourceType)
+
+                            @if(empty($resourceType['global']) && Route::has('admin.admin.personal.'.$resourceType['name'].'.index'))
+                                <li>
+                                    @include('admin.components.link', [
+                                        'name'  => $resourceType['plural'],
+                                        'href'  => route('admin.admin.personal.'.$resourceType['name'].'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

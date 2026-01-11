@@ -23,22 +23,22 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($language->full_name ?? '')
+            'value' => $language->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($language->name ?? '')
+            'value' => $language->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($language->abbreviation ?? '')
+            'value' => $language->abbreviation
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => $language->definition ?? ''
+            'value' => nl2br($language->definition)
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($language->owner ?? '')
+            'value' => $language->owner
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,33 +63,28 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => htmlspecialchars($language->link_name ?? 'link'),
-            'href'   => htmlspecialchars($language->link ?? ''),
+            'name'   => $language->link_name,
+            'href'   => $language->link,
             'target' => '_blank'
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => $language->description ?? ''
+            'value' => nl2br($language->description)
         ])
 
         @if(!empty($language->image))
 
-            @include('guest.components.show-row-image', [
-                'name'  => 'image',
-                'src'   => $recipe->$language,
-                'alt'   => $recipe->$language,
-                'width' => '300px',
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image credit',
-                'value' => htmlspecialchars($language->image_credit ?? '')
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image source',
-                'value' => htmlspecialchars($language->image_source ?? '')
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $language->image,
+                'alt'          => $language->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($language->name, $language->image),
+                'image_credit' => $language->image_credit,
+                'image_source' => $language->image_source,
             ])
 
         @endif

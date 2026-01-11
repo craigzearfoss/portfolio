@@ -23,22 +23,22 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($framework->full_name ?? '')
+            'value' => $framework->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($framework->name ?? '')
+            'value' => $framework->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($framework->abbreviation ?? '')
+            'value' => $framework->abbreviation
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => $framework->definition ?? ''
+            'value' => nl2br($framework->definition)
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($framework->owner ?? '')
+            'value' => $framework->owner
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,33 +63,28 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => htmlspecialchars($framework->link_name ?? 'link'),
-            'href'   => htmlspecialchars($framework->link ?? ''),
+            'name'   => $framework->link_name,
+            'href'   => $framework->link,
             'target' => '_blank'
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => $framework->description ?? ''
+            'value' => nl2br($framework->description)
         ])
 
         @if(!empty($framework->image))
 
-            @include('guest.components.show-row-image', [
-                'name'  => 'image',
-                'src'   => $framework->image,
-                'alt'   => $framework->name,
-                'width' => '300px',
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image credit',
-                'value' => htmlspecialchars($framework->image_credit ?? '')
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image source',
-                'value' => htmlspecialchars($framework->image_source ?? '')
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $framework->image,
+                'alt'          => $framework->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($framework->name, $framework->image),
+                'image_credit' => $framework->image_credit,
+                'image_source' => $framework->image_source,
             ])
 
         @endif

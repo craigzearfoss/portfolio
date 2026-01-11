@@ -3,15 +3,15 @@
         ? $class . ' button is-small px-1 py-0'
         : 'button is-small px-1 py-0';
 @endphp
-<button @if (!empty($title))title="{{ $title }}" @endif
-   @if (!empty($class))class="{{ $class }}" @endif
-   @if (!empty($style))style="{{ is_array($style) ? implode('; ', $style) . ';' : $style }}" @endif
+<button @if (!empty($title))title="{!! $title !!}" @endif
+   @if (!empty($class))class="{!! $class !!}" @endif
+   @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
    @if (!empty($disabled))style="cursor: default; opacity: 0.5;" @endif
-   @if (!empty($target))target="{{ $target }}" @endif
-   @if (!empty($href))href="{{ $href }}" @endif
+   @if (!empty($target))target="{!! $target !!}" @endif
+   @if (!empty($href))href="{!! $href !!}" @endif
    @if (!empty($onclick))
-       onclick="{{ $onclick }}"
+       onclick="{!! $onclick !!}"
   @endif
 >
-    <i class="fa-solid {{ !empty($icon) ? $icon : 'fa-circle' }}"></i>
+    <i class="fa-solid {!! !empty($icon) ? $icon : 'fa-circle' !!}"></i>
 </button>

@@ -34,7 +34,7 @@
 
                 <li>
                     @include('guest.components.dictionary-definition', [
-                        'word'  => htmlspecialchars($operatingSystem, ''),
+                        'word'  => $operatingSystem,
                         'route' => route('guest.dictionary.operating-system.show', $operatingSystem->slug)
                     ])
                 </li>

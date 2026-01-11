@@ -26,7 +26,7 @@
             <tr>
                 <th>title</th>
                 <th>publication</th>
-                <th>publisher</th>
+                <?php /* <th>publisher</th> */ ?>
                 <th>year</th>
             </tr>
             </thead>
@@ -47,17 +47,19 @@
                 <tr data-id="{{ $publication->id }}">
                     <td data-field="title">
                         @include('guest.components.link', [
-                            'name'  => htmlspecialchars($publication->name ?? ''),
-                            'href'  => route('guest.admin.portfolio.publication.show', [$admin, $publication->slug]),
+                            'name'  => $publication->title ?? '',
+                            'href'  => route('guest.admin.portfolio.publication.show', [$publication->owner->label, $publication]),
                             'class' => $publication->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td data-field="publication_name">
-                        {{ htmlspecialchars($publication->publication_name ?? '') }}
+                        {{ $publication->publication_name ?? '' }}
                     </td>
+                    <?php /*
                     <td data-field="publisher">
-                        {{ htmlspecialchars($publication->publisher ?? '') }}
+                        {{ $publication->publisher ?? '' }}
                     </td>
+                    */ ?>
                     <td data-field="year" class="has-text-centered">
                         {{ $publication->year }}
                     </td>
@@ -66,7 +68,7 @@
             @empty
 
                 <tr>
-                    <td colspan="4">There are no publications.</td>
+                    <td colspan="3">There are no publications.</td>
                 </tr>
 
             @endforelse

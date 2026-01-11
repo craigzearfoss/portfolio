@@ -7,7 +7,7 @@
                     'name' => $breadcrumb['name'] ?? '#name#'
                 ])
             @else
-                <a>{{ $breadcrumb['name'] ?? '#name#' }}</a>
+                <a>{!! $breadcrumb['name'] ?? '#name#' !!}</a>
             @endif
         </li>
     @endforeach

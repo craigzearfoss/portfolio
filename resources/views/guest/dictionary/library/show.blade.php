@@ -23,22 +23,22 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($library->full_name, '')
+            'value' => $library->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($library->name, '')
+            'value' => $library->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($library->abbreviation ?? '')
+            'value' => $library->abbreviation
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => $library->definition ?? ''
+            'value' => nl2br($library->definition)
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($library->owner ?? '')
+            'value' => $library->owner
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,33 +63,28 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => htmlspecialchars($library->link_name ?? 'link'),
-            'href'   => htmlspecialchars($library->link ?? ''),
+            'name'   => $library->link_name,
+            'href'   => $library->link,
             'target' => '_blank'
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => $library->description ?? ''
+            'value' => nl2br($library->description)
         ])
 
         @if(!empty($library->image))
 
-            @include('guest.components.show-row-image', [
-                'name'  => 'image',
-                'src'   => $library->image,
-                'alt'   => $library->name,
-                'width' => '300px',
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image credit',
-                'value' => htmlspecialchars($library->image_credit ?? '')
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image source',
-                'value' => htmlspecialchars($library->image_source ?? '')
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $library->image,
+                'alt'          => $library->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($library->name, $library->image),
+                'image_credit' => $library->image_credit,
+                'image_source' => $library->image_source,
             ])
 
         @endif

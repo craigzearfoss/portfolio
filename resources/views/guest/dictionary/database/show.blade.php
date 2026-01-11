@@ -23,22 +23,22 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($database->full_name ?? '')
+            'value' => $database->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($database->name ?? '')
+            'value' => $database->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($database->abbreviation ?? '')
+            'value' => $database->abbreviation
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => $database->definition ?? ''
+            'value' => nl2br($database->definition)
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($database->owner ?? '')
+            'value' => $database->owner
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,33 +63,28 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => htmlspecialchars($database->link_name ?? 'link'),
-            'href'   => htmlspecialchars($database->link ?? ''),
+            'name'   => $database->link_name,
+            'href'   => $database->link,
             'target' => '_blank'
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => $database->description ?? ''
+            'value' => nl2br($database->description)
         ])
 
         @if(!empty($database->image))
 
-            @include('guest.components.show-row-image', [
-                'name'  => 'image',
-                'src'   => $database->image,
-                'alt'   => $database->name,
-                'width' => '300px',
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image credit',
-                'value' => htmlspecialchars($database->image_credit)
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image source',
-                'value' => htmlspecialchars($database->image_source)
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $database->image,
+                'alt'          => $database->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($database->name, $database->image),
+                'image_credit' => $database->image_credit,
+                'image_source' => $database->image_source,
             ])
 
         @endif

@@ -7,7 +7,7 @@
         @php
             $pageTitle = !empty($pageTitle)
                 ? $pageTitle
-                : (!empty($title) ? $title : '')
+                : $title ?? ''
         @endphp
         @if(!empty($pageTitle) && ($pageTitle !== config('app.name')))
             {{$pageTitle}} -

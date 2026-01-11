@@ -48,7 +48,7 @@
 
                 <tr data-id="{{ $academy->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($academy->name ?? '') }}
+                        {{ $academy->name ?? '' }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $academy->public ])
@@ -78,7 +78,7 @@
 
                             @if (!empty($academy->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($academy->link_name) ? $academy->link_name : 'link') ?? ''),
+                                    'title'  => !empty($academy->link_name) ? $academy->link_name : 'link') ?? '',
                                     'href'   => $academy->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

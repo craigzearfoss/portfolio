@@ -34,7 +34,7 @@
 
                 <li>
                     @include('guest.components.dictionary-definition', [
-                        'word'  => htmlspecialchars($database ?? ''),
+                        'word'  => $word,
                         'route' => route('guest.dictionary.database.show', $database->slug),
                     ])
                 </li>

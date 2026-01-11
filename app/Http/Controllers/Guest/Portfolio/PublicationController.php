@@ -28,6 +28,7 @@ class PublicationController extends BaseGuestController
         $publications = Publication::where('owner_id', $admin->id)
             ->orderBy('title', 'asc')
             ->paginate($perPage);
+
         return view(themedTemplate('guest.portfolio.publication.index'), compact('publications', 'admin'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }

@@ -23,27 +23,27 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($server->full_name ?? '')
+            'value' => $server->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($server->name ?? '')
+            'value' => $server->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($server->abbreviation ?? '')
+            'value' => $server->abbreviation
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => $server->definition ?? ''
+            'value' => nl2br($server->definition)
         ])
 
         @include('guest.components.show-row-checkbox', [
             'name'    => 'open source',
-            'checked' => htmlspecialchars($server->open_source ?? '')
+            'checked' => $server->open_source
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($server->owner ?? '')
+            'value' => $server->owner
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,33 +63,28 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => htmlspecialchars($server->link_name ?? 'link'),
-            'href'   => htmlspecialchars($server->link ?? ''),
+            'name'   => $server->link_name,
+            'href'   => $server->link,
             'target' => '_blank'
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => $server->description ?? ''
+            'value' => nl2br($server->description)
         ])
 
         @if(!empty($server->image))
 
-            @include('guest.components.show-row-image', [
-                'name'  => 'image',
-                'src'   => $server->image,
-                'alt'   => $server->name,
-                'width' => '300px',
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image credit',
-                'value' => htmlspecialchars($server->image_credit ?? '')
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image source',
-                'value' => htmlspecialchars($server->image_source ?? '')
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $server->image,
+                'alt'          => $server->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($server->name, $server->image),
+                'image_credit' => $server->image_credit,
+                'image_source' => $server->image_source,
             ])
 
         @endif

@@ -110,8 +110,8 @@
                             @if(empty($resourceType['global']) && Route::has('guest.admin.personal.'.$resourceType['name'].'.index'))
                                 <li>
                                     @include('guest.components.link', [
-                                        'name' => $resourceType['plural'],
-                                        'href' => route('guest.admin.personal.'.$resourceType['name'].'.index', $admin),
+                                        'name'  => $resourceType['plural'],
+                                        'href'  => route('guest.admin.personal.'.$resourceType['name'].'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

@@ -23,22 +23,22 @@
 
         @include('guest.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($operatingSystem->full_name ?? '')
+            'value' => $operatingSystem->full_name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($operatingSystem->name ?? '')
+            'value' => $operatingSystem->name
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($operatingSystem->abbreviation ?? '')
+            'value' => $operatingSystem->abbreviation
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'definition',
-            'value' => htmlspecialchars($operatingSystem->definition ?? '')
+            'value' => nl2br($operatingSystem->definition)
         ])
 
         @include('guest.components.show-row-checkbox', [
@@ -53,7 +53,7 @@
 
         @include('guest.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($operatingSystem->owner ?? '')
+            'value' => $operatingSystem->owner
         ])
 
         @include('guest.components.show-row-link', [
@@ -63,33 +63,28 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => htmlspecialchars($operatingSystem->link_name ?? 'link'),
-            'href'   => htmlspecialchars($operatingSystem->link ?? ''),
+            'name'   => $operatingSystem->link_name,
+            'href'   => $operatingSystem->link,
             'target' => '_blank'
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => $operatingSystem->description ?? ''
+            'value' => nl2br($operatingSystem->description)
         ])
 
         @if(!empty($operatingSystem->image))
 
-            @include('guest.components.show-row-image', [
-                'name'  => 'image',
-                'src'   => $operatingSystem->image,
-                'alt'   => $operatingSystem->name,
-                'width' => '300px',
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image credit',
-                'value' => htmlspecialchars($operatingSystem->image_credit ?? '')
-            ])
-
-            @include('guest.components.show-row', [
-                'name'  => 'image source',
-                'value' => htmlspecialchars($operatingSystem->image_source ?? '')
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $operatingSystem->image,
+                'alt'          => $operatingSystem->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($operatingSystem->name, $operatingSystem->image),
+                'image_credit' => $operatingSystem->image_credit,
+                'image_source' => $operatingSystem->image_source,
             ])
 
         @endif

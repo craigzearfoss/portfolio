@@ -153,7 +153,7 @@
             ])
         @endif
 
-        @if(!empty($course->image))
+        @if(!empty($music->image))
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
                 'src'          => $music->image,

@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
-    'title' => 'Dictionary',
+    'title'         => 'Dictionary',
     'breadcrumbs'   => [
-        [ 'name'    => 'Home',       'href' => route('system.index') ],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Frameworks' ]
     ],
@@ -34,7 +34,7 @@
 
                 <li>
                     @include('guest.components.dictionary-definition', [
-                        'word'  => htmlspecialchars($framework ?? ''),
+                        'word'  => $framework,
                         'route' => route('guest.dictionary.framework.show', $framework->slug)
                     ])
                 </li>
