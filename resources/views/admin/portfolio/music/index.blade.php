@@ -69,22 +69,22 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($music->name ?? '') }}
+                        {!! $music->name !!}
                     </td>
                     <td data-field="artist">
-                        {{ htmlspecialchars($music->artist ?? '') }}
+                        {!! $music->artist !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->featured ])
                     </td>
                     <td data-field="year">
-                        {{ $music->year }}
+                        {!! $music->year !!}
                     </td>
                     <td data-field="label">
-                        {{ htmlspecialchars($music->label ?? '') }}
+                        {!! $music->label !!}
                     </td>
                     <td data-field="catalog_number">
-                        {{ htmlspecialchars($music->catalog_number ?? '') }}
+                        {!! $music->catalog_number !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->public ])
@@ -94,7 +94,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.music.destroy', $music->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.music.destroy', $music->id) !!}" method="POST">
 
                             @if(canRead($music))
                                 @include('admin.components.link-icon', [
@@ -114,7 +114,7 @@
 
                             @if (!empty($music->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($music->link_name) ? $music->link_name : 'link') ?? ''),
+                                    'title'  => !empty($music->link_name) ? $music->link_name : 'link',
                                     'href'   => $music->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

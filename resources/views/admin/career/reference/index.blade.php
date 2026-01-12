@@ -65,16 +65,16 @@
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($reference->name ?? '') }}
+                        {!! $reference->name !!}
                     </td>
                     <td data-field="relation">
-                        {{ htmlspecialchars($reference->relation ?? '') }}
+                        {!! $reference->relation !!}
                     </td>
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($reference->phone ?? '') }}
+                        {!! $reference->phone !!}
                     </td>
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($reference->email ?? '') }}
+                        {!! $reference->email !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reference->public ])
@@ -84,7 +84,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.reference.destroy', $reference->id) }}" method="POST">
+                        <form action="{!! route('admin.career.reference.destroy', $reference->id) !!}" method="POST">
 
                             @if(canRead($reference))
                                 @include('admin.components.link-icon', [
@@ -104,7 +104,7 @@
 
                             @if (!empty($reference->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($reference->link_name) ? $reference->link_name : 'link') ?? ''),
+                                    'title'  => !empty($reference->link_name) ? $reference->link_name : 'link',
                                     'href'   => $reference->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

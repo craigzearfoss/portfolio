@@ -61,20 +61,20 @@
                 <tr data-id="{{ $contact->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $contact->owner->username ?? '' }}
+                            {{ $contact->owner->username }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($contact->name ?? '') }}
+                        {!! $contact->name !!}
                     </td>
                     <td data-field="contact.company.names" style="white-space: nowrap;">
-                        {{ implode(', ', $contact->companies->pluck('name')->toArray()) }}
+                        {!! implode(', ', $contact->companies->pluck('name')->toArray()) !!}
                     </td>
                     <td data-field="phone" style="white-space: nowrap;">
-                        {{ htmlspecialchars($contact->phone ?? '') }}
+                        {!! $contact->phone !!}
                     </td>
                     <td data-field="email" style="white-space: nowrap;">
-                        {{ htmlspecialchars($contact->email ?? '') }}
+                        {!! $contact->email !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $contact->public ])
@@ -84,7 +84,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.contact.destroy', $contact->id) }}" method="POST">
+                        <form action="{!! route('admin.career.contact.destroy', $contact->id) !!}" method="POST">
 
                             @if(canRead($contact))
                                 @include('admin.components.link-icon', [
@@ -104,7 +104,7 @@
 
                             @if (!empty($contact->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($contact->link_name) ? $contact->link_name : 'link') ?? ''),
+                                    'title'  => !empty($contact->link_name) ? $contact->link_name : 'link',
                                     'href'   => $contact->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

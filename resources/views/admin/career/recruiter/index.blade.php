@@ -52,16 +52,16 @@
 
                 <tr data-id="{{ $recruiter->id }}">
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($recruiter->name ?? '') }}
+                        {!! $recruiter->name !!}
                     </td>
                     <td data-field="international|national|regional|local" style="white-space: nowrap;">
-                        {{ implode(', ', $recruiter->coverageAreas ?? []) }}
+                        {!! implode(', ', $recruiter->coverageAreas ?? []) !!}
                     </td>
                     <td data-field="location">
                         {!!
                             formatLocation([
-                                'city'    => htmlspecialchars($recruiter->city ?? ''),
-                                'state'   => $recruiter->state['code'] ?? '',
+                                'city'    => $recruiter->city,
+                                'state'   => $recruiter->state->code ?? '',
                             ])
                         !!}
                     </td>
@@ -73,7 +73,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.recruiter.destroy', $recruiter->id) }}" method="POST">
+                        <form action="{!! route('admin.career.recruiter.destroy', $recruiter->id) !!}" method="POST">
 
                             @if(canRead($recruiter))
                                 @include('admin.components.link-icon', [
@@ -93,7 +93,7 @@
 
                             @if (!empty($recruiter->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($recruiter->link_name) ? $recruiter->link_name : 'link') ?? ''),
+                                    'title'  => !empty($recruiter->link_name) ? $recruiter->link_name : 'link',
                                     'href'   => $recruiter->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

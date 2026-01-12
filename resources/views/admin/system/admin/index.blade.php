@@ -64,25 +64,25 @@
 
                 <tr data-id="{{ $admin->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($admin->name ?? '') }}
+                        {!! $admin->name !!}
                     </td>
                     <td data-field="username">
                         {{ $admin->username }}
                     </td>
                     <td data-field="label">
-                        {{ htmlspecialchars($admin->label ?? '') }}
+                        {!! $admin->label !!}
                     </td>
                     <td data-field="admin_team_id">
                         @include('admin.components.link', [
-                            'name' => htmlspecialchars($admin->team->name ?? ''),
+                            'name' => $admin->team->name ?? '',
                             'href' => route('admin.system.admin-team.show', $admin->team->id)
                         ])
                     </td>
                     <td data-field="email">
-                        {{ htmlspecialchars($admin->email ?? '') }}
+                        {!! $admin->email !!}
                     </td>
                     <td data-field="phone">
-                        {{ \App\Models\System\User::statusName($admin->status) }}
+                        {!! \App\Models\System\User::statusName($admin->status) ?? '' !!}
                     </td>
                     <td data-field="root" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->root ])
@@ -92,7 +92,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.system.admin.destroy', $admin->id) }}" method="POST">
+                        <form action="{!! route('admin.system.admin.destroy', $admin->id) !!}" method="POST">
 
                             @if(canRead($admin))
                                 @include('admin.components.link-icon', [
@@ -112,7 +112,7 @@
 
                             @if (!empty($admin->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($admin->link_name) ? $admin->link_name : 'link') ?? ''),
+                                    'title'  => !empty($admin->link_name) ? $admin->link_name : 'link',
                                     'href'   => $admin->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

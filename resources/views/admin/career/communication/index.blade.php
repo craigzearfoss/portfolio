@@ -77,32 +77,32 @@
                 <tr data-id="{{ $communication->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $communication->owner->username ?? '' }}
+                            {{ $communication->owner->username }}
                         </td>
                     @endif
                     @if(empty($application))
                         <td data-field="application_id">
                             @include('admin.components.link', [
-                                'name' => htmlspecialchars($communication->application->name ?? ''),
+                                'name' => $communication->application->name ?? '',
                                 'href' => route('admin.career.application.show', $communication->application->id)
                             ])
                         </td>
                     @endif
                     <td data-field="communication_type_id" style="white-space: nowrap;">
-                        {{ htmlspecialchars($communication->communicationType->name ?? '') }}
+                        {!! $communication->communicationType->name ?? '' !!}
                     </td>
                     <td data-field="subject" style="white-space: nowrap;">
-                        {{ htmlspecialchars($communication->subject ?? '') }}
+                        {!! $communication->subject !!}
                     </td>
                     <td data-field="date" style="white-space: nowrap;">
                         {{ shortDate($communication->date) }}
                     </td>
                     <td data-field="time" style="white-space: nowrap;">
-                        {{ $communication->time }}
+                        {!! $communication->time !!}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.communication.destroy', $communication->id) }}" method="POST">
+                        <form action="{!! route('admin.career.communication.destroy', $communication->id) !!}" method="POST">
 
                             @if(canRead($communication))
                                 @include('admin.components.link-icon', [
@@ -122,7 +122,7 @@
 
                             @if (!empty($communication->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($communication->link_name) ? $communication->link_name : 'link') ?? ''),
+                                    'title'  => !empty($communication->link_name) ? $communication->link_name : 'link',
                                     'href'   => $communication->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'
@@ -147,14 +147,14 @@
 
                             @if(canRead($communication))
                                 <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.communication.show', $communication->id) }}">
+                                   href="{!! route('admin.career.communication.show', $communication->id) !!}">
                                     <i class="fa-solid fa-list"></i>
                                 </a>
                             @endif
 
                             @if(canUpdate($communication))
                                 <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.career.communication.edit', $communication->id) }}">
+                                   href="{!! route('admin.career.communication.edit', $communication->id) !!}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             @endif

@@ -55,26 +55,26 @@
                 <tr data-id="{{ $company->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $company->owner->username ?? '' }}
+                            {{ $company->owner->username }}
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($company->name ?? '') }}
+                        {!! $company->name !!}
                     </td>
                         <td data-field="industry.name">
-                            {{ $company->industry['name'] ?? '' }}
+                            {!! $company->industry->name ?? '' !!}
                         </td>
                     <td data-field="location" style="white-space: nowrap;">
                         {!!
                             formatLocation([
-                                'city'    => htmlspecialchars($company->city ?? ''),
-                                'state'   => $company->state['code'] ?? '',
+                                'city'    => $company->city,
+                                'state'   => $company->state->code ?? '',
                             ])
                         !!}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.company.destroy', $company->id) }}" method="POST">
+                        <form action="{!! route('admin.career.company.destroy', $company->id) !!}" method="POST">
 
                             @if(canRead($company))
                                 @include('admin.components.link-icon', [
@@ -94,7 +94,7 @@
 
                             @if (!empty($company->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($company->link_name) ? $company->link_name : 'link') ?? ''),
+                                    'title'  => !empty($company->link_name) ? $company->link_name : 'link',
                                     'href'   => $company->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

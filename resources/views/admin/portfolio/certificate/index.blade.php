@@ -69,7 +69,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($certificate->name ?? '') }}
+                        {!! $certificate->name !!}
                     </td>
                     <td data-field="feature" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certificate->feature ])
@@ -77,13 +77,13 @@
                     <td data-field="academy.name">
                         @if (!empty($certificate->academy))
                             @include('admin.components.link', [
-                                'name'   => htmlspecialchars($certificate->academy['name'] ?? ''),
+                                'name'   => $certificate->academy->name,
                                 'href'   => route('admin.portfolio.academy.show', $certificate->academy),
                             ])
                         @endif
                     </td>
                     <td data-field="year">
-                        {{ $certificate->year }}
+                        {!! $certificate->year !!}
                     </td>
                     <td data-field="received">
                         {{ shortDate($certificate->received) }}
@@ -99,7 +99,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.certificate.destroy', $certificate->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.certificate.destroy', $certificate->id) !!}" method="POST">
 
                             @if(canRead($certificate))
                                 @include('admin.components.link-icon', [

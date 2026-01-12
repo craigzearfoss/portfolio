@@ -78,20 +78,20 @@
                     @if(!empty($application))
                         <td data-field="application_id">
                             @include('admin.components.link', [
-                                'name' => htmlspecialchars($note->application->name ?? '') ,
+                                'name' => $note->application->name ,
                                 'href' => route('admin.career.application.show', $note->application->id)
                             ])
                         </td>
                     @endif
                     <td data-field="subject" style="white-space: nowrap;">
-                        {{ htmlspecialchars($note->subject ?? '') }}
+                        {!! $note->subject !!}
                     </td>
                     <td data-field="created_at" style="white-space: nowrap;">
                         {{ shortDateTime($note->created_at) }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.note.destroy', $note->id) }}" method="POST">
+                        <form action="{!! route('admin.career.note.destroy', $note->id) !!}" method="POST">
 
                             @if(canRead($note))
                                 @include('admin.components.link-icon', [
@@ -111,7 +111,7 @@
 
                             @if (!empty($note->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($note->link_name) ? $note->link_name : 'link') ?? ''),
+                                    'title'  => !empty($note->link_name) ? $note->link_name : 'link',
                                     'href'   => $note->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

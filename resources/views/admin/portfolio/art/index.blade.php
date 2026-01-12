@@ -62,20 +62,20 @@
                 <tr data-id="{{ $art->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $art->owner->username ?? '' }}
+                            {{ $art->owner->username }}
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($art->name ?? '') }}
+                        {!! $art->name !!}
                     </td>
                     <td data-field="artist">
-                        {{ htmlspecialchars($art->artist ?? '') }}
+                        {!! $art->artist !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->featured ])
                     </td>
                     <td data-field="year">
-                        {{ $art->year }}
+                        {!! $art->year !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->public ])
@@ -85,7 +85,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.art.destroy', $art->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.art.destroy', $art->id) !!}" method="POST">
 
                             @if(canRead($art))
                                 @include('admin.components.link-icon', [
@@ -105,7 +105,7 @@
 
                             @if (!empty($art->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($art->link_name) ? $art->link_name : 'link') ?? ''),
+                                    'title'  => !empty($art->link_name) ? $art->link_name : 'link',
                                     'href'   => $art->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

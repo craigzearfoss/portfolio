@@ -85,7 +85,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.photography.destroy', $photo->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.photography.destroy', $photo->id) !!}" method="POST">
 
                             @if(canRead($photo))
                                 @include('admin.components.link-icon', [

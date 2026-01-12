@@ -81,21 +81,21 @@
                         <td data-field="recipe.name">
                             @if(!empty($recipeStep->recipe))
                                 @include('admin.components.link', [
-                                    'name' => htmlspecialchars($recipeStep->recipe['name'] ?? ''),
+                                    'name' => $recipeStep->recipe->name ?? '',
                                     'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
                                 ])
                             @endif
                         </td>
                     @endif
                     <td data-field="step" class="has-text-centered">
-                        {{ htmlspecialchars($recipeStep->step ?? '' }}
+                        {!! $recipeStep->step !!}
                     </td>
                     <td data-field="description">
-                        {!! $recipeStep->description ?? '' !!}
+                        {!! $recipeStep->description !!}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.personal.recipe-step.destroy', $recipeStep->id) }}" method="POST">
+                        <form action="{!! route('admin.personal.recipe-step.destroy', $recipeStep->id) !!}" method="POST">
 
                             @if(canRead($recipeStep))
                                 @include('admin.components.link-icon', [

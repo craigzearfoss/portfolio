@@ -21,14 +21,14 @@
             <div class="has-text-centered">
                 <h4>Admin logins have been disabled.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{{ route('system.index') }}"><i
+                    <a class="btn btn-sm btn-solid" href="{!! route('system.index') !!}"><i
                             class="fa fa-house"></i> Home</a>
                 </p>
             </div>
 
         @else
 
-            <form action="{{ route('admin.login-submit') }}" method="POST">
+            <form action="{!! route('admin.login-submit') !!}" method="POST">
                 @csrf
 
                 @include('admin.components.form-hidden', [
@@ -58,7 +58,7 @@
                 ])
 
                 <div class="has-text-centered my-3">
-                    <a class="text-primary-600 hover:underline" href="{{ route('admin.forgot-password') }}">Forgot Password?</a>
+                    <a class="text-primary-600 hover:underline" href="{!! route('admin.forgot-password') !!}">Forgot Password?</a>
                 </div>
 
                 <div class="has-text-centered">

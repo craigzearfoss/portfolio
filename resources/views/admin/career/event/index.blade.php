@@ -80,28 +80,28 @@
                 <tr data-id="{{ $event->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $event->owner->username ?? '' }}
+                            {{ $event->owner->username }}
                         </td>
                     @endif
                     @if(!empty($event->application))
                         <td data-field="application_id">
                             @include('admin.components.link', [
-                                'name' => htmlspecialchars($event->application->name ?? ''),
+                                'name' => $event->application->name ?? '',
                                 'href' => route('admin.career.application.show', $event->application->id)
                             ])
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($event->name ?? '') }}
+                        {!! $event->name !!}
                     </td>
                     <td data-field="date" style="white-space: nowrap;">
                         {{ shortDate($event->date) }}
                     </td>
                     <td data-field="time" style="white-space: nowrap;">
-                        {{ $event->time }}
+                        {!! $event->time !!}
                     </td>
                     <td data-field="location" style="white-space: nowrap;">
-                        {{ htmlspecialchars($event->location ?? '') }}
+                        {!! $event->location !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $event->public ])
@@ -111,7 +111,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.event.destroy', $event->id) }}" method="POST">
+                        <form action="{!! route('admin.career.event.destroy', $event->id) !!}" method="POST">
 
                             @if(canRead($event))
                                 @include('admin.components.link-icon', [
@@ -131,7 +131,7 @@
 
                             @if (!empty($event->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($event->link_name) ? $event->link_name : 'link') ?? ''),
+                                    'title'  => !empty($event->link_name) ? $event->link_name : 'link',
                                     'href'   => $event->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

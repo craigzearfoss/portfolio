@@ -77,21 +77,21 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($database->name ?? '') }}
+                        {!! $database->name !!}
                     </td>
                     <td data-field="database">
-                        {{ htmlspecialchars($database->database ?? '') }}
+                        {!! $database->database !!}
                     </td>
                     <td data-field="tag">
-                        {{ htmlspecialchars($database->tag ?? '') }}
+                        {!! $database->tag !!}
                     </td>
                     <td data-field="title">
-                        {{ htmlspecialchars($database->title ?? '') }}
+                        {!! $database->title !!}
                     </td>
                     <td data-field="icon">
                         @if (!empty($database->icon))
                             <span class="text-xl">
-                                <i class="fa-solid {{ htmlspecialchars($database->icon ?? '') }}"></i>
+                                <i class="fa-solid {!! $database->icon !!}"></i>
                             </span>
                         @else
                         @endif
@@ -119,7 +119,7 @@
                     </td>
                     <td>
 
-                        <form action="{{ route('admin.system.database.destroy', $database->id) }}" method="POST">
+                        <form action="{!! route('admin.system.database.destroy', $database->id) !!}" method="POST">
 
                             @if(canRead($database))
                                 @include('admin.components.link-icon', [

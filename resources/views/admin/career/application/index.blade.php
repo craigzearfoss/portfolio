@@ -111,19 +111,19 @@ if (!empty($resume)) {
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($application->name ?? '') }}
+                        {!! $application->name !!}
                     </td>
                     <?php /*
                     <td data-field="company.name" style="white-space: nowrap;">
                         @if(!empty($application->company))
                             @include('admin.components.link', [
-                                'name' => htmlspecialchars($application->company['name'] ?? ''),
+                                'name' => $application->company->name ?? '',
                                 'href' => route('admin.career.company.show', $application->company['id'])
                             ])
                         @endif
                     </td>
                     <td data-field="role">
-                        {{ htmlspeciagchars($application->role ?? '') }}
+                        {!! $application->role !!}
                     </td>
                     */ ?>
                     <td data-field="active" class="has-text-centered">
@@ -134,38 +134,38 @@ if (!empty($resume)) {
                     </td>
                     <?php /*
                     <td data-field="post_date" style="white-space: nowrap;">
-                        {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
+                        {!! !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' !!}
                     </td>
                     */ ?>
                     <td data-field="apply_date" style="white-space: nowrap;">
-                        {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
+                        {!! !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' !!}
                     </td>
                     <td data-field="compensation" style="white-space: nowrap;">
                         {!!
                             formatCompensation([
-                                'min'   => $application->compensation_min ?? '',
-                                'max'   => $application->compensation_max ?? '',
-                                'unit'  => htmlspecialchars($application->compensationUnit['abbreviation'] ?? ''),
+                                'min'   => $application->compensation_min,
+                                'max'   => $application->compensation_max,
+                                'unit'  => $application->compensationUnit->abbreviation ?? '',
                                 'short' => true
                             ])
                         !!}
                     </td>
                     <?php /*
                     <td data-field="job_duration_id">
-                        {{ htmlspecialchars($application->durationType['name'] ?? '') }}
+                        {!! $application->durationType['name'] ?? '' !!}
                     </td>
                     */ ?>
                     <td data-field="job_employment_type_id" class="has-text-centered" style="white-space: nowrap;">
-                        {{ htmlspecialchars($application->employmentType['name'] ?? '') }}
+                        {!! $application->employmentType->name ?? '' !!}
                     </td>
                     <td data-field="job_location_type_id" class="has-text-centered">
-                        {{ htmlspecialchars($application->locationType['name'] ?? '') }}
+                        {!! $application->locationType->name ?? '' !!}
                     </td>
                     <td data-field="location">
                         {!!
                             formatLocation([
-                                'city'    => htmlspecialchars($application->city ?? ''),
-                                'state'   => $application->state['code'] ?? '',
+                                'city'    => $application->city,
+                                'state'   => $application->state->code ?? '',
                             ])
                         !!}
                     </td>
@@ -186,12 +186,12 @@ if (!empty($resume)) {
                         @include('admin.components.checkmark', [ 'checked' => $application->health ])
                     </td>
                     <td data-field="job_board_id">
-                        {{ htmlspecialchars($application->jobBoard['name'] ?? '') }}
+                        {!! $application->jobBoard->name ?? '' }}
                     </td>
                     */ ?>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.application.destroy', $application->id) }}" method="POST">
+                        <form action="{!! route('admin.career.application.destroy', $application->id) !!}" method="POST">
 
                             @if(canRead($application))
                                 @include('admin.components.link-icon', [
@@ -211,7 +211,7 @@ if (!empty($resume)) {
 
                             @if (!empty($application->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($application->link_name) ? $application->link_name : 'link') ?? ''),
+                                    'title'  => !empty($application->link_name) ? $application->link_name : 'link',
                                     'href'   => $application->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

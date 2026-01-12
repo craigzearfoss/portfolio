@@ -20,7 +20,7 @@
             Your new password must be different from previous password.
         </p>
 
-        <form action="{{ route('admin.reset-password-submit', [$token, $email]) }}" method="POST">
+        <form action="{!! route('admin.reset-password-submit', [$token, $email]) !!}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
@@ -58,7 +58,7 @@
 
             <div class="mt-4 has-text-centered">
                 <span>Back to</span>
-                <a class="text-primary-600 hover:underline" href="{{ route('admin.login') }}">Login</a>
+                <a class="text-primary-600 hover:underline" href="{!! route('admin.login') !!}">Login</a>
             </div>
 
         </form>

@@ -46,14 +46,14 @@
 
                 <tr data-id="{{ $industry->id }}">
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($industry->name, '') }}
+                        {!! $industry->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($industry->abbreviation, '') }}
+                        {!! $industry->abbreviation !!}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.industry.destroy', $industry->id) }}" method="POST">
+                        <form action="{!! route('admin.career.industry.destroy', $industry->id) !!}" method="POST">
 
                             @if(canRead($industry))
                                 @include('admin.components.link-icon', [
@@ -73,7 +73,7 @@
 
                             @if (!empty($industry->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($industry->link_name) ? $industry->link_name : 'link') ?? ''),
+                                    'title'  => !empty($industry->link_name) ? $industry->link_name : 'link',
                                     'href'   => $industry->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

@@ -48,7 +48,7 @@
 
                 <tr data-id="{{ $academy->id }}">
                     <td data-field="name">
-                        {{ $academy->name ?? '' }}
+                        {!! $academy->name !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $academy->public ])
@@ -58,7 +58,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.academy.destroy', $academy->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.academy.destroy', $academy->id) !!}" method="POST">
 
                             @if(canRead($academy))
                                 @include('admin.components.link-icon', [
@@ -78,7 +78,7 @@
 
                             @if (!empty($academy->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => !empty($academy->link_name) ? $academy->link_name : 'link') ?? '',
+                                    'title'  => $academy->link_name) ? $academy->link_name : 'link',
                                     'href'   => $academy->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

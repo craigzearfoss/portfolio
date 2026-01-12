@@ -52,13 +52,13 @@
 
                 <tr data-id="{{ $jobBoard->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($jobBoard->name ?? '') }}
+                        {!! $jobBoard->name !!}
                     </td>
                     <td data-field="primary" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
                     </td>
                     <td data-field="international|national|regional|local" style="white-space: nowrap;">
-                        {{ implode(', ', $jobBoard->coverageAreas ?? []) }}
+                        {!! implode(', ', $jobBoard->coverageAreas ?? []) !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->public ])
@@ -68,7 +68,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.job-board.destroy', $jobBoard->id) }}" method="POST">
+                        <form action="{!! route('admin.career.job-board.destroy', $jobBoard->id) !!}" method="POST">
 
                             @if(canRead($jobBoard))
                                 @include('admin.components.link-icon', [
@@ -88,7 +88,7 @@
 
                             @if (!empty($jobBoard->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($jobBoard->link_name) ? $jobBoard->link_name : 'link') ?? ''),
+                                    'title'  => !empty($jobBoard->link_name) ? $jobBoard->link_name : 'link',
                                     'href'   => $jobBoard->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

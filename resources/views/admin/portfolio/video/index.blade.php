@@ -63,13 +63,13 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($video->name ?? '') }}
+                        {!! $video->name !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->featured ])
                     </td>
                     <td data-field="year">
-                        {{ $video->year }}
+                        {!! $video->year !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->public ])
@@ -79,7 +79,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.video.destroy', $video->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.video.destroy', $video->id) !!}" method="POST">
 
                             @if(canRead($video))
                                 @include('admin.components.link-icon', [
@@ -99,7 +99,7 @@
 
                             @if (!empty($video->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($video->link_name) ? $video->link_name : 'link') ?? ''),
+                                    'title'  => !empty($video->link_name) ? $video->link_name : 'link',
                                     'href'   => $video->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

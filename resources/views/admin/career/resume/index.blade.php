@@ -82,7 +82,7 @@
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($resume->name ?? '') }}
+                        {!! $resume->name !!}
                     </td>
                     <td data-field="date" style="white-space: nowrap;">
                         {{ shortDate($resume->date) }}
@@ -98,7 +98,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.resume.destroy', $resume->id) }}" method="POST">
+                        <form action="{!! route('admin.career.resume.destroy', $resume->id) !!}" method="POST">
 
                             @if(canRead($resume))
                                 @include('admin.components.link-icon', [
@@ -118,7 +118,7 @@
 
                             @if (!empty($resume->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($resume->link_name) ? $resume->link_name : 'link') ?? ''),
+                                    'title'  => !empty($resume->link_name) ? $resume->link_name : 'link',
                                     'href'   => $resume->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

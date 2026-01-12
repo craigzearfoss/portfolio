@@ -26,7 +26,7 @@
 
                         <li>
                             @include('admin.components.link', [
-                                'name'  => htmlspecialchars($portfolio->plural ?? ''),
+                                'name'  => $portfolio->plural,
                                 'href'  => route('admin.portfolio.'.$portfolio->name.'.index'),
                                 'class' => 'list-item',
                             ])

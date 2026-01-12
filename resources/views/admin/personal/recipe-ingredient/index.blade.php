@@ -71,24 +71,24 @@
                         <td data-field="recipe.name">
                             @if(!empty($recipeIngredient->recipe))
                                 @include('admin.components.link', [
-                                    'name' => htmlspecialchars($recipeIngredient->recipe['name'] ?? ''),
+                                    'name' => $recipeIngredient->recipe->name,
                                     'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
                                 ])
                             @endif
                         </td>
                     @endif
                     <td data-field="ingredient.name">
-                        {{ htmlspecialchars($recipeIngredient->ingredient['name'] ?? '') }}
+                        {!! $recipeIngredient->ingredient->name ?? '' !!}
                     </td>
                     <td data-field="amount">
-                        {{ htmlspecialchars($recipeIngredient->amount ?? '') }}
+                        {!! $recipeIngredient->amount !!}
                     </td>
                     <td data-field="unit.name">
-                        {{ htmlspecialchars($recipeIngredient->unit['name'] ?? '') }}
+                        {!! $recipeIngredient->unit->name ?? '') !!}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.personal.recipe-ingredient.destroy', $recipeIngredient->id) }}" method="POST">
+                        <form action="{!! route('admin.personal.recipe-ingredient.destroy', $recipeIngredient->id) !!}" method="POST">
 
                             @if(canRead($recipeIngredient))
                                 @include('admin.components.link-icon', [
@@ -108,7 +108,7 @@
 
                             @if (!empty($recipeIngredient->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($recipeIngredient->link_name) ? $recipeIngredient->link_name : 'link') ?? ''),
+                                    'title'  => !empty($recipeIngredient->link_name) ? $recipeIngredient->link_name : 'link',
                                     'href'   => $recipeIngredient->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

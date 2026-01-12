@@ -59,27 +59,27 @@
                 <tr data-id="{{ $coverLetter->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $coverLetter->owner->username ?? '' }}
+                            {{ $coverLetter->owner->username }}
                         </td>
                     @endif
                     <td data-field="company.name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($coverLetter->application->company['name'] ?? '') }}
+                        {!! $coverLetter->application->company->name ?? '' !!}
                     </td>
                     <td data-field="role" style="white-space: nowrap;">
-                        {{ htmlspecialchars($coverLetter->application['role'] ?? '') }}
+                        {!! $coverLetter->application->role ?? '' !!}
                     </td>
                     <td data-field="post_date" style="white-space: nowrap;">
                         {{ shortDate($coverLetter->application['apply_date'] ?? null) }}
                     </td>
                     <td data-field="application.active" data-field="" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $coverLetter->application['active'] ?? 0 ])
+                        @include('admin.components.checkmark', [ 'checked' => $coverLetter->application->active ?? 0 ])
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.career.cover-letter.destroy', $coverLetter->id) }}" method="POST">
+                        <form action="{!! route('admin.career.cover-letter.destroy', $coverLetter->id) !!}" method="POST">
 
                             @if(canRead($coverLetter))
                                 @include('admin.components.link-icon', [
@@ -99,7 +99,7 @@
 
                             @if (!empty($coverLetter->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($coverLetter->link_name) ? $coverLetter->link_name : 'link') ?? ''),
+                                    'title'  => !empty($coverLetter->link_name) ? $coverLetter->link_name : 'link',
                                     'href'   => $coverLetter->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

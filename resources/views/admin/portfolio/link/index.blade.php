@@ -61,7 +61,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($link->name ?? '') }}
+                        {!! $link->name !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->featured ])
@@ -74,7 +74,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.link.destroy', $link->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.link.destroy', $link->id) !!}" method="POST">
 
                             @if(canRead($link))
                                 @include('admin.components.link-icon', [
@@ -109,7 +109,7 @@
 
                             @if (!empty($link->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($link->link_name) ? $link->link_name : 'link') ?? ''),
+                                    'title'  => !empty($link->link_name) ? $link->link_name : 'link',
                                     'href'   => $link->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

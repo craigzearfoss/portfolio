@@ -75,18 +75,18 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($resource->name ?? '') }}
+                        {!! $resource->name !!}
                     </td>
                     <td data-field="database.name">
-                        {{ htmlspecialchars($resource->database['name'] ?? '') }}
+                        {!! $resource->database->name ?? '' !!}
                     </td>
                     <td data-field="table">
-                        {{ htmlspecialchars($resource->table ?? '') }}
+                        {!! $resource->table !!}
                     </td>
                     <td data-field="icon">
                         @if (!empty($resource->icon))
                             <span class="text-xl">
-                                <i class="fa-solid {{ htmlspecialchars($resource->icon ?? '') }}"></i>
+                                <i class="fa-solid {!! $resource->icon !!}"></i>
                             </span>
                         @else
                         @endif
@@ -114,7 +114,7 @@
                     </td>
                     <td>
 
-                        <form action="{{ route('admin.system.resource.destroy', $resource->id) }}" method="POST">
+                        <form action="{!! route('admin.system.resource.destroy', $resource->id) !!}" method="POST">
 
                             @if(canRead($resource))
                                 @include('admin.components.link-icon', [

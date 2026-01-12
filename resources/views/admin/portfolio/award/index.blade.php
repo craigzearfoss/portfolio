@@ -66,13 +66,13 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($award->name ?? '') }}
+                        {!! $award->name !!}
                     </td>
                     <td data-field="year">
-                        {{ $award->year }}
+                        {!! $award->year !!}
                     </td>
                     <td data-field="organization">
-                        {{ htmlspecialchars($award->organization ?? '') }}
+                        {!! $award->organization !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $award->featured ])
@@ -85,7 +85,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.award.destroy', $award->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.award.destroy', $award->id) !!}" method="POST">
 
                             @if(canRead($award))
                                 @include('admin.components.link-icon', [
@@ -105,7 +105,7 @@
 
                             @if (!empty($award->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($award->link_name) ? $award->link_name : 'link') ?? ''),
+                                    'title'  => !empty($award->link_name) ? $award->link_name : 'link',
                                     'href'   => $award->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

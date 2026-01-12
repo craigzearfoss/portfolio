@@ -52,13 +52,13 @@
 
                 <tr data-id="{{ $certification->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($certification->name ?? '') }}
+                        {!! $certification->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($certification->abbreviation ?? '') }}
+                        {!! $certification->abbreviation !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($certification->certificationType->name ?? '') }}
+                        {!! $certification->certificationType->name ?? '' !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->public ])
@@ -68,7 +68,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.certification.destroy', $certification->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.certification.destroy', $certification->id) !!}" method="POST">
 
                             @if(canRead($certification))
                                 @include('admin.components.link-icon', [
@@ -88,7 +88,7 @@
 
                             @if (!empty($certification->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($certification->link_name) ? $certification->link_name : 'link') ?? ''),
+                                    'title'  => !empty($certification->link_name) ? $certification->link_name : 'link',
                                     'href'   => $certification->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

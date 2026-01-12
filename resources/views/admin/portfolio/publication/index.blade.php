@@ -67,19 +67,19 @@
                         </td>
                     @endif
                     <td data-field="title">
-                        {{ htmlspecialchars($publication->title ?? '') }}
+                        {!! $publication->title !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $publication->featured ])
                     </td>
                     <td data-field="publication_name">
-                        {{ htmlspecialchars($publication->publication ?? '') }}
+                        {!! $publication->publication !!}
                     </td>
                     <td data-field="publisher">
-                        {{ htmlspecialchars($publication->publisher ?? '') }}
+                        {!! $publication->publisher !!}
                     </td>
                     <td data-field="year">
-                        {{ $publication->year }}
+                        {!! $publication->year !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $publication->public ])
@@ -89,7 +89,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.publication.destroy', $publication->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.publication.destroy', $publication->id) !!}" method="POST">
 
                             @if(canRead($publication))
                                 @include('admin.components.link-icon', [
@@ -109,7 +109,7 @@
 
                             @if (!empty($publication->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($publication->link_name) ? $publication->link_name : 'link') ?? ''),
+                                    'title'  => !empty($publication->link_name) ? $publication->link_name : 'link',
                                     'href'   => $publication->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

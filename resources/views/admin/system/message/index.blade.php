@@ -50,13 +50,13 @@
 
                 <tr data-id="{{ $message->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($message->name ?? '') }}
+                        {!! $message->name !!}
                     </td>
                     <td data-field="email">
-                        {{ htmlspecialchars($message->email ?? '' }}
+                        {!! $message->email !!}
                     </td>
                     <td data-field="subject">
-                        {{ htmlspecialchars($message->subject ?? '')  }}
+                        {!! $message->subject !!}
                     </td>
                     <td data-field="created_at">
                         {{ shortDateTime($message->created_at) }}
@@ -90,7 +90,7 @@
                         @endif
 
                         @if(canDelete($message))
-                            <form action="{{ route('admin.system.message.destroy', $message->id) }}"
+                            <form action="{!! route('admin.system.message.destroy', $message->id) !!}"
                                   method="POST"
                                   style="display: inline-block;"
                             >

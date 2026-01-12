@@ -66,24 +66,24 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($project->name ?? '') }}
+                        {!! $project->name !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->featured ])
                     </td>
                     <td data-field="language">
-                        {{ !empty($project->language)
-                            ? htmlspecialchars(($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : '')) ?? '')
+                        {!! !empty($project->language)
+                            ? $project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : '')
                             : ''
-                        }}
+                        !!}
                     </td>
                     <td data-field="year">
-                        {{ $project->year }}
+                        {!! $project->year !!}
                     </td>
                     <td data-field="repository_url">
                         @if(!empty($project->repository_url))
                             @include('admin.components.link', [
-                                'name'   => htmlspecialchars($project->repository_name ?? ''),
+                                'name'   => $project->repository_name ?? '',
                                 'href'   => $project->repository_url,
                                 'target' => '_blank'
                             ])
@@ -97,7 +97,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.project.destroy', $project->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.project.destroy', $project->id) !!}" method="POST">
 
                             @if(canRead($project))
                                 @include('admin.components.link-icon', [
@@ -117,7 +117,7 @@
 
                             @if (!empty($project->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($project->link_name) ? $project->link_name : 'link') ?? ''),
+                                    'title'  => !empty($project->link_name) ? $project->link_name : 'link',
                                     'href'   => $project->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

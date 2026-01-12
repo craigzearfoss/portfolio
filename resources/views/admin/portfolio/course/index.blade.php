@@ -65,7 +65,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($course->name ?? '') }}
+                        {!! $course->name !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->featured ])
@@ -73,7 +73,7 @@
                     <td data-field="academy.name">
                         @if (!empty($course->academy))
                             @include('admin.components.link', [
-                                'name'   => htmlspecialchars($course->academy['name'] ?? ''),
+                                'name'   => $course->academy->name ?? '',
                                 'href'   => route('admin.portfolio.academy.show', $course->academy),
                             ])
                         @endif
@@ -89,7 +89,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.course.destroy', $course->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.course.destroy', $course->id) !!}" method="POST">
 
                             @if(canRead($course))
                                 @include('admin.components.link-icon', [
@@ -109,7 +109,7 @@
 
                             @if (!empty($course->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($course->link_name) ? $course->link_name : 'link') ?? ''),
+                                    'title'  => !empty($course->link_name) ? $course->link_name : 'link',
                                     'href'   => $course->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

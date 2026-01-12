@@ -64,20 +64,20 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($adminGroup->name ?? '') }}
+                        {!! $adminGroup->name !!}
                     </td>
                     <td data-field="team.name">
-                        {{ htmlspecialchars($adminGroup->team['name'] ?? '') }}
+                        {!! $adminGroup->team->name ?? '' !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($adminGroup->abbreviation ?? '') }}
+                        {!! $adminGroup->abbreviation !!}
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $adminGroup->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.system.admin-group.destroy', $adminGroup->id) }}" method="POST">
+                        <form action="{!! route('admin.system.admin-group.destroy', $adminGroup->id) !!}" method="POST">
 
                             @if(canRead($adminGroup))
                                 @include('admin.components.link-icon', [

@@ -63,16 +63,16 @@ if (canRead('user', currentAdminId())) {
                         {{ $user->username }}
                     </td>
                     <td data-field="name">
-                        {{ htmlspecialchars($user->name ?? '') }}
+                        {!! $user->name !!}
                     </td>
                     <td data-field="email">
-                        {{ htmlspecialchars($user->email ?? '') }}
+                        {!! $user->email !!}
                     </td>
                     <td data-field="email_verified_at" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
                     </td>
                     <td data-field="status">
-                        {{ \App\Models\System\User::statusName($user->status) }}
+                        {!! \App\Models\System\User::statusName($user->status) ?? '' !!}
                     </td>
                     <td data-field=disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->disabled ])

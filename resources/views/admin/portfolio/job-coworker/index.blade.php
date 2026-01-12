@@ -75,17 +75,17 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($jobCoworker->name ?? '') }}
+                        {!! $jobCoworker->name !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobCoworker->featured ])
                     </td>
                     <td data-field="level">
-                        {{ $jobCoworker->level }}
+                        {!! $jobCoworker->level !!}
                     </td>
                     <td data-field="job.company">
                         @if($jobCoworker->job)
-                            {{ htmlspecialchars($jobCoworker->job['company'] ?? '') }}
+                            {!! $jobCoworker->job->company ?? '' !!}
                         @endif
                     </td>
                     <td data-field="public" class="has-text-centered">
@@ -96,7 +96,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.job-coworker.destroy', $jobCoworker->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.job-coworker.destroy', $jobCoworker->id) !!}" method="POST">
 
                             @if(canRead($jobCoworker))
                                 @include('admin.components.link-icon', [
@@ -116,7 +116,7 @@
 
                             @if (!empty($jobCoworker->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($jobCoworker->link_name) ? $jobCoworker->link_name : 'link') ?? ''),
+                                    'title'  => !empty($jobCoworker->link_name) ? $jobCoworker->link_name : 'link',
                                     'href'   => $jobCoworker->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

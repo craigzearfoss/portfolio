@@ -64,20 +64,20 @@ if (canRead('user-team', currentAdminId())) {
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($userGroup->name ?? '') }}
+                        {!! $userGroup->name !!}
                     </td>
                     <td data-field="team.name">
-                        {{ htmlspecialchars($userGroup->team['name'] ?? '') }}
+                        {!! $userGroup->team->name ?? '' !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($userGroup->abbreviation ?? '') }}
+                        {!! $userGroup->abbreviation !!}
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $userGroup->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.system.admin-group.destroy', $userGroup->id) }}" method="POST">
+                        <form action="{!! route('admin.system.admin-group.destroy', $userGroup->id) !!}" method="POST">
 
                             @if(canRead($adminGroup))
                                 @include('admin.components.link-icon', [
@@ -97,7 +97,7 @@ if (canRead('user-team', currentAdminId())) {
 
                             @if (!empty($adminGroup->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($adminGroup->link_name) ? $adminGroup->link_name : 'link') ?? ''),
+                                    'title'  => !empty($adminGroup->link_name) ? $adminGroup->link_name : 'link',
                                     'href'   => $adminGroup->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

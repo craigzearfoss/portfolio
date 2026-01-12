@@ -67,7 +67,7 @@
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ htmlspecialchars($skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '') }}
+                        {!! $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->featured ])
@@ -75,18 +75,18 @@
                     <td data-field="dictionary_category_id">
                         <?php /* @TODO: fix this
                         @if(!empty($skill->category->name))
-                            {{ $skill->category->name ?? '' }}
+                            {!! $skill->category->name !!}
                         @endif
                         */ ?>
                     </td>
                     <td data-field="level" style="white-space: nowrap;">
                         @include('admin.components.star-ratings', [
-                            'rating' => $skill->level ?? 1,
-                            'label'  => '(' . ($skill->level ?? 1) . ')'
+                            'rating' => $skill->level,
+                            'label'  => "({$skill->level})"
                         ])
                     </td>
                     <td data-field="years" class="has-text-centered">
-                        {{ $skill->years }}
+                        {!! $skill->years !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->public ])
@@ -96,7 +96,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.skill.destroy', $skill->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.skill.destroy', $skill->id) !!}" method="POST">
 
                             @if(canRead($skill))
                                 @include('admin.components.link-icon', [
@@ -116,7 +116,7 @@
 
                             @if (!empty($skill->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($skill->link_name) ? $skill->link_name : 'link') ?? ''),
+                                    'title'  => !empty($skill->link_name) ? $skill->link_name : 'link'),
                                     'href'   => $skill->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

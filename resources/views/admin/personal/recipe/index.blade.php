@@ -65,16 +65,16 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($recipe->name ?? '') }}
+                        {!! $recipe->name !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->featured ])
                     </td>
                     <td data-field="types">
-                        {{ implode(', ', $recipe->types()) }}
+                        {!! implode(', ', $recipe->types()) !!}
                     </td>
                     <td data-field="meals">
-                        {{ implode(', ', $recipe->meals()) }}
+                        {!! implode(', ', $recipe->meals()) !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->public ])
@@ -84,7 +84,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.personal.recipe.destroy', $recipe->id) }}" method="POST">
+                        <form action="{!! route('admin.personal.recipe.destroy', $recipe->id) !!}" method="POST">
 
                             @if(canRead($recipe))
                                 @include('admin.components.link-icon', [
@@ -104,7 +104,7 @@
 
                             @if (!empty($recipe->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($recipe->link_name) ? $recipe->link_name : 'link') ?? ''),
+                                    'title'  => !empty($recipe->link_name) ? $recipe->link_name : 'link',
                                     'href'   => $recipe->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

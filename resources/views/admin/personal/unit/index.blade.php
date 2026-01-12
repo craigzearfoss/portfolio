@@ -48,17 +48,17 @@
 
                 <tr data-id="{{ $unit->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($unit->name ?? '') }}
+                        {!! $unit->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($unit->abbreviation ?? '') }}
+                        {!! $unit->abbreviation !!}
                     </td>
                     <td data-field="system" class="has-text-centered">
-                        {{ htmlspecialchars($unit->system ?? '') }}
+                        {!! $unit->system !!}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.personal.unit.destroy', $unit->id) }}" method="POST">
+                        <form action="{!! route('admin.personal.unit.destroy', $unit->id) !!}" method="POST">
 
                             @if(canRead($unit))
                                 @include('admin.components.link-icon', [
@@ -78,7 +78,7 @@
 
                             @if (!empty($unit->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($unit->link_name) ? $unit->link_name : 'link') ?? ''),
+                                    'title'  => !empty($unit->link_name) ? $unit->link_name : 'link',
                                     'href'   => $unit->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

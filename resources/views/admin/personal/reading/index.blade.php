@@ -22,7 +22,7 @@
 @section('content')
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{{ route('admin.personal.reading.index') }}" method="get">
+        <form id="searchForm" action="{!! route('admin.personal.reading.index') !!}" method="get">
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'author',
@@ -125,10 +125,10 @@
                         </td>
                     @endif
                     <td data-field="title">
-                        {{ htmlspecialchars($reading->title ?? '') }}
+                        {!! $reading->title !!}
                     </td>
                     <td data-field="author">
-                        {{ htmlspecialchars($reading->author ?? '') }}
+                        {!! $reading->author !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
@@ -141,7 +141,7 @@
                         }}
                     </td>
                     <td data-field="publication_year" class="has-text-centered">
-                        {{ $reading->publication_year }}
+                        {!! $reading->publication_year !!}
                     </td>
                     <td data-field="paper|audio" style="white-space: nowrap;">
                         {{
@@ -161,7 +161,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.personal.reading.destroy', $reading->id) }}" method="POST">
+                        <form action="{!! route('admin.personal.reading.destroy', $reading->id) !!}" method="POST">
 
                             @if(canRead($reading))
                                 @include('admin.components.link-icon', [
@@ -181,7 +181,7 @@
 
                             @if (!empty($reading->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($reading->link_name) ? $reading->link_name : 'link') ?? ''),
+                                    'title'  => !empty($reading->link_name) ? $reading->link_name : 'link',
                                     'href'   => $reading->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

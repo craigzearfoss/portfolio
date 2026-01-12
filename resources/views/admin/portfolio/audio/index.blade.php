@@ -65,7 +65,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($audio->name ?? '') }}
+                        {!! $audio->name !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $audio->featured ])
@@ -79,7 +79,7 @@
                         {{ implode(', ', $types) }}
                     </td>
                     <td data-field="year">
-                        {{ $audio->year }}
+                        {!! $audio->year !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $audio->public ])
@@ -89,7 +89,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.audio.destroy', $audio->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.audio.destroy', $audio->id) !!}" method="POST">
 
                             @if(canRead($audio))
                                 @include('admin.components.link-icon', [
@@ -109,7 +109,7 @@
 
                             @if (!empty($audio->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($audio->link_name) ? $audio->link_name : 'link') ?? ''),
+                                    'title'  => !empty($audio->link_name) ? $audio->link_name : 'link',
                                     'href'   => $audio->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

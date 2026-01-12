@@ -73,11 +73,11 @@
                     @endif
                     <td data-field="job.company">
                         @if($jobSkill->job)
-                            {{ htmlspecialchars($jobSkill->job['company'] ?? '') }}
+                            {!! $jobSkill->job->company ?? '' !!}
                         @endif
                     </td>
                     <td data-field="summary">
-                        {{ $jobSkill->summary ?? '' }}
+                        {!! $jobSkill->summary !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobSkill->public ])
@@ -87,7 +87,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.job-skill.destroy', $jobSkill->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.job-skill.destroy', $jobSkill->id) !!}" method="POST">
 
                             @if(canRead($jobSkill))
                                 @include('admin.components.link-icon', [
@@ -107,7 +107,7 @@
 
                             @if (!empty($jobSkill->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($jobSkill->link_name) ? $jobSkill->link_name : 'link') ?? ''),
+                                    'title'  => !empty($jobSkill->link_name) ? $jobSkill->link_name : 'link',
                                     'href'   => $jobSkill->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

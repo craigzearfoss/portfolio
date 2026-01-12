@@ -56,17 +56,17 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ htmlspecialchars($userTeam->name ?? '') }}
+                        {!! $userTeam->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($userTeam->abbreviation ?? '') }}
+                        {!! $userTeam->abbreviation ?? '' !!}
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $userTeam->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.system.user-team.destroy', $userTeam->id) }}" method="POST">
+                        <form action="{!! route('admin.system.user-team.destroy', $userTeam->id) !!}" method="POST">
 
                             @if(canRead($userTeam))
                                 @include('admin.components.link-icon', [
@@ -86,7 +86,7 @@
 
                             @if (!empty($userTeam->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($userTeam->link_name) ? $userTeam->link_name : 'link') ?? ''),
+                                    'title'  => !empty($userTeam->link_name) ? $userTeam->link_name : 'link',
                                     'href'   => $userTeam->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

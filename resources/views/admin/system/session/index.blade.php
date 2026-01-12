@@ -55,14 +55,14 @@
                         {{ $session->admin_id }}
                     </td>
                     <td data-field="ip_address">
-                        {{ $session->ip_address }}
+                        {!! $session->ip_address !!}
                     </td>
                     <td data-field="last_activity">
-                        {{ $session->last_activity }}
+                        {!! $session->last_activity !!}
                     </td>
                     <td>
-                        <a class="button is-small px-1 py-0" href="{{ route('admin.system.session.show', $session->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- Show --}}
+                        <a class="button is-small px-1 py-0" href="{!! route('admin.system.session.show', $session->id) !!}">
+                            <i class="fa-solid fa-list"></i>
                         </a>
                     </td>
                 </tr>

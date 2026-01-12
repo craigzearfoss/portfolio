@@ -69,32 +69,32 @@
                         </td>
                     @endif
                     <td data-field="degreeType.name">
-                        {{ htmlspecialchars($education->degreeType->name ?? '') }}
+                        {!! $education->degreeType->name ?? '' !!}
                     </td>
                     <td data-field="major">
-                        {{ htmlspecialchars($education->major ?? '') }}
+                        {!! $education->major !!}
                     </td>
                     <td data-field="minor">
-                        {{ htmlspecialchars($education->minor ?? '') }}
+                        {!! $education->minor !!}
                     </td>
                     <td data-field="school.name">
-                        {{ htmlspecialchars($education->school->name ?? '') }}
+                        {!! $education->school->name ?? '' !!}
                     </td>
                     <td data-field="enrollment_month|enrollment_year">
-                        {{ $education->enrollment_year }}
+                        {!! $education->enrollment_year !!}
                     </td>
                     <td data-field="graduated" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $education->graduated ])
                     </td>
                     <td data-field="graduation_month|graduation_year">
-                        {{ $education->graduation_year }}
+                        {!! $education->graduation_year !!}
                     </td>
                     <td data-field="currently_enrolled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $education->currently_enrolled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.education.destroy', $education->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.education.destroy', $education->id) !!}" method="POST">
 
                             @if(canRead($education))
                                 @include('admin.components.link-icon', [
@@ -114,7 +114,7 @@
 
                             @if (!empty($education->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($education->link_name) ? $education->link_name : 'link') ?? ''),
+                                    'title'  => !empty($education->link_name) ? $education->link_name : 'link',
                                     'href'   => $education->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

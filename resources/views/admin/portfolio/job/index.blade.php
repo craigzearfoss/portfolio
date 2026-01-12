@@ -40,13 +40,13 @@
                 <tbody>
                     @foreach($resource->settings as $setting)
                         <td>
-                            {{ htmlspecialchars($setting->name ?? '') }}
+                            {!! $setting->name !!}
                         </td>
                         <td>
-                            {{ htmlspecialchars($setting->type->name ?? '') }}
+                            {!! $setting->type->name !!}
                         </td>
                         <td>
-                            {{ htmlspecialchars($setting->value ?? '') }}
+                            {!! nl2br(htmlspecialchars($setting->value)) !!}
                         </td>
                     @endforeach
                 </tbody>
@@ -105,7 +105,7 @@
                         </td>
                     @endif
                     <td data-field="company">
-                        {{ htmlspecialchars($job->company ?? '') }}
+                        {!! $job->company !!}
                     </td>
                     <td data-field="logo_small">
                         @include('admin.components.image', [
@@ -115,18 +115,18 @@
                         ])
                     </td>
                     <td data-field="role">
-                        {{ htmlspecialchars($job->role? '') }}
+                        {!! $job->role !!}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->featured ])
                     </td>
                     <td data-field="start_month|start_year">
-                        @if(!empty($job->start_month)){{ date('F', mktime(0, 0, 0, $job->start_month, 10)) }} @endif
-                        {{ $job->start_year }}
+                        @if(!empty($job->start_month)){!! date('F', mktime(0, 0, 0, $job->start_month, 10)) !!} @endif
+                        {!! $job->start_year !!}
                     </td>
                     <td data-field="end_month|end_year">
-                        @if(!empty($job->end_month)){{ date('F', mktime(0, 0, 0, $job->end_month, 10)) }} @endif
-                        {{ $job->end_year }}
+                        @if(!empty($job->end_month)){!! date('F', mktime(0, 0, 0, $job->end_month, 10)) !!} @endif
+                        {!! $job->end_year !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->public ])
@@ -136,7 +136,7 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.job.destroy', $job->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.job.destroy', $job->id) !!}" method="POST">
 
                             @if(canRead($job))
                                 @include('admin.components.link-icon', [
@@ -156,7 +156,7 @@
 
                             @if (!empty($job->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($job->link_name) ? $job->link_name : 'link') ?? ''),
+                                    'title'  => !empty($job->link_name) ? $job->link_name : 'link',
                                     'href'   => $job->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

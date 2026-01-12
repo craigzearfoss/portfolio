@@ -22,7 +22,7 @@
 @section('content')
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{{ route('admin.portfolio.school.index') }}" method="get">
+        <form id="searchForm" action="{!! route('admin.portfolio.school.index') !!}" method="get">
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'state_id',
@@ -62,7 +62,7 @@
 
                 <tr data-id="{{ $school->id }}">
                     <td data-field="name">
-                        {{ $school->name }}
+                        {!! $school->name !!}
                     </td>
                     <td data-field="logo_small">
                         @include('admin.components.image', [
@@ -71,12 +71,12 @@
                             'width' => '48px',
                         ])
                     </td>
-                    <td data-field="city">
-                        {{ $school->state['name'] ?? '' }}
+                    <td data-field="state">
+                        {!! $school->state['name'] ?? '' !!}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.portfolio.school.destroy', $school->id) }}" method="POST">
+                        <form action="{!! route('admin.portfolio.school.destroy', $school->id) !!}" method="POST">
 
                             @if(canRead($school))
                                 @include('admin.components.link-icon', [
@@ -96,7 +96,7 @@
 
                             @if (!empty($school->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($school->link_name) ? $school->link_name : 'link') ?? ''),
+                                    'title'  => !empty($school->link_name) ? $school->link_name : 'link',
                                     'href'   => $school->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'
