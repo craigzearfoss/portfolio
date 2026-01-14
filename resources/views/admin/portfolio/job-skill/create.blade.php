@@ -14,7 +14,7 @@
     $breadcrumbs[] = [ 'name' => 'Add'];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $title ?? 'Add Job Skill',
+    'title'         => $pageTitle ?? 'Add Job Skill',
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-skill.index') ],

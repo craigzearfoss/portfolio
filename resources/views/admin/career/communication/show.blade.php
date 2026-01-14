@@ -30,7 +30,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $title ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'title'         => $pageTitle ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],

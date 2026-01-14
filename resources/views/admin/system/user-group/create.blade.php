@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Add New User Group',
+    'title'         => $pageTitle ?? 'Add New User Group',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

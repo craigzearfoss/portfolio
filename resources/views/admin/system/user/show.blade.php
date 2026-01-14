@@ -11,7 +11,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'User: ' . $user->username,
+    'title'         => $pageTitle ?? 'User: ' . $user->username,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

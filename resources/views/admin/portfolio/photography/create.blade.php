@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Add New Photo',
+    'title'         => $pageTitle ?? 'Add New Photo',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

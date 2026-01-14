@@ -23,9 +23,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => (!empty($recipe->name))
-        ?  $recipe->name . ' Instructions'
-        : 'Recipe Instructions',
+    'title'         => $pageTitle ?? (!empty($recipe->name) ?  $recipe->name . ' Instructions' : 'Recipe Instructions'),
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],

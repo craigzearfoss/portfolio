@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Add Database',
+    'title'         => $pageTitle ?? 'Add Database',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

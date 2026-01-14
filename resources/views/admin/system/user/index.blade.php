@@ -11,7 +11,7 @@ if (canRead('user', getAdminId())) {
 }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Users',
+    'title'         => $pageTitle ?? 'Users',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

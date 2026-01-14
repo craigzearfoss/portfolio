@@ -8,7 +8,7 @@ if (canRead('user-team', getAdminId())) {
 }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'User Groups',
+    'title'         => $pageTitle ?? 'User Groups',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

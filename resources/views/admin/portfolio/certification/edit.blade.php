@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Certification: ' . $certification->name,
+    'title'         => $pageTitle ?? 'Certification: ' . $certification->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',               'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],

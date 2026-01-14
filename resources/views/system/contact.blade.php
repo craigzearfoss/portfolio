@@ -1,6 +1,5 @@
 @extends('guest.layouts.default', [
-    'pageTitle'     => 'Contact Us',
-    'title'         => '',
+    'title'         => 'Contact Us',
     'subtitle'      => null,
     'breadcrumbs'   => [
         [ 'name' => 'Home', 'href' => route('home')],
@@ -27,7 +26,7 @@
 
         @else
 
-            <form action="{{ route('system.contact.storeMessage') }}" method="POST">
+            <form action="{{ route('contact.storeMessage') }}" method="POST">
                 @csrf
 
                 <div class="column is-6">

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Recipe Ingredient: ' . $recipeIngredient->ingredient->name,
+    'title'         => $pageTitle ?? 'Recipe Ingredient: ' . $recipeIngredient->ingredient->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',                  'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],

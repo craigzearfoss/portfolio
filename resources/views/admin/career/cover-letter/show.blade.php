@@ -9,7 +9,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.cover-letter.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Cover Letter: ' . $coverLetter->name,
+    'title'         => $pageTitle ?? 'Cover Letter: ' . $coverLetter->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',             'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],

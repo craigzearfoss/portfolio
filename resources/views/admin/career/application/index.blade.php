@@ -24,7 +24,7 @@ if (!empty($resume)) {
 }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : ''),
+    'title'         => $pageTitle ?? 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : ''),
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],

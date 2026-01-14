@@ -5,7 +5,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Education',
+    'title'         => $pageTitle ?? 'Education',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

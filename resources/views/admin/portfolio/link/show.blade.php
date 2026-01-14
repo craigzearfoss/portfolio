@@ -9,7 +9,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.link.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Link: ' . $link->name,
+    'title'         => $pageTitle ?? 'Link: ' . $link->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

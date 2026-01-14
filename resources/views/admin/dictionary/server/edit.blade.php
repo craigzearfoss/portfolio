@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => $server->name . ' (server)',
+    'title'         => 'Dictionary: ' . $server->name . ' (server)',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

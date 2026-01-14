@@ -29,7 +29,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.event.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $title ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'title'         => $pageTitle ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],

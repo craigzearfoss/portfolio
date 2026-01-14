@@ -22,7 +22,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $title ?? 'Edit Note' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'title'         => $pageTitle ?? 'Edit Note' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ],

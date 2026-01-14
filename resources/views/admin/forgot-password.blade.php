@@ -1,6 +1,5 @@
 @extends('admin.layouts.default', [
-    'pageTitle'     => 'Forgot Password',
-    'title'         => '',
+    'title'         => 'Forgot Password',
     'breadcrumbs'   => [],
     'buttons'       => [],
     'errorMessages' => $errors->messages() ?? [],

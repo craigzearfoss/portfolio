@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Award: ' . $award->name,
+    'title'         => $pageTitle ?? 'Award: ' . $award->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

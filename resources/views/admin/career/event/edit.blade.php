@@ -22,7 +22,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $title ?? 'Edit Event' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'title'         => $pageTitle ?? 'Edit Event' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.event.index') ],

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => $operatingSystem->name . ' (operating system)',
+    'title'         => 'Dictionary: ' . $operatingSystem->name . ' (operating system)',
     'breadcrumbs'   => [
         [ 'name' => 'Home',                  'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],

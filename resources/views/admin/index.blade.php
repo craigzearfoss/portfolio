@@ -1,6 +1,6 @@
 @php /* for url '/admin/' */ @endphp
 @extends('admin.layouts.default', [
-    'title'         => config('app.name'),
+    'title'         => $pageTitle ?? config('app.name'),
     'breadcrumbs'   => [],
     'buttons'       => [],
     'errorMessages' => $errors->messages() ?? [],

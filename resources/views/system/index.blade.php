@@ -1,6 +1,6 @@
 @php /* for url '/' */ @endphp
 @extends('guest.layouts.default', [
-    'title'         => config('app.name'),
+    'title'         => $pageTitle ?? config('app.name'),
     'breadcrumbs'   => [],
     'buttons'       => [],
     'errorMessages' => $errors->any()

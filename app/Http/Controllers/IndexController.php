@@ -39,12 +39,12 @@ class IndexController extends BaseSystemController
 
     public function about(): View
     {
-        return view(themedTemplate('about'));
+        return view(themedTemplate('system.about'));
     }
 
     public function contact(): View
     {
-        return view(themedTemplate('contact'));
+        return view(themedTemplate('system.contact'));
     }
 
     /**
@@ -63,12 +63,12 @@ class IndexController extends BaseSystemController
 
     public function privacy_policy(): View
     {
-        return view(themedTemplate('privacy-policy'));
+        return view(themedTemplate('system.privacy-policy'));
     }
 
     public function terms_and_conditions(): View
     {
-        return view(themedTemplate('terms-and-conditions'));
+        return view(themedTemplate('system.terms-and-conditions'));
     }
     //
 }

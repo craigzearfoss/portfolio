@@ -9,7 +9,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.education.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Education: ' . $education->degreeType->name . ' ' . $education->major,
+    'title'         => $pageTitle ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

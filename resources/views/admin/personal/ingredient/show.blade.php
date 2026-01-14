@@ -9,7 +9,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.ingredient.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Ingredient: ' . $ingredient->name,
+    'title'         => $pageTitle ?? 'Ingredient: ' . $ingredient->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Job Skill Edit',
+    'title'         => $pageTitle ?? 'Job Skill Edit',
     'breadcrumbs'   => [
         [ 'name' => 'Home',               'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Audio: ' . $audio->name,
+    'title'         => $pageTitle ?? 'Audio: ' . $audio->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

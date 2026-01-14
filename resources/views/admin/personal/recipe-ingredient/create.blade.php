@@ -1,6 +1,6 @@
 CREATE
 @extends('admin.layouts.default', [
-    'title'         => 'Add New Recipe Ingredient',
+    'title'         => $pageTitle ?? 'Add New Recipe Ingredient',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

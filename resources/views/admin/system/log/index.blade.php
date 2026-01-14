@@ -2,7 +2,7 @@
     $buttons = [];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Message',
+    'title'         => $pageTitle ?? 'Log',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -20,7 +20,7 @@
 
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{!! route('admin.system.logs.index') !!}" method="get">
+        <form id="searchForm" action="{!! route('admin.system.log.index') !!}" method="get">
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'type',

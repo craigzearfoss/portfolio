@@ -5,9 +5,9 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => (!empty($recipeId) && !empty($recipeIngredient->recipe))
+    'title'         => $pageTitle ?? ((!empty($recipeId) && !empty($recipeIngredient->recipe))
         ?  $recipeIngredient->recipe['name'] . ' Ingredients'
-        : 'Recipe Ingredients',
+        : 'Recipe Ingredients'),
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

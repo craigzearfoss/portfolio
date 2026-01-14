@@ -20,7 +20,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $title ?? 'Add Communication' . (!empty($application) ? ' to ' . $application->name . ' application' : ''),
+    'title'         => $pageTitle ?? 'Add Communication' . (!empty($application) ? ' to ' . $application->name . ' application' : ''),
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ],

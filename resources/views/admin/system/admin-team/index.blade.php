@@ -8,7 +8,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Admin Teams',
+    'title'         => $pageTitle ?? 'Admin Teams',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

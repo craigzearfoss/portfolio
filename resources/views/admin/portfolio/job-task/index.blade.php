@@ -19,7 +19,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => !empty($job) ? $job->company . ' Tasks' : 'Job Tasks',
+    'title'         => $pageTitle ?? (!empty($job) ? $job->company . ' Tasks' : 'Job Tasks'),
     'breadcrumbs'   => $breadcrumbs,
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],

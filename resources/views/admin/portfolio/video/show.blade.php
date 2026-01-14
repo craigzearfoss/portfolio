@@ -9,7 +9,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.video.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Video: ' . $video->name,
+    'title'         => $pageTitle ?? 'Video: ' . $video->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

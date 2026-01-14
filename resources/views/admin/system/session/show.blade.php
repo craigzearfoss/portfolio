@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => 'Session: ' . $session->id,
+    'title'         => $pageTitle ?? 'Session: ' . $session->id,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

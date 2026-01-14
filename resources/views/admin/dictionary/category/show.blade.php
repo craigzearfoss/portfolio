@@ -9,7 +9,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.category.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $category->name . ' (category)',
+    'title'         => 'Dictionary: ' . $category->name . ' (category)',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

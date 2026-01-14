@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
+    'title'         => $pageTitle ?? $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
     'breadcrumbs'   => [
         [ 'name' => 'Home',                       'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',            'href' => route('admin.dashboard') ],

@@ -9,7 +9,7 @@
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.certification.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Certification: ' . $certification->name,
+    'title'         => $pageTitle ?? 'Certification: ' . $certification->name,
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

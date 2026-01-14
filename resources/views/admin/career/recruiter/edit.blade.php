@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => !empty($title) ? $title :'Recruiter: ' . $recruiter->name,
+    'title'         => $pageTitle ?? (!empty($title) ? $title :'Recruiter: ' . $recruiter->name),
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
