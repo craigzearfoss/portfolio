@@ -70,7 +70,7 @@ class AdminController extends BaseAdminRootController
 
         $admin->save();
 
-        return redirect()->route('admin.admin.show', $admin)
+        return redirect()->route('root.admin.show', $admin)
             ->with('success', 'Admin ' . $admin->username . ' successfully added.');
     }
 
@@ -111,7 +111,7 @@ class AdminController extends BaseAdminRootController
 
         $admin->update($request->validated());
 
-        return redirect()->route('admin.admin.show', $admin)
+        return redirect()->route('root.admin.show', $admin)
             ->with('success', $admin->username . ' successfully updated.');
     }
 
@@ -125,7 +125,7 @@ class AdminController extends BaseAdminRootController
     {
         Gate::authorize('delete-resource', $admin);
 
-        return redirect(referer('admin.system.admin.index'))
+        return redirect(referer('root.system.admin.index'))
             ->with('success', $admin->username . ' deleted successfully.');
     }
 }

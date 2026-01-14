@@ -63,7 +63,7 @@ class RecipeStepController extends BaseAdminRootController
     {
         $recipeStep = RecipeStep::create($request->validated());
 
-        return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
+        return redirect()->route('root.personal.recipe-step.show', $recipeStep)
             ->with('success', 'Recipe step successfully added.');
     }
 
@@ -104,7 +104,7 @@ class RecipeStepController extends BaseAdminRootController
 
         $recipeStep->update($request->validated());
 
-        return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
+        return redirect()->route('root.personal.recipe-step.show', $recipeStep)
             ->with('success', 'Recipe step successfully updated.');
     }
 
@@ -120,7 +120,7 @@ class RecipeStepController extends BaseAdminRootController
 
         $recipeStep->delete();
 
-        return redirect(referer('admin.personal.recipe-step.index'))
+        return redirect(referer('root.personal.recipe-step.index'))
             ->with('success', 'Recipe step deleted successfully.');
     }
 }

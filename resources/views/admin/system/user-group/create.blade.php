@@ -4,7 +4,7 @@
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'User Groups',     'href' => route('admin.system.user-group.index') ],
+        [ 'name' => 'User Groups',     'href' => route('root.user-group.index') ],
         [ 'name' => 'Add' ]
     ],
     'buttons'       => [

@@ -67,7 +67,7 @@ class JobCoworkerController extends BaseAdminRootController
     {
         $jobCoworker = JobCoworker::create($request->validated());
 
-        return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
+        return redirect()->route('root.portfolio.job-coworker.show', $jobCoworker)
             ->with('success', $jobCoworker->name . ' successfully added.');
     }
 
@@ -109,7 +109,7 @@ class JobCoworkerController extends BaseAdminRootController
 
         $jobCoworker->update($request->validated());
 
-        return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
+        return redirect()->route('root.portfolio.job-coworker.show', $jobCoworker)
             ->with('success', $jobCoworker->name . ' successfully updated.');
     }
 
@@ -125,7 +125,7 @@ class JobCoworkerController extends BaseAdminRootController
 
         $jobCoworker->delete();
 
-        return redirect(referer('admin.portfolio.job-coworker.index'))
+        return redirect(referer('root.portfolio.job-coworker.index'))
             ->with('success', $jobCoworker->name . ' deleted successfully.');
     }
 }

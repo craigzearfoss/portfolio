@@ -66,7 +66,7 @@ class JobSkillController extends BaseAdminRootController
     {
         $jobSkill = JobSkill::create($request->validated());
 
-        return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
+        return redirect()->route('root.portfolio.job-skill.show', $jobSkill)
             ->with('success', $jobSkill->name . ' successfully added.');
     }
 
@@ -108,7 +108,7 @@ class JobSkillController extends BaseAdminRootController
 
         $jobSkill->update($request->validated());
 
-        return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
+        return redirect()->route('root.portfolio.job-skill.show', $jobSkill)
             ->with('success', $jobSkill->name . ' successfully updated.');
     }
 
@@ -124,7 +124,7 @@ class JobSkillController extends BaseAdminRootController
 
         $jobSkill->delete();
 
-        return redirect(referer('admin.portfolio.job-skill.index'))
+        return redirect(referer('root.portfolio.job-skill.index'))
             ->with('success', $jobSkill->name . ' deleted successfully.');
     }
 }

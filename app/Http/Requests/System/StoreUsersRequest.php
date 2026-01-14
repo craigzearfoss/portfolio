@@ -32,6 +32,7 @@ class StoreUsersRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_team_id'    => ['required', 'integer', 'exists:system_db.user_teams,id'],
             'username' => [
                 'required',
                 'string',
@@ -45,6 +46,7 @@ class StoreUsersRequest extends FormRequest
             'label'             => [
                 'required',
                 'string',
+                'lowercase',
                 'min:6',
                 'max:200',
                 'unique:users,label',
@@ -96,8 +98,9 @@ class StoreUsersRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'state_id.exists'   => 'The specified state does not exist.',
-            'country_id.exists' => 'The specified country does not exist.',
+            'user_team_id.required' => 'A team must be selected.',
+            'state_id.exists'       => 'The specified state does not exist.',
+            'country_id.exists'     => 'The specified country does not exist.',
         ];
     }
 

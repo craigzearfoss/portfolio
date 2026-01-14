@@ -14,7 +14,7 @@
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'User Groups',     'href' => route('admin.system.user-group.index') ],
+        [ 'name' => 'User Groups',     'href' => route('root.user-group.index') ],
         [ 'name' => $userGroup->name ]
     ],
     'buttons'       => $buttons,
@@ -113,12 +113,12 @@
                             </td>
                             <td>
                                 <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.system.user.show', $member->id) }}">
+                                   href="{{ route('root.user.show', $member->id) }}">
                                     <i class="fa-solid fa-list"></i>{{-- show --}}
                                 </a>
 
                                 <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.system.user.edit', $member->id) }}">
+                                   href="{{ route('root.user.edit', $member->id) }}">
                                     <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                                 </a>
                             </td>

@@ -57,7 +57,7 @@ class RecruiterController extends BaseAdminRootController
 
         $recruiter = Recruiter::create($request->validated());
 
-        return redirect()->route('admin.career.recruiter.show', $recruiter)
+        return redirect()->route('root.career.recruiter.show', $recruiter)
             ->with('success', $recruiter->name . ' successfully added.');
     }
 
@@ -98,7 +98,7 @@ class RecruiterController extends BaseAdminRootController
 
         $recruiter->update($request->validated());
 
-        return redirect()->route('admin.career.recruiter.show', $recruiter)
+        return redirect()->route('root.career.recruiter.show', $recruiter)
             ->with('success', $recruiter->name . ' successfully updated.');
     }
 
@@ -114,7 +114,7 @@ class RecruiterController extends BaseAdminRootController
 
         $recruiter->delete();
 
-        return redirect(referer('admin.career.recruiter.index'))
+        return redirect(referer('root.career.recruiter.index'))
             ->with('success', $recruiter->name . ' deleted successfully.');
     }
 }

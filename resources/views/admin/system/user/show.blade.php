@@ -1,13 +1,14 @@
 @php
     $buttons = [];
     if (canDelete($user)) {
-        $buttons[] = [ 'name' => '<i class="fa fa-key"></i>Change Password', 'href' => route('admin.system.user.change-password', $user->id) ];
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.user.edit', $user) ];
+//@TODO: Need to add these admin user pages
+        $buttons[] = [ 'name' => '<i class="fa fa-key"></i>Change Password', 'href' => route('root.user.change-password', $user->id) ];
+//        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('root.user.edit', $user) ];
     }
     if (canCreate($user, getAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('admin.system.user.create') ];
+//        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('root.user.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'User: ' . $user->username,
@@ -15,7 +16,7 @@
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Users',           'href' => route('admin.system.user.index') ],
+        [ 'name' => 'Users',           'href' => route('root.user.index') ],
         [ 'name' => $user->username ],
     ],
     'buttons'       => $buttons,
@@ -43,6 +44,12 @@
             'name'  => 'name',
             'value' => htmlspecialchars($user->name ?? '')
         ])
+<?php /* @TODO
+        @include('admin.components.show-row', [
+            'name'  => 'teams',
+            'value' => implode(',', $user->teams->pluck('name')->toArray())
+        ])
+*/ ?>
 
         @include('admin.components.show-row', [
             'name'  => 'salutation',

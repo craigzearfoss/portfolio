@@ -60,7 +60,7 @@ class MessageController extends BaseAdminRootController
 
         $message = Message::create($request->validated());
 
-        return redirect()->route('admin.system.message.show', $message)
+        return redirect()->route('root.system.message.show', $message)
             ->with('success', 'Message successfully added.');
     }
 
@@ -103,7 +103,7 @@ class MessageController extends BaseAdminRootController
 
         $message->update($request->validated());
 
-        return redirect()->route('admin.system.message.index')
+        return redirect()->route('root.system.message.index')
             ->with('success', 'Message successfully updated.');
     }
 
@@ -119,7 +119,7 @@ class MessageController extends BaseAdminRootController
 
         $message->delete();
 
-        return redirect(referer('admin.system.message.index'))
+        return redirect(referer('root.system.message.index'))
             ->with('success', 'Message deleted successfully.');
     }
 }

@@ -54,7 +54,7 @@ class ProjectController extends BaseAdminRootController
     {
         $project = Project::create($request->validated());
 
-        return redirect()->route('admin.portfolio.project.show', [$this->currentAdmin, $project])
+        return redirect()->route('root.portfolio.project.show', [$this->currentAdmin, $project])
             ->with('success', $project->name . ' project successfully added.');
     }
 
@@ -95,7 +95,7 @@ class ProjectController extends BaseAdminRootController
 
         $project->update($request->validated());
 
-        return redirect()->route('admin.portfolio.project.show', [$this->currentAdmin, $project])
+        return redirect()->route('root.portfolio.project.show', [$this->currentAdmin, $project])
             ->with('success', $project->name . ' project successfully updated.');
     }
 
@@ -111,7 +111,7 @@ class ProjectController extends BaseAdminRootController
 
         $project->delete();
 
-        return redirect(referer('admin.portfolio.project.index'))
+        return redirect(referer('root.portfolio.project.index'))
             ->with('success', $project->name . ' project deleted successfully.');
     }
 }

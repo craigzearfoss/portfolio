@@ -3,6 +3,7 @@
 namespace App\Models\System;
 
 use App\Models\System;
+use App\Models\System\User;
 use App\Models\System\UserUserTeam;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Collection;
@@ -50,16 +51,16 @@ class UserGroup extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'user_team_id', 'name', 'abbreviation', 'public', 'readonly',
-        'root', 'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['id', 'user_id', 'user_team_id', 'name', 'abbreviation', 'public', 'readonly', 'root',
+        'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the system owner of the user group.
+     * Get the system user of the user group.
      */
-    public function owner(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(System\Owner::class, 'owner_id');
+        return $this->belongsTo(System\User::class, 'owner_id');
     }
 
     /**

@@ -52,7 +52,7 @@ class EducationController extends BaseAdminRootController
     {
         $education = Education::create($request->validated());
 
-        return redirect()->route('admin.portfolio.education.show', $education)
+        return redirect()->route('root.portfolio.education.show', $education)
             ->with('success', $education->name . ' education successfully added.');
     }
 
@@ -94,7 +94,7 @@ class EducationController extends BaseAdminRootController
 
         $education->update($request->validated());
 
-        return redirect()->route('admin.portfolio.education.show', $education)
+        return redirect()->route('root.portfolio.education.show', $education)
             ->with('success', $education->name . ' education successfully updated.');
     }
 
@@ -110,7 +110,7 @@ class EducationController extends BaseAdminRootController
 
         $education->delete();
 
-        return redirect(referer('admin.portfolio.education.index'))
+        return redirect(referer('root.portfolio.education.index'))
             ->with('success', $education->name . ' education deleted successfully.');
     }
 }

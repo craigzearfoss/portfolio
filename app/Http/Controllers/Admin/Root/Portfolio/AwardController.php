@@ -52,7 +52,7 @@ class AwardController extends BaseAdminRootController
     {
         $award = Award::create($request->validated());
 
-        return redirect()->route('admin.portfolio.award.show', $award)
+        return redirect()->route('root.portfolio.award.show', $award)
             ->with('success', $award->name . ' successfully added.');
     }
 
@@ -93,7 +93,7 @@ class AwardController extends BaseAdminRootController
 
         $award->update($request->validated());
 
-        return redirect()->route('admin.portfolio.award.show', $award)
+        return redirect()->route('root.portfolio.award.show', $award)
             ->with('success', $award->name . ' successfully updated.');
     }
 
@@ -109,7 +109,7 @@ class AwardController extends BaseAdminRootController
 
         $award->delete();
 
-        return redirect(referer('admin.portfolio.award.index'))
+        return redirect(referer('root.portfolio.award.index'))
             ->with('success', $award->name . ' deleted successfully.');
     }
 }

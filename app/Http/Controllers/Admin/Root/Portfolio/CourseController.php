@@ -54,7 +54,7 @@ class CourseController extends BaseAdminRootController
     {
         $course = Course::create($request->validated());
 
-        return redirect()->route('admin.portfolio.course.show', $course)
+        return redirect()->route('root.portfolio.course.show', $course)
             ->with('success', $course-> name . ' successfully added.');
     }
 
@@ -95,7 +95,7 @@ class CourseController extends BaseAdminRootController
 
         $course->update($request->validated());
 
-        return redirect()->route('admin.portfolio.course.show', $course)
+        return redirect()->route('root.portfolio.course.show', $course)
             ->with('success', $course->name . ' successfully updated.');
     }
 
@@ -111,7 +111,7 @@ class CourseController extends BaseAdminRootController
 
         $course->delete();
 
-        return redirect(referer('admin.portfolio.course.index'))
+        return redirect(referer('root.portfolio.course.index'))
             ->with('success', $course->name . ' deleted successfully.');
     }
 }

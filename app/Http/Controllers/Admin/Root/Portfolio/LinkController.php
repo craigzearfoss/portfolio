@@ -54,7 +54,7 @@ class LinkController extends BaseAdminRootController
     {
         $link = Link::create($request->validated());
 
-        return redirect()->route('admin.portfolio.link.show', $link)
+        return redirect()->route('root.portfolio.link.show', $link)
             ->with('success', $link->name . ' link successfully added.');
     }
 
@@ -95,7 +95,7 @@ class LinkController extends BaseAdminRootController
 
         $link->update($request->validated());
 
-        return redirect()->route('admin.portfolio.link.show', $link)
+        return redirect()->route('root.portfolio.link.show', $link)
             ->with('success', $link->name . ' link successfully updated.');
     }
 
@@ -111,7 +111,7 @@ class LinkController extends BaseAdminRootController
 
         $link->delete();
 
-        return redirect(referer('admin.portfolio.link.index'))
+        return redirect(referer('root.portfolio.link.index'))
             ->with('success', $link->name . ' link deleted successfully.');
     }
 }

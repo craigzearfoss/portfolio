@@ -17,6 +17,8 @@ class StoreAdminTeamsRequest extends FormRequest
     {
         $this->checkDemoMode();
 
+        $this->checkOwner();
+
         return true;
     }
 

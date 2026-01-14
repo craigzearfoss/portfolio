@@ -7,8 +7,8 @@
         [ 'name' => 'User Teams' ]
     ],
     'buttons'       => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New User Team', 'href' => route('admin.system.user-team.create') ],
-        [ 'name' => '<i class="fa fa-list"></i> User Groups',       'href' => route('admin.system.user-group.index') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New User Team', 'href' => route('root.user-team.create') ],
+        [ 'name' => '<i class="fa fa-list"></i> User Groups',       'href' => route('root.user-group.index') ],
     ],
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
@@ -66,12 +66,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.system.user-team.destroy', $userTeam->id) !!}" method="POST">
+                        <form action="{!! route('root.user-team.destroy', $userTeam->id) !!}" method="POST">
 
                             @if(canRead($userTeam))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.system.user-team.show', $userTeam->id),
+                                    'href'  => route('root.user-team.show', $userTeam->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -79,7 +79,7 @@
                             @if(canUpdate($userTeam))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.system.user-team.edit', $userTeam->id),
+                                    'href'  => route('root.user-team.edit', $userTeam->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

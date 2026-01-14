@@ -60,7 +60,7 @@ class DatabaseController extends BaseAdminRootController
 
         $database = Database::create($request->validated());
 
-        return redirect()->route('admin.system.database.show', $database)
+        return redirect()->route('root.system.database.show', $database)
             ->with('success', $database->name . ' database successfully added.');
     }
 
@@ -101,7 +101,7 @@ class DatabaseController extends BaseAdminRootController
 
         $database->update($request->validated());
 
-        return redirect()->route('admin.system.database.show', $database)
+        return redirect()->route('root.system.database.show', $database)
             ->with('success', $database->name . ' database successfully updated.');
     }
 
@@ -117,7 +117,7 @@ class DatabaseController extends BaseAdminRootController
 
         $database->delete();
 
-        return redirect(referer('admin.system.database.index'))
+        return redirect(referer('root.system.database.index'))
             ->with('success', $database->name . ' database deleted successfully.');
     }
 }

@@ -155,16 +155,19 @@ return new class extends Migration
 
         $data[] = [
             'id'                => 1,
+//            'user_team_id'     => null,
             'username'          => $this->sampleUsername,
             'name'              => $this->sampleName,
             'label'             => $this->sampleLabel,
+            'role'              => 'Sample User',
             'email'             => 'sample-user@gsample.com',
             'email_verified_at' => now(),
             'password'          => Hash::make($this->samplePassword),
             'status'            => 1,
             'image'             => $imagePath,
             'thumbnail'         => $thumbnailPath,
-            'token'             => ''
+            'token'             => '',
+            'public'            => 0,
         ];
 
         $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
@@ -174,9 +177,11 @@ return new class extends Migration
 
         $data[] = [
             'id'                => 2,
+//            'user_team_id'     => null,
             'username'          => $this->demoUsername,
             'name'              => $this->demoName,
             'label'             => $this->demoLabel,
+            'role'              => 'Demo User',
             'email'             => 'demo-user@sample.com',
             'email_verified_at' => now(),
             'password'          => Hash::make($this->demoPassword),
@@ -184,6 +189,7 @@ return new class extends Migration
             'thumbnail'         => $thumbnailPath,
             'status'            => 1,
             'token'             => '',
+            'public'            => 1,
         ];
 
         // add timestamps

@@ -60,7 +60,7 @@ class UnitController extends BaseAdminRootController
 
         $unit = Unit::create($request->validated());
 
-        return redirect()->route('admin.personal.unit.show', $unit->id)
+        return redirect()->route('root.personal.unit.show', $unit->id)
             ->with('success', $unit->name . $unit->name . ' successfully added.');
     }
 
@@ -101,7 +101,7 @@ class UnitController extends BaseAdminRootController
 
         $unit->update($request->validated());
 
-        return redirect()->route('admin.personal.unit.show', $unit)
+        return redirect()->route('root.personal.unit.show', $unit)
             ->with('success', $unit->name . ' successfully updated.');
     }
 
@@ -117,7 +117,7 @@ class UnitController extends BaseAdminRootController
 
         $unit->delete();
 
-        return redirect(referer('admin.personal.unit.index'))
+        return redirect(referer('root.personal.unit.index'))
             ->with('success', $unit->name . ' deleted successfully.');
     }
 }

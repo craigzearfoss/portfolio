@@ -4,11 +4,11 @@
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Users',           'href' => route('admin.system.user.index') ],
+        [ 'name' => 'Users',           'href' => route('root.user.index') ],
         [ 'name' => $user->username ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -22,13 +22,13 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.user.update', $user->id) }}" method="POST">
+        <form action="{{ route('root.user.update', $user->id) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.user.index')
+                'value' => referer('root.user.index')
             ])
 
             @include('admin.components.form-text-horizontal', [
@@ -200,7 +200,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.system.user.index')
+                'cancel_url' => referer('root.user.index')
             ])
 
         </form>

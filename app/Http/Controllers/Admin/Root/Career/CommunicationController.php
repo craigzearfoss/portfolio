@@ -80,11 +80,11 @@ class CommunicationController extends BaseAdminRootController
         $communication = Communication::create($request->validated());
 
         if (!empty($application)) {
-            return redirect()->route('admin.career.application.show', $application)
+            return redirect()->route('root.career.application.show', $application)
                 ->with('success', 'Communication successfully added.');
 
         } else {
-            return redirect()->route('admin.career.communication.show', $communication)
+            return redirect()->route('root.career.communication.show', $communication)
                 ->with('success', 'Communication successfully added.');
         }
     }
@@ -145,10 +145,10 @@ class CommunicationController extends BaseAdminRootController
         $communication->update($request->validated());
 
         if (!empty($application)) {
-            return redirect()->route('admin.career.application.show', $application)
+            return redirect()->route('root.career.application.show', $application)
                 ->with('success', 'Communication successfully updated.');
         } else {
-            return redirect()->route('admin.career.communication.show', $communication)
+            return redirect()->route('root.career.communication.show', $communication)
                 ->with('success', 'Communication successfully updated.');
         }
     }
@@ -165,7 +165,7 @@ class CommunicationController extends BaseAdminRootController
 
         $communication->delete();
 
-        return redirect(referer('admin.career.communication.index'))
+        return redirect(referer('root.career.communication.index'))
             ->with('success', 'Communication deleted successfully.');
     }
 }

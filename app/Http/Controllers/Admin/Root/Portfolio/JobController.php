@@ -56,7 +56,7 @@ class JobController extends BaseAdminRootController
     {
         $job = Job::create($request->validated());
 
-        return redirect()->route('admin.portfolio.job.show', $job)
+        return redirect()->route('root.portfolio.job.show', $job)
             ->with('success', $job->company . ' job successfully added.');
     }
 
@@ -98,7 +98,7 @@ class JobController extends BaseAdminRootController
 
         $job->update($request->validated());
 
-        return redirect()->route('admin.portfolio.job.show', $job)
+        return redirect()->route('root.portfolio.job.show', $job)
             ->with('success', $job->company . ' job successfully updated.');
     }
 
@@ -114,7 +114,7 @@ class JobController extends BaseAdminRootController
 
         $job->delete();
 
-        return redirect(referer('admin.portfolio.job.index'))
+        return redirect(referer('root.portfolio.job.index'))
             ->with('success', $job->company . ' job deleted successfully.');
     }
 }

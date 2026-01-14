@@ -54,7 +54,7 @@ class PublicationController extends BaseAdminRootController
     {
         $publication = Publication::create($request->validated());
 
-        return redirect()->route('admin.portfolio.publication.show', $publication)
+        return redirect()->route('root.portfolio.publication.show', $publication)
             ->with('success', $publication->title . ' successfully added.');
     }
 
@@ -95,7 +95,7 @@ class PublicationController extends BaseAdminRootController
 
         $publication->update($request->validated());
 
-        return redirect()->route('admin.portfolio.publication.show', $publication)
+        return redirect()->route('root.portfolio.publication.show', $publication)
             ->with('success', $publication->title . ' successfully updated.');
     }
 
@@ -111,7 +111,7 @@ class PublicationController extends BaseAdminRootController
 
         $publication->delete();
 
-        return redirect(referer('admin.portfolio.publication.index'))
+        return redirect(referer('root.portfolio.publication.index'))
             ->with('success', $publication->title . ' deleted successfully.');
     }
 }

@@ -63,7 +63,7 @@ class IndexController extends BaseUserController
             if ($username == config('app.demo_user_username') && !config('app.demo_user_enabled')) {
                 return view(themedTemplate('user.login'))
                     ->with('username', $username)
-                    ->withErrors('Demo User has been disabled.');
+                    ->withErrors('Demo User account has been disabled.');
             }
 
             $request->validate([

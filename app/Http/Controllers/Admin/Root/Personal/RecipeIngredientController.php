@@ -56,7 +56,7 @@ class RecipeIngredientController extends BaseAdminRootController
     {
         $recipeIngredient = RecipeIngredient::create($request->validated());
 
-        return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
+        return redirect()->route('root.personal.recipe-ingredient.show', $recipeIngredient)
             ->with('success', 'Recipe ingredient successfully added.');
     }
 
@@ -98,7 +98,7 @@ class RecipeIngredientController extends BaseAdminRootController
 
         $recipeIngredient->update($request->validated());
 
-        return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
+        return redirect()->route('root.personal.recipe-ingredient.show', $recipeIngredient)
             ->with('success', 'Recipe ingredient successfully updated.');
     }
 
@@ -114,7 +114,7 @@ class RecipeIngredientController extends BaseAdminRootController
 
         $recipeIngredient->delete();
 
-        return redirect(referer('admin.personal.recipe-ingredient.index'))
+        return redirect(referer('root.personal.recipe-ingredient.index'))
             ->with('success', 'Recipe ingredient deleted successfully.');
     }
 }

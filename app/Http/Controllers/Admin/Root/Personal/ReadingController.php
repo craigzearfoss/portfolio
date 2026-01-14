@@ -55,7 +55,7 @@ class ReadingController extends BaseAdminRootController
     {
         $reading = Reading::create($request->validated());
 
-        return redirect()->route('admin.personal.reading.show', $reading)
+        return redirect()->route('root.personal.reading.show', $reading)
             ->with('success', $reading->title . ' successfully added.');
     }
 
@@ -96,7 +96,7 @@ class ReadingController extends BaseAdminRootController
 
         $reading->update($request->validated());
 
-        return redirect()->route('admin.personal.reading.show', $reading)
+        return redirect()->route('root.personal.reading.show', $reading)
             ->with('success', $reading->title . ' successfully updated.');
     }
 
@@ -112,7 +112,7 @@ class ReadingController extends BaseAdminRootController
 
         $reading->delete();
 
-        return redirect(referer('admin.personal.reading.index'))
+        return redirect(referer('root.personal.reading.index'))
             ->with('success', $reading->title . ' deleted successfully.');
     }
 }

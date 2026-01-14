@@ -1,14 +1,14 @@
 @php
 $buttons = [];
 if (canCreate('user-group', getAdminId())) {
-    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New User Group', 'href' => route('admin.system.user-group.create') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New User Group', 'href' => route('root.user-group.create') ];
 }
 if (canRead('user-team', getAdminId())) {
-    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('admin.system.user-team.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('root.user-team.index') ];
 }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Admin Groups',
+    'title'         => 'User Groups',
     'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -77,28 +77,28 @@ if (canRead('user-team', getAdminId())) {
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.admin-group.destroy', $userGroup->id) !!}" method="POST">
+                        <form action="{!! route('root.user-group.destroy', $userGroup->id) !!}" method="POST">
 
-                            @if(canRead($adminGroup))
+                            @if(canRead($userGroup))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.admin-group.show', $adminGroup->id),
+                                    'href'  => route('root.user-group.show', $userGroup->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($adminGroup))
+                            @if(canUpdate($userGroup))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.admin-group.edit', $adminGroup->id),
+                                    'href'  => route('root.user-group.edit', $userGroup->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
 
-                            @if (!empty($adminGroup->link))
+                            @if (!empty($userGroup->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => !empty($adminGroup->link_name) ? $adminGroup->link_name : 'link',
-                                    'href'   => $adminGroup->link,
+                                    'title'  => !empty($userGroup->link_name) ? $userGroup->link_name : 'link',
+                                    'href'   => $userGroup->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'
                                 ])
@@ -110,7 +110,7 @@ if (canRead('user-team', getAdminId())) {
                                 ])
                             @endif
 
-                            @if(canDelete($adminGroup))
+                            @if(canDelete($userGroup))
                                 @csrf
                                 @method('DELETE')
                                 @include('admin.components.button-icon', [

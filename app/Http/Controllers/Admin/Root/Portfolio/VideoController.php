@@ -54,7 +54,7 @@ class VideoController extends BaseAdminRootController
     {
         $video = Video::create($request->validated());
 
-        return redirect()->route('admin.portfolio.video.show', $video)
+        return redirect()->route('root.portfolio.video.show', $video)
             ->with('success', $video->name . ' successfully added.');
     }
 
@@ -95,7 +95,7 @@ class VideoController extends BaseAdminRootController
 
         $video->update($request->validated());
 
-        return redirect()->route('admin.portfolio.video.show', $video)
+        return redirect()->route('root.portfolio.video.show', $video)
             ->with('success', $video->name . ' successfully updated.');
     }
 
@@ -111,7 +111,7 @@ class VideoController extends BaseAdminRootController
 
         $video->delete();
 
-        return redirect(referer('admin.portfolio.video.index'))
+        return redirect(referer('root.portfolio.video.index'))
             ->with('success', $video->name . ' deleted successfully.');
     }
 }

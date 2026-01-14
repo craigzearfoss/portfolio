@@ -54,7 +54,7 @@ class MusicController extends BaseAdminRootController
     {
         $music = Music::create($request->validated());
 
-        return redirect()->route('admin.portfolio.music.show', $music)
+        return redirect()->route('root.portfolio.music.show', $music)
             ->with('success', $music->name . ' successfully added.');
     }
 
@@ -95,7 +95,7 @@ class MusicController extends BaseAdminRootController
 
         $music->update($request->validated());
 
-        return redirect()->route('admin.portfolio.music.show', $music)
+        return redirect()->route('root.portfolio.music.show', $music)
             ->with('success', $music->name . ' successfully updated.');
     }
 
@@ -111,7 +111,7 @@ class MusicController extends BaseAdminRootController
 
         $music->delete();
 
-        return redirect(referer('admin.portfolio.music.index'))
+        return redirect(referer('root.portfolio.music.index'))
             ->with('success', $music->name . ' deleted successfully.');
     }
 }

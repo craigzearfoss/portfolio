@@ -63,7 +63,7 @@ class AcademyController extends BaseAdminRootController
 
         $academy = Academy::create($request->validated());
 
-        return redirect()->route('admin.portfolio.academy.show', $academy)
+        return redirect()->route('root.portfolio.academy.show', $academy)
             ->with('success', $academy->name . ' successfully added.');
     }
 
@@ -112,7 +112,7 @@ class AcademyController extends BaseAdminRootController
 
         $academy->update($request->validated());
 
-        return redirect()->route('admin.portfolio.academy.show', $academy)
+        return redirect()->route('root.portfolio.academy.show', $academy)
             ->with('success', $academy->name . ' successfully updated.');
     }
 
@@ -132,7 +132,7 @@ class AcademyController extends BaseAdminRootController
 
         $academy->delete();
 
-        return redirect(route('admin.portfolio.academy.index'))
+        return redirect(route('root.portfolio.academy.index'))
             ->with('success', $academy->name . ' deleted successfully.');
     }
 }

@@ -18,8 +18,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('user_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner_id')
-                ->constrained('admins', 'id')
+            $table->foreignId('user_id')
+                ->constrained('users', 'id')
                 ->onDelete('cascade');
             $table->foreignId('user_team_id')
                 ->constrained('user_teams', 'id')
@@ -47,7 +47,7 @@ return new class extends Migration
         $data = [
             [
                 'id'           => 1,
-                'owner_id'     => 2,
+                'user_id'      => 1,
                 'user_team_id' => 1,
                 'name'         => 'Default User Group',
                 'slug'         => 'default-user-group',
@@ -55,7 +55,7 @@ return new class extends Migration
             ],
             [
                 'id'           => 2,
-                'owner_id'     => 3,
+                'user_id'      => 2,
                 'user_team_id' => 2,
                 'name'         => 'Demo User Group',
                 'slug'         => 'demo-user-group',

@@ -36,11 +36,7 @@ class AdminTeamController extends BaseAdminRootController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
-
-        return view('admin.system.admin-team.create');
+        return view('admin.system.system.admin-team.create');
     }
 
     /**
@@ -51,13 +47,9 @@ class AdminTeamController extends BaseAdminRootController
      */
     public function store(StoreAdminTeamsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can add new admin teams.');
-        }
-
         $adminTeam = AdminTeam::create($request->validated());
 
-        return redirect()->route('admin.admin-team.show', $adminTeam)
+        return redirect()->route('root.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully added.');
     }
 
@@ -98,7 +90,7 @@ class AdminTeamController extends BaseAdminRootController
 
         $adminTeam->update($request->validated());
 
-        return redirect()->route('admin.admin-team.show', $adminTeam)
+        return redirect()->route('root.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully updated.');
     }
 
@@ -114,7 +106,7 @@ class AdminTeamController extends BaseAdminRootController
 
         $adminTeam->delete();
 
-        return redirect(referer('admin.system.admin-team.index'))
+        return redirect(referer('root.admn-team.index'))
             ->with('success', $adminTeam->name . ' deleted successfully.');
     }
 }

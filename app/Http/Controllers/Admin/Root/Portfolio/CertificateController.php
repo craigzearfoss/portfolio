@@ -54,7 +54,7 @@ class CertificateController extends BaseAdminRootController
     {
         $certificate = Certificate::create($request->validated());
 
-        return redirect()->route('admin.portfolio.certificate.show', $certificate)
+        return redirect()->route('root.portfolio.certificate.show', $certificate)
             ->with('success', $certificate->name . ' certificate successfully added.');
     }
 
@@ -96,7 +96,7 @@ class CertificateController extends BaseAdminRootController
 
         $certificate->update($request->validated());
 
-        return redirect()->route('admin.portfolio.certificate.show', $certificate)
+        return redirect()->route('root.portfolio.certificate.show', $certificate)
             ->with('success', $certificate->name . ' certificate successfully updated.');
     }
 
@@ -112,7 +112,7 @@ class CertificateController extends BaseAdminRootController
 
         $certificate->delete();
 
-        return redirect(referer('admin.portfolio.certificate.index'))
+        return redirect(referer('root.portfolio.certificate.index'))
             ->with('success', $certificate->name . ' certificate deleted successfully.');
     }
 }

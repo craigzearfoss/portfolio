@@ -17,8 +17,6 @@ class StoreUserTeamsRequest extends FormRequest
     {
         $this->checkDemoMode();
 
-        $this->checkOwner();
-
         return true;
     }
 
@@ -30,7 +28,7 @@ class StoreUserTeamsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
+            'user_id'      => ['required', 'integer', 'exists:system_db.users,id'],
             'name'         => [
                 'required',
                 'string',
@@ -78,8 +76,8 @@ class StoreUserTeamsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required' => 'Please select an owner for the user team.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
+            'user_id.required' => 'Please select an owner for the user team.',
+            'owner_id.exists'  => 'The specified owner does not exist.',
         ];
     }
 

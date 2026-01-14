@@ -1,13 +1,13 @@
 @php
 $buttons = [];
 if (canCreate('user', getAdminId())) {
-    $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('admin.system.user.create') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('root.user.create') ];
 }
 if (canRead('user', getAdminId())) {
-    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('admin.system.user-team.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('root.user-team.index') ];
 }
 if (canRead('user', getAdminId())) {
-    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Groups', 'href' => route('admin.system.user-group.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Groups', 'href' => route('root.user-group.index') ];
 }
 @endphp
 @extends('admin.layouts.default', [
@@ -34,6 +34,7 @@ if (canRead('user', getAdminId())) {
             <tr>
                 <th>user name</th>
                 <th>name</th>
+                <th>team</th>
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
                 <th>status</th>
@@ -46,6 +47,7 @@ if (canRead('user', getAdminId())) {
             <tr>
                 <th>user name</th>
                 <th>name</th>
+                <th>team</th>
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
                 <th>status</th>
@@ -65,6 +67,12 @@ if (canRead('user', getAdminId())) {
                     <td data-field="name">
                         {!! $user->name !!}
                     </td>
+                    <td data-field="user_team_id">
+                        @include('user.components.link', [
+                            'name' => $user->team->name ?? '',
+                            'href' => route('admin.user-team.show', [$user, $user->team->id])
+                        ])
+                    </td>
                     <td data-field="email">
                         {!! $user->email !!}
                     </td>
@@ -79,12 +87,12 @@ if (canRead('user', getAdminId())) {
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('admin.system.user.destroy', $user->id) }}" method="POST">
+                        <form action="{{ route('root.user.destroy', $user->id) }}" method="POST">
 
                             @if(canRead($user))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.system.user.show', $user->id),
+                                    'href'  => route('root.user.show', $user->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -92,7 +100,7 @@ if (canRead('user', getAdminId())) {
                             @if(canUpdate($user))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.system.user.edit', $user->id),
+                                    'href'  => route('root.user.edit', $user->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -130,7 +138,7 @@ if (canRead('user', getAdminId())) {
             @empty
 
                 <tr>
-                    <td colspan="7">There are no users.</td>
+                    <td colspan="8">There are no users.</td>
                 </tr>
 
             @endforelse

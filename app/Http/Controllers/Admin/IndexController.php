@@ -75,7 +75,7 @@ class IndexController extends BaseAdminController
             if ($username == config('app.demo_admin_username') && !config('app.demo_admin_enabled')) {
                 return view(themedTemplate('admin.login'))
                     ->with('username', $username)
-                    ->withErrors('Demo Admin has been disabled.');
+                    ->withErrors('Demo Admin account has been disabled.');
             }
 
             $request->validate([

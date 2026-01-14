@@ -80,11 +80,11 @@ class NoteController extends BaseAdminRootController
         $note = Note::create($request->validated());
 
         if (!empty($application)) {
-            return redirect()->route('admin.career.application.show', $application)
+            return redirect()->route('root.career.application.show', $application)
                 ->with('success', 'Note successfully added.');
 
         } else {
-            return redirect()->route('admin.career.note.show', $note)
+            return redirect()->route('root.career.note.show', $note)
                 ->with('success', 'Note successfully added.');
         }
     }
@@ -144,10 +144,10 @@ class NoteController extends BaseAdminRootController
         $note->update($request->validated());
 
         if (!empty($application)) {
-            return redirect()->route('admin.career.application.show', $application)
+            return redirect()->route('root.career.application.show', $application)
                 ->with('success', 'Note successfully updated.');
         } else {
-            return redirect()->route('admin.career.note.show', $note)
+            return redirect()->route('root.career.note.show', $note)
                 ->with('success', 'Note successfully updated.');
         }
     }
@@ -164,7 +164,7 @@ class NoteController extends BaseAdminRootController
 
         $note->delete();
 
-        return redirect(referer('admin.career.note.index'))
+        return redirect(referer('root.career.note.index'))
             ->with('success', 'Note deleted successfully.');
     }
 }

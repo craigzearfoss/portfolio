@@ -65,7 +65,7 @@ class ArtController extends BaseAdminRootController
     {
         $art = Art::create($request->validated());
 
-        return redirect()->route('admin.portfolio.art.show', $art)
+        return redirect()->route('root.portfolio.art.show', $art)
             ->with('success', $art->name . ' successfully added.');
     }
 
@@ -106,7 +106,7 @@ class ArtController extends BaseAdminRootController
 
         $art->update($request->validated());
 
-        return redirect()->route('admin.portfolio.art.show', $art)
+        return redirect()->route('root.portfolio.art.show', $art)
             ->with('success', $art->name . ' successfully updated.');
     }
 
@@ -122,7 +122,7 @@ class ArtController extends BaseAdminRootController
 
         $art->delete();
 
-        return redirect(referer('admin.portfolio.art.index'))
+        return redirect(referer('root.portfolio.art.index'))
             ->with('success', $art->name . ' deleted successfully.');
     }
 }

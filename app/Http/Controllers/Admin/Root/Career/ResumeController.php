@@ -85,10 +85,10 @@ class ResumeController extends BaseAdminRootController
         $application->update(['resume_id' => $resume->id]);
 
         if (!empty($application)) {
-            return redirect()->route('admin.career.application.show', $application)
+            return redirect()->route('root.career.application.show', $application)
                 ->with('success', $resume->name . ' resume successfully added.');
         } else {
-            return redirect()->route('admin.career.resume.show', $resume, $urlParams)
+            return redirect()->route('root.career.resume.show', $resume, $urlParams)
                 ->with('success', $resume->name . ' resume successfully added.');
         }
     }
@@ -149,10 +149,10 @@ class ResumeController extends BaseAdminRootController
 
 
         if (!empty($application)) {
-            return redirect()->route('admin.career.application.show', $application)
+            return redirect()->route('root.career.application.show', $application)
                 ->with('success', $resume->name . ' resume successfully updated.');
         } else {
-            return redirect()->route('admin.career.resume.show', $resume)
+            return redirect()->route('root.career.resume.show', $resume)
                 ->with('success', $resume->name . ' resume successfully updated.');
         }
     }
@@ -169,7 +169,7 @@ class ResumeController extends BaseAdminRootController
 
         $resume->delete();
 
-        return redirect(referer('admin.career.resume.index'))
+        return redirect(referer('root.career.resume.index'))
             ->with('success', $resume->name . ' resume deleted successfully.');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Models\System\UserTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,8 +17,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('user_teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner_id')
-                ->constrained('admins', 'id')
+            $table->foreignId('user_id')
+                ->constrained('users', 'id')
                 ->onDelete('cascade');
             $table->string('name', 100)->index('name_idx');
             $table->string('slug', 100)->unique();
@@ -43,14 +43,14 @@ return new class extends Migration
         $data = [
             [
                 'id'           => 1,
-                'owner_id'     => 2,
+                'user_id'      => 1,
                 'name'         => 'Default User Team',
                 'slug'         => 'default-user-team',
                 'abbreviation' => 'DUT',
             ],
             [
                 'id'           => 2,
-                'owner_id'     => 3,
+                'user_id'      => 2,
                 'name'         => 'Demo User Team',
                 'slug'         => 'demo-user-team',
                 'abbreviation' => 'DEUT',
@@ -64,6 +64,19 @@ return new class extends Migration
         }
 
         UserTeam::insert($data);
+
+        // add user_team_id column to the system.users table
+        Schema::connection($this->database_tag)->table('users', function (Blueprint $table) {
+            $table->foreignId('user_team_id')
+                ->nullable()
+                ->constrained('user_teams', 'id')
+                ->onDelete('cascade')
+                ->after('id');
+        });
+
+        // add admin_team_id values admins
+        User::where('username', 'sample')->update(['user_team_id' => 2]);
+        User::where('username', 'demo')->update(['user_team_id' => 2]);
     }
 
     /**
@@ -71,6 +84,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::connection($this->database_tag)->table('users', function (Blueprint $table) {
+            $table->dropForeign(['user_team_id']); // Drops the foreign key constraint
+        });
+
         Schema::connection($this->database_tag)->dropIfExists('user_teams');
     }
 };

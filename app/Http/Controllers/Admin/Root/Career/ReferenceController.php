@@ -54,7 +54,7 @@ class ReferenceController extends BaseAdminRootController
     {
         $reference = Reference::create($request->validated());
 
-        return redirect()->route('admin.career.reference.show', $reference)
+        return redirect()->route('root.career.reference.show', $reference)
             ->with('success', $reference->name . ' successfully added.');
     }
 
@@ -95,7 +95,7 @@ class ReferenceController extends BaseAdminRootController
 
         $reference->update($request->validated());
 
-        return redirect()->route('admin.career.reference.show', $reference)
+        return redirect()->route('root.career.reference.show', $reference)
             ->with('success', $reference->name . ' successfully updated.');
     }
 
@@ -111,7 +111,7 @@ class ReferenceController extends BaseAdminRootController
 
         $reference->delete();
 
-        return redirect(referer('admin.career.reference.index'))
+        return redirect(referer('root.career.reference.index'))
             ->with('success', $reference->name . ' deleted successfully.');
     }
 }

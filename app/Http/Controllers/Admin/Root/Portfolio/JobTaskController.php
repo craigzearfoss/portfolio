@@ -67,7 +67,7 @@ class JobTaskController extends BaseAdminRootController
     {
         $jobTask = JobTask::create($request->validated());
 
-        return redirect()->route('admin.portfolio.job-task.show', $jobTask)
+        return redirect()->route('root.portfolio.job-task.show', $jobTask)
             ->with('success', 'Job task successfully added.');
     }
 
@@ -109,7 +109,7 @@ class JobTaskController extends BaseAdminRootController
 
         $jobTask->update($request->validated());
 
-        return redirect()->route('admin.portfolio.job-task.show', $jobTask)
+        return redirect()->route('root.portfolio.job-task.show', $jobTask)
             ->with('success', 'Job task successfully updated.');
     }
 
@@ -125,7 +125,7 @@ class JobTaskController extends BaseAdminRootController
 
         $jobTask->delete();
 
-        return redirect(referer('admin.portfolio.job-task.index'))
+        return redirect(referer('root.portfolio.job-task.index'))
             ->with('success', 'Job task deleted successfully.');
     }
 }

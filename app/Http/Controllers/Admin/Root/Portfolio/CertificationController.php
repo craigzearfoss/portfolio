@@ -60,7 +60,7 @@ class CertificationController extends BaseAdminRootController
 
         $certification = Certification::create($request->validated());
 
-        return redirect()->route('admin.portfolio.certification.show', $certification)
+        return redirect()->route('root.portfolio.certification.show', $certification)
             ->with('success', $certification->name . ' successfully added.');
     }
 
@@ -105,7 +105,7 @@ class CertificationController extends BaseAdminRootController
 
         $certification->update($request->validated());
 
-        return redirect()->route('admin.portfolio.certification.show', $certification)
+        return redirect()->route('root.portfolio.certification.show', $certification)
             ->with('success', $certification->name . ' successfully updated.');
     }
 
@@ -121,7 +121,7 @@ class CertificationController extends BaseAdminRootController
 
         $certification->delete();
 
-        return redirect(route('admin.portfolio.certification.index'))
+        return redirect(route('root.portfolio.certification.index'))
             ->with('success', $certification->name . ' deleted successfully.');
     }
 }

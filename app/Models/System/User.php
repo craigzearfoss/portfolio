@@ -95,8 +95,9 @@ class User extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'username', 'label', 'name', 'salutation', 'title', 'street', 'street2', 'city',
-        'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['id', 'user_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role', 'street',
+        'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root',
+        'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
@@ -113,6 +114,14 @@ class User extends Authenticatable
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class, 'state_id');
+    }
+
+    /**
+     * Get the system user_team of the admin.
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(UserTeam::class, 'user_team_id');
     }
 
     /**

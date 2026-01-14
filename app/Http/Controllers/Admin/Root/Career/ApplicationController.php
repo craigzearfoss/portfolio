@@ -105,7 +105,7 @@ class ApplicationController extends BaseAdminRootController
             'application_id' => $application->id,
         ]);
 
-        return redirect()->route('admin.career.application.show', $application)
+        return redirect()->route('root.career.application.show', $application)
             ->with('success', 'Application successfully added.');
     }
 
@@ -150,7 +150,7 @@ class ApplicationController extends BaseAdminRootController
 
         $application->update($request->validated());
 
-        return redirect()->route('admin.career.application.show', $application)
+        return redirect()->route('root.career.application.show', $application)
             ->with('success', 'Application successfully updated.');
     }
 
@@ -166,7 +166,7 @@ class ApplicationController extends BaseAdminRootController
 
         $application->delete();
 
-        return redirect(referer('admin.portfolio.application.index'))
+        return redirect(referer('root.portfolio.application.index'))
             ->with('success', 'Application deleted successfully.');
     }
 

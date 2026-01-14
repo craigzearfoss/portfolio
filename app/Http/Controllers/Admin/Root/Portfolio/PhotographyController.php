@@ -55,7 +55,7 @@ class PhotographyController extends BaseAdminRootController
     {
         $photo = Photography::create($request->validated());
 
-        return redirect()->route('admin.portfolio.photography.show', $photo)
+        return redirect()->route('root.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully added.');
     }
 
@@ -96,7 +96,7 @@ class PhotographyController extends BaseAdminRootController
 
         $photo->update($request->validated());
 
-        return redirect()->route('admin.portfolio.photography.show', $photo)
+        return redirect()->route('root.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully updated.');
     }
 
@@ -112,7 +112,7 @@ class PhotographyController extends BaseAdminRootController
 
         $photo->delete();
 
-        return redirect(referer('admin.portfolio.photography.index'))
+        return redirect(referer('root.portfolio.photography.index'))
             ->with('success', $photo->name . ' deleted successfully.');
     }
 }

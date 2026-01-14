@@ -4,11 +4,11 @@
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'User Teams',      'href' => route('admin.system.user-team.index') ],
+        [ 'name' => 'User Teams',      'href' => route('root.user-team.index') ],
         [ 'name' => 'Add' ]
     ],
     'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user-team.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user-team.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -22,12 +22,12 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.user-team.store') }}" method="POST">
+        <form action="{{ route('root.user-team.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.user-team.index')
+                'value' => referer('root.user-team.index')
             ])
 
             @if(isRootAdmin())
@@ -95,7 +95,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add User Team',
-                'cancel_url' => referer('admin.system.user-team.index')
+                'cancel_url' => referer('root.user-team.index')
             ])
 
         </form>

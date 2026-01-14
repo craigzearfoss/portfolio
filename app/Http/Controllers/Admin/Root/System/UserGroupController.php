@@ -36,10 +36,6 @@ class UserGroupController extends BaseAdminRootController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
-
         return view('admin.system.user-group.create');
     }
 
@@ -53,7 +49,7 @@ class UserGroupController extends BaseAdminRootController
     {
         $userGroup = UserGroup::create($request->validated());
 
-        return redirect()->route('admin.system.user-group.show', $userGroup)
+        return redirect()->route('root.system.user-group.show', $userGroup)
             ->with('success', $userGroup->name . ' successfully added.');
     }
 
@@ -78,7 +74,7 @@ class UserGroupController extends BaseAdminRootController
     {
         Gate::authorize('update-resource', $userGroup);
 
-        return view('admin.system.user-group.edit', compact('userGroup'));
+        return view('admin.system.system.user-group.edit', compact('userGroup'));
     }
 
     /**
@@ -94,7 +90,7 @@ class UserGroupController extends BaseAdminRootController
 
         $userGroup->update($request->validated());
 
-        return redirect()->route('admin.system.user-group.show', $userGroup)
+        return redirect()->route('root.system.user-group.show', $userGroup)
             ->with('success', $userGroup->name . ' successfully updated.');
     }
 
@@ -110,7 +106,7 @@ class UserGroupController extends BaseAdminRootController
 
         $userGroup->delete();
 
-        return redirect(referer('admin.system.user-group.index'))
+        return redirect(referer('root.system.user-group.index'))
             ->with('success', $userGroup->name . ' deleted successfully.');
     }
 }

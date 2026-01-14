@@ -52,7 +52,7 @@ class RecipeController extends BaseAdminRootController
     {
         $recipe = Recipe::create($request->validated());
 
-        return redirect()->route('admin.personal.recipe.show', $recipe)
+        return redirect()->route('root.personal.recipe.show', $recipe)
             ->with('success', $recipe->name . ' successfully added.');
     }
 
@@ -93,7 +93,7 @@ class RecipeController extends BaseAdminRootController
 
         $recipe->update($request->validated());
 
-        return redirect()->route('admin.personal.recipe.show', $recipe)
+        return redirect()->route('root.personal.recipe.show', $recipe)
             ->with('success', $recipe->name . ' successfully updated.');
     }
 
@@ -109,7 +109,7 @@ class RecipeController extends BaseAdminRootController
 
         $recipe->delete();
 
-        return redirect(referer('admin.personal.recipe.index'))
+        return redirect(referer('root.personal.recipe.index'))
             ->with('success', $recipe->name . ' deleted successfully.');
     }
 }

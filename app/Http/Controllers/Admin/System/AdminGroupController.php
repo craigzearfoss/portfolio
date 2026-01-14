@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreAdminGroupsRequest;
-use App\Http\Requests\System\UpdateAdminGroupsRequest;
-use App\Models\System\AdminGroup;
+use App\Http\Requests\System\StoreUserGroupsRequest;
+use App\Http\Requests\System\UpdateUserGroupsRequest;
+use App\Models\System\UserGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 class AdminGroupController extends BaseAdminController
 {
     /**
-     * Display a listing of admin groups.
+     * Display a listing of user groups.
      *
      * @param Request $request
      * @return View
@@ -23,98 +23,90 @@ class AdminGroupController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $adminGroups = AdminGroup::orderBy('name','asc')->paginate($perPage);
+        $userGroups = UserGroup::orderBy('name','asc')->paginate($perPage);
 
-        return view('admin.system.admin-group.index', compact('adminGroups'))
+        return view('admin.system.user-group.index', compact('userGroups'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Show the form for creating a new admin group.
+     * Show the form for creating a new user group.
      *
      * @return View
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
-
-        return view('admin.system.admin-group.create');
+        return view('admin.system.user-group.create');
     }
 
     /**
-     * Store a newly created admin group in storage.
+     * Store a newly created user group in storage.
      *
-     * @param StoreAdminGroupsRequest $request
+     * @param StoreUserGroupsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreAdminGroupsRequest $request): RedirectResponse
+    public function store(StoreUserGroupsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can add new admin groups.');
-        }
+        $userGroup = UserGroup::create($request->validated());
 
-        $adminGroup = AdminGroup::create($request->validated());
-
-        return redirect()->route('admin.admin-group.show', $adminGroup)
-            ->with('success', $adminGroup->name . ' successfully added.');
+        return redirect()->route('root.user-group.show', $userGroup)
+            ->with('success', $userGroup->name . ' successfully added.');
     }
 
     /**
-     * Display the specified admin group.
+     * Display the specified user group.
      *
-     * @param AdminGroup $adminGroup
+     * @param UserGroup $userGroup
      * @return View
      */
-    public function show(AdminGroup $adminGroup): View
+    public function show(UserGroup $userGroup): View
     {
-        return view('admin.system.admin-group.show', compact('adminGroup'));
+        return view('admin.system.user-group.show', compact('userGroup'));
     }
 
     /**
-     * Show the form for editing the specified admin group.
+     * Show the form for editing the specified user group.
      *
-     * @param AdminGroup $adminGroup
+     * @param UserGroup $userGroup
      * @return View
      */
-    public function edit(AdminGroup $adminGroup): View
+    public function edit(UserGroup $userGroup): View
     {
-        Gate::authorize('update-resource', $adminGroup);
+        Gate::authorize('update-resource', $userGroup);
 
-        return view('admin.system.admin-group.edit', compact('adminGroup'));
+        return view('admin.system.user-group.edit', compact('userGroup'));
     }
 
     /**
-     * Update the specified admin group in storage.
+     * Update the specified user group in storage.
      *
-     * @param UpdateAdminGroupsRequest $request
-     * @param AdminGroup $adminGroup
+     * @param UpdateUserGroupsRequest $request
+     * @param UserGroup $userGroup
      * @return RedirectResponse
      */
-    public function update(UpdateAdminGroupsRequest $request, AdminGroup $adminGroup): RedirectResponse
+    public function update(UpdateUserGroupsRequest $request, UserGroup $userGroup): RedirectResponse
     {
-        Gate::authorize('update-resource', $adminGroup);
+        Gate::authorize('update-resource', $userGroup);
 
-        $adminGroup->update($request->validated());
+        $userGroup->update($request->validated());
 
-        return redirect()->route('admin.admin-group.show', $adminGroup)
-            ->with('success', $adminGroup->name . ' successfully updated.');
+        return redirect()->route('root.user-group.show', $userGroup)
+            ->with('success', $userGroup->name . ' successfully updated.');
     }
 
     /**
-     * Remove the specified admin group from storage.
+     * Remove the specified user group from storage.
      *
-     * @param AdminGroup $adminGroup
+     * @param UserGroup $userGroup
      * @return RedirectResponse
      */
-    public function destroy(AdminGroup $adminGroup): RedirectResponse
+    public function destroy(UserGroup $userGroup): RedirectResponse
     {
-        Gate::authorize('delete-resource', $adminGroup);
+        Gate::authorize('delete-resource', $userGroup);
 
-        $adminGroup->delete();
+        $userGroup->delete();
 
-        return redirect(referer('admin.system.admin-group.index'))
-            ->with('success', $adminGroup->name . ' deleted successfully.');
+        return redirect(referer('root.system.user-group.index'))
+            ->with('success', $userGroup->name . ' deleted successfully.');
     }
 }

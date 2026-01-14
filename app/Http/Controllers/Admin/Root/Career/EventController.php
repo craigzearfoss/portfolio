@@ -80,11 +80,11 @@ class EventController extends BaseAdminRootController
         $event = Event::create($request->validated());
 
         if (!empty($application)) {
-            return redirect()->route('admin.career.application.show', $application)
+            return redirect()->route('root.career.application.show', $application)
                 ->with('success', 'Event successfully added.');
 
         } else {
-            return redirect()->route('admin.career.event.show', $event)
+            return redirect()->route('root.career.event.show', $event)
                 ->with('success', 'Event successfully added.');
         }
     }
@@ -144,10 +144,10 @@ class EventController extends BaseAdminRootController
         $event->update($request->validated());
 
         if (!empty($application)) {
-            return redirect()->route('admin.career.application.show', $application)
+            return redirect()->route('root.career.application.show', $application)
                 ->with('success', 'Event successfully updated.');
         } else {
-            return redirect()->route('admin.career.event.show', $event)
+            return redirect()->route('root.career.event.show', $event)
                 ->with('success', 'Event successfully updated.');
         }
     }
@@ -164,7 +164,7 @@ class EventController extends BaseAdminRootController
 
         $event->delete();
 
-        return redirect(referer('admin.career.event.index'))
+        return redirect(referer('root.career.event.index'))
             ->with('success', 'Event deleted successfully.');
     }
 }

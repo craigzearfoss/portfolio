@@ -63,7 +63,7 @@ class SchoolController extends BaseAdminRootController
 
         $school = School::create($request->validated());
 
-        return redirect()->route('admin.portfolio.school.show', $school)
+        return redirect()->route('root.portfolio.school.show', $school)
             ->with('success', $school->name . ' successfully added.');
     }
 
@@ -104,7 +104,7 @@ class SchoolController extends BaseAdminRootController
 
         $school->update($request->validated());
 
-        return redirect()->route('admin.portfolio.school.show', $school)
+        return redirect()->route('root.portfolio.school.show', $school)
             ->with('success', $school->name . ' successfully updated.');
     }
 

@@ -54,7 +54,7 @@ class CoverLetterController extends BaseAdminRootController
     {
         $coverLetter = CoverLetter::create($request->validated());
 
-        return redirect()->route('admin.career.cover-letter.show', $coverLetter)
+        return redirect()->route('root.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover Letter successfully added.');
     }
 
@@ -96,7 +96,7 @@ class CoverLetterController extends BaseAdminRootController
 
         $coverLetter->update($request->validated());
 
-        return redirect()->route('admin.career.cover-letter.show', $coverLetter)
+        return redirect()->route('root.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover letter successfully updated.');
     }
 
@@ -112,7 +112,7 @@ class CoverLetterController extends BaseAdminRootController
 
         $coverLetter->delete();
 
-        return redirect(referer('admin.career.cover-letter.index'))
+        return redirect(referer('root.career.cover-letter.index'))
             ->with('success', 'Cover letter deleted successfully.');
     }
 }

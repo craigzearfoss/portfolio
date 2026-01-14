@@ -3,11 +3,11 @@
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Users',           'href' => route('admin.system.user.index') ],
+        [ 'name' => 'Users',           'href' => route('root.user.index') ],
         [ 'name' => 'Change Password' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -21,13 +21,13 @@
 
     <div class="form-container container" style="width: 30em;">
 
-        <form action="{{ route('admin.system.user.change-password-submit', $user) }}"
+        <form action="{{ route('root.user.change-password-submit', $user) }}"
               method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.user.index')
+                'value' => referer('root.user.index')
             ])
 
             <div class="card p-4 mb-3">
@@ -62,7 +62,7 @@
             <div class="has-text-centered">
                 @include('admin.components.form-button-submit-horizontal', [
                     'label'      => 'Save',
-                    'cancel_url' => referer('admin.system.user.index')
+                    'cancel_url' => referer('root.user.index')
                 ])
             </div>
 

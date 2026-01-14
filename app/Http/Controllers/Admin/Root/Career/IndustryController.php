@@ -61,7 +61,7 @@ class IndustryController extends BaseAdminRootController
 
         $industry = Industry::create($request->validated());
 
-        return redirect()->route('admin.career.industry.show', $industry)
+        return redirect()->route('root.career.industry.show', $industry)
             ->with('success', $industry->name . ' successfully added.');
     }
 
@@ -110,7 +110,7 @@ class IndustryController extends BaseAdminRootController
 
         $industry->update($request->validated());
 
-        return redirect()->route('admin.career.industry.show', $industry)
+        return redirect()->route('root.career.industry.show', $industry)
             ->with('success', $industry->name . ' successfully updated.');
     }
 
@@ -130,7 +130,7 @@ class IndustryController extends BaseAdminRootController
 
         $industry->delete();
 
-        return redirect(referer('admin.career.industry.index'))
+        return redirect(referer('root.career.industry.index'))
             ->with('success', $industry->name . ' deleted successfully.');
     }
 }

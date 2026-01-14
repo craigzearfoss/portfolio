@@ -54,7 +54,7 @@ class AudioController extends BaseAdminRootController
     {
         $audio = Audio::create($request->validated());
 
-        return redirect()->route('admin.portfolio.audio.show', $audio)
+        return redirect()->route('root.portfolio.audio.show', $audio)
             ->with('success', $audio->name . ' successfully added.');
     }
 
@@ -95,7 +95,7 @@ class AudioController extends BaseAdminRootController
 
         $audio->update($request->validated());
 
-        return redirect()->route('admin.portfolio.audio.show', $audio)
+        return redirect()->route('root.portfolio.audio.show', $audio)
             ->with('success', $audio->name . ' successfully updated.');
     }
 
@@ -111,7 +111,7 @@ class AudioController extends BaseAdminRootController
 
         $audio->delete();
 
-        return redirect(referer('admin.portfolio.audio.index'))
+        return redirect(referer('root.portfolio.audio.index'))
             ->with('success', $audio->name . ' deleted successfully.');
     }
 }

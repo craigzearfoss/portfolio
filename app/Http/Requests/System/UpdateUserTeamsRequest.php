@@ -30,7 +30,7 @@ class UpdateUserTeamsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'user_id'      => ['filled', 'integer', 'exists:system_db.users,id'],
             'name'         => [
                 'filled',
                 'string',

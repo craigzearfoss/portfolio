@@ -36,10 +36,6 @@ class AdminGroupController extends BaseAdminRootController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
-
         return view('admin.system.admin-group.create');
     }
 
@@ -51,13 +47,9 @@ class AdminGroupController extends BaseAdminRootController
      */
     public function store(StoreAdminGroupsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can add new admin groups.');
-        }
-
         $adminGroup = AdminGroup::create($request->validated());
 
-        return redirect()->route('admin.admin-group.show', $adminGroup)
+        return redirect()->route('root.admin-group.show', $adminGroup)
             ->with('success', $adminGroup->name . ' successfully added.');
     }
 
@@ -82,7 +74,7 @@ class AdminGroupController extends BaseAdminRootController
     {
         Gate::authorize('update-resource', $adminGroup);
 
-        return view('admin.system.admin-group.edit', compact('adminGroup'));
+        return view('root.system.admin-group.edit', compact('adminGroup'));
     }
 
     /**
@@ -98,7 +90,7 @@ class AdminGroupController extends BaseAdminRootController
 
         $adminGroup->update($request->validated());
 
-        return redirect()->route('admin.admin-group.show', $adminGroup)
+        return redirect()->route('root.admin-group.show', $adminGroup)
             ->with('success', $adminGroup->name . ' successfully updated.');
     }
 
@@ -114,7 +106,7 @@ class AdminGroupController extends BaseAdminRootController
 
         $adminGroup->delete();
 
-        return redirect(referer('admin.system.admin-group.index'))
+        return redirect(referer('root.system.admin-group.index'))
             ->with('success', $adminGroup->name . ' deleted successfully.');
     }
 }

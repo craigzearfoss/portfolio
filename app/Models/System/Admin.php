@@ -31,7 +31,7 @@ class Admin extends Authenticatable
         'username',
         'label',
         'name',
-        'slautation',
+        'salutation',
         'title',
         'role',
         'employer',
@@ -83,9 +83,9 @@ class Admin extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'label', 'name', 'title', 'street', 'street2', 'city',
-        'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled',
-        'demo'];
+    const SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role', 'street',
+        'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root',
+        'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
@@ -105,7 +105,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the system team of the admin.
+     * Get the system admin_team of the admin.
      */
     public function team(): BelongsTo
     {

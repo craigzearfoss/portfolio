@@ -53,7 +53,7 @@ class SkillController extends BaseAdminRootController
     {
         $skill = Skill::create($request->validated());
 
-        return redirect()->route('admin.portfolio.skill.show', $skill)
+        return redirect()->route('root.portfolio.skill.show', $skill)
             ->with('success', $skill->name . ' successfully added.');
     }
 
@@ -94,7 +94,7 @@ class SkillController extends BaseAdminRootController
 
         $skill->update($request->validated());
 
-        return redirect()->route('admin.portfolio.skill.show', $skill)
+        return redirect()->route('root.portfolio.skill.show', $skill)
             ->with('success', $skill->name . ' successfully updated.');
     }
 
@@ -110,7 +110,7 @@ class SkillController extends BaseAdminRootController
 
         $skill->delete();
 
-        return redirect(referer('admin.portfolio.skill.index'))
+        return redirect(referer('root.portfolio.skill.index'))
             ->with('success', $skill->name . ' deleted successfully.');
     }
 }

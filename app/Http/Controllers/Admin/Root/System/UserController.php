@@ -50,7 +50,7 @@ class UserController extends BaseAdminRootController
     {
         $user = User::create($request->validated());
 
-        return redirect()->route('admin.system.user.show', $user)
+        return redirect()->route('root.user.show', $user)
             ->with('success', $user->username . ' successfully added. User will need to verify email.');
     }
 
@@ -91,7 +91,7 @@ class UserController extends BaseAdminRootController
 
         $user->update($request->validated());
 
-        return redirect()->route('admin.system.user.show', $user)
+        return redirect()->route('root.user.show', $user)
             ->with('success', $user->username . ' successfully updated.');
     }
 
@@ -107,7 +107,7 @@ class UserController extends BaseAdminRootController
 
         $user->delete();
 
-        return redirect(referer('admin.system.user.index'))
+        return redirect(referer('root.user.index'))
             ->with('success', $user->name . ' deleted successfully.');
     }
 
@@ -143,7 +143,7 @@ class UserController extends BaseAdminRootController
         $user->password = Hash::make($userUpdateRequest->password);
         $user->update();
 
-        return redirect(referer('admin.system.user.show', $user))
+        return redirect(referer('root.user.show', $user))
             ->with('success', 'Password for ' . $user->username . ' successfully updated.');
     }
 }

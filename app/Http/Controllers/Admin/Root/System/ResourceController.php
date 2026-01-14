@@ -57,7 +57,7 @@ class ResourceController extends BaseAdminRootController
 
         $resource = Resource::create($request->validated());
 
-        return redirect()->route('admin.system.resource.show', $resource)
+        return redirect()->route('root.system.resource.show', $resource)
             ->with('success', $resource->name . ' resource successfully added.');
     }
 
@@ -98,7 +98,7 @@ class ResourceController extends BaseAdminRootController
 
         $resource->update($request->validated());
 
-        return redirect()->route('admin.system.resource.show', $resource)
+        return redirect()->route('root.system.resource.show', $resource)
             ->with('success', $resource->name . ' resource successfully updated.');
     }
 
@@ -114,7 +114,7 @@ class ResourceController extends BaseAdminRootController
 
         $resource->delete();
 
-        return redirect(referer('admin.system.resource.index'))
+        return redirect(referer('root.system.resource.index'))
             ->with('success', $resource->name . ' resource deleted successfully.');
     }
 }

@@ -44,6 +44,7 @@ class UpdateUsersRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user _team_id'    => ['filled', 'integer', 'exists:system_db.user_teams,id'],
             /* USER USERNAMES CANNOT BE CHANGED
             'username' => [
                 'filled',
@@ -59,6 +60,7 @@ class UpdateUsersRequest extends FormRequest
             'label'             => [
                 'filled',
                 'string',
+                'lowercase',
                 'min:6',
                 'max:200',
                 'unique:users,label,'.$this->user->id,
@@ -112,8 +114,9 @@ class UpdateUsersRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'state_id.exists'   => 'The specified state does not exist.',
-            'country_id.exists' => 'The specified country does not exist.',
+            'user_team_id.filled' => 'A team must be selected.',
+            'state_id.exists'     => 'The specified state does not exist.',
+            'country_id.exists'   => 'The specified country does not exist.',
         ];
     }
 

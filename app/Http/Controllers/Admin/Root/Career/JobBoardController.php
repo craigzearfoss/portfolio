@@ -63,7 +63,7 @@ class JobBoardController extends BaseAdminRootController
 
         $jobBoard =JobBoard::create($request->validated());
 
-        return redirect()->route('admin.career.job-board.show', $jobBoard)
+        return redirect()->route('root.career.job-board.show', $jobBoard)
             ->with('success', $jobBoard->name . ' successfully added.');
     }
 
@@ -109,7 +109,7 @@ class JobBoardController extends BaseAdminRootController
 
         $jobBoard->update($request->validated());
 
-        return redirect()->route('admin.career.job-board.show', $jobBoard)
+        return redirect()->route('root.career.job-board.show', $jobBoard)
             ->with('success', $jobBoard->name . ' successfully updated.');
     }
 
@@ -125,7 +125,7 @@ class JobBoardController extends BaseAdminRootController
 
         $jobBoard->delete();
 
-        return redirect(referer('admin.career.job-board.index'))
+        return redirect(referer('root.career.job-board.index'))
             ->with('success', $jobBoard->name . ' deleted successfully.');
     }
 }

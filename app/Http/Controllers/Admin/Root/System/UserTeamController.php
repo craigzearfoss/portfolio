@@ -36,7 +36,7 @@ class UserTeamController extends BaseAdminRootController
      */
     public function create(): View
     {
-        return view('admin.system.user-team.create');
+        return view('admin.system.system.user-team.create');
     }
 
     /**
@@ -49,7 +49,7 @@ class UserTeamController extends BaseAdminRootController
     {
         $userTeam = UserTeam::create($request->validated());
 
-        return redirect()->route('admin.system.user-team.show', $userTeam)
+        return redirect()->route('root.user-team.show', $userTeam)
             ->with('success', $userTeam->name . ' successfully added.');
     }
 
@@ -90,7 +90,7 @@ class UserTeamController extends BaseAdminRootController
 
         $userTeam->update($request->validated());
 
-        return redirect()->route('admin.system.user-team.show', $userTeam)
+        return redirect()->route('root.user-team.show', $userTeam)
             ->with('success', $userTeam->name . ' successfully updated.');
     }
 
@@ -106,7 +106,7 @@ class UserTeamController extends BaseAdminRootController
 
         $userTeam->delete();
 
-        return redirect(referer('admin.system.user-team.index'))
+        return redirect(referer('root.user-team.index'))
             ->with('success', $userTeam->name . ' deleted successfully.');
     }
 }

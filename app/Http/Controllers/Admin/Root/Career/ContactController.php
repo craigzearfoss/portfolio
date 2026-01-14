@@ -56,7 +56,7 @@ class ContactController extends BaseAdminRootController
     {
         $contact = Contact::create($request->validated());
 
-        return redirect()->route('admin.career.contact.show', $contact)
+        return redirect()->route('root.career.contact.show', $contact)
             ->with('success', $contact->name . ' successfully added.');
     }
 
@@ -97,7 +97,7 @@ class ContactController extends BaseAdminRootController
 
         $contact->update($request->validated());
 
-        return redirect()->route('admin.career.application.show', $contact)
+        return redirect()->route('root.career.application.show', $contact)
             ->with('success', $contact->name . ' successfully updated.');
     }
 
@@ -113,7 +113,7 @@ class ContactController extends BaseAdminRootController
 
         $contact->delete();
 
-        return redirect(referer('admin.career.contact.index'))
+        return redirect(referer('root.career.contact.index'))
             ->with('success', $contact->name . ' deleted successfully.');
     }
 
@@ -145,7 +145,7 @@ class ContactController extends BaseAdminRootController
 
             // Attach an existing contact.
             if (!$company = Company::find($data['company_id'])) {
-                return redirect(route('admin.career.contact.company.add', $contactId))
+                return redirect(route('root.career.contact.company.add', $contactId))
                     ->with('error', 'Company ' . $data['company_id'] . ' not found.');
             }
             $contact->companies()->attach($data['company_id']);
@@ -160,7 +160,7 @@ class ContactController extends BaseAdminRootController
             $contact->companies()->attach($company->id);
         }
 
-        return redirect(referer('admin.career.contact.index'))
+        return redirect(referer('root.career.contact.index'))
             ->with('success', $company->name . ' successfully added to ' . $contact->name . '.');
     }
 
@@ -175,7 +175,7 @@ class ContactController extends BaseAdminRootController
     {
         $contact->companies()->detach($company->id);
 
-        return redirect(referer('admin.career.contact.index'))
+        return redirect(referer('root.career.contact.index'))
             ->with('success', $company->name . ' deleted successfully removed from ' . $contact->name . '.');
     }
 }
