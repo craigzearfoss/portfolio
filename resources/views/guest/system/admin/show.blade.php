@@ -87,7 +87,7 @@
 
                                     @if($resource->guest || $resource->global)
                                         <li style="padding-left: {{ $resource->menu_level - 2 }}em;">
-                                            @if(Route::has('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index'))
+                                            @if(Route::has('guest.'.$resource->database_name.'.'.$resource->name.'.index'))
                                                 @include('guest.components.link', [
                                                     'name'  => $resource->plural,
                                                     'href'  => route('guest.'.$resource->database_name.'.'.$resource->name.'.index', $admin),
