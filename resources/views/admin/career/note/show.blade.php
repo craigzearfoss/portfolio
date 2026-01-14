@@ -50,7 +50,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $note->owner->username ?? ''
+                'value' => $note->owner->username
             ])
         @endif
 
@@ -62,18 +62,18 @@
         @include('admin.components.show-row', [
             'name'  => 'application_id',
             'value' => !empty($application)
-                ? htmlspecialchars(($application->company['name'] ?? '') . ' - ' . ($application->role ?? '') . ' [' . ($application->apply_date ?? '') . ']')
+                ? ($application->company['name'] ?? '') . ' - ' . ($application->role) . ' [' . ($application->apply_date) . ']'
                 : ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => htmlspecialchars($note->subject ?? '')
+            'value' => $note->subject
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => $note->body ?? ''
+            'value' => $note->body
         ])
 
         @include('admin.components.show-row-settings', [

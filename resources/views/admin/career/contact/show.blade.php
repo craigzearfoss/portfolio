@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $contact->owner->username ?? ''
+                'value' => $contact->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($contact->name ?? '')
+            'value' => $contact->name
         ])
 
         @include('admin.components.show-row', [
@@ -57,17 +57,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($contact->title ?? '')
+            'value' => $contact->title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'          => htmlspecialchars($contact->street ?? ''),
-                           'street2'         => htmlspecialchars($company->street2 ?? ''),
-                           'city'            => htmlspecialchars($contact->city ?? ''),
+                           'street'          => $contact->street,
+                           'street2'         => $company->street2,
+                           'city'            => $contact->city,
                            'state'           => $contact->state->code ?? '',
-                           'zip'             => htmlspecialchars($contact->zip ?? ''),
+                           'zip'             => $contact->zip,
                            'country'         => $contact->country->iso_alpha3 ?? '',
                            'streetSeparator' => '<br>',
                        ])
@@ -78,23 +78,23 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($contact->phone_label) ? $contact->phone_label : 'phone'),
-            'value' => htmlspecialchars($contact->phone ?? '')
+            'name'  => !empty($contact->phone_label) ? $contact->phone_label : 'phone',
+            'value' => $contact->phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($contact->alt_phone_label) ? $contact->alt_phone_label : 'alt phone'),
-            'value' => htmlspecialchars($contact->alt_phone ?? '')
+            'name'  => !empty($contact->alt_phone_label) ? $contact->alt_phone_label : 'alt phone',
+            'value' => $contact->alt_phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($contact->email_label) ? $contact->email_label : 'email'),
-            'value' => htmlspecialchars($contact->email ?? '')
+            'name'  => !empty($contact->email_label) ? $contact->email_label : 'email',
+            'value' => $contact->email
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($contact->alt_email_label) ? $contact->alt_email_label : 'alt email'),
-            'value' => htmlspecialchars($contact->alt_email ?? '')
+            'name'  => !empty($contact->alt_email_label) ? $contact->alt_email_label : 'alt email',
+            'value' => $contact->alt_email
         ])
 
         @include('admin.components.show-row', [
@@ -104,24 +104,24 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $contact->notes ?? ''
+            'value' => $contact->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($contact->link_name ?? 'link'),
-            'href'   => htmlspecialchars($contact->link),
+            'name'   => !empty($contact->link_name) ? $contact->link_name : 'link',
+            'href'   => $contact->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $contact->description ?? ''
+            'value' => $contact->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($contact->disclaimer ?? '')
+                            'value' => $contact->disclaimer
                        ])
         ])
 

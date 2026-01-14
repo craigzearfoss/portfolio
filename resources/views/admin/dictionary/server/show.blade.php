@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($server->full_name ?? '')
+            'value' => $server->full_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($server->name ?? '')
+            'value' => $server->name
         ])
 
         @include('admin.components.show-row', [
@@ -50,17 +50,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($server->abbreviation ?? '')
+            'value' => $server->abbreviation
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $server->definition ?? ''
+            'value' => $server->definition
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'open source',
-            'checked' => $server->open_source ?? ''
+            'checked' => $server->open_source
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -75,7 +75,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($server->owner ?? '')
+            'value' => $server->owner
         ])
 
         @include('admin.components.show-row-link', [
@@ -85,14 +85,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($server->link_name ?? 'link'),
-            'href'   => htmlspecialchars($server->link ?? ''),
+            'name'   => !empty($server->link_name) ? $server->link_name : 'link',
+            'href'   => $server->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $server->description ?? ''
+            'value' => $server->description
         ])
 
         @include('admin.components.show-row-image', [

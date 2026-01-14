@@ -51,7 +51,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $communication->owner->username ?? ''
+                'value' => $communication->owner->username
             ])
         @endif
 
@@ -63,7 +63,7 @@
         @include('admin.components.show-row', [
             'name'  => 'application_id',
             'value' => !empty($application)
-                ? htmlspecialchars((($application->company['name'] ?? '') . ' - ' . ($application->role ?? '') . ' [' . ($application->apply_date ?? '') . ']'))
+                ? (($application->company['name'] ?? '') . ' - ' . ($application->role) . ' [' . ($application->apply_date) . ']')
                 : ''
         ])
 
@@ -74,17 +74,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => htmlspecialchars($communication->subject ?? '')
+            'value' => $communication->subject
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'to',
-            'value' => htmlspecialchars($event->to ?? '')
+            'value' => $event->to
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'from',
-            'value' => htmlspecialchars($event->from ?? '')
+            'value' => $event->from
         ])
 
         @include('admin.components.show-row', [
@@ -99,7 +99,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => $communication->body ?? ''
+            'value' => $communication->body
         ])
 
         @include('admin.components.show-row-settings', [

@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $stack->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($stack->name ?? '') }}
+                        {!! $stack->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($stack->abbreviation ?? '') }}
+                        {!! $stack->abbreviation !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $stack->public ])
@@ -89,7 +89,7 @@
 
                         @if (!empty($stack->link))
                             @include('admin.components.link-icon', [
-                                'title'  => htmlspecialchars((!empty($stack->link_name) ? $stack->link_name : 'link') ?? ''),
+                                'title'  => !empty($stack->link_name) ? $stack->link_name : 'link',
                                 'href'   => $stack->link,
                                 'icon'   => 'fa-external-link',
                                 'target' => '_blank'
@@ -129,7 +129,7 @@
 
                         @if(canDelete($stack))
 
-                            <form action="{{ route('admin.dictionary.stack.destroy', $stack->id) }}"
+                            <form action="{!! route('admin.dictionary.stack.destroy', $stack->id) !!}"
                                   method="POST"
                                   style="display:inline-flex"
                             >

@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $server->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($server->name ?? '') }}
+                        {!! $server->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{htmlspecialchars( $server->abbreviation ?? '') }}
+                        {!! $server->abbreviation !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $server->public ])
@@ -89,7 +89,7 @@
 
                         @if (!empty($server->link))
                             @include('admin.components.link-icon', [
-                                'title'  => htmlspecialchars((!empty($server->link_name) ? $server->link_name : 'link') ?? ''),
+                                'title'  => !empty($server->link_name) ? $server->link_name : 'link',
                                 'href'   => $server->link,
                                 'icon'   => 'fa-external-link',
                                 'target' => '_blank'
@@ -129,7 +129,7 @@
 
                         @if(canDelete($server))
 
-                            <form action="{{ route('admin.dictionary.server.destroy', $server->id) }}"
+                            <form action="{!! route('admin.dictionary.server.destroy', $server->id) !!}"
                                   method="POST"
                                   style="display:inline-flex"
                             >

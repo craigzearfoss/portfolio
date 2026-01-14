@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $database->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($database->name ?? '') }}
+                        {!! $database->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($database->abbreviation ?? '') }}
+                        {!! $database->abbreviation !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
@@ -89,7 +89,7 @@
 
                         @if (!empty($database->link))
                             @include('admin.components.link-icon', [
-                                'title'  => htmlspecialchars((!empty($database->link_name) ? $database->link_name : 'link') ?? ''),
+                                'title'  => (!empty($database->link_name) ? $database->link_name : 'link') ?? '',
                                 'href'   => $database->link,
                                 'icon'   => 'fa-external-link',
                                 'target' => '_blank'
@@ -119,7 +119,7 @@
 
                         @if(canDelete($database))
 
-                            <form action="{{ route('admin.dictionary.database.destroy', $database->id) }}"
+                            <form action="{!! route('admin.dictionary.database.destroy', $database->id) !!}"
                                   method="POST"
                                   style="display:inline-flex"
                             >

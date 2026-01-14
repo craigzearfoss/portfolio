@@ -36,14 +36,14 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $coverLetter->owner->username ?? ''
+                'value' => $coverLetter->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'    => 'application',
             'value'   => view('admin.components.link', [
-                             'name' => htmlspecialchars($coverLetter->name ?? ''),
+                             'name' => $coverLetter->name,
                              'href' => route('admin.career.application.show', $coverLetter->application),
                          ]),
             'message' => $message ?? '',
@@ -61,30 +61,30 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'url',
-            'href'   => htmlspecialchars($coverLetter->url),
+            'href'   => $coverLetter->url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $coverLetter->notes ?? ''
+            'value' => $coverLetter->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($coverLetter->link_name ?? 'link'),
+            'name'   => !empty($coverLetter->link_name) ? $coverLetter->link_name : 'link',
             'href'   => $coverLetter->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $coverLetter->description ?? ''
+            'value' => $coverLetter->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($coverLetter->disclaimer ?? '')
+                            'value' => $coverLetter->disclaimer
                        ])
         ])
 

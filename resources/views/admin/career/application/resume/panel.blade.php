@@ -46,7 +46,7 @@
             @include('admin.components.show-row-link', [
                 'name'    => 'MS Word',
                 'label'   => 'resume link',
-                'href'   => $resume->doc_url ?? '',
+                'href'   => $resume->doc_url,
                 'target' => '_blank',
             ])
         @endif
@@ -55,7 +55,7 @@
             @include('admin.components.show-row-link', [
                 'name'   => 'PDF',
                 'label'  => 'resume link',
-                'href'   => $resume->pdf_url ?? '',
+                'href'   => $resume->pdf_url,
                 'target' => '_blank'
             ])
         @endif
@@ -63,14 +63,14 @@
         @if (!empty($resume->description))
             @include('admin.components.show-row', [
                 'name'  => 'description',
-                'value' => htmlspecialchars($resume->description)
+                'value' => $resume->description
             ])
         @endif
 
         @if (!empty($resume->content))
             @include('admin.components.show-row', [
                 'name'  => 'content',
-                'value' => htmlspecialchars($resume->content)
+                'value' => $resume->content
             ])
         @endif
 

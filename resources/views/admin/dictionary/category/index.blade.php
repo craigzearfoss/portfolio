@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $category->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($category->name ?? '') }}
+                        {!! $category->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($category->abbreviation ?? '') }}
+                        {!! $category->abbreviation !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $category->public ])
@@ -89,7 +89,7 @@
 
                         @if (!empty($category->link))
                             @include('admin.components.link-icon', [
-                                'title'  => htmlspecialchars((!empty($category->link_name) ? $category->link_name : 'link') ?? ''),
+                                'title'  => !empty($category->link_name) ? $category->link_name : 'link',
                                 'href'   => $category->link,
                                 'icon'   => 'fa-external-link',
                                 'target' => '_blank'
@@ -119,7 +119,7 @@
 
                         @if(canDelete($category))
 
-                            <form action="{{ route('admin.dictionary.category.destroy', $category->id) }}"
+                            <form action="{!! route('admin.dictionary.category.destroy', $category->id) !!}"
                                   method="POST"
                                   style="display:inline-flex"
                             >

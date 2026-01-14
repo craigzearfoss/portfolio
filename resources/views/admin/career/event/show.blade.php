@@ -50,7 +50,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $event->owner->username ?? ''
+                'value' => $event->owner->username
             ])
         @endif
 
@@ -62,13 +62,13 @@
         @include('admin.components.show-row', [
             'name'  => 'application_id',
             'value' => !empty($application)
-                ? htmlspecialchars(($application->company['name'] ?? '') . ' - ' . ($application->role ?? '') . ' [' . ($application->apply_date ?? '') . ']')
+                ? ($application->company['name'] ?? '') . ' - ' . ($application->role) . ' [' . ($application->apply_date) . ']'
                 : ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($event->name)
+            'value' => $event->name
         ])
 
         @include('admin.components.show-row', [
@@ -78,17 +78,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => htmlspecialchars($event->location ?? '')
+            'value' => $event->location
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'attendees',
-            'value' => htmlspecialchars($event->attendees ?? '')
+            'value' => $event->attendees
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $event->description ?? ''
+            'value' => $event->description
         ])
 
         @include('admin.components.show-row-settings', [

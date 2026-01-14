@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $operatingSystem->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($operatingSystem->name ?? '') }}
+                        {!! $operatingSystem->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($operatingSystem->abbreviation ?? '') }}
+                        {!! $operatingSystem->abbreviation !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $operatingSystem->public ])
@@ -89,7 +89,7 @@
 
                         @if (!empty($operatingSystem->link))
                             @include('admin.components.link-icon', [
-                                'title'  => htmlspecialchars((!empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link') ?? ''),
+                                'title'  => !empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link',
                                 'href'   => $operatingSystem->link,
                                 'icon'   => 'fa-external-link',
                                 'target' => '_blank'
@@ -129,7 +129,7 @@
 
                         @if(canDelete($operatingSystem))
 
-                            <form action="{{ route('admin.dictionary.operating-system.destroy', $operatingSystem->id) }}"
+                            <form action="{!! route('admin.dictionary.operating-system.destroy', $operatingSystem->id) !!}"
                                   method="POST"
                                   style="display:inline-flex"
                             >

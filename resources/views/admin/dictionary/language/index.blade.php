@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $language->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($language->name ?? '') }}
+                        {!! $language->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($language->abbreviation ?? '') }}
+                        {!! $language->abbreviation !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $language->public ])
@@ -89,7 +89,7 @@
 
                         @if (!empty($language->link))
                             @include('admin.components.link-icon', [
-                                'title'  => htmlspecialchars((!empty($language->link_name) ? $language->link_name : 'link') ?? ''),
+                                'title'  => !empty($language->link_name) ? $language->link_name : 'link',
                                 'href'   => $language->link,
                                 'icon'   => 'fa-external-link',
                                 'target' => '_blank'
@@ -119,7 +119,7 @@
 
                         @if(canDelete($language))
 
-                            <form action="{{ route('admin.dictionary.language.destroy', $language->id) }}"
+                            <form action="{!! route('admin.dictionary.language.destroy', $language->id) !!}"
                                   method="POST"
                                   style="display:inline-flex"
                             >

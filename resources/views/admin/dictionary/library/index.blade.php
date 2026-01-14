@@ -58,10 +58,10 @@
 
                 <tr data-id="{{ $library->id }}">
                     <td data-field="name">
-                        {{ htmlspecialchars($library->name ?? '') }}
+                        {!! $library->name !!}
                     </td>
                     <td data-field="abbreviation">
-                        {{ htmlspecialchars($library->abbreviation ?? '') }}
+                        {!! $library->abbreviation !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $library->public ])
@@ -89,7 +89,7 @@
 
                         @if (!empty($library->link))
                             @include('admin.components.link-icon', [
-                                'title'  => htmlspecialchars((!empty($library->link_name) ? $library->link_name : 'link') ?? ''),
+                                'title'  => !empty($library->link_name) ? $library->link_name : 'link',
                                 'href'   => $library->link,
                                 'icon'   => 'fa-external-link',
                                 'target' => '_blank'
@@ -119,7 +119,7 @@
 
                         @if(canDelete($library))
 
-                            <form action="{{ route('admin.dictionary.library.destroy', $library->id) }}"
+                            <form action="{!! route('admin.dictionary.library.destroy', $library->id) !!}"
                                   method="POST"
                                   style="display:inline-flex"
                             >

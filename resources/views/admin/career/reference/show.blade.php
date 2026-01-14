@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $reference->owner->username ?? ''
+                'value' => $reference->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($reference->name ?? '')
+            'value' => $reference->name
         ])
 
         @include('admin.components.show-row', [
@@ -52,32 +52,32 @@
 
         @include('admin.components.show-row', [
             'name'  => 'salutation',
-            'value' => htmlspecialchars($reference->salutation ?? '')
+            'value' => $reference->salutation
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($reference->title ?? '')
+            'value' => $reference->title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'relation',
-            'value' => $reference->relation ?? ''
+            'value' => $reference->relation
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => htmlspecialchars($reference->company['name'] ?? '')
+            'value' => $reference->company['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                'street'          => htmlspecialchars($reference->street ?? ''),
-                'street2'         => htmlspecialchars($reference->street2 ?? ''),
-                'city'            => htmlspecialchars($reference->city ?? ''),
+                'street'          => $reference->street,
+                'street2'         => $reference->street2,
+                'city'            => $reference->city,
                 'state'           => $reference->state->code ?? '',
-                'zip'             => htmlspecialchars($reference->zip ?? ''),
+                'zip'             => $reference->zip,
                 'country'         => $reference->country->iso_alpha3 ?? '',
                 'streetSeparator' => '<br>',
             ])
@@ -88,23 +88,23 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($reference->phone_label) ? $reference->phone_label : 'phone'),
-            'value' => htmlspecialchars($reference->phone ?? '')
+            'name'  => !empty($reference->phone_label) ? $reference->phone_label : 'phone',
+            'value' => $reference->phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($reference->alt_phone_label) ? $reference->alt_phone_label : 'alt phone'),
-            'value' => htmlspecialchars($reference->alt_phone ?? '')
+            'name'  => !empty($reference->alt_phone_label) ? $reference->alt_phone_label : 'alt phone',
+            'value' => $reference->alt_phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($reference->email_label) ? $reference->email_label : 'email'),
-            'value' => htmlspecialchars($reference->email ?? '')
+            'name'  => !empty($reference->email_label) ? $reference->email_label : 'email',
+            'value' => $reference->email
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($reference->alt_email_label) ? $reference->alt_email_label : 'alt email'),
-            'value' => htmlspecialchars($reference->alt_email ?? '')
+            'name'  => !empty($reference->alt_email_label) ? $reference->alt_email_label : 'alt email',
+            'value' => $reference->alt_email
         ])
 
         @include('admin.components.show-row', [
@@ -118,20 +118,20 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($reference->link_name ?? 'link'),
-            'href'   => htmlspecialchars($reference->link ?? ''),
+            'name'   => !empty($reference->link_name) ? $reference->link_name : 'link',
+            'href'   => $reference->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $reference->description ?? ''
+            'value' => $reference->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($reference->disclaimer ?? '')
+                            'value' => $reference->disclaimer
                        ])
         ])
 

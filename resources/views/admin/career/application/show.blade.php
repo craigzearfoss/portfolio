@@ -74,19 +74,19 @@
                                 @if(isRootAdmin())
                                     @include('admin.components.show-row', [
                                         'name'  => 'owner',
-                                        'value' => $application->owner->username ?? ''
+                                        'value' => $application->owner->username
                                     ])
                                 @endif
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'name',
-                                    'value' => htmlspecialchars($application->name ?? '')
+                                    'value' => $application->name
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'company',
                                     'value' =>  view('admin.components.link', [
-                                        'name' => htmlspecialchars($application->company['name'] ?? ''),
+                                        'name' => $application->company['name'] ?? '',
                                         'href' => !empty($application->company)
                                             ? route('admin.career.company.show', $application->company['id'])
                                             : '',
@@ -95,7 +95,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'role',
-                                    'value' => htmlspecialchars($application->role)
+                                    'value' => $application->role
                                 ])
 
                                 <div class="container card p-2 mb-4" style="display: inline-block; flex-grow: 0;">
@@ -145,9 +145,9 @@
                                 @include('admin.components.show-row', [
                                     'name'  => 'compensation',
                                     'value' => formatCompensation([
-                                        'min'   => $application->compensation_min ?? '',
-                                        'max'   => $application->compensation_max ?? '',
-                                        'unit'  => htmlspecialchars($application->compensationUnit['name'] ?? ''),
+                                        'min'   => $application->compensation_min,
+                                        'max'   => $application->compensation_max,
+                                        'unit'  => $application->compensationUnit['name'] ?? '',
                                     ])
                                 ])
 
@@ -169,11 +169,11 @@
                                 @include('admin.components.show-row', [
                                     'name'  => 'location',
                                     'value' => formatLocation([
-                                       'street'          => htmlspecialchars($application->street ?? ''),
-                                       'street2'         => htmlspecialchars($application->street2 ?? ''),
-                                       'city'            => htmlspecialchars($application->city ?? ''),
+                                       'street'          => $application->street,
+                                       'street2'         => $application->street2,
+                                       'city'            => $application->city,
                                        'state'           => $application->state->code ?? '',
-                                       'zip'             => htmlspecialchars($application->zip ?? ''),
+                                       'zip'             => $application->zip,
                                        'country'         => $application->country->iso_alpha3 ?? '',
                                        'streetSeparator' => '<br>',
                                    ])
@@ -185,7 +185,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'bonus',
-                                    'value' => htmlspecialchars($application->bonus ?? '')
+                                    'value' => $application->bonus
                                 ])
 
                                 @include('admin.components.show-row-checkbox', [
@@ -229,12 +229,12 @@
                                         <table>
                                             <tbody>
                                             <tr>
-                                                <td><strong>{{ htmlspecialchars(!empty($application->phone_label) ? $applcation->phone_label : 'phone') }}</strong></td>
-                                                <td>{{ htmlspecialchars($application->phone ?? '') }}</td>
+                                                <td><strong>{!! !empty($application->phone_label) ? $applcation->phone_label : 'phone' !!}</strong></td>
+                                                <td>{!! $application->phone !!}</td>
                                             </tr>
                                             <tr>
-                                                <td><strong>{{ htmlspecialchars(!empty($application->alt_phone_label ?? '') ? $application->alt_phone_label : 'alt phone') }}</strong></td>
-                                                <td>{{ htmlspecialchars($application->alt_phone ?? '') }}</td>
+                                                <td><strong>{!! !empty($application->alt_phone_label) ? $application->alt_phone_label : 'alt phone' !!}</strong></td>
+                                                <td>{!! $application->alt_phone !!}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -245,12 +245,12 @@
                                         <table>
                                             <tbody>
                                             <tr>
-                                                <td><strong>{{ htmlspecialchars(!empty($application->email_label) ?$application->email_label : 'email') }}</strong></td>
-                                                <td>{{ $application->email ?? '' }}</td>
+                                                <td><strong>{!! !empty($application->email_label) ?$application->email_label : 'email' !!}</strong></td>
+                                                <td>{!! $application->email !!}</td>
                                             </tr>
                                             <tr>
-                                                <td><strong>{{ htmlspecialchars(!empty($application->alt_email_label ? $application->alt_email_label : 'alt email') }}</strong></td>
-                                                <td>{{ htmlspecialchars($application->alt_email ?? '') }}</td>
+                                                <td><strong>{!! !empty($application->alt_email_label ? $application->alt_email_label : 'alt email' !!}</strong></td>
+                                                <td>{!! $application->alt_email !!}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -260,26 +260,26 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'notes',
-                                    'value' => $application->notes ?? ''
+                                    'value' => $application->notes
                                 ])
 
                                 @if(!empty($application->link))
                                     @include('admin.components.show-row-link', [
-                                        'name'   => htmlspecialchars($application->link_name ?? 'link'),
-                                        'href'   => htmlspecialchars($application->link ?? ''),
+                                        'name'   => $application->link_name ?? 'link',
+                                        'href'   => $application->link,
                                         'target' => '_blank'
                                     ])
                                 @endif
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'description',
-                                    'value' => $application->description ?? ''
+                                    'value' => $application->description
                                 ])
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'disclaimer',
                                     'value' => view('admin.components.disclaimer', [
-                                                    'value' => htmlspecialchars($application->disclaimer ?? '')
+                                                    'value' => $application->disclaimer
                                                ])
                                 ])
 

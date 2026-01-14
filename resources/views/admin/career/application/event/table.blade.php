@@ -14,16 +14,16 @@ $events = $events ?? [];
 
         <tr>
             <td>
-                {{ htmlspecialchars($event['name'] ?? '') }}
+                {!! $event->name !!}
             </td>
             <td>
                 {{ longDate($event->date) }}
             </td>
             <td>
-                {{ $event->time }}
+                {!! $event->time !!}
             </td>
             <td>
-                {{ htmlspecialchars($event->location ?? '') }}
+                {!! $event->location !!}
             </td>
         </tr>
 

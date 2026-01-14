@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($library->full_name ?? '')
+            'value' => $library->full_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($library->name ?? '')
+            'value' => $library->name
         ])
 
         @include('admin.components.show-row', [
@@ -50,7 +50,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($library->abbreviation ?? '')
+            'value' => $library->abbreviation
         ])
 
         @include('admin.components.show-row', [
@@ -75,7 +75,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($library->owner ?? ''_
+            'value' => $library->owner
         ])
 
         @include('admin.components.show-row-link', [
@@ -85,14 +85,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($library->link_name ?? 'link'),
-            'href'   => htmlspecialchars($library->link ?? ''),
+            'name'   => !empty($library->link_name) ? $library->link_name : 'link',
+            'href'   => $library->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $library->description ?? ''
+            'value' => $library->description
         ])
 
         @include('admin.components.show-row-image', [

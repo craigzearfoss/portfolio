@@ -24,22 +24,22 @@
             @else
 
                 <a title="show" class="button is-small px-1 py-0"
-                   href="{{ route('admin.career.cover-letter.show', $coverLetter) }}">
-                    <i class="fa-solid fa-list"></i>{{-- show --}}
+                   href="{!! route('admin.career.cover-letter.show', $coverLetter) !!}">
+                    <i class="fa-solid fa-list"></i>
                 </a>
 
                 <a title="edit" class="button is-small px-1 py-0"
-                   href="{{ route('admin.career.cover-letter.edit',$coverLetter->id) }}">
-                    <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                   href="{!! route('admin.career.cover-letter.edit',$coverLetter->id) !!}">
+                    <i class="fa-solid fa-pen-to-square"></i>
                 </a>
 
                 @if(!empty($coverLetter->url))
 
-                    <a title="{{ !empty($coverLetter->url) ? $coverLetter->url : 'link' }}"
+                    <a title="{!! !empty($coverLetter->url) ? $coverLetter->url : 'link' !!}"
                        class="button is-small px-1 py-0"
-                       href="{{ $coverLetter->url }}"
+                       href="{!! $coverLetter->url !!}"
                        target="_blank">
-                        <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                        <i class="fa-solid fa-external-link"></i>
                     </a>
                 @endif
 
@@ -67,30 +67,30 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'url',
-            'href'   => htmlspecialchars($coverLetter->url),
+            'href'   => $coverLetter->url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $coverLetter->notes ?? ''
+            'value' => $coverLetter->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => !empty($coverLetter->link_name) ? htmlspecialchars($coverLetter->link_name) ?? 'link',
-            'href'   => htmlspecialchars($coverLetter->link),
+            'name'   => !empty($coverLetter->link_name) ? $coverLetter->link_name : 'link',
+            'href'   => $coverLetter->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $coverLetter->description ?? ''
+            'value' => $coverLetter->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => !empty($coverLetter->disclaimer) ? htmlspecialchars($coverLetter->disclaimer) : ''
+                            'value' => $coverLetter->disclaimer
                        ])
         ])
 

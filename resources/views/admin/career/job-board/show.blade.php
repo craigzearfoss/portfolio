@@ -1,6 +1,6 @@
 @php
     $buttons = [];
-    if (canUpdate($jobBoard), getAdminId()) {
+    if (canUpdate($jobBoard, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.job-board.edit', $jobBoard) ];
     }
     if (canCreate($jobBoard, getAdminId())) {
@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($jobBoard->name ?? '')
+            'value' => $jobBoard->name ??
         ])
 
         @include('admin.components.show-row', [
@@ -74,14 +74,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($jobBoard->link_name ?? 'link'),
-            'href'   => htmlspecialchars($jobBoard->link ?? ''),
+            'name'   => !empty($jobBoard->link_name) ? $jobBoard->link_name : 'link',
+            'href'   => $jobBoard->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $jobBoard->description ?? ''
+            'value' => $jobBoard->description
         ])
 
         @include('admin.components.show-row-images', [

@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($recruiter->name ?? '')
+            'value' => $recruiter->name
         ])
 
         @include('admin.components.show-row', [
@@ -50,8 +50,8 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'postings url',
-            'label'  => htmlspecialchars($recruiter->postings_url ?? ''),
-            'href'   => htmlspecialchars($recruiter->postings_url ?? ''),
+            'label'  => $recruiter->postings_url,
+            'href'   => $recruiter->postings_url),
             'target' => '_blank'
         ])
 
@@ -78,11 +78,11 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'          => htmlspecialchars($recruiter->street ?? ''),
-                           'street2'         => htmlspecialchars($recruiter->street2 ?? ''),
-                           'city'            => htmlspecialchars($recruiter->city ?? ''),
+                           'street'          => $recruiter->street,
+                           'street2'         => $recruiter->street2,
+                           'city'            => $recruiter->city,
                            'state'           => $recruiter->state->code ?? '',
-                           'zip'             => htmlspecialchars($recruiter->zip ?? ''),
+                           'zip'             => $recruiter->zip,
                            'country'         => $recruiter->country->iso_alpha3 ?? '',
                            'streetSeparator' => '<br>',
                        ])
@@ -93,34 +93,34 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($recruiter->phone_label) ? $recruiter->phone_label : 'phone'),
-            'value' => htmlspecialchars($recruiter->phone ?? '')
+            'name'  => !empty($recruiter->phone_label) ? $recruiter->phone_label : 'phone',
+            'value' => $recruiter->phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($recruiter->alt_phone_label) ? $recruiter->alt_phone_label : 'alt phone'),
-            'value' => htmlspecialchars($recruiter->alt_phone ?? '')
+            'name'  => !empty($recruiter->alt_phone_label) ? $recruiter->alt_phone_label : 'alt phone',
+            'value' => $recruiter->alt_phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($recruiter->email_label) ? $recruiter->email_label : 'email'),
-            'value' => htmlspecialchars($recruiter->email ?? '')
+            'name'  => !empty($recruiter->email_label) ? $recruiter->email_label : 'email',
+            'value' => $recruiter->email
         ])
 
         @include('admin.components.show-row', [
-            'name'  => htmlspecialchars(!empty($recruiter->alt_email_label) ? $recruiter->alt_email_label : 'alt email'),
-            'value' => htmlspecialchars($recruiter->alt_email ?? '')
+            'name'  => !empty($recruiter->alt_email_label) ? $recruiter->alt_email_label : 'alt email',
+            'value' => $recruiter->alt_email
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($recruiter->link_name ?? 'link'),
-            'href'   => htmlspecialchars($recruiter->link ? ''),
+            'name'   => !empty($recruiter->link_name) ? $recruiter->link_name : 'link',
+            'href'   => $recruiter->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $recruiter->description ?? ''
+            'value' => $recruiter->description
         ])
 
         @include('admin.components.show-row-images', [

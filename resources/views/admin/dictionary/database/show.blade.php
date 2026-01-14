@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => htmlspecialchars($database->full_name ?? '')
+            'value' => $database->full_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($database->name ?? '')
+            'value' => $database->name
         ])
 
         @include('admin.components.show-row', [
@@ -50,12 +50,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($database->abbreviation ?? '')
+            'value' => $database->abbreviation
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'definition',
-            'value' => $database->definition ?? ''
+            'value' => $database->definition
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -75,7 +75,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => htmlspecialchars($database->owner ?? '')
+            'value' => $database->owner
         ])
 
         @include('admin.components.show-row-link', [
@@ -85,14 +85,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($database->link_name ?? 'link'),
-            'href'   => htmlspecialchars($database->link ?? ''),
+            'name'   => !empty($database->link_name) ? $database->link_name : 'link',
+            'href'   => $database->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $database->description ?? ''
+            'value' => $database->description
         ])
 
         @include('admin.components.show-row-image', [

@@ -13,10 +13,10 @@ $notes = $notes ?? [];
 
         <tr>
             <td>
-                {{ htmlspecialchars($note['subject'] ?? '') }}
+                {!! $note->subject !!}
             </td>
             <td>
-                {!! $note['body'] !!}
+                {!! $note->body !!}
             </td>
             <td>
                 {{ longDateTime($note->created_at) }}
