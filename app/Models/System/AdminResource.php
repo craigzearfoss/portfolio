@@ -107,7 +107,7 @@ class AdminResource extends Model
     /**
      * Returns the resources for specified owner.
      *
-     * @param int $ownerId
+     * @param int|null $ownerId
      * @param string|null $envType
      * @param int|null $databaseId
      * @param array $filters
@@ -115,7 +115,7 @@ class AdminResource extends Model
      * @return Collection
      * @throws \Exception
      */
-    public static function getResources(int         $ownerId,
+    public static function getResources(int|null    $ownerId,
                                         string|null $envType,
                                         int|null    $databaseId = null,
                                         array       $filters = [],
@@ -130,8 +130,11 @@ class AdminResource extends Model
 
         $query = AdminResource::select([DB::raw("databases.name AS 'database_name'"), 'admin_resources.*'])
             ->join('databases', 'databases.id', 'admin_resources.database_id')
-            ->where('admin_resources.owner_id', $ownerId)
             ->orderBy($orderBy[0] ?? 'sequence', $orderBy[1] ?? 'asc');
+
+        if (!empty($ownerId)) {
+            $query->where('admin_resources.owner_id', $ownerId);
+        }
 
         // apply env type filter
         if (!empty($databaseId)) {

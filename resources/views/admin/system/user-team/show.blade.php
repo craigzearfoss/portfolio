@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canDelete($userTeam, currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.admin-team.edit', $userTeam) ];
+    if (canDelete($userTeam, getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.admin-team.edit', $userTeam) ];
     }
-    if (canCreate($userTeam, currentAdminId())) {
+    if (canCreate($userTeam, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Add New User Team', 'href' => referer('admin.system.admin-team.index') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin.index') ];
@@ -11,9 +11,9 @@
 @extends('admin.layouts.default', [
     'title'         => 'User Team: ' . $userTeam->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'User Teams',      'href' => route('admin.system.user-team.index') ],
         [ 'name' => $userTeam->name ]
     ],
@@ -21,7 +21,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

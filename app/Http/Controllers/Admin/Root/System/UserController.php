@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\System;
+namespace App\Http\Controllers\Admin\Root\System;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Admin\Root\BaseAdminRootController;
 use App\Http\Requests\System\StoreUsersRequest;
 use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
-class UserController extends BaseAdminController
+class UserController extends BaseAdminRootController
 {
     /**
      * Display a listing of users.

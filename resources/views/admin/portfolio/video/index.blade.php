@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('video', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Video', 'href' => route('admin.portfolio.video.create') ];
+    if (canCreate('video', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Video', 'href' => route('admin.portfolio.video.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Video',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Video' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -79,12 +79,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.video.destroy', $video->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.video.destroy', [$admin, $video->id]) !!}" method="POST">
 
                             @if(canRead($video))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.video.show', $video->id),
+                                    'href'  => route('admin.portfolio.video.show', [$admin, $video->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -92,7 +92,7 @@
                             @if(canUpdate($video))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.video.edit', $video->id),
+                                    'href'  => route('admin.portfolio.video.edit', [$admin, $video->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

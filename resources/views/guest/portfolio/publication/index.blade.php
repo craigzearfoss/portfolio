@@ -1,11 +1,11 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'         => $title ?? $admin->name . ' publications',
+    'title'         => $pageTitle ?? $currentAdmin->name . ' publications',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Portfolio'       ,  'href' => route('guest.portfolio.index', $currentAdmin) ],
         [ 'name' => 'Publications' ],
     ],
     'buttons'       => [],
@@ -14,7 +14,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')
@@ -48,7 +48,7 @@
                     <td data-field="title">
                         @include('guest.components.link', [
                             'name'  => $publication->title,
-                            'href'  => route('guest.admin.portfolio.publication.show', [$publication->owner->label, $publication]),
+                            'href'  => route('guest.portfolio.publication.show', [$publication->owner->label, $publication]),
                             'class' => $publication->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

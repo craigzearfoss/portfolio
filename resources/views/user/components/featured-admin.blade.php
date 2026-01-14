@@ -31,7 +31,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('user.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('guest.admin.resume', $admin),
+                                'href'   => route('guest.resume', $admin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
@@ -78,7 +78,7 @@
                                 <li>
                                     @include('user.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.admin.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => route('guest.portfolio.'.$resourceType['name'].'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

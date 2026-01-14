@@ -1,9 +1,9 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? 'Personal',
+    'title'         => $pageTitle ?? 'Personal',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
         [ 'name' => $title ?? 'Personal' ],
     ],
     'buttons'       => [],
@@ -12,7 +12,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')
@@ -25,7 +25,7 @@
                 <div class="content">
 
                     <h3 class="title">
-                        {!! $admin->name !!} Personal
+                        {!! $currentAdmin->name !!} Personal
                     </h3>
 
                     <ul class="menu-list ml-4 mb-2">
@@ -36,7 +36,7 @@
                                 <li>
                                     @include('guest.components.link', [
                                         'name'  => $resource->plural,
-                                        'href'  => route('guest.admin.personal.'.$resource->name.'.index', $admin),
+                                        'href'  => route('guest.personal.'.$resource->name.'.index', $currentAdmin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

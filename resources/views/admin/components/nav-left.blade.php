@@ -1,7 +1,8 @@
 @php
 $menuItems = (new \App\Services\MenuService())->getLeftMenu(
     \App\Services\PermissionService::ENV_ADMIN,
-    $admin ?? null
+    $currentAdmin ?? null,
+    $currentUser ?? null
 );
 @endphp
 
@@ -13,7 +14,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                 @include('admin.components.link', [
                     'name'  => 'Home',
-                    'href'  => route('system.index'),
+                    'href'  => adminRoute('home'),
                     'class' => 'has-text-primary',
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
@@ -22,7 +23,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                 @include('admin.components.link', [
                     'name'  => 'Admin',
-                    'href'  => route('admin.index'),
+                    'href'  => adminRoute('admin.index'),
                     'class' => 'has-text-primary',
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
@@ -31,7 +32,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                 @include('admin.components.link', [
                     'name'  => 'Home',
-                    'href'  => route('system.index'),
+                    'href'  => adminRoute('admin.index'),
                     'class' => 'has-text-primary',
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
@@ -43,22 +44,22 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
     <div class="control ml-2 mt-2">
 
-        @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
+        @if(isRootAdmin())
 
             @include('admin.components.form-select-nolabel', [
-                'value'    => !empty($admin->label) ? $admin->label : '',
+                'value'    => !empty($admin->id) ? $admin->id : '',
                 'list'     => \App\Models\System\Admin::listOptions(
                                     [
                                         'public' => 1,
                                     ],
-                                    'label',
+                                    'id',
                                     'name',
                                     true,
                                     false,
                                     ['name', 'asc'
                                 ]),
                 'style'    => 'font-size: 1.1rem; font-weight: 700',
-                'onchange' => "document.location.href='/'+this.value;"
+                'onchange' => "document.location.href='/admin/admin/'+this.value;"
             ])
 
         @endif

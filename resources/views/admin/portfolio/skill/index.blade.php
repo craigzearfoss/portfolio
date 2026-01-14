@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('skill', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'href' => route('admin.portfolio.skill.create') ];
+    if (canCreate('skill', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'href' => route('admin.portfolio.skill.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Skills',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Skills' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -96,12 +96,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.skill.destroy', $skill->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.skill.destroy', [$admin, $skill->id]) !!}" method="POST">
 
                             @if(canRead($skill))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.skill.show', $skill->id),
+                                    'href'  => route('admin.portfolio.skill.show', [$admin, $skill->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -109,14 +109,14 @@
                             @if(canUpdate($skill))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.skill.edit', $skill->id),
+                                    'href'  => route('admin.portfolio.skill.edit', [$admin, $skill->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
 
                             @if (!empty($skill->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => !empty($skill->link_name) ? $skill->link_name : 'link'),
+                                    'title'  => !empty($skill->link_name) ? $skill->link_name : 'link',
                                     'href'   => $skill->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

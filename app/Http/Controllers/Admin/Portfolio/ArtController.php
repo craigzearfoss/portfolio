@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreArtRequest;
 use App\Http\Requests\Portfolio\UpdateArtRequest;
 use App\Models\Portfolio\Art;
+use App\Models\System\Admin;
 use Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,9 +30,16 @@ class ArtController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $arts = Art::orderBy('name', 'asc')->paginate($perPage);
+        // Note: $this->admin is set in the BaseAdminController.
+        if (empty($this->admin)) {
+            $arts = Art::orderBy('name', 'asc')->paginate($perPage);
+            $pageTitle = 'Art';
+        } else {
+            $arts = Art::where('owner_id', $this->admin->id)->orderBy('name', 'asc')->paginate($perPage);
+            $pageTitle = $this->admin->name . ' Art';
+        }
 
-        return view('admin.portfolio.art.index', compact('arts'))
+        return view('admin.portfolio.art.index', compact('arts','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -66,7 +74,7 @@ class ArtController extends BaseAdminController
      * @param Art $art
      * @return View
      */
-    public function show(Art $art): View
+    public function show(Art $art, Admin|string|null $admin): View
     {
         return view('admin.portfolio.art.show', compact('art'));
     }
@@ -77,7 +85,7 @@ class ArtController extends BaseAdminController
      * @param Art $art
      * @return View
      */
-    public function edit(Art $art): View
+    public function edit($art): View
     {
         Gate::authorize('update-resource', $art);
 

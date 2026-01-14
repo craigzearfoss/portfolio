@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\BaseController;
+use App\Models\System\Admin;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -12,7 +13,7 @@ class BaseGuestController extends BaseController
 {
     protected $permissionService;
 
-    protected $admin;
+    protected $currentAdmin;
 
     public function __construct(PermissionService $permissionService, Request $request)
     {
@@ -22,22 +23,19 @@ class BaseGuestController extends BaseController
 
             $params = Route::current()->parameters();
             if (!empty($params['admin']->id)) {
-                Cookie::queue('guest_admin_id', $params['admin']->id, $minutes = 60);
+                $currentAdminId = $params['admin']->id;
+                Cookie::queue('guest_current_admin_id', $currentAdminId, 60);
             }
 
         } else {
 
-            //$adminId = Cookie::get('guest.admin_id', null);
-            //dd($adminId);
+            $currentAdminId = Cookie::get('guest_current_admin_id', null);
         }
-        /*
-        if ($adminId = $request->cookie('guest.admin_id')) {
 
-        }
-dd($request->ge );
-        $this->admin = Admin::find(45);
+        $this->currentAdmin = !empty($currentAdminId)
+            ? Admin::find($currentAdminId)
+            : null;
 
-dd($request->cookie('guest.admin_id'));
-*/
+        view()->share('currentAdmin', $this->currentAdmin);
     }
 }

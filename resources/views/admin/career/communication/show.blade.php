@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($communication, currentAdminId())) {
+    if (canUpdate($communication, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.communication.edit', $communication) ];
     }
-    if (canCreate($communication, currentAdminId())) {
+    if (canCreate($communication, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ];
@@ -11,7 +11,7 @@
 @php
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Home',             'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
@@ -21,7 +21,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Home',            'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Communications',  'href' => route('admin.career.communication.index') ],
@@ -36,7 +36,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

@@ -1,22 +1,22 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? 'Recipe: ' . $recipe->name,
+    'title'         => $pageTitle ?? 'Recipe: ' . $recipe->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Personal',   'href' => route('guest.admin.personal.show', $admin) ],
-        [ 'name' => 'Recipes',    'href' => route('guest.admin.personal.recipe.index', $admin) ],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Personal',          'href' => route('guest.personal.index', $currentAdmin) ],
+        [ 'name' => 'Recipes',           'href' => route('guest.personal.recipe.index', $currentAdmin) ],
         [ 'name' => $recipe->name ],
     ],
     'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.personal.recipe.index', $admin) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.personal.recipe.index', $currentAdmin) ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')

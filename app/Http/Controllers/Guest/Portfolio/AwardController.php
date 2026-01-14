@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Award;
 use App\Models\System\Admin;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AwardController extends Controller
+class AwardController extends BaseGuestController
 {
     /**
      * Display a listing of awards.
@@ -26,7 +26,7 @@ class AwardController extends Controller
             ->orderBy('name', 'asc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.award.index'), compact('awards', 'admin'))
+        return view(themedTemplate('guest.portfolio.award.index'), compact('awards'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -43,6 +43,6 @@ class AwardController extends Controller
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.award.show'), compact('award', 'admin'));
+        return view(themedTemplate('guest.portfolio.award.show'), compact('award'));
     }
 }

@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($jobSkill, currentAdminId())) {
+    if (canUpdate($jobSkill, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-skill.edit', $jobSkill) ];
     }
-    if (canCreate($jobSkill, currentAdminId())) {
+    if (canCreate($jobSkill, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add Skill', 'href' => route('admin.portfolio.job-skill.create', ['job_id' => $jobSkill->job->id]) ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-skill.index') ];
@@ -11,7 +11,7 @@
 @extends('admin.layouts.default', [
     'title'         => $jobSkill->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',              'href' => route('system.index') ],
+        [ 'name' => 'Home',              'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs',              'href' => route('admin.portfolio.job.index') ],
@@ -23,7 +23,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

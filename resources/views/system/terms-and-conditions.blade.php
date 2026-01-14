@@ -3,7 +3,7 @@
     'title'         => '',
     'subtitle'      => null,
     'breadcrumbs'   => [
-        [ 'name' => 'Home', 'href' => route('system.index')],
+        [ 'name' => 'Home', 'href' => route('home')],
         [ 'name' => 'Terms & Conditions']
     ],
     'buttons'       => [],

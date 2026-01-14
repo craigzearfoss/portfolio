@@ -13,7 +13,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                 @include('guest.components.link', [
                     'name'  => 'Home',
-                    'href'  => route('system.index'),
+                    'href'  => route('home'),
                     'class' => 'has-text-primary',
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
@@ -31,7 +31,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                 @include('guest.components.link', [
                     'name'  => 'Home',
-                    'href'  => route('system.index'),
+                    'href'  => route('home'),
                     'class' => 'has-text-primary',
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])

@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title'         => 'Award: ' . $award->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Award',           'href' => route('admin.portfolio.award.index') ],
@@ -16,7 +16,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

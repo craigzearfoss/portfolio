@@ -1,28 +1,28 @@
 @php
     $buttons = [];
-    if (canCreate('admin', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Admin', 'href' => route('admin.system.admin.create') ];
+    if (canCreate('admin', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Admin', 'href' => route('admin.admin.create') ];
     }
-    if (canRead('admin-team', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Teams', 'href' => route('admin.system.admin-team.index') ];
+    if (canRead('admin-team', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Teams', 'href' => route('admin.admin-team.index', $admin) ];
     }
-    if (canRead('admin-group', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.system.admin-group.index') ];
+    if (canRead('admin-group', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.admin-group.index', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Admins',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Home',            'href' => adminRoute('admin.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => adminRoute('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => adminRoute('admin.index') ],
         [ 'name' => 'Admins' ]
     ],
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -75,7 +75,7 @@
                     <td data-field="admin_team_id">
                         @include('admin.components.link', [
                             'name' => $admin->team->name ?? '',
-                            'href' => route('admin.system.admin-team.show', $admin->team->id)
+                            'href' => route('admin.admin-team.show', [$admin, $admin->team->id])
                         ])
                     </td>
                     <td data-field="email">
@@ -92,12 +92,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.system.admin.destroy', $admin->id) !!}" method="POST">
+                        <form action="{!! route('admin.admin.destroy', $admin->id) !!}" method="POST">
 
                             @if(canRead($admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.system.admin.show', $admin->id),
+                                    'href'  => route('admin.admin.show', $admin->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -105,7 +105,7 @@
                             @if(canUpdate($admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.system.admin.edit', $admin->id),
+                                    'href'  => route('admin.admin.edit', $admin->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

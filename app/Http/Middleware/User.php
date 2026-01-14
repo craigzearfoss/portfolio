@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpFoundation\Response;
 
 class User
@@ -16,9 +18,19 @@ class User
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!isUser() && !isAdmin()) {
-            return redirect()->route('system.index');
+        if (!isUser() && !in_array(Route::currentRouteName(), ['user.login', 'login-submit'])) {die(Route::currentRouteName());
+            return redirect()->route('user.login');
         }
+
+        if (!empty($adminId)) {
+            View::share('currentUser', \App\Models\System\Admin::find(intval($adminId)));
+        } else {
+            View::share('currentUser', null);
+        }
+
+        // inject the logged in $admin and $user variables into templates
+        view()->share('admin', getAdmin());
+        view()->share('user', getUser());
 
         return $next($request);
     }

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin\System;
+namespace App\Http\Controllers\Admin\Root\System;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Admin\Root\BaseAdminRootController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
-class SettingsController extends BaseAdminController
+class SettingsController extends BaseAdminRootController
 {
     const VISIBLE_SETTINGS = [
         'APP_NAME',

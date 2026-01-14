@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('course', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'href' => route('admin.portfolio.course.create') ];
+    if (canCreate('course', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'href' => route('admin.portfolio.course.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Courses',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Courses' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -89,12 +89,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.course.destroy', $course->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.course.destroy', [$admin, $course->id]) !!}" method="POST">
 
                             @if(canRead($course))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.course.show', $course->id),
+                                    'href'  => route('admin.portfolio.course.show', [$admin, $course->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -102,7 +102,7 @@
                             @if(canUpdate($course))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.course.edit', $course->id),
+                                    'href'  => route('admin.portfolio.course.edit', [$admin, $course->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

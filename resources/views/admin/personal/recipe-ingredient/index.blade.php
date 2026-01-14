@@ -1,7 +1,7 @@
 @php
     $buttons = [];
-    if (canCreate('recipe-ingredient', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create') ];
+    if (canCreate('recipe-ingredient', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
@@ -9,7 +9,7 @@
         ?  $recipeIngredient->recipe['name'] . ' Ingredients'
         : 'Recipe Ingredients',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
@@ -19,7 +19,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -88,12 +88,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.personal.recipe-ingredient.destroy', $recipeIngredient->id) !!}" method="POST">
+                        <form action="{!! route('admin.personal.recipe-ingredient.destroy', [$admin, $recipeIngredient->id]) !!}" method="POST">
 
                             @if(canRead($recipeIngredient))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.recipe-ingredient.show', $recipeIngredient->id),
+                                    'href'  => route('admin.personal.recipe-ingredient.show', [$admin, $recipeIngredient->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -101,7 +101,7 @@
                             @if(canUpdate($recipeIngredient))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.recipe-ingredient.edit', $recipeIngredient->id),
+                                    'href'  => route('admin.personal.recipe-ingredient.edit', [$admin, $recipeIngredient->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

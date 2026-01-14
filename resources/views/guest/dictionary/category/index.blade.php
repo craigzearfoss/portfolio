@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
-    'title'         => 'Dictionary',
+    'title'         => 'Dictionary: Categories' ,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Categories' ]
     ],
@@ -19,7 +19,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $admin,
 ])
 
 @section('content')

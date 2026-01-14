@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Award;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Education;
@@ -12,7 +12,7 @@ use App\Models\System\Admin;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ResumeController extends Controller
+class ResumeController extends BaseGuestController
 {
     /**
      * @param Admin $admin

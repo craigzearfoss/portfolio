@@ -1,27 +1,27 @@
 @php
     $buttons = [];
-    if (canDelete($adminTeam, currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.admin-team.edit', $adminTeam) ];
+    if (canDelete($adminTeam, getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.admin-team.edit', $adminTeam) ];
     }
-    if (canCreate($adminTeam, currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Team', 'href' => route('admin.system.admin-team.create') ];
+    if (canCreate($adminTeam, getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Team', 'href' => route('admin.admin-team.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin-team.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Admin Team: ' . $adminTeam->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Admin Teams',     'href' => route('admin.system.admin-team.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'Admin Teams',     'href' => route('admin.admin-team.index') ],
         [ 'name' => $adminTeam->name ]
     ],
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -108,12 +108,12 @@
                             </td>
                             <td>
                                 <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.system.admin.show', $member->id) }}">
+                                   href="{{ route('admin.admin.show', $member->id) }}">
                                     <i class="fa-solid fa-list"></i>{{-- show --}}
                                 </a>
 
                                 <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('admin.system.admin.edit', $member->id) }}">
+                                   href="{{ route('admin.admin.edit', $member->id) }}">
                                     <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                                 </a>
                             </td>

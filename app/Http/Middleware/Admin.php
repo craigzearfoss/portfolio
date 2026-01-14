@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpFoundation\Response;
 
 class Admin
@@ -19,6 +21,16 @@ class Admin
         if (!isAdmin()) {
             return redirect()->route('admin.login');
         }
+
+        if (!empty($adminId)) {
+            View::share('currentAdmin', \App\Models\System\Admin::find(intval($adminId)));
+        } else {
+            View::share('currentAdmin', null);
+        }
+
+        // inject the logged in $admin and $user variables into templates
+        view()->share('admin', getAdmin());
+        view()->share('user', getUser());
 
         return $next($request);
     }

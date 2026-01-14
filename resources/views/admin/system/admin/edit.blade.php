@@ -1,28 +1,28 @@
 @extends('admin.layouts.default', [
-    'title' => 'Admin: ' . $admin->username,
-    'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+    'title'         => 'Admin: ' . $admin->username,
+    'breadcrumbs'   => [
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'Admins',          'href' => route('admin.admin.index') ],
         [ 'name' => $admin->username ]
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin.update', $admin->id) }}" method="POST">
+        <form action="{{ route('admin.admin.update', $admin->id) }}" method="POST">
             @csrf
             @method('PUT')
 

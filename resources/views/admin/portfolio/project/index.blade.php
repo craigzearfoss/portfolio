@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('project', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Project', 'href' => route('admin.portfolio.project.create') ];
+    if (canCreate('project', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Project', 'href' => route('admin.portfolio.project.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Projects',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -97,12 +97,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.project.destroy', $project->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.project.destroy', [$admin, $project->id]) !!}" method="POST">
 
                             @if(canRead($project))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.project.show', $project->id),
+                                    'href'  => route('admin.portfolio.project.show', [$admin, $project->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -110,7 +110,7 @@
                             @if(canUpdate($project))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.project.edit', $project->id),
+                                    'href'  => route('admin.portfolio.project.edit', [$admin, $project->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

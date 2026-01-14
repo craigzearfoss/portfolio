@@ -1,11 +1,11 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'         => $title ?? $admin->name . ' projects',
+    'title'         => $pageTitle ?? $currentAdmin->name . ' projects',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
         [ 'name' => 'Projects' ],
     ],
     'buttons'       => [],
@@ -14,7 +14,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')
@@ -48,7 +48,7 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name'  => $project->name,
-                            'href'  => route('guest.admin.portfolio.project.show', [$project->owner->label, $project->slug]),
+                            'href'  => route('guest.portfolio.project.show', [$project->owner->label, $project->slug]),
                             'class' => $project->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

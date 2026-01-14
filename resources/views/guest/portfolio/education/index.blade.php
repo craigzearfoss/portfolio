@@ -1,10 +1,10 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? $admin->name . ' education',
+    'title'         => $pageTitle ?? $currentAdmin->name . ' education',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $currentAdmin) ],
         [ 'name' => 'Education' ],
     ],
     'buttons'       => [],
@@ -13,7 +13,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin ?? null,
 ])
 
 @section('content')
@@ -53,19 +53,19 @@
                     <td data-field="degreeType.name">
                         @include('guest.components.link', [
                             'name'  => $education->degreeType->name ?? '',
-                            'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
+                            'href'  => route('guest.portfolio.education.show', [$currentAdmin, $education->id]),
                         ])
                     </td>
                     <td data-field="major">
                         @include('guest.components.link', [
                             'name'  => $education->major,
-                            'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
+                            'href'  => route('guest.portfolio.education.show', [$currentAdmin, $education->id]),
                         ])
                     </td>
                     <td data-field="minor">
                         @include('guest.components.link', [
                             'name'  => $education->minor,
-                            'href'  => route('guest.admin.portfolio.education.show', [$admin, $education->id]),
+                            'href'  => route('guest.portfolio.education.show', [$currentAdmin, $education->id]),
                         ])
                     </td>
                     <td data-field="school.name">

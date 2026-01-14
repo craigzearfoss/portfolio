@@ -5,7 +5,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => null,
+    'currentAdmin'  => $admin ?? null
 ])
 
 @section('content')
@@ -21,7 +21,7 @@
             <div class="has-text-centered">
                 <h4>Admin logins have been disabled.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{!! route('system.index') !!}"><i
+                    <a class="btn btn-sm btn-solid" href="{!! route('admin.index') !!}"><i
                             class="fa fa-house"></i> Home</a>
                 </p>
             </div>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use Illuminate\Http\Request;
 
-class ApplicationSkillController extends Controller
+class ApplicationSkillController extends BaseAdminController
 {
     //
 }

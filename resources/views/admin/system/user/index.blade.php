@@ -1,28 +1,28 @@
 @php
 $buttons = [];
-if (canCreate('user', currentAdminId())) {
+if (canCreate('user', getAdminId())) {
     $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('admin.system.user.create') ];
 }
-if (canRead('user', currentAdminId())) {
+if (canRead('user', getAdminId())) {
     $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('admin.system.user-team.index') ];
 }
-if (canRead('user', currentAdminId())) {
+if (canRead('user', getAdminId())) {
     $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Groups', 'href' => route('admin.system.user-group.index') ];
 }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Users',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Users' ]
     ],
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('job', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job', 'href' => route('admin.portfolio.job.create') ];
+    if (canCreate('job', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job', 'href' => route('admin.portfolio.job.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Jobs',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs' ]
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -136,12 +136,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.job.destroy', $job->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.job.destroy', [$admin, $job->id]) !!}" method="POST">
 
                             @if(canRead($job))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.job.show', $job->id),
+                                    'href'  => route('admin.portfolio.job.show', [$admin, $job->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -149,7 +149,7 @@
                             @if(canUpdate($job))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.job.edit', $job->id),
+                                    'href'  => route('admin.portfolio.job.edit', [$admin, $job->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

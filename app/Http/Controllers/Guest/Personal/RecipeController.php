@@ -30,7 +30,7 @@ class RecipeController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.personal.recipe.index'), compact('recipes', 'admin'))
+        return view(themedTemplate('guest.personal.recipe.index'), compact('recipes'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -49,6 +49,6 @@ class RecipeController extends BaseGuestController
 
         //$recipeSteps = RecipeStep::where('recipe_id', $recipe->id)->orderBy('step', 'asc')->ddRawSql();
         //dd($recipe);
-        return view(themedTemplate('guest.personal.recipe.show'), compact('recipe', 'admin'));
+        return view(themedTemplate('guest.personal.recipe.show'), compact('recipe'));
     }
 }

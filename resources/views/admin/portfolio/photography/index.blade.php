@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('photography', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Photo', 'href' => route('admin.portfolio.photography.create') ];
+    if (canCreate('photography', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Photo', 'href' => route('admin.portfolio.photography.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Photography',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Photography' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -85,12 +85,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.photography.destroy', $photo->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.photography.destroy', [$admin, $photo->id]) !!}" method="POST">
 
                             @if(canRead($photo))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.photography.show', $photo->id),
+                                    'href'  => route('admin.portfolio.photography.show', [$admin, $photo->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -98,7 +98,7 @@
                             @if(canUpdate($photo))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.photography.edit', $photo->id),
+                                    'href'  => route('admin.portfolio.photography.edit', [$admin, $photo->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

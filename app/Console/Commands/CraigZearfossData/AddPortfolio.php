@@ -2740,8 +2740,8 @@ class AddPortfolio extends Command
                 'description'      => <<<EOD
 This includes the following functions:<ul>
 <li><b>canCreate</b> / <b>canDelete</b> / <b>canRead</b> / <b>canUpdate</b> : Returns true if the account can create, delete, read, or update a resource.</li>
-<li><b>currentAdmin</b> / <b>currentAdminId</b> : Returns the current admin or id of the current admin.</li>
-<li><b>currentUserId</b> : Returns the id of the current user.</li>
+<li><b>getAdmin</b> / <b>getAdminId</b> : Returns the Admin object or id of the logged-in admin.</li>
+<li><b>getUser</b> / <b>getUserId</b> : Returns the User object or id of the logged-in admin.</li>
 <li><b>dateRangeDetails</b> : Returns an array of details about a date.</li>
 <li><b>formatCompensation</b> : Returns a formatted compensation. </li>
 <li><b>formatLocation</b> : Returns a formatted address.</li>

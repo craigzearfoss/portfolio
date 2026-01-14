@@ -1,22 +1,22 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? 'Award: ' . $award->name . (!empty($award->year) ? ' - ' . $award->year : ''),
+    'title'         => $pageTitle ?? 'Award: ' . $award->name . (!empty($award->year) ? ' - ' . $award->year : ''),
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
-        [ 'name' => 'Award',      'href' => route('guest.admin.portfolio.award.index', $admin) ],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
+        [ 'name' => 'Award',             'href' => route('guest.portfolio.award.index', $currentAdmin) ],
         [ 'name' => $award->name . (!empty($award->year) ? ' - ' . $award->year : '') ],
     ],
     'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.award.index', $admin) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.award.index', $currentAdmin) ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin       ,
 ])
 
 @section('content')

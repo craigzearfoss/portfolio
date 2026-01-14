@@ -39,12 +39,12 @@ class IndexController extends BaseSystemController
 
     public function about(): View
     {
-        return view(themedTemplate('system.about'));
+        return view(themedTemplate('about'));
     }
 
     public function contact(): View
     {
-        return view(themedTemplate('system.contact'));
+        return view(themedTemplate('contact'));
     }
 
     /**
@@ -57,18 +57,18 @@ class IndexController extends BaseSystemController
     {
         $message = Message::create($messageStoreRequest->validated());
 
-        return redirect(route('system.index'))
+        return redirect(route('home'))
             ->with('success', 'Your message has been sent. Thank you!.');
     }
 
     public function privacy_policy(): View
     {
-        return view(themedTemplate('system.privacy-policy'));
+        return view(themedTemplate('privacy-policy'));
     }
 
     public function terms_and_conditions(): View
     {
-        return view(themedTemplate('system.terms-and-conditions'));
+        return view(themedTemplate('terms-and-conditions'));
     }
     //
 }

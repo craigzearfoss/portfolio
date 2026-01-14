@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin\System;
+namespace App\Http\Controllers\Admin\Root\System;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Admin\Root\BaseAdminRootController;
 use App\Http\Controllers\Controller;
 use App\Models\System\Session;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class SessionController extends BaseAdminController
+class SessionController extends BaseAdminRootController
 {
     /**
      * Display a listing of sessions.

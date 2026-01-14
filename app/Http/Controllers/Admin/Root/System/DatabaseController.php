@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\System;
+namespace App\Http\Controllers\Admin\Root\System;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Admin\Root\BaseAdminRootController;
 use App\Http\Requests\System\StoreDatabasesRequest;
 use App\Http\Requests\System\UpdateDatabasesRequest;
 use App\Models\System\Database;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class DatabaseController extends BaseAdminController
+class DatabaseController extends BaseAdminRootController
 {
     /**
      * Display a listing of databases.

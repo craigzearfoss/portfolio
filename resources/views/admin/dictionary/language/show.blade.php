@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($language, currentAdminId())) {
+    if (canUpdate($language, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.language.edit', $language) ];
     }
-    if (canCreate($language, currentAdminId())) {
+    if (canCreate($language, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.dictionary.language.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.language.index') ];
@@ -11,7 +11,7 @@
 @extends('admin.layouts.default', [
     'title'         => $language->name . ' (language)',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Languages',       'href' => route('admin.dictionary.language.index') ],
@@ -21,7 +21,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

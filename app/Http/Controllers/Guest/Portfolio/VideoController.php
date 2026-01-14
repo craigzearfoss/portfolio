@@ -29,7 +29,7 @@ class VideoController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.video.index'), compact('videos', 'admin'))
+        return view(themedTemplate('guest.portfolio.video.index'), compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +46,6 @@ class VideoController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.video.show'), compact('video', 'admin'));
+        return view(themedTemplate('guest.portfolio.video.show'), compact('video'));
     }
 }

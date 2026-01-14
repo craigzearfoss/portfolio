@@ -27,7 +27,7 @@ class IndexController extends BaseUserController
         if (Auth::guard('user')->check()) {
             return view('user.dashboard');
         } else {
-            return view(themedTemplate('system.index'));
+            return view(themedTemplate('home'));
         }
     }
 
@@ -105,7 +105,7 @@ class IndexController extends BaseUserController
     public function logout(): RedirectResponse
     {
         Auth::guard('user')->logout();
-        return redirect()->route('system.index')->with('success', 'User logout successful.');
+        return redirect()->route('home')->with('success', 'User logout successful.');
     }
 
     /**

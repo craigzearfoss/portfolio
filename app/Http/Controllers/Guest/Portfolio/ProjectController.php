@@ -29,7 +29,7 @@ class ProjectController extends BaseGuestController
             ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.project.index'), compact('projects', 'admin'))
+        return view(themedTemplate('guest.portfolio.project.index'), compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +46,6 @@ class ProjectController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.project.show'), compact('project', 'admin'));
+        return view(themedTemplate('guest.portfolio.project.show'), compact('project'));
     }
 }

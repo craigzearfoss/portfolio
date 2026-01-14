@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($photo, currentAdminId())) {
+    if (canUpdate($photo, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.photography.edit', $photo) ];
     }
-    if (canCreate($photo, currentAdminId())) {
+    if (canCreate($photo, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Photo', 'href' => route('admin.portfolio.photography.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.photography.index') ];
@@ -11,7 +11,7 @@
 @extends('admin.layouts.default', [
     'title'         => 'Photography: ' . $photo->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Photo',           'href' => route('admin.portfolio.photography.index') ],
@@ -21,7 +21,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

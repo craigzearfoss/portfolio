@@ -2,7 +2,7 @@
     'title'         => 'Contact',
     'subtitle'      => null,
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('system.index')],
+        [ 'name' => 'Home', 'href' => route('home')],
     ],
     'buttons'       => [],
     'errorMessages' => $errors->any()

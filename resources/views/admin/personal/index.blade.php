@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title'         => 'Personal',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
         [ 'name' => 'Personal']
     ],
@@ -9,7 +9,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -27,7 +27,7 @@
                         <li>
                             @include('admin.components.link', [
                                 'name'  => $personal->plural,
-                                'href'  => route('admin.personal.'.$personal->name.'.index'),
+                                'href'  => route('admin.personal.'.$personal->name.'.index', $admin),
                                 'class' => 'list-item',
                             ])
                         </li>

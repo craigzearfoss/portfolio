@@ -102,7 +102,7 @@
                     <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }} Admin</h4>
                 </a>
             @else
-                <a href="{{ route('guest.index') }}">
+                <a href="{{ route('home') }}">
                     <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }} Admin</h4>
                 </a>
             @endif

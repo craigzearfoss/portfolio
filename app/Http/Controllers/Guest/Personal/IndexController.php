@@ -48,6 +48,6 @@ class IndexController extends BaseGuestController
 
         }
 
-        return view(themedTemplate('guest.personal.index'), compact('database', 'resources', 'admin'));
+        return view(themedTemplate('guest.personal.index'), compact('database', 'resources'));
     }
 }

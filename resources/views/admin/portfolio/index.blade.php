@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title'         => 'Portfolios',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
         [ 'name' => 'Portfolio']
     ],
@@ -9,7 +9,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -27,7 +27,7 @@
                         <li>
                             @include('admin.components.link', [
                                 'name'  => $portfolio->plural,
-                                'href'  => route('admin.portfolio.'.$portfolio->name.'.index'),
+                                'href'  => route('admin.portfolio.'.$portfolio->name.'.index', $admin),
                                 'class' => 'list-item',
                             ])
                         </li>

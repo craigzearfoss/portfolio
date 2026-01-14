@@ -49,13 +49,29 @@ if (! function_exists('referer')) {
     }
 }
 
-if (! function_exists('currentUserId')) {
+if (! function_exists('getUser')) {
     /**
-     * Returns id of the current user or null if there is no logged in user.
+     * Returns User object of the logged-in user or null if there is not one.
+     *
+     * @return \App\Models\System\Admin|null
+     */
+    function getUser(): \App\Models\System\Admin|null
+    {
+        if (! Auth::guard('user')->check()) {
+            return null;
+        } else {
+            return Auth::guard('user')->user();
+        }
+    }
+}
+
+if (! function_exists('getUserId')) {
+    /**
+     * Returns id of the logged-in user or null if there is no logged-in user.
      *
      * @return int|null
      */
-    function currentUserId(): int|null
+    function getUserId(): int|null
     {
         try {
             if (Auth::guard('user')->check()) {
@@ -85,14 +101,13 @@ if (! function_exists('isUser')) {
     }
 }
 
-
-if (! function_exists('currentAdmin')) {
+if (! function_exists('getAdmin')) {
     /**
-     * Returns Admin object of the current user or null if there is not one.
+     * Returns Admin object of the logged-in admin or null if there is not one.
      *
      * @return \App\Models\System\Admin|null
      */
-    function currentAdmin(): \App\Models\System\Admin|null
+    function getAdmin(): \App\Models\System\Admin|null
     {
         if (! Auth::guard('admin')->check()) {
             return null;
@@ -102,13 +117,13 @@ if (! function_exists('currentAdmin')) {
     }
 }
 
-if (! function_exists('currentAdminId')) {
+if (! function_exists('getAdminId')) {
     /**
-     * Returns id of the current admin or null if there is no logged in admin.
+     * Returns id of the logged-in admin or null if there is no logged in admin.
      *
      * @return int|null
      */
-    function currentAdminId(): int|null
+    function getAdminId(): int|null
     {
         try {
             if (Auth::guard('admin')->check()) {
@@ -728,14 +743,14 @@ if (! function_exists('themedTemplate')) {
          * @param Admin|null $admin
          * @return string|null
          */
-        function resourceRoute(string $envType,
-                               string $databaseName,
-                               string|null $tableName = null,
-                               \App\Models\System\Admin|null $admin = null): string|null
+        function getResourceRouteName(string $envType,
+                                      string $databaseName,
+                                      string|null $tableName = null,
+                                      \App\Models\System\Admin|null $admin = null): string|null
         {
             $routeParts   = [];
             $routeParts[] = $envType;
-            if ($envType == PermissionService::ENV_GUEST) $routeParts[] = 'admin';
+
             $routeParts[] = $databaseName;
             if (!empty($tableName)) $routeParts[] = $tableName;
             $routeParts[] = 'index';
@@ -747,6 +762,35 @@ if (! function_exists('themedTemplate')) {
             }
 
             return $route;
+        }
+    }
+
+    if (! function_exists('adminRoute')) {
+        /**
+         * Returns an admin route by checking if the currently logged in adnim has root permissions.
+         */
+        function adminRoute($name, $parameters = [], $absolute = true)
+        {
+            $nameParts = explode('.', $name);
+
+            // for admin routes, check if the logged in admin has root privileges
+            if ($nameParts[0] == 'admin') {
+                if (
+                    isRootAdmin() && !in_array($nameParts[1], ['dashboard', 'index'])
+                    && ($nameParts[1] != 'dictionary')  // there are to root routes for the dictionary database
+                    //|| (($nameParts[1] == 'dictionary') && !in_array($nameParts[2], ['index', 'show']))
+                ) {
+                    $nameParts[0] = 'root';
+                    if (!is_array($parameters)) {
+                        $parameters = !empty($parameters) ? [$parameters] : [];
+                    }
+                    $parameters = array_merge($parameters, [getAdmin()]);
+                }
+            }
+
+            $name = implode('.', $nameParts);
+
+            return route($name, $parameters, $absolute);
         }
     }
 }

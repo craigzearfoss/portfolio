@@ -70,7 +70,7 @@ class AdminController extends BaseAdminController
 
         $admin->save();
 
-        return redirect()->route('admin.system.admin.show', $admin)
+        return redirect()->route('admin.admin.show', $admin)
             ->with('success', 'Admin ' . $admin->username . ' successfully added.');
     }
 
@@ -111,7 +111,7 @@ class AdminController extends BaseAdminController
 
         $admin->update($request->validated());
 
-        return redirect()->route('admin.system.admin.show', $admin)
+        return redirect()->route('admin.admin.show', $admin)
             ->with('success', $admin->username . ' successfully updated.');
     }
 

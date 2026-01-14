@@ -1,7 +1,7 @@
 @php
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Home',             'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
@@ -11,7 +11,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Home',            'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Notes',           'href' => route('admin.career.note.index') ],
@@ -20,10 +20,10 @@
     }
 
     $buttons = [];
-    if (canUpdate($note, currentAdminId())) {
+    if (canUpdate($note, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.note.edit', $note) ];
     }
-    if (canCreate($note, currentAdminId())) {
+    if (canCreate($note, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ];
@@ -35,7 +35,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

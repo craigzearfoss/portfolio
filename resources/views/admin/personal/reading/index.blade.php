@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('ingredient', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Reading', 'href' => route('admin.personal.reading.create') ];
+    if (canCreate('ingredient', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Reading', 'href' => route('admin.personal.reading.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Readings',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Readings' ],
@@ -16,13 +16,13 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{!! route('admin.personal.reading.index') !!}" method="get">
+        <form id="searchForm" action="{!! route('admin.personal.reading.index', $admin) !!}" method="get">
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'author',
@@ -161,12 +161,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.personal.reading.destroy', $reading->id) !!}" method="POST">
+                        <form action="{!! route('admin.personal.reading.destroy', [$admin, $reading->id]) !!}" method="POST">
 
                             @if(canRead($reading))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.reading.show', $reading->id),
+                                    'href'  => route('admin.personal.reading.show', [$admin, $reading->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -174,7 +174,7 @@
                             @if(canUpdate($reading))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.reading.edit', $reading->id),
+                                    'href'  => route('admin.personal.reading.edit', [$admin, $reading->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

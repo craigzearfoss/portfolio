@@ -1,7 +1,8 @@
 @php
     $menuItems = (new \App\Services\MenuService())->getTopMenu(
         \App\Services\PermissionService::ENV_ADMIN,
-        $admin ?? null
+        $currentAdmin ?? null,
+        $currentUser ?? null
     );
 @endphp
 <nav id="navbar-main" class="navbar is-fixed-top">

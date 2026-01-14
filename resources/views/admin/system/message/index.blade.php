@@ -1,22 +1,22 @@
 @php
     $buttons = [];
-    if (canCreate('message', currentAdminId())) {
+    if (canCreate('message', getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('admin.system.message.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Message',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Messages' ],
     ],
     'buttons'       => $buttons,
     'errorMessages' => $errors->any() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

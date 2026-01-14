@@ -1,6 +1,6 @@
 @php /* for url '/' */ @endphp
 @extends('guest.layouts.default', [
-    'title'         => config('app.name'),
+    'title'         => $pageTitle ?? config('app.name'),
     'breadcrumbs'   => [],
     'buttons'       => [],
     'errorMessages' => $errors->any()
@@ -78,7 +78,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $resourceType->plural,
-                                    'href' => route('guest.admin.portfolio.'.$resourceType->name.'.index', $admin),
+                                    'href' => route('guest.portfolio.'.$resourceType->name.'.index', $admin),
                                 ])
                             </li>
                         @endif

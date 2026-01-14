@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($art, currentAdminId())) {
+    if (canUpdate($art, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.art.edit', $art) ];
     }
-    if (canCreate($art, currentAdminId())) {
+    if (canCreate($art, getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'href' => route('admin.portfolio.art.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.art.index') ];
@@ -11,7 +11,7 @@
 @extends('admin.layouts.default', [
     'title'         => 'Art: ' . $art->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Art',             'href' => route('admin.portfolio.art.index') ],
@@ -21,7 +21,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -42,12 +42,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($art->name)
+            'value' => $art->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'artist',
-            'value' => htmlspecialchars($art->artist)
+            'value' => $art->artist
         ])
 
         @include('admin.components.show-row', [
@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $art->summary ?? ''
+            'value' => $art->summary
         ])
 
         @include('admin.components.show-row', [
@@ -72,24 +72,24 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $art->notes ?? ''
+            'value' => $art->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($art->link_name ?? 'link'),
-            'href'   => htmlspecialchars($art->link ?? ''),
+            'name'   => $art->link_name ?? 'link',
+            'href'   => $art->link ?? '',
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $art->description ?? ''
+            'value' => $art->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($art->disclaimer ?? '')
+                            'value' => $art->disclaimer
                        ])
         ])
 

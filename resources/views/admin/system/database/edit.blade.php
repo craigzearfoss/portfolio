@@ -1,21 +1,21 @@
 @extends('admin.layouts.default', [
-    'title' => 'Database: ' . $database->name,
-    'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+    'title'         => 'Database: ' . $database->name,
+    'breadcrumbs'   => [
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Databases',       'href' => route('admin.system.database.index') ],
         [ 'name' => $database->name ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.database.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

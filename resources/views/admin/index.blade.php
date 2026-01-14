@@ -1,12 +1,12 @@
 @php /* for url '/admin/' */ @endphp
-@extends('guest.layouts.default', [
+@extends('admin.layouts.default', [
     'title'         => config('app.name'),
     'breadcrumbs'   => [],
     'buttons'       => [],
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => null,
+    'currentAdmin'  => $admin ?? null
 ])
 
 @section('content')

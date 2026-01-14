@@ -3,7 +3,7 @@
     'title'         => '',
     'subtitle'      => null,
     'breadcrumbs'   => [
-        [ 'name' => 'Home', 'href' => route('system.index')],
+        [ 'name' => 'Home', 'href' => route('home')],
         [ 'name' => 'About Us']
     ],
     'buttons'       => [],
@@ -49,7 +49,7 @@
                 </p>
                 <p>
                     For more details about this site, as well as a to-do-list of work that is being done and features
-                    that are still to be added, visit the <a href="{{route('system.about')}}"><strong>About Page</strong></a>.
+                    that are still to be added, visit the <a href="{{route('about')}}"><strong>About Page</strong></a>.
                 </p>
             </div>
         </div>

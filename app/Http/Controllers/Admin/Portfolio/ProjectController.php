@@ -54,7 +54,7 @@ class ProjectController extends BaseAdminController
     {
         $project = Project::create($request->validated());
 
-        return redirect()->route('admin.portfolio.project.show', $project)
+        return redirect()->route('admin.portfolio.project.show', [$this->currentAdmin, $project])
             ->with('success', $project->name . ' project successfully added.');
     }
 
@@ -95,7 +95,7 @@ class ProjectController extends BaseAdminController
 
         $project->update($request->validated());
 
-        return redirect()->route('admin.portfolio.project.show', $project)
+        return redirect()->route('admin.portfolio.project.show', [$this->currentAdmin, $project])
             ->with('success', $project->name . ' project successfully updated.');
     }
 

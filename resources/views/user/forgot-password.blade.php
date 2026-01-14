@@ -2,7 +2,7 @@
     'pageTitle'     => 'Forgot Password',
     'title'         => '',
     'breadcrumbs'   => [
-        [ 'name' => 'Home', 'href' => route('system.index') ],
+        [ 'name' => 'Home', 'href' => route('home') ],
         [ 'name' => 'Forgot Password' ],
     ],
     'buttons'       => [],
@@ -52,7 +52,7 @@
 
                     @include('user.components.form-button-submit', [
                         'label'      => 'Submit',
-                        'cancel_url' => referer('system.index')
+                        'cancel_url' => referer('home')
                     ])
 
                 </div>

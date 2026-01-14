@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
     'title'         => 'Add New Admin Group',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Admin Groups',    'href' => route('admin.system.admin-group.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'Admin Groups',    'href' => route('admin.admin-group.index') ],
         [ 'name' => 'Add' ]
     ],
     'buttons'       => [
@@ -15,14 +15,14 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin-group.store') }}" method="POST">
+        <form action="{{ route('admin.admin-group.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

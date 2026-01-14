@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\System;
+namespace App\Http\Controllers\Admin\Root\System;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Admin\Root\BaseAdminRootController;
 use App\Http\Requests\System\StoreResourcesRequest;
 use App\Http\Requests\System\UpdateResourcesRequest;
 use App\Models\System\Resource;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class ResourceController extends BaseAdminController
+class ResourceController extends BaseAdminRootController
 {
     /**
      * Display a listing of resources.

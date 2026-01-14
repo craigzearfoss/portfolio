@@ -1,7 +1,7 @@
 @php
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Home',             'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
@@ -12,7 +12,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Home',            'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Events',          'href' => route('admin.career.event.index') ],
@@ -32,7 +32,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

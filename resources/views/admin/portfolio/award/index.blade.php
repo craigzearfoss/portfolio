@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('award', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Award', 'href' => route('admin.portfolio.award.create') ];
+    if (canCreate('award', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Award', 'href' => route('admin.portfolio.award.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Award',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Award' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -85,12 +85,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.award.destroy', $award->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.award.destroy', [$admin, $award->id]) !!}" method="POST">
 
                             @if(canRead($award))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.award.show', $award->id),
+                                    'href'  => route('admin.portfolio.award.show', [$admin, $award->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -98,7 +98,7 @@
                             @if(canUpdate($award))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.award.edit', $award->id),
+                                    'href'  => route('admin.portfolio.award.edit', [$admin, $award->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

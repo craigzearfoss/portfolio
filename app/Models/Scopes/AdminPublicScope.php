@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 class AdminPublicScope implements Scope
 {
@@ -18,11 +19,13 @@ class AdminPublicScope implements Scope
 
             // this is an admin route
             if (!isRootAdmin()) {
-                if (!$admin = Auth::guard('admin')->user()) {
+                if (!$admin = getAdmin()) {
                     // admin is probably logged out
                     return false;
                 } else {
-                    $builder->where($model->getTable() . '.owner_id', $admin->id);
+                    if (Schema::connection($model->connection)->hasColumn($model->table, 'owner_id')) {
+                        $builder->where($model->getTable() . '.owner_id', $admin->id);
+                    }
                 }
             }
 

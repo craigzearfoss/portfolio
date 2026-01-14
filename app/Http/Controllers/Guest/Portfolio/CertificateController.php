@@ -29,7 +29,7 @@ class CertificateController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.certificate.index'), compact('certificates', 'admin'))
+        return view(themedTemplate('guest.portfolio.certificate.index'), compact('certificates'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +46,6 @@ class CertificateController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.certificate.show'), compact('certificate', 'admin'));
+        return view(themedTemplate('guest.portfolio.certificate.show'), compact('certificate'));
     }
 }

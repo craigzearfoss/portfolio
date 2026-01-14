@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
-    'title'         => $operatingSystem->name . ' operating system',
+    'title'         => 'Dictionary: ' . $operatingSystem->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',              'href' => route('system.index') ],
+        [ 'name' => 'Home',              'href' => route('home') ],
         [ 'name' => 'Dictionary',        'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Operating Systems', 'href' => route('guest.dictionary.operating-system.index') ],
         [ 'name' => $operatingSystem->name ],
@@ -14,7 +14,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $admin,
 ])
 
 @section('content')

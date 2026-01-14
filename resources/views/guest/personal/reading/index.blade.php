@@ -1,11 +1,11 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'         => $title ?? $admin->name . ' readings',
+    'title'         => $pageTitle ?? $currentAdmin->name . ' readings',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Personal',   'href' => route('guest.admin.personal.show', $admin) ],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Personal',          'href' => route('guest.personal.index', $currentAdmin) ],
         [ 'name' => 'Readings' ],
     ],
     'buttons'       => [],
@@ -14,7 +14,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin
 ])
 
 @section('content')
@@ -69,7 +69,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $reading->title,
-                            'href'  => route('guest.admin.personal.reading.show', [$admin, $reading->slug]),
+                            'href'  => route('guest.personal.reading.show', [$currentAdmin, $reading->slug]),
                             'class' => $reading->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

@@ -1,22 +1,22 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? 'Photography: ' . $photo->name,
+    'title'         => $pageTitle ?? 'Photography: ' . $photo->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',        'href' => route('system.index') ],
-        [ 'name' => 'Users',       'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name,  'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',   'href' => route('guest.admin.portfolio.show', $admin) ],
-        [ 'name' => 'Photography', 'href' => route('guest.admin.portfolio.photography.index', $admin) ],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',              'href' => route('home') ],
+        [ 'name' => $currentAdmin->name,  'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Portfolio',          'href' => route('guest.portfolio.index', $currentAdmin) ],
+        [ 'name' => 'Photography',        'href' => route('guest.portfolio.photography.index', $currentAdmin) ],
         [ 'name' => $photo->name ],
     ],
     'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.photography.index', $admin) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.photography.index', $currentAdmin) ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')

@@ -1,11 +1,11 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
+    'title'         => $pageTitle ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Personal',   'href' => route('guest.admin.personal.show', $admin) ],
-        [ 'name' => 'Readings',   'href' => route('guest.admin.personal.reading.index', $admin) ],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Personal',          'href' => route('guest.personal.index', $currentAdmin) ],
+        [ 'name' => 'Readings',          'href' => route('guest.personal.reading.index', $currentAdmin) ],
         [ 'name' => $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : '') ],
     ],
     'buttons'       => [
@@ -16,7 +16,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')

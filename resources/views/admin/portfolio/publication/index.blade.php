@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('publication', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Publication', 'href' => route('admin.portfolio.publication.create') ];
+    if (canCreate('publication', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Publication', 'href' => route('admin.portfolio.publication.create',$admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Publications',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Publications' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -89,12 +89,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.publication.destroy', $publication->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.publication.destroy', [$admin, $publication->id]) !!}" method="POST">
 
                             @if(canRead($publication))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.publication.show', $publication->id),
+                                    'href'  => route('admin.portfolio.publication.show', [$admin, $publication->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -102,7 +102,7 @@
                             @if(canUpdate($publication))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.publication.edit', $publication->id),
+                                    'href'  => route('admin.portfolio.publication.edit', [$admin, $publication->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

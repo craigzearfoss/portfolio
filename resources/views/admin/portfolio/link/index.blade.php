@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('link', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'href' => route('admin.portfolio.link.create') ];
+    if (canCreate('link', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'href' => route('admin.portfolio.link.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Links',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Links' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -74,12 +74,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.link.destroy', $link->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.link.destroy', [$admin, $link->id]) !!}" method="POST">
 
                             @if(canRead($link))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.link.show', $link->id),
+                                    'href'  => route('admin.portfolio.link.show', [$admin, $link->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -87,7 +87,7 @@
                             @if(canUpdate($link))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.link.edit', $link->id),
+                                    'href'  => route('admin.portfolio.link.edit', [$admin, $link->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

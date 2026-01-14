@@ -1,6 +1,6 @@
 @php
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs' ,           'href' => route('admin.portfolio.job.index') ],
@@ -14,7 +14,7 @@
     }
 
     $buttons = [];
-    if (canCreate('job-task', currentAdminId())) {
+    if (canCreate('job-task', getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'href' => route('admin.portfolio.job-task.create') ];
     }
 @endphp
@@ -25,7 +25,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

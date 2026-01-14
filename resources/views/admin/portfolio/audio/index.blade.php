@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('audio', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Audio', 'href' => route('admin.portfolio.audio.create') ];
+    if (canCreate('audio', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Audio', 'href' => route('admin.portfolio.audio.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Audio',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Audio' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -89,12 +89,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.audio.destroy', $audio->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.audio.destroy', [$admin, $audio->id]) !!}" method="POST">
 
                             @if(canRead($audio))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.audio.show', $audio->id),
+                                    'href'  => route('admin.portfolio.audio.show', [$admin, $audio->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -102,7 +102,7 @@
                             @if(canUpdate($audio))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.audio.edit', $audio->id),
+                                    'href'  => route('admin.portfolio.audio.edit', [$admin, $audio->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

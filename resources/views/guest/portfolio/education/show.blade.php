@@ -1,11 +1,11 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major,
+    'title'         => $pageTitle ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',           'href' => route('system.index') ],
-        [ 'name' => 'Users',          'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name,     'href' => route('guest.admin.show', $admin) ],
-        [ 'name' => 'Portfolio',      'href' => route('guest.admin.portfolio.show', $education->owner) ],
-        [ 'name' => 'Education',      'href' => route('guest.admin.portfolio.education.index', $education->owner) ],
+        [ 'name' => 'Home',                  'href' => route('home') ],
+        [ 'name' => 'Users',                 'href' => route('home') ],
+        [ 'name' => $currentAdmin->name,     'href' => route('guest.admin.show', $currentAdmin) ],
+        [ 'name' => 'Portfolio',             'href' => route('guest.portfolio.index', $education->owner) ],
+        [ 'name' => 'Education',             'href' => route('guest.portfolio.education.index', $education->owner) ],
         [ 'name' => $education->degreeType->name . ' ' . $education->major ],
     ],
     'buttons'       => [
@@ -16,7 +16,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')

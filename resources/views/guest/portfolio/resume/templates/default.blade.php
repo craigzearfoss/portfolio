@@ -1,9 +1,9 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? $admin->name . ' resume',
+    'title'         => $pageTitle ?? $currentAdmin->name . ' resume',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
         [ 'name' => $title ?? 'Resume' ],
     ],
     'buttons'       => [],
@@ -12,7 +12,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')
@@ -25,8 +25,8 @@
 
             <div class="list-item-content mb-3 border-bottom is-flex"
                  @if($i > 0)
-                    style="border-top:#eee 1px inset; padding-top: 0.4em"
-                 @endif
+                     style="border-top:#eee 1px inset; padding-top: 0.4em"
+                @endif
             >
 
                 <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
@@ -80,9 +80,9 @@
                     <div class="list-item-description pt-1">
                         @if(!empty($job->tasks))
                             <ul>
-                            @foreach($job->tasks as $task)
-                                <li>• {!! $task->summary !!}</li>
-                            @endforeach
+                                @foreach($job->tasks as $task)
+                                    <li>• {!! $task->summary !!}</li>
+                                @endforeach
                             </ul>
                         @endif
                     </div>

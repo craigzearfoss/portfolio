@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('certificate', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Certificate', 'href' => route('admin.portfolio.certificate.create') ];
+    if (canCreate('certificate', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Certificate', 'href' => route('admin.portfolio.certificate.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Certificates',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certificates' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -99,12 +99,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.certificate.destroy', $certificate->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.certificate.destroy', [$admin, $certificate->id]) !!}" method="POST">
 
                             @if(canRead($certificate))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.certificate.show', $certificate->id),
+                                    'href'  => route('admin.portfolio.certificate.show', [$admin, $certificate->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -112,7 +112,7 @@
                             @if(canUpdate($certificate))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.certificate.edit', $certificate->id),
+                                    'href'  => route('admin.portfolio.certificate.edit', [$admin, $certificate->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

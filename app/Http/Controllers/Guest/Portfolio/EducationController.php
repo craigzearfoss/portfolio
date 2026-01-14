@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Education;
 use App\Models\System\Admin;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class EducationController extends Controller
+/**
+ *
+ */
+class EducationController extends BaseGuestController
 {
     /**
      * Display a listing of educations.
@@ -28,7 +31,7 @@ class EducationController extends Controller
             ->orderBy('graduation_year', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.education.index'), compact('educations', 'admin'))
+        return view(themedTemplate('guest.portfolio.education.index'), compact('educations'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +48,6 @@ class EducationController extends Controller
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.education.show'), compact('education', 'admin'));
+        return view(themedTemplate('guest.portfolio.education.show'), compact('education'));
     }
 }

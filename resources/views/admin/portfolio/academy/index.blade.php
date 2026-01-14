@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('academy', currentAdminId())) {
+    if (canCreate('academy', getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Academy', 'href' => route('admin.portfolio.academy.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Academies',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Academies' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -78,7 +78,7 @@
 
                             @if (!empty($academy->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => $academy->link_name) ? $academy->link_name : 'link',
+                                    'title'  => $academy->link_name ? $academy->link_name : 'link',
                                     'href'   => $academy->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

@@ -1,8 +1,8 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'         => $title ?? 'Users',
+    'title'         => $pageTitle ?? 'Users',
     'breadcrumbs'   => [
-        [ 'name' => 'Home', 'href' => route('system.index') ],
+        [ 'name' => 'Home', 'href' => route('home') ],
         [ 'name' => 'Users']
     ],
     'buttons'       => [],
@@ -11,7 +11,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')
@@ -70,13 +70,12 @@
                     </td>
                     <td data-field="employer">
                         {!! $admin->employer !!}
-                    </td>
                 </tr>
 
             @empty
 
                 <tr>
-                    <td colspan="4">There are no users.</td>
+                    <td colspan="4">There are no admins.</td>
                 </tr>
 
             @endforelse

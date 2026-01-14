@@ -1,9 +1,9 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ??  !empty($admin->name) ? $admin->name : $admin->username,
+    'title'         => $pageTitle ??  !empty($currentAdmin->name) ? $currentAdmin->name : $currentAdmin->username,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',  'href' => route('system.index') ],
-        [ 'name' => 'Users', 'href' => route('guest.admin.index') ],
-        [ 'name' => !empty($admin->name) ? $admin->name : $admin->username ]
+        [ 'name' => 'Home',  'href' => route('home') ],
+        [ 'name' => 'Users', 'href' => route('home') ],
+        [ 'name' => !empty($currentAdmin->name) ? $currentAdmin->name : $currentAdmin->username ]
     ],
     'buttons'       => [],
     'errorMessages' => $errors->any()
@@ -11,7 +11,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')
@@ -38,7 +38,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('guest.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('guest.admin.resume', $admin),
+                                'href'   => route('guest.resume', $admin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
@@ -90,7 +90,7 @@
                                             @if(Route::has('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index'))
                                                 @include('guest.components.link', [
                                                     'name'  => $resource->plural,
-                                                    'href'  => route('guest.admin.'.$resource->database_name.'.'.$resource->name.'.index', $admin),
+                                                    'href'  => route('guest.'.$resource->database_name.'.'.$resource->name.'.index', $admin),
                                                     'class' => 'pt-1 pb-1',
                                                 ])
                                             @else

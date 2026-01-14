@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('application', currentAdminId())) {
+    if (canCreate('application', getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ];
     }
 @endphp
 @php
 if (!empty($resume)) {
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
@@ -16,7 +16,7 @@ if (!empty($resume)) {
     ];
 } else {
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Applications' ]
@@ -30,7 +30,7 @@ if (!empty($resume)) {
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

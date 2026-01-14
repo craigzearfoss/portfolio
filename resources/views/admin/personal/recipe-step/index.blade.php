@@ -1,7 +1,7 @@
 @php
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Home',            'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
             [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
@@ -10,7 +10,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Home',            'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
             [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
@@ -18,7 +18,7 @@
     }
 
     $buttons = [];
-    if (canCreate('recipe-step', currentAdminId())) {
+    if (canCreate('recipe-step', getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create') ];
     }
 @endphp
@@ -31,7 +31,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

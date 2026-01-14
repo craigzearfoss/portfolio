@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\System\Admin;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\View;
@@ -24,13 +25,9 @@ class Guest
             }
         }
 
-        // inject the current admin into blade templates
-        $adminId = $request->cookie('guest_admin_id');
-        if (!empty($adminId)) {
-            View::share('admin', Admin::find(intval($adminId)));
-        } else {
-            View::share('admin', null);
-        }
+        // inject the logged in $admin and $user variables into templates
+        view()->share('admin', getAdmin());
+        view()->share('user', getUser());
 
         return $next($request);
     }

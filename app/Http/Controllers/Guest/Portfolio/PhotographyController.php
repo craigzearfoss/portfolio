@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Photography;
 use App\Models\System\Admin;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class PhotographyController extends Controller
+class PhotographyController extends BaseGuestController
 {
     /**
      * Display a listing of photos.
@@ -26,7 +26,7 @@ class PhotographyController extends Controller
             ->orderBy('name', 'asc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.photography.index'), compact('photos', 'admin'))
+        return view(themedTemplate('guest.portfolio.photography.index'), compact('photos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -43,6 +43,6 @@ class PhotographyController extends Controller
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.photography.show'), compact('photo', 'admin'));
+        return view(themedTemplate('guest.portfolio.photography.show'), compact('photo'));
     }
 }

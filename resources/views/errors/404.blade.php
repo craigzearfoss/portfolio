@@ -33,7 +33,7 @@
                         @else
                             @include('admin.components.link', [
                                 'name' => 'Back',
-                                'href' => route('system.index')
+                                'href' => route('home')
                             ])
                         @endif
                     </div>

@@ -23,7 +23,7 @@
             <div class="has-text-centered">
                 <h4>User logins have been disabled.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{{ route('system.index') }}"><i
+                    <a class="btn btn-sm btn-solid" href="{{ route('home') }}"><i
                             class="fa fa-house"></i> Home</a>
                 </p>
             </div>
@@ -35,7 +35,7 @@
 
                 @include('user.components.form-hidden', [
                     'name'  => 'referer',
-                    'value' => referer('system.index')
+                    'value' => referer('home')
                 ])
 
                 @include('user.components.form-input', [
@@ -68,7 +68,7 @@
                 <div class="has-text-centered">
                     @include('user.components.form-button-submit', [
                         'label'      => 'Login',
-                        'cancel_url' => referer('system.index')
+                        'cancel_url' => referer('home')
                     ])
                 </div>
 

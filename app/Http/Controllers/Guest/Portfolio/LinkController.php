@@ -29,7 +29,7 @@ class LinkController extends BaseGuestController
             ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.link.index'), compact('links', 'admin'))
+        return view(themedTemplate('guest.portfolio.link.index'), compact('links'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +46,6 @@ class LinkController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.link.show'), compact('link', 'admin'));
+        return view(themedTemplate('guest.portfolio.link.show'), compact('link'));
     }
 }

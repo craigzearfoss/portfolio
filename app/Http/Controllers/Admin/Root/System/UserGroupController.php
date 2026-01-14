@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\System;
+namespace App\Http\Controllers\Admin\Root\System;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Admin\Root\BaseAdminRootController;
 use App\Http\Requests\System\StoreUserGroupsRequest;
 use App\Http\Requests\System\UpdateUserGroupsRequest;
 use App\Models\System\UserGroup;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
-class UserGroupController extends BaseAdminController
+class UserGroupController extends BaseAdminRootController
 {
     /**
      * Display a listing of user groups.

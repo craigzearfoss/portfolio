@@ -5,7 +5,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => null,
+    'currentAdmin'  => $admin ?? null
 ])
 
 @section('content')

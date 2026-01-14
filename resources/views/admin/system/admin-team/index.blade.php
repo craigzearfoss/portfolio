@@ -1,25 +1,25 @@
 @php
     $buttons = [];
-    if (canCreate('admin-team', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New Admin Team', 'href' => route('admin.system.admin-team.create') ];
+    if (canCreate('admin-team', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New Admin Team', 'href' => route('admin.admin-team.create') ];
     }
-    if (canRead('admin-group', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.system.admin-group.index') ];
+    if (canRead('admin-group', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.admin-group.index') ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Admin Teams',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Admin Teams' ]
     ],
     'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -72,12 +72,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.system.admin-team.destroy', $adminTeam->id) !!}" method="POST">
+                        <form action="{!! route('admin.admin-team.destroy', $adminTeam->id) !!}" method="POST">
 
                             @if(canRead($adminTeam))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.system.admin-team.show', $adminTeam->id),
+                                    'href'  => route('admin.admin-team.show', $adminTeam->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -85,7 +85,7 @@
                             @if(canUpdate($adminTeam))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.system.admin-team.edit', $adminTeam->id),
+                                    'href'  => route('admin.admin-team.edit', $adminTeam->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

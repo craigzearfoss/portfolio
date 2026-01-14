@@ -1,7 +1,7 @@
 @php
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Home',             'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
@@ -10,7 +10,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Home',            'href' => route('admin.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Events' ]
@@ -18,7 +18,7 @@
     }
 
     $buttons = [];
-    if (canCreate('event', currentAdminId())) {
+    if (canCreate('event', getAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ];
     }
 @endphp
@@ -29,7 +29,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')

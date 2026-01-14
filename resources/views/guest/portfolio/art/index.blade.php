@@ -1,10 +1,10 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? $admin->name . ' art',
+    'title'         => $pageTitle ?? $currentAdmin->name . ' art',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Home',              'href' => route('home') ],
+        [ 'name' => 'Users',             'href' => route('home') ],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
         [ 'name' => 'Art' ],
     ],
     'buttons'       => [],
@@ -13,7 +13,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin,
 ])
 
 @section('content')
@@ -46,7 +46,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $art->name,
-                            'href'  => route('guest.admin.portfolio.art.show', [$admin, $art->slug]),
+                            'href'  => route('guest.portfolio.art.show', [$currentAdmin, $art->slug]),
                             'class' => $art->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

@@ -1,11 +1,11 @@
 @extends('guest.layouts.default', [
-    'title'         => $title ?? 'Certificate: ' . $certificate->name,
+    'title'         => $pageTitle ?? 'Certificate: ' . $certificate->name,
     'breadcrumbs'   => [
-        [ 'name' => 'Home',           'href' => route('system.index') ],
-        [ 'name' => 'Users',          'href' => route('guest.admin.index') ],
-        [ 'name' => $admin->name,     'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',      'href' => route('guest.admin.portfolio.show', $certificate->owner) ],
-        [ 'name' => 'Certificates', 'href' => route('guest.admin.portfolio.certificate.index', $certificate->owner) ],
+        [ 'name' => 'Home',           'href' => route('home') ],
+        [ 'name' => 'Users',          'href' => route('home') ],
+        [ 'name' => $currentAdmin->name,     'href' => route('guest.admin.show', $currentAdmin)],
+        [ 'name' => 'Portfolio',      'href' => route('guest.portfolio.index', $certificate->owner) ],
+        [ 'name' => 'Certificates', 'href' => route('guest.portfolio.certificate.index', $certificate->owner) ],
         [ 'name' => $certificate->name ],
     ],
     'buttons'       => [
@@ -16,7 +16,7 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'admin'         => $currentAdmin ?? null,
 ])
 
 @section('content')

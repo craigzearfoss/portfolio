@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\System;
+namespace App\Http\Controllers\Admin\Root\System;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\Admin\Root\BaseAdminRootController;
 use App\Http\Requests\System\StoreMessagesRequest;
 use App\Http\Requests\System\UpdateMessagesRequest;
 use App\Models\System\Message;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class MessageController extends BaseAdminController
+class MessageController extends BaseAdminRootController
 {
     /**
      * Display a listing of messages.

@@ -117,7 +117,7 @@ class IndexController extends BaseAdminController
     public function logout(): RedirectResponse
     {
         Auth::guard('admin')->logout();
-        return redirect()->route('system.index')->with('success', 'Admin logout successful.');
+        return redirect()->route('home')->with('success', 'Admin logout successful.');
     }
 
     /**

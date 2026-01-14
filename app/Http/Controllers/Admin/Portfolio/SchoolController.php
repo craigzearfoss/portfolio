@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreSchoolsRequest;
 use App\Http\Requests\Portfolio\UpdateSchoolsRequest;
 use App\Models\Portfolio\School;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class SchoolController extends Controller
+class SchoolController extends BaseAdminController
 {
     /**
      * Display a listing of schools.

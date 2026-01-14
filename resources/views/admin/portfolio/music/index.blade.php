@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('music', currentAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Music', 'href' => route('admin.portfolio.music.create') ];
+    if (canCreate('music', getAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Music', 'href' => route('admin.portfolio.music.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => 'Music',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Music' ],
@@ -16,7 +16,7 @@
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => Auth::guard('admin')->user(),
+    'currentAdmin'  => $admin
 ])
 
 @section('content')
@@ -94,12 +94,12 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{!! route('admin.portfolio.music.destroy', $music->id) !!}" method="POST">
+                        <form action="{!! route('admin.portfolio.music.destroy', [$admin, $music->id]) !!}" method="POST">
 
                             @if(canRead($music))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.music.show', $music->id),
+                                    'href'  => route('admin.portfolio.music.show', [$admin, $music->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -107,7 +107,7 @@
                             @if(canUpdate($music))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.music.edit', $music->id),
+                                    'href'  => route('admin.portfolio.music.edit', [$admin, $music->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

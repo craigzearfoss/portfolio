@@ -1,7 +1,7 @@
 @extends('user.layouts.empty', [
     'title'         => 'Set New Password',
     'breadcrumbs'   => [
-        [ 'name' => 'Home', 'href' => route('system.index')],
+        [ 'name' => 'Home', 'href' => route('home')],
     ],
     'buttons'       => [],
     'errorMessages' => $errors->any()
@@ -27,7 +27,7 @@
 
                 <h4>We are not currently accepting new users.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{{ route('system.index') }}"><i
+                    <a class="btn btn-sm btn-solid" href="{{ route('home') }}"><i
                             class="fa fa-house"></i> Home</a>
                 </p>
 
