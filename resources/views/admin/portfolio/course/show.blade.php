@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $course->owner->username ?? ''
+                'value' => $course->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($course->name ?? '')
+            'value' => $course->name
         ])
 
         @include('admin.components.show-row', [
@@ -57,7 +57,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $course->summary ?? ''
+            'value' => $course->summary
         ])
 
         @include('admin.components.show-row', [
@@ -83,7 +83,7 @@
         @include('admin.components.show-row', [
             'name' => 'academy',
             'value' => view('admin.components.link', [
-                'name' => htmlspecialchars($course->academy['name'] ?? ''),
+                'name' => $course->academy['name'] ?? '',
                 'href' => !empty($course->academy)
                                 ? route('admin.portfolio.academy.show', $course->academy)
                                 : ''
@@ -92,39 +92,39 @@
 
         @include('admin.components.show-row', [
             'name'  => 'school',
-            'value' => htmlspecialchars($course->school ?? '')
+            'value' => $course->school
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'instructor',
-            'value' => htmlspecialchars($course->instructor ?? '')
+            'value' => $course->instructor
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'sponsor',
-            'value' => htmlspecialchars($course->sponsor ?? '')
+            'value' => $course->sponsor
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $course->notes ?? ''
+            'value' => $course->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($course->link_name ?? 'link'),
-            'href'   => htmlspecialchars($course->link ?? ''),
+            'name'   => !empty($course->link_name) ? $course->link_name : 'link',
+            'href'   => $course->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $course->description ?? ''
+            'value' => $course->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($course->disclaimer ?? '')
+                            'value' => $course->disclaimer
                        ])
         ])
 

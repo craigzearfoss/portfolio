@@ -36,23 +36,23 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $award->owner->username ?? ''
+                'value' => $award->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($award->name ?? '')
+            'value' => $award->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'category',
-            'value' => htmlspecialchars($award->category ?? '')
+            'value' => $award->category
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($award->nominated_work ?? '')
+            'value' => $award->nominated_work
         ])
 
         @include('admin.components.show-row', [
@@ -88,24 +88,24 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $award->notes ?? ''
+            'value' => $award->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($award->link_name ?? 'link'),
-            'href'   => htmlspecialchars($award->link ?? ''),
+            'name'   => !empty($award->link_name) ? $award->link_name ?? 'link',
+            'href'   => $award->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $award->description ?? ''
+            'value' => $award->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($award->disclaimer ?? '')
+                            'value' => $award->disclaimer
                        ])
         ])
 

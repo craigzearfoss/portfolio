@@ -65,7 +65,7 @@
                 <tr data-id="{{ $certificate->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $certificate->owner->username ?? '' }}
+                            {{ $certificate->owner->username }}
                         </td>
                     @endif
                     <td data-field="name">
@@ -119,7 +119,7 @@
 
                             @if (!empty($certificate->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($certificate->link_name) ? $certificate->link_name : 'link') ?? ''),
+                                    'title'  => !empty($certificate->link_name) ? $certificate->link_name : 'link',
                                     'href'   => $certificate->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

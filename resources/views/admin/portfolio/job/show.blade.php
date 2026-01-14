@@ -36,18 +36,18 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $job->owner->username ?? ''
+                'value' => $job->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => htmlspecialchars($job->company ?? '')
+            'value' => $job->company
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'role',
-            'value' => htmlspecialchars($job->role ?? '')
+            'value' => $job->role
         ])
 
         @include('admin.components.show-row', [
@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $job->summary ?? ''
+            'value' => $job->summary
         ])
 
         @include('admin.components.show-row', [
@@ -88,11 +88,11 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'          => htmlspecialchars($job->street ?? ''),
-                           'street2'         => htmlspecialchars($job->street2 ?? ''),
-                           'city'            => htmlspecialchars($job->city ?? ''),
+                           'street'          => $job->street,
+                           'street2'         => $job->street2,
+                           'city'            => $job->city,
                            'state'           => $job->state->code ?? '',
-                           'zip'             => htmlspecialchars($job->zip ?? ''),
+                           'zip'             => $job->zip,
                            'country'         => $job->country->iso_alpha3 ?? '',
                            'streetSeparator' => '<br>',
                        ])
@@ -104,24 +104,24 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $job->notes ?? ''
+            'value' => $job->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($job->link_name ?? 'link'),
-            'href'   => htmlspecialchars($job->link ?? ''),
+            'name'   => !empty($job->link_name) ? $job->link_name : 'link',
+            'href'   => $job->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $job->description ?? ''
+            'value' => $job->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($job->disclaimer ?? '')
+                            'value' => $job->disclaimer
                        ])
         ])
 

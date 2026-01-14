@@ -36,7 +36,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $education->owner->username ?? ''
+                'value' => $education->owner->username
             ])
         @endif
 
@@ -47,17 +47,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'major',
-            'value' => htmlspecialchars($education->major ?? '')
+            'value' => $education->major
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'minor',
-            'value' => htmlspecialchars($education->minor ?? '')
+            'value' => $education->minor
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'school',
-            'value' => htmlspecialchars($education->school->name ?? '')
+            'value' => $education->school->name ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -92,24 +92,24 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $education->notes ?? ''
+            'value' => $education->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($education->link_name ?? 'link'),
-            'href'   => htmlspecialchars($education->link ?? ''),
+            'name'   => !empty($education->link_name) ? $education->link_name : 'link',
+            'href'   => $education->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $education->description ?? ''
+            'value' => $education->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($education->disclaimer ?? '')
+                            'value' => $education->disclaimer
                        ])
         ])
 

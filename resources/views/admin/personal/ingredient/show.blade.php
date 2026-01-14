@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full_name',
-            'value' => htmlspecialchars($ingredient->full_name)
+            'value' => $ingredient->full_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($ingredient->name)
+            'value' => $ingredient->name
         ])
 
         @include('admin.components.show-row', [
@@ -49,14 +49,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($ingredient->link_name ?? 'link'),
-            'href'   => htmlspecialchars($ingredient->link ?? ''),
+            'name'   => $ingredient->link_name ?? 'link',
+            'href'   => $ingredient->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $ingredient->description ?? ''
+            'value' => $ingredient->description
         ])
 
         @include('admin.components.show-row-images', [

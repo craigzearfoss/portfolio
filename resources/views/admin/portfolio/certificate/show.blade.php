@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $certificate->owner->username ?? ''
+                'value' => $certificate->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($certificate->name ?? '')
+            'value' => $certificate->name
         ])
 
         @include('admin.components.show-row', [
@@ -57,18 +57,18 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $certificate->summary ?? ''
+            'value' => $certificate->summary
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'organization',
-            'value' => htmlspecialchars($certificate->organization ?? '')
+            'value' => $certificate->organization
         ])
 
         @include('admin.components.show-row', [
             'name' => 'academy',
             'value' => view('admin.components.link', [
-                'name' => htmlspecialchars($certificate->academy['name'] ?? ''),
+                'name' => $certificate->academy['name'] ?? '',
                 'href' => !empty($certificate->academy)
                                 ? route('admin.portfolio.academy.show', $certificate->academy)
                                 : ''
@@ -98,24 +98,24 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $certificate->notes ?? ''
+            'value' => $certificate->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($certificate->link_name ?? 'link'),
-            'href'   => $certificate->link ?? '',
+            'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
+            'href'   => $certificate->link
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $certificate->description ?? ''
+            'value' => $certificate->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($certificate->disclaimer ?? '')
+                            'value' => $certificate->disclaimer
                        ])
         ])
 

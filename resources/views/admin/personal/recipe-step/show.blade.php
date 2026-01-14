@@ -37,7 +37,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $recipeStep->owner->username ?? ''
+                'value' => $recipeStep->owner->username
             ])
         @endif
 
@@ -49,7 +49,7 @@
         @include('admin.components.show-row', [
             'name'  => 'recipe',
             'value' => view('admin.components.link', [
-                'name' => htmlspecialchars($recipeStep->recipe['name']),
+                'name' => $recipeStep->recipe['name'] ?? '',
                 'href' => route('admin.personal.recipe.show', $recipeStep->recipe['id'])
             ])
         ])
@@ -61,7 +61,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $recipeStep->description ?? ''
+            'value' => $recipeStep->description
         ])
 
         @include('admin.components.show-row-images', [

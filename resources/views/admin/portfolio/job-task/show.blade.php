@@ -38,48 +38,48 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $jobTask->owner->username ?? ''
+                'value' => $jobTask->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'job',
             'value' =>  view('admin.components.link', [
-                'name' => htmlspecialchars($jobTask->job->name ?? ''),
+                'name' => $jobTask->job->name ?? '',
                 'href' => route('admin.portfolio.job.show', $jobTask->job)
             ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => htmlspecialchars($jobTask->job->company ?? '')
+            'value' => $jobTask->job->company ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $jobTask->summary ?? ''
+            'value' => $jobTask->summary
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $jobTask->notes ?? ''
+            'value' => $jobTask->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($jobTask->link_name ?? 'link'),
-            'href'   => htmlspecialchars($jobTask->link, ''),
+            'name'   => !empty($jobTask->link_name) ? $jobTask->link_name : 'link',
+            'href'   => $jobTask->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $jobTask->description ?? ''
+            'value' => $jobTask->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($jobTask->disclaimer ?? '')
+                            'value' => $jobTask->disclaimer
                        ])
         ])
 

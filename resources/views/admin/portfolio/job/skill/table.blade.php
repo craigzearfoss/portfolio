@@ -12,23 +12,23 @@
 
         <tr>
             <td>
-                {{ htmlspecialchars($skill->name ?? '') }}
+                {!! $skill->name !!}
             </td>
             <td>
             <td class="is-1" style="white-space: nowrap;">
 
                 <a title="show" class="button is-small px-1 py-0"
-                       href="{{ route('admin.portfolio.job-skill.show', $skill) }}">
-                    <i class="fa-solid fa-list"></i>{{-- show --}}
+                       href="{!! route('admin.portfolio.job-skill.show', $skill) !!}">
+                    <i class="fa-solid fa-list"></i>
                 </a>
 
                 <a title="edit" class="button is-small px-1 py-0"
-                   href="{{ route('admin.portfolio.job-skill.edit', $skill) }}">
-                    <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                   href="{!! route('admin.portfolio.job-skill.edit', $skill) !!}">
+                    <i class="fa-solid fa-pen-to-square"></i>
                 </a>
 
                 <button title="remove" type="submit" class="button is-small px-1 py-0">
-                    <i class="fa-solid fa-trash"></i>{{-- delete --}}
+                    <i class="fa-solid fa-trash"></i>
                 </button>
 
             </td>

@@ -36,18 +36,18 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $reading->owner->username ?? ''
+                'value' => $reading->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($reading->title ?? '')
+            'value' => $reading->title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'author',
-            'value' => htmlspecialchars($reading->author ?? '')
+            'value' => $reading->author
         ])
 
         @include('admin.components.show-row', [
@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $reading->summary ?? ''
+            'value' => $reading->summary
         ])
 
         @include('admin.components.show-row', [
@@ -97,24 +97,24 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $reading->notes ?? ''
+            'value' => $reading->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($reading->link_name ?? 'link'),
-            'href'   => htmlspecialchars($reading->link ?? ''),
+            'name'   => !empty($reading->link_name) ? $reading->link_name : 'link',
+            'href'   => $reading->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $reading->description ?? ''
+            'value' => $reading->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($reading->disclaimer ?? '')
+                            'value' => $reading->disclaimer
                        ])
         ])
 

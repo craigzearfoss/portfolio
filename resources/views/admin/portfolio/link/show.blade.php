@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $link->owner->username ?? ''
+                'value' => $link->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($link->name ?? '')
+            'value' => $link->name
         ])
 
         @include('admin.components.show-row', [
@@ -57,35 +57,35 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $link->summary ?? ''
+            'value' => $link->summary
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'url',
-            'href'    => htmlspecialchars($link->url ?? ''),
+            'href'    => $link->url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $link->notes ?? ''
+            'value' => $link->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($link->link_name ?? 'link'),
-            'href'   => htmlspecialchars($link->link ?? ''),
+            'name'   => !empty($link->link_name) ? $link->link_name : 'link',
+            'href'   => $link->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $link->description ?? ''
+            'value' => $link->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($link->disclaimer ?? '')
+                            'value' => $link->disclaimer
                        ])
         ])
 

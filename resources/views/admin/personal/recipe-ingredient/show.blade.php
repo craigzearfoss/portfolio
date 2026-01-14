@@ -43,17 +43,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'recipe',
-            'value' => htmlspecialchars($recipeIngredient->recipe['name'] ?? '')
+            'value' => $recipeIngredient->recipe['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'ingredient',
-            'value' => htmlspecialchars($recipeIngredient->ingredient['name'] ?? '')
+            'value' => $recipeIngredient->ingredient['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'   => 'amount',
-            'value'  => htmlspecialchars($recipeIngredient->amount ?? ''),
+            'value'  => $recipeIngredient->amount),
         ])
 
         @include('admin.components.show-row', [
@@ -63,12 +63,12 @@
 
         @include('admin.components.show-row', [
             'name'   => 'qualifier',
-            'value'  => htmlspecialchars($recipeIngredient->qualifier ?? ''),
+            'value'  => $recipeIngredient->qualifier,
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $recipeIngredient->description ?? ''
+            'value' => $recipeIngredient->description
         ])
 
         @include('admin.components.show-row-images', [

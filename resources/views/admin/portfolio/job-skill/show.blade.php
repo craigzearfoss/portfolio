@@ -38,14 +38,14 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $jobSkill->owner->username ?? ''
+                'value' => $jobSkill->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'job',
             'value' =>  view('admin.components.link', [
-                'name' => htmlspecialchars($jobSkill->job->name ?? ''),
+                'name' => $jobSkill->job->name,
                 'href' => route('admin.portfolio.job.show', $jobSkill->job)
             ])
         ])
@@ -53,46 +53,46 @@
         @include('admin.components.show-row', [
             'name'  => 'category',
             'value' =>  view('admin.components.link', [
-                'name' => htmlspecialchars($jobSkill->category->name ?? ''),
+                'name' => $jobSkill->category->name,
                 'href' => route('admin.dictionary.category.show', $jobSkill->job)
             ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($jobSkill->name ?? '')
+            'value' => $jobSkill->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'level',
-            'value' => htmlspecialchars($jobSkill->level ?? '')
+            'value' => $jobSkill->level
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $jobSkill->summary ?? ''
+            'value' => $jobSkill->summary
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $jobSkill->notes ?? ''
+            'value' => $jobSkill->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($jobSkill->link_name ?? 'link'),
-            'href'   => htmlspecialchars($jobSkill->link ?? ''),
+            'name'   => !empty($jobSkill->link_name) ? $jobSkill->link_name : 'link',
+            'href'   => $jobSkill->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $jobSkill->description ?? ''
+            'value' => $jobSkill->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($jobSkill->disclaimer ?? '')
+                            'value' => $jobSkill->disclaimer
                        ])
         ])
 

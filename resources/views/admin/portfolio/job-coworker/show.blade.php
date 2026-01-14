@@ -38,26 +38,26 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $jobCoworker->owner->username ?? ''
+                'value' => $jobCoworker->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'job',
             'value' =>  view('admin.components.link', [
-                'name' => htmlspecialchars($jobCoworker->job->name ?? ''),
+                'name' => $jobCoworker->job->name,
                 'href' => route('admin.portfolio.job.show', $jobCoworker->job)
             ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($jobCoworker->name ?? '')
+            'value' => $jobCoworker->name
         ])
 
         @include('admin.components.show-row', [
             'name' => 'title',
-            'value' => htmlspecialchars($jobCoworker->title ?? '')
+            'value' => $jobCoworker->title
         ])
 
         @include('admin.components.show-row', [
@@ -67,44 +67,44 @@
 
         @include('admin.components.show-row', [
             'name'  => 'work phone',
-            'value' => htmlspecialchars($jobCoworker->work_phone ?? '')
+            'value' => $jobCoworker->work_phone
         ])
 
         @include('admin.components.show-row', [
             'name' => 'personal phone',
-            'value' => htmlspecialchars($jobCoworker->personal_phone ?? '')
+            'value' => $jobCoworker->personal_phone
         ])
 
         @include('admin.components.show-row', [
             'name' => 'work email',
-            'value' => htmlspecialchars($jobCoworker->work_email ?? '')
+            'value' => $jobCoworker->work_email
         ])
 
         @include('admin.components.show-row', [
             'name' => 'personal email',
-            'value' => htmlspecialchars($jobCoworker->personal_email ?? '')
+            'value' => $jobCoworker->personal_email
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $jobCoworker->notes ?? ''
+            'value' => $jobCoworker->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($jobCoworker->link_name ?? 'link'),
-            'href'   => htmlspecialchars($jobCoworker->link ?? ''),
+            'name'   => !empty($jobCoworker->link_name) ? $jobCoworker->link_name : 'link',
+            'href'   => $jobCoworker->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $jobCoworker->description ?? ''
+            'value' => $jobCoworker->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($jobCoworker->disclaimer ?? '')
+                            'value' => $jobCoworker->disclaimer
                        ])
         ])
 
