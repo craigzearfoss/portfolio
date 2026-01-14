@@ -37,14 +37,14 @@
                                             'width'    => '30px',
                                             'filename' => $admin->thumbnail
                                         ]),
-                            'href' => route('guest.admin.show', $admin),
+                            'href' => route('user.admin.show', $admin),
                         ])
                     @endif
                 </td>
                 <td data-field="name">
                     @include('user.components.link', [
                         'name' => !empty($admin->name) ? $admin->name : $admin->label,
-                        'href' => route('guest.admin.show', $admin),
+                        'href' => route('user.admin.show', $admin),
                     ])
                 </td>
                 <td data-field="role">

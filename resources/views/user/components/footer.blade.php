@@ -12,13 +12,17 @@
             </div>
             <div class="level-right">
                 <div class="level-item">
-                    <a href="{{ route('about') }}">About</a>
+                    <a href="{!! route('about') !!}">About</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('terms-and-conditions') }}">Terms & Conditions</a>
+                    <a href="{!! route('terms-and-conditions') !!}">Terms & Conditions</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('privacy-policy') }}">Privacy policy</a>
+                    <a href="{!! route('privacy-policy') !!}">Privacy policy</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('contact') }}">Contact</a>
+                    <a href="{!! route('contact') !!}">Contact</a>
+                    @if(!isUser())
+                        <span class="mx-2"> | </span>
+                        <a href="{{ route('user.register') }}">Register</a>
+                    @endif
                 </div>
             </div>
         </div>

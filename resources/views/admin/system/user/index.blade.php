@@ -62,14 +62,14 @@ if (canRead('user', getAdminId())) {
 
                 <tr data-id="{{ $user->id }}">
                     <td data-field="username">
-                        {{ $user->username }}
+                        {!! $user->username !!}
                     </td>
                     <td data-field="name">
                         {!! $user->name !!}
                     </td>
                     <td data-field="user_team_id">
                         @include('user.components.link', [
-                            'name' => $user->team->name ?? '',
+                            'name' => $user->team->name,
                             'href' => route('admin.user-team.show', [$user, $user->team->id])
                         ])
                     </td>
@@ -87,7 +87,7 @@ if (canRead('user', getAdminId())) {
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <form action="{{ route('root.user.destroy', $user->id) }}" method="POST">
+                        <form action="{!! route('root.user.destroy', $user->id) !!}" method="POST">
 
                             @if(canRead($user))
                                 @include('admin.components.link-icon', [
@@ -107,7 +107,7 @@ if (canRead('user', getAdminId())) {
 
                             @if (!empty($user->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => htmlspecialchars((!empty($user->link_name) ? $user->link_name : 'link') ?? ''),
+                                    'title'  => !empty($user->link_name) ? $user->link_name : 'link',
                                     'href'   => $user->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'

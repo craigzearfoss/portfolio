@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $userTeam->owner->username ?? ''
+                'value' => $userTeam->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($userTeam->name ?? '')
+            'value' => $userTeam->name
         ])
 
         @include('admin.components.show-row', [
@@ -52,12 +52,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => htmlspecialchars($userTeam->abbreviation ?? '')
+            'value' => $userTeam->abbreviation
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $userTeam->description ?? ''
+            'value' => $userTeam->description
         ])
 
         @include('admin.components.show-row-settings', [
@@ -98,23 +98,23 @@
 
                         <tr>
                             <td>
-                                {{ $member->username }}
+                                {!! $member->username !!}
                             </td>
                             <td>
-                                {{ htmlspecialchars($member->name) }}
+                                {!! $member->name) !!}
                             </td>
                             <td>
-                                {{ htmlspecialchars($member->email ?? '') }}
+                                {!! $member->email !!}
                             </td>
                             <td>
                                 <a title="show" class="button is-small px-1 py-0"
-                                   href="{{ route('root.user.show', $member->id) }}">
-                                    <i class="fa-solid fa-list"></i>{{-- show --}}
+                                   href="{!! route('root.user.show', $member->id) !!}">
+                                    <i class="fa-solid fa-list"></i>
                                 </a>
 
                                 <a title="edit" class="button is-small px-1 py-0"
-                                   href="{{ route('root.user.edit', $member->id) }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                                   href="{!! route('root.user.edit', $member->id) !!}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </td>
                         </tr>

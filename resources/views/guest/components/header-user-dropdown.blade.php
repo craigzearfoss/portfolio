@@ -8,7 +8,7 @@
             </span>
             <div class="hidden md:block">
                 <div class="text-xs capitalize">user</div>
-                <div class="font-bold"> {!! Auth::guard('user')->user()->email !!}</div>
+                <div class="font-bold"> {!! Auth::guard('user')->user()->email ?? '' !!}</div>
             </div>
         </div>
     </div>
@@ -22,8 +22,8 @@
                          loading="lazy" alt="">
                 </span>
                 <div>
-                    <div class="font-bold text-gray-900 dark:text-gray-100"> {!! Auth::guard('user')->user()->usernames !!} </div>
-                    <div class="text-xs"> {!! Auth::guard('user')->user()->email !!} </div>
+                    <div class="font-bold text-gray-900 dark:text-gray-100"> {!! Auth::guard('user')->user()->usernames ?? '' !!} </div>
+                    <div class="text-xs"> {!! Auth::guard('user')->user()->email ?? '' !!} </div>
                 </div>
             </div>
         </li>

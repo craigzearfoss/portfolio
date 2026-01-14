@@ -26,17 +26,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($admin->name ?? '')
+            'value' => $admin->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'phone',
-            'value' => htmlspecialchars($admin->phone ?? '')
+            'value' => $admin->phone
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'email',
-            'value' => htmlspecialchars($admin->email ?? '')
+            'value' => $admin->email
         ])
 
         @include('admin.components.show-row-image', [
@@ -51,12 +51,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => htmlspecialchars($admin->image_credit ?? '')
+            'value' => $admin->image_credit
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => htmlspecialchars($admin->image_source ?? '')
+            'value' => $admin->image_source
         ])
 
         @include('admin.components.show-row-image', [

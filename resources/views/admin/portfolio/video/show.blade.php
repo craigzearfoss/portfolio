@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $video->owner->username ?? ''
+                'value' => $video->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($video->name ?? '')
+            'value' => $video->name
         ])
 
         @include('admin.components.show-row', [
@@ -54,7 +54,7 @@
             'name'  => 'parent',
             'value' => !empty($video->parent)
                 ? view('admin.components.link', [
-                        'name' => htmlspecialchars($video->parent->name ?? ''),
+                        'name' => $video->parent->name ?? '',
                         'href' => route('admin.portfolio.video.show', $video->parent)
                     ])
                 : ''
@@ -67,7 +67,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $video->summary ?? ''
+            'value' => $video->summary
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -102,22 +102,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => htmlspecialchars($video->company ?? '')
+            'value' => $video->company
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'credit',
-            'value' => htmlspecialchars($video->credit ?? '')
+            'value' => $video->credit
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'show',
-            'value' => htmlspecialchars($video->show ?? '')
+            'value' => $video->show
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => htmlspecialchars($video->location ?? '')
+            'value' => $video->location
         ])
 
         @include('admin.components.show-row', [
@@ -127,29 +127,29 @@
 
         @include('admin.components.show-row', [
             'name'  => 'video url',
-            'value' => htmlspecialchars($video->video_url ?? ''),
+            'value' => $video->video_url,
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $video->notes ?? ''
+            'value' => $video->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($video->link_name ?? ''),
-            'href'   => htmlspecialchars($video->link ?? ''),
+            'name'   => !empty($video->link_name) ? $video->link_name : '',
+            'href'   => $video->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $video->description ?? ''
+            'value' => $video->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($video->disclaimer ?? '')
+                            'value' => $video->disclaimer
                        ])
         ])
 

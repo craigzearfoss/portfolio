@@ -35,22 +35,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($message->name ?? '')
+            'value' => $message->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'email',
-            'value' => htmlspecialchars($message->email ?? '')
+            'value' => $message->email
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => htmlspecialchars($message->subject ?? '')
+            'value' => $message->subject
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => $message->body ?? ''
+            'value' => $message->body
         ])
 
         <?php /*

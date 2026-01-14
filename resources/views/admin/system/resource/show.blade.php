@@ -36,24 +36,24 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $resource->owner->username ?? ''
+                'value' => $resource->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'database',
-            'value' => htmlspecialchars($resource->database->name ?? '')
+            'value' => $resource->database->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($resource->name ?? '')
+            'value' => $resource->name
         ])
 
         @if(!empty($resource->parent))
             @include('admin.components.show-row-link', [
                 'name'   => 'parent',
-                'label'  => htmlspecialchars($resource->parent->name ?? ''),
+                'label'  => $resource->parent->name,
                 'href'   => route('admin.system.resource.show', $resource->parent->id)
             ])
         @else
@@ -71,7 +71,7 @@
                         @foreach($resource->children as $child)
                             <li>
                                 @include('admin.components.link', [
-                                    'name' => htmlspecialchars($child->name ?? ''),
+                                    'name' => $child->nam,
                                     'href' => route('admin.system.resource.show', $child)
                                 ])
                             </li>
@@ -83,22 +83,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'table',
-            'value' => htmlspecialchars($resource->table ?? '')
+            'value' => $resource->table
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'class',
-            'value' => htmlspecialchars($resource->class ?? '')
+            'value' => $resource->class
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($resource->title ?? '')
+            'value' => $resource->title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'plural',
-            'value' => htmlspecialchars($resource->plural ?? '')
+            'value' => $resource->plural
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -138,7 +138,7 @@
 
         @include('admin.components.show-row-icon', [
             'name' => 'icon',
-            'icon' => htmlspecialchars($resource->icon ?? '')
+            'icon' => $resource->icon
         ])
 
         @include('admin.components.show-row-settings', [

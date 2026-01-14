@@ -1,20 +1,22 @@
 @php
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $raw = isset($raw) ? boolval($raw) : false;
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <label class="label">{{ $label ?? $name ?? '#label#' }}</label>
+        <label class="label">{!! $label ?? $name ?? '' !!}</label>
     </div>
     <div class="field-body">
         <div class="field">
             <div class="control">
-                {{ $value ?? '' }}
+                <span class="text-field">
+                    @if($raw)
+                        {!! $value ?? '' !!}
+                    @else
+                        {{ $value ?? '' }}
+                    @endif
+                </span>
             </div>
-
-            @error($name ?? 'name')
-                <p class="help is-danger">{{ $message }}</p>
-            @enderror
-
         </div>
     </div>
 </div>

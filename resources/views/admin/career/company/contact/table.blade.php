@@ -39,13 +39,13 @@ $contacts = $contacts ?? [];
 
                     <a title="show" class="button is-small px-1 py-0"
                            href="{{ route('admin.career.contact.show', $contact) }}">
-                        <i class="fa-solid fa-list"></i>{{-- show --}}
+                        <i class="fa-solid fa-list"></i>
                     </a>
 
                     @csrf
                     @method('DELETE')
                     <button title="remove" type="submit" class="button is-small px-1 py-0">
-                        <i class="fa-solid fa-trash"></i>{{-- delete --}}
+                        <i class="fa-solid fa-trash"></i>
                     </button>
                 </form>
             </td>

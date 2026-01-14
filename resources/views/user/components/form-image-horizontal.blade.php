@@ -8,7 +8,7 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{{ $label ?? 'image' }}</label>
+        <label class="label">{!! $label ?? 'image' !!}</label>
     </div>
     <div class="field-body">
 
@@ -25,13 +25,13 @@ if (!empty($style)) {
                     </span>
                 </span>
                     <span class="file-name">
-                    {{ $image ?? '' }}
+                    {!! $image ?? '' !!}
                 </span>
                 </label>
             </div>
 
             @error('image')
-                <p class="help is-danger">{{ $message ?? '' }}</p>
+                <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
         </div>
@@ -47,25 +47,25 @@ if (!empty($style)) {
 
         <div class="content mb-0 mr-2">
             <div class="control">
-                <input class="input {{ $class }} @error('role') is-invalid @enderror"
+                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                        type="text"
                        id="inputImage_credit"
                        name="image_credit"
-                       value="{{ $credit }}"
+                       value="{!! $credit !!}"
                        placeholder="image credit"
                        maxlength="255"
                 >
             </div>
 
             @error('image_credit')
-                <p class="help is-danger">{{ $message ?? '' }}</p>
+                <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
         </div>
 
         <div class="content mb-0 ">
             <div class="control">
-                <input class="input {{ $class }} @error('role') is-invalid @enderror"
+                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                        type="text"
                        id="inputImage_source"
                        name="image_source"
@@ -76,7 +76,7 @@ if (!empty($style)) {
             </div>
 
             @error('image_source')
-                <p class="help is-danger">{{ $message ?? '' }}</p>
+                <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
         </div>

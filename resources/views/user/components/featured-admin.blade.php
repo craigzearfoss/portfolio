@@ -31,7 +31,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('user.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('guest.resume', $admin),
+                                'href'   => route('user.resume', $admin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
@@ -74,11 +74,11 @@
 
                         @foreach ($portfolioResourceTypes as $resourceType)
 
-                            @if(empty($resourceType['global']) && Route::has('guest.admin.portfolio.'.$resourceType['name'].'.index'))
+                            @if(empty($resourceType['global']) && Route::has('user.admin.portfolio.'.$resourceType['name'].'.index'))
                                 <li>
                                     @include('user.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => route('user.portfolio.'.$resourceType['name'].'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

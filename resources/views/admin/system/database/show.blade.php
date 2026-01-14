@@ -36,33 +36,33 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $database->owner->username ?? ''
+                'value' => $database->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($database->name ?? '')
+            'value' => $database->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'database',
-            'value' => htmlspecialchars($database->database ?? '')
+            'value' => $database->database
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'tag',
-            'value' => htmlspecialchars($database->tag ?? '')
+            'value' => $database->tag
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($database->title ?? '')
+            'value' => $database->title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'plural',
-            'value' => htmlspecialchars($database->plural ?? '')
+            'value' => $database->plural
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -97,7 +97,7 @@
 
         @include('admin.components.show-row-icon', [
             'name' => 'icon',
-            'icon' => htmlspecialchars($database->icon ?? '')
+            'icon' => $database->icon
         ])
 
         @include('admin.components.show-row-settings', [

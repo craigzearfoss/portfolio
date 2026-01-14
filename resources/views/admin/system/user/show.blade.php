@@ -42,7 +42,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($user->name ?? '')
+            'value' => $user->name
         ])
 <?php /* @TODO
         @include('admin.components.show-row', [
@@ -53,32 +53,32 @@
 
         @include('admin.components.show-row', [
             'name'  => 'salutation',
-            'value' => htmlspecialchars($user->salutation ?? '')
+            'value' => $user->salutation
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($user->title ?? '')
+            'value' => $user->title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'role',
-            'value' => htmlspecialchars($user->role ?? '')
+            'value' => $user->role
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'employer',
-            'value' => htmlspecialchars($user->employer ?? '')
+            'value' => $user->employer
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'          => htmlspecialchars($user->street ?? ''),
-                           'street2'         => htmlspecialchars($user->street2 ?? ''),
-                           'city'            => htmlspecialchars($user->city ?? ''),
+                           'street'          => $user->street,
+                           'street2'         => $user->street2,
+                           'city'            => $user->city,
                            'state'           => $user->state->code ?? '',
-                           'zip'             => htmlspecialchars($user->zip ?? ''),
+                           'zip'             => $user->zip,
                            'country'         => $user->country->iso_alpha3 ?? '',
                            'streetSeparator' => '<br>',
                        ])
@@ -90,12 +90,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'phone',
-            'value' => htmlspecialchars($user->phone ?? '')
+            'value' => $user->phone
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'email',
-            'value' => htmlspecialchars($user->email ?? '')
+            'value' => $user->email
         ])
 
         @include('admin.components.show-row', [
@@ -109,19 +109,19 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($user->link_name ?? 'link'),
-            'href'   => htmlspecialchars($user->link ?? ''),
+            'name'   => !empty($user->link_name) ? $user->link_name : 'link',
+            'href'   => $user->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $user->description ?? ''
+            'value' => $user->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'bio',
-            'value' => $user->bio ?? ''
+            'value' => $user->bio
         ])
 
         @include('admin.components.show-row-images', [
@@ -132,7 +132,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'status',
-            'value' => \App\Models\System\User::statusName($user->status)
+            'value' => \App\Models\System\User::statusName($user->status) ?? ''
         ])
 
         @include('admin.components.show-row-settings', [

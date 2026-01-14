@@ -36,18 +36,18 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $skill->owner->username ?? ''
+                'value' => $skill->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($skill->name ?? '')
+            'value' => $skill->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'version',
-            'value' => htmlspecialchars($skill->version ?? '')
+            'value' => $skill->version
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -57,7 +57,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $skill->summary ?? ''
+            'value' => $skill->summary
         ])
 
         @include('admin.components.show-row-rating', [
@@ -68,7 +68,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'category',
-            'value' => htmlspecialchars($skill->category->name ?? '')
+            'value' => $skill->category->name
         ])
 
         @if(!empty($skill->start_year))
@@ -94,24 +94,24 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $skill->notes ?? ''
+            'value' => $skill->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($skill->link_name ?? 'link'),
-            'href'   => htmlspecialchars($skill->link ?? ''),
+            'name'   => !empty($skill->link_name) ? $skill->link_name : 'link',
+            'href'   => $skill->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $skill->description ?? ''
+            'value' => $skill->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($skill->disclaimer ?? '')
+                            'value' => $skill->disclaimer
                        ])
         ])
 

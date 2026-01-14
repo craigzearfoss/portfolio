@@ -30,7 +30,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => htmlspecialchars($publication->title ?? '')
+            'value' => $publication->title
         ])
 
         @if(!empty($publication->parent))
@@ -38,7 +38,7 @@
                 'name'  => 'parent',
                 'value' => !empty($publication->parent)
                     ? view('admin.components.link', [
-                            'name' => htmlspecialchars($publication->parent->title ?? ''),
+                            'name' => $publication->parent->title ?? '',
                             'href' => route('admin.portfolio.publication.show', $publication->parent->slug)
                         ])
                     : ''
@@ -52,17 +52,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $publication->summary ?? ''
+            'value' => $publication->summary
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'publication name',
-            'value' => htmlspecialchars($publication->publication_name ?? '')
+            'value' => $publication->publication_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'publisher',
-            'value' => htmlspecialchars($publication->publisher ?? '')
+            'value' => $publication->publisher
         ])
 
         @include('admin.components.show-row', [
@@ -147,29 +147,29 @@
 
         @include('admin.components.show-row', [
             'name'  => 'publication url',
-            'value' => htmlspecialchars($publication->publication_url ?? ''),
+            'value' => $publication->publication_url,
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $publication->notes ?? ''
+            'value' => $publication->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($publication->link_name ?? 'link'),
-            'href'   => htmlspecialchars($publication->link, ''),
+            'name'   => !empty($publication->link_name) ?? $publication->link_name,
+            'href'   => $publication->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $publication->description ?? ''
+            'value' => $publication->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($publication->disclaimer ?? '')
+                            'value' => $publication->disclaimer
                        ])
         ])
 

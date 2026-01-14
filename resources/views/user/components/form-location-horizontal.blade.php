@@ -8,24 +8,24 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{{ $label ?? 'location' }}</label>
+        <label class="label">{!! $label ?? 'location' !!}</label>
     </div>
     <div class="field-body">
 
         <div class="field">
             <div class="control">
-                <input class="input {{ $class }} @error('role') is-invalid @enderror"
+                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                        type="text"
                        id="inputStreet"
                        name="street"
-                       value="{{ $street }}"
+                       value="{!! $street !!}"
                        placeholder="street"
                        maxlength="255"
                 >
             </div>
 
             @error('street')
-                <p class="help is-danger">{{ $message ?? '' }}</p>
+                <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
         </div>
@@ -41,18 +41,18 @@ if (!empty($style)) {
 
        <div class="field">
             <div class="control">
-                <input class="input {{ $class }} @error('role') is-invalid @enderror"
+                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                        type="text"
                        id="inputStreet2"
                        name="street2"
-                       value="{{ $street2 }}"
+                       value="{!! $street2 !!}"
                        placeholder="street2"
                        maxlength="255"
                 >
             </div>
 
             @error('street2')
-            <p class="help is-danger">{{ $message ?? '' }}</p>
+            <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
         </div>
@@ -67,17 +67,17 @@ if (!empty($style)) {
     <div class="field-body has-text-left">
 
         <div class="mb-0 mr-2 mb-2">
-            <input class="input {{ $class }} @error('role') is-invalid @enderror"
+            <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                    type="text"
                    id="inputCity"
                    name="city"
-                   value="{{ $city }}"
+                   value="{!! $city !!}"
                    placeholder="city"
                    maxlength="255"
             >
 
             @error('city')
-                <p class="help is-danger">{{ $message ?? '' }}</p>
+                <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
        </div>
@@ -87,17 +87,17 @@ if (!empty($style)) {
                 <select
                     id="inputState_id"
                     name="state_id"
-                    class="form-select {{ $class ?? '' }}"
+                    class="form-select {!! $class ?? '' !!}"
                 >
                     @foreach ($states as $stateValue=>$stateName)
-                        <option value="{{ $stateValue }}" @if ($stateValue == $state_id)selected @endif >
-                            {{ $stateName }}
+                        <option value="{!! $stateValue !!}" @if ($stateValue == $state_id)selected @endif >
+                            {!! $stateName !!}
                         </option>
                     @endforeach
                 </select>
 
                 @error('state_id')
-                    <p class="help is-danger">{{ $message ?? '' }}</p>
+                    <p class="help is-danger">{!! $message ?? '' !!}</p>
                 @enderror
 
             </div>
@@ -105,18 +105,18 @@ if (!empty($style)) {
 
         <div class="field mb-0 mr-0 mb-2">
             <div class="control">
-                <input class="input {{ $class }} @error('role') is-invalid @enderror"
+                <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                        type="text"
                        id="inputZip"
                        name="zip"
-                       value="{{ $zip }}"
+                       value="{!! $zip !!}"
                        placeholder="zip"
                        maxlength="20"
                 >
             </div>
 
             @error('zip')
-                <p class="help is-danger">{{ $message ?? '' }}</p>
+                <p class="help is-danger">{!! $message ?? '' !!}</p>
             @enderror
 
         </div>
@@ -135,17 +135,17 @@ if (!empty($style)) {
                 <select
                     id="inputCountry_id"
                     name="country_id"
-                    class="form-select {{ $class ?? '' }}"
+                    class="form-select {!! $class ?? '' !!}"
                 >
                     @foreach ($countries as $countryValue=>$countryName)
-                        <option value="{{ $countryValue }}" @if ($countryValue == $country_id)selected @endif >
-                            {{ $countryName }}
+                        <option value="{!! $countryValue !!}" @if ($countryValue == $country_id)selected @endif >
+                            {!! $countryName !!}
                         </option>
                     @endforeach
                 </select>
 
                 @error('country_id')
-                    <p class="help is-danger">{{ $message ?? '' }}</p>
+                    <p class="help is-danger">{!! $message ?? '' !!}</p>
                 @enderror
 
             </div>

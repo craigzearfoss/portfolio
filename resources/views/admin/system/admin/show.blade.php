@@ -45,7 +45,7 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'current team',
-            'label'  => htmlspecialchars($admin->team->name ?? ''),
+            'label'  => $admin->team->name,
             'href'   => adminRoute('admin.admin-team.show', [$admin, $admin->team->id])
         ])
 
@@ -113,8 +113,8 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $admin->link_name ?? 'link',
-            'href'   => $admin->link ?? '',
+            'name'   => ~empty($admin->link_name) ? $admin->link_name : 'link',
+            'href'   => $admin->link,
             'target' => '_blank'
         ])
 

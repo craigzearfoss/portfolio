@@ -21,17 +21,17 @@
                     </div>
                     <div>
                         @if(isAdmin())
-                            @include('admin.components.link', [
+                            @include('guest.components.link', [
                                 'name' => 'Back',
                                 'href' => route('admin.dashboard')
                             ])
                         @elseif(isUser())
-                            @include('admin.components.link', [
+                            @include('guest.components.link', [
                                 'name' => 'Back',
                                 'href' => route('user.dashboard')
                             ])
                         @else
-                            @include('admin.components.link', [
+                            @include('guest.components.link', [
                                 'name' => 'Back',
                                 'href' => route('home')
                             ])

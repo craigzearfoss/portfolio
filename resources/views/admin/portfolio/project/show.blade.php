@@ -36,13 +36,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $project->owner->username ?? ''
+                'value' => $project->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($project->name ?? '')
+            'value' => $project->name
         ])
 
         @include('admin.components.show-row', [
@@ -57,7 +57,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $project->summary ?? ''
+            'value' => $project->summary
         ])
 
         @include('admin.components.show-row', [
@@ -67,45 +67,45 @@
 
         @include('admin.components.show-row', [
             'name'  => 'language',
-            'value' => htmlspecialchars($project->language ?? '')
+            'value' => $project->language
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'language version',
-            'value' => htmlspecialchars($project->language_version ?? '')
+            'value' => $project->language_version
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'repository',
-            'href'    => htmlspecialchars($project->repository_url ?? ''),
+            'href'    => $project->repository_url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'repository name',
-            'value' => htmlspecialchars($project->repository_name ?? ''),
+            'value' => $project->repository_name,
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $project->notes ?? ''
+            'value' => $project->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($project->link_name ?? 'link'),
-            'href'   => htmlspecialchars($project->link ?? ''),
+            'name'   => !empty($project->link_name) ? $project->link_name : 'link',
+            'href'   => $project->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $project->description ?? ''
+            'value' => $project->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($project->disclaimer ?? '')
+                            'value' => $project->disclaimer
                        ])
         ])
 

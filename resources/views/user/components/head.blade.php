@@ -7,7 +7,7 @@
         @php
             $pageTitle = !empty($pageTitle)
                 ? $pageTitle
-                : (!empty($title) ? $title : '')
+                : $title ?? ''
         @endphp
         @if(!empty($pageTitle) && ($pageTitle !== config('app.name')))
             {{$pageTitle}} -
@@ -17,12 +17,15 @@
 
     <!-- Bulma is included -->
     <link rel="stylesheet" href="{{ asset('assets/bulma/css/main.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fontawesome-free-7.0.0-web/css/all.min.css') }}">
 
+<?php /*
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+*/ ?>
 <?php /*
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bootstrap-3.4.1-dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fontawesome-free-7.0.0-web/css/all.min.css') }}">
@@ -32,6 +35,8 @@
 */ ?>
 
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
+
+    <script src="{{ asset('assets/development-only/main.js') }}"></script>
 
 </head>
 @include('user.components.google-tag')

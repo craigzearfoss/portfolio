@@ -2,7 +2,7 @@
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
 @endphp
 <div class="field">
-    <label class="label">@TODO: {{ $label ?? $name ?? '#label#' }}</label>
+    <label class="label">@TODO: {!! $label ?? $name ?? '' !!}</label>
     <div class="control">
         <label class="radio">
             <input type="radio" name="answer" />
@@ -15,7 +15,7 @@
     </div>
 
     @error($name ?? 'name')
-        <p class="help is-danger">{{ $message }}</p>
+        <p class="help is-danger">{!! $message !!}</p>
     @enderror
 
 </div>
