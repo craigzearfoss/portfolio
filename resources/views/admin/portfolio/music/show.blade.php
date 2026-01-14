@@ -36,18 +36,18 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $music->owner->username ?? ''
+                'value' => $music->owner->username
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($music->name ?? '')
+            'value' => $music->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'artist',
-            'value' => htmlspecialchars($music->artist ?? '')
+            'value' => $music->artist
         ])
 
         @include('admin.components.show-row', [
@@ -59,7 +59,7 @@
             'name'  => 'parent',
             'value' => !empty($music->parent)
                 ? view('admin.components.link', [
-                        'name' => htmlspecialchars($music->parent->name ?? ''),
+                        'name' => $music->parent->name ?? '',
                         'href' => route('admin.portfolio.music.show', $music->parent)
                     ])
                 : ''
@@ -72,7 +72,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $music->summary ?? ''
+            'value' => $music->summary
         ])
 
         <div class="columns">
@@ -83,7 +83,7 @@
                         @foreach($music->children as $child)
                             <li>
                                 @include('admin.components.link', [
-                                    'name' => htmlspecialchars($child->name ?? ''),
+                                    'name' => $child->name,
                                     'href' => route('admin.portfolio.music.show', $child)
                                 ])
                             </li>
@@ -110,12 +110,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'label',
-            'value' => htmlspecialchars($music->label ?? '')
+            'value' => $music->label
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'catalog number',
-            'value' => htmlspecialchars($music->catalog_number ?? '')
+            'value' => $music->catalog_number
         ])
 
         @include('admin.components.show-row', [
@@ -136,30 +136,30 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'audio url',
-            'href'   => htmlspecialchars($music->audio_url ?? ''),
+            'href'   => $music->audio_url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $music->notes ?? ''
+            'value' => $music->notes
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($music->link_name ?? 'link'),
-            'href'   => htmlspecialchars($music->link ?? ''),
+            'name'   => !empty($music->link_name) ? $music->link_name ?? 'link',
+            'href'   => $music->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $music->description ?? ''
+            'value' => $music->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
             'value' => view('admin.components.disclaimer', [
-                            'value' => htmlspecialchars($music->disclaimer ?? '')
+                            'value' => $music->disclaimer
                        ])
         ])
 
