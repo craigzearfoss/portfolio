@@ -30,9 +30,9 @@ class UpdateTagsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'               => ['required', 'integer', 'exists:system_db.admins,id'],
+            'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'                   => [
-                'required',
+                'filled',
                 'string',
                 'max:255',
                 Rule::unique('system_db.tags', 'name')->where(function ($query) {
@@ -58,7 +58,7 @@ class UpdateTagsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required'  => 'Please select an owner for the tag.',
+            'owner_id.filled'    => 'Please select an owner for the tag.',
             'owner_id.exists'    => 'The specified owner does not exist.',
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',

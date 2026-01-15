@@ -55,11 +55,11 @@ class UpdateCompanyContactsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'company_id.exists'   => 'Company not found.',
-            'company_id.unique'   => 'Company contact already exists.',
-            'company_id.required' => 'Company not specified.',
-            'contact_id.exists'   => 'Contact not found.',
-            'contact_id.required' => 'Contact not specified.',
+            'company_id.exists' => 'Company not found.',
+            'company_id.unique' => 'Company contact already exists.',
+            'company_id.filled' => 'Company not specified.',
+            'contact_id.exists' => 'Contact not found.',
+            'contact_id.filled' => 'Contact not specified.',
         ];
     }
 }

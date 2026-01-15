@@ -99,157 +99,22 @@ Route::prefix('admin/admin')->middleware('admin')->name('root.portfolio.')->grou
 
     Route::get('{admin:id}/portfolio/art/{art?}', [AdminRootPortfolioArtController::class, 'index'])->name('art.index');
     Route::resource('{admin:id}/portfolio/art', AdminRootPortfolioArtController::class)->except(['index']);
-//    Route::get('{admin:id}/portfolio/art', [AdminRootPortfolioArtController::class, 'index'])->name('art.index');
-//    Route::post('{admin:id}/portfolio/art', [AdminRootPortfolioArtController::class, 'store'])->name('art.store');
-//    Route::get('{admin:id}/portfolio/art/create', [AdminRootPortfolioArtController::class, 'create'])->name('art.create');
-//    Route::get('{admin:id}/portfolio/art/{art:id}', [AdminRootPortfolioArtController::class, 'show'])->name('art.show');
-//    Route::put('{admin:id}/portfolio/art/{art:id}', [AdminRootPortfolioArtController::class, 'update'])->name('art.update');
-//    Route::delete('{admin:id}/portfolio/art/{art:id}', [AdminRootPortfolioArtController::class, 'destroy'])->name('art.destroy');
-//    Route::get('{admin:id}/portfolio/art/{art:id}/edit', [AdminRootPortfolioArtController::class, 'edit'])->name('art.edit');
-
     Route::resource('{admin:id}/portfolio/audio', AdminRootPortfolioAudioController::class);
-//    Route::get('{admin:id}/portfolio/audio', [AdminRootPortfolioAudioController::class, 'index'])->name('audio.index');
-//    Route::post('{admin:id}/portfolio/audio', [AdminRootPortfolioAudioController::class, 'store'])->name('audio.store');
-//    Route::get('{admin:id}/portfolio/audio/create', [AdminRootPortfolioAudioController::class, 'create'])->name('audio.create');
-//    Route::get('{admin:id}/portfolio/audio/{audio:id}', [AdminRootPortfolioAudioController::class, 'show'])->name('audio.show');
-//    Route::put('{admin:id}/portfolio/audio/{audio:id}', [AdminRootPortfolioAudioController::class, 'update'])->name('audio.update');
-//    Route::delete('{admin:id}/portfolio/audio/{audio:id}', [AdminRootPortfolioAudioController::class, 'destroy'])->name('audio.destroy');
-//    Route::get('{admin:id}/portfolio/audio/{audio:id}/edit', [AdminRootPortfolioAudioController::class, 'edit'])->name('audio.edit');
-
     Route::resource('{admin:id}/portfolio/award', AdminRootPortfolioAwardController::class);
-//    Route::get('{admin:id}/portfolio/award', [AdminRootPortfolioAwardController::class, 'index'])->name('award.index');
-//    Route::post('{admin:id}/portfolio/award', [AdminRootPortfolioAwardController::class, 'store'])->name('award.store');
-//    Route::get('{admin:id}/portfolio/award/create', [AdminRootPortfolioAwardController::class, 'create'])->name('award.create');
-//    Route::get('{admin:id}/portfolio/award/{award:id}', [AdminRootPortfolioAwardController::class, 'show'])->name('award.show');
-//    Route::put('{admin:id}/portfolio/award/{award:id}', [AdminRootPortfolioAwardController::class, 'update'])->name('award.update');
-//    Route::delete('{admin:id}/portfolio/award/{award:id}', [AdminRootPortfolioAwardController::class, 'destroy'])->name('award.destroy');
-//    Route::get('{admin:id}/portfolio/award/{award:id}/edit', [AdminRootPortfolioAwardController::class, 'edit'])->name('award.edit');
-
     Route::resource('{admin:id}/portfolio/certificate', AdminRootPortfolioCertificateController::class);
-//    Route::get('{admin:id}/portfolio/certificate', [AdminRootPortfolioCertificateController::class, 'index'])->name('certificate.index');
-//    Route::post('{admin:id}/portfolio/certificate', [AdminRootPortfolioCertificateController::class, 'store'])->name('certificate.store');
-//    Route::get('{admin:id}/portfolio/certificate/create', [AdminRootPortfolioCertificateController::class, 'create'])->name('certificate.create');
-//    Route::get('{admin:id}/portfolio/certificate/{certificate:id}', [AdminRootPortfolioCertificateController::class, 'show'])->name('certificate.show');
-//    Route::put('{admin:id}/portfolio/certificate/{certificate:id}', [AdminRootPortfolioCertificateController::class, 'update'])->name('certificate.update');
-//    Route::delete('{admin:id}/portfolio/certificate/{certificate:id}', [AdminRootPortfolioCertificateController::class, 'destroy'])->name('certificate.destroy');
-//    Route::get('{admin:id}/portfolio/certificate/{certificate:id}/edit', [AdminRootPortfolioCertificateController::class, 'edit'])->name('certificate.edit');
-
     Route::resource('{admin:id}/portfolio/course', AdminRootPortfolioCourseController::class);
-//    Route::get('{admin:id}/portfolio/course', [AdminRootPortfolioCourseController::class, 'index'])->name('course.index');
-//    Route::post('{admin:id}/portfolio/course', [AdminRootPortfolioCourseController::class, 'store'])->name('course.store');
-//    Route::get('{admin:id}/portfolio/course/create', [AdminRootPortfolioCourseController::class, 'create'])->name('course.create');
-//    Route::get('{admin:id}/portfolio/course/{course:id}', [AdminRootPortfolioCourseController::class, 'show'])->name('course.show');
-//    Route::put('{admin:id}/portfolio/course/{course:id}', [AdminRootPortfolioCourseController::class, 'update'])->name('course.update');
-//    Route::delete('{admin:id}/portfolio/course/{course:id}', [AdminRootPortfolioCourseController::class, 'destroy'])->name('course.destroy');
-//    Route::get('{admin:id}/portfolio/course/{course:id}/edit', [AdminRootPortfolioCourseController::class, 'edit'])->name('course.edit');
-
     Route::resource('{admin:id}/portfolio/education', AdminRootPortfolioEducationController::class);
-//    Route::get('{admin:id}/portfolio/education', [AdminRootPortfolioEducationController::class, 'index'])->name('education.index');
-//    Route::post('{admin:id}/portfolio/education', [AdminRootPortfolioEducationController::class, 'store'])->name('education.store');
-//    Route::get('{admin:id}/portfolio/education/create', [AdminRootPortfolioEducationController::class, 'create'])->name('education.create');
-//    Route::get('{admin:id}/portfolio/education/{education:id}', [AdminRootPortfolioEducationController::class, 'show'])->name('education.show');
-//    Route::put('{admin:id}/portfolio/education/{education:id}', [AdminRootPortfolioEducationController::class, 'update'])->name('education.update');
-//    Route::delete('{admin:id}/portfolio/education/{education:id}', [AdminRootPortfolioEducationController::class, 'destroy'])->name('education.destroy');
-//    Route::get('{admin:id}/portfolio/education/{education:id}/edit', [AdminRootPortfolioEducationController::class, 'edit'])->name('education.edit');
-
     Route::resource('{admin:id}/portfolio/job', AdminRootPortfolioJobController::class);
-//    Route::get('{admin:id}/portfolio/job', [AdminRootPortfolioJobController::class, 'index'])->name('job.index');
-//    Route::post('{admin:id}/portfolio/job', [AdminRootPortfolioJobController::class, 'store'])->name('job.store');
-//    Route::get('{admin:id}/portfolio/job/create', [AdminRootPortfolioJobController::class, 'create'])->name('job.create');
-//    Route::get('{admin:id}/portfolio/job/{job:id}', [AdminRootPortfolioJobController::class, 'show'])->name('job.show');
-//    Route::put('{admin:id}/portfolio/job/{job:id}', [AdminRootPortfolioJobController::class, 'update'])->name('job.update');
-//    Route::delete('{admin:id}/portfolio/job/{job:id}', [AdminRootPortfolioJobController::class, 'destroy'])->name('job.destroy');
-//    Route::get('{admin:id}/portfolio/job/{job:id}/edit', [AdminRootPortfolioJobController::class, 'edit'])->name('job.edit');
-
     Route::resource('{admin:id}/portfolio/job-coworker', AdminRootPortfolioJobCoworkerController::class);
-//    Route::get('{admin:id}/portfolio/job-coworker', [AdminRootPortfolioJobCoworkerController::class, 'index'])->name('job-coworker.index');
-//    Route::post('{admin:id}/portfolio/job-coworker', [AdminRootPortfolioJobCoworkerController::class, 'store'])->name('job-coworker.store');
-//    Route::get('{admin:id}/portfolio/job-coworker/create', [AdminRootPortfolioJobCoworkerController::class, 'create'])->name('job-coworker.create');
-//    Route::get('{admin:id}/portfolio/job-coworker/{job-coworker:id}', [AdminRootPortfolioJobCoworkerController::class, 'show'])->name('job-coworker.show');
-//    Route::put('{admin:id}/portfolio/job-coworker/{job-coworker:id}', [AdminRootPortfolioJobCoworkerController::class, 'update'])->name('job-coworker.update');
-//    Route::delete('{admin:id}/portfolio/job-coworker/{job-coworker:id}', [AdminRootPortfolioJobCoworkerController::class, 'destroy'])->name('job-coworker.destroy');
-//    Route::get('{admin:id}/portfolio/job-coworker/{job-coworker:id}/edit', [AdminRootPortfolioJobCoworkerController::class, 'edit'])->name('job-coworker.edit');
-
     Route::resource('{admin:id}/portfolio/job-skill', AdminRootPortfolioJobSkillController::class);
-//    Route::get('{admin:id}/portfolio/job-skill', [AdminRootPortfolioJobSkillController::class, 'index'])->name('job-skill.index');
-//    Route::post('{admin:id}/portfolio/job-skill', [AdminRootPortfolioJobSkillController::class, 'store'])->name('job-skill.store');
-//    Route::get('{admin:id}/portfolio/job-skill/create', [AdminRootPortfolioJobSkillController::class, 'create'])->name('job-skill.create');
-//    Route::get('{admin:id}/portfolio/job-skill/{job-skill:id}', [AdminRootPortfolioJobSkillController::class, 'show'])->name('job-skill.show');
-//    Route::put('{admin:id}/portfolio/job-skill/{job-skill:id}', [AdminRootPortfolioJobSkillController::class, 'update'])->name('job-skill.update');
-//    Route::delete('{admin:id}/portfolio/job-skill/{job-skill:id}', [AdminRootPortfolioJobSkillController::class, 'destroy'])->name('job-skill.destroy');
-//    Route::get('{admin:id}/portfolio/job-skill/{job-skill:id}/edit', [AdminRootPortfolioJobSkillController::class, 'edit'])->name('job-skill.edit');
-
     Route::resource('{admin:id}/portfolio/job-task', AdminRootPortfolioJobTaskController::class);
-//    Route::get('{admin:id}/portfolio/job-task', [AdminRootPortfolioJobTaskController::class, 'index'])->name('job-task.index');
-//    Route::post('{admin:id}/portfolio/job-task', [AdminRootPortfolioJobTaskController::class, 'store'])->name('job-task.store');
-//    Route::get('{admin:id}/portfolio/job-task/create', [AdminRootPortfolioJobTaskController::class, 'create'])->name('job-task.create');
-//    Route::get('{admin:id}/portfolio/job-task/{job-task:id}', [AdminRootPortfolioJobTaskController::class, 'show'])->name('job-task.show');
-//    Route::put('{admin:id}/portfolio/job-task/{job-task:id}', [AdminRootPortfolioJobTaskController::class, 'update'])->name('job-task.update');
-//    Route::delete('{admin:id}/portfolio/job-task/{job-task:id}', [AdminRootPortfolioJobTaskController::class, 'destroy'])->name('job-task.destroy');
-//    Route::get('{admin:id}/portfolio/job-task/{job-task:id}/edit', [AdminRootPortfolioJobTaskController::class, 'edit'])->name('job-task.edit');
-
     Route::resource('{admin:id}/portfolio/link', AdminRootPortfolioLinkController::class);
-//    Route::get('{admin:id}/portfolio/link', [AdminRootPortfolioLinkController::class, 'index'])->name('link.index');
-//    Route::post('{admin:id}/portfolio/link', [AdminRootPortfolioLinkController::class, 'store'])->name('link.store');
-//    Route::get('{admin:id}/portfolio/link/create', [AdminRootPortfolioLinkController::class, 'create'])->name('link.create');
-//    Route::get('{admin:id}/portfolio/link/{link:id}', [AdminRootPortfolioLinkController::class, 'show'])->name('link.show');
-//    Route::put('{admin:id}/portfolio/link/{link:id}', [AdminRootPortfolioLinkController::class, 'update'])->name('link.update');
-//    Route::delete('{admin:id}/portfolio/link/{link:id}', [AdminRootPortfolioLinkController::class, 'destroy'])->name('link.destroy');
-//    Route::get('{admin:id}/portfolio/link/{link:id}/edit', [AdminRootPortfolioLinkController::class, 'edit'])->name('link.edit');
-
     Route::resource('{admin:id}/portfolio/music', AdminRootPortfolioMusicController::class);
-//    Route::get('{admin:id}/portfolio/music', [AdminRootPortfolioMusicController::class, 'index'])->name('music.index');
-//    Route::post('{admin:id}/portfolio/music', [AdminRootPortfolioMusicController::class, 'store'])->name('music.store');
-//    Route::get('{admin:id}/portfolio/music/create', [AdminRootPortfolioMusicController::class, 'create'])->name('music.create');
-//    Route::get('{admin:id}/portfolio/music/{music:id}', [AdminRootPortfolioMusicController::class, 'show'])->name('music.show');
-//    Route::put('{admin:id}/portfolio/music/{music:id}', [AdminRootPortfolioMusicController::class, 'update'])->name('music.update');
-//    Route::delete('{admin:id}/portfolio/music/{music:id}', [AdminRootPortfolioMusicController::class, 'destroy'])->name('music.destroy');
-//    Route::get('{admin:id}/portfolio/music/{music:id}/edit', [AdminRootPortfolioMusicController::class, 'edit'])->name('music.edit');
-
     Route::resource('{admin:id}/portfolio/photography', AdminRootPortfolioPhotographyController::class);
-//    Route::get('{admin:id}/portfolio/photography', [AdminRootPortfolioPhotographyController::class, 'index'])->name('photography.index');
-//    Route::post('{admin:id}/portfolio/photography', [AdminRootPortfolioPhotographyController::class, 'store'])->name('photography.store');
-//    Route::get('{admin:id}/portfolio/photography/create', [AdminRootPortfolioPhotographyController::class, 'create'])->name('photography.create');
-//    Route::get('{admin:id}/portfolio/photography/{photography:id}', [AdminRootPortfolioPhotographyController::class, 'show'])->name('photography.show');
-//    Route::put('{admin:id}/portfolio/photography/{photography:id}', [AdminRootPortfolioPhotographyController::class, 'update'])->name('photography.update');
-//    Route::delete('{admin:id}/portfolio/photography/{photography:id}', [AdminRootPortfolioPhotographyController::class, 'destroy'])->name('photography.destroy');
-//    Route::get('{admin:id}/portfolio/photography/{photography:id}/edit', [AdminRootPortfolioPhotographyController::class, 'edit'])->name('photography.edit');
-
     Route::resource('{admin:id}/portfolio/project', AdminRootPortfolioProjectController::class);
-//    Route::get('{admin:id}/portfolio/project', [AdminRootPortfolioProjectController::class, 'index'])->name('project.index');
-//    Route::post('{admin:id}/portfolio/project', [AdminRootPortfolioProjectController::class, 'store'])->name('project.store');
-//    Route::get('{admin:id}/portfolio/project/create', [AdminRootPortfolioProjectController::class, 'create'])->name('project.create');
-//    Route::get('{admin:id}/portfolio/project/{project:id}', [AdminRootPortfolioProjectController::class, 'show'])->name('project.show');
-//    Route::put('{admin:id}/portfolio/project/{project:id}', [AdminRootPortfolioProjectController::class, 'update'])->name('project.update');
-//    Route::delete('{admin:id}/portfolio/project/{project:id}', [AdminRootPortfolioProjectController::class, 'destroy'])->name('project.destroy');
-//    Route::get('{admin:id}/portfolio/project/{project:id}/edit', [AdminRootPortfolioProjectController::class, 'edit'])->name('project.edit');
-
     Route::resource('{admin:id}/portfolio/publication', AdminRootPortfolioPublicationController::class);
-//    Route::get('{admin:id}/portfolio/publication', [AdminRootPortfolioPublicationController::class, 'index'])->name('publication.index');
-//    Route::post('{admin:id}/portfolio/publication', [AdminRootPortfolioPublicationController::class, 'store'])->name('publication.store');
-//    Route::get('{admin:id}/portfolio/publication/create', [AdminRootPortfolioPublicationController::class, 'create'])->name('publication.create');
-//    Route::get('{admin:id}/portfolio/publication/{publication:id}', [AdminRootPortfolioPublicationController::class, 'show'])->name('publication.show');
-//    Route::put('{admin:id}/portfolio/publication/{publication:id}', [AdminRootPortfolioPublicationController::class, 'update'])->name('publication.update');
-//    Route::delete('{admin:id}/portfolio/publication/{publication:id}', [AdminRootPortfolioPublicationController::class, 'destroy'])->name('publication.destroy');
-//    Route::get('{admin:id}/portfolio/publication/{publication:id}/edit', [AdminRootPortfolioPublicationController::class, 'edit'])->name('publication.edit');
-
     Route::resource('{admin:id}/portfolio/skill', AdminRootPortfolioSkillController::class);
-//    Route::get('{admin:id}/portfolio/skill', [AdminRootPortfolioSkillController::class, 'index'])->name('skill.index');
-//    Route::post('{admin:id}/portfolio/skill', [AdminPortfolioSkillController::class, 'store'])->name('skill.store');
-//    Route::get('{admin:id}/portfolio/skill/create', [AdminRootPortfolioSkillController::class, 'create'])->name('skill.create');
-//    Route::get('{admin:id}/portfolio/skill/{skill:id}', [AdminRootPortfolioSkillController::class, 'show'])->name('skill.show');
-//    Route::put('{admin:id}/portfolio/skill/{skill:id}', [AdminRootPortfolioSkillController::class, 'update'])->name('skill.update');
-//    Route::delete('{admin:id}/portfolio/skill/{skill:id}', [AdminRootPortfolioSkillController::class, 'destroy'])->name('skill.destroy');
-//    Route::get('{admin:id}/portfolio/skill/{skill:id}/edit', [AdminRootPortfolioSkillController::class, 'edit'])->name('skill.edit');
-
     Route::resource('{admin:id}/portfolio/video', AdminRootPortfolioVideoController::class);
-//    Route::get('{admin:id}/portfolio/video', [AdminRootPortfolioVideoController::class, 'index'])->name('video.index');
-//    Route::post('{admin:id}/portfolio/video', [AdminRootPortfolioVideoController::class, 'store'])->name('video.store');
-//    Route::get('{admin:id}/portfolio/video/create', [AdminRootPortfolioVideoController::class, 'create'])->name('video.create');
-//    Route::get('{admin:id}/portfolio/video/{video:id}', [AdminRootPortfolioVideoController::class, 'show'])->name('video.show');
-//    Route::put('{admin:id}/portfolio/video/{video:id}', [AdminRootPortfolioVideoController::class, 'update'])->name('video.update');
-//    Route::delete('{admin:id}/portfolio/video/{video:id}', [AdminRootPortfolioVideoController::class, 'destroy'])->name('video.destroy');
-//    Route::get('{admin:id}/portfolio/video/{video:id}/edit', [AdminRootPortfolioVideoController::class, 'edit'])->name('video.edit');
 });
 
 

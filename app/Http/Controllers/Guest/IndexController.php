@@ -27,6 +27,7 @@ class IndexController extends BaseGuestController
      */
     public function index(Request $request): View
     {
+        // Note: this action is not used be the root pages got Guest/System/AdminController->show function
         return view(themedTemplate('guest.index'));
     }
 }

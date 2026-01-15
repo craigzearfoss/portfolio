@@ -63,6 +63,7 @@ class UpdateUsersRequest extends FormRequest
                 'lowercase',
                 'min:6',
                 'max:200',
+                'alpha_dash',
                 'unique:users,label,'.$this->user->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],

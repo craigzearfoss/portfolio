@@ -18,7 +18,9 @@ class User
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!isUser() && !in_array(Route::currentRouteName(), ['user.login', 'login-submit'])) {die(Route::currentRouteName());
+        $currentRouteName = Route::currentRouteName();
+
+        if (!isUser() && !in_array($currentRouteName, ['user.login', 'login-submit'])) {
             return redirect()->route('user.login');
         }
 
@@ -29,6 +31,7 @@ class User
         }
 
         // inject the logged in $admin and $user variables into templates
+        view()->share('currentRouteName', $currentRouteName);
         view()->share('admin', getAdmin());
         view()->share('user', getUser());
 

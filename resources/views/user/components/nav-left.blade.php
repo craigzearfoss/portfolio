@@ -3,6 +3,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
     \App\Services\PermissionService::ENV_USER,
     $admin ?? null
 );
+$isAdminEnv = explode('.', $currentRouteName = Route::currentRouteName())[0] == 'admin';
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
@@ -15,16 +16,36 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
                     'name'  => 'Home',
                     'href'  => route('home'),
                     'class' => 'has-text-primary',
-                    'style' => 'font-size: 1.2em; font-weight: 700',
+                    'style' => array_merge(
+                        [
+                            'margin-right: 8px',
+                            'font-size: 1.2em',
+                            'font-weight: 700',
+                            'padding: 4px',
+                            'border-radius: 6px',
+                        ],
+                        !$isAdminEnv
+                            ? ['opacity: 0.;', 'border: 2px inset gray', 'background-color: rgb(38, 41, 48)']
+                            : ['border: 2px outset gray']
+                    ),
                 ])
-
-                /
 
                 @include('user.components.link', [
                     'name'  => 'Admin',
                     'href'  => route('admin.index'),
                     'class' => 'has-text-primary',
-                    'style' => 'font-size: 1.2em; font-weight: 700',
+                    'style' => array_merge(
+                        [
+                            'margin-right: 8px',
+                            'font-size: 1.2em',
+                            'font-weight: 700',
+                            'padding: 4px',
+                            'border-radius: 6px',
+                        ],
+                        $isAdminEnv
+                            ? ['opacity: 0.;', 'border: 2px inset gray', 'background-color: rgb(38, 41, 48)']
+                            : ['border: 2px outset gray']
+                    ),
                 ])
 
             @else
@@ -119,23 +140,12 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
                                             </div>
                                         </a>
 
-
-
-
-
-
-
-
                                     </li>
                                     @endforeach
 
                                 </ul>
 
                             @endif
-
-
-
-
 
                         </li>
                     @endforeach

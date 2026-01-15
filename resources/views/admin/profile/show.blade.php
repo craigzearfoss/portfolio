@@ -15,6 +15,10 @@
     'currentAdmin'  => $admin
 ])
 
+@php
+    $admin = $loggedInAdmin
+@endphp
+
 @section('content')
 
     <div class="show-container card p-4">

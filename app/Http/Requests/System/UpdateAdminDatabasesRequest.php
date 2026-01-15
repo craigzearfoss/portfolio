@@ -75,11 +75,11 @@ class UpdateAdminDatabasesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.exists'      => 'Owner not found.',
-            'owner_id.required'    => 'Owner not specified.',
-            'database_id.required' => 'Database not specified.',
-            'database_id.exists'   => 'Database not found.',
-            'database_id.unique'   => 'Owner already has an entry for the specified database.',
+            'owner_id.exists'    => 'Owner not found.',
+            'owner_id.filled'    => 'Owner not specified.',
+            'database_id.filled' => 'Database not specified.',
+            'database_id.exists' => 'Database not found.',
+            'database_id.unique' => 'Owner already has an entry for the specified database.',
         ];
     }
 }

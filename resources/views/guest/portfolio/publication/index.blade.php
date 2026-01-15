@@ -48,7 +48,7 @@
                     <td data-field="title">
                         @include('guest.components.link', [
                             'name'  => $publication->title,
-                            'href'  => route('guest.portfolio.publication.show', [$publication->owner->label, $publication]),
+                            'href'  => route('guest.portfolio.publication.show', [$currentAdmin, $publication->slug]),
                             'class' => $publication->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

@@ -18,11 +18,15 @@
     'currentAdmin'  => $admin
 ])
 
+@php
+    $admin = $loggedInAdmin
+@endphp
+
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.admin.update', $admin) }}" method="POST">
+        <form action="{{ route('admin.profile.update', $admin) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -45,6 +49,13 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $admin->name,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'label',
+                'value'     => old('label') ?? $admin->label,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])

@@ -10,7 +10,7 @@
 
 @section('content')
 
-    <h2 class="title p-4">Welcome to {{ config('app.name') }}</h2>
+    <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }}</h2>
 
     @if ($featuredAdmin)
         @include('guest.components.featured-admin', ['admin' => $featuredAdmin])

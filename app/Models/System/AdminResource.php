@@ -145,7 +145,7 @@ class AdminResource extends Model
         if (!empty($databaseId)) {
             $query->where('admin_resources.database_id', $databaseId);
         }
-
+//dd($filters);
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
 

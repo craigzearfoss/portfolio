@@ -85,7 +85,8 @@
 
                                 @foreach ($resources[$database->database_id] as $resource)
 
-                                    @if($resource->guest || $resource->global)
+                                    <?php /* @TODO: We probably need to create a job Controller and templates. */ ?>
+                                    @if($resource->has_owner && ($resource->guest || $resource->global) && ($resource->name != 'job'))
                                         <li style="padding-left: {{ $resource->menu_level - 2 }}em;">
                                             @if(Route::has('guest.'.$resource->database_name.'.'.$resource->name.'.index'))
                                                 @include('guest.components.link', [

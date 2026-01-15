@@ -4,6 +4,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
     $currentAdmin ?? null,
     $currentUser ?? null
 );
+$isAdminEnv = explode('.', $currentRouteName = Route::currentRouteName())[0] == 'admin';
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
@@ -14,18 +15,38 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                 @include('admin.components.link', [
                     'name'  => 'Home',
-                    'href'  => adminRoute('home'),
+                    'href'  => route('home'),
                     'class' => 'has-text-primary',
-                    'style' => 'font-size: 1.2em; font-weight: 700',
+                    'style' => array_merge(
+                        [
+                            'margin-right: 8px',
+                            'font-size: 1.2em',
+                            'font-weight: 700',
+                            'padding: 4px',
+                            'border-radius: 6px',
+                        ],
+                        !$isAdminEnv
+                            ? ['opacity: 0.;', 'border: 2px inset gray', 'background-color: rgb(38, 41, 48)']
+                            : ['border: 2px outset gray']
+                    ),
                 ])
-
-                /
 
                 @include('admin.components.link', [
                     'name'  => 'Admin',
-                    'href'  => adminRoute('admin.index'),
+                    'href'  => route('admin.index'),
                     'class' => 'has-text-primary',
-                    'style' => 'font-size: 1.2em; font-weight: 700',
+                    'style' => array_merge(
+                        [
+                            'margin-right: 8px',
+                            'font-size: 1.2em',
+                            'font-weight: 700',
+                            'padding: 4px',
+                            'border-radius: 6px',
+                        ],
+                        $isAdminEnv
+                            ? ['opacity: 0.;', 'border: 2px inset gray', 'background-color: rgb(38, 41, 48)']
+                            : ['border: 2px outset gray']
+                    ),
                 ])
 
             @else

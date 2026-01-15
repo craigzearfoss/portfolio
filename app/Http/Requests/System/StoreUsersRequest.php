@@ -39,6 +39,7 @@ class StoreUsersRequest extends FormRequest
                 'lowercase',
                 'min:6',
                 'max:200',
+                'alpha_dash',
                 'unique:'.User::class,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],

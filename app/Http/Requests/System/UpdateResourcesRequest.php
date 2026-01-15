@@ -90,10 +90,10 @@ class UpdateResourcesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required'    => 'Please select an owner for the resource.',
-            'owner_id.exists'      => 'The specified owner does not exist.',
-            'database_id.required' => 'Please select a database for the resource.',
-            'database_id.exists'   => 'The specified database does not exist.',
+            'owner_id.filled'    => 'Please select an owner for the resource.',
+            'owner_id.exists'    => 'The specified owner does not exist.',
+            'database_id.filled' => 'Please select a database for the resource.',
+            'database_id.exists' => 'The specified database does not exist.',
         ];
     }
 }

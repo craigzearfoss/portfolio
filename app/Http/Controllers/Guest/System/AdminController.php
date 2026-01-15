@@ -50,6 +50,7 @@ class AdminController extends BaseGuestController
         }
 
         $databases = AdminDatabase::where('owner_id', $admin->id)
+            ->where('name', '!=', 'dictionary')
             ->where('guest', true)
             ->orderBy('sequence', 'asc')->get();
 

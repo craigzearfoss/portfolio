@@ -4,7 +4,7 @@
     'breadcrumbs'   => [
         [ 'name' => 'Home',              'href' => route('home') ],
         [ 'name' => 'Users',             'href' => route('home') ],
-        [ 'name' => $currentAdmin->name, 'href' => route('guest.index', $currentAdmin)],
+        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
         [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
         [ 'name' => 'Audio' ],
     ],

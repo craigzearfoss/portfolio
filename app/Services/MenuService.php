@@ -32,14 +32,17 @@ class MenuService
         // Get the name of the current route.
         $currentRouteName = Route::currentRouteName();
 
-        $menu = $this->getResourceMenu($envType, $currentRouteName, $currentAdmin, $currentUser);
+        // get the currently logged in admin
+        $loggedInAdmin = getAdmin();
+
+        $menu = $this->getResourceMenu($envType, $currentRouteName, $currentAdmin, $currentUser, $loggedInAdmin);
 
         // Verify the ENV type.
         if (empty($envType)) {
             $envType = PermissionService::currentEnvType();
         }
 
-        if (!empty($currentAdmin)) {
+        if (!empty($loggedInAdmin)) {
 
             $menu[] = $this->menuItem(
                 [ 'title' => 'Admin Dashboard', 'route' => 'admin.dashboard' ],
@@ -156,7 +159,10 @@ class MenuService
         // Get the name of the current route.
         $currentRouteName = Route::currentRouteName();
 
-        $menu = $this->getResourceMenu($envType, $currentRouteName, $currentAdmin, $currentUser);
+        // get the currently logged in admin
+        $loggedInAdmin = getAdmin();
+
+        $menu = $this->getResourceMenu($envType, $currentRouteName, $currentAdmin, $currentUser, $loggedInAdmin);
 
         // Verify the ENV type.
         if (empty($envType)) {
@@ -417,13 +423,15 @@ class MenuService
      * @param string|null $currentRouteName
      * @param Admin|null $currentAdmin
      * @param User|null $currentUser
+     * @param Admin|null $loggedInAdmin
      * @return array
      * @throws \Exception
      */
     public function getResourceMenu(string|null $envType,
                                     string|null $currentRouteName = null,
                                     Admin|null $currentAdmin = null,
-                                    User|null $currentUser = null): array
+                                    User|null $currentUser = null,
+                                    Admin|null $loggedInAdmin = null): array
     {
         // Verify the ENV type.
         if (empty($envType)) {
@@ -438,7 +446,7 @@ class MenuService
             : [ 'menu' => 1, 'disabled' => 0 ];
 
         // get the resources
-        if (!empty($currentAdmin)) {
+        if (!empty($loggedInAdmin)) {
             $resources = AdminResource::getResources($currentAdmin->id, $envType, null, $filters);
         } else {
             //$resources = Resource::getResources($envType, null, $filters);

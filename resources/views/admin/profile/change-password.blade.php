@@ -14,6 +14,10 @@
     'currentAdmin'  => $admin
 ])
 
+@php
+    $admin = $loggedInAdmin
+@endphp
+
 @section('content')
 
 <div class="container has-text-centered">

@@ -29,7 +29,7 @@ class UpdateResourceSettingsRequest extends FormRequest
             'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'resource_id'     => ['filled', 'integer', 'exists:system_db.resources,id'],
             'name'            => [
-                'required',
+                'filled',
                 'string',
                 'min:3',
                 'max:200',

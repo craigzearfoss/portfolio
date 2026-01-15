@@ -18,6 +18,8 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $currentRouteName = Route::currentRouteName();
+
         if (!isAdmin()) {
             return redirect()->route('admin.login');
         }
@@ -29,6 +31,7 @@ class Admin
         }
 
         // inject the logged in $admin and $user variables into templates
+        view()->share('currentRouteName', $currentRouteName);
         view()->share('admin', getAdmin());
         view()->share('user', getUser());
 

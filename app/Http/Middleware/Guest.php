@@ -19,6 +19,8 @@ class Guest
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $currentRouteName = Route::currentRouteName();
+
         if ($admin = $request->route('admin')) {
             if (empty($admin->public)) {
                 abort(404);
@@ -26,6 +28,7 @@ class Guest
         }
 
         // inject the logged in $admin and $user variables into templates
+        view()->share('currentRouteName', $currentRouteName);
         view()->share('admin', getAdmin());
         view()->share('user', getUser());
 

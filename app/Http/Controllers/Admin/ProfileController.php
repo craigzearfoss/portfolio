@@ -22,9 +22,9 @@ class ProfileController extends BaseAdminController
      */
     public function show(): View
     {
-        $admin = Auth::guard('admin')->user();
+        $loggedInAdmin = Auth::guard('admin')->user();
 
-        return view(themedTemplate('admin.profile.show'), compact('admin'));
+        return view(themedTemplate('admin.profile.show'), compact('loggedInAdmin'));
     }
 
     /**
@@ -34,8 +34,8 @@ class ProfileController extends BaseAdminController
      */
     public function edit(): View
     {
-        $admin = Auth::guard('admin')->user();
-        return view(themedTemplate('admin.profile.edit'), compact('admin'));
+        $loggedInAdmin = Auth::guard('admin')->user();
+        return view(themedTemplate('admin.profile.edit'), compact('loggedInAdmin'));
     }
 
     /**
@@ -46,11 +46,11 @@ class ProfileController extends BaseAdminController
      */
     public function update(UpdateAdminsRequest $request): RedirectResponse
     {
-        $admin = Auth::guard('admin')->user();
+        $loggedInAdmin = Auth::guard('admin')->user();
 
-        $admin->update($request->validated());
+        $loggedInAdmin->update($request->validated());
 
-        return redirect()->route('admin.profile.show', $admin)
+        return redirect()->route('admin.profile.show', 'loggedInAdmin')
             ->with('success', 'Profile successfully updated.');
     }
 
@@ -62,7 +62,9 @@ class ProfileController extends BaseAdminController
      */
     public function change_password(Admin $admin): View
     {
-        return view(themedTemplate('admin.profile.change-password'), compact('admin'));
+        $loggedInAdmin = $admin;
+
+        return view(themedTemplate('admin.profile.change-password'), compact('loggedInAdmin'));
     }
 
     /**

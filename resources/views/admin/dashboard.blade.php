@@ -15,7 +15,7 @@
 
     <div class="container has-text-centered" style="width: 50em;">
 
-        <h2 class="title p-4">Welcome to {!! config('app.name') !!} Admin!</h2>
+        <h2 class="title p-2 mb-2">Welcome to {!! config('app.name') !!} Admin!</h2>
 
     </div>
 

@@ -21,7 +21,7 @@ class UpdateAdminsRequest extends FormRequest
     {
         $this->checkDemoMode();
 
-        if (isRootAdmin() || ($this->admin->id === Auth::guard('admin')->user()->id)) {
+        if (isRootAdmin() || ($this->admin === Auth::guard('admin')->user()->id)) {
             return true;
         }
 
@@ -55,6 +55,7 @@ class UpdateAdminsRequest extends FormRequest
                 'lowercase',
                 'min:6',
                 'max:200',
+                'alpha_dash',
                 'unique:admins,label,'.$this->admin->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],

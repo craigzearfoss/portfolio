@@ -19,10 +19,10 @@
 
             <div class="column has-text-centered">
 
-    ~            <h2 class="title p-4">Welcome to {{ config('app.name') }} Admin!</h2>
+    ~            <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }} Admin!</h2>
 
-                <div class="is-flex is-align-items-center is-justify-content-center mb-4">
-                    <div class="box has-text-left" style="max-width: 40em;">
+                <div class="is-flex is-align-items-center is-justify-content-center mb-2">
+                    <div class="box has-text-left"  <?php /* style="max-width: 40em;" */ ?>>
                         <h2 class="subtitle">About This Site</h2>
                         <p>
                             This project is a multi-user website for people to display their work portfolio and accomplishments,

@@ -50,6 +50,7 @@ class StoreAdminsRequest extends FormRequest
                 'lowercase',
                 'min:6',
                 'max:200',
+                'alpha_dash',
                 'unique:admins,label',
                 new CaseInsensitiveNotIn(reservedWords()),
             ],

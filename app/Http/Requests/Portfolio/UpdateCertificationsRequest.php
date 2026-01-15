@@ -28,7 +28,7 @@ class UpdateCertificationsRequest extends FormRequest
             'name'                  => ['filled', 'string', 'max:255', 'unique:portfolio_db.certifications,name,'.$this->certification->id],
             'slug'                  => ['filled', 'string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this->certification->id],
             'abbreviation'          => ['string', 'max:50', 'nullable'],
-            'certification_type_id' => ['required', 'integer', 'exists:portfolio_db.certification_types,id'],
+            'certification_type_id' => ['filled', 'integer', 'exists:portfolio_db.certification_types,id'],
             'organization'          => ['string', 'max:255', 'nullable'],
             'notes'                 => ['nullable'],
             'link'                  => ['string', 'url:http,https', 'max:500', 'nullable'],

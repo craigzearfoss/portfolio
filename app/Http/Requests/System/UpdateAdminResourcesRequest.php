@@ -103,11 +103,11 @@ class UpdateAdminResourcesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.exists'      => 'Owner not found.',
-            'owner_id.required'    => 'Owner not specified.',
-            'resource_id.required' => 'Resource not specified.',
-            'resource_id.exists'   => 'Resource not found.',
-            'resource_id.unique'   => 'Owner already has an entry for the specified resource.',
+            'owner_id.exists'    => 'Owner not found.',
+            'owner_id.filled'    => 'Owner not specified.',
+            'resource_id.filled' => 'Resource not specified.',
+            'resource_id.exists' => 'Resource not found.',
+            'resource_id.unique' => 'Owner already has an entry for the specified resource.',
         ];
     }
 }
