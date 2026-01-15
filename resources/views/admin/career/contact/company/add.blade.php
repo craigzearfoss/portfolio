@@ -1,6 +1,6 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add a Company to ' . $contact->name,
-    'breadcrumbs' => [
+    'title'            => $pageTitle ?? 'Add a Company to ' . $contact->name,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
@@ -8,14 +8,19 @@
         [ 'name' => $contact->name,    'href' => route('admin.career.contact.show', $contact) ],
         [ 'name' => 'Add Company' ],
     ],
-    'buttons' => [
+    'buttons'          => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => route('admin.career.contact.show', $contact) ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

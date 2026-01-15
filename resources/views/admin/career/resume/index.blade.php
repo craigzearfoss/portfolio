@@ -1,6 +1,6 @@
 @php
     $buttons = [];
-    if (canCreate('resume', getAdminId())) {
+    if (canCreate('resume', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.career.resume.create') ];
     }
 @endphp
@@ -24,18 +24,22 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ??  'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ??  'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes' ]
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

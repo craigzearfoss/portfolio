@@ -20,17 +20,21 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $$pageTitle ?? 'Add Note' . (!empty($application) ? ' to ' . $application->name . ' application' : ''),
-    'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
+    'title'            => $$pageTitle ?? 'Add Note' . (!empty($application) ? ' to ' . $application->name . ' application' : ''),
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

@@ -1,22 +1,26 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? 'Art: ' . $art->name . (!empty($art->artist) ? ' by ' . $art->artist : ''),
-    'breadcrumbs'   => [
-        [ 'name' => 'Home',              'href' => route('home') ],
-        [ 'name' => 'Users',             'href' => route('home') ],
-        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
-        [ 'name' => 'Art',               'href' => route('guest.portfolio.art.index', $currentAdmin) ],
+    'title'            => $pageTitle ?? 'Art: ' . $art->name . (!empty($art->artist) ? ' by ' . $art->artist : ''),
+    'breadcrumbs'      => [
+        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => 'Art',        'href' => route('guest.portfolio.art.index', $admin) ],
         [ 'name' => $art->name ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.art.index', $currentAdmin) ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.art.index', $admin) ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

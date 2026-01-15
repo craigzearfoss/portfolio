@@ -1,19 +1,23 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? $currentAdmin->name . ' art',
-    'breadcrumbs'   => [
-        [ 'name' => 'Home',              'href' => route('home') ],
-        [ 'name' => 'Users',             'href' => route('home') ],
-        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
+    'title'            => $pageTitle ?? $admin->name . ' art',
+    'breadcrumbs'      => [
+        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
         [ 'name' => 'Art' ],
     ],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -46,7 +50,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $art->name,
-                            'href'  => route('guest.portfolio.art.show', [$currentAdmin, $art->slug]),
+                            'href'  => route('guest.portfolio.art.show', [$admin, $art->slug]),
                             'class' => $art->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

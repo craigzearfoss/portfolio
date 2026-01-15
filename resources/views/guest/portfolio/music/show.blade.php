@@ -1,22 +1,26 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
+    'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $currentAdmin) ],
-        [ 'name' => 'Music',      'href' => route('guest.portfolio.music.index', $currentAdmin) ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => 'Music',      'href' => route('guest.portfolio.music.index', $admin) ],
         [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.music.index', $currentAdmin) ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.music.index', $admin) ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin ?? null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -42,7 +46,7 @@
                 'name'  => 'parent',
                 'value' => view('guest.components.link', [
                                 'name' => $music->parent->name,
-                                'href' => route('guest.portfolio.music.show', [$currentAdmin, $music->parent->slug])
+                                'href' => route('guest.portfolio.music.show', [$admin, $music->parent->slug])
                            ])
             ])
         @endif
@@ -70,7 +74,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $child->name,
-                                    'href' => route('guest.portfolio.music.show', [$currentAdmin, $child->slug])
+                                    'href' => route('guest.portfolio.music.show', [$admin, $child->slug])
                                 ])
                             </li>
                         @endforeach

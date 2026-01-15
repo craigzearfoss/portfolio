@@ -1,27 +1,31 @@
 @php
     $buttons = [];
-    if (canUpdate($project, getAdminId())) {
+    if (canUpdate($project, loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.project.edit', $project) ];
     }
-    if (canCreate($project, getAdminId())) {
+    if (canCreate($project, loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Project', 'href' => route('admin.portfolio.project.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.project.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Project: ' . $project->name,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Project: ' . $project->name,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ,       'href' => route('admin.portfolio.project.index') ],
         [ 'name' => $project->name ]
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

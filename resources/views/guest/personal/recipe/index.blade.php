@@ -1,19 +1,23 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? $currentAdmin->name . ' recipes',
-    'breadcrumbs'   => [
-        [ 'name' => 'Home',              'href' => route('home') ],
-        [ 'name' => 'Users',             'href' => route('home') ],
-        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Personal',          'href' => route('guest.personal.index', $currentAdmin) ],
+    'title'            => $pageTitle ?? $admin->name . ' recipes',
+    'breadcrumbs'      => [
+        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Personal',   'href' => route('guest.personal.index', $admin) ],
         [ 'name' => 'Recipes' ],
     ],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -46,7 +50,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $recipe->name,
-                            'href'  => route('guest.personal.recipe.show', [$currentAdmin, $recipe->slug]),
+                            'href'  => route('guest.personal.recipe.show', [$admin, $recipe->slug]),
                             'class' => $recipe->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

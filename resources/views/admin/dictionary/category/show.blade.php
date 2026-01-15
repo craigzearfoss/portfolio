@@ -1,27 +1,31 @@
 @php
     $buttons = [];
-    if (canUpdate($category, getAdminId())) {
+    if (canUpdate($category, loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.category.edit', $category) ];
     }
-    if (canCreate($category, getAdminId())) {
+    if (canCreate($category, loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.dictionary.category.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.category.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Dictionary: ' . $category->name . ' (category)',
-    'breadcrumbs'   => [
+    'title'            => 'Dictionary: ' . $category->name . ' (category)',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Categories',      'href' => route('admin.dictionary.category.index') ],
         [ 'name' => $category->name ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

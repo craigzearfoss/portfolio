@@ -18,18 +18,22 @@
     }
 
     $buttons = [];
-    if (canCreate('note', getAdminId())) {
+    if (canCreate('note', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'title'            => $pageTitle ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

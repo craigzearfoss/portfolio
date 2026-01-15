@@ -1,34 +1,38 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'User Group: ' . $userGroup->name,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'User Group: ' . $userGroup->name,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'User Groups',     'href' => route('root.user-group.index') ],
         [ 'name' => $userGroup->name ]
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin-group.index') ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.admin-user.index') ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.admin-group.update', $userGroup->id) }}" method="POST">
+        <form action="{{ route('admin.admin-user.update', $userGroup->id) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.admin-group.index')
+                'value' => referer('admin.system.admin-user.index')
             ])
 
             @include('admin.components.form-text-horizontal', [
@@ -109,7 +113,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.system.admin-group.index')
+                'cancel_url' => referer('admin.system.admin-user.index')
             ])
 
         </form>

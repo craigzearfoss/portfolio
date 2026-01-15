@@ -1,21 +1,25 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Admin Team: ' . $adminTeam->name,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Admin Team: ' . $adminTeam->name,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Admin Teams',     'href' => route('admin.admin-team.index') ],
         [ 'name' => $adminTeam->name ]
     ],
-    'buttons'       => [
+    'buttons'          => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin-team.index') ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

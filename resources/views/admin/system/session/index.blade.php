@@ -1,16 +1,20 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Resources',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Resources',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Sessions' ],
     ],
-    'buttons'       => [],
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => [],
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -61,7 +65,7 @@
                         {!! $session->last_activity !!}
                     </td>
                     <td>
-                        <a class="button is-small px-1 py-0" href="{!! route('admin.system.session.show', $session->id) !!}">
+                        <a class="button is-small px-1 py-0" href="{!! route('root.session.show', $session->id) !!}">
                             <i class="fa-solid fa-list"></i>
                         </a>
                     </td>

@@ -1,27 +1,31 @@
 @php
     $buttons = [];
-    if (canDelete($userGroup, getAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.admin-group.edit', $userGroup) ];
+    if (canDelete($userGroup, loggedInAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.user-group.edit', $userGroup) ];
     }
-    if (canCreate($userGroup, getAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Add New User Group', 'href' => referer('admin.system.admin-group.index') ];
+    if (canCreate($userGroup, loggedInAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Add New User Group', 'href' => referer('admin.system.user-group.index') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'User Group: ' . $userGroup->name,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'User Group: ' . $userGroup->name,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'User Groups',     'href' => route('root.user-group.index') ],
         [ 'name' => $userGroup->name ]
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

@@ -1,20 +1,24 @@
 @extends('guest.layouts.default', [
-    'title'         => 'Dictionary: ' . $language->name,
-    'breadcrumbs'   => [
+    'title'            => 'Dictionary: ' . $language->name,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Languages',  'href' => route('guest.dictionary.language.index') ],
         [ 'name' => $language->name ],
     ],
-    'buttons'       => [
+    'buttons'          => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.dictionary.index') ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $admin,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

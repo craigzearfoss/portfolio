@@ -1,25 +1,29 @@
 @php
     $buttons = [];
-    if (canCreate('recipe-ingredient', getAdminId())) {
+    if (canCreate('recipe-ingredient', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? ((!empty($recipeId) && !empty($recipeIngredient->recipe))
+    'title'            => $pageTitle ?? ((!empty($recipeId) && !empty($recipeIngredient->recipe))
         ?  $recipeIngredient->recipe['name'] . ' Ingredients'
         : 'Recipe Ingredients'),
-    'breadcrumbs'   => [
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
         [ 'name' => 'Ingredients' ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

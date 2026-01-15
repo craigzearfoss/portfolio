@@ -1,10 +1,10 @@
 @extends('guest.layouts.default', [
-    'title'         => 'Dictionary',
-    'breadcrumbs'   => [
+    'title'           => 'Dictionary',
+    'breadcrumbs'     => [
         [ 'name' => 'Home', 'href' => route('home')],
         [ 'name' => 'Dictionary']
     ],
-    'selectList'    => View::make('guest.components.form-select', [
+    'selectList'       => View::make('guest.components.form-select', [
             'name'     => '',
             'label'    => '',
             'value'    => '',
@@ -12,13 +12,17 @@
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),
-    'buttons'       => [],
+    'buttons'          => [],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $admin ?? null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

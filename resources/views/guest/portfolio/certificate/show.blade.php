@@ -1,22 +1,26 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? 'Certificate: ' . $certificate->name,
-    'breadcrumbs'   => [
-        [ 'name' => 'Home',           'href' => route('home') ],
-        [ 'name' => 'Users',          'href' => route('home') ],
-        [ 'name' => $currentAdmin->name,     'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Portfolio',      'href' => route('guest.portfolio.index', $certificate->owner) ],
+    'title'            => $pageTitle ?? 'Certificate: ' . $certificate->name,
+    'breadcrumbs'      => [
+        [ 'name' => 'Home',         'href' => route('home') ],
+        [ 'name' => 'Users',        'href' => route('home') ],
+        [ 'name' => $admin->name,   'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $certificate->owner) ],
         [ 'name' => 'Certificates', 'href' => route('guest.portfolio.certificate.index', $certificate->owner) ],
         [ 'name' => $certificate->name ],
     ],
-    'buttons'       => [
+    'buttons'          => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.certificate.index', $certificate->owner) ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin ?? null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

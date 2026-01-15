@@ -11,6 +11,9 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
+    'loggedInAdmin' => $loggedInAdmin,
+    'loggedInUser'  => $loggedInUser,
+    'admin'         => $admin,
     'user'          => $user
 ])
 

@@ -1,11 +1,15 @@
 @php
-$menuItems = (new \App\Services\MenuService())->getLeftMenu(
-    \App\Services\PermissionService::ENV_GUEST,
-    $admin ?? null
-);
-$isAdminEnv = explode('.', $currentRouteName = Route::currentRouteName())[0] == 'admin';
+    $currentRouteName = Route::currentRouteName() ?? null;
+    $menuItems = (new \App\Services\MenuService())->getLeftMenu(
+        \App\Services\PermissionService::ENV_GUEST,
+        $admin ?? null,
+        $loggedInAdmin ?? null,
+        $user ?? null,
+        $loggedInUser ?? null,
+        $currentRouteName
+    );
+    $isAdminEnv = !empty($currentRouteName) && (explode('.', $currentRouteName)[0] == 'admin');
 @endphp
-
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
     <div class="aside-tools">
         <div class="aside-tools-label">

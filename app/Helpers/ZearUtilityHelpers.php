@@ -49,13 +49,13 @@ if (! function_exists('referer')) {
     }
 }
 
-if (! function_exists('getUser')) {
+if (! function_exists('loggedInUser')) {
     /**
      * Returns User object of the logged-in user or null if there is not one.
      *
      * @return \App\Models\System\Admin|null
      */
-    function getUser(): \App\Models\System\Admin|null
+    function loggedInUser(): \App\Models\System\Admin|null
     {
         if (! Auth::guard('user')->check()) {
             return null;
@@ -65,13 +65,13 @@ if (! function_exists('getUser')) {
     }
 }
 
-if (! function_exists('getUserId')) {
+if (! function_exists('loggedInUserId')) {
     /**
      * Returns id of the logged-in user or null if there is no logged-in user.
      *
      * @return int|null
      */
-    function getUserId(): int|null
+    function loggedInUserId(): int|null
     {
         try {
             if (Auth::guard('user')->check()) {
@@ -101,13 +101,13 @@ if (! function_exists('isUser')) {
     }
 }
 
-if (! function_exists('getAdmin')) {
+if (! function_exists('loggedInAdmin')) {
     /**
      * Returns Admin object of the logged-in admin or null if there is not one.
      *
      * @return \App\Models\System\Admin|null
      */
-    function getAdmin(): \App\Models\System\Admin|null
+    function loggedInAdmin(): \App\Models\System\Admin|null
     {
         if (! Auth::guard('admin')->check()) {
             return null;
@@ -117,13 +117,13 @@ if (! function_exists('getAdmin')) {
     }
 }
 
-if (! function_exists('getAdminId')) {
+if (! function_exists('loggedInAdminId')) {
     /**
      * Returns id of the logged-in admin or null if there is no logged in admin.
      *
      * @return int|null
      */
-    function getAdminId(): int|null
+    function loggedInAdminId(): int|null
     {
         try {
             if (Auth::guard('admin')->check()) {
@@ -784,7 +784,7 @@ if (! function_exists('themedTemplate')) {
                     if (!is_array($parameters)) {
                         $parameters = !empty($parameters) ? [$parameters] : [];
                     }
-                    $parameters = array_merge($parameters, [getAdmin()]);
+                    $parameters = array_merge($parameters, [loggedInAdmin()]);
                 }
             }
 

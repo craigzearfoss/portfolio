@@ -18,18 +18,22 @@
     }
 
     $buttons = [];
-    if (canCreate('event', getAdminId())) {
+    if (canCreate('event', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'title'            => $pageTitle ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

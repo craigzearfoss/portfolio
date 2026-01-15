@@ -1,17 +1,21 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ??  !empty($currentAdmin->name) ? $currentAdmin->name : $currentAdmin->username,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ??  !empty($admin->name) ? $admin->name : $admin->username,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',  'href' => route('home') ],
         [ 'name' => 'Users', 'href' => route('home') ],
-        [ 'name' => !empty($currentAdmin->name) ? $currentAdmin->name : $currentAdmin->username ]
+        [ 'name' => !empty($admin->name) ? $admin->name : $admin->username ]
     ],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

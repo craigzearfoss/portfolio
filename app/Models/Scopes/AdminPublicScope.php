@@ -19,7 +19,7 @@ class AdminPublicScope implements Scope
 
             // this is an admin route
             if (!isRootAdmin()) {
-                if (!$admin = getAdmin()) {
+                if (!$admin = loggedInAdmin()) {
                     // admin is probably logged out
                     return false;
                 } else {

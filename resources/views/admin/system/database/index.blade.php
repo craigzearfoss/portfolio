@@ -1,22 +1,26 @@
 @php
     $buttons = [];
-    if (canCreate('database', getAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.system.database.create') ];
+    if (canCreate('database', loggedInAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('root.database.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Databases',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Databases',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Databases' ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -119,12 +123,12 @@
                     </td>
                     <td>
 
-                        <form action="{!! route('admin.system.database.destroy', $database->id) !!}" method="POST">
+                        <form action="{!! route('root.database.destroy', $database->id) !!}" method="POST">
 
                             @if(canRead($database))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.system.database.show', $database->id),
+                                    'href'  => route('root.database.show', $database->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -132,7 +136,7 @@
                             @if(canUpdate($database))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.system.database.edit', $database->id),
+                                    'href'  => route('root.database.edit', $database->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

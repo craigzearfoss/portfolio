@@ -14,18 +14,22 @@
     }
 
     $buttons = [];
-    if (canCreate('job-coworker', getAdminId())) {
+    if (canCreate('job-coworker', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? (!empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers'),
-    'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'title'            => $pageTitle ?? (!empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers'),
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

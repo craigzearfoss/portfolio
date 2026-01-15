@@ -1,11 +1,11 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? $currentAdmin->name . ' audio',
+    'title'         => $pageTitle ?? $admin->name . ' audio',
     'breadcrumbs'   => [
-        [ 'name' => 'Home',              'href' => route('home') ],
-        [ 'name' => 'Users',             'href' => route('home') ],
-        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
+        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
         [ 'name' => 'Audio' ],
     ],
     'buttons'       => [],
@@ -14,7 +14,10 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin,
+    'loggedInAdmin' => $loggedInAdmin,
+    'loggedInUser'  => $loggedInUser,
+    'admin'         => $admin,
+    'user'          => $user
 ])
 
 @section('content')
@@ -46,7 +49,7 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name'  => $audio->name,
-                            'href'  => route('guest.portfolio.audio.show', [$currentAdmin, $audio->slug]),
+                            'href'  => route('guest.portfolio.audio.show', [$admin, $audio->slug]),
                             'class' => $audio->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

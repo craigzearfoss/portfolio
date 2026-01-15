@@ -1,22 +1,26 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major,
-    'breadcrumbs'   => [
-        [ 'name' => 'Home',                  'href' => route('home') ],
-        [ 'name' => 'Users',                 'href' => route('home') ],
-        [ 'name' => $currentAdmin->name,     'href' => route('guest.admin.show', $currentAdmin) ],
-        [ 'name' => 'Portfolio',             'href' => route('guest.portfolio.index', $education->owner) ],
-        [ 'name' => 'Education',             'href' => route('guest.portfolio.education.index', $education->owner) ],
+    'title'            => $pageTitle ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major,
+    'breadcrumbs'      => [
+        [ 'name' => 'Home',           'href' => route('home') ],
+        [ 'name' => 'Users',          'href' => route('home') ],
+        [ 'name' => $admin->name,     'href' => route('guest.admin.show', $admin) ],
+        [ 'name' => 'Portfolio',      'href' => route('guest.portfolio.index', $education->owner) ],
+        [ 'name' => 'Education',      'href' => route('guest.portfolio.education.index', $education->owner) ],
         [ 'name' => $education->degreeType->name . ' ' . $education->major ],
     ],
-    'buttons'       => [
+    'buttons'          => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.education.index', $education->owner) ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

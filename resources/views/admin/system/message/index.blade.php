@@ -1,22 +1,26 @@
 @php
     $buttons = [];
-    if (canCreate('message', getAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('admin.system.message.create') ];
+    if (canCreate('message', loggedInAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('root.message.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Message',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Message',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Messages' ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->any() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->any() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -66,7 +70,7 @@
                         @if(canRead($art))
                             @include('admin.components.link-icon', [
                                 'title' => 'show',
-                                'href'  => route('admin.system.message.show', $message->id),
+                                'href'  => route('root.message.show', $message->id),
                                 'icon'  => 'fa-list'
                             ])
                         @endif
@@ -74,7 +78,7 @@
                         @if(canUpdate($message))
                             @include('admin.components.link-icon', [
                                 'title' => 'edit',
-                                'href'  => route('admin.system.message.edit', $message->id),
+                                'href'  => route('root.message.edit', $message->id),
                                 'icon'  => 'fa-pen-to-square'
                             ])
                         @endif
@@ -90,7 +94,7 @@
                         @endif
 
                         @if(canDelete($message))
-                            <form action="{!! route('admin.system.message.destroy', $message->id) !!}"
+                            <form action="{!! route('root.message.destroy', $message->id) !!}"
                                   method="POST"
                                   style="display: inline-block;"
                             >

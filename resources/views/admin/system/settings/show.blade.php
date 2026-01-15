@@ -1,18 +1,22 @@
 @extends('admin.layouts.default', [
-    'title' => $pageTitle ?? 'Settings',
-    'breadcrumbs' => [
+    'title'            => $pageTitle ?? 'Settings',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Settings' ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('admin.system.message.create') ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('root.message.create') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'errorMessages'    => $errors->any() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

@@ -1,12 +1,16 @@
 @php /* for url '/admin/' */ @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? config('app.name'),
-    'breadcrumbs'   => [],
-    'buttons'       => [],
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin ?? null
+    'title'            => $pageTitle ?? config('app.name'),
+    'breadcrumbs'      => [],
+    'buttons'          => [],
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

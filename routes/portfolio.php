@@ -50,13 +50,13 @@ use App\Http\Controllers\Guest\Portfolio\AwardController as GuestPortfolioAwardC
 use App\Http\Controllers\Guest\Portfolio\CertificateController as GuestPortfolioCertificateController;
 use App\Http\Controllers\Guest\Portfolio\CourseController as GuestPortfolioCourseController;
 use App\Http\Controllers\Guest\Portfolio\EducationController as GuestPortfolioEducationController;
+use App\Http\Controllers\Guest\Portfolio\JobController as GuestPortfolioJobController;
 use App\Http\Controllers\Guest\Portfolio\LinkController as GuestPortfolioLinkController;
 use App\Http\Controllers\Guest\Portfolio\MusicController as GuestPortfolioMusicController;
 use App\Http\Controllers\Guest\Portfolio\IndexController as GuestPortfolioIndexController;
 use App\Http\Controllers\Guest\Portfolio\PhotographyController as GuestPortfolioPhotographyController;
 use App\Http\Controllers\Guest\Portfolio\ProjectController as GuestPortfolioProjectController;
 use App\Http\Controllers\Guest\Portfolio\PublicationController as GuestPortfolioPublicationController;
-use App\Http\Controllers\Guest\Portfolio\ResumeController as GuestPortfolioResumeController;
 use App\Http\Controllers\Guest\Portfolio\SkillController as GuestPortfolioSkillController;
 use App\Http\Controllers\Guest\Portfolio\VideoController as GuestPortfolioVideoController;
 
@@ -119,7 +119,7 @@ Route::prefix('admin/admin')->middleware('admin')->name('root.portfolio.')->grou
 
 
 Route::name('guest.')->middleware('guest')->group(function () {
-    Route::get('/{admin:label}/resume', [GuestPortfolioResumeController::class, 'index'])->name('resume');
+    Route::get('/{admin:label}/resume', [GuestPortfolioJobController::class, 'resume'])->name('resume');
     Route::get('/{admin:label}/portfolio', [GuestPortfolioIndexController::class, 'index'])->name('portfolio.index');
     Route::get('/{admin:label}/portfolio/art', [GuestPortfolioArtController::class, 'index'])->name('portfolio.art.index');
     Route::get('/{admin:label}/portfolio/art/{slug}', [GuestPortfolioArtController::class, 'show'])->name('portfolio.art.show');
@@ -133,6 +133,8 @@ Route::name('guest.')->middleware('guest')->group(function () {
     Route::get('/{admin:label}/portfolio/course/{slug}', [GuestPortfolioCourseController::class, 'show'])->name('portfolio.course.show');
     Route::get('/{admin:label}/portfolio/education', [GuestPortfolioEducationController::class, 'index'])->name('portfolio.education.index');
     Route::get('/{admin:label}/portfolio/education/{id}', [GuestPortfolioEducationController::class, 'show'])->name('portfolio.education.show');
+    Route::get('/{admin:label}/portfolio/job', [GuestPortfolioJobController::class, 'index'])->name('portfolio.job.index');
+    Route::get('/{admin:label}/portfolio/job/{slug}', [GuestPortfolioJobController::class, 'show'])->name('portfolio.job.show');
     Route::get('/{admin:label}/portfolio/link', [GuestPortfolioLinkController::class, 'index'])->name('portfolio.link.index');
     Route::get('/{admin:label}/portfolio/link/{slug}', [GuestPortfolioLinkController::class, 'show'])->name('portfolio.link.show');
     Route::get('/{admin:label}/portfolio/music', [GuestPortfolioMusicController::class, 'index'])->name('portfolio.music.index');

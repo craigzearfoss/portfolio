@@ -1,27 +1,31 @@
 @php
     $buttons = [];
-    if (canDelete($message, getAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.message.edit', $message) ];
+    if (canDelete($message, loggedInAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('root.message.edit', $message) ];
     }
-    if (canCreate($message, getAdminId())) {
-        $button[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('admin.system.message.create') ];
+    if (canCreate($message, loggedInAdminId())) {
+        $button[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('root.message.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.message.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Message',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Message',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],
+        [ 'name' => 'Messages',        'href' => route('root.message.index') ],
         [ 'name' => 'Show' ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' =>  $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    =>  $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

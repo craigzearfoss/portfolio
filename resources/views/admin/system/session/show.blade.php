@@ -1,19 +1,23 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Session: ' . $session->id,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Session: ' . $session->id,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Sessions',        'href' => route('admin.system.session.index') ],
+        [ 'name' => 'Sessions',        'href' => route('root.session.index') ],
         [ 'name' => $session->id ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.session.index') ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.session.index') ],
     ],
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

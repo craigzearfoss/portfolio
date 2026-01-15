@@ -2,25 +2,29 @@
     $buttons = [];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Log',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Log',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Logs' ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->any() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->any() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
 
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{!! route('admin.system.log.index') !!}" method="get">
+        <form id="searchForm" action="{!! route('root.log.index') !!}" method="get">
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'type',

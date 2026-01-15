@@ -1,19 +1,23 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? $currentAdmin->name . ' awards',
-    'breadcrumbs'   => [
-        [ 'name' => 'Home',              'href' => route('home') ],
-        [ 'name' => 'Users',             'href' => route('home') ],
-        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
+    'title'            => $pageTitle ?? $admin->name . ' awards',
+    'breadcrumbs'      => [
+        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
         [ 'name' => 'Awards' ],
     ],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -50,7 +54,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $award->name,
-                            'href'  => route('guest.portfolio.award.show', [$currentAdmin, $award->slug]),
+                            'href'  => route('guest.portfolio.award.show', [$admin, $award->slug]),
                             'class' => $award->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
@@ -58,7 +62,7 @@
                         @if(!empty($award->category))
                             @include('guest.components.link', [
                                 'name'  => $award->category,
-                                'href'  => route('guest.portfolio.award.show', [$currentAdmin, $award->slug]),
+                                'href'  => route('guest.portfolio.award.show', [$admin, $award->slug]),
                                 'class' => $award->featured ? 'has-text-weight-bold' : ''
                             ])
                         @endif

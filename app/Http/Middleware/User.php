@@ -32,8 +32,8 @@ class User
 
         // inject the logged in $admin and $user variables into templates
         view()->share('currentRouteName', $currentRouteName);
-        view()->share('admin', getAdmin());
-        view()->share('user', getUser());
+        view()->share('admin', loggedInAdmin());
+        view()->share('user', loggedInUser());
 
         return $next($request);
     }

@@ -1,18 +1,22 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'My Profile',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'My Profile',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'My Profile' ],
     ],
-    'buttons'       => [
+    'buttons'          => [
         [ 'name' => '<i class="fa fa-key"></i> Change Password', 'href' => route('admin.profile.change-password') ],
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.profile.edit') ],
     ],
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @php

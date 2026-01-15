@@ -1,22 +1,26 @@
 @php
     $buttons = [];
-    if (canCreate('art', getAdminId())) {
+    if (canCreate('art', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'href' => adminRoute('admin.portfolio.art.create', $admin) ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Art',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Art',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => adminRoute('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => adminRoute('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => adminRoute('admin.portfolio.index') ],
         [ 'name' => 'Art' ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

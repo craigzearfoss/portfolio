@@ -1,16 +1,16 @@
 @php
     $buttons = [];
-    if (canUpdate($jobTask, getAdminId())) {
+    if (canUpdate($jobTask, loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-task.edit', $jobTask) ];
     }
-    if (canCreate($jobTask, getAdminId())) {
+    if (canCreate($jobTask, loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add Task', 'href' => route('admin.portfolio.job-task.create', ['job_id' => $jobTask->job->id]) ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-task.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Job Task',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Job Task',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',              'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
@@ -19,11 +19,15 @@
         [ 'name' => 'Tasks',             'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
         [ 'name' => 'Show' ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

@@ -1,22 +1,26 @@
 @php
     $buttons = [];
-    if (canCreate('resource', getAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.system.resource.create') ];
+    if (canCreate('resource', loggedInAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('root.resource.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Resources',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Resources',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Resources' ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -114,12 +118,12 @@
                     </td>
                     <td>
 
-                        <form action="{!! route('admin.system.resource.destroy', $resource->id) !!}" method="POST">
+                        <form action="{!! route('root.resource.destroy', $resource->id) !!}" method="POST">
 
                             @if(canRead($resource))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.system.resource.show', $resource->id),
+                                    'href'  => route('root.resource.show', $resource->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -127,7 +131,7 @@
                             @if(canUpdate($resource))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.system.resource.edit', $resource->id),
+                                    'href'  => route('root.resource.edit', $resource->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

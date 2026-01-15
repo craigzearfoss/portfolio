@@ -1,30 +1,34 @@
 @php
     $buttons = [];
-    if (canCreate('stack', getAdminId())) {
+    if (canCreate('stack', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'href' => route('admin.dictionary.stack.create') ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => 'Dictionary (stacks)',
-    'breadcrumbs'   => [
+    'title'            => 'Dictionary (stacks)',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Stacks' ],
     ],
-    'selectList'    => View::make('admin.components.form-select', [
-            'name'     => '',
-            'label'    => '',
-            'value'    => route('admin.dictionary.stack.index'),
-            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin.'),
-            'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
-            'message'  => $message ?? '',
-        ]),
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'selectList'       => View::make('admin.components.form-select', [
+        'name'     => '',
+        'label'    => '',
+        'value'    => route('admin.dictionary.stack.index'),
+        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin.'),
+        'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
+        'message'  => $message ?? '',
+    ]),
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'           => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

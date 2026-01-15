@@ -1,33 +1,37 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Add Resource',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Add Resource',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
+        [ 'name' => 'Resources',       'href' => route('admin.resource.index') ],
         [ 'name' => 'Add' ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.resource.index') ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.resource.index') ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.resource.store') }}" method="POST">
+        <form action="{{ route('rootresource.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.resource.index')
+                'value' => referer('root.resource.index')
             ])
 
             @if(isRootAdmin())
@@ -189,7 +193,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Add Resource',
-                'cancel_url' => referer('admin.system.resource.index')
+                'cancel_url' => referer('root.resource.index')
             ])
 
         </form>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Job Task Edit',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Job Task Edit',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',              'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
@@ -9,15 +9,19 @@
         [ 'name' => 'Tasks',             'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
         [ 'name' => 'Edit' ],
     ],
-    'buttons'       => [
+    'buttons'          => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-task.index') ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

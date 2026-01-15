@@ -1,25 +1,29 @@
 @php
     $buttons = [];
-    if (canCreate('admin-group', getAdminId())) {
+    if (canCreate('admin-group', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New Admin Group', 'href' => route('admin.admin-group.create') ];
     }
-    if (canRead('admin-team', getAdminId())) {
+    if (canRead('admin-team', loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Teams', 'href' => route('admin.admin-team.index') ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Admin Groups',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Admin Groups',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Admin Groups' ]
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

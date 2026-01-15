@@ -1,8 +1,14 @@
 @php
+    $currentRouteName = Route::currentRouteName() ?? null;
     $menuItems = (new \App\Services\MenuService())->getTopMenu(
         \App\Services\PermissionService::ENV_GUEST,
-        $admin ?? null
+        $admin ?? null,
+        $loggedInAdmin ?? null,
+        $user ?? null,
+        $loggedInUser ?? null,
+        $currentRouteName
     );
+    $isAdminEnv = !empty($currentRouteName) && (explode('.', $currentRouteName)[0] == 'admin');
 @endphp
 <nav id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">

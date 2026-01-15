@@ -5,25 +5,29 @@
         $buttons[] = [ 'name' => '<i class="fa fa-key"></i>Change Password', 'href' => route('root.user.change-password', $user->id) ];
 //        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('root.user.edit', $user) ];
     }
-    if (canCreate($user, getAdminId())) {
+    if (canCreate($user, loggedInAdminId())) {
 //        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('root.user.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'User: ' . $user->username,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'User: ' . $user->username,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Users',           'href' => route('root.user.index') ],
         [ 'name' => $user->username ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')

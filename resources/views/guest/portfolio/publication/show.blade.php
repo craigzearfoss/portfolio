@@ -1,22 +1,26 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? 'Publication: ' . $publication->title,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Publication: ' . $publication->title,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',         'href' => route('home') ],
         [ 'name' => 'Users',        'href' => route('home') ],
-        [ 'name' => $currentAdmin->name,   'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $currentAdmin) ],
-        [ 'name' => 'Publications', 'href' => route('guest.portfolio.publication.index', $currentAdmin) ],
+        [ 'name' => $admin->name,   'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => 'Publications', 'href' => route('guest.portfolio.publication.index', $admin) ],
         [ 'name' => $publication->name ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.publication.index', $currentAdmin) ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.publication.index', $admin) ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin ?? null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -35,7 +39,7 @@
                 'name'  => 'parent',
                 'value' => view('guest.components.link', [
                                 'name' => $publication->parent->title,
-                                'href' => route('guest.portfolio.publication.show', $currentAdmin, $publication->parent->slug)
+                                'href' => route('guest.portfolio.publication.show', $admin, $publication->parent->slug)
                           ])
             ])
         @endif
@@ -63,7 +67,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $child->name,
-                                    'href' => route('guest.portfolio.publication.show', [$currentAdmin, $child->slug])
+                                    'href' => route('guest.portfolio.publication.show', [$admin, $child->slug])
                                 ])
                             </li>
                         @endforeach

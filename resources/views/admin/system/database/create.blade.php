@@ -1,33 +1,37 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Add Database',
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Add Database',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Databases',       'href' => route('admin.system.database.index') ],
+        [ 'name' => 'Databases',       'href' => route('root.database.index') ],
         [ 'name' => 'Add' ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.database.index') ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.database.index') ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.database.store') }}" method="POST">
+        <form action="{{ route('root.database.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.database.index')
+                'value' => referer('root.database.index')
             ])
 
             @if(isRootAdmin())
@@ -170,7 +174,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Database',
-                'cancel_url' => referer('admin.system.database.index')
+                'cancel_url' => referer('root.database.index')
             ])
 
         </form>

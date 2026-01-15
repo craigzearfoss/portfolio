@@ -29,11 +29,14 @@ class Admin
         } else {
             View::share('currentAdmin', null);
         }
-
+dd(loggedInAdmin());
         // inject the logged in $admin and $user variables into templates
+        view()->share('loggedInAdmin', loggedInAdmin());
+        view()->share('loggedInUser', loggedInUser());
+
         view()->share('currentRouteName', $currentRouteName);
-        view()->share('admin', getAdmin());
-        view()->share('user', getUser());
+        view()->share('admin', loggedInAdmin());
+        view()->share('user', loggedInUser());
 
         return $next($request);
     }

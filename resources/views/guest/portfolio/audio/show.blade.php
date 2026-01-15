@@ -1,22 +1,26 @@
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? 'Audio: ' . $audio->name,
-    'breadcrumbs'   => [
-        [ 'name' => 'Home',              'href' => route('home') ],
-        [ 'name' => 'Users',             'href' => route('home') ],
-        [ 'name' => $currentAdmin->name, 'href' => route('guest.admin.show', $currentAdmin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $currentAdmin) ],
-        [ 'name' => 'Audio',             'href' => route('guest.portfolio.audio.index', $currentAdmin) ],
+    'title'            => $pageTitle ?? 'Audio: ' . $audio->name,
+    'breadcrumbs'      => [
+        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => 'Audio',      'href' => route('guest.portfolio.audio.index', $admin) ],
         [ 'name' => $audio->name ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.audio.index', $currentAdmin) ],
+    'buttons'          => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.audio.index', $admin) ],
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => $currentAdmin,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
@@ -35,7 +39,7 @@
                 'name'  => 'parent',
                 'value' => view('guest.components.link', [
                                 'name' => $audio->parent->name,
-                                'href' => route('guest.portfolio.audio.show', [$currentAdmin, $audio->parent->slug])
+                                'href' => route('guest.portfolio.audio.show', [$admin, $audio->parent->slug])
                            ])
             ])
         @endif
@@ -62,7 +66,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $child->name,
-                                    'href' => route('guest.portfolio.audio.show', [$currentAdmin, $child->slug])
+                                    'href' => route('guest.portfolio.audio.show', [$admin, $child->slug])
                                 ])
                             </li>
                         @endforeach

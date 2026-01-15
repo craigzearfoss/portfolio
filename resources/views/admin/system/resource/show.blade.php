@@ -1,27 +1,31 @@
 @php
     $buttons = [];
-    if (canDelete($resource, getAdminId())) {
+    if (canDelete($resource, loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.resource.edit', $resource) ];
     }
-    if (canCreate($resource, getAdminId())) {
+    if (canCreate($resource, loggedInAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.system.resource.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.resource.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Resource: ' . $resource->database->name . '.' . $resource->name,
-    'breadcrumbs'   => [
+    'title'            => $pageTitle ?? 'Resource: ' . $resource->database->name . '.' . $resource->name,
+    'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
+        [ 'name' => 'Resources',       'href' => route('admin.resource.index') ],
         [ 'name' => $resource->database->name . '.' . $resource->name ],
     ],
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'currentRouteName' => $currentRouteName,
+    'loggedInAdmin'    => $loggedInAdmin,
+    'loggedInUser'     => $loggedInUser,
+    'admin'            => $admin,
+    'user'             => $user
 ])
 
 @section('content')
