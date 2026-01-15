@@ -15,12 +15,12 @@
 /node_modules
 /public/build
 /public/hot
+/public/portfolio
+/public/resumes
 /public/images/career
-/public/images/cover-letters
 /public/images/dictionary
 /public/images/personal
 /public/images/portfolio
-/public/images/resumes
 /public/images/system
 /public/storage
 /storage/*.key
