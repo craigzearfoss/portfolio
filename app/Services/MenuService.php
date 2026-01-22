@@ -10,141 +10,123 @@ use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use stdClass;
 
 class MenuService
 {
+    protected $envType = PermissionService::ENV_GUEST;
+
+    protected $databases = [];
+    protected $resources = [];
+
+    protected $hasAdmins = true;
+    protected $hasResume = true;
+    protected $hasUsers = true;
+
+    protected $isRootAdmin = false;
+
+    protected $admin = null;
+    protected $user = null;
+    protected $owner = null;
+
+    protected $currentRouteName = null;
+
+    public function __construct(string|null $envType = null,
+                                Admin|null  $owner = null,
+                                Admin|null  $admin = null,
+                                User|null   $user = null,
+                                string|null $currentRouteName = null)
+    {
+        $this->envType          = !empty($envType) ? $envType : PermissionService::currentEnvType();
+        $this->owner            = $owner;
+        $this->admin            = !empty($admi) ? $admin : loggedInAdmin();
+        $this->user             = !empty($user) ? $user : loggedInUser();
+        $this->currentRouteName = !empty($currentRouteName) ? $currentRouteName : Route::currentRouteName();
+
+        $this->isRootAdmin      = ($this->envType == PermissionService::ENV_ADMIN) && !empty($this->admin) && $this->admin->root
+                                      ? 'root'
+                                      : 'admin';
+
+        if (!in_array($this->envType, PermissionService::ENV_TYPES)) {
+            throw new \Exception('Invalid current ENV type');
+        }
+
+        // get the resources
+        $filters = in_array($this->envType, [PermissionService::ENV_GUEST, PermissionService::ENV_USER])
+            ? [ 'menu' => 1, 'public' => 1, 'disabled' => 0 ]
+            : (!empty($this->admin) && !empty($this->admin->root) ? [] :[ 'menu' => 1, 'disabled' => 0 ]);
+
+        if (!empty($owner)) {
+            if ($this->owner->root) {
+                $this->databases = Database::ownerDatabases(null, $this->envType, $filters);
+                $this->resources = Resource::ownerResources(null,null, null, $filters);
+            } else {
+                $this->databases = AdminDatabase::ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
+                $this->resources = AdminResource::ownerResources($this->owner->id, null,null, $filters);
+            }
+        } else {
+            $this->databases = [];
+            $this->resources = [];
+        }
+    }
+
     /**
      * Returns the array of items for the left nav menu.
      *
-     * @param string|null $envType
-     * @param Admin|null $admin
-     * @param Admin|null $loggedInAdmin
-     * @param User|null $user
-     * @param User|null $loggedInUser
-     * @param string|null $currentRouteName
+     * @param bool $hasAdmins
+     * @param bool $hasUsers
+     * @param array $properties
      * @return array
      * @throws \Exception
      */
-    public function getLeftMenu(string|null $envType = null,
-                                Admin|null $admin = null,
-                                Admin|null $loggedInAdmin = null,
-                                User|null $user = null,
-                                User|null $loggedInUser = null,
-                                string|null $currentRouteName = null): array
+    public function leftMenu(bool $hasAdmins = true, bool $hasUsers = true, array $properties = []): array
     {
-        // Validate parameter values.
-        if (empty($currentRouteName)) $currentRouteName = Route::currentRouteName();
-        if (empty($envType)) $envType = PermissionService::currentEnvType();
+        $this->hasAdmins = boolval($hasAdmins);
+        $this->hasUsers = boolval($hasUsers);
 
-        $menu = $this->getResourceMenu(
-            $envType,
-            $admin,
-            $loggedInAdmin,
-            $user,
-            $loggedInUser,
-            $currentRouteName
-        );
-
-        if (!empty($loggedInAdmin)) {
-
-            $menu[] = $this->menuItem(
-                [ 'title' => 'Admin Dashboard', 'route' => 'admin.dashboard' ],
-                $currentRouteName,
-                1
-            );
-
-            if (isUser()) {
-                $menu[] = $this->menuItem(
-                    ['title' => 'User Dashboard', 'route' => 'user.dashboard'],
-                    $currentRouteName,
-                    1
-                );
-            }
-
-            $menu[] = $this->menuItem(
-                [ 'title' => 'My Profile', 'route'    => 'admin.profile.show' ],
-                $currentRouteName,
-                1
-            );
-
-            /*
-            $menu[] = $this->menuItem(
-                [ 'title'=> 'Change Password', 'route' => 'admin.profile.change-password' ],
-                $currentRouteName,
-                1
-            );
-            */
-
-            $menu[] = $this->menuItem(
-                [ 'title'=> 'Logout', 'route' => 'admin.logout' ],
-                $currentRouteName,
-                1
-            );
-
-            if (isRootAdmin()) {
-
-                foreach ($menu as $i=>$menuItem) {
-                    if (property_exists($menuItem,'tag') && ($menuItem->tag === 'db')) {
-
-                        $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Databases', 'route' => 'admin.system.database.index', 'icon' => 'fa-database' ],
-                            $currentRouteName,
-                            2
-                        );
-
-                        $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Resources', 'route'    => 'admin.system.resource.index', 'icon' => 'fa-table' ],
-                            $currentRouteName,
-                            2
-                        );
-                    }
-                }
-
-                $menu[] = $this->menuItem(
-                    [ 'title'=> 'Settings', 'route' => 'admin.system.settings.show' ],
-                    $currentRouteName,
-                    1
-                );
-            }
-
-        } elseif (isUser()) {
-
-            $menu[] = $this->menuItem(
-                [ 'title'=> 'My Profile', 'route' => 'user.profile.show' ],
-                $currentRouteName,
-                1
-            );
-
-            $menu[] = $this->menuItem(
-                [ 'title'=> 'Logout', 'route' => 'user.logout' ],
-                $currentRouteName,
-                1
-            );
-
-        } else {
-
-            $menu[] = $this->menuItem(
-                [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'user.login' ],
-                $currentRouteName,
-                1
-            );
-
-            $menu[] = $this->menuItem(
-                [ 'name' => 'admin-login', 'title'=> 'Admin Login', 'route' => 'admin.login' ],
-                $currentRouteName,
-                1
-            );
-
+        foreach ($properties as $property => $value) {
+            $this->{$property} = $value;
         }
 
-        $menu[] = $this->menuItem(
-            [ 'name' => 'contact-login', 'title'=> 'Contact', 'route' => 'contact' ],
-            $currentRouteName,
-            1
-        );
+        $menu = $this->getResourceMenu();
+
+        // add user menu items
+        if ($this->hasUsers) {
+            if (!empty($this->user)) {
+                $menu[] = $this->menuItem([ 'title' => 'User Dashboard', 'route' => 'user.dashboard' ], 1);
+                $menu[] = $this->menuItem([ 'title'=> 'My User Profile', 'route' => 'user.profile.show' ],  1);
+                //$menu[] = $this->menuItem([ 'title'=> 'Change User Password', 'route' => 'admin.profile.change-password' ], 1);
+                $menu[] = $this->menuItem([ 'title'=> 'User Logout', 'route' => 'user.logout' ], 1);
+            } else {
+                $menu[] = $this->menuItem([ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'user.login' ], 1);
+            }
+        }
+
+        // add admin menu items
+        if ($this->hasAdmins) {
+            if (!empty($this->admin)) {
+                $menu[] = $this->menuItem(['title' => 'Admin Dashboard', 'route' => 'admin.dashboard'], 1);
+                $menu[] = $this->menuItem(['title' => 'My Admin Profile', 'route' => 'admin.profile.show'], 1);
+                //$menu[] = $this->menuItem([ 'title'=> 'Change Admin Password', 'route' => 'admin.profile.change-password' ], 1);
+                $menu[] = $this->menuItem(['title' => 'Admin Logout', 'route' => 'admin.logout'], 1);
+
+                if ($this->isRootAdmin) {
+                    foreach ($menu as $i => $menuItem) {
+                        if (property_exists($menuItem, 'tag') && ($menuItem->tag === 'db')) {
+                            $menu[$i]->children[] = $this->menuItem(['title' => 'Databases', 'route' => 'admin.system.database.index', 'icon' => 'fa-database'], 2);
+                            $menu[$i]->children[] = $this->menuItem(['title' => 'Resources', 'route' => 'admin.system.resource.index', 'icon' => 'fa-table'], 2);
+                        }
+                    }
+                    $menu[] = $this->menuItem(['title' => 'Settings', 'route' => 'admin.system.settings.show'], 1);
+                }
+            } else {
+                $menu[] = $this->menuItem([ 'name' => 'admin-login', 'title'=> 'Admin Login', 'route' => 'admin.login' ], 1);
+            }
+        }
+
+        // add additional menu items
+        $menu[] = $this->menuItem([ 'name' => 'contact-login', 'title'=> 'Contact', 'route' => 'contact' ], 1);
 
         return $menu;
     }
@@ -152,134 +134,61 @@ class MenuService
     /**
      * Returns the array of items for the left nav menu.
      *
-     * @param string|null $envType
-     * @param Admin|null $admin
-     * @param Admin|null $loggedInAdmin
-     * @param User|null $user
-     * @param User|null $loggedInUser
-     * @param string|null $currentRouteName
+     * @param bool $hasAdmins
+     * @param bool $hasUsers
+     * @param array $properties
      * @return array
      * @throws \Exception
      */
-    public function getTopMenu(string|null $envType = null,
-                               Admin|null $admin = null,
-                               Admin|null $loggedInAdmin = null,
-                               User|null $user = null,
-                               User|null $loggedInUser = null,
-                               string|null $currentRouteName = null): array
+    public function topMenu(bool $hasAdmins = true, bool $hasUsers = true, array $properties = []): array
     {
-        // Validate parameter values.
-        if (empty($currentRouteName)) $currentRouteName = Route::currentRouteName();
-        if (empty($envType)) $envType = PermissionService::currentEnvType();
+        $this->hasAdmins = boolval($hasAdmins);
+        $this->hasUsers = boolval($hasUsers);
 
-        $menu = $this->getResourceMenu(
-            $envType,
-            $admin,
-            $loggedInAdmin,
-            $user,
-            $loggedInUser,
-            $currentRouteName
-        );
+        foreach ($properties as $property => $value) {
+            $this->{$property} = $value;
+        }
 
-        if ($admin = loggedInAdmin()) {
+        $menu = $this->getResourceMenu();
 
-            // Create user dropdown menu.
-            $i = count($menu);
-            $menu[$i] = $this->menuItem(
-                [ 'name' => 'user-dropdown', 'title' => $admin->username ],
-                $currentRouteName
-            );
-            $menu[$i]->thumbnail = Auth::guard('admin')->user()->thumbnail ?? null;
+        // add admin menu items
+        if ($this->hasAdmins) {
+            if (!empty($this->admin)) {
 
-            $menu[$i]->children[] = $this->menuItem(
-                [
-                    'title' => 'Admin Dashboard',
-                    'route' => 'admin.dashboard',
-                    'icon'  => 'fa-dashboard'
-                ],
-                $currentRouteName
-            );
+                $i = count($menu);
+                $adminDropdownMenu = $this->menuItem([
+                    'name' => 'user-dropdown',
+                    'title' => $this->admin->username ?? '',
+                ]);
+                $adminDropdownMenu->thumbnail  = $this->admin->thumbnail ?? null;
+                $adminDropdownMenu->children[] = $this->menuItem(['title' => 'Admin Dashboard', 'route' => 'admin.dashboard', 'icon' => 'fa-dashboard']);
+                $adminDropdownMenu->children[] = $this->menuItem(['title' => 'User Dashboard', 'route' => 'user.dashboard', 'icon' => 'fa-dashboard']);
+                $adminDropdownMenu->children[] = $this->menuItem(['title' => 'My Profile', 'route' => 'admin.profile.show', 'icon' => 'fa-user']);
+                //$adminDropdownMenu->children[] = $this->menuItem([ 'title' => 'Change Password', 'route' => 'admin.profile.change-password', 'icon'  => 'fa-lock' ]);
+                $adminDropdownMenu->children[] = $this->menuItem(['title' => 'Logout', 'route' => 'admin.logout', 'icon' => 'fa-sign-out']);
 
-            $menu[$i]->children[] = $this->menuItem(
-                [
-                    'title' => 'User Dashboard',
-                    'route' => 'user.dashboard',
-                    'icon'  => 'fa-dashboard'
-                ],
-                $currentRouteName
-            );
+                if ($this->isRootAdmin) {
 
-            $menu[$i]->children[] = $this->menuItem(
-                [
-                    'title' => 'My Profile',
-                    'route' => 'admin.profile.show',
-                    'icon'  => 'fa-user'
-                ],
-                $currentRouteName
-            );
-
-            /*
-            $menu[$i]->children[] = $this->menuItem(
-                [
-                    'title' => 'Change Password',
-                    'route' => 'admin.profile.change-password',
-                    'icon'  => 'fa-lock'
-                ],
-                $currentRouteName
-            );
-            */
-
-            $menu[$i]->children[] = $this->menuItem(
-                [
-                    'title' => 'Logout',
-                    'route' => 'admin.logout',
-                    'icon'  => 'fa-sign-out'
-                ],
-                $currentRouteName
-            );
-
-            if (isRootAdmin()) {
-
-                foreach ($menu as $i=>$menuItem) {
-                    if (property_exists($menuItem,'tag') && ($menuItem->tag === 'db')) {
-
-                        $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Databases', 'route'    => 'admin.system.database.index', 'icon' => 'fa-database' ],
-                            $currentRouteName
-                        );
-
-                        $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Resources', 'route'    => 'admin.system.resource.index', 'icon' => 'fa-table' ],
-                            $currentRouteName
-                        );
+                    foreach ($menu as $i => $menuItem) {
+                        if (property_exists($menuItem, 'tag') && ($menuItem->tag === 'db')) {
+                            $adminDropdownMenu->children[] = $this->menuItem(['title' => 'Databases', 'route' => 'admin.system.database.index', 'icon' => 'fa-database']);
+                            $adminDropdownMenu->children[] = $this->menuItem(['title' => 'Resources', 'route' => 'admin.system.resource.index', 'icon' => 'fa-table']);
+                        }
                     }
                 }
+
+                $menu[] = $adminDropdownMenu;
+
+            } else {
+                $menu[] = $this->menuItem([ 'name' => 'admin-login', 'title'=> 'Admin Login', 'route' => 'admin.login' ], 1);
             }
+        }
 
-        } elseif (isUser()) {
-
-            $menu[] = $this->menuItem(
-                [ 'title'=> 'My Profile', 'route' => 'user.profile.show' ],
-                $currentRouteName
-            );
-
-            $menu[] = $this->menuItem(
-                [ 'title'=> 'Logout', 'route' => 'user.logout' ],
-                $currentRouteName
-            );
-
+        if (!empty($this->user)) {
+            $menu[] = $this->menuItem([ 'title'=> 'My Profile', 'route' => 'user.profile.show' ]);
+            $menu[] = $this->menuItem([ 'title'=> 'Logout', 'route' => 'user.logout' ]);
         } else {
-
-            $menu[] = $this->menuItem(
-                [ 'title'=> 'User Login', 'route' => 'user.login' ],
-                $currentRouteName
-            );
-
-            $menu[] = $this->menuItem(
-                [ 'title'=> 'Admin Login', 'route' => 'admin.login' ],
-                $currentRouteName
-            );
-
+            $menu[] = $this->menuItem([ 'title'=> 'User Login', 'route' => 'user.login' ]);
         }
 
         return $menu;
@@ -288,93 +197,39 @@ class MenuService
     /**
      * Returns the array of menu items fpr databases.
      *
-     * @param string|null $envType
-     * @param string|null $currentRouteName
-     * @param Admin|null $loggedInAdmin
-     * @param User|null $currentUser
      * @return array
      * @throws \Exception
      */
-    public function getDatabaseMenuItems(string|null $envType,
-                                         string|null $currentRouteName,
-                                         Admin|null $loggedInAdmin = null,
-                                         User|null $currentUser = null): array
+    public function getDatabaseMenuItems(): array
     {
-        // get the databases
-        switch ($envType) {
-            case PermissionService::ENV_ADMIN:
-                $query = !empty($loggedInAdmin)
-                    ? AdminDatabase::where('menu', 1)->where('owner_id', $loggedInAdmin->id)->where('admin', 1)
-                    : Database::where('menu', 1)->where('admin', 1);
-                break;
-            case PermissionService::ENV_USER:
-                $query = !empty($loggedInAdmin)
-                    ? AdminDatabase::where('menu', 1)->where('owner_id', $loggedInAdmin->id)->where('user', 1)
-                    : Database::where('menu', 1)->where('user', 1)->where('public', 1)->where('disabled', 0);
-                break;
-            case PermissionService::ENV_GUEST:
-            default:
-                $query = !empty($loggedInAdmin)
-                    ? AdminDatabase::where('menu', 1)->where('owner_id', $loggedInAdmin->id)->where('guest', 1)
-                    : Database::where('menu', 1)->where('guest', 1)->where('public', 1)->where('disabled', 0);
-                break;
-        }
-
         $menu = [];
-        ;
-        foreach($query->orderBy('sequence', 'ASC')->get() as $database) {
+
+        foreach($this->databases as $database) {
+
+            if (Route::has($database->route)) {
+                if ($this->envType == 'admin') {
+                    $url = (
+                               ($this->envType == 'admin')
+                               && !in_array($database->name, ['dictionary'])
+                               && (!empty($this->admin) && !empty($this->admin->root))
+                           )
+                        ? route($database->route, [ 'owner_id' => $this->owner->id ])
+                        : route($database->route);
+                } else {
+                    $url = (!empty($this->owner) && !in_array($database->name, ['dictionary']))
+                        ? route($database->route, $this->owner)
+                        : route($database->route);
+                }
+            } else {
+                $url = 'ROUTE: ' . $database->route;
+            }
 
             $database->level    = 1;
             $database->label    = $database->title;
-            $database->route    = null;
-            $database->url      = null;
+            $database->route    = $this->envType . '.' . $database->name . '.index';
+            $database->url      = $url;
             $database->children = [];
-
-            // set route and url
-            switch ($envType) {
-                case PermissionService::ENV_ADMIN:
-
-                    if (Route::has('admin.admin.' . $database->name . '.index')) {
-                        $database->route = 'admin.admin.' . $database->name . '.index';
-                    } elseif (Route::has('admin.admin.' . $database->name . '.show')) {
-                        $database->route = 'admin.admin.' . $database->name . '.show';
-                    }
-
-                    if (!empty($database->route)) {
-                        try {
-                            $database->url = route($database->route, $currentAdmin);
-                        } catch (\Exception $e) {
-                            $database->url = null;
-                        }
-                    }
-                    break;
-
-                case PermissionService::ENV_USER:
-                    $database->route = 'user.admin.' . $database->name . '.show';
-                    $database->url = route($database->route);
-                    break;
-
-                case PermissionService::ENV_GUEST:
-
-                    if (Route::has('guest.admin.' . $database->name . '.index')) {
-                        $database->route = 'guest.admin.' . $database->name . '.index';
-                    } elseif (Route::has('guest.admin.' . $database->name . '.show')) {
-                        $database->route = 'guest.admin.' . $database->name . '.show';
-                    }
-
-                    if (!empty($database->route)) {
-                        try {
-                            $database->url = route($database->route, $currentAdmin);
-                        } catch (\Exception $e) {
-                            $database->url = null;
-                        }
-                    }
-
-                    break;
-            }
-
-            $database->active = !empty($currentRouteName) && ($database->route === $currentRouteName) ? 1 : 0;
-
+            $database->active   = !empty($this->currentRouteName) && ($database->route === $this->currentRouteName) ? 1 : 0;
             $menu[$database->database_id ?? $database->id] = $database;
         }
 
@@ -385,15 +240,10 @@ class MenuService
      * Returns a menu item.
      * *
      * @param array $data
-     * @param string $currentRouteName
      * @param int $level
      * @return stdClass
      */
-    public function menuItem(
-        array $data,
-        string $currentRouteName,
-        int $level = 1
-    ): stdClass
+    public function menuItem(array $data, int $level = 1): stdClass
     {
         $menuItem = new stdClass();
         $menuItem->id                = $data['id'] ?? null;
@@ -404,9 +254,11 @@ class MenuService
         $menuItem->tag               = $data['tag'] ?? null;
         $menuItem->title             = $data['title'] ?? '';
         $menuItem->plural            = $data['plural'] ?? '';
-        $menuItem->route             = $data['route'] ?? null;
-        $menuItem->url               = Route::has($menuItem->route) ? Route($menuItem->route) : null;
-        $menuItem->active            = !empty($menuItem->route) && ($menuItem->route == $currentRouteName);
+        $menuItem->route             = $data['route'] ?? '';
+        $menuItem->url               = !empty($menuItem->route) && Route::has($menuItem->route)
+                                            ? Route($menuItem->route)
+                                            : null;
+        $menuItem->active            = !empty($menuItem->route) && ($menuItem->route == $this->currentRouteName);
         $menuItem->guest             = $data['guest'] ?? 0;
         $menuItem->user              = $data['user'] ?? 0;
         $menuItem->admin             = $data['admin'] ?? 0;
@@ -431,53 +283,22 @@ class MenuService
     /**
      * Returns the array of menu items fpr resources.
      *
-     * @param string|null $envType
-     * @param Admin|null $admin
-     * @param Admin|null $loggedInAdmin
-     * @param User|null $user
-     * @param User|null $loggedInUser
-     * @param string|null $currentRouteName
      * @return array
      * @throws \Exception
      */
-    public function getResourceMenu(string|null $envType,
-                                    Admin|null $admin = null,
-                                    Admin|null $loggedInAdmin = null,
-                                    User|null $user = null,
-                                    User|null $loggedInUser = null,
-                                    string|null $currentRouteName): array
+    public function getResourceMenu(): array
     {
-        // Verify the ENV type.
-        if (empty($envType)) {
-            $envType = PermissionService::currentEnvType();
-        }
-        if (!in_array($envType, PermissionService::ENV_TYPES)) {
-            throw new \Exception('Invalid current ENV type');
-        }
-
-        $filters = in_array($envType, [PermissionService::ENV_GUEST, PermissionService::ENV_USER])
-            ? [ 'menu' => 1, 'public' => 1, 'disabled' => 0 ]
-            : [ 'menu' => 1, 'disabled' => 0 ];
-
-        // get the resources
-        if (!empty($loggedInAdmin)) {
-            $resources = AdminResource::getResources($loggedInAdmin->id, $envType, null, $filters);
-        } else {
-            //$resources = Resource::getResources($envType, null, $filters);
-            $resources = [];
-        }
-
         // Create the array of menu items.
         $menu = [];
 
         // get level 1 admin/user/guest-specific items
-        if (in_array($envType, [PermissionService::ENV_ADMIN, PermissionService::ENV_GUEST])) {
+        if (in_array($this->envType, [PermissionService::ENV_ADMIN, PermissionService::ENV_GUEST])) {
 
             // get the database menu items
-            $menu = $this->getDatabaseMenuItems($envType, $currentRouteName, $loggedInAdmin, $loggedInUser);
+            $menu = $this->getDatabaseMenuItems();
 
             // add resources by level
-            $levelResources = $this->sortResourcesByLevel($resources);
+            $levelResources = $this->sortResourcesByLevel();
 
             foreach ($menu as $dbId => $menuItem) {
 
@@ -488,15 +309,7 @@ class MenuService
 
                         if ($level1Resource->database_id == $dbId) {
 
-                            $level1Resource= $this->getResourceMenuItem(
-                                $level1Resource,
-                                $envType,
-                                $admin,
-                                $loggedInAdmin,
-                                $user,
-                                $loggedInUser,
-                                $currentRouteName
-                            );
+                            $level1Resource= $this->getResourceMenuItem($level1Resource);
 
                             // insert level 2 items
                             if (array_key_exists(2, $levelResources)) {
@@ -506,15 +319,7 @@ class MenuService
 
                                         if ($level2Resource->parent_id == ($level1Resource->resource_id ?? $level1Resource['id'] ?? null)) {
 
-                                            $level2Resource= $this->getResourceMenuItem(
-                                                $level2Resource,
-                                                $envType,
-                                                $admin,
-                                                $loggedInAdmin,
-                                                $user,
-                                                $loggedInUser,
-                                                $currentRouteName
-                                            );
+                                            $level2Resource= $this->getResourceMenuItem($level2Resource);
 
                                             // insert level 3 items
                                             if (array_key_exists(3, $levelResources)) {
@@ -524,15 +329,7 @@ class MenuService
 
                                                         if ($level3Resource->parent_id == ($level2Resource->resource_id ?? $level2Resource['id'] ?? null)) {
 
-                                                            $level3Resource= $this->getResourceMenuItem(
-                                                                $level3Resource,
-                                                                $envType,
-                                                                $admin,
-                                                                $loggedInAdmin,
-                                                                $user,
-                                                                $loggedInUser,
-                                                                $currentRouteName
-                                                        );
+                                                            $level3Resource= $this->getResourceMenuItem($level3Resource);
 
                                                             // insert level 4 items
                                                             if (array_key_exists(4, $levelResources)) {
@@ -542,15 +339,7 @@ class MenuService
 
                                                                         if ($level4Resource->parent_id== ($level3Resource->resource_id ?? $level3Resource['id'] ?? null)) {
 
-                                                                            $level4Resource= $this->getResourceMenuItem(
-                                                                                $level4Resource,
-                                                                                $envType,
-                                                                                $admin,
-                                                                                $loggedInAdmin,
-                                                                                $user,
-                                                                                $loggedInUser,
-                                                                                $currentRouteName
-                                                                            );
+                                                                            $level4Resource= $this->getResourceMenuItem($level4Resource);
 
                                                                             $children = $level3Resource->children;
                                                                             $children[] = $level4Resource;
@@ -586,10 +375,11 @@ class MenuService
         }
 
         // should we have a resume link at the top of the menu?
-        if ($resumeMenuItem = $this->getResumeMenuItem($envType, $admin, 1, $currentRouteName)
-        ) {
-            $menu = array_merge([$resumeMenuItem], $menu);
-        }
+        if ($this->hasResume) {
+            if ($resumeMenuItem = $this->getResumeMenuItem(1)) {
+                $menu = array_merge([$resumeMenuItem], $menu);
+            }
+            }
 
         return array_values($menu);
     }
@@ -622,15 +412,14 @@ class MenuService
     /**
      * Takes a collection or resources and sorts them by level
      *
-     * @param array|Collection $resources
      * @return array
      */
-    public function sortResourcesByLevel(array|Collection $resources):array
+    public function sortResourcesByLevel():array
     {
         $levelResources = [];
 
         for ($level = 1; $level < 5; $level++) {
-            $levelResources[$level] = $this->extractMenuLevelResources($resources, $level);
+            $levelResources[$level] = $this->extractMenuLevelResources($this->resources, $level);
             if (empty($levelResources[$level])) {
                 unset($levelResources[$level]);
                 break;
@@ -642,34 +431,28 @@ class MenuService
     /**
      * Returns a menu item.
      * *
-     * @param string $envType
-     * @param Admin|null $admin
      * @param int $level
-     * @param string|null $currentRouteName
      * @return stdClass|null
      */
-    public function getResumeMenuItem(string $envType,
-                                      Admin|null $admin = null,
-                                      int $level = 1,
-                                      string|null $currentRouteName = null): stdClass|null
+    public function getResumeMenuItem(int $level = 1): stdClass|null
     {
-        if (empty($admin)) {
+        if (empty($this->owner)) {
             return null;
         }
 
         // if there are no jobs for this owner then return null
         if (Resource::withoutGlobalScope(AdminPublicScope::class)
-                ->where('name', 'job')->where($envType, 1)->where('public', 1)->count() == 0
+                ->where('name', 'job')->where($this->envType, 1)->where('public', 1)->count() == 0
         ) {
             return null;
         }
 
         // get route and url
         $routeName = 'guest.resume';
-        $url = !empty($admin) ? route($routeName, $admin) : '';
+        $url = !empty($this->owner) ? route($routeName, $this->owner) : '';
 
         $menuItem = new stdClass();
-        $menuItem->owner_id       = $admin->id;
+        $menuItem->owner_id       = $this->owner->id;
         $menuItem->id             = null;
         $menuItem->database_id    = null;
         $menuItem->database_name  = null;
@@ -681,11 +464,11 @@ class MenuService
         $menuItem->title          = 'Resume';
         $menuItem->plural         = 'Resumes';
         $menuItem->label          = 'Resume';
-        $menuItem->active         = $routeName == $currentRouteName;
-        $menuItem->guest          = $envType == 'guest' ? 1 : 0;
-        $menuItem->user           = $envType == 'user' ? 1 : 0;
-        $menuItem->admin          = $envType == 'admin' ? 1 : 0;
-        $menuItem->global         = $envType == 'admin' ? 1 : 0;
+        $menuItem->active         = $routeName == $this->currentRouteName;
+        $menuItem->guest          = $this->envType == 'guest' ? 1 : 0;
+        $menuItem->user           = $this->envType == 'user' ? 1 : 0;
+        $menuItem->admin          = $this->envType == 'admin' ? 1 : 0;
+        $menuItem->global         = $this->envType == 'global' ? 1 : 0;
         $menuItem->menu           = 1;
         $menuItem->menu_level     = $level;
         $menuItem->menu_collapsed = 1;
@@ -709,55 +492,32 @@ class MenuService
     /**
      * Adds the fields to resource needed for a menu item.
      *
-     * @param AdminResource $resource
-     * @param string $envType
-     * @param Admin|null $admin
-     * @param Admin|null $loggedInAdmin
-     * @param User|null $user
-     * @param User|null $loggedInUser
-     * @param string|null $currentRouteName
-     * @return AdminResource
+     * @param Resource|AdminResource $resource
+     * @return Resource|AdminResource
      */
-    public function getResourceMenuItem(AdminResource $resource,
-                                                      string      $envType,
-                                                      Admin|null  $admin,
-                                                      Admin|null  $loggedInAdmin,
-                                                      User|null   $user,
-                                                      User|null   $loggedInUser,
-                                                      string|null $currentRouteName): AdminResource
+    public function getResourceMenuItem(Resource|AdminResource $resource): Resource|AdminResource
     {
-        $route = getResourceRouteName(
-            $envType,
-            $resource->database_name,
-            str_replace('_', '-', $resource->name),
-            $admin
-        );
+        $route = $this->envType . '.' . $resource->database_name . '.' . $resource->name . '.index';
 
-        if (empty($route)) {
-
-            $url = '';
-
-        } else {
-
-            if (explode('.', $route)[0] == 'admin') {
-
-                $url = isRootAdmin() ? adminRoute($route) : adminRoute($route, $admin);
-
+        if (Route::has($route)) {
+            if ($this->envType == 'admin') {
+                $url = (($this->envType == 'admin') && $resource->has_owner && !empty($this->admin) && !empty($this->admin->root))
+                    ? route($route, [ 'owner_id' => $this->owner->id ])
+                    : route($route);
             } else {
-
-                try {
-                    $url = route($route, $admin);
-                } catch (\Throwable $exception) {
-                    $url = '';
-                }
+                $url = ($resource->has_owner && !empty($this->owner) )
+                    ? route($route, $this->owner)
+                    : route($route);
             }
+        } else {
+            $url = 'ROUTE: ' . $route;
         }
 
         $resource->label    = $resource->title;
         $resource->route    = $route;
         $resource->url      = $url;
         $resource->children = [];
-        $resource->active = !empty($currentRouteName) && ($resource->route === $currentRouteName) ? 1 : 0;
+        $resource->active = !empty($this->currentRouteName) && ($resource->route === $this->currentRouteName) ? 1 : 0;
 
         return $resource;
     }

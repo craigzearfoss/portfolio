@@ -1,8 +1,8 @@
-@if($admin)
+@if($owner)
 
     @php
         $portfolioResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
-            $admin->id,
+            $owner->id,
             'portfolio',
             [
                 'public'   => 1,
@@ -11,7 +11,7 @@
         );
 
         $personalResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
-            $admin->id,
+            $owner->id,
             'personal',
             [
                 'public'   => 1,
@@ -28,10 +28,10 @@
 
                 @include('admin.components.image', [
                     'name'     => 'image',
-                    'src'      => $admin->image,
-                    'alt'      => $admin->name,
+                    'src'      => $owner->image,
+                    'alt'      => $owner->name,
                     'width'    => '200px',
-                    'filename' => getFileSlug($admin->name, $admin->image)
+                    'filename' => getFileSlug($owner->name, $owner->image)
                 ])
 
                 <div class="show-container p-4">
@@ -40,7 +40,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('admin.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('admin.admin.resume', $admin),
+                                'href'   => route('admin.portfolio.resume', $owner),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
@@ -48,24 +48,24 @@
                         </span>
                     </div>
 
-                    @if(!empty($admin->role))
+                    @if(!empty($owner->role))
                         @include('admin.components.show-row', [
                             'name'  => 'role',
-                            'value' => $admin->role ?? ''
+                            'value' => $owner->role ?? ''
                         ])
                     @endif
 
-                    @if(!empty($admin->employer))
+                    @if(!empty($owner->employer))
                         @include('admin.components.show-row', [
                             'name'  => 'employer',
-                            'value' => '<br>' . $admin->employer ?? ''
+                            'value' => '<br>' . $owner->employer ?? ''
                         ])
                     @endif
 
-                    @if(!empty($admin->bio))
+                    @if(!empty($owner->bio))
                         @include('admin.components.show-row', [
                             'name'  => 'bio',
-                            'value' => $admin->bio ?? ''
+                            'value' => $owner->bio ?? ''
                         ])
                     @endif
 
@@ -87,7 +87,7 @@
                                 <li>
                                     @include('admin.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => route('admin.admin.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => 'admin.portfolio.'.$resourceType['name'].'.index', $owner),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>
@@ -111,7 +111,7 @@
                                 <li>
                                     @include('admin.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => route('admin.admin.personal.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => 'admin.system.'.$resourceType['name'].'.index'),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

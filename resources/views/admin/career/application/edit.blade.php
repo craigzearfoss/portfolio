@@ -9,18 +9,19 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.application.index') ],
+        view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -41,7 +42,7 @@
                 'value' => $application->id
             ])
 
-            @if(isRootAdmin())
+            @if($admin->root)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

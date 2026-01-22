@@ -8,7 +8,7 @@
             'name'     => '',
             'label'    => '',
             'value'    => '',
-            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'guest.'),
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'guest'),
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),
@@ -18,11 +18,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

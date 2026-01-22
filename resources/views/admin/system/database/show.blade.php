@@ -1,17 +1,17 @@
 @php
     $buttons = [];
-    if (canDelete($database, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.database.edit', $database) ];
+    if (canUpdate($database, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.database.edit', $database)])->render();
     }
-    if (canCreate($database, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.system.database.create') ];
+    if (canCreate('database', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.system.database.create')])->render();
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.database.index') ];
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.database.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Database: ' . $database->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Databases',       'href' => route('admin.system.database.index') ],
@@ -21,11 +21,11 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -37,7 +37,7 @@
             'value' => $database->id
         ])
 
-        @if(isRootAdmin())
+        @if($admin->root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $database->owner->username

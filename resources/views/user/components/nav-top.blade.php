@@ -1,9 +1,9 @@
-@php
-    $menuItems = (new \App\Services\MenuService())->getTopMenu(
-        \App\Services\PermissionService::ENV_USER,
-        $admin ?? null
-    );
-@endphp
+@if($menuItems = $menuService->topMenu())
+
+    @php
+        $isAdminEnv = !empty($currentRouteName) && (explode('.', $currentRouteName)[0] == 'admin');
+    @endphp
+
 <nav id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">
         <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">

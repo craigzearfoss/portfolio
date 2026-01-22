@@ -6,6 +6,7 @@ use App\Models\System\Admin;
 use App\Models\System\AdminResource;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -72,6 +73,70 @@ class AdminDatabase extends Model
     {
         return $this->hasMany(AdminResource::class, 'database_id')
             ->where('owner_id', $this->owner()->id)->orderBy('name', 'asc');
+    }
+
+    /**
+     * Returns the databases for specified owner.
+     *
+     * @param int|null $ownerId
+     * @param string|null $envType
+     * @param array $filters
+     * @param array $orderBy
+     * @return Collection
+     * @throws \Exception
+     */
+    public static function ownerDatabases(int|null    $ownerId,
+                                        string|null $envType = PermissionService::ENV_GUEST,
+                                        array       $filters = [],
+                                        array       $orderBy = [ 'sequence' => 'asc' ]): Collection
+    {
+        if ($envType == 'root') $envType = PermissionService::ENV_ADMIN;
+        if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
+            throw new \Exception('ENV type ' . $envType . ' not supported');
+        }
+
+        $sortField = $orderBy[0] ?? 'sequence';
+        $sortDir   = $orderBy[1] ?? 'asc';
+        if (substr($sortField, 0, 16) !== 'admin_databases.') $sortField = 'admin_databases.'.$sortField;
+
+        // create the query
+        $query = AdminDatabase::orderBy($sortField, $sortDir);
+
+        if (!empty($ownerId)) {
+            $query->where('admin_databases.owner_id', $ownerId);
+        }
+
+        // apply env type filter
+        if (!empty($envType)) {
+            $query->where('admin_databases.'.$envType, 1);
+        }
+
+        // Apply filters to the query.
+        foreach ($filters as $col => $value) {
+
+            if (substr($col, 0, 16) !== 'admin_databases.') $col = 'admin_databases.'.$col;
+
+            if (is_array($value)) {
+                $query = $query->whereIn($col, $value);
+            } else {
+                $parts = explode(' ', $col);
+                $col = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->where($col, $operation, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($col, $value);
+                    } else {
+                        throw new \Exception('Invalid admin_databases filter column: ' . $col . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($col, $value);
+                }
+            }
+        }
+
+        return $query->get();
     }
 
     /**

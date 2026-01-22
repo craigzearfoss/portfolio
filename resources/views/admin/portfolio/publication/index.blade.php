@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('publication', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Publication', 'href' => route('admin.portfolio.publication.create',$admin) ];
+    if (canCreate('publication', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Publication', 'href' => route('admin.portfolio.publication.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Publications',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Publications' ],
@@ -16,21 +16,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $publications->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>title</th>
@@ -43,30 +47,32 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>title</th>
-                <th class="has-text-centered">featured</th>
-                <th>publication<br>name</th>
-                <th>publisher</th>
-                <th class="has-text-centered">year</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>title</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>publication<br>name</th>
+                    <th>publisher</th>
+                    <th class="has-text-centered">year</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($publications as $publication)
 
                 <tr data-id="{{ $publication->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $publication->owner->username ?? '' }}
                         </td>
                     @endif
@@ -91,22 +97,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $publication->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.publication.destroy', [$admin, $publication->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($publication))
+                            @if(canRead($publication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.publication.show', [$admin, $publication->id]),
+                                    'href'  => route('admin.portfolio.publication.show', $publication),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($publication))
+                            @if(canUpdate($publication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.publication.edit', [$admin, $publication->id]),
+                                    'href'  => route('admin.portfolio.publication.edit', $publication),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -126,17 +132,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($publication))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($publication, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.publication.destroy', $publication) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -144,7 +152,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '9' : '8' }}">There are no publications.</td>
+                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no publications.</td>
                 </tr>
 
             @endforelse
@@ -152,7 +160,9 @@
             </tbody>
         </table>
 
-        {!! $publications->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $publications->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

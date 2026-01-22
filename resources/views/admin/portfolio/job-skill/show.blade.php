@@ -1,12 +1,12 @@
 @php
     $buttons = [];
-    if (canUpdate($jobSkill, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-skill.edit', $jobSkill) ];
+    if (canUpdate($jobSkill, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.job-skill.edit', $jobSkill)])->render();
     }
-    if (canCreate($jobSkill, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add Skill', 'href' => route('admin.portfolio.job-skill.create', ['job_id' => $jobSkill->job->id]) ];
+    if (canCreate('job-skill', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create')])->render();
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-skill.index') ];
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-skill.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? $jobSkill->name,
@@ -23,11 +23,11 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -39,7 +39,7 @@
             'value' => $jobSkill->id
         ])
 
-        @if(isRootAdmin())
+        @if($admin->root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $jobSkill->owner->username

@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('audio', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Audio', 'href' => route('admin.portfolio.audio.create', $admin) ];
+    if (canCreate('audio', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Audio', 'href' => route('admin.portfolio.audio.create', $admin)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Audio',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Audio' ],
@@ -16,21 +16,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $audios->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -42,29 +46,31 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th class="has-text-centered">featured</th>
-                <th>type</th>
-                <th>year</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>type</th>
+                    <th>year</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($audios as $audio)
 
                 <tr data-id="{{ $audio->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $audio->owner->username ?? '' }}
                         </td>
                     @endif
@@ -91,11 +97,11 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $audio->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.audio.destroy', [$admin, $audio->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($audio))
+                            @if(canRead($audio, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.audio.show', [$admin, $audio->id]),
@@ -103,7 +109,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($audio))
+                            @if(canUpdate($audio, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.audio.edit', [$admin, $audio->id]),
@@ -126,17 +132,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($audio))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($audio, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.audio.destroy', $audio) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -144,7 +152,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There is no audio.</td>
+                    <td colspan="{{ $admin->root ? '8' : '7' }}">There is no audio.</td>
                 </tr>
 
             @endforelse
@@ -152,7 +160,9 @@
             </tbody>
         </table>
 
-        {!! $audios->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $audios->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

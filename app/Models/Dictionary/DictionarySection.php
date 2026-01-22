@@ -47,14 +47,14 @@ class DictionarySection extends Model
      * @param array $filters
      * @param bool $includeBlank
      * @param string $keyField - id, name, slug, table, or route
-     * @param string $routePrefix
+     * @param string $envType
      * @return array|string[]
      */
     public static function listOptions(
         array $filters = [],
         bool $includeBlank = false,
         string $keyField = 'id',
-        string $routePrefix = ''
+        string $envType= ''
     ): array
     {
         if (!in_array($keyField, ['id', 'name', 'slug', 'table', 'route'])) {
@@ -64,7 +64,7 @@ class DictionarySection extends Model
         $options = [];
         if ($includeBlank) {
             $key = $keyField == 'route'
-                ? route($routePrefix.'dictionary.index')
+                ? route((!empty($envType) ? $envType . '.' : '') . 'dictionary.index')
                 : '';
             $options = [
                 $key => ''
@@ -87,7 +87,7 @@ class DictionarySection extends Model
                     $key = $dictionarySection->{$keyField};
                     break;
                 case 'route':
-                    $key =route($routePrefix.'dictionary.'.$dictionarySection->slug.'.index');
+                    $key =route((!empty($envType) ? $envType . '.' : '') . 'dictionary.'.$dictionarySection->slug.'.index');
                     break;
             }
 

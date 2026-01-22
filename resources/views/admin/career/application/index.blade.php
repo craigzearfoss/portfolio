@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('application', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ];
+    if (canCreate('application', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create')])->render();
     }
 @endphp
 @php
 if (!empty($resume)) {
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
@@ -16,7 +16,7 @@ if (!empty($resume)) {
     ];
 } else {
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Applications' ]
@@ -30,87 +30,102 @@ if (!empty($resume)) {
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $applications->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
                 <?php /*
-                <th>company</th>
-                <th>role</th>
+                    <th>company</th>
+                    <th>role</th>
                 */ ?>
                 <th>active</th>
                 <th>rating</th>
                 <?php /*
-                <th>posted</th>
+                    <th>posted</th>
                 */ ?>
                 <th>applied</th>
                 <th>compensation</th>
                 <?php /*
-                <th>duration</th>
+                    <th>duration</th>
                 */ ?>
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">location</th>
                 <th>location</th>
-                    <?php /*
-                <th class="has-text-centered">w2</th>
-                <th class="has-text-centered">relo</th>
-                <th class="has-text-centered">ben</th>
-                <th class="has-text-centered">vac</th>
-                <th class="has-text-centered">health</th>
-                <th>source</th>
+                <?php /*
+                    <th class="has-text-centered">w2</th>
+                    <th class="has-text-centered">relo</th>
+                    <th class="has-text-centered">ben</th>
+                    <th class="has-text-centered">vac</th>
+                    <th class="has-text-centered">health</th>
+                    <th>source</th>
                 */ ?>
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>company</th>
-                <th>role</th>
-                <th>active</th>
-                <th>rating</th>
-                <th>posted</th>
-                <th>applied</th>
-                <th>compensation</th>
-                <th>duration</th>
-                <th class="has-text-centered">employment<br>type</th>
-                <th class="has-text-centered">location<br>type</th>
-                <th>location</th>
-                <th class="has-text-centered">w2</th>
-                <th class="has-text-centered">relo</th>
-                <th class="has-text-centered">ben</th>
-                <th class="has-text-centered">vac</th>
-                <th class="has-text-centered">health</th>
-                <th>source</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <?php /*
+                        <th>company</th>
+                        <th>role</th>
+                    */ ?>
+                    <th>active</th>
+                    <th>rating</th>
+                    <?php /*
+                        <th>posted</th>
+                    */ ?>
+                    <th>applied</th>
+                    <th>compensation</th>
+                    <?php /*
+                        <th>duration</th>
+                    */ ?>
+                    <th class="has-text-centered">type</th>
+                    <th class="has-text-centered">location</th>
+                    <th>location</th>
+                    <?php /*
+                        <th class="has-text-centered">w2</th>
+                        <th class="has-text-centered">relo</th>
+                        <th class="has-text-centered">ben</th>
+                        <th class="has-text-centered">vac</th>
+                        <th class="has-text-centered">health</th>
+                        <th>source</th>
+                    */ ?>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($applications as $application)
 
                 <tr data-id="{{ $application->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $application->owner->username }}
                         </td>
                     @endif
@@ -122,7 +137,9 @@ if (!empty($resume)) {
                         @if(!empty($application->company))
                             @include('admin.components.link', [
                                 'name' => $application->company->name ?? '',
-                                'href' => route('admin.career.company.show', $application->company['id'])
+                                'href' => route('admin.career.company.show',
+                                                \App\Models\Career\Company::find($application->company->id
+                                          )
                             ])
                         @endif
                     </td>
@@ -193,22 +210,22 @@ if (!empty($resume)) {
                         {!! $application->jobBoard->name ?? '' }}
                     </td>
                     */ ?>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.career.application.destroy', $application->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($application))
+                            @if(canRead($application, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.career.application.show', $application->id),
+                                    'href'  => route('admin.career.application.show', $application),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($application))
+                            @if(canUpdate($application, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.career.application.edit', $application->id),
+                                    'href'  => route('admin.career.application.edit', $application),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -228,17 +245,19 @@ if (!empty($resume)) {
                                 ])
                             @endif
 
-                            @if(canDelete($application))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($application, $admin))
+                                <form class="delete-resource" action="{!! route('admin.career.ingredient.destroy', $application) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -246,7 +265,7 @@ if (!empty($resume)) {
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '14' : '13' }}">There are no applications.</td>
+                    <td colspan="{{ $admin->root ? '10' : '9' }}">There are no applications.</td>
                 </tr>
 
             @endforelse
@@ -254,7 +273,9 @@ if (!empty($resume)) {
             </tbody>
         </table>
 
-        {!! $applications->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $applications->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

@@ -1,14 +1,18 @@
 @php /* for url '/' */ @endphp
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? config('app.name'),
-    'breadcrumbs'   => [],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'title'            => $pageTitle ?? config('app.name'),
+    'breadcrumbs'      => [],
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -19,7 +23,7 @@
 
             <div class="column has-text-centered">
 
-    ~            <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }} Admin!</h2>
+                <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }} Admin!</h2>
 
                 <div class="is-flex is-align-items-center is-justify-content-center mb-2">
                     <div class="box has-text-left"  <?php /* style="max-width: 40em;" */ ?>>
@@ -51,7 +55,7 @@
 
                 <?php /*
                 <div class="has-text-centered">
-                    <a class="is-size-6" href="{{ route('user.login') }}">
+                    <a class="is-size-6" href="{{ route('admin.login') }}">
                         User Login
                     </a>
                     |

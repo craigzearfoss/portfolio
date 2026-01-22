@@ -23,13 +23,15 @@ class ArtController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $owner = $admin;
 
-        $arts = Art::where('owner_id', $admin->id)
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $arts = Art::where('owner_id', $owner->id)
             ->orderBy('name', 'asc')->orderBy('artist', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.art.index'), compact('arts'))
+        return view(themedTemplate('guest.portfolio.art.index'), compact('owner', 'arts'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -42,10 +44,12 @@ class ArtController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$art = Art::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        $owner = $admin;
+
+        if (!$art = Art::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.art.show'), compact('art'));
+        return view(themedTemplate('guest.portfolio.art.show'), compact('owner', 'art'));
     }
 }

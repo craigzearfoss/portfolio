@@ -6,13 +6,9 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreArtRequest;
 use App\Http\Requests\Portfolio\UpdateArtRequest;
 use App\Models\Portfolio\Art;
-use App\Models\System\Admin;
-use Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -25,19 +21,20 @@ class ArtController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        // Note: $this->admin is set in the BaseAdminController.
-        if (empty($this->admin)) {
-            $arts = Art::orderBy('name', 'asc')->paginate($perPage);
-            $pageTitle = 'Art';
+        if (!empty($this->owner)) {
+            $arts = Art::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
         } else {
-            $arts = Art::where('owner_id', $this->admin->id)->orderBy('name', 'asc')->paginate($perPage);
-            $pageTitle = $this->admin->name . ' Art';
+            $arts = Art::orderBy('name', 'asc')->paginate($perPage);
         }
+
+        $pageTitle = empty($this->owner) ? 'Art' : $this->owner->name . ' Art';
 
         return view('admin.portfolio.art.index', compact('arts','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -74,7 +71,7 @@ class ArtController extends BaseAdminController
      * @param Art $art
      * @return View
      */
-    public function show(Art $art, Admin|string|null $admin): View
+    public function show(Art $art): View
     {
         return view('admin.portfolio.art.show', compact('art'));
     }

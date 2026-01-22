@@ -1,37 +1,37 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New User',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Users',           'href' => route('root.user.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Users',           'href' => route('admin.system.user.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user.index') ],
+        view('admin.components.nav-button-back', ['href' => referer('admin.system.user.index')])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('root.user.store') }}" method="POST">
+        <form action="{{ route('admin.system.user.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('root.user.index')
+                'value' => referer('admin.system.user.index')
             ])
 
             <div class="card p-4">
@@ -141,20 +141,20 @@
             ])
 
             @include('admin.components.form-location-horizontal', [
-                'street'     => old('street') ?? $admin->street,
-                'street2'    => old('street2') ?? $admin->street2,
-                'city'       => old('city') ?? $admin->city,
-                'state_id'   => old('state_id') ?? $admin->state_id,
+                'street'     => old('street') ?? $owner->street,
+                'street2'    => old('street2') ?? $owner->street2,
+                'city'       => old('city') ?? $owner->city,
+                'state_id'   => old('state_id') ?? $owner->state_id,
                 'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
-                'zip'        => old('zip') ?? $admin->zip,
-                'country_id' => old('country_id') ?? $admin->country_id,
+                'zip'        => old('zip') ?? $owner->zip,
+                'country_id' => old('country_id') ?? $owner->country_id,
                 'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
                 'message'    => $message ?? '',
             ])
 
             @include('admin.components.form-coordinates-horizontal', [
-                'latitude'  => old('latitude') ?? $admin->latitude,
-                'longitude' => old('longitude') ?? $admin->longitude,
+                'latitude'  => old('latitude') ?? $owner->latitude,
+                'longitude' => old('longitude') ?? $owner->longitude,
                 'message'   => $message ?? '',
             ])
 
@@ -211,7 +211,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add User',
-                'cancel_url' => referer('root.user.index')
+                'cancel_url' => referer('admin.system.user.index')
             ])
 
         </form>

@@ -21,7 +21,7 @@ class StackController extends BaseGuestController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $stacks = Stack::where('name', '!=', 'other')
             ->orderBy('name', 'asc')

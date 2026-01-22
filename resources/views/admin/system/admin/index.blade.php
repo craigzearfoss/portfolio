@@ -1,37 +1,41 @@
 @php
     $buttons = [];
-    if (canCreate('admin', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Admin', 'href' => route('admin.admin.create') ];
+    if (canCreate('admin', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Admin', 'href' => route('admin.system.admin.create')])->render();
     }
-    if (canRead('admin-team', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Teams', 'href' => route('admin.admin-team.index', $admin) ];
+    if (canRead('admin-team', $admin)) {
+        $buttons[] = view('admin.components.nav-button-view', ['name' => 'Admin Teams', 'href' => route('admin.system.admin-team.index')])->render();
     }
-    if (canRead('admin-group', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.admin-group.index', $admin) ];
+    if (canRead('admin-group', $admin)) {
+        $buttons[] = view('admin.components.nav-button-view', ['name' => 'Admin Groups', 'href' => route('admin.system.admin-group.index')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admins',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => adminRoute('admin.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => adminRoute('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => adminRoute('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admins' ]
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_top)
+            {!! $theAdmins->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -47,77 +51,83 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th style="white-space: nowrap;">user name</th>
-                <th>label</th>
-                <th>team</th>
-                <th>email</th>
-                <th>status</th>
-                <th class="has-text-centered">root</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th style="white-space: nowrap;">user name</th>
+                    <th>label</th>
+                    <th>team</th>
+                    <th>email</th>
+                    <th>status</th>
+                    <th class="has-text-centered">root</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
-            @forelse ($admins as $admin)
+            @forelse ($theAdmins as $thisAdmin)
 
-                <tr data-id="{{ $admin->id }}">
+                <tr data-id="{{ $thisAdmin->id }}">
                     <td data-field="name">
-                        {!! $admin->name !!}
+                        {!! $thisAdmin->name !!}
                     </td>
-                    <td data-field="username">
-                        {{ $admin->username }}
+                    <td data-field="username" style="white-space: nowrap;">
+                        {{ $thisAdmin->username }}
                     </td>
                     <td data-field="label">
-                        {!! $admin->label !!}
+                        {!! $thisAdmin->label !!}
                     </td>
                     <td data-field="admin_team_id">
-                        @include('admin.components.link', [
-                            'name' => $admin->team->name ?? '',
-                            'href' => route('admin.admin-team.show', [$admin, $admin->team->id])
-                        ])
+                        @if(!empty($admin->team_id))
+                            @include('admin.components.link', [
+                                'name' => $thisAdmin->team->name ?? '',
+                                'href' => route('admin.system.admin-team.show',
+                                                [ $thisAdmin, \App\Models\System\AdminTeam::where('id', $thisAdmin->team->id)->first() ]
+                                          )
+                            ])
+                        @endif
                     </td>
                     <td data-field="email">
-                        {!! $admin->email !!}
+                        {!! $thisAdmin->email !!}
                     </td>
                     <td data-field="phone">
-                        {!! \App\Models\System\User::statusName($admin->status) ?? '' !!}
+                        {!! \App\Models\System\User::statusName($thisAdmin->status) ?? '' !!}
                     </td>
                     <td data-field="root" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $admin->root ])
+                        @include('admin.components.checkmark', [ 'checked' => $thisAdmin->root ])
                     </td>
                     <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $thisAdmin->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.admin.destroy', $admin->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($admin))
+                            @if(canRead($thisAdmin, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.admin.show', $admin->id),
+                                    'href'  => route('admin.system.admin.show', $thisAdmin->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($admin))
+                            @if(canUpdate($thisAdmin, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.admin.edit', $admin->id),
+                                    'href'  => route('admin.system.admin.edit', $thisAdmin),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
 
-                            @if (!empty($admin->link))
+                            @if (!empty($thisAdmin->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => !empty($admin->link_name) ? $admin->link_name : 'link',
-                                    'href'   => $admin->link,
+                                    'title'  => !empty($thisAdmin->link_name) ? $thisAdmin->link_name : 'link',
+                                    'href'   => $thisAdmin->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'
                                 ])
@@ -129,17 +139,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($admin))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($thisAdmin, $admin))
+                                <form class="delete-resource" action="{!! route('admin.system.admin.destroy', $thisAdmin) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -155,7 +167,9 @@
             </tbody>
         </table>
 
-        {!! $admins->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $theAdmins->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

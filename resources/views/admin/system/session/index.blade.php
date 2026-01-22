@@ -1,20 +1,20 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Resources',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Sessions' ],
     ],
     'buttons'          => [],
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -32,18 +32,20 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>id</th>
-                <th>user_id</th>
-                <th>admin_id</th>
-                <th>ip_address</th>
-                <th>last_activity</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>id</th>
+                    <th>user_id</th>
+                    <th>admin_id</th>
+                    <th>ip_address</th>
+                    <th>last_activity</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($sessions as $session)
@@ -65,7 +67,7 @@
                         {!! $session->last_activity !!}
                     </td>
                     <td>
-                        <a class="button is-small px-1 py-0" href="{!! route('root.session.show', $session->id) !!}">
+                        <a class="button is-small px-1 py-0" href="{!! route('admin.session.show', $session->id) !!}">
                             <i class="fa-solid fa-list"></i>
                         </a>
                     </td>
@@ -74,7 +76,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ 6 }}">There are no sessions.</td>
+                    <td colspan="6">There are no sessions.</td>
                 </tr>
 
             @endforelse

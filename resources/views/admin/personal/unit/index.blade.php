@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('unit', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'href' => route('admin.personal.unit.create') ];
+    if (canCreate('unit', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Unit', 'href' => route('admin.personal.unit.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Units',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Units' ],
@@ -16,16 +16,20 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_top)
+            {!! $units->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -36,16 +40,18 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>abbreviation</th>
-                <th>system</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>abbreviation</th>
+                    <th>system</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($units as $unit)
@@ -60,11 +66,11 @@
                     <td data-field="system" class="has-text-centered">
                         {!! $unit->system !!}
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.personal.unit.destroy', $unit->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($unit))
+                            @if(canRead($unit, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.personal.unit.show', $unit->id),
@@ -72,7 +78,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($unit))
+                            @if(canUpdate($unit, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.personal.unit.edit', $unit->id),
@@ -95,17 +101,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($unit))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($unit, $admin))
+                                <form class="delete-resource" action="{!! route('admin.personal.unit.destroy', $unit) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -121,7 +129,9 @@
             </tbody>
         </table>
 
-        {!! $units->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $units->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

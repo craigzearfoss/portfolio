@@ -19,10 +19,6 @@
                     <a href="{!! route('privacy-policy') !!}">Privacy policy</a>
                     <span class="mx-2"> | </span>
                     <a href="{!! route('contact') !!}">Contact</a>
-                    @if(!isUser())
-                        <span class="mx-2"> | </span>
-                        <a href="{{ route('user.register') }}">Register</a>
-                    @endif
                 </div>
             </div>
         </div>

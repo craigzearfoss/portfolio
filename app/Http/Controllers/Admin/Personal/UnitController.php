@@ -8,7 +8,6 @@ use App\Http\Requests\Personal\UpdateUnitsRequest;
 use App\Models\Personal\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -25,11 +24,13 @@ class UnitController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $units = Unit::orderBy('name', 'asc')->paginate($perPage);
+        $units = Unit::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.personal.unit.index', compact('units'))
+        $pageTitle = 'Units';
+
+        return view('admin.personal.unit.index', compact('units', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

@@ -25,18 +25,26 @@ class JobSkillController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $jobId = $request->job_id;
-        if (!empty($jobId)) {
-            $job = Job::find($jobId);
-            $jobSkills = JobSkill::where('job_id', $jobId)->latest()->paginate($perPage);
+        if ($jobId = $request->job_id) {
+            $job = !empty($this->owner)
+                ? Job::where('owner_id', $this->owner->id)->where('id', $jobId)->first()
+                : Job::find($jobId);
+            if (empty($job)) {
+                abort(404, 'Job ' . $jobId . ' not found'
+                    . (!empty($this->owner) ? ' for ' . $this->owner->username : '') . '.');
+            } else {
+                $jobSkills = JobSkill::where('job_id', $jobId)->latest()->paginate($perPage);
+            }
         } else {
             $job = null;
             $jobSkills = JobSkill::latest()->paginate($perPage);
         }
 
-        return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job'))
+        $pageTitle = empty($this->owner) ? 'Job Skills' : $this->owner->name . ' Job Skills';
+
+        return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

@@ -1,12 +1,12 @@
 @php
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs' ,           'href' => route('admin.portfolio.job.index') ],
     ];
     if (!empty($job)) {
-        $breadcrumbs[] = [ 'name' => $job->name, 'href' => route('admin.portfolio.job.show', $job->id) ];
+        $breadcrumbs[] = [ 'name' => $job->name, 'href' => route('admin.portfolio.job.show', $job) ];
         $breadcrumbs[] = [ 'name' => 'Skills',   'href' => route('admin.portfolio.job-skill.index', ['job_id' => $job->id]) ];
 
     } else {
@@ -14,8 +14,8 @@
     }
 
     $buttons = [];
-    if (canCreate('job-skill', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create') ];
+    if (canCreate('job-skill', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
@@ -25,21 +25,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $jobSkills->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>company</th>
@@ -50,28 +54,30 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>company</th>
-                <th>summary</th>
-                <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>company</th>
+                    <th>summary</th>
+                    <th class="has-text-centered">featured</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($jobSkills as $jobSkill)
 
                 <tr data-id="{{ $jobSkill->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $jobSkill->owner->username ?? '' }}
                         </td>
                     @endif
@@ -89,22 +95,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobSkill->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.job-skill.destroy', $jobSkill->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($jobSkill))
+                            @if(canRead($jobSkill, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.job-skill.show', $jobSkill->id),
+                                    'href'  => route('admin.portfolio.job-skill.show', $jobSkill),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($jobSkill))
+                            @if(canUpdate($jobSkill, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.job-skill.edit', $jobSkill->id),
+                                    'href'  => route('admin.portfolio.job-skill.edit', $jobSkill),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -124,17 +130,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($jobSkill))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($jobSkill, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.job-skill.destroy', $jobSkill) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -142,7 +150,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no job skills.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no job skills.</td>
                 </tr>
 
             @endforelse
@@ -150,7 +158,9 @@
             </tbody>
         </table>
 
-        {!! $jobSkills->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $jobSkills->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

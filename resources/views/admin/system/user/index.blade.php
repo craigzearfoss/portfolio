@@ -1,37 +1,41 @@
 @php
 $buttons = [];
-if (canCreate('user', loggedInAdminId())) {
-    $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('root.user.create') ];
+if (canCreate('user', $admin)) {
+    $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New User', 'href' => route('admin.system.user.create')])->render();
 }
-if (canRead('user', loggedInAdminId())) {
-    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('root.user-team.index') ];
+if (canRead('user-team', $admin)) {
+    $buttons[] = view('admin.components.nav-button-view', ['name' => 'User Teams', 'href' => route('admin.system.user-team.index')])->render();
 }
-if (canRead('user', loggedInAdminId())) {
-    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Groups', 'href' => route('root.user-group.index') ];
+if (canRead('user-group', $admin)) {
+    $buttons[] = view('admin.components.nav-button-view', ['name' => 'User Groups', 'href' => route('admin.system.user-group.index')])->render();
 }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Users',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Users' ]
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_top)
+            {!! $users->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -46,20 +50,22 @@ if (canRead('user', loggedInAdminId())) {
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>user name</th>
-                <th>name</th>
-                <th>team</th>
-                <th>email</th>
-                <th class="has-text-centered">verified</th>
-                <th>status</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>user name</th>
+                    <th>name</th>
+                    <th>team</th>
+                    <th>email</th>
+                    <th class="has-text-centered">verified</th>
+                    <th>status</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($users as $user)
@@ -74,7 +80,7 @@ if (canRead('user', loggedInAdminId())) {
                     <td data-field="user_team_id">
                         @include('user.components.link', [
                             'name' => $user->team->name,
-                            'href' => route('admin.user-team.show', [$user, $user->team->id])
+                            'href' => route('admin.system.user-team.show', [$user, $user->team->id])
                         ])
                     </td>
                     <td data-field="email">
@@ -89,22 +95,22 @@ if (canRead('user', loggedInAdminId())) {
                     <td data-field=disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('root.user.destroy', $user->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($user))
+                            @if(canRead($user, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('root.user.show', $user->id),
+                                    'href'  => route('admin.system.user.show', $user),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($user))
+                            @if(canUpdate($user, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('root.user.edit', $user->id),
+                                    'href'  => route('admin.system.user.edit', $user),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -124,17 +130,19 @@ if (canRead('user', loggedInAdminId())) {
                                 ])
                             @endif
 
-                            @if(canDelete($user))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($user, $admin))
+                                <form class="delete-resource" action="{!! route('admin.system.user.destroy', $user) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -150,7 +158,9 @@ if (canRead('user', loggedInAdminId())) {
             </tbody>
         </table>
 
-        {!! $users->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $users->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

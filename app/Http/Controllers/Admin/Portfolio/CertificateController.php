@@ -9,8 +9,6 @@ use App\Models\Portfolio\Certificate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -19,18 +17,26 @@ use Illuminate\View\View;
 class CertificateController extends BaseAdminController
 {
     /**
-     * Display a listing of certificates.
+     * Display a listing of certificate.
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $certificates = Certificate::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $certificates = Certificate::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $certificates = Certificate::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.portfolio.certificate.index', compact('certificates'))
+        $pageTitle = empty($this->owner) ? 'Certificates' : $this->owner->name . ' Certificates';
+
+        return view('admin.portfolio.certificate.index', compact('certificates', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

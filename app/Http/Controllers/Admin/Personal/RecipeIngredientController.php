@@ -24,15 +24,26 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        if ($recipeId = $request->query('recipe_id')) {
-            $recipeIngredients = RecipeIngredient::where('recipe_id', $recipeId)->orderBy('sequence', 'asc')->paginate($perPage);
+        if ($recipeId = $request->recipe_id) {
+            $recipe = !empty($this->owner)
+                ? Recipe::where('owner_id', $this->owner->id)->where('id', $recipeId)->first()
+                : Recipe::find($recipeId);
+            if (empty($recipe)) {
+                abort(404, 'Recipe ' . $recipeId . ' not found'
+                    . (!empty($this->owner) ? ' for ' . $this->owner->username : '') . '.');
+            } else {
+                $recipeIngredients = RecipeIngredient::where('recipe_id', $recipeId)->latest()->paginate($perPage);
+            }
         } else {
+            $recipe = null;
             $recipeIngredients = RecipeIngredient::latest()->paginate($perPage);
         }
 
-        return view('admin.personal.recipe-ingredient.index', compact('recipeIngredients', 'recipeId'))
+        $pageTitle = empty($this->owner) ? 'Recipe Steps' : $this->owner->name . ' Recipe Steps';
+
+        return view('admin.personal.recipe-ingredient.index', compact('recipeIngredients', 'recipeId', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

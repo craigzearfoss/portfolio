@@ -1,23 +1,24 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ?? $admin->name . ' audio',
-    'breadcrumbs'   => [
+    'title'           => $pageTitle ?? $owner->name . ' audio',
+    'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Audio' ],
     ],
-    'buttons'       => [],
+    'buttons'          => [],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'loggedInAdmin' => $loggedInAdmin,
-    'loggedInUser'  => $loggedInUser,
-    'admin'         => $admin,
-    'user'          => $user
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -49,7 +50,7 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name'  => $audio->name,
-                            'href'  => route('guest.portfolio.audio.show', [$admin, $audio->slug]),
+                            'href'  => route('guest.portfolio.audio.show', [$owner, $audio->slug]),
                             'class' => $audio->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

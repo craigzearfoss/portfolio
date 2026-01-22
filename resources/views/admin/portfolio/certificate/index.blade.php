@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('certificate', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Certificate', 'href' => route('admin.portfolio.certificate.create', $admin) ];
+    if (canCreate('certificate', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certificate', 'href' => route('admin.portfolio.certificate.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Certificates',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certificates' ],
@@ -16,21 +16,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $certificates->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -44,31 +48,33 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th class="has-text-centered">featured</th>
-                <th>academy</th>
-                <th>year</th>
-                <th>received</th>
-                <th>expiration</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>academy</th>
+                    <th>year</th>
+                    <th>received</th>
+                    <th>expiration</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($certificates as $certificate)
 
                 <tr data-id="{{ $certificate->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $certificate->owner->username }}
                         </td>
                     @endif
@@ -82,7 +88,7 @@
                         @if (!empty($certificate->academy))
                             @include('admin.components.link', [
                                 'name'   => $certificate->academy->name,
-                                'href'   => route('admin.portfolio.academy.show', $certificate->academy),
+                                'href'   => route('admin.portfolio.academy.show', \App\Models\Portfolio\Academy::find($certificate->academy->id)),
                             ])
                         @endif
                     </td>
@@ -101,19 +107,19 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.certificate.destroy', [$admin, $certificate->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($certificate))
+                            @if(canRead($certificate, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.certificate.show', [$admin, $certificate->id]),
+                                    'href'  => route('admin.portfolio.certificate.show', $certificate),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($certificate))
+                            @if(canUpdate($certificate, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.certificate.edit', [$admin, $certificate->id]),
@@ -136,17 +142,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($certificate))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($certificate, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.certificate.destroy', $certificate) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -154,7 +162,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There are no certificates.</td>
+                    <td colspan="{{ $admin->root ? '10' : '9' }}">There are no certificates.</td>
                 </tr>
 
             @endforelse
@@ -162,7 +170,9 @@
             </tbody>
         </table>
 
-        {!! $certificates->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $certificates->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

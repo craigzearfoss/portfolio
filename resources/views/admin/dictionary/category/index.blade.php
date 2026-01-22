@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('category', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'href' => route('admin.dictionary.category.create') ];
+    if (canCreate('category', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Category', 'href' => route('admin.dictionary.category.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary (categories)',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Categories' ]
@@ -16,7 +16,7 @@
         'name'     => '',
         'label'    => '',
         'value'    => route('admin.dictionary.category.index'),
-        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin.'),
+        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin'),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]),
@@ -24,16 +24,20 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_top)
+            {!! $categories->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -45,17 +49,19 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>abbrev</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>abbrev</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($categories as $category)
@@ -73,72 +79,69 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $category->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        @if(canRead($category))
-                            @include('admin.components.link-icon', [
-                                'title' => 'show',
-                                'href'  => route('admin.dictionary.category.show', $category->id),
-                                'icon'  => 'fa-list'
-                            ])
-                        @endif
+                        <div class="action-button-panel">
 
-                        @if(canUpdate($category))
-                            @include('admin.components.link-icon', [
-                                'title' => 'edit',
-                                'href'  => route('admin.dictionary.category.edit', $category->id),
-                                'icon'  => 'fa-pen-to-square'
-                            ])
-                        @endif
-
-                        @if (!empty($category->link))
-                            @include('admin.components.link-icon', [
-                                'title'  => !empty($category->link_name) ? $category->link_name : 'link',
-                                'href'   => $category->link,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
-
-                        @if (!empty($category->wikipedia))
-                            @include('admin.components.link-icon', [
-                                'title'  => 'Wikipedia page',
-                                'href'   => $category->wikipedia,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
-
-                        @if(canDelete($category))
-
-                            <form action="{!! route('admin.dictionary.category.destroy', $category->id) !!}"
-                                  method="POST"
-                                  style="display:inline-flex"
-                            >
-                                @csrf
-                                @method('DELETE')
-
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
+                            @if(canRead($category, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.dictionary.category.show', $category),
+                                    'icon'  => 'fa-list'
                                 ])
+                            @endif
 
-                            </form>
+                            @if(canUpdate($category, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.dictionary.category.edit', $category),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
 
-                        @endif
+                            @if (!empty($category->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => !empty($category->link_name) ? $category->link_name : 'link',
+                                    'href'   => $category->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
+
+                            @if (!empty($category->wikipedia))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'Wikipedia page',
+                                    'href'   => $category->wikipedia,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
+
+                            @if(canDelete($category, $admin))
+                                <form class="delete-resource" action="{!! route('admin.dictionary.category.destroy', $category) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
+                            @endif
+
+                        </div>
 
                     </td>
                 </tr>
@@ -154,7 +157,9 @@
             </tbody>
         </table>
 
-        {!! $categories->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $categories->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

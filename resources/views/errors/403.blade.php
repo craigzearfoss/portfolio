@@ -1,4 +1,17 @@
-@extends('guest.layouts.empty', [
+@php
+    if (isAdmin()) {
+        $envType = 'admin';
+        $backRoute = 'admin.dashboard';
+    } elseif (isUser()) {
+        $envType = 'user';
+        $backRoute = 'user.dashboard';
+    } else {
+        $envType = 'guest';
+        $backRoute = 'home';
+    }
+    $message = $exception->getMessage();
+@endphp
+@extends($envType.'.layouts.empty', [
     'title' => '403 Forbidden',
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -20,22 +33,12 @@
                         <p>If you are the application owner check the logs for more information.</p>
                     </div>
                     <div>
-                        @if(isAdmin())
-                            @include('admin.components.link', [
-                                'name' => 'Back',
-                                'href' => route('admin.dashboard')
-                            ])
-                        @elseif(isUser())
-                            @include('admin.components.link', [
-                                'name' => 'Back',
-                                'href' => route('user.dashboard')
-                            ])
-                        @else
-                            @include('admin.components.link', [
-                                'name' => 'Back',
-                                'href' => route('home')
-                            ])
-                        @endif
+
+                        @include($envType.'.components.link', [
+                            'name' => 'Back',
+                            'href' => referer($backRoute)
+                        ])
+
                     </div>
                 </div>
             </div>

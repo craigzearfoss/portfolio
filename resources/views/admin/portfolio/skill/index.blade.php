@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('skill', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'href' => route('admin.portfolio.skill.create', $admin) ];
+    if (canCreate('skill', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Skill', 'href' => route('admin.portfolio.skill.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Skills',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Skills' ],
@@ -16,21 +16,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $skills->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -43,30 +47,32 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th class="has-text-centered">featured</th>
-                <th>category</th>
-                <th>level (out of 10)</th>
-                <th>years</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>category</th>
+                    <th>level (out of 10)</th>
+                    <th>years</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($skills as $skill)
 
                 <tr data-id="{{ $skill->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $skill->owner->username ?? '' }}
                         </td>
                     @endif
@@ -98,22 +104,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.skill.destroy', [$admin, $skill->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($skill))
+                            @if(canRead($skill, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.skill.show', [$admin, $skill->id]),
+                                    'href'  => route('admin.portfolio.skill.show', $skill),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($skill))
+                            @if(canUpdate($skill, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.skill.edit', [$admin, $skill->id]),
+                                    'href'  => route('admin.portfolio.skill.edit', $skill),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -133,17 +139,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($skill))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($skill, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.skill.destroy', $skill) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -151,7 +159,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no skills.</td>
+                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no skills.</td>
                 </tr>
 
             @endforelse
@@ -159,7 +167,9 @@
             </tbody>
         </table>
 
-        {!! $skills->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $skills->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

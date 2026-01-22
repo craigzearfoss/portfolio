@@ -1,31 +1,35 @@
 @php
     $buttons = [];
-    if (canCreate('message', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('root.message.create') ];
+    if (canCreate('message', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Message',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Messages' ],
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_top)
+            {!! $messages->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -37,17 +41,19 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>email</th>
-                <th>subject</th>
-                <th>created at</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>subject</th>
+                    <th>created at</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($messages as $message)
@@ -65,39 +71,27 @@
                     <td data-field="created_at">
                         {{ shortDateTime($message->created_at) }}
                     </td>
-                    <td style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        @if(canRead($art))
-                            @include('admin.components.link-icon', [
-                                'title' => 'show',
-                                'href'  => route('root.message.show', $message->id),
-                                'icon'  => 'fa-list'
-                            ])
-                        @endif
+                        <div class="action-button-panel">
 
-                        @if(canUpdate($message))
-                            @include('admin.components.link-icon', [
-                                'title' => 'edit',
-                                'href'  => route('root.message.edit', $message->id),
-                                'icon'  => 'fa-pen-to-square'
-                            ])
-                        @endif
+                            @if(canRead($message, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.system.message.show', $message),
+                                    'icon'  => 'fa-list'
+                                ])
+                            @endif
 
-                        @if(canDelete($message))
-                            @csrf
-                            @method('DELETE')
-                            @include('admin.components.button-icon', [
-                                'title' => 'delete',
-                                'class' => 'delete-btn',
-                                'icon'  => 'fa-trash'
-                            ])
-                        @endif
+                            @if(canUpdate($message, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.system.message.edit', $message),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
 
-                        @if(canDelete($message))
-                            <form action="{!! route('root.message.destroy', $message->id) !!}"
-                                  method="POST"
-                                  style="display: inline-block;"
-                            >
+                            @if(canDelete($message, $admin))
                                 @csrf
                                 @method('DELETE')
                                 @include('admin.components.button-icon', [
@@ -105,8 +99,21 @@
                                     'class' => 'delete-btn',
                                     'icon'  => 'fa-trash'
                                 ])
-                            </form>
-                        @endif
+                            @endif
+
+                            @if(canDelete($message, $admin))
+                                <form class="delete-resource" action="{!! route('admin.system.message.destroy', $message) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
+                            @endif
+
+                        </div>
 
                     </td>
                 </tr>
@@ -122,7 +129,9 @@
             </tbody>
         </table>
 
-        {!! $messages->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $messages->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

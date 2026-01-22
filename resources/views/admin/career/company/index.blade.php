@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('company', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Company', 'href' => route('admin.career.company.create') ];
+    if (canCreate('company', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Companies',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Companies' ]
@@ -16,21 +16,26 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $companies->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if($admin->root)
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -39,26 +44,28 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>industry</th>
-                <th>location</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th>industry</th>
+                    <th>location</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($companies as $company)
 
                 <tr data-id="{{ $company->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if(!empty($admin->root))
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $company->owner->username }}
                         </td>
                     @endif
@@ -76,22 +83,22 @@
                             ])
                         !!}
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.career.company.destroy', $company->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($company))
+                            @if(canRead($company, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.career.company.show', $company->id),
+                                    'href'  => route('admin.career.company.show', $company),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($company))
+                            @if(canUpdate($company, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.career.company.edit', $company->id),
+                                    'href'  => route('admin.career.company.edit', $company),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -111,17 +118,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($company))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($company, $admin))
+                                <form class="delete-resource" action="{!! route('admin.career.company.destroy', $company) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -129,7 +138,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '5' : '4' }}">There are no companies.</td>
+                    <td colspan="{{ $admin->root ? '5' : '4' }}">There are no companies.</td>
                 </tr>
 
             @endforelse
@@ -137,7 +146,9 @@
             </tbody>
         </table>
 
-        {!! $companies->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $companies->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

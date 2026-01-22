@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Portfolio\StoreAwardsRequest;
 use App\Http\Requests\Portfolio\UpdateAwardsRequest;
 use App\Models\Portfolio\Award;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class AwardController extends BaseAdminController
 {
     /**
@@ -20,14 +21,22 @@ class AwardController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $awards = Award::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $awards = Award::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $awards = Award::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.portfolio.award.index', compact('awards'))
+        $pageTitle = empty($this->owner) ? 'Awards' : $this->owner->name . ' Awards';
+
+        return view('admin.portfolio.award.index', compact('awards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

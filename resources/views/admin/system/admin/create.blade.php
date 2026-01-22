@@ -1,32 +1,32 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New Admin',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Admins',          'href' => route('admin.admin.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
         [ 'name' => 'Add' ]
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin.index') ],
+        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin.index')])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.admin.store') }}" method="POST">
+        <form action="{{ route('admin.system.admin.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
@@ -202,7 +202,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Admin',
-                'cancel_url' => referer('admin.system.admin.index')
+                'cancel_url' => referer('admin.system.system.admin.index')
             ])
 
         </form>

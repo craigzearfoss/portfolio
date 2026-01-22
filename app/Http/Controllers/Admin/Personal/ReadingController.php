@@ -25,13 +25,23 @@ class ReadingController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        //$readings = Reading::orderBy('title', 'asc')->paginate($perPage);
-        $readings = Reading::searchBuilder($request->all(), ['title', 'asc'])->paginate($perPage)
-            ->appends(request()->except('page'));;
+        if (!empty($this->owner)) {
+            $readings = Reading::searchBuilder(
+                array_merge($request->all(), ['owner_id' => $this->owner->id]),
+                ['title', 'asc'])->paginate($perPage)
+                ->appends(request()->except('page'));
+        } else {
+            $readings = Reading::searchBuilder(
+                $request->all(),
+                ['title', 'asc'])->paginate($perPage)
+                ->appends(request()->except('page'));
+        }
 
-        return view('admin.personal.reading.index', compact('readings'))
+        $pageTitle = empty($this->owner) ? 'Readings' : $this->owner->name . ' Readings';
+
+        return view('admin.personal.reading.index', compact('readings', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

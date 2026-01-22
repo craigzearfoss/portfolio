@@ -1,7 +1,7 @@
 @php
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('admin.index') ],
+            [ 'name' => 'Home',            'href' => route('home') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
             [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
@@ -10,7 +10,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('admin.index') ],
+            [ 'name' => 'Home',            'href' => route('home') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
             [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
@@ -18,8 +18,8 @@
     }
 
     $buttons = [];
-    if (canCreate('recipe-step', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create') ];
+    if (canCreate('recipe-step', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create', $owner)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
@@ -29,21 +29,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $recipeSteps->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 @if(empty($recipeId))
@@ -54,28 +58,30 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                @if(empty($recipeId))
-                    <th>recipe</th>
-                @endif
-                <th>step</th>
-                <th>description</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    @if(empty($recipeId))
+                        <th>recipe</th>
+                    @endif
+                    <th>step</th>
+                    <th>description</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($recipeSteps as $recipeStep)
 
                 <tr data-id="{{ $recipeStep->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $recipeStep->owner->username ?? '' }}
                         </td>
                     @endif
@@ -95,37 +101,39 @@
                     <td data-field="description">
                         {!! $recipeStep->description !!}
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.personal.recipe-step.destroy', $recipeStep->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($recipeStep))
+                            @if(canRead($recipeStep, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.recipeStep.show', $recipeStep->id),
+                                    'href'  => route('admin.personal.recipe-step.show', $recipeStep->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($recipeStep))
+                            @if(canUpdate($recipeStep, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.recipeStep.edit', $recipeStep->id),
+                                    'href'  => route('admin.personal.recipe-step.edit', $recipeStep->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
 
-                            @if(canDelete($recipeStep))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($recipeStep, $admin))
+                                <form class="delete-resource" action="{!! route('admin.personal.recipe-step.destroy', $recipeStep) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -134,10 +142,8 @@
 
                 <tr>
                     @php
-                        $cols = isRootAdmin() ? '4' : '3';
-                        if (!empty($recipeId)) {
-                            $cols++;
-                        }
+                        $cols = $admin->root ? '4' : '3';
+                        if (!empty($recipeId)) $cols++;
                     @endphp
                     <td colspan="{{ $cols }}">There are no recipe steps.</td>
                 </tr>
@@ -147,7 +153,9 @@
             </tbody>
         </table>
 
-        {!! $recipeSteps->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $recipeSteps->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

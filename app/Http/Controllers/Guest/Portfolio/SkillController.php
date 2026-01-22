@@ -20,13 +20,15 @@ class SkillController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $perPage = 50; //$request->query('per_page', $this->perPage);
+        $owner = $admin;
 
-        $skills = Skill::where('owner_id', $admin->id)
+        $perPage = 50; //$request->query('per_page', $this->perPage());
+
+        $skills = Skill::where('owner_id', $owner->id)
             ->orderBy('level', 'desc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.skill.index'), compact('skills'))
+        return view(themedTemplate('guest.portfolio.skill.index'), compact('owner', 'skills'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -39,10 +41,12 @@ class SkillController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$skill = Skill::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        $owner = $admin;
+
+        if (!$skill = Skill::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.skill.show'), compact('skill'));
+        return view(themedTemplate('guest.portfolio.skill.show'), compact('owner', 'skill'));
     }
 }

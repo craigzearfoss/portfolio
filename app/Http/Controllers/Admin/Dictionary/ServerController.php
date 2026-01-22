@@ -27,7 +27,7 @@ class ServerController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $servers = Server::orderBy('name', 'asc')->paginate($perPage);
 

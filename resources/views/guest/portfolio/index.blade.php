@@ -3,7 +3,7 @@
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => $title ?? 'Portfolio' ],
     ],
     'buttons'          => [],
@@ -12,11 +12,12 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'menuService'      => $menuService,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -29,7 +30,7 @@
                 <div class="content">
 
                     <h3 class="title">
-                        {!! $admin->name !!} Portfolio
+                        {!! $owner->name !!} Portfolio
                     </h3>
 
                     <ul class="menu-list ml-4 mb-2">
@@ -40,7 +41,7 @@
                                 <li>
                                     @include('guest.components.link', [
                                         'name'  => $resource->plural,
-                                        'href'  => route('guest.portfolio.'.$resource->name.'.index', $admin),
+                                        'href'  => route('guest.portfolio.'.$resource->name.'.index', $owner),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

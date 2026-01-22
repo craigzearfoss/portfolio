@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('school', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New School', 'href' => route('admin.portfolio.school.create') ];
+    if (canCreate('school', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New School', 'href' => route('admin.portfolio.school.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Schools',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Schools' ]
@@ -16,11 +16,11 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -41,6 +41,10 @@
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $schools->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
@@ -50,16 +54,18 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>logo</th>
-                <th>state</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>logo</th>
+                    <th>state</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($schools as $school)
@@ -78,22 +84,22 @@
                     <td data-field="state">
                         {!! $school->state['name'] ?? '' !!}
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.school.destroy', $school->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($school))
+                            @if(canRead($school, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.school.show', $school->id),
+                                    'href'  => route('admin.portfolio.school.show', $school),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($school))
+                            @if(canUpdate($school, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.school.edit', $school->id),
+                                    'href'  => route('admin.portfolio.school.edit', $school),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -113,17 +119,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($school))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($school, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.school.destroy', $school) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -139,7 +147,9 @@
             </tbody>
         </table>
 
-        {!! $schools->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $schools->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

@@ -1,26 +1,26 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Change Password',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'My Profile',      'href' => route('admin.profile.show') ],
         [ 'name' => 'Change Password' ],
     ],
-    'buttons'          => [],
+    'buttons'          => [
+        view('admin.components.nav-button-back', ['href' => referer('admin.profile.index')])->render(),
+    ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
-
-@php
-    $admin = $loggedInAdmin
-@endphp
 
 @section('content')
 
@@ -28,13 +28,13 @@
 
     <div class="card p-4" style="width: 30em; display: inline-block">
 
-        <form action="{{ route('admin.profile.change-password-submit', $admin) }}" method="POST">
+        <form action="{{ route('admin.profile.change-password-submit') }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.index')
+                'value' => referer('admin.profile.index')
             ])
 
             <div class="column">

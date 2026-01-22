@@ -25,13 +25,14 @@ class SchoolController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        //$schools = School::orderBy('name', 'asc')->paginate($perPage);
         $schools = School::searchBuilder($request->all(), ['name', 'asc'])->paginate($perPage)
             ->appends(request()->except('page'));
 
-        return view('admin.portfolio.school.index', compact('schools'))
+        $pageTitle = 'Schools';
+
+        return view('admin.portfolio.school.index', compact('schools', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

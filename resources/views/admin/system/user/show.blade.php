@@ -1,33 +1,32 @@
 @php
     $buttons = [];
-    if (canDelete($user)) {
-//@TODO: Need to add these admin user pages
-        $buttons[] = [ 'name' => '<i class="fa fa-key"></i>Change Password', 'href' => route('root.user.change-password', $user->id) ];
-//        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('root.user.edit', $user) ];
+    if (canUpdate($user, $admin)) {
+        $buttons[] = view('admin.components.nav-button', ['name' => 'Change Password', 'icon'=>'fa-key', 'href' => route('admin.system.user.change-password', $user)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.user.edit', $user)])->render();
     }
-    if (canCreate($user, loggedInAdminId())) {
-//        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('root.user.create') ];
+    if (canCreate('user', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New User', 'href' => route('admin.system.user.create')])->render();
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user.index') ];
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.user.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'User: ' . $user->username,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Users',           'href' => route('root.user.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Users',           'href' => route('admin.system.user.index') ],
         [ 'name' => $user->username ],
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

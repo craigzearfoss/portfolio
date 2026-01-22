@@ -24,13 +24,15 @@ class RecipeController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $owner = $admin;
 
-        $recipes = Recipe::where('owner_id', $admin->id)
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $recipes = Recipe::where('owner_id', $owner->id)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.personal.recipe.index'), compact('recipes'))
+        return view(themedTemplate('guest.personal.recipe.index'), compact('owner', 'recipes'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -43,12 +45,12 @@ class RecipeController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$recipe = Recipe::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        $owner = $admin;
+
+        if (!$recipe = Recipe::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        //$recipeSteps = RecipeStep::where('recipe_id', $recipe->id)->orderBy('step', 'asc')->ddRawSql();
-        //dd($recipe);
-        return view(themedTemplate('guest.personal.recipe.show'), compact('recipe'));
+        return view(themedTemplate('guest.personal.recipe.show'), compact('owner', 'recipe'));
     }
 }

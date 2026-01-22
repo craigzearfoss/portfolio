@@ -9,8 +9,6 @@ use App\Models\Portfolio\Music;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -23,12 +21,20 @@ class MusicController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = Music::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $musics = Music::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $musics = Music::orderBy('name', 'asc')->paginate($perPage);
+        }
+
+        $pageTitle = empty($this->owner) ? 'Music' : $this->owner->name . ' Music';
 
         return view('admin.portfolio.music.index', compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

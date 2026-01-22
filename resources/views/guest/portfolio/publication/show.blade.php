@@ -3,24 +3,24 @@
     'breadcrumbs'      => [
         [ 'name' => 'Home',         'href' => route('home') ],
         [ 'name' => 'Users',        'href' => route('home') ],
-        [ 'name' => $admin->name,   'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $admin) ],
-        [ 'name' => 'Publications', 'href' => route('guest.portfolio.publication.index', $admin) ],
+        [ 'name' => $owner->name,   'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $owner) ],
+        [ 'name' => 'Publications', 'href' => route('guest.portfolio.publication.index', $owner) ],
         [ 'name' => $publication->name ],
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.publication.index', $admin) ],
+        view('guest.components.nav-button-back', ['href' => referer('guest.admin.portfolio.publication.index', $owner)])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -39,7 +39,7 @@
                 'name'  => 'parent',
                 'value' => view('guest.components.link', [
                                 'name' => $publication->parent->title,
-                                'href' => route('guest.portfolio.publication.show', $admin, $publication->parent->slug)
+                                'href' => route('guest.portfolio.publication.show', $owner, $publication->parent->slug)
                           ])
             ])
         @endif
@@ -67,7 +67,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $child->name,
-                                    'href' => route('guest.portfolio.publication.show', [$admin, $child->slug])
+                                    'href' => route('guest.portfolio.publication.show', [$owner, $child->slug])
                                 ])
                             </li>
                         @endforeach

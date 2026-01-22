@@ -1,32 +1,32 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New Admin Team',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Admin Teams',     'href' => route('admin.admin-team.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Admin Teams',     'href' => route('admin.system.admin-team.index') ],
         [ 'name' => 'Add' ]
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin-team.index') ],
+        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-team.index')])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.admin-team.store') }}" method="POST">
+        <form action="{{ route('admin.system.admin-team.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
@@ -34,7 +34,7 @@
                 'value' => referer('admin.system.admin-team.index')
             ])
 
-            @if(isRootAdmin())
+            @if($admin->root)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

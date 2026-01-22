@@ -26,20 +26,26 @@ class RecipeStepController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        if ($recipeId = $request->query('recipe_id')) {
-            if (!$recipe = Recipe::find($recipeId)) {
-                throw new NotFoundHttpException('Recipe not found.');
+        if ($recipeId = $request->recipe_id) {
+            $recipe = !empty($this->owner)
+                ? Recipe::where('owner_id', $this->owner->id)->where('id', $recipeId)->first()
+                : Recipe::find($recipeId);
+            if (empty($recipe)) {
+                abort(404, 'Recipe ' . $recipeId . ' not found'
+                    . (!empty($this->owner) ? ' for ' . $this->owner->username : '') . '.');
             } else {
-                $recipeSteps = RecipeStep::where('recipe_id', $recipeId)->orderBy('step', 'asc')->paginate($perPage);
+                $recipeSteps = RecipeStep::where('recipe_id', $recipeId)->latest()->paginate($perPage);
             }
         } else {
             $recipe = null;
             $recipeSteps = RecipeStep::latest()->paginate($perPage);
         }
 
-        return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipe'))
+        $pageTitle = empty($this->owner) ? 'Recipe Steps' : $this->owner->name . ' Recipe Steps';
+
+        return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

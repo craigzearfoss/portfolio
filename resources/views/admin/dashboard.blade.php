@@ -8,11 +8,11 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -23,12 +23,12 @@
 
     </div>
 
-    @if(isRootAdmin())
+    @if($admin->root)
 
         <div class="card p-4">
 
-            <h4 class="title is-size-4 mb-2">Users</h4>
-            @include('admin.components.admins-table', ['admins' => $admins])
+            <h4 class="title is-size-4 mb-2">Admins</h4>
+            @include('admin.components.admins-table', ['owners' => $owners])
 
         </div>
 

@@ -27,7 +27,7 @@ class OperatingSystemController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $operatingSystems = OperatingSystem::orderBy('name', 'asc')->paginate($perPage);
 

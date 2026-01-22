@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('cover-letter', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ];
+    if (canCreate('cover-letter', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Cover Letters',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Cover Letters' ]
@@ -16,21 +16,26 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $coverLetters->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if($admin->root)
                     <th>owner</th>
                 @endif
                 <th>company</th>
@@ -41,28 +46,30 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>company</th>
-                <th>role</th>
-                <th style="white-space: nowrap;">apply date</th>
-                <th class="has-text-centered">active</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>company</th>
+                    <th>role</th>
+                    <th style="white-space: nowrap;">apply date</th>
+                    <th class="has-text-centered">active</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($coverLetters as $coverLetter)
 
                 <tr data-id="{{ $coverLetter->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $coverLetter->owner->username }}
                         </td>
                     @endif
@@ -81,22 +88,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.career.cover-letter.destroy', $coverLetter->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($coverLetter))
+                            @if(canRead($coverLetter, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.career.cover-letter.show', $coverLetter->id),
+                                    'href'  => route('admin.career.cover-letter.show', $coverLetter),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($coverLetter))
+                            @if(canUpdate($coverLetter, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.career.cover-letter.edit', $coverLetter->id),
+                                    'href'  => route('admin.career.cover-letter.edit', $coverLetter),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -116,17 +123,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($coverLetter))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($coverLetter, $admin))
+                                <form class="delete-resource" action="{!! route('admin.career.cover-letter.destroy', $coverLetter) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -134,7 +143,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no cover letters.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no cover letters.</td>
                 </tr>
 
             @endforelse
@@ -142,7 +151,9 @@
             </tbody>
         </table>
 
-        {!! $coverLetters->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $coverLetters->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

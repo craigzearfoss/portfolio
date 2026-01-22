@@ -22,9 +22,7 @@ class ProfileController extends BaseAdminController
      */
     public function show(): View
     {
-        $loggedInAdmin = Auth::guard('admin')->user();
-
-        return view(themedTemplate('admin.profile.show'), compact('loggedInAdmin'));
+        return view(themedTemplate('admin.profile.show'));
     }
 
     /**
@@ -34,8 +32,7 @@ class ProfileController extends BaseAdminController
      */
     public function edit(): View
     {
-        $loggedInAdmin = Auth::guard('admin')->user();
-        return view(themedTemplate('admin.profile.edit'), compact('loggedInAdmin'));
+        return view(themedTemplate('admin.profile.edit'));
     }
 
     /**
@@ -46,25 +43,21 @@ class ProfileController extends BaseAdminController
      */
     public function update(UpdateAdminsRequest $request): RedirectResponse
     {
-        $loggedInAdmin = Auth::guard('admin')->user();
+        $admin = $this->admin;
+        $admin->update($request->validated());
 
-        $loggedInAdmin->update($request->validated());
-
-        return redirect()->route('admin.profile.show', 'loggedInAdmin')
+        return redirect()->route('admin.profile.show', 'admin')
             ->with('success', 'Profile successfully updated.');
     }
 
     /**
      * Display the change password page.
      *
-     * @param Admin $admin
      * @return View
      */
-    public function change_password(Admin $admin): View
+    public function change_password(): View
     {
-        $loggedInAdmin = $admin;
-
-        return view(themedTemplate('admin.profile.change-password'), compact('loggedInAdmin'));
+        return view(themedTemplate('admin.profile.change-password'));
     }
 
     /**
@@ -80,15 +73,13 @@ class ProfileController extends BaseAdminController
             'confirm_password' => ['required', 'same:password']
         ]);
 
-        $admin = Auth::guard('admin')->user();
-
-        if (Hash::check($request->password, $admin->password)) {
+        if (Hash::check($request->password, $this->admin->password)) {
             return redirect()->back()->with('error', ' You cannot use your old password again.');
         }
 
-        $admin->password = Hash::make($request->password);
-        $admin->token = null;
-        $admin->update();
+        $this->admin->password = Hash::make($request->password);
+        $this->admin->token = null;
+        $this->admin->update();
 
         return redirect(referer('admin.portfolio.show'))
             ->with('success', 'User password successfully updated.');

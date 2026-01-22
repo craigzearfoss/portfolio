@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('job', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job', 'href' => route('admin.portfolio.job.create', $admin) ];
+    if (canCreate('job', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job', 'href' => route('admin.portfolio.job.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Jobs',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs' ]
@@ -16,11 +16,11 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -63,10 +63,14 @@
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $jobs->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>company</th>
@@ -80,31 +84,33 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>company</th>
-                <ht>logo</th>
-                <th>role</th>
-                <th class="has-text-centered">featured</th>
-                <th>start date</th>
-                <th>end date</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>company</th>
+                    <th>logo</th>
+                    <th>role</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>start date</th>
+                    <th>end date</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($jobs as $job)
 
                 <tr data-id="{{ $job->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $job->owner->username }}
                         </td>
                     @endif
@@ -138,22 +144,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.job.destroy', [$admin, $job->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($job))
+                            @if(canRead($job, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.job.show', [$admin, $job->id]),
+                                    'href'  => route('admin.portfolio.job.show', $job),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($job))
+                            @if(canUpdate($job, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.job.edit', [$admin, $job->id]),
+                                    'href'  => route('admin.portfolio.job.edit', $job),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -173,17 +179,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($job))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($job, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.job.destroy', $job) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -191,7 +199,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There are no jobs.</td>
+                    <td colspan="{{ $admin->root ? '10' : '9' }}">There are no jobs.</td>
                 </tr>
 
             @endforelse
@@ -199,7 +207,9 @@
             </tbody>
         </table>
 
-        {!! $jobs->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $jobs->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

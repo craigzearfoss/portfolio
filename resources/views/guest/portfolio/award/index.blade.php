@@ -1,10 +1,10 @@
 @extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? $admin->name . ' awards',
+    'title'            => $pageTitle ?? $owner->name . ' awards',
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Awards' ],
     ],
     'buttons'          => [],
@@ -13,11 +13,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -54,7 +54,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $award->name,
-                            'href'  => route('guest.portfolio.award.show', [$admin, $award->slug]),
+                            'href'  => route('guest.portfolio.award.show', [$owner, $award->slug]),
                             'class' => $award->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
@@ -62,7 +62,7 @@
                         @if(!empty($award->category))
                             @include('guest.components.link', [
                                 'name'  => $award->category,
-                                'href'  => route('guest.portfolio.award.show', [$admin, $award->slug]),
+                                'href'  => route('guest.portfolio.award.show', [$owner, $award->slug]),
                                 'class' => $award->featured ? 'has-text-weight-bold' : ''
                             ])
                         @endif

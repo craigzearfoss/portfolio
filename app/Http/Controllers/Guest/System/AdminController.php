@@ -33,35 +33,37 @@ class AdminController extends BaseGuestController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $admins = \App\Models\System\Admin::where('public', 1)
+        $owners = \App\Models\System\Admin::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('username', 'asc')->paginate($perPage);
 
-        return view('guest.system.admin.index', compact('admins'))
+        return view('guest.system.admin.index', compact('owners'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     public function show(Admin $admin): View
     {
-        if (!$admin->public || $admin->disabled) {
+        $owner = $admin;
+
+        if (!$owner->public || $owner->disabled) {
             abort(404);
         }
 
-        $databases = AdminDatabase::where('owner_id', $admin->id)
+        $databases = AdminDatabase::where('owner_id', $owner->id)
             ->where('name', '!=', 'dictionary')
             ->where('guest', true)
             ->orderBy('sequence', 'asc')->get();
 
         $resources = [];
-        foreach(AdminResource::getResources($admin->id, PermissionService::ENV_GUEST) as $resource) {
+        foreach(AdminResource::ownerResources($owner->id, PermissionService::ENV_GUEST) as $resource) {
             $resources[$resource->database_id][] = $resource;
         };
 
         return view(themedTemplate(
             'guest.system.admin.show'),
-            compact('admin', 'databases', 'resources')
+            compact('owner', 'databases', 'resources')
         );
     }
 }

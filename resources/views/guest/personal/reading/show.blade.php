@@ -3,24 +3,24 @@
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Personal',   'href' => route('guest.personal.index', $admin) ],
-        [ 'name' => 'Readings',   'href' => route('guest.personal.reading.index', $admin) ],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Personal',   'href' => route('guest.personal.index', $owner) ],
+        [ 'name' => 'Readings',   'href' => route('guest.personal.reading.index', $owner) ],
         [ 'name' => $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : '') ],
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.personal.reading.index', $reading->owner) ],
+        view('guest.components.nav-button-back', ['href' => referer('guest.admin.personal.reading.index', $owner)])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

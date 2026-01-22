@@ -8,11 +8,8 @@ use App\Http\Requests\Portfolio\UpdateAcademiesRequest;
 use App\Models\Portfolio\Academy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Support\Str;
 
 /**
  *
@@ -27,11 +24,13 @@ class AcademyController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $academies = Academy::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.portfolio.academy.index', compact('academies'))
+        $pageTitle = 'Academies';
+
+        return view('admin.portfolio.academy.index', compact('academies', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

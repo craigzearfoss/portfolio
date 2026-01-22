@@ -1,10 +1,10 @@
 @extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? $admin->name . ' recipes',
+    'title'            => $pageTitle ?? $owner->name . ' recipes',
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Personal',   'href' => route('guest.personal.index', $admin) ],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Personal',   'href' => route('guest.personal.index', $owner) ],
         [ 'name' => 'Recipes' ],
     ],
     'buttons'          => [],
@@ -13,11 +13,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -50,7 +50,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $recipe->name,
-                            'href'  => route('guest.personal.recipe.show', [$admin, $recipe->slug]),
+                            'href'  => route('guest.personal.recipe.show', [$owner, $recipe->slug]),
                             'class' => $recipe->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

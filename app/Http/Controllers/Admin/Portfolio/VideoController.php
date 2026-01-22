@@ -9,8 +9,6 @@ use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -23,12 +21,20 @@ class VideoController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $videos = Video::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $videos = Video::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $videos = Video::orderBy('name', 'asc')->paginate($perPage);
+        }
+
+        $pageTitle = empty($this->owner) ? 'Videos' : $this->owner->name . ' Videos';
 
         return view('admin.portfolio.video.index', compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -1,33 +1,37 @@
 @extends('admin.layouts.default', [
-    'title'         => $pageTitle ?? 'Add Message',
-    'breadcrumbs'   => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+    'title'            => $pageTitle ?? 'Add Message',
+    'breadcrumbs'      => [
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'Messages',        'href' => route('root.message.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],
         [ 'name' => 'Add' ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.message.index') ],
+    'buttons'          => [
+        view('admin.components.nav-button-back', ['href' => referer('admin.system.message.index')])->render(),
     ],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'currentAdmin'  => $admin
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('root.message.store') }}" method="POST">
+        <form action="{{ route('admin.system.message.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('root.message.index')
+                'value' => referer('admin.system.message.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -75,7 +79,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Message',
-                'cancel_url' => referer('root.message.index')
+                'cancel_url' => referer('admin.system.message.index')
             ])
 
         </form>

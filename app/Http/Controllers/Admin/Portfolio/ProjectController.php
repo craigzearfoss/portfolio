@@ -9,8 +9,6 @@ use App\Models\Portfolio\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -23,14 +21,22 @@ class ProjectController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $projects = Project::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $projects = Project::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $projects = Project::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.portfolio.project.index', compact('projects'))
+        $pageTitle = empty($this->owner) ? 'Projects' : $this->owner->name . ' Projects';
+
+        return view('admin.portfolio.project.index', compact('projects', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

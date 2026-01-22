@@ -20,13 +20,15 @@ class PhotographyController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $owner = $admin;
 
-        $photos = Photography::where('owner_id', $admin->id)
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $photos = Photography::where('owner_id', $owner->id)
             ->orderBy('name', 'asc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.photography.index'), compact('photos'))
+        return view(themedTemplate('guest.portfolio.photography.index'), compact('owner', 'photos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -39,10 +41,12 @@ class PhotographyController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$photo = Photography::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        $owner = $admin;
+
+        if (!$photo = Photography::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.photography.show'), compact('photo'));
+        return view(themedTemplate('guest.portfolio.photography.show'), compact('owner', 'photo'));
     }
 }

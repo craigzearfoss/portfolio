@@ -1,36 +1,40 @@
 @php
     $buttons = [];
-    if (canCreate('resource', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('root.resource.create') ];
+    if (canCreate('resource', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resource', 'href' => route('admin.system.resource.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Resources',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Resources' ],
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $resources->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -47,34 +51,36 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>database</th>
-                <th>table</th>
-                <th>icon</th>
-                <th>sequence</th>
-                <th class="has-text-centered">guest</th>
-                <th class="has-text-centered">user</th>
-                <th class="has-text-centered">admin</th>
-                <th class="has-text-centered">global</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th>database</th>
+                    <th>table</th>
+                    <th>icon</th>
+                    <th>sequence</th>
+                    <th class="has-text-centered">guest</th>
+                    <th class="has-text-centered">user</th>
+                    <th class="has-text-centered">admin</th>
+                    <th class="has-text-centered">global</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($resources as $resource)
 
                 <tr data-id="{{ $resource->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $resource->owner->username ?? '' }}
                         </td>
                     @endif
@@ -116,37 +122,39 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
                     </td>
-                    <td>
+                    <td class="is-1">
 
-                        <form action="{!! route('root.resource.destroy', $resource->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($resource))
+                            @if(canRead($resource, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('root.resource.show', $resource->id),
+                                    'href'  => route('admin.system.resource.show', $resource),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($resource))
+                            @if(canUpdate($resource, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('root.resource.edit', $resource->id),
+                                    'href'  => route('admin.system.resource.edit', $resource),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
 
-                            @if(canDelete($resource))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($resource, $admin))
+                                <form class="delete-resource" action="{!! route('admin.system.resource.destroy', $resource) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -154,7 +162,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '13' : '12' }}>There are no messages.</td>
+                    <td colspan="{{ $admin->root ? '13' : '12' }}">There are no messages.</td>
                 </tr>
 
             @endforelse
@@ -162,7 +170,9 @@
             </tbody>
         </table>
 
-        {!! $resources->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $resources->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

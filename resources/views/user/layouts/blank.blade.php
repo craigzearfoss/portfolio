@@ -1,9 +1,8 @@
 @php
     $currentRouteName = $currentRouteName ?? null;
-    $loggedInAdmin    = $loggedInAdmin ?? null;
-    $loggedInUser     = $loggedInUser ?? null;
     $admin            = $admin ?? null;
     $user             = $user ?? null;
+    $owner            = $owner ?? null;
 @endphp
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
@@ -14,6 +13,33 @@
 
 <div id="app">
 
+    @include('user.components.nav-top', [
+        'menuService'      => $menuService ?? null,
+        'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
+        'admin'            => $admin ?? null,
+        'user'             => $user ?? null,
+        'owner'            => $owner ?? null,
+    ])
+
+    @include('user.components.nav-left', [
+        'menuService'      => $menuService ?? null,
+        'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
+        'admin'            => $admin ?? null,
+        'user'             => $user ?? null,
+        'owner'            => $owner ?? null,
+    ])
+
+    @include('user.components.title-bar', [
+        'title'       => $title ?? '',
+        'breadcrumbs' => $breadcrumbs ?? []
+    ])
+
+    @include('user.components.subtitle-bar', [
+        'title'      => $title ?? '',
+        'selectList' => $selectList ?? '',
+        'buttons'    => $buttons ?? [],
+    ])
+
     <section class="is-main-section px-4 py-3">
 
         @include('user.components.messages', [
@@ -22,9 +48,13 @@
             'error'         => $error ?? null,
         ])
 
-        @yield('content')
+        <div class="container">
+            @yield('content')
+        </div>
 
     </section>
+
+    @include('user.components.footer')
 
 </div>
 

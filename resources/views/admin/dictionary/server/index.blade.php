@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('server', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'href' => route('admin.dictionary.server.create') ];
+    if (canCreate('server', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Server', 'href' => route('admin.dictionary.server.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary (servers)',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Servers' ]
@@ -16,7 +16,7 @@
         'name'     => '',
         'label'    => '',
         'value'    => route('admin.dictionary.server.index'),
-        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin.'),
+        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin'),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]),
@@ -24,16 +24,20 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_top)
+            {!! $servers->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -45,17 +49,19 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>abbrev</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>abbrev</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($servers as $server)
@@ -73,82 +79,69 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $server->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        @if(canRead($server))
-                            @include('admin.components.link-icon', [
-                                'title' => 'show',
-                                'href'  => route('admin.dictionary.server.show', $server->id),
-                                'icon'  => 'fa-list'
-                            ])
-                        @endif
+                        <div class="action-button-panel">
 
-                        @if(canUpdate($server))
-                            @include('admin.components.link-icon', [
-                                'title' => 'edit',
-                                'href'  => route('admin.dictionary.server.edit', $server->id),
-                                'icon'  => 'fa-pen-to-square'
-                            ])
-                        @endif
-
-                        @if (!empty($server->link))
-                            @include('admin.components.link-icon', [
-                                'title'  => !empty($server->link_name) ? $server->link_name : 'link',
-                                'href'   => $server->link,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
-
-                        @if (!empty($server->wikipedia))
-                            @include('admin.components.link-icon', [
-                                'title'  => 'Wikipedia page',
-                                'href'   => $server->wikipedia,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
-
-                        @if(canDelete($server))
-                            @csrf
-                            @method('DELETE')
-                            @include('admin.components.button-icon', [
-                                'title' => 'delete',
-                                'class' => 'delete-btn',
-                                'icon'  => 'fa-trash'
-                            ])
-                        @endif
-
-                        @if(canDelete($server))
-
-                            <form action="{!! route('admin.dictionary.server.destroy', $server->id) !!}"
-                                  method="POST"
-                                  style="display:inline-flex"
-                            >
-                                @csrf
-                                @method('DELETE')
-
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
+                            @if(canRead($server, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.dictionary.server.show', $server),
+                                    'icon'  => 'fa-list'
                                 ])
+                            @endif
 
-                            </form>
+                            @if(canUpdate($server, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.dictionary.server.edit', $server),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
 
-                        @endif
+                            @if (!empty($server->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => !empty($server->link_name) ? $server->link_name : 'link',
+                                    'href'   => $server->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
+
+                            @if (!empty($server->wikipedia))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'Wikipedia page',
+                                    'href'   => $server->wikipedia,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
+
+                            @if(canDelete($server, $admin))
+                                <form class="delete-resource" action="{!! route('admin.dictionary.server.destroy', $server) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
+                            @endif
+
+                        </div>
 
                     </td>
                 </tr>
@@ -164,7 +157,9 @@
             </tbody>
         </table>
 
-        {!! $servers->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $servers->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

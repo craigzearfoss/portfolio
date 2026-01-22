@@ -1,11 +1,15 @@
 @extends('guest.layouts.default', [
-    'title'         => $featuredAdmin ? $featuredAdmin->name : config('add.name'),
-    'breadcrumbs'   => [],
-    'buttons'       => [],
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => null,
+    'title'            => $pageTitle ?? ($featuredAdmin ? $featuredAdmin->name : config('add.name')),
+    'breadcrumbs'      => [],
+    'buttons'          => [],
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -63,7 +67,7 @@
 
             <?php /*
             <div class="has-text-centered">
-                <a class="is-size-6" href="{{ route('user.login') }}">
+                <a class="is-size-6" href="{{ route('admin.login') }}">
                     User Login
                 </a>
                 |

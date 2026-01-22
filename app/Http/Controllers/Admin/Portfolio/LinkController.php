@@ -9,8 +9,6 @@ use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -23,14 +21,22 @@ class LinkController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $links = Link::orderBy('sequence', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $links = Link::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $links = Link::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.portfolio.link.index', compact('links'))
+        $pageTitle = empty($this->owner) ? 'Links' : $this->owner->name . ' Links';
+
+        return view('admin.portfolio.link.index', compact('links', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

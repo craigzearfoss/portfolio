@@ -27,7 +27,7 @@ class FrameworkController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $frameworks = Framework::orderBy('name', 'asc')->paginate($perPage);
 

@@ -12,7 +12,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('admin.index') ],
+            [ 'name' => 'Home',            'href' => route('home') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
@@ -25,18 +25,19 @@
     'title'            => $pageTitle ?? 'Edit Resume' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.resume.index') ],
+        view('admin.components.nav-button-back', ['href' => referer('admin.career.resume.index')])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -57,7 +58,7 @@
                 'value' => $resume->id
             ])
 
-            @if(isRootAdmin())
+            @if($admin->root)
                 @include('admin.components.form-select-horizontal', [
                 'name'     => 'owner_id',
                 'label'    => 'owner',

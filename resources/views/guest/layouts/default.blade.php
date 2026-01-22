@@ -1,9 +1,8 @@
 @php
     $currentRouteName = $currentRouteName ?? null;
-    $loggedInAdmin    = $loggedInAdmin ?? null;
-    $loggedInUser     = $loggedInUser ?? null;
     $admin            = $admin ?? null;
     $user             = $user ?? null;
+    $owner            = $owner ?? null;
 @endphp
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
@@ -12,17 +11,23 @@
 
 <body>
 
-<?php /*
-<div class="top-pinned-message has-background-grey-light has-text-grey-dark">
-    Message pinned to the top of the browser window.
-</div>
-*/ ?>
-
 <div id="app">
 
-    @include('guest.components.nav-top')
+    @include('guest.components.nav-top', [
+        'menuService'      => $menuService ?? null,
+        'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
+        'admin'            => $admin ?? null,
+        'user'             => $user ?? null,
+        'owner'            => $owner ?? null,
+    ])
 
-    @include('guest.components.nav-left')
+    @include('guest.components.nav-left', [
+        'menuService'      => $menuService ?? null,
+        'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
+        'admin'            => $admin ?? null,
+        'user'             => $user ?? null,
+        'owner'            => $owner ?? null,
+    ])
 
     @include('guest.components.title-bar', [
         'title'       => $title ?? '',

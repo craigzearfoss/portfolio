@@ -17,7 +17,7 @@ class UserController extends BaseGuestController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $users = User::orderBy('username', 'asc')->paginate($perPage);
 

@@ -1,10 +1,10 @@
 @extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? $admin->name . ' links',
+    'title'            => $pageTitle ?? $owner->name . ' links',
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Links' ],
     ],
     'buttons'          => [],
@@ -13,11 +13,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -48,7 +48,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $link->name,
-                            'href'  => route('guest.portfolio.link.show', [$admin, $link->slug]),
+                            'href'  => route('guest.portfolio.link.show', [$owner, $link->slug]),
                             'class' => $link->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

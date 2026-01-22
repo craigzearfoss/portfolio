@@ -23,15 +23,15 @@ class EducationController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $this->admin = $admin;
+        $owner = $admin;
 
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $educations = Education::where('owner_id', $admin->id)
+        $educations = Education::where('owner_id', $owner->id)
             ->orderBy('graduation_year', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.education.index'), compact('educations'))
+        return view(themedTemplate('guest.portfolio.education.index'), compact('owner', 'educations'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -44,10 +44,12 @@ class EducationController extends BaseGuestController
      */
     public function show(Admin $admin, int $id): View
     {
-        if (!$education = Education::where('owner_id', $admin->id)->where('id', $id)->first()) {
+        $owner = $admin;
+
+        if (!$education = Education::where('owner_id', $owner->id)->where('id', $id)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.education.show'), compact('education'));
+        return view(themedTemplate('guest.portfolio.education.show'), compact('owner', 'education'));
     }
 }

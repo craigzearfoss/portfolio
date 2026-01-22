@@ -1,7 +1,7 @@
 @php
     $buttons = [];
-    if (canCreate('recipe-ingredient', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create', $admin) ];
+    if (canCreate('recipe-ingredient', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create', $owner)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
@@ -9,7 +9,7 @@
         ?  $recipeIngredient->recipe['name'] . ' Ingredients'
         : 'Recipe Ingredients'),
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
@@ -19,21 +19,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $recipeIngredients->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 @if(empty($recipeId))
@@ -45,29 +49,31 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                @if(empty($recipeId))
-                    <th>recipe</th>
-                @endif
-                <th>name</th>
-                <th>amount</th>
-                <th>unit</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    @if(empty($recipeId))
+                        <th>recipe</th>
+                    @endif
+                    <th>name</th>
+                    <th>amount</th>
+                    <th>unit</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($recipeIngredients as $recipeIngredient)
 
                 <tr data-id="{{ $recipeIngredient->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $recipeIngredient->owner->username ?? '' }}
                         </td>
                     @endif
@@ -90,22 +96,22 @@
                     <td data-field="unit.name">
                         {!! $recipeIngredient->unit->name ?? '') !!}
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.personal.recipe-ingredient.destroy', [$admin, $recipeIngredient->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($recipeIngredient))
+                            @if(canRead($recipeIngredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.recipe-ingredient.show', [$admin, $recipeIngredient->id]),
+                                    'href'  => route('admin.personal.recipe-ingredient.show', [$owner, $recipeIngredient->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($recipeIngredient))
+                            @if(canUpdate($recipeIngredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.recipe-ingredient.edit', [$admin, $recipeIngredient->id]),
+                                    'href'  => route('admin.personal.recipe-ingredient.edit', [$owner, $recipeIngredient->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -125,17 +131,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($recipeIngredient))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($recipeIngredient, $admin))
+                                <form class="delete-resource" action="{!! route('admin.personal.recipe-ingredient.destroy', $recipeIngredient) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -144,10 +152,8 @@
 
                 <tr>
                     @php
-                    $cols = isRootAdmin() ? '5' : '4';
-                    if (!empty($recipeId)) {
-                        $cols++;
-                    }
+                        $cols = $admin->root ? '5' : '4';
+                        if (!empty($recipeId)) $cols++;
                     @endphp
                     <td colspan="{{ $cols }}">There are no recipe ingredients.</td>
                 </tr>
@@ -157,7 +163,9 @@
             </tbody>
         </table>
 
-        {!! $recipeIngredients->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $recipeIngredients->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

@@ -21,31 +21,33 @@ class ResumeController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $jobs = Job::where('owner_id', $admin->id)
+        $owner = $admin;
+
+        $jobs = Job::where('owner_id', $owner->id)
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->get();
 
-        $educations = Education::where('owner_id', $admin->id)
+        $educations = Education::where('owner_id', $owner->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('graduation_year', 'desc')->orderBy('graduation_month', 'desc')
             ->orderBy('enrollment_year', 'desc')->orderBy('enrollment_month', 'desc')
             ->get();
 
-        $certificates = Certificate::where('owner_id', $admin->id)
+        $certificates = Certificate::where('owner_id', $owner->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('received', 'desc')
             ->get();
 
-        $awards = Award::where('owner_id', $admin->id)
+        $awards = Award::where('owner_id', $owner->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('year', 'asc')
             ->get();
 
-        $skills = Skill::where('owner_id', $admin->id)
+        $skills = Skill::where('owner_id', $owner->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
@@ -53,7 +55,7 @@ class ResumeController extends BaseGuestController
 
         return view(
             Job::resumeTemplate(),
-            compact('jobs', 'educations', 'admin', 'certificates', 'awards', 'skills')
+            compact('owner', 'jobs', 'educations', 'admin', 'certificates', 'awards', 'skills')
         );
     }
 }

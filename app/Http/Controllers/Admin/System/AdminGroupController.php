@@ -21,7 +21,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $userGroups = UserGroup::orderBy('name','asc')->paginate($perPage);
 
@@ -49,7 +49,7 @@ class AdminGroupController extends BaseAdminController
     {
         $userGroup = UserGroup::create($request->validated());
 
-        return redirect()->route('root.user-group.show', $userGroup)
+        return redirect()->route('admin.user-group.show', $userGroup)
             ->with('success', $userGroup->name . ' successfully added.');
     }
 
@@ -90,7 +90,7 @@ class AdminGroupController extends BaseAdminController
 
         $userGroup->update($request->validated());
 
-        return redirect()->route('root.user-group.show', $userGroup)
+        return redirect()->route('admin.user-group.show', $userGroup)
             ->with('success', $userGroup->name . ' successfully updated.');
     }
 
@@ -106,7 +106,7 @@ class AdminGroupController extends BaseAdminController
 
         $userGroup->delete();
 
-        return redirect(referer('root.system.user-group.index'))
+        return redirect(referer('admin.system.user-group.index'))
             ->with('success', $userGroup->name . ' deleted successfully.');
     }
 }

@@ -78,7 +78,7 @@
                                 <li>
                                     @include('user.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => route('user.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => 'user.portfolio.'.$resourceType['name'].'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

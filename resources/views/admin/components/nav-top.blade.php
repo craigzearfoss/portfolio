@@ -1,114 +1,135 @@
-@php
-    $menuItems = (new \App\Services\MenuService())->getTopMenu(
-        \App\Services\PermissionService::ENV_ADMIN,
-        $currentAdmin ?? null,
-        $currentUser ?? null
-    );
-@endphp
-<nav id="navbar-main" class="navbar is-fixed-top">
-    <div class="navbar-brand">
-        <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">
-            <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
-        </a>
-        <div class="navbar-item has-control">
+@if($menuItems = $menuService->topMenu())
 
-            <span class="mr-4 has-text-primary" style=" font-size: 1.5em; font-weight: 800;">
-                {{ config('app.name') }}
-            </span>
+    @php
+        $menuService      = $menuService ?? null;
+        $currentRouteName = $currentRouteName ??  Route::currentRouteName();
+        $loggedInAdmin    = $loggedInAdmin ?? null;
+        $loggedInUser     = $loggedInUser ?? null;
+        $admin            = $admin ?? null;
+        $user             = $user ?? null;
+        $isAdminEnv       = (explode('.', $currentRouteName)[0] == 'admin');
+    @endphp
 
-            @if(isDemo())
-                <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
-                    Demo Mode
+    <nav id="navbar-main" class="navbar is-fixed-top">
+        <div class="navbar-brand">
+
+            @include('admin.components.nav-link-top', [
+                'name'   => false,
+                'href'   => false,
+                'class'  => 'is-hidden-desktop jb-aside-mobile-toggle',
+                'icon'   => '<span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>'
+            ])
+
+            <div class="navbar-item has-control">
+
+                <span class="mr-4 has-text-primary" style=" font-size: 1.5em; font-weight: 800;">
+                    {{ config('app.name') }}
                 </span>
-            @elseif(boolval(config('app.readonly')))
-                <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
-                    Site is Read-only
-                </span>
-            @endif
+
+                @if(isDemo())
+                    <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
+                        Demo Mode
+                    </span>
+                @elseif(boolval(config('app.readonly')))
+                    <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
+                        Site is Read-only
+                    </span>
+                @endif
+
+            </div>
+        </div>
+        <div class="navbar-brand is-right">
+
+            @include('admin.components.nav-link-top', [
+                'name'       => false,
+                'href'       => false,
+                'class'      => 'is-hidden-desktop jb-navbar-menu-toggle',
+                'icon'       => '<span class="icon"><i class="mdi mdi-dots-vertical"></i></span>',
+                'dataTarget' => 'navbar-menu'
+            ])
 
         </div>
-    </div>
-    <div class="navbar-brand is-right">
-        <a class="navbar-item is-hidden-desktop jb-navbar-menu-toggle" data-target="navbar-menu">
-            <span class="icon"><i class="mdi mdi-dots-vertical"></i></span>
-        </a>
-    </div>
 
-    <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
-        <div class="navbar-end">
+        <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
+            <div class="navbar-end">
 
-            @foreach($menuItems as $menuItem)
+                @foreach($menuItems as $menuItem)
 
-                @if($menuItem->name == 'user-dropdown')
+                    @if($menuItem->name == 'user-dropdown')
 
-                    <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
-                        <a class="navbar-link is-arrowless">
+                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
 
-                            @if (!empty($menuItem->thumbnail))
-                                <div class="is-user-avatar">
-                                    <img src="{{ $menuItem->thumbnail }}" alt="{{ $menuItem->title }}">
+                            @php
+                                $name = '';
+                                if (!empty($menuItem->thumbnail)) {
+                                    $name .= '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
+                                }
+                                $name .= '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
+                                if (!empty($menuItem->icon)) {
+                                    $name .= '<span class="text-xl"><i class="fa-solid '.$menuItem->icon.'"></i>';
+                                }
+                            @endphp
+
+                            @include('admin.components.nav-link-top', [
+                                'name'       => $name,
+                                'href'       => false,
+                                'class'      => 'navbar-link is-arrowless',
+                                'icon'       => false
+                            ])
+
+                            @if (!empty($menuItem->children))
+                                <div class="navbar-dropdown">
+
+                                    @foreach($menuItem->children as $menuSubItem)
+                                        @include('admin.components.nav-link-top', [
+                                            'name'   => (!empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title),
+                                            'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
+                                            'active' => $menuSubItem->active,
+                                            'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
+                                        ])
+                                    @endforeach
+
                                 </div>
                             @endif
 
-                            <div class="is-user-name"><span>{{ $menuItem->title }}</span></div>
-                            @if(!empty($menuItem->icon))
-                                <span class="text-xl">
-                                    <i class="fa-solid {{ $menuItem->icon }}"></i>
-                                </span>
+                        </div>
+
+                    @else
+
+                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
+
+                            @include('admin.components.nav-link-top', [
+                                'name'   => $menuItem->title,
+                                'href'   => false,
+                                'class'  => 'navbar-link is-arrowless',
+                                'icon'   => ''
+                            ])
+
+                            @if(!empty($menuItem->children))
+
+                                <div class="navbar-dropdown">
+
+                                    @foreach($menuItem->children as $menuSubItem)
+                                        @include('admin.components.nav-link-top', [
+                                            'name'   => !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title,
+                                            'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
+                                            'active' => $menuSubItem->active,
+                                            'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
+                                        ])
+                                    @endforeach
+
+                                </div>
+
                             @endif
-                        </a>
 
-                        @if (!empty($menuItem->children))
-                            <div class="navbar-dropdown">
+                        </div>
 
-                                @foreach($menuItem->children as $menuSubItem)
-                                    <a @if (!empty($menuSubItem->url))href="{{ $menuSubItem->url }}" @endif
-                                       class="navbar-item"
-                                    >
-                                        @if(!empty($menuSubItem->icon))
-                                            <span class="text-xl">
-                                                <i class="fa-solid {{ $menuSubItem->icon }}"></i>
-                                            </span>
-                                        @endif
-                                        <span>{{ $menuSubItem->title }}</span>
-                                    </a>
-                                @endforeach
+                    @endif
 
-                            </div>
-                        @endif
+                @endforeach
 
-                    </div>
-
-
-                @else
-
-                    <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
-                        <a @if(empty($menuItem->children) && !empty($menuItem->url))href="{{ $menuItem->url }}" @endif
-                               class="navbar-link is-arrowless">
-                            <span>{{ $menuItem->title }}</span>
-                        </a>
-
-                        @if(!empty($menuItem->children))
-                            <div class="navbar-dropdown">
-                                @foreach($menuItem->children as $menuSubItem)
-                                    <a @if (!empty($menuSubItem->url))href="{{ $menuSubItem->url }}" @endif
-                                        class="navbar-item"
-                                    >
-                                        @if(!empty($menuSubItem->icon))
-                                            <span class="icon"><i class="fa-solid {{ $menuSubItem->icon }}"></i></span>
-                                        @endif
-                                        <span>{{ !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title }}</span>
-                                    </a>
-                                @endforeach
-                            </div>
-                        @endif
-
-                    </div>
-
-                @endif
-
-            @endforeach
-
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+
+@endif

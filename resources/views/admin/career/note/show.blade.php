@@ -11,7 +11,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('admin.index') ],
+            [ 'name' => 'Home',            'href' => route('home') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Notes',           'href' => route('admin.career.note.index') ],
@@ -20,13 +20,13 @@
     }
 
     $buttons = [];
-    if (canUpdate($note, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.note.edit', $note) ];
+    if (canUpdate($note, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.note.edit', $note)])->render();
     }
-    if (canCreate($note, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ];
+    if (canCreate('note', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ];
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.note.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Note' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
@@ -35,7 +35,8 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
     'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
@@ -51,7 +52,7 @@
             'value' => $note->id
         ])
 
-        @if(isRootAdmin())
+        @if($admin->root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $note->owner->username

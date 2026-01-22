@@ -1,17 +1,17 @@
 @php
     $buttons = [];
-    if (canUpdate($application, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.application.edit', $application) ];
+    if (canUpdate($application, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.application.edit', $application)])->render();
     }
-    if (canCreate($application, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ];
+    if (canCreate('application', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create')])->render();
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.application.index') ];
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'           => $pageTitle ?? 'Application: ' . $application->name,
     'breadcrumbs'     => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Applications',    'href' => route('admin.career.application.index') ],
@@ -21,11 +21,12 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -75,7 +76,7 @@
                                     'value' => $application->id
                                 ])
 
-                                @if(isRootAdmin())
+                                @if($admin->root)
                                     @include('admin.components.show-row', [
                                         'name'  => 'owner',
                                         'value' => $application->owner->username

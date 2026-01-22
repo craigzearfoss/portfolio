@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('framework', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.dictionary.framework.create') ];
+    if (canCreate('database', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.dictionary.database.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary (database)',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Databases' ]
@@ -16,7 +16,7 @@
         'name'     => '',
         'label'    => '',
         'value'    => route('admin.dictionary.database.index'),
-        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin.'),
+        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin'),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]),
@@ -24,16 +24,20 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_topm)
+            {!! $databases->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -45,17 +49,19 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>abbrev</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>abbrev</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($databases as $database)
@@ -73,72 +79,69 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        @if(canRead($database))
-                            @include('admin.components.link-icon', [
-                                'title' => 'show',
-                                'href'  => route('admin.dictionary.database.show', $database->id),
-                                'icon'  => 'fa-list'
-                            ])
-                        @endif
+                        <div class="action-button-panel">
 
-                        @if(canUpdate($database))
-                            @include('admin.components.link-icon', [
-                                'title' => 'edit',
-                                'href'  => route('admin.dictionary.database.edit', $database->id),
-                                'icon'  => 'fa-pen-to-square'
-                            ])
-                        @endif
-
-                        @if (!empty($database->link))
-                            @include('admin.components.link-icon', [
-                                'title'  => (!empty($database->link_name) ? $database->link_name : 'link') ?? '',
-                                'href'   => $database->link,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
-
-                        @if (!empty($database->wikipedia))
-                            @include('admin.components.link-icon', [
-                                'title'  => 'Wikipedia page',
-                                'href'   => $database->wikipedia,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
-
-                        @if(canDelete($database))
-
-                            <form action="{!! route('admin.dictionary.database.destroy', $database->id) !!}"
-                                  method="POST"
-                                  style="display:inline-flex"
-                            >
-                                @csrf
-                                @method('DELETE')
-
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
+                            @if(canRead($database, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.dictionary.database.show', $database),
+                                    'icon'  => 'fa-list'
                                 ])
+                            @endif
 
-                            </form>
+                            @if(canUpdate($database, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.dictionary.database.edit', $database),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
 
-                        @endif
+                            @if (!empty($database->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => (!empty($database->link_name) ? $database->link_name : 'link') ?? '',
+                                    'href'   => $database->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
+
+                            @if (!empty($database->wikipedia))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'Wikipedia page',
+                                    'href'   => $database->wikipedia,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
+
+                            @if(canDelete($database, $admin))
+                                <form class="delete-resource" action="{!! route('admin.dictionary.database.destroy', $database) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
+                            @endif
+
+                        </div>
 
                     </td>
                 </tr>
@@ -154,7 +157,9 @@
             </tbody>
         </table>
 
-        {!! $databases->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $databases->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

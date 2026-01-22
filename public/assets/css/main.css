@@ -185,6 +185,14 @@ div.field.is-horizontal div.field-label label.label {
     text-align: center;
 }
 
+ul.menu p.menu-label.menu-label-left {
+    margin-top: 6px;
+    margin-bottom: 2px !important;
+}
+ul.menu p.menu-label a {
+    font-size: 15px;
+}
+
 div.content ul.menu-list li {
     list-style: none;
 }
@@ -204,4 +212,8 @@ table tbody tr td p {
 
 div.content ul.menu-list li {
     list-style: none;
+}
+
+div.action-button-panel form.delete-resource {
+    display: inline;
 }

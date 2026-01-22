@@ -10,7 +10,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('admin.index') ],
+            [ 'name' => 'Home',            'href' => route('home') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Notes' ]
@@ -18,8 +18,8 @@
     }
 
     $buttons = [];
-    if (canCreate('note', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ];
+    if (canCreate('note', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
@@ -29,21 +29,26 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $notes->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 @if(!empty($application))
@@ -54,28 +59,30 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                @if(!empty($application))
-                    <th>application</th>
-                @endif
-                <th>subject</th>
-                <th>created at</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    @if(!empty($application))
+                        <th>application</th>
+                    @endif
+                    <th>subject</th>
+                    <th>created at</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($notes as $note)
 
                 <tr data-id="{{ $note->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $note->owner->username ?? '' }}
                         </td>
                     @endif
@@ -83,7 +90,9 @@
                         <td data-field="application_id">
                             @include('admin.components.link', [
                                 'name' => $note->application->name ,
-                                'href' => route('admin.career.application.show', $note->application->id)
+                                'href' => route('admin.career.application.show',
+                                                \App\Models\Career\Application::find($note->application->id)
+                                          )
                             ])
                         </td>
                     @endif
@@ -93,22 +102,22 @@
                     <td data-field="created_at" style="white-space: nowrap;">
                         {{ shortDateTime($note->created_at) }}
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.career.note.destroy', $note->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($note))
+                            @if(canRead($note, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.career.note.show', $note->id),
+                                    'href'  => route('admin.career.note.show', $note),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($note))
+                            @if(canUpdate($note, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.career.note.edit', $note->id),
+                                    'href'  => route('admin.career.note.edit', $note),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -128,17 +137,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($note))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($note, $admin))
+                                <form class="delete-resource" action="{!! route('admin.career.note.destroy', $note) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -147,8 +158,8 @@
 
                 <tr>
                     @php
-                    $colspan = isRootAdmin() ? '4' : '3';
-                    if (!empty($application)) $colspan = $colspan++;
+                        $colspan = $admin->root ? '4' : '3';
+                        if (!empty($application)) $colspan = $colspan++;
                     @endphp
                     <td colspan="{{ $colspan }}">There are no notes.</td>
                 </tr>
@@ -158,7 +169,9 @@
             </tbody>
         </table>
 
-        {!! $notes->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $notes->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

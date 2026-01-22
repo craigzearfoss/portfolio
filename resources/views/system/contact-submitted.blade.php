@@ -1,16 +1,20 @@
 @extends('guest.layouts.default', [
-    'title'         => 'Contact',
-    'subtitle'      => null,
+    'title'            => $pageTitle ?? 'Contact',
+    'subtitle'         => null,
     'breadcrumbs' => [
         [ 'name' => 'Home', 'href' => route('home')],
     ],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

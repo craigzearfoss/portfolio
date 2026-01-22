@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('ingredient', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Reading', 'href' => route('admin.personal.reading.create', $admin) ];
+    if (canCreate('ingredient', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reading', 'href' => route('admin.personal.reading.create', $owner)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Readings',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Readings' ],
@@ -16,17 +16,17 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{!! route('admin.personal.reading.index', $admin) !!}" method="get">
+        <form id="searchForm" action="{!! route('admin.personal.reading.index', $owner) !!}" method="get">
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'author',
@@ -81,10 +81,14 @@
 
     <div class="show-container card p-4">
 
+        @if($pagination_top)
+            {!! $readings->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>title</th>
@@ -99,32 +103,34 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>author</th>
-                <th class="has-text-centered">featured</th>
-                <th>type</th>
-                <th class="has-text-centered">publication year</th>
-                <th>media</th>
-                <th class="has-text-centered">wishlist</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th>author</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>type</th>
+                    <th class="has-text-centered">publication year</th>
+                    <th>media</th>
+                    <th class="has-text-centered">wishlist</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($readings as $reading)
 
                 <tr data-id="{{ $reading->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $reading->owner->username ?? '' }}
                         </td>
                     @endif
@@ -163,22 +169,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.personal.reading.destroy', [$admin, $reading->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($reading))
+                            @if(canRead($reading, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.reading.show', [$admin, $reading->id]),
+                                    'href'  => route('admin.personal.reading.show', [$owner, $reading->id]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($reading))
+                            @if(canUpdate($reading, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.reading.edit', [$admin, $reading->id]),
+                                    'href'  => route('admin.personal.reading.edit', [$owner, $reading->id]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -198,17 +204,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($reading))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($reading, $admin))
+                                <form class="delete-resource" action="{!! route('admin.personal.reading.destroy', $reading) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -216,7 +224,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '11' : '10' }}">There are no readings.</td>
+                    <td colspan="{{ $admin->root ? '11' : '10' }}">There are no readings.</td>
                 </tr>
 
             @endforelse
@@ -224,7 +232,9 @@
             </tbody>
         </table>
 
-        {!! $readings->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $readings->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

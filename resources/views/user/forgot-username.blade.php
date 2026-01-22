@@ -1,17 +1,21 @@
 @extends('user.layouts.default', [
-    'pageTitle'     => 'Forgot User Name',
-    'title'         => '',
-    'breadcrumbs'   => [
+    'pageTitle'        => $pageTitle ?? 'Forgot User Name',
+    'title'            => '',
+    'breadcrumbs'      => [
         [ 'name' => 'Home', 'href' => route('home') ],
         [ 'name' => 'Forgot User Name' ],
     ],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

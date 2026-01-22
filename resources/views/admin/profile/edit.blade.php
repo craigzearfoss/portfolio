@@ -1,36 +1,33 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Edit My Profile',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'My Profile',      'href' => route('admin.profile.show') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-key"></i> Change Password', 'href' => '<a class="btn btn-sm btn-solid" href="' . route('admin.profile.change-password', $admin->id) . '">' ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.profile.show') ],
+        view('admin.components.nav-button', ['name' => 'Change Password', 'icon'=>'fa-key', 'href' => route('admin.profile.change-password')])->render(),
+        view('admin.components.nav-button-back', ['href' => referer('admin.profile.index')])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
-
-@php
-    $admin = $loggedInAdmin
-@endphp
 
 @section('content')
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.profile.update', $admin) }}" method="POST">
+        <form action="{{ route('admin.profile.update') }}" method="POST">
             @csrf
             @method('PUT')
 

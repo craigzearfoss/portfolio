@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('stack', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'href' => route('admin.dictionary.stack.create') ];
+    if (canCreate('stack', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Stack', 'href' => route('admin.dictionary.stack.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary (stacks)',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Stacks' ],
@@ -16,7 +16,7 @@
         'name'     => '',
         'label'    => '',
         'value'    => route('admin.dictionary.stack.index'),
-        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin.'),
+        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin'),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]),
@@ -24,16 +24,21 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'           => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_top)
+            {!! $stacks->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -45,17 +50,19 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>abbrev</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>abbrev</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($stacks as $stack)
@@ -73,82 +80,79 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $stack->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        @if(canRead($server))
-                            @include('admin.components.link-icon', [
-                                'title' => 'show',
-                                'href'  => route('admin.dictionary.stack.show', $stack->id),
-                                'icon'  => 'fa-list'
-                            ])
-                        @endif
+                        <div class="action-button-panel">
 
-                        @if(canUpdate($stack))
-                            @include('admin.components.link-icon', [
-                                'title' => 'edit',
-                                'href'  => route('admin.dictionary.stack.edit', $stack->id),
-                                'icon'  => 'fa-pen-to-square'
-                            ])
-                        @endif
+                            @if(canRead($server, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.dictionary.stack.show', $stack),
+                                    'icon'  => 'fa-list'
+                                ])
+                            @endif
 
-                        @if (!empty($stack->link))
-                            @include('admin.components.link-icon', [
-                                'title'  => !empty($stack->link_name) ? $stack->link_name : 'link',
-                                'href'   => $stack->link,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
+                            @if(canUpdate($stack, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.dictionary.stack.edit', $stack),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
 
-                        @if (!empty($stack->wikipedia))
-                            @include('admin.components.link-icon', [
-                                'title'  => 'Wikipedia page',
-                                'href'   => $stack->wikipedia,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
+                            @if (!empty($stack->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => !empty($stack->link_name) ? $stack->link_name : 'link',
+                                    'href'   => $stack->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
 
-                        @if(canDelete($stack))
-                            @csrf
-                            @method('DELETE')
-                            @include('admin.components.button-icon', [
-                                'title' => 'delete',
-                                'class' => 'delete-btn',
-                                'icon'  => 'fa-trash'
-                            ])
-                        @endif
+                            @if (!empty($stack->wikipedia))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'Wikipedia page',
+                                    'href'   => $stack->wikipedia,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
 
-                        @if(canDelete($stack))
-
-                            <form action="{!! route('admin.dictionary.stack.destroy', $stack->id) !!}"
-                                  method="POST"
-                                  style="display:inline-flex"
-                            >
+                            @if(canDelete($stack, $admin))
                                 @csrf
                                 @method('DELETE')
-
                                 @include('admin.components.button-icon', [
                                     'title' => 'delete',
                                     'class' => 'delete-btn',
                                     'icon'  => 'fa-trash'
                                 ])
+                            @endif
 
-                            </form>
+                            @if(canDelete($stack, $admin))
+                                <form class="delete-resource" action="{!! route('admin.dictionary.stack.destroy', $stack) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
+                            @endif
 
-                        @endif
+                        </div>
 
                     </td>
                 </tr>
@@ -164,7 +168,9 @@
             </tbody>
         </table>
 
-        {!! $stacks->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $stacks->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

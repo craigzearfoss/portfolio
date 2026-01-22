@@ -25,33 +25,33 @@
             */ ?>
         <tbody>
 
-        @forelse ($admins as $admin)
+        @forelse ($owners as $owner)
 
-            <tr data-id="{{ $admin->id }}">
+            <tr data-id="{{ $owner->id }}">
                 <td data-field="thumbnail" style="width: 32px;">
-                    @if(!empty($admin->thumbnail))
+                    @if(!empty($owner->thumbnail))
                         @include('admin.components.link', [
                             'name' => view('admin.components.image', [
-                                            'src'      => $admin->thumbnail,
+                                            'src'      => $owner->thumbnail,
                                             'alt'      => 'profile image',
                                             'width'    => '30px',
-                                            'filename' => $admin->thumbnail
+                                            'filename' => $owner->thumbnail
                                         ]),
-                            'href' => route('admin.admin.show', $admin),
+                            'href' => route('admin.system.admin.show', $owner),
                         ])
                     @endif
                 </td>
                 <td data-field="name">
                     @include('admin.components.link', [
-                        'name' => !empty($admin->name) ? $admin->name : $admin->label,
-                        'href' => route('admin.admin.show', $admin),
+                        'name' => !empty($owner->name) ? $owner->name : $owner->label,
+                        'href' => route('admin.system.admin.show', $owner),
                     ])
                 </td>
                 <td data-field="role">
-                    {{ $admin->role ?? '' }}
+                    {{ $owner->role ?? '' }}
                 </td>
                 <td data-field="employer">
-                    {{ $admin->employer ?? '' }}
+                    {{ $owner->employer ?? '' }}
                 </td>
             </tr>
 
@@ -66,6 +66,6 @@
         </tbody>
     </table>
 
-    {!! $admins->links('vendor.pagination.bulma') !!}
+    {!! $owners->links('vendor.pagination.bulma') !!}
 
 </div>

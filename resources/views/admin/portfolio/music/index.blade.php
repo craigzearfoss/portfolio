@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('music', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Music', 'href' => route('admin.portfolio.music.create', $admin) ];
+    if (canCreate('music', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Music', 'href' => route('admin.portfolio.music.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Music',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Music' ],
@@ -16,21 +16,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $musics->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -44,31 +48,33 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>artist</th>
-                <th class="has-text-centered">featured</th>
-                <th>year</th>
-                <th>label</th>
-                <th>cat#</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th>artist</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>year</th>
+                    <th>label</th>
+                    <th>cat#</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($musics as $music)
 
                 <tr data-id="{{ $music->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $music->owner->username ?? '' }}
                         </td>
                     @endif
@@ -96,22 +102,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.music.destroy', [$admin, $music->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($music))
+                            @if(canRead($music, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.music.show', [$admin, $music->id]),
+                                    'href'  => route('admin.portfolio.music.show', $music),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($music))
+                            @if(canUpdate($music, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.music.edit', [$admin, $music->id]),
+                                    'href'  => route('admin.portfolio.music.edit', $music),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -131,17 +137,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($music))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($music, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.music.destroy', $music) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -149,7 +157,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There is no music.</td>
+                    <td colspan="{{ $admin->root ? '10' : '9' }}">There is no music.</td>
                 </tr>
 
             @endforelse
@@ -157,7 +165,9 @@
             </tbody>
         </table>
 
-        {!! $musics->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $musics->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

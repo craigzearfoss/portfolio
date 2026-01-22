@@ -17,18 +17,26 @@ use Illuminate\View\View;
 class EducationController extends BaseAdminController
 {
     /**
-     * Display a listing of educations.
+     * Display a listing of education.
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $educations = Education::orderBy('enrollment_year', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $educations = Education::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $educations = Education::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.portfolio.education.index', compact('educations'))
+        $pageTitle = empty($this->owner) ? 'Education' : $this->owner->name . ' Education';
+
+        return view('admin.portfolio.education.index', compact('educations', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

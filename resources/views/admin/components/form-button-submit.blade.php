@@ -1,5 +1,5 @@
 <a
-    href="{!! $cancel_url ?? route('admin.dashboard') !!}"
+    href="{!! $cancel_url ?? 'admin.dashboard' !!}"
     class="button is-small is-dark"
 ><i class="fa-solid fa-close"></i> Cancel</a>
 

@@ -23,6 +23,46 @@ if (! function_exists('refererRouteName')) {
     }
 }
 
+if (! function_exists('adminRoute')) {
+    /**
+     * Returns the route name of the refering page or null if there was no refering page.
+     *
+     * @param BackedEnum|string $name
+     * @param mixed $params
+     * @param \App\Models\System\Admin|null $admin
+     * @param \App\Models\System\Admin|null $owner
+     * @param $resource
+     * @param bool $absolute
+     * @return string|null
+     */
+    function adminRoute(BackedEnum|string $name,
+                        mixed $params = [],
+                        $resource = null,
+                        \App\Models\System\Admin|null $owner = null,
+                        bool $absolute = true): string|null
+    {
+        if (explode('.', $name)[0] === 'root') {
+die('ddd');
+            if (!empty($resource) && $resource->has_owner) {
+                $params = is_array($params)
+                    ? array_merge($params, [$owner])
+                    : array_merge([$params], [$owner]);
+                dd([$name, $params, $owner]);
+            }
+
+            $route = route($name, $params, $absolute);
+
+        } else {
+
+            $route = route($name, $params, $absolute);
+        }
+
+        return $route;
+
+        return route($name, $params, $absolute);
+    }
+}
+
 if (! function_exists('referer')) {
     /**
      * Returns the url of the refering page or the specified fallback route if there was no referer.
@@ -35,8 +75,6 @@ if (! function_exists('referer')) {
     function referer(string|null $fallbackRoute = null, mixed $parameters = [], bool $absolute = true): string|null
     {
         $referer = Request::input('referer') ?? (Request::header('referer') ?? null);
-        $refererRouteName = refererRouteName();
-        //dd([$referer, $refererRouteName]);
 
         if (empty($referer) && ! empty($fallbackRoute)) {
             try {
@@ -170,140 +208,132 @@ if (! function_exists('isRootAdmin')) {
 }
 
 if (! function_exists('canCreate')) {
+
     /**
-     * Returns true if admin/user/guest can create the specified resource type.
-     *
-     * @param string $resourceName
-     * @param int|null $adminId
-     * @return bool
-     */
-    function canCreate(string $resourceName, int|null $adminId = null): bool
-    {
-        if (!empty($adminId)) {
-            if (!$admin = \App\Models\System\Admin::find($adminId)) {
-                return false;
-            }
-        } else {
-            if (Auth::guard('admin')->check()) {
-                if (!$admin = Auth::guard('admin')->user()) {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-
-        if ($admin->root) {
-            // root admins can create any type of resource
-            return true;
-        }
-
-        if (!$resource = \App\Models\System\Resource::where('name', $resourceName)->first()) {
-            return false;
-        }
-
-        // non-root admins can only edit resources with an owner_id field
-        if (in_array('owner_id', (new $resource->class)->getFillable())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
-if (! function_exists('canRead')) {
-    /**
-     * Returns true if admin/user/guest can read the specified resource.
+     * Returns true if an admin can create a resource.
+     * Parameter #1, $resource, must be the name of a resource type.
      *
      * @param $resource
-     * @param int|null $adminId
+     * @param Admin|null $admin
      * @return bool
      */
-    function canRead($resource, int|null $adminId = null): bool
+    function canCreate($resource, \App\Models\System\Admin|null $admin = null): bool
     {
-        // admins can read any resource
-        if (!empty($adminId)) {
-            if (!$admin = \App\Models\System\Admin::find($adminId)) {
-                return false;
-            } else {
-                return true;
-            }
-        } elseif (Auth::guard('admin')->check()) {
+        if (empty($resource)) {
+            abort(500, 'canCreate(): Argument #1 ($resource) cannot be empty');
+        } elseif (empty($admin)) {
+            return false;
+        } elseif (!empty($admin->root)) {
             return true;
         } else {
-            return false;
-        }
-    }
-}
-
-if (! function_exists('canUpdate')) {
-    /**
-     * Returns true if admin/user/guest can update/edit the specified resource.
-     *
-     * @param $resource
-     * @param int|null $adminId
-     * @return bool
-     */
-    function canUpdate($resource, int|null $adminId = null): bool
-    {
-        if (!empty($adminId)) {
-            if (!$admin = \App\Models\System\Admin::find($adminId)) {
-                return false;
+            if (!is_string($resource)) {
+                abort(500, 'canCreate(): Argument #1 ($resource) must be the name of a resource type');
             }
-        } else {
-            if (Auth::guard('admin')->check()) {
-                if (!$admin = Auth::guard('admin')->user()) {
+
+            $resourceType = Str::camel($resource);
+            if (!$resourceType = \App\Models\System\Resource::where('name', $resource)->first()) {
+                return false;
+            } else {
+                if (Schema::connection($resourceType->database->name)->hasColumn($resourceType->name, 'owner_id')) {
+                    return true;
+                } else {
                     return false;
                 }
-            } else {
-                return false;
             }
-        }
-
-        if ($admin->root) {
-            // root admins can edit anything
-            return true;
-        } elseif (!empty($resource->owner_id) && ($resource->owner_id == $admin->id)) {
-            // non-root admins can edit their own resources
-            return true;
-        } else {
-            return false;
         }
     }
 }
 
 if (! function_exists('canDelete')) {
+
     /**
-     * Returns true if admin/user/guest can delete the specified resource.
+     * Returns true if an admin can delete a resource.
+     * Parameter #1, $resource, must be a resource object.
      *
      * @param $resource
-     * @param int|null $adminId
+     * @param Admin|null $admin
      * @return bool
      */
-    function canDelete($resource, int|null $adminId = null): bool
+    function canDelete($resource, \App\Models\System\Admin|null $admin = null): bool
     {
-        if (!empty($adminId)) {
-            if (!$admin = \App\Models\System\Admin::find($adminId)) {
-                return false;
-            }
+        if (empty($resource)) {
+            abort(500, 'canDelete(): Argument #1 ($resource) cannot be empty');
+        } elseif (empty($admin)) {
+            return false;
+        } elseif (!empty($admin->root)) {
+            return true;
         } else {
-            if (Auth::guard('admin')->check()) {
-                if (!$admin = Auth::guard('admin')->user()) {
-                    return false;
-                }
-            } else {
+            if (is_string($resource)) {
+                abort(500, 'canDelete(): Argument #1 ($resource) must be a resource object');
+            }
+
+            // non-root admins can only delete resources that they own
+            $resourceColumns = $resource->attributesToArray();
+            if (!isset($resourceColumns['owner_id']) || ($resourceColumns['owner_id'] != $admin->id)) {
                 return false;
+            } else {
+                return true;
             }
         }
+    }
+}
 
-        if ($admin->root) {
-            // root admins can delete anything
-            return true;
-        } elseif (!empty($resource->owner_id) && ($resource->owner_id == $admin->id)) {
-            // non-root admins can delete their own resources
+if (! function_exists('canRead')) {
+
+    /**
+     * Returns true if an admin can read a resource.
+     * Parameter #1, $resource, must be a resource object or the name of a resource type.
+     * @TODO: Note that this does not handle duplicate table names. Right now the only duplicates we have are "database".
+     *
+     * @param $resource
+     * @param Admin|null $admin
+     * @return bool
+     */
+    function canRead($resource, \App\Models\System\Admin|null $admin = null): bool
+    {
+        if (empty($resource)) {
+            abort(500, 'canRead(): Argument #1 ($resource) cannot be empty');
+        } elseif (empty($admin)) {
+            return false;
+        } elseif (!empty($admin->root)) {
             return true;
         } else {
+            //@TODO: do we need to do any additional checking
+            return true;
+        }
+    }
+}
+
+if (! function_exists('canUpdate')) {
+
+    /**
+     * Returns true if an admin can update a resource.
+     * Parameter #1, $resource, must be a resource object.
+     *
+     * @param $resource
+     * @param Admin|null $admin
+     * @return bool
+     */
+    function canUpdate($resource, \App\Models\System\Admin|null $admin = null): bool
+    {
+        if (empty($resource)) {
+            abort(500, 'canUpdate(): Argument #1 ($resource) cannot be empty');
+        } elseif (empty($admin)) {
             return false;
+        } elseif (!empty($admin->root)) {
+            return true;
+        } else {
+            if (is_string($resource)) {
+                abort(500, 'canUpdate(): Argument #1 ($resource) must be a resource object');
+            }
+
+            // non-root admins can only update resources that they own
+            $resourceColumns = $resource->attributesToArray();
+            if (!isset($resourceColumns['owner_id']) || ($resourceColumns['owner_id'] != $admin->id)) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }
@@ -765,32 +795,43 @@ if (! function_exists('themedTemplate')) {
         }
     }
 
-    if (! function_exists('adminRoute')) {
+    if (! function_exists('adminResourceRouteName')) {
         /**
-         * Returns an admin route by checking if the currently logged in adnim has root permissions.
+         * Returns an admin route by checking if it is for an admin with root privileges.
          */
-        function adminRoute($name, $parameters = [], $absolute = true)
+        function adminResourceRouteName(string                                                       $databaseName,
+                                        \App\Models\System\Resource|\App\Models\System\AdminResource $resource,
+                                        string                                                       $action,
+                                        string                                                       $envType = PermissionService::ENV_GUEST,
+                                                                                                     $isRoot = false): string
         {
-            $nameParts = explode('.', $name);
+            //dd($resource);
+            $envType = $isRoot ? 'root' : 'admin';
 
-            // for admin routes, check if the logged in admin has root privileges
-            if ($nameParts[0] == 'admin') {
-                if (
-                    isRootAdmin() && !in_array($nameParts[1], ['dashboard', 'index'])
-                    && ($nameParts[1] != 'dictionary')  // there are to root routes for the dictionary database
-                    //|| (($nameParts[1] == 'dictionary') && !in_array($nameParts[2], ['index', 'show']))
-                ) {
-                    $nameParts[0] = 'root';
-                    if (!is_array($parameters)) {
-                        $parameters = !empty($parameters) ? [$parameters] : [];
-                    }
-                    $parameters = array_merge($parameters, [loggedInAdmin()]);
-                }
+            $parts = [$envType];
+            if ($databaseName != 'system') {
+                $parts[] = $databaseName;
+            }
+            $parts[] = $resource->name;
+            if (($envType == PermissionService::ENV_ADMIN) && $isRoot) {
+
+            } else {
+                $parts[] = $databaseName;
+            }
+            $parts[] = ($envType == PermissionService::ENV_ADMIN) && $isRoot
+                ? $resource->id
+                : (property_exists($resource, 'slug') ? $resource->slug : $resource->id);
+            $parts[] = $action;
+            dd($parts);
+            $route = implode('.', $parts);
+
+            // if the "root" route doesn't exist fallback to the "admin" route
+            if (($envType == 'root') && !Route::has($route)) {
+                array_shift($parts);
+                $route = '.admin' . implode('.', $parts);
             }
 
-            $name = implode('.', $nameParts);
-
-            return route($name, $parameters, $absolute);
+            return $route;
         }
     }
 }

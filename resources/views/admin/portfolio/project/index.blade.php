@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('project', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Project', 'href' => route('admin.portfolio.project.create', $admin) ];
+    if (canCreate('project', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Project', 'href' => route('admin.portfolio.project.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Projects',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ],
@@ -16,21 +16,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $projects->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -43,29 +47,31 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th class="has-text-centered">featured</th>
-                <th>language</th>
-                <th>year</th>
-                <th>repository</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>language</th>
+                    <th>year</th>
+                    <th>repository</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($projects as $project)
                 <tr data-id="{{ $project->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $project->owner->username ?? '' }}
                         </td>
                     @endif
@@ -99,22 +105,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.project.destroy', [$admin, $project->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($project))
+                            @if(canRead($project, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.project.show', [$admin, $project->id]),
+                                    'href'  => route('admin.portfolio.project.show', $project),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($project))
+                            @if(canUpdate($project, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.project.edit', [$admin, $project->id]),
+                                    'href'  => route('admin.portfolio.project.edit', $project),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -134,17 +140,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($project))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($project, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.project.destroy', $project) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -152,7 +160,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '9' : '8' }}">There are no projects.</td>
+                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no projects.</td>
                 </tr>
 
             @endforelse
@@ -160,7 +168,9 @@
             </tbody>
         </table>
 
-        {!! $projects->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $projects->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

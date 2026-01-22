@@ -24,11 +24,13 @@ class IndexController extends BaseGuestController
      */
     public function index(Admin|null $admin, Request $request): View
     {
-        if (!empty($admin)) {
+        $owner = $admin;
 
-            $database = AdminDatabase::where('tag', 'personal_db')->where('owner_id', $admin->id)->first();
-            $resources = AdminResource::getResources(
-                $admin->id,
+        if (!empty($owner)) {
+
+            $database = AdminDatabase::where('tag', 'personal_db')->where('owner_id', $owner->id)->first();
+            $resources = AdminResource::ownerResources(
+                $owner->id,
                 PermissionService::ENV_GUEST,
                 $database->database_id,
                 [],
@@ -38,8 +40,8 @@ class IndexController extends BaseGuestController
         } else {
 
             $database = Database::where('tag', 'personal_db')->first();
-            $resources = Resource::getResources(
-                $admin->id,
+            $resources = Resource::ownerResources(
+                $owner->id,
                 PermissionService::ENV_GUEST,
                 $database->id,
                 [],
@@ -48,6 +50,6 @@ class IndexController extends BaseGuestController
 
         }
 
-        return view(themedTemplate('guest.personal.index'), compact('database', 'resources'));
+        return view(themedTemplate('guest.personal.index'), compact('owner', 'database', 'resources'));
     }
 }

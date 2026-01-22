@@ -1,39 +1,43 @@
 @php
     $buttons = [];
-    if (canCreate('admin-group', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New Admin Group', 'href' => route('admin.admin-group.create') ];
+    if (canCreate('admin-group', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Admin Group', 'href' => route('admin.system.admin-group.create')])->render();
     }
-    if (canRead('admin-team', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Teams', 'href' => route('admin.admin-team.index') ];
+    if (canRead('admin-team', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Admin Team', 'href' => route('admin.system.admin-team.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin Groups',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Groups' ]
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $adminGroups->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -43,27 +47,29 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>team</th>
-                <th>abbreviation</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th>team</th>
+                    <th>abbreviation</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($adminGroups as $adminGroup)
 
                 <tr data-id="{{ $adminGroup->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $adminGroup->owner->username ?? '' }}
                         </td>
                     @endif
@@ -79,37 +85,39 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $adminGroup->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.admin-group.destroy', $adminGroup->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($adminGroup))
+                            @if(canRead($adminGroup, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.admin-group.show', $adminGroup->id),
+                                    'href'  => route('admin.system.admin-group.show', $adminGroup),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($adminGroup))
+                            @if(canUpdate($adminGroup, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.admin-group.edit', $adminGroup->id),
+                                    'href'  => route('admin.system.admin-group.edit', $adminGroup),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
 
-                            @if(canDelete($adminGroup))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($adminGroup, $admin))
+                                <form class="delete-resource" action="{!! route('admin.system.admin-group.destroy', $adminGroup) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -117,7 +125,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no admin groups.</td>
+                    <td colspan="{{ $admin->root ? '6' : '5' }}">There are no admin groups.</td>
                 </tr>
 
             @endforelse
@@ -125,7 +133,9 @@
             </tbody>
         </table>
 
-        {!! $adminGroups->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $adminGroups->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

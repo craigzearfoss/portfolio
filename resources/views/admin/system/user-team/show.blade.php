@@ -1,31 +1,31 @@
 @php
     $buttons = [];
-    if (canDelete($userTeam, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.admin-team.edit', $userTeam) ];
+    if (canUpdate($userTeam, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.user-team.edit', $userTeam)])->render();
     }
-    if (canCreate($userTeam, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Add New User Team', 'href' => referer('admin.system.admin-team.index') ];
+    if (canCreate('user-team', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New User Team', 'href' => route('admin.system.user-team.create')])->render();
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin.index') ];
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.user-team.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'User Team: ' . $userTeam->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
-        [ 'name' => 'User Teams',      'href' => route('root.user-team.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'User Teams',      'href' => route('admin.system.user-team.index') ],
         [ 'name' => $userTeam->name ]
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -37,7 +37,7 @@
             'value' => $userTeam->id
         ])
 
-        @if(isRootAdmin())
+        @if($admin->root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $userTeam->owner->username
@@ -112,12 +112,12 @@
                             </td>
                             <td>
                                 <a title="show" class="button is-small px-1 py-0"
-                                   href="{!! route('root.user.show', $member->id) !!}">
+                                   href="{!! route('admin.user.show', $member->id) !!}">
                                     <i class="fa-solid fa-list"></i>
                                 </a>
 
                                 <a title="edit" class="button is-small px-1 py-0"
-                                   href="{!! route('root.user.edit', $member->id) !!}">
+                                   href="{!! route('admin.user.edit', $member->id) !!}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </td>

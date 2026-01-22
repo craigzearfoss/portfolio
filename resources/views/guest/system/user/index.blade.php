@@ -11,11 +11,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -59,7 +59,7 @@
                                                 'width'    => '30px',
                                                 'filename' => $user->thumbnail
                                             ]),
-                                'href' => route('guest.$user.show', $user),
+                                'href' => route('guest..$user.show', $user),
                             ])
                         @endif
                     </td>

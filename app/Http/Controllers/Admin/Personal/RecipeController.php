@@ -21,14 +21,22 @@ class RecipeController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $recipes = Recipe::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $recipes = Recipe::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $recipes = Recipe::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.personal.recipe.index', compact('recipes'))
+        $pageTitle = empty($this->owner) ? 'Recipes' : $this->owner->name . ' Recipes';
+
+        return view('admin.personal.recipe.index', compact('recipes', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

@@ -1,15 +1,19 @@
 @extends('user.layouts.empty', [
-    'title'         => 'Set New Password',
-    'breadcrumbs'   => [
+    'title'            => 'Set New Password',
+    'breadcrumbs'      => [
         [ 'name' => 'Home', 'href' => route('home')],
     ],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -63,7 +67,7 @@
                     <div class="mt-3 is-fullwidth has-text-centered">
                         <span>Already have an account?</span>
                         <a class="text-primary-600 hover:underline" href="{{ route('user.login') }}">User Login</a>
-                        <a class="text-primary-600 hover:underline" href="{{ route('admin.login') }}">Admin Login</a>
+                        <a class="text-primary-600 hover:underline" href="{{ route('user.login') }}">Admin Login</a>
                     </div>
 
                 </form>

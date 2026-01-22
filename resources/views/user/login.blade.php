@@ -1,13 +1,17 @@
 @extends('user.layouts.empty', [
-    'title'         => 'Login',
-    'breadcrumbs'   => [],
-    'buttons'       => [],
-    'errorMessages' => $errors->any()
+    'title'            => $pageTitle ?? 'Login',
+    'breadcrumbs'      => [],
+    'buttons'          => [],
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

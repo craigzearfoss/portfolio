@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Portfolio\StorePhotographyRequest;
 use App\Http\Requests\Portfolio\UpdatePhotographyRequest;
 use App\Models\Portfolio\Photography;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class PhotographyController extends BaseAdminController
 {
     /**
@@ -20,14 +21,22 @@ class PhotographyController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $photos = Photography::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $photos = Photo::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $photos = Photo::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.portfolio.photography.index', compact('photos'))
+        $pageTitle = empty($this->owner) ? 'Photos' : $this->owner->name . ' Photos';
+
+        return view('admin.portfolio.photography.index', compact('photos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

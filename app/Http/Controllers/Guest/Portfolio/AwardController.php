@@ -20,13 +20,15 @@ class AwardController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $owner = $admin;
 
-        $awards = Award::where('owner_id', $admin->id)
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $awards = Award::where('owner_id', $owner->id)
             ->orderBy('name', 'asc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.award.index'), compact('awards'))
+        return view(themedTemplate('guest.portfolio.award.index'), compact('owner', 'awards'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -39,10 +41,12 @@ class AwardController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$award = Award::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        $owner = $admin;
+
+        if (!$award = Award::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.award.show'), compact('award'));
+        return view(themedTemplate('guest.portfolio.award.show'), compact('owner', 'award'));
     }
 }

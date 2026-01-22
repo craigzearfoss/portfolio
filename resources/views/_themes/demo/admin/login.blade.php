@@ -1,12 +1,16 @@
 @php /* for url '/admin/login' */ @endphp
 @extends('admin.layouts.default', [
-    'title'         => '',
-    'breadcrumbs'   => [],
-    'buttons'       => [],
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'admin'         => null,
+    'title'            => $pageTitle ?? '',
+    'breadcrumbs'      => [],
+    'buttons'          => [],
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -59,7 +63,7 @@
             <div class="has-text-centered">
                 @include('admin.components.form-button-submit', [
                     'label'      => 'Login',
-                    'cancel_url' => referer('admin.index')
+                    'cancel_url' => referer('guest.index')
                 ])
             </div>
 

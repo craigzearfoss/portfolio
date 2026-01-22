@@ -27,7 +27,7 @@ class LibraryController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $libraries = Library::orderBy('name', 'asc')->paginate($perPage);
 

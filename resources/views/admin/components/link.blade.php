@@ -1,5 +1,5 @@
 @php
-$download = isset($download) ? boolval($download) : false;
+    $download = isset($download) ? boolval($download) : false;
 @endphp
 @if (!empty($href) || !empty($name))
 

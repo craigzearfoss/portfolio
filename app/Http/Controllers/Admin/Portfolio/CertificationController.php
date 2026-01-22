@@ -24,11 +24,13 @@ class CertificationController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $certifications = Certification::orderBy('name', 'asc')->paginate($perPage);
+        $certifications = Certification::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.portfolio.certification.index', compact('certifications'))
+        $pageTitle = 'Certifications';
+
+        return view('admin.portfolio.certification.index', compact('certifications', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

@@ -52,7 +52,7 @@ class IndexController extends BaseUserController
     {
         if (isUser()) {
             // user is already logged in
-            return redirect()->route('user.dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
         if ($request->isMethod('post')) {
@@ -83,7 +83,7 @@ class IndexController extends BaseUserController
                         ->with('username', $username)
                         ->withErrors($user->username . ' account has been disabled.');
                 } else {
-                    return redirect()->route('user.dashboard');
+                    return redirect()->route('admin.dashboard');
                 }
             } else {
                 return view(themedTemplate('user.login'))
@@ -204,7 +204,7 @@ class IndexController extends BaseUserController
     public function reset_password($token, $email): RedirectResponse |View
     {
         if (!$user = User::where('email', $email)->where('token', $token)->first()) {
-            return redirect()->route('user.login')
+            return redirect()->route('admin.login')
                 ->with('error', 'Your reset password token is expired. Please try again.');
         } else {
             return view(themedTemplate('user.reset-password'), compact('token', 'email'));
@@ -238,7 +238,7 @@ class IndexController extends BaseUserController
         $user->token = null;
         $user->update();
 
-        return redirect()->route('user.login')
+        return redirect()->route('admin.login')
             ->with('success', 'Your password has been changed. You can login with your new password.');
     }
 
@@ -284,7 +284,7 @@ class IndexController extends BaseUserController
     {
         $user = User::where('email', $email)->where('token', $token)->first();
         if (!$user) {
-            return redirect()->route('user.login');
+            return redirect()->route('admin.login');
         }
 
         $user->token = null;
@@ -294,7 +294,7 @@ class IndexController extends BaseUserController
 
         $user->markEmailAsVerified();
 
-        return redirect()->route('user.login')
+        return redirect()->route('admin.login')
             ->with('success', 'Your email has been verified. You can now login to your account.');
     }
 

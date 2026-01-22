@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('operating-system', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'href' => route('admin.dictionary.operating-system.create') ];
+    if (canCreate('operating-system', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Operating System', 'href' => route('admin.dictionary.operating-system.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary (operating systems)',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Operating Systems' ]
@@ -16,24 +16,28 @@
         'name'     => '',
         'label'    => '',
         'value'    => route('admin.dictionary.operating-system.index'),
-        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin.'),
+        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin'),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]),
-    'buttons'          => $buttons,
+    'buttons'          => $buttons,7
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
+
+        @if($pagination_top)
+            {!! $operatingSystems->links('vendor.pagination.bulma') !!}
+        @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
@@ -45,17 +49,19 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>abbrev</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>abbrev</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($operatingSystems as $operatingSystem)
@@ -73,82 +79,79 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $operatingSystem->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        @if(canRead($operatingSystem))
-                            @include('admin.components.link-icon', [
-                                'title' => 'show',
-                                'href'  => route('admin.dictionary.operating-system.show', $operatingSystem->id),
-                                'icon'  => 'fa-list'
-                            ])
-                        @endif
+                        <div class="action-button-panel">
 
-                        @if(canUpdate($operatingSystem))
-                            @include('admin.components.link-icon', [
-                                'title' => 'edit',
-                                'href'  => route('admin.dictionary.operating-system.edit', $operatingSystem->id),
-                                'icon'  => 'fa-pen-to-square'
-                            ])
-                        @endif
+                            @if(canRead($operatingSystem, $admin))
+                                @include('admin.components.link-icon', [
+                                    'title' => 'show',
+                                    'href'  => route('admin.dictionary.operating-system.show', $operatingSystem),
+                                    'icon'  => 'fa-list'
+                                ])
+                            @endif
 
-                        @if (!empty($operatingSystem->link))
-                            @include('admin.components.link-icon', [
-                                'title'  => !empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link',
-                                'href'   => $operatingSystem->link,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
+                            @if(canUpdate($operatingSystem), $admin)
+                                @include('admin.components.link-icon', [
+                                    'title' => 'edit',
+                                    'href'  => route('admin.dictionary.operating-system.edit', $operatingSystem),
+                                    'icon'  => 'fa-pen-to-square'
+                                ])
+                            @endif
 
-                        @if (!empty($operatingSystem->wikipedia))
-                            @include('admin.components.link-icon', [
-                                'title'  => 'Wikipedia page',
-                                'href'   => $operatingSystem->wikipedia,
-                                'icon'   => 'fa-external-link',
-                                'target' => '_blank'
-                            ])
-                        @else
-                            @include('admin.components.link-icon', [
-                                'title'    => 'link',
-                                'icon'     => 'fa-external-link',
-                                'disabled' => true
-                            ])
-                        @endif
+                            @if (!empty($operatingSystem->link))
+                                @include('admin.components.link-icon', [
+                                    'title'  => !empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link',
+                                    'href'   => $operatingSystem->link,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
 
-                        @if(canDelete($operatingSystem))
-                            @csrf
-                            @method('DELETE')
-                            @include('admin.components.button-icon', [
-                                'title' => 'delete',
-                                'class' => 'delete-btn',
-                                'icon'  => 'fa-trash'
-                            ])
-                        @endif
+                            @if (!empty($operatingSystem->wikipedia))
+                                @include('admin.components.link-icon', [
+                                    'title'  => 'Wikipedia page',
+                                    'href'   => $operatingSystem->wikipedia,
+                                    'icon'   => 'fa-external-link',
+                                    'target' => '_blank'
+                                ])
+                            @else
+                                @include('admin.components.link-icon', [
+                                    'title'    => 'link',
+                                    'icon'     => 'fa-external-link',
+                                    'disabled' => true
+                                ])
+                            @endif
 
-                        @if(canDelete($operatingSystem))
-
-                            <form action="{!! route('admin.dictionary.operating-system.destroy', $operatingSystem->id) !!}"
-                                  method="POST"
-                                  style="display:inline-flex"
-                            >
+                            @if(canDelete($operatingSystem, $admin))
                                 @csrf
                                 @method('DELETE')
-
                                 @include('admin.components.button-icon', [
                                     'title' => 'delete',
                                     'class' => 'delete-btn',
                                     'icon'  => 'fa-trash'
                                 ])
+                            @endif
 
-                            </form>
+                            @if(canDelete($operatingSystem, $admin))
+                                <form class="delete-resource" action="{!! route('admin.dictionary.operating-system.destroy', $operatingSystem) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
+                            @endif
 
-                        @endif
+                        </div>
 
                     </td>
                 </tr>
@@ -164,7 +167,9 @@
             </tbody>
         </table>
 
-        {!! $operatingSystems->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $operatingSystems->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

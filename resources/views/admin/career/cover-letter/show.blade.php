@@ -1,12 +1,12 @@
 @php
     $buttons = [];
-    if (canUpdate($coverLetter, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.cover-letter.edit', $coverLetter) ];
+    if (canUpdate($coverLetter, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.cover-letter.edit', $coverLetter)])->render();
     }
-    if (canCreate($coverLetter, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ];
+    if (canCreate('cover-letter', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.cover-letter.index') ];
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.cover-letter.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Cover Letter: ' . $coverLetter->name,
@@ -21,11 +21,12 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -37,7 +38,7 @@
             'value' => $coverLetter->id
         ])
 
-        @if(isRootAdmin())
+        @if($admin->root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $coverLetter->owner->username

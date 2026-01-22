@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 
 class IndexController extends BaseGuestController
 {
-    protected $perPage = 30;
+    protected $PAGINATION_PER_PAGE = 30;
+
     public function index(Request $request)
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $words = DictionarySection::words(null, $perPage);
 

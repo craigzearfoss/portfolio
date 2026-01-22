@@ -22,15 +22,19 @@ class AdminController extends BaseAdminController
      * Display a listing of admins.
      *
      * @param Request $request
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function index(Request $request): View
+    public function index(Request $request): View|RedirectResponse
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $admins = Admin::orderBy('username', 'asc')->paginate($perPage);
+         if (empty($this->admin->root)) {
+             return redirect()->route('admin.admin.profile');
+         } else {
+             $theAdmins = Admin::orderBy('username', 'asc')->paginate($perPage);
+         }
 
-        return view('admin.system.admin.index', compact('admins'))
+        return view('admin.system.admin.index', compact('theAdmins'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

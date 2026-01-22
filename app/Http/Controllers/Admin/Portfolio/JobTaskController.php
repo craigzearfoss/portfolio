@@ -25,18 +25,26 @@ class JobTaskController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $jobId = $request->job_id;
-        if (!empty($jobId)) {
-            $job = Job::find($jobId);
-            $jobTasks = JobTask::where('job_id', $jobId)->latest()->paginate($perPage);
+        if ($jobId = $request->job_id) {
+            $job = !empty($this->owner)
+                ? Job::where('owner_id', $this->owner->id)->where('id', $jobId)->first()
+                : Job::find($jobId);
+            if (empty($job)) {
+                abort(404, 'Job ' . $jobId . ' not found'
+                    . (!empty($this->owner) ? ' for ' . $this->owner->username : '') . '.');
+            } else {
+                $jobTasks = JobTask::where('job_id', $jobId)->latest()->paginate($perPage);
+            }
         } else {
             $job = null;
             $jobTasks = JobTask::latest()->paginate($perPage);
         }
 
-        return view('admin.portfolio.job-task.index', compact('jobTasks', 'job'))
+        $pageTitle = empty($this->owner) ? 'Job Tasks' : $this->owner->name . ' Job Tasks';
+
+        return view('admin.portfolio.job-task.index', compact('jobTasks', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

@@ -115,29 +115,32 @@ class AdminResource extends Model
      * @return Collection
      * @throws \Exception
      */
-    public static function getResources(int|null    $ownerId,
-                                        string|null $envType,
-                                        int|null    $databaseId = null,
-                                        array       $filters = [],
-                                        array       $orderBy = [ 'sequence' => 'asc' ]): Collection
+    public static function ownerResources(int|null    $ownerId,
+                                          string|null $envType = PermissionService::ENV_GUEST,
+                                          int|null    $databaseId = null,
+                                          array       $filters = [],
+                                          array       $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
+        if ($envType == 'root') $envType = PermissionService::ENV_ADMIN;
         if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
             throw new \Exception('ENV type ' . $envType . ' not supported');
         }
 
         $sortField = $orderBy[0] ?? 'sequence';
+        $sortDir   = $orderBy[1] ?? 'asc';
         if (substr($sortField, 0, 16) !== 'admin_resources.') $sortField = 'admin_resources.'.$sortField;
 
+        // create the query
         $query = AdminResource::select([DB::raw("databases.name AS 'database_name'"), 'admin_resources.*'])
             ->join('databases', 'databases.id', 'admin_resources.database_id')
-            ->orderBy($orderBy[0] ?? 'sequence', $orderBy[1] ?? 'asc');
+            ->orderBy($sortField, $sortDir);
 
         if (!empty($ownerId)) {
             $query->where('admin_resources.owner_id', $ownerId);
         }
 
         // apply env type filter
-        if (!empty($databaseId)) {
+        if (!empty($envType)) {
             $query->where('admin_resources.'.$envType, 1);
         }
 
@@ -145,7 +148,7 @@ class AdminResource extends Model
         if (!empty($databaseId)) {
             $query->where('admin_resources.database_id', $databaseId);
         }
-//dd($filters);
+
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
 
@@ -163,7 +166,7 @@ class AdminResource extends Model
                     } elseif (strtolower($operation) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid resource filter column: ' . $col . ' ' . $operation);
+                        throw new \Exception('Invalid admin_resources filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
                     $query = $query->where($col, $value);

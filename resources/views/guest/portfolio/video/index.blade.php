@@ -1,11 +1,11 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? $admin->name . ' videos',
+    'title'            => $pageTitle ?? $owner->name . ' videos',
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Videos' ],
     ],
     'buttons'          => [],
@@ -14,11 +14,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -52,7 +52,7 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name'  => $video->name,
-                            'href'  => route('guest.portfolio.video.show', [$admin, $video->slug]),
+                            'href'  => route('guest.portfolio.video.show', [$owner, $video->slug]),
                             'class' => $video->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

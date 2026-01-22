@@ -23,15 +23,15 @@ class CourseController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $this->admin = $admin;
+        $owner = $admin;
 
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $courses = Course::where('owner_id', $admin->id)
+        $courses = Course::where('owner_id', $owner->id)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.course.index'), compact('courses'))
+        return view(themedTemplate('guest.portfolio.course.index'), compact('owner', 'courses'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -44,10 +44,12 @@ class CourseController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$course = Course::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        $owner = $admin;
+
+        if (!$course = Course::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.course.show'), compact('course'));
+        return view(themedTemplate('guest.portfolio.course.show'), compact('owner', 'course'));
     }
 }

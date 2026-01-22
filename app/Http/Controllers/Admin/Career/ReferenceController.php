@@ -26,7 +26,7 @@ class ReferenceController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $references = Reference::orderBy('name', 'asc')->paginate($perPage);
 

@@ -1,9 +1,9 @@
 @extends('guest.layouts.default', [
-    'title'            => $pageTitle ??  !empty($admin->name) ? $admin->name : $admin->username,
+    'title'            => $pageTitle ??  !empty($owner->name) ? $owner->name : $owner->username,
     'breadcrumbs'      => [
         [ 'name' => 'Home',  'href' => route('home') ],
         [ 'name' => 'Users', 'href' => route('home') ],
-        [ 'name' => !empty($admin->name) ? $admin->name : $admin->username ]
+        [ 'name' => !empty($owner->name) ? $owner->name : $owner->username ]
     ],
     'buttons'          => [],
     'errorMessages'    => $errors->any()
@@ -11,16 +11,16 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $admin->disclaimer ])
+    @include('guest.components.disclaimer', [ 'value' => $owner->disclaimer ])
 
     <div class="card column p-4">
 
@@ -30,10 +30,10 @@
 
                 @include('guest.components.image', [
                     'name'     => 'image',
-                    'src'      => $admin->image,
-                    'alt'      => $admin->name,
+                    'src'      => $owner->image,
+                    'alt'      => $owner->name,
                     'width'    => '300px',
-                    'filename' => getFileSlug($admin->name, $admin->image)
+                    'filename' => getFileSlug($owner->name, $owner->image)
                 ])
 
                 <div class="show-container p-4">
@@ -42,32 +42,31 @@
                         <span class="column is-12 has-text-centered">
                             @include('guest.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('guest.resume', $admin),
+                                'href'   => route('guest.resume', $owner),
                                 'class'  => 'button is-primary is-small px-1 py-0',
-                                'target' => '_blank',
                                 'title'  => 'Resume',
                             ])
                         </span>
                     </div>
 
-                    @if(!empty($admin->role))
+                    @if(!empty($owner->role))
                         @include('guest.components.show-row', [
                             'name'  => 'role',
-                            'value' => $admin->role
+                            'value' => $owner->role
                         ])
                     @endif
 
-                    @if(!empty($admin->employer))
+                    @if(!empty($owner->employer))
                         @include('guest.components.show-row', [
                             'name'  => 'employer',
-                            'value' => '<br>' . $admin->employer
+                            'value' => '<br>' . $owner->employer
                         ])
                     @endif
 
-                    @if(!empty($admin->bio))
+                    @if(!empty($owner->bio))
                         @include('guest.components.show-row', [
                             'name'  => 'bio',
-                            'value' => $admin->bio
+                            'value' => $owner->bio
                         ])
                     @endif
 
@@ -95,7 +94,7 @@
                                             @if(Route::has('guest.'.$resource->database_name.'.'.$resource->name.'.index'))
                                                 @include('guest.components.link', [
                                                     'name'  => $resource->plural,
-                                                    'href'  => route('guest.'.$resource->database_name.'.'.$resource->name.'.index', $admin),
+                                                    'href'  => route('guest.'.$resource->database_name.'.'.$resource->name.'.index', $owner),
                                                     'class' => 'pt-1 pb-1',
                                                 ])
                                             @else

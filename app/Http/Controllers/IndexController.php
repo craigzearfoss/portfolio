@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\BaseSystemController;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\MessageStoreRequest;
 use App\Models\System\Admin;
 use App\Models\System\Message;
+use App\Services\PermissionService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class IndexController extends BaseSystemController
+class IndexController extends BaseController
 {
-    public function index(Request $request)//: View
+    public function __construct(PermissionService $permissionService, Request $request)
     {
-        $menuItems = (new \App\Services\MenuService())->getLeftMenu(
-            \App\Services\PermissionService::ENV_GUEST,
-            $admin ?? null
-        );
-        //return response()->json($menuItems); die;
+        parent::__construct($permissionService);
 
-        $perPage = $request->query('per_page', $this->perPage);
+        $this->setCurrentAdminAndUser();
+    }
+
+    public function index(Request $request): View
+    {
+        $perPage = $request->query('per_page', $this->perPage());
 
         $admin = null;
         $admins = \App\Models\System\Admin::where('public', 1)

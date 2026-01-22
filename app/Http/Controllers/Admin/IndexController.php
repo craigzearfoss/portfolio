@@ -23,14 +23,14 @@ class IndexController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         if (Auth::guard('admin')->check()) {
 
-            $admins = \App\Models\System\Admin::where('disabled', 0)
+            $owners = \App\Models\System\Admin::where('disabled', 0)
                 ->orderBy('username', 'asc')->paginate($perPage);
 
-            return view(themedTemplate('admin.dashboard'), compact('admins'));
+            return view(themedTemplate('admin.dashboard'), compact('owners'));
 
         } else {
 
@@ -46,12 +46,12 @@ class IndexController extends BaseAdminController
      */
     public function dashboard(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $admins = \App\Models\System\Admin::where('disabled', 0)
+        $owners = \App\Models\System\Admin::where('disabled', 0)
             ->orderBy('username', 'asc')->paginate($perPage);
 
-        return view(themedTemplate('admin.dashboard'), compact('admins'));
+        return view(themedTemplate('admin.dashboard'), compact('owners'));
     }
 
     /**

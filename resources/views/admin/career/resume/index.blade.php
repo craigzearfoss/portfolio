@@ -1,7 +1,7 @@
 @php
     $buttons = [];
-    if (canCreate('resume', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.career.resume.create') ];
+    if (canCreate('resume', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
 @endphp
 @php
@@ -11,12 +11,12 @@
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
             [ 'name' => 'Resumes' ]
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('admin.index') ],
+            [ 'name' => 'Home',            'href' => route('home') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Resumes' ]
@@ -26,7 +26,7 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ??  'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes' ]
@@ -35,21 +35,26 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $resumes->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -60,28 +65,30 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>date</th>
-                <th class="has-text-centered">primary</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th>date</th>
+                    <th class="has-text-centered">primary</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($resumes as $resume)
 
                 <tr data-id="{{ $resume->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $resume->owner->username ?? '' }}
                         </td>
                     @endif
@@ -100,22 +107,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resume->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.career.resume.destroy', $resume->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($resume))
+                            @if(canRead($resume, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.career.resume.show', $resume->id),
+                                    'href'  => route('admin.career.resume.show', $resume),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($resume))
+                            @if(canUpdate($resume, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.career.resume.edit', $resume->id),
+                                    'href'  => route('admin.career.resume.edit', $resume),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -135,17 +142,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($resume))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($resume, $admin))
+                                <form class="delete-resource" action="{!! route('admin.career.resume.destroy', $resume) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -153,7 +162,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no resumes.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no resumes.</td>
                 </tr>
 
             @endforelse
@@ -161,7 +170,9 @@
             </tbody>
         </table>
 
-        {!! $resumes->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $resumes->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

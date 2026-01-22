@@ -6,11 +6,11 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -21,7 +21,7 @@
 
             <h1 class="title">{!! config('app.name') !!} Admin</h1>
 
-            <a class="is-size-6" href="{!! route('user.login') !!}">
+            <a class="is-size-6" href="{!! route('admin.login') !!}">
                 User Login
             </a>
             |

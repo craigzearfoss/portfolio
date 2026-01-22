@@ -23,13 +23,15 @@ class PublicationController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $owner = $admin;
 
-        $publications = Publication::where('owner_id', $admin->id)
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $publications = Publication::where('owner_id', $owner->id)
             ->orderBy('title', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.publication.index'), compact('publications'))
+        return view(themedTemplate('guest.portfolio.publication.index'), compact('owner', 'publications'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -42,10 +44,12 @@ class PublicationController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$publication = Publication::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        $owner = $admin;
+
+        if (!$publication = Publication::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.publication.show'), compact('publication'));
+        return view(themedTemplate('guest.portfolio.publication.show'), compact('owner', 'publication'));
     }
 }

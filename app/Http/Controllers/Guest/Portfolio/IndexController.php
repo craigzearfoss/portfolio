@@ -25,11 +25,13 @@ class IndexController extends BaseGuestController
      */
     public function index(Admin|null $admin, Request $request): View
     {
+        $owner = $admin;
+
         if (!empty($admin)) {
 
-            $database = AdminDatabase::where('tag', 'portfolio_db')->where('owner_id', $admin->id)->first();
-            $resources = AdminResource::getResources(
-                $admin->id,
+            $database = AdminDatabase::where('tag', 'portfolio_db')->where('owner_id', $owner->id)->first();
+            $resources = AdminResource::ownerResources(
+                $owner->id,
                 PermissionService::ENV_GUEST,
                 $database->database_id,
                 [],
@@ -39,8 +41,8 @@ class IndexController extends BaseGuestController
         } else {
 
             $database = Database::where('tag', 'portfolio_db')->first();
-            $resources = Resource::getResources(
-                $admin->id,
+            $resources = Resource::ownerResources(
+                $owner->id,
                 PermissionService::ENV_GUEST,
                 $database->id,
                 [],
@@ -49,6 +51,6 @@ class IndexController extends BaseGuestController
 
         }
 
-        return view(themedTemplate('guest.portfolio.index'), compact('database', 'resources'));
+        return view(themedTemplate('guest.portfolio.index'), compact('owner', 'database', 'resources'));
     }
 }

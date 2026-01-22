@@ -8,11 +8,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -24,11 +24,11 @@
             <h1 class="title">{!! config('app.name') !!}</h1>
 
             <div class="has-text-centered">
-                <a class="is-size-6" href="{!! route('user.login') !!}">
+                <a class="is-size-6" href="{!! route('guest.login') !!}">
                     User Login
                 </a>
                 |
-                <a class="is-size-6" href="{!! route('admin.login') !!}">
+                <a class="is-size-6" href="{!! route('guest.login') !!}">
                     Admin Login
                 </a>
             </div>

@@ -10,7 +10,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('admin.index') ],
+            [ 'name' => 'Home',            'href' => route('home') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Events' ]
@@ -18,8 +18,8 @@
     }
 
     $buttons = [];
-    if (canCreate('event', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ];
+    if (canCreate('event', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
@@ -29,21 +29,26 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $events->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 @if(!empty($event->application))
@@ -58,32 +63,34 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                @if(!empty($event->application))
-                    <th>application</th>
-                @endif
-                <th>name</th>
-                <th>date</th>
-                <th>time</th>
-                <th>location</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    @if(!empty($event->application))
+                        <th>application</th>
+                    @endif
+                    <th>name</th>
+                    <th>date</th>
+                    <th>time</th>
+                    <th>location</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($events as $event)
 
                 <tr data-id="{{ $event->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $event->owner->username }}
                         </td>
                     @endif
@@ -91,7 +98,9 @@
                         <td data-field="application_id">
                             @include('admin.components.link', [
                                 'name' => $event->application->name ?? '',
-                                'href' => route('admin.career.application.show', $event->application->id)
+                                'href' => route('admin.career.application.show',
+                                                \App\Models\Career\Application::find($event->application->id)
+                                          )
                             ])
                         </td>
                     @endif
@@ -113,22 +122,22 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $event->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.career.event.destroy', $event->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($event))
+                            @if(canRead($event, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.career.event.show', $event->id),
+                                    'href'  => route('admin.career.event.show', $event),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($event))
+                            @if(canUpdate($event, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.career.event.edit', $event->id),
+                                    'href'  => route('admin.career.event.edit', $event),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -148,17 +157,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($event))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($event, $admin))
+                                <form class="delete-resource" action="{!! route('admin.career.event.destroy', $event) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -167,8 +178,8 @@
 
                 <tr>
                     @php
-                    $colspan = isRootAdmin() ? '8' : '7';
-                    if (!empty($application)) $colspan = $colspan++;
+                        $colspan = $admin->root ? '8' : '7';
+                        if (!empty($application)) $colspan = $colspan++;
                     @endphp
                     <td colspan="{{ $colspan }}">There are no events.</td>
                 </tr>
@@ -178,7 +189,9 @@
             </tbody>
         </table>
 
-        {!! $events->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $events->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

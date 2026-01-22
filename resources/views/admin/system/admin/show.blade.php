@@ -1,31 +1,31 @@
 @php
     $buttons = [];
-    if (canDelete($admin, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => adminRoute('admin.admin.edit', $admin) ];
+    if (canUpdate($owner, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['Edit', 'href' => route('admin.system.admin.edit', $owner)])->render();
     }
-    if (canCreate($admin, loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Admin', 'href' => adminRoute('admin.admin.create') ];
+    if (canCreate('admin', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Admin', 'href' => route('admin.system.admin.create')])->render();
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin.index') ];
+    $buttons[] = view('admin.components.nav-button-back', ['href' => route('admin.system.admin.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Admin: ' . $admin->name,
+    'title'            => $pageTitle ?? 'Admin: ' . $owner->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => adminRoute('admin.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => adminRoute('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => adminRoute('admin.index') ],
-        [ 'name' => 'Admins',          'href' => route('admin.admin.index') ],
-        [ 'name' => $admin->username ]
+        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
+        [ 'name' => $owner->username ]
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -34,132 +34,132 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $admin->id
+            'value' => $owner->id
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'user name',
-            'value' => $admin->username
+            'value' => $owner->username
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $admin->name
+            'value' => $owner->name
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'current team',
-            'label'  => $admin->team->name,
-            'href'   => adminRoute('admin.admin-team.show', [$admin, $admin->team->id])
+            'label'  => $owner->team->name,
+            'href'   => route('admin.system.admin-team.show', [$owner->team->id])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'teams',
-            'value' => implode(',', $admin->teams->pluck('name')->toArray())
+            'value' => implode(',', $owner->teams->pluck('name')->toArray())
         ])
 
 
         @include('admin.components.show-row', [
             'name'  => 'salutation',
-            'value' => $admin->salutation
+            'value' => $owner->salutation
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => $admin->title
+            'value' => $owner->title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'role',
-            'value' => $admin->role
+            'value' => $owner->role
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'employer',
-            'value' => $admin->employer
+            'value' => $owner->employer
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'          => $admin->street,
-                           'street2'         => $admin->street2,
-                           'city'            => $admin->city,
-                           'state'           => $admin->state->code ?? '',
-                           'zip'             => $admin->zip,
-                           'country'         => $admin->country->iso_alpha3 ?? '',
+                           'street'          => $owner->street,
+                           'street2'         => $owner->street2,
+                           'city'            => $owner->city,
+                           'state'           => $owner->state->code ?? '',
+                           'zip'             => $owner->zip,
+                           'country'         => $owner->country->iso_alpha3 ?? '',
                            'streetSeparator' => '<br>',
                        ])
         ])
 
         @include('admin.components.show-row-coordinates', [
-            'resource' => $admin
+            'resource' => $owner
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'phone',
-            'value' => $admin->phone
+            'value' => $owner->phone
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'email',
-            'value' => $admin->email
+            'value' => $owner->email
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'email verified at',
-            'value' => longDateTime($admin->email_verified_at)
+            'value' => longDateTime($owner->email_verified_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'birthday',
-            'value' => longDate($admin->birthday),
+            'value' => longDate($owner->birthday),
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => ~empty($admin->link_name) ? $admin->link_name : 'link',
-            'href'   => $admin->link,
+            'name'   => !empty($owner->link_name) ? $owner->link_name : 'link',
+            'href'   => $owner->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'bio',
-            'value' => $admin->bio
+            'value' => $owner->bio
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $admin->description
+            'value' => $owner->description
         ])
 
         @include('admin.components.show-row-images', [
-            'resource' => $admin,
+            'resource' => $owner,
             'download' => true,
             'external' => true,
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'status',
-            'value' => \App\Models\System\User::statusName($admin->status)
+            'value' => \App\Models\System\User::statusName($owner->status)
         ])
 
         @include('admin.components.show-row-settings', [
-            'resource' => $admin,
+            'resource' => $owner,
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'requires re-login',
-            'checked' => $admin->requires_relogin
+            'checked' => $owner->requires_relogin
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'created at',
-            'value' => longDateTime($admin->created_at)
+            'value' => longDateTime($owner->created_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'updated at',
-            'value' => longDateTime($admin->updated_at)
+            'value' => longDateTime($owner->updated_at)
         ])
 
     </div>

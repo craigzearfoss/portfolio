@@ -26,7 +26,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $coverLetters = CoverLetter::latest()->paginate($perPage);
 

@@ -1,5 +1,5 @@
 @php
-    $companies = $companies ?? [];//dd($companies);
+    $companies = $companies ?? [];
     $addLink = $links['add'] ?? null
 @endphp
 <div class="card p-4">

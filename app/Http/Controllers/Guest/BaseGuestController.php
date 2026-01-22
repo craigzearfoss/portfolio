@@ -13,5 +13,11 @@ class BaseGuestController extends BaseController
         parent::__construct($permissionService);
 
         $this->setCurrentAdminAndUser();
+
+        $this->envType = 'guest';
+
+        view()->share('envType', $this->envType);
+
+        $resp = $this->permissionGate();
     }
 }

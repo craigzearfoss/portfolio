@@ -23,13 +23,15 @@ class ReadingController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $owner = $admin;
 
-        $readings = Reading::where('owner_id', $admin->id)
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $readings = Reading::where('owner_id', $owner->id)
             ->orderBy('title', 'asc')->orderBy('author', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.personal.reading.index'), compact('readings'))
+        return view(themedTemplate('guest.personal.reading.index'), compact('owner', 'readings'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -42,10 +44,12 @@ class ReadingController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$reading = Reading::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        $owner = $admin;
+
+        if (!$reading = Reading::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.personal.reading.show'), compact('reading'));
+        return view(themedTemplate('guest.personal.reading.show'), compact('owner', 'reading'));
     }
 }

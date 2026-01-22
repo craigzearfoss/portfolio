@@ -11,10 +11,11 @@
         : [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
-    'loggedInAdmin' => $loggedInAdmin,
-    'loggedInUser'  => $loggedInUser,
-    'admin'         => $admin,
-    'user'          => $user
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

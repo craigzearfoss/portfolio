@@ -25,18 +25,26 @@ class JobCoworkerController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $jobId = $request->job_id;
-        if (!empty($jobId)) {
-            $job = Job::find($jobId);
-            $jobCoworkers = JobCoworker::where('job_id', $jobId)->latest()->paginate($perPage);
+        if ($jobId = $request->job_id) {
+            $job = !empty($this->owner)
+                ? Job::where('owner_id', $this->owner->id)->where('id', $jobId)->first()
+                : Job::find($jobId);
+            if (empty($job)) {
+                abort(404, 'Job ' . $jobId . ' not found'
+                    . (!empty($this->owner) ? ' for ' . $this->owner->username : '') . '.');
+            } else {
+                $jobCoworkers = JobCoworker::where('job_id', $jobId)->latest()->paginate($perPage);
+            }
         } else {
             $job = null;
             $jobCoworkers = JobCoworker::latest()->paginate($perPage);
         }
 
-        return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job'))
+        $pageTitle = empty($this->owner) ? 'Job Coworkers' : $this->owner->name . ' Job Coworkers';
+
+        return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

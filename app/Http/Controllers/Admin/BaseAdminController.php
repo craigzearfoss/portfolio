@@ -16,5 +16,11 @@ class BaseAdminController extends BaseController
         parent::__construct($permissionService);
 
         $this->setCurrentAdminAndUser();
+
+        $this->envType = 'admin';
+
+        view()->share('envType', $this->envType);
+
+        $resp = $this->permissionGate();
     }
 }

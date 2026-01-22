@@ -27,7 +27,7 @@ class StackController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
         $stacks = Stack::orderBy('name', 'asc')->paginate($perPage);
 

@@ -1,36 +1,40 @@
 @php
     $buttons = [];
-    if (canCreate('art', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'href' => adminRoute('admin.portfolio.art.create', $admin) ];
+    if (canCreate('art', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Art', 'href' => route('admin.portfolio.art.create', $owner ?? $admin)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Art',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => adminRoute('admin.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => adminRoute('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => adminRoute('admin.portfolio.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Art' ],
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
-            <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        @if($pagination_top)
+            {!! $arts->links('vendor.pagination.bulma') !!}
+        @endif
+
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
                 <thead>
                 <tr>
-                    @if(isRootAdmin())
+                    @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -42,30 +46,31 @@
                     <th>actions</th>
                 </tr>
                 </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    @if(isRootAdmin())
-                        <th>owner</th>
-                    @endif
-                    <th>name</th>
-                    <th>artist</th>
-                    <th class="has-text-centered">featured</th>
-                    <th>year</th>
-                    <th class="has-text-centered">public</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if(!empty($bottom_column_headings))
+                    <tfoot>
+                    <tr>
+                        @if(!empty($admin->root))
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>artist</th>
+                        <th class="has-text-centered">featured</th>
+                        <th>year</th>
+                        <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($arts as $art)
 
                     <tr data-id="{{ $art->id }}">
-                        @if(isRootAdmin())
-                            <td data-field="owner.username">
+                        @if($admin->root)
+                            <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $art->owner->username }}
                             </td>
                         @endif
@@ -87,22 +92,22 @@
                         <td data-field="disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $art->disabled ])
                         </td>
-                        <td class="is-1" style="white-space: nowrap;">
+                        <td class="is-1">
 
-                            <form action="{!! adminRoute('admin.portfolio.art.destroy', [$admin, $art->id]) !!}" method="POST">
+                            <div class="action-button-panel">
 
-                                @if(canRead($art))
+                                @if(canRead($art, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => adminRoute('admin.portfolio.art.show', [$admin, $art->id]),
+                                        'href'  => route('admin.portfolio.art.show', $art),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
 
-                                @if(canUpdate($art))
+                                @if(canUpdate($art, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => adminRoute('admin.portfolio.art.edit', [$admin, $art->id]),
+                                        'href'  => route('admin.portfolio.art.edit', $art),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
@@ -122,17 +127,19 @@
                                     ])
                                 @endif
 
-                                @if(canDelete($art))
-                                    @csrf
-                                    @method('DELETE')
-                                    @include('admin.components.button-icon', [
-                                        'title' => 'delete',
-                                        'class' => 'delete-btn',
-                                        'icon'  => 'fa-trash'
-                                    ])
+                                @if(canDelete($art, $admin))
+                                    <form class="delete-resource" action="{!! route('admin.portfolio.art.destroy', $art) !!}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        @include('admin.components.button-icon', [
+                                            'title' => 'delete',
+                                            'class' => 'delete-btn',
+                                            'icon'  => 'fa-trash'
+                                        ])
+                                    </form>
                                 @endif
 
-                            </form>
+                            </div>
 
                         </td>
                     </tr>
@@ -140,7 +147,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There is no art.</td>
+                        <td colspan="{{ $admin->root ? '8' : '7' }}">There is no art.</td>
                     </tr>
 
                 @endforelse
@@ -148,7 +155,9 @@
                 </tbody>
             </table>
 
-            {!! $arts->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $arts->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
 

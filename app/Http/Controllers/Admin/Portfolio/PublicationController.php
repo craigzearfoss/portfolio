@@ -9,8 +9,6 @@ use App\Models\Portfolio\Publication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -23,14 +21,22 @@ class PublicationController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $publications = Publication::orderBy('title', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $publications = Publication::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $publications = Publication::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.portfolio.publication.index', compact('publications'))
+        $pageTitle = empty($this->owner) ? 'Publications' : $this->owner->name . ' Publications';
+
+        return view('admin.portfolio.publication.index', compact('publications', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

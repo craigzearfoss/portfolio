@@ -21,13 +21,20 @@ class SkillController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = 50; //$request->query('per_page', $this->perPage);
+        $perPage = 50; //$request->query('per_page', $this->perPage());
 
-        $skills = Skill::orderBy('level', 'desc')->orderBy('featured', 'desc')
-            ->orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $skills = Skill::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $skills = Skill::orderBy('name', 'asc')->paginate($perPage);
+        }
+
+        $pageTitle = empty($this->owner) ? 'Skills' : $this->owner->name . ' Skills';
 
         return view('admin.portfolio.skill.index', compact('skills'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -1,27 +1,24 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'My Profile',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'My Profile' ],
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-key"></i> Change Password', 'href' => route('admin.profile.change-password') ],
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.profile.edit') ],
+        view('admin.components.nav-button', ['name' => 'Change Password', 'icon'=>'fa-key', 'href' => route('admin.profile.change-password')])->render(),
+        view('admin.components.nav-button-edit', ['href' => route('admin.profile.edit')])->render()
     ],
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
-
-@php
-    $admin = $loggedInAdmin
-@endphp
 
 @section('content')
 

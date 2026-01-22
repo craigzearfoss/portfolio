@@ -1,7 +1,7 @@
 @php
     $buttons = [];
-    if (canCreate('communication', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ];
+    if (canCreate('communication', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
     }
 @endphp
 @php
@@ -16,7 +16,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('admin.index') ],
+            [ 'name' => 'Home',            'href' => route('home') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Communications' ]
@@ -30,21 +30,26 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $communications->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 @if(empty($application))
@@ -57,30 +62,32 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                @if(empty($application))
-                    <th>application</th>
-                @endif
-                <th>type</th>
-                <th>subject</th>
-                <th>date</th>
-                <th>time</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    @if(empty($application))
+                        <th>application</th>
+                    @endif
+                    <th>type</th>
+                    <th>subject</th>
+                    <th>date</th>
+                    <th>time</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($communications as $communication)
 
                 <tr data-id="{{ $communication->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $communication->owner->username }}
                         </td>
                     @endif
@@ -88,7 +95,9 @@
                         <td data-field="application_id">
                             @include('admin.components.link', [
                                 'name' => $communication->application->name ?? '',
-                                'href' => route('admin.career.application.show', $communication->application->id)
+                                'href' => route('admin.career.application.show',
+                                                \App\Models\Career\Application::find($communication->application->id)
+                                          )
                             ])
                         </td>
                     @endif
@@ -104,22 +113,22 @@
                     <td data-field="time" style="white-space: nowrap;">
                         {!! $communication->time !!}
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.career.communication.destroy', $communication->id) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($communication))
+                            @if(canRead($communication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.career.communication.show', $communication->id),
+                                    'href'  => route('admin.career.communication.show', $communication),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($communication))
+                            @if(canUpdate($communication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.career.communication.edit', $communication->id),
+                                    'href'  => route('admin.career.communication.edit', $communication),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -139,7 +148,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($communication))
+                            @if(canDelete($communication, $admin))
                                 @csrf
                                 @method('DELETE')
                                 @include('admin.components.button-icon', [
@@ -149,29 +158,33 @@
                                 ])
                             @endif
 
-                            @if(canRead($communication))
+                            @if(canRead($communication, $admin))
                                 <a title="show" class="button is-small px-1 py-0"
                                    href="{!! route('admin.career.communication.show', $communication->id) !!}">
                                     <i class="fa-solid fa-list"></i>
                                 </a>
                             @endif
 
-                            @if(canUpdate($communication))
+                            @if(canUpdate($communication, $admin))
                                 <a title="edit" class="button is-small px-1 py-0"
-                                   href="{!! route('admin.career.communication.edit', $communication->id) !!}">
+                                   href="{!! route('admin.career.communication.edit', $communication) !!}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             @endif
 
-                            @if(canDelete($communication))
-                                @csrf
-                                @method('DELETE')
-                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                            @if(canDelete($communication, $admin))
+                                <form class="delete-resource" action="{!! route('admin.career.communication.destroy', $communication) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -180,8 +193,8 @@
 
                 <tr>
                     @php
-                    $colspan = isRootAdmin() ? '6' : '5';
-                    if (!empty($application)) $colspan = $colspan++;
+                        $colspan = $admin->root ? '6' : '5';
+                        if (!empty($application)) $colspan = $colspan++;
                     @endphp
                     <td colspan="{{ $colspan }}">There are no communications.</td>
                 </tr>
@@ -191,7 +204,9 @@
             </tbody>
         </table>
 
-        {!! $communications->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $communications->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

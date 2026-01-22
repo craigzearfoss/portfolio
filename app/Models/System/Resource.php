@@ -99,6 +99,79 @@ class Resource extends Model
     }
 
     /**
+     * Returns the resources for specified owner.
+     *
+     * @param int|null $ownerId
+     * @param string|null $envType
+     * @param int|null $databaseId
+     * @param array $filters
+     * @param array $orderBy
+     * @return \Illuminate\Database\Eloquent\Collection
+     * @throws \Exception
+     */
+    public static function ownerResources(int|null    $ownerId,
+                                          string|null $envType = PermissionService::ENV_GUEST,
+                                          int|null    $databaseId = null,
+                                          array       $filters = [],
+                                          array       $orderBy = [ 'sequence' => 'asc' ]): Collection
+    {
+        if ($envType == 'root') $envType = PermissionService::ENV_ADMIN;
+        if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
+            throw new \Exception('ENV type ' . $envType . ' not supported');
+        }
+
+        $sortField = $orderBy[0] ?? 'sequence';
+        $sortDir   = $orderBy[1] ?? 'asc';
+        if (substr($sortField, 0, 10) !== 'resources.') $sortField = 'resources.'.$sortField;
+
+        // create the query
+        $query = Resource::select([DB::raw("databases.name AS 'database_name'"), 'resources.*'])
+            ->join('databases', 'databases.id', 'resources.database_id')
+            ->orderBy($sortField, $sortDir);
+
+        if (!empty($ownerId)) {
+            $query->where('resources.owner_id', $ownerId);
+        }
+
+        // apply env type filter
+        if (!empty($envType)) {
+            $query->where('resources.'.$envType, 1);
+        }
+
+        // apply database filter
+        if (!empty($databaseId)) {
+            $query->where('resources.database_id', $databaseId);
+        }
+
+        // Apply filters to the query.
+        foreach ($filters as $col => $value) {
+
+            if (substr($col, 0, 16) !== 'resources.') $col = 'resources.'.$col;
+
+            if (is_array($value)) {
+                $query = $query->whereIn($col, $value);
+            } else {
+                $parts = explode(' ', $col);
+                $col = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->where($col, $operation, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($col, $value);
+                    } else {
+                        throw new \Exception('Invalid resources filter column: ' . $col . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($col, $value);
+                }
+            }
+        }
+
+        return $query->get();
+    }
+
+    /**
      * Returns the resources.
      *
      * @param string|null $envType
@@ -108,10 +181,10 @@ class Resource extends Model
      * @return \Illuminate\Database\Eloquent\Collection
      * @throws \Exception
      */
-    public static function getResources(string|null $envType,
-                                        int|null    $databaseId = null,
-                                        array       $filters = [],
-                                        array       $orderBy = [ 'sequence' => 'asc' ]): Collection
+    public static function ownerResources___OLD(string|null $envType,
+                                          int|null    $databaseId = null,
+                                          array       $filters = [],
+                                          array       $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
         if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
             throw new \Exception('ENV type ' . $envType . ' not supported');

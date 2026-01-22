@@ -1,5 +1,5 @@
 @php
-    $contacts = $contacts ?? [];//dd($contacts);
+    $contacts = $contacts ?? [];
     $addLink = $links['add'] ?? null
 @endphp
 <div class="card p-4">

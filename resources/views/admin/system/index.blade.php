@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'System',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
         [ 'name' => 'System']
     ],
@@ -9,11 +9,11 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -28,10 +28,10 @@
 
                     @foreach ($systems as $system)
 
-                        <li>
+                        <li>$system->database_name
                             @include('admin.components.link', [
                                 'name'  => $system->plural,
-                                'href'  => route('admin.system.'.$system->name.'.index', $admin),
+                                'href'  => route('admin.system.'.$system->database_name.'.index'),
                                 'class' => 'list-item',
                             ])
                         </li>

@@ -1,11 +1,11 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? $admin->name . ' publications',
+    'title'            => $pageTitle ?? $owner->name . ' publications',
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Publications' ],
     ],
     'buttons'          => [],
@@ -14,11 +14,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -52,7 +52,7 @@
                     <td data-field="title">
                         @include('guest.components.link', [
                             'name'  => $publication->title,
-                            'href'  => route('guest.portfolio.publication.show', [$admin, $publication->slug]),
+                            'href'  => route('guest.portfolio.publication.show', [$owner, $publication->slug]),
                             'class' => $publication->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

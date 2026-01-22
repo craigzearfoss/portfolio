@@ -1,10 +1,10 @@
 @extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? $admin->name . ' music',
+    'title'            => $pageTitle ?? $owner->name . ' music',
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('home') ],
         [ 'name' => 'Users',      'href' => route('home') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $admin) ],
+        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Music' ],
     ],
     'buttons'          => [],
@@ -13,11 +13,11 @@
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
@@ -53,7 +53,7 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name'  => $music->name,
-                            'href'  => route('guest.portfolio.music.show', [$admin, $music->slug]),
+                            'href'  => route('guest.portfolio.music.show', [$owner, $music->slug]),
                             'class' => $music->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

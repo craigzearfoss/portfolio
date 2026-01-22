@@ -4,27 +4,27 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Log',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Logs' ],
     ],
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{!! route('root.log.index') !!}" method="get">
+        <form id="searchForm" action="{!! route('admin.log.index') !!}" method="get">
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'type',
@@ -88,6 +88,10 @@
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $loginAttempts->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
@@ -100,19 +104,21 @@
                 <th>datetime</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>type</th>
-                <th>id</th>
-                <th>username</th>
-                <th>action</th>
-                <th>ip address</th>
-                <th>success</th>
-                <th>datetime</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    <th>type</th>
+                    <th>id</th>
+                    <th>username</th>
+                    <th>action</th>
+                    <th>ip address</th>
+                    <th>success</th>
+                    <th>datetime</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($loginAttempts as $loginAttempt)
@@ -144,7 +150,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no entries in the {{ $type == 'admin' ? 'login_attempts_admin' : 'login_attempts_user' }} log.</td>
+                    <td colspan="7">There are no entries in the {{ $type == 'admin' ? 'login_attempts_admin' : 'login_attempts_user' }} log.</td>
                 </tr>
 
             @endforelse
@@ -152,7 +158,9 @@
             </tbody>
         </table>
 
-        {!! $loginAttempts->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $loginAttempts->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

@@ -88,7 +88,7 @@ class PermissionService
 
         $permissions = [];
 
-        foreach (Resource::getResources($envType) as $resource) {
+        foreach (Resource::ownerResources($envType) as $resource) {
 
             if (!array_key_exists($resource->database_name, $permissions)) {
                 $permissions[$resource->database_name] = [

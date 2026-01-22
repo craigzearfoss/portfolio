@@ -1,37 +1,39 @@
 @extends('admin.layouts.default', [
     'title'            => 'Change password for ' . $user->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Users',           'href' => route('root.user.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Users',           'href' => route('admin.system.user.index') ],
         [ 'name' => 'Change Password' ],
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('root.user.index') ],
+        view('admin.components.nav-button-back', ['href' => referer('admin.system.user.index')])->render(),
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user.show', $user) ],
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="form-container container" style="width: 30em;">
 
-        <form action="{{ route('root.user.change-password-submit', $user) }}"
+        <form action="{{ route('admin.system.user.change-password-submit', $user) }}"
               method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('root.user.index')
+                'value' => referer('admin.system.user.show', $user)
             ])
 
             <div class="card p-4 mb-3">
@@ -66,7 +68,7 @@
             <div class="has-text-centered">
                 @include('admin.components.form-button-submit-horizontal', [
                     'label'      => 'Save',
-                    'cancel_url' => referer('root.user.index')
+                    'cancel_url' => referer('admin.system.user.index')
                 ])
             </div>
 

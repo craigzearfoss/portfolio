@@ -3,24 +3,24 @@
     'breadcrumbs'      => [
         [ 'name' => 'Home',           'href' => route('home') ],
         [ 'name' => 'Users',          'href' => route('home') ],
-        [ 'name' => $admin->name,     'href' => route('guest.admin.show', $admin) ],
+        [ 'name' => $owner->name,     'href' => route('guest.admin.show', $owner) ],
         [ 'name' => 'Portfolio',      'href' => route('guest.portfolio.index', $education->owner) ],
         [ 'name' => 'Education',      'href' => route('guest.portfolio.education.index', $education->owner) ],
         [ 'name' => $education->degreeType->name . ' ' . $education->major ],
     ],
     'buttons'          => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.education.index', $education->owner) ],
+        view('guest.components.nav-button-back', ['href' => referer('guest.admin.portfolio.education.index', $owner)])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

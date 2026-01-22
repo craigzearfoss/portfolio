@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('course', loggedInAdminId())) {
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'href' => route('admin.portfolio.course.create', $admin) ];
+    if (canCreate('course', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Courses',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('admin.index') ],
+        [ 'name' => 'Home',            'href' => route('home') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Courses' ],
@@ -16,21 +16,25 @@
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'currentRouteName' => $currentRouteName,
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')
 
     <div class="card p-4">
 
+        @if($pagination_top)
+            {!! $courses->links('vendor.pagination.bulma') !!}
+        @endif
+
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRootAdmin())
+                @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
                 <th>name</th>
@@ -42,29 +46,31 @@
                 <th>actions</th>
             </tr>
             </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                @if(isRootAdmin())
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th class="has-text-centered">featured</th>
-                <th>academy</th>
-                <th class="has-text-centered">completion<br>date</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </tfoot>
-            */ ?>
+
+            @if(!empty($bottom_column_headings))
+                <tfoot>
+                <tr>
+                    @if(!empty($admin->root))
+                        <th>owner</th>
+                    @endif
+                    <th>name</th>
+                    <th class="has-text-centered">featured</th>
+                    <th>academy</th>
+                    <th class="has-text-centered">completion<br>date</th>
+                    <th class="has-text-centered">public</th>
+                    <th class="has-text-centered">disabled</th>
+                    <th>actions</th>
+                </tr>
+                </tfoot>
+            @endif
+
             <tbody>
 
             @forelse ($courses as $course)
 
                 <tr data-id="{{ $course->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="owner.username">
+                    @if($admin->root)
+                        <td data-field="owner.username" style="white-space: nowrap;">
                             {{ $course->owner->username ?? '' }}
                         </td>
                     @endif
@@ -78,7 +84,7 @@
                         @if (!empty($course->academy))
                             @include('admin.components.link', [
                                 'name'   => $course->academy->name ?? '',
-                                'href'   => route('admin.portfolio.academy.show', $course->academy),
+                                'href'   => route('admin.portfolio.academy.show', \App\Models\Portfolio\Academy::find($course->academy->id)),
                             ])
                         @endif
                     </td>
@@ -91,19 +97,19 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
                     </td>
-                    <td class="is-1" style="white-space: nowrap;">
+                    <td class="is-1">
 
-                        <form action="{!! route('admin.portfolio.course.destroy', [$admin, $course->id]) !!}" method="POST">
+                        <div class="action-button-panel">
 
-                            @if(canRead($course))
+                            @if(canRead($course, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.course.show', [$admin, $course->id]),
+                                    'href'  => route('admin.portfolio.course.show', $course),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($course))
+                            @if(canUpdate($course, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.course.edit', [$admin, $course->id]),
@@ -126,17 +132,19 @@
                                 ])
                             @endif
 
-                            @if(canDelete($course))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
+                            @if(canDelete($course, $admin))
+                                <form class="delete-resource" action="{!! route('admin.portfolio.course.destroy', $course) !!}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @include('admin.components.button-icon', [
+                                        'title' => 'delete',
+                                        'class' => 'delete-btn',
+                                        'icon'  => 'fa-trash'
+                                    ])
+                                </form>
                             @endif
 
-                        </form>
+                        </div>
 
                     </td>
                 </tr>
@@ -144,7 +152,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no courses.</td>
+                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no courses.</td>
                 </tr>
 
             @endforelse
@@ -152,7 +160,9 @@
             </tbody>
         </table>
 
-        {!! $courses->links('vendor.pagination.bulma') !!}
+        @if($pagination_bottom)
+            {!! $courses->links('vendor.pagination.bulma') !!}
+        @endif
 
     </div>
 

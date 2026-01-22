@@ -9,8 +9,6 @@ use App\Models\Portfolio\Course;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -19,18 +17,26 @@ use Illuminate\View\View;
 class CourseController extends BaseAdminController
 {
     /**
-     * Display a listing of courses.
+     * Display a listing of coursest.
      *
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $courses = Course::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $courses = Course::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $courses = Course::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.portfolio.course.index', compact('courses'))
+        $pageTitle = empty($this->owner) ? 'Courses' : $this->owner->name . ' Courses';
+
+        return view('admin.portfolio.course.index', compact('courses', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

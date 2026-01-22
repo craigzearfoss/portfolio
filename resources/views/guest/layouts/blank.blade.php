@@ -1,9 +1,8 @@
 @php
     $currentRouteName = $currentRouteName ?? null;
-    $loggedInAdmin    = $loggedInAdmin ?? null;
-    $loggedInUser     = $loggedInUser ?? null;
     $admin            = $admin ?? null;
     $user             = $user ?? null;
+    $owner             = $owner ?? null;
 @endphp
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">

@@ -8,7 +8,6 @@ use App\Http\Requests\Personal\UpdateIngredientsRequest;
 use App\Models\Personal\Ingredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -25,11 +24,13 @@ class IngredientController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        $perPage = $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage());
 
-        $ingredients = Ingredient::orderBy('name', 'asc')->paginate($perPage);
+        $ingredients = Ingredient::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.personal.ingredient.index', compact('ingredients'))
+        $pageTitle = 'Ingredients';
+
+        return view('admin.personal.ingredient.index', compact('ingredients', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
