@@ -29,7 +29,7 @@ class AdminController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
          if (empty($this->admin->root)) {
-             return redirect()->route('admin.admin.profile');
+             return redirect()->route('admin.profile.show');
          } else {
              $theAdmins = Admin::orderBy('username', 'asc')->paginate($perPage);
          }
