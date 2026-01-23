@@ -2,7 +2,7 @@
     'title'            => $pageTitle ?? 'Contact',
     'subtitle'         => null,
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('home')],
+        [ 'name' => 'Home', 'href' => route('guest.index')],
     ],
     'buttons'          => [],
     'errorMessages'    => $errors->any()

@@ -11,7 +11,7 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Certification: ' . $certification->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],

@@ -9,7 +9,7 @@
         ?  $recipeIngredient->recipe['name'] . ' Ingredients'
         : 'Recipe Ingredients'),
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],

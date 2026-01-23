@@ -12,7 +12,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('home') ],
+            [ 'name' => 'Home',            'href' => route('guest.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
@@ -60,12 +60,12 @@
 
             @if($admin->root)
                 @include('admin.components.form-select-horizontal', [
-                'name'     => 'owner_id',
-                'label'    => 'owner',
-                'value'    => old('owner_id') ?? $resume->owner_id,
-                'required' => true,
-                'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
-                'message'  => $message ?? '',
+                    'name'     => 'owner_id',
+                    'label'    => 'owner',
+                    'value'    => old('owner_id') ?? $resume->owner_id,
+                    'required' => true,
+                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'message'  => $message ?? '',
                 ])
             @else
                 @include('admin.components.form-hidden', [
@@ -118,6 +118,15 @@
                 'value'     => old('pdf_url') ?? $resume->pdf_url,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'file_type',
+                'label'    => 'file type',
+                'value'    => old('file_type') ?? $resume->file_type,
+                'required' => true,
+                'list'     => \App\Models\System\Resume::fileTypes(true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [

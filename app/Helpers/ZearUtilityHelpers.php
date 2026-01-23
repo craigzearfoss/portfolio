@@ -234,7 +234,7 @@ if (! function_exists('canCreate')) {
             if (!$resourceType = \App\Models\System\Resource::where('name', $resource)->first()) {
                 return false;
             } else {
-                if (Schema::connection($resourceType->database->name)->hasColumn($resourceType->name, 'owner_id')) {
+                if (Schema::connection($resourceType->database->tag)->hasColumn($resourceType->name, 'owner_id')) {
                     return true;
                 } else {
                     return false;

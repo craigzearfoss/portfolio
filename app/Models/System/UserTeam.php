@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -59,7 +60,15 @@ class UserTeam extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get the members for the user team.
+     */
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class)->orderBy('name', 'asc');
     }
 
     /**
@@ -68,18 +77,5 @@ class UserTeam extends Model
     public function groups(): hasMany
     {
         return $this->hasMany(UserGroup::class, 'user_team_id');
-    }
-
-    /**
-     * Returns the members of the user team.
-     *
-     * @return Collection
-     */
-    public function members(): Collection
-    {
-        return UserUserTeam::select('users.*')
-            ->where('user_user_teams.user_team_id', $this->id)
-            ->join('users', 'users.id', '=', 'user_user_teams.user_id')
-            ->get();
     }
 }

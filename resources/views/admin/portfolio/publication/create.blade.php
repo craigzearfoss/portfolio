@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New Publication',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Publications',    'href' => route('admin.portfolio.publication.index') ],

@@ -7,9 +7,8 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Resources',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Resources' ],
     ],
     'buttons'          => $buttons,
@@ -81,7 +80,14 @@
                 <tr data-id="{{ $resource->id }}">
                     @if($admin->root)
                         <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $resource->owner->username ?? '' }}
+                            @if(!empty($resource->owner))
+                                @include('admin.components.link', [
+                                    'name' => $resource->owner->username,
+                                    'href' => route('admin.system.admin.show', $resource->owner)
+                                ])
+                            @else
+                                ?
+                            @endif
                         </td>
                     @endif
                     <td data-field="name">
@@ -162,7 +168,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '13' : '12' }}">There are no messages.</td>
+                    <td colspan="{{ $admin->root ? '13' : '12' }}">There are no resources.</td>
                 </tr>
 
             @endforelse

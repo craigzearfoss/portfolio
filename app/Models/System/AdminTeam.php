@@ -62,31 +62,18 @@ class AdminTeam extends Model
     }
 
     /**
-     * Get the system admin groups for the admin team.
+     * Get the members the admin team.
      */
-    public function groups(): HasMany
-    {
-        return $this->hasMany(AdminGroup::class, 'admin_team_id');
-    }
-
-    /**
-     * Get the admins for the admin team.
-     */
-    public function admins(): BelongsToMany
+    public function members(): BelongsToMany
     {
         return $this->belongsToMany(Admin::class)->orderBy('name', 'asc');
     }
 
     /**
-     * Returns the members of the admin team.
-     *
-     * @return Collection
+     * Get the system admin groups for the admin team.
      */
-    public function members(): Collection
+    public function groups(): HasMany
     {
-        return AdminAdminTeam::select('admins.*')
-            ->where('admin_admin_team.admin_team_id', $this->id)
-            ->join('admins', 'admins.id', '=', 'admin_admin_team.admin_id')
-            ->get();
+        return $this->hasMany(AdminGroup::class, 'admin_team_id');
     }
 }

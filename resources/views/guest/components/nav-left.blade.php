@@ -12,7 +12,7 @@
 
                     @include('guest.components.link', [
                         'name'  => 'Home',
-                        'href'  => route('home'),
+                        'href'  => route('guest.index'),
                         'class' => 'has-text-primary',
                         'style' => array_merge(
                             [
@@ -50,7 +50,7 @@
 
                     @include('guest.components.link', [
                         'name'  => 'Home',
-                        'href'  => route('home'),
+                        'href'  => route('guest.index'),
                         'class' => 'has-text-primary',
                         'style' => 'font-size: 1.2em; font-weight: 700',
                     ])

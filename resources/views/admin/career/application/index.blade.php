@@ -7,7 +7,7 @@
 @php
 if (!empty($resume)) {
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
@@ -16,7 +16,7 @@ if (!empty($resume)) {
     ];
 } else {
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Applications' ]

@@ -11,9 +11,8 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin Team: ' . $adminTeam->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Teams',     'href' => route('admin.system.admin-team.index') ],
         [ 'name' => $adminTeam->name ]
     ],
@@ -37,10 +36,16 @@
             'value' => $adminTeam->id
         ])
 
-        @if($admin->root)
+        @if(!empty($adminTeam->owner))
+            @include('admin.components.show-row-link', [
+                'name' => 'owner',
+                'label' => $adminTeam->owner->username,
+                'href' => route('admin.system.admin.show', $adminTeam->owner)
+            ])
+        @else
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $adminTeam->owner->username
+                'value' => '?'
             ])
         @endif
 
@@ -80,9 +85,10 @@
 
         <div class="card p-4">
 
-            <h2 class="subtitle">
+            <h2 class="subtitle mb-0">
                 Team Members
             </h2>
+            <hr class="m-1">
 
             <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
                 <thead>
@@ -93,12 +99,9 @@
                 </thead>
                 <tbody>
 
-                @php
-                $members = $adminTeam->members();
-                @endphp
-                @if($members->count() > 0)
+                @if(!empty($adminTeam->members))
 
-                    @foreach($members as $member)
+                    @foreach($adminTeam->members as $member)
 
                         <tr>
                             <td>

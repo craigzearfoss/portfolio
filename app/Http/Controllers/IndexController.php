@@ -20,25 +20,6 @@ class IndexController extends BaseController
         $this->setCurrentAdminAndUser();
     }
 
-    public function index(Request $request): View
-    {
-        $perPage = $request->query('per_page', $this->perPage());
-
-        $admin = null;
-        $admins = \App\Models\System\Admin::where('public', 1)
-            ->where('disabled', 0)
-            ->orderBy('name', 'asc')->paginate($perPage);
-
-        if ($featuredUsername = config('app.featured_admin')) {
-            $featuredAdmin = Admin::where('username', $featuredUsername)->first();
-        } else {
-            $featuredAdmin = null;
-        }
-
-        return view(themedTemplate('system.index'), compact('admin', 'admins', 'featuredAdmin'))
-            ->with('i', (request()->input('page', 1) - 1) * $perPage);
-    }
-
     public function about(): View
     {
         return view(themedTemplate('system.about'));
@@ -59,7 +40,7 @@ class IndexController extends BaseController
     {
         $message = Message::create($messageStoreRequest->validated());
 
-        return redirect(route('home'))
+        return redirect(route('guest.index'))
             ->with('success', 'Your message has been sent. Thank you!.');
     }
 

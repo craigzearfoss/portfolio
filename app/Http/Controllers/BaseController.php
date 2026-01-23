@@ -26,10 +26,7 @@ class BaseController extends Controller
     protected $user = null;
     protected $owner = null;
 
-    protected $perPage = 20;
     protected $PAGINATION_PER_PAGE = 40;
-    protected $PAGINATION_BOTTOM = true;
-    protected $PAGINATION_TOP = false;
 
     public function __construct(PermissionService $permissionService)
     {
@@ -46,14 +43,14 @@ class BaseController extends Controller
      */
     protected function setCurrentAdminAndUser()
     {
-        $params = Route::current()->parameters();
-
         $this->admin = loggedInAdmin();
         $this->user = loggedInUser();
 
         $this->owner = null;
 
         $currentRouteName = Route::currentRouteName();
+        $routeParams = Route::current()->parameters();
+        $urlParams = request()->all();
 
         // get the environment
         switch (explode('.', $currentRouteName)[0]) {
@@ -69,69 +66,82 @@ class BaseController extends Controller
                 break;
         }
 
+        $ownerIdCookieName = $this->envType . '_owner_id';
+        $userIdCookieName = $this->envType . '_user_id';
+
         $parts = explode('.', $currentRouteName);
         $action = $parts[count($parts) - 1] ?? null;
         $resource = $parts[count($parts) - 2] ?? null;
 
-        if (($resource == 'admin')
-            && (in_array($action, ['show', 'edit']))
-            && (array_key_exists('admin', $params))
-            && (get_class($params['admin']) == 'App\Models\System\Admin')
-        ) {
-            $this->owner = $params['admin'];
-        }
-
-        if ($this->envType == PermissionService::ENV_ADMIN && !empty($this->admin)) {
-
-            // in the admin environment and no current owner is selected then set it to the logged in admin
-            Cookie::queue('owner_id', $this->admin->id, 60);
-            if (empty($this->owner) || empty($this->admin->root)) {
-                $this->owner = $this->admin;
+        // ---------------------
+        // set the current owner
+        // ---------------------
+        if (array_key_exists('owner_id', $urlParams)) {
+            // there is an "owner_id" url parameter
+            $owner_id = (!empty($urlParams['owner_id'])) ? $urlParams['owner_id'] : null;
+            if (!$this->owner = Admin::find($owner_id)) {
+                abort(404, 'Owner ' . $owner_id . ' not found.');
             }
-
         } else {
 
-            // update the owner that is currently being viewed
-            if (!empty($params['admin']->id)) {
+            $adminFromRoute = (($resource == 'admin') && in_array($action, ['show', 'edit']))
+            && !empty($routeParams['admin'])
+            && is_object($routeParams['admin'])
+            && (get_class($routeParams['admin']) == 'App\Models\System\Admin')
+                ? $routeParams['admin']
+                : null;
+            //dd(['envType'=>$this->envType, 'resource'=>$resource, 'action'=>$action, 'routeParams'=>$routeParams, 'adminFromRoute'=>$adminFromRoute]);
 
-                // check for url parameter name "admin"
-                Cookie::queue('owner_id', $params['admin']->id, 60);
-                if (!empty($params['admin']->id)) $this->owner = Admin::find($params['admin']->id);
+            if (!empty($adminFromRoute)) {
+                // this is an admin show or edit page
+                $this->owner = $adminFromRoute;
+                $owner_id = $this->owner->id;
 
             } else {
-
-                // check cookie named "owner_id"
-                $ownerId = Cookie::get('owner_id', null);
-                if (!empty($ownerId)) $this->admin = Admin::find($ownerId);
-                if (empty($this->owner)) Cookie::queue('owner_id', null, 60);
+                // get the owner_id from the cookie
+                if ($owner_id = Cookie::get($ownerIdCookieName, null)) {
+                    $this->owner = Admin::find($owner_id);
+                } else {
+                    $this->owner = null;
+                }
             }
         }
+        Cookie::queue($ownerIdCookieName, $owner_id, 60);
 
-        // update the user that is currently being viewed
-        if (!empty($params['user']->id)) {
-
-            // check for url parameter name "user"
-            Cookie::queue('user_id', $params['user']->id, 60);
-
-            if (!empty($params['user']->id)) {
-                $this->user = User::find($params['user']->id);
+        // --------------------
+        // set the current user
+        // --------------------
+        if (array_key_exists('user_id', $urlParams)) {
+            // there is a "user_id" url parameter
+            $user_id = (!empty($urlParams['user_id'])) ? $urlParams['user_id'] : null;
+            if (!$this->user = Admin::find($user_id)) {
+                abort(404, 'User ' . $user_id . ' not found.');
             }
-
         } else {
 
-            // check cookie named "user_id"
-            $userId = Cookie::get('user_id', null);
+            $userFromRoute = (($resource == 'user') && in_array($action, ['show', 'edit']))
+            && !empty($routeParams['user'])
+            && is_object($routeParams['user'])
+            && (get_class($routeParams['user']) == 'App\Models\System\User')
+                ? $routeParams['user']
+                : null;
+            //dd(['envType'=>$this->envType, 'resource'=>$resource, 'action'=>$action, 'routeParams'=>$routeParams, 'userFromRoute'=>$userFromRoute]);
 
-            if (!empty($userId)) {
-                $this->user = Admin::find($userId);
-            }
+            if (!empty($userFromRoute)) {
+                // this is a user show or edit page
+                $this->user = $userFromRoute;
+                $user_id = $this->user->id;
 
-            if (empty($this->user)) {
-                Cookie::queue('user_id', null, 60);
+            } else {
+                // get the user_id from the cookie
+                if ($user_id = Cookie::get($userIdCookieName, null)) {
+                    $this->user = User::find($user_id);
+                } else {
+                    $this->user = null;
+                }
             }
         }
-
-        $this->owner = $this->getCurrentOwner();
+        Cookie::queue($userIdCookieName, $user_id, 60);
 
         // inject variables into blade templates
         view()->share('admin', $this->admin);
@@ -148,46 +158,6 @@ class BaseController extends Controller
         view()->share('pagination_bottom', config('app.pagination_bottom'));
         view()->share('pagination_top', config('app.pagination_top'));
         view()->share('bottom_column_headings', config('app.bottom_column_headings'));
-    }
-
-    /**
-     * This checks for the url parameter "owner_id" and if it is found it switched
-     * the owner to that value.  It does this for the following environments:
-     *      guest
-     *      user
-     *      admin - This only applies for root admins because the "owner_id" parameter
-     *              is removed from the request object in the Admin middleware for
-     *              admins that do not have root privileges. This is because we do
-     *              not want non-root admins viewing and manipulating other users.
-     *
-     * @return mixed|null
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     */
-    public function getCurrentOwner()
-    {
-        if ($ownerId = request()->get('owner_id')) {
-
-            // only root admins can view different users
-            if (empty($this->admin) || empty($this->admin->root)) {
-                return null;
-            }
-
-            if (empty($this->admin->root) && ($ownerId != $this->admin->id)) {
-
-                abort( 403, 'Access denied to owner ' . $ownerId . '.');
-
-            } elseif (!$this->owner = Admin::where('id', $ownerId)->first()) {
-
-                abort( 404, 'Owner ' . $ownerId . ' not found');
-
-            } else {
-
-                view()->share('owner', $this->owner);
-            }
-        }
-
-        return $this->owner;
     }
 
     /**

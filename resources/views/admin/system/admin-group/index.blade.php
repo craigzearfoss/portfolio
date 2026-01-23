@@ -10,9 +10,8 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin Groups',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Groups' ]
     ],
     'buttons'          => $buttons,
@@ -70,14 +69,29 @@
                 <tr data-id="{{ $adminGroup->id }}">
                     @if($admin->root)
                         <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $adminGroup->owner->username ?? '' }}
+                            @if(!empty($adminGroup->owner))
+                                @include('admin.components.link', [
+                                    'name' => 'owner',
+                                    'label' => $adminGroup->owner->username,
+                                    'href' => route('admin.system.admin.show', $adminGroup->owner)
+                                ])
+                            @else
+                                ?
+                            @endif
                         </td>
                     @endif
                     <td data-field="name">
                         {!! $adminGroup->name !!}
                     </td>
                     <td data-field="team.name">
-                        {!! $adminGroup->team->name ?? '' !!}
+                        @if(!empty($adminGroup->team))
+                            @include('admin.components.link', [
+                                'name' => $adminGroup->team->name,
+                                'href' => route('admin.system.admin-team.show', $adminGroup->owner)
+                            ])
+                        @else
+                            ?
+                        @endif
                     </td>
                     <td data-field="abbreviation">
                         {!! $adminGroup->abbreviation !!}

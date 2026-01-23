@@ -2,7 +2,7 @@
     'title'            => $pagTitle ?? 'About Us',
     'subtitle'         => null,
     'breadcrumbs'      => [
-        [ 'name' => 'Home', 'href' => route('home')],
+        [ 'name' => 'Home', 'href' => route('guest.index')],
         [ 'name' => 'About Us']
     ],
     'buttons'          => [],

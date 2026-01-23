@@ -2,8 +2,8 @@
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ?? $owner->name . ' readings',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',       'href' => route('home') ],
-        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => 'Home',       'href' => route('guest.index') ],
+        [ 'name' => 'Users',      'href' => route('guest.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Personal',   'href' => route('guest.personal.index', $owner) ],
         [ 'name' => 'Readings' ],

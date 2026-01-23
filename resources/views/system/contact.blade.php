@@ -2,7 +2,7 @@
     'title'            => $pageTitle ?? 'Contact Us',
     'subtitle'         => null,
     'breadcrumbs'      => [
-        [ 'name' => 'Home', 'href' => route('home')],
+        [ 'name' => 'Home', 'href' => route('guest.index')],
         [ 'name' => 'Contact Us']
     ],
     'buttons'          => [],
@@ -74,7 +74,7 @@
 
                     @include('guest.components.form-button-submit-horizontal', [
                         'label'      => 'Submit',
-                        'cancel_url' => route('home')
+                        'cancel_url' => route('guest.index')
                     ])
 
                 </div>

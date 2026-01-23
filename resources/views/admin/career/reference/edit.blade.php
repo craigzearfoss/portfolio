@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? !empty($title) ? $title : 'Reference: ' . $reference->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'References',      'href' => route('admin.career.reference.index') ],

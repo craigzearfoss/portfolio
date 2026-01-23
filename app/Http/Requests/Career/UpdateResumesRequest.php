@@ -48,6 +48,7 @@ class UpdateResumesRequest extends FormRequest
             'content'      => ['nullable'],
             'doc_url'      => ['string', 'url:http,https', 'max:500', 'nullable'],
             'pdf_url'      => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'file_type'    => ['required', 'string', 'max:10'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],

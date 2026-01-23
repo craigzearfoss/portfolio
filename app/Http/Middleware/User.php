@@ -16,7 +16,7 @@ class User
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
+    {die('user');
         $currentRouteName = Route::currentRouteName();
 
         if (!isUser() && !in_array($currentRouteName, ['user.login', 'user.login-submit'])) {

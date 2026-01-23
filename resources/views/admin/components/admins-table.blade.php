@@ -28,13 +28,13 @@
         @forelse ($owners as $owner)
 
             <tr data-id="{{ $owner->id }}">
-                <td data-field="thumbnail" style="width: 32px;">
+                <td data-field="thumbnail" style="width: 40px; padding: 1px;">
                     @if(!empty($owner->thumbnail))
                         @include('admin.components.link', [
                             'name' => view('admin.components.image', [
                                             'src'      => $owner->thumbnail,
                                             'alt'      => 'profile image',
-                                            'width'    => '30px',
+                                            'width'    => '40px',
                                             'filename' => $owner->thumbnail
                                         ]),
                             'href' => route('admin.system.admin.show', $owner),

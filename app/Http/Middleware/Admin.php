@@ -23,7 +23,7 @@ class Admin
             return redirect()->route('admin.login');
         }
 
-        if (!isRootAdmin()) {$a = $request->all();
+        if (!isRootAdmin()) {
 
             // only root admins can view and manipulate other users
             if (array_key_exists('owner_id', $request->all())) {

@@ -2,7 +2,7 @@
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ?? 'Users',
     'breadcrumbs'      => [
-        [ 'name' => 'Home', 'href' => route('home') ],
+        [ 'name' => 'Home', 'href' => route('guest.index') ],
         [ 'name' => 'Users']
     ],
     'buttons'          => [],

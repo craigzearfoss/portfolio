@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -72,15 +73,10 @@ class UserGroup extends Model
     }
 
     /**
-     * Returns the members of the user group.
-     *
-     * @return Collection
+     * Get the members for the user group.
      */
-    public function members(): Collection
+    public function members(): BelongsToMany
     {
-        return UserUserGroup::select('users.*')
-            ->where('user_user_groups.user_group_id', $this->id)
-            ->join('users', 'users.id', '=', 'user_user_groups.user_id')
-            ->get();
+        return $this->belongsToMany(User::class)->orderBy('name', 'asc');
     }
 }

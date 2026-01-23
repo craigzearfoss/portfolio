@@ -27,7 +27,20 @@ class IndexController extends BaseGuestController
      */
     public function index(Request $request): View
     {
-        // Note: this action is not used be the root pages got Guest/System/AdminController->show function
-        return view(themedTemplate('guest.index'));
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $admin = null;
+        $admins = \App\Models\System\Admin::where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('name', 'asc')->paginate($perPage);
+
+        if ($featuredUsername = config('app.featured_admin')) {
+            $featuredAdmin = \App\Models\System\Admin::where('username', $featuredUsername)->first();
+        } else {
+            $featuredAdmin = null;
+        }
+
+        return view(themedTemplate('system.index'), compact('admin', 'admins', 'featuredAdmin'))
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 }

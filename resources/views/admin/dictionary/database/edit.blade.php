@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary: ' . $database->name . ' (database)',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Databases',       'href' => route('admin.dictionary.database.index') ],

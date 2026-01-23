@@ -10,9 +10,8 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin Teams',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Teams' ]
     ],
     'buttons'          => $buttons,
@@ -68,7 +67,14 @@
                 <tr data-id="{{ $adminTeam->id }}">
                     @if($admin->root)
                         <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $adminTeam->owner->username ?? '' }}
+                            @if(!empty($adminTeam->owner))
+                                @include('admin.components.link', [
+                                    'name' => $adminTeam->owner->username,
+                                    'href' => route('admin.system.admin.show', $adminTeam->owner)
+                                ])
+                            @else
+                                ?
+                            @endif
                         </td>
                     @endif
                     <td data-field="name">

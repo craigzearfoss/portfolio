@@ -1,8 +1,8 @@
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ??  !empty($owner->name) ? $owner->name : $owner->username,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',  'href' => route('home') ],
-        [ 'name' => 'Users', 'href' => route('home') ],
+        [ 'name' => 'Home',  'href' => route('guest.index') ],
+        [ 'name' => 'Users', 'href' => route('guest.index') ],
         [ 'name' => !empty($owner->name) ? $owner->name : $owner->username ]
     ],
     'buttons'          => [],

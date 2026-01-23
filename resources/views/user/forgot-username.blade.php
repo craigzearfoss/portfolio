@@ -2,7 +2,7 @@
     'pageTitle'        => $pageTitle ?? 'Forgot User Name',
     'title'            => '',
     'breadcrumbs'      => [
-        [ 'name' => 'Home', 'href' => route('home') ],
+        [ 'name' => 'Home', 'href' => route('guest.index') ],
         [ 'name' => 'Forgot User Name' ],
     ],
     'buttons'          => [],

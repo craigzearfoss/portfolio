@@ -1,15 +1,14 @@
 @php
     $buttons = [];
     if (canCreate('database', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.system.database.create', $owner)])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.system.database.create')])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Databases',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'Databases' ],
     ],
     'buttons'          => $buttons,
@@ -83,7 +82,14 @@
                 <tr data-id="{{ $database->id }}">
                     @if($admin->root)
                         <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $database->owner->username ?? '' }}
+                            @if(!empty($database->owner))
+                                @include('admin.components.link', [
+                                    'name' => $database->owner->username,
+                                    'href' => route('admin.system.admin.show', $database->owner)
+                                ])
+                            @else
+                                ?
+                            @endif
                         </td>
                     @endif
                     <td data-field="name">
@@ -131,7 +137,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($database, $amdin))
+                            @if(canRead($database, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.system.database.show', $database),

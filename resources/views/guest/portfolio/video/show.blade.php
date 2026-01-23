@@ -1,8 +1,8 @@
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ?? 'Video: ' . $video->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',       'href' => route('home') ],
-        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => 'Home',       'href' => route('guest.index') ],
+        [ 'name' => 'Users',      'href' => route('guest.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Videos',     'href' => route('guest.portfolio.video.index', $owner) ],

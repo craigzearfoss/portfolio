@@ -2,7 +2,7 @@
     'title'            => $pageTitle ?? 'Privacy Policy',
     'subtitle'         => null,
     'breadcrumbs'      => [
-        [ 'name' => 'Home', 'href' => route('home')],
+        [ 'name' => 'Home', 'href' => route('guest.index')],
         [ 'name' => 'Privacy Policy']
     ],
     'buttons'          => [],

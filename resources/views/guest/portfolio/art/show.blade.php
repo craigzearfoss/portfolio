@@ -1,8 +1,8 @@
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ?? 'Art: ' . $art->name . (!empty($art->artist) ? ' by ' . $art->artist : ''),
     'breadcrumbs'      => [
-        [ 'name' => 'Home',       'href' => route('home') ],
-        [ 'name' => 'Users',      'href' => route('home') ],
+        [ 'name' => 'Home',       'href' => route('guest.index') ],
+        [ 'name' => 'Users',      'href' => route('guest.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Art',        'href' => route('guest.portfolio.art.index', $owner) ],

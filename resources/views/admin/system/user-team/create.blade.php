@@ -1,9 +1,8 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New User Team',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'User Teams',      'href' => route('admin.system.user-team.index') ],
         [ 'name' => 'Add' ]
     ],

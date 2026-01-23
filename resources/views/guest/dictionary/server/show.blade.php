@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
     'title'            => 'Dictionary: ' . $server->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Servers',    'href' => route('guest.dictionary.server.index') ],
         [ 'name' => $server->name ],

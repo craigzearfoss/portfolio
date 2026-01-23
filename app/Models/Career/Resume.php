@@ -5,6 +5,7 @@ namespace App\Models\Career;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,6 +34,7 @@ class Resume extends Model
         'content',
         'doc_url',
         'pdf_url',
+        'file_type',
         'notes',
         'link',
         'link_name',
@@ -50,10 +52,27 @@ class Resume extends Model
         'sequence',
     ];
 
+    const FILE_TYPES = [
+        '.csv'   => 'CSV comma delimited (*.csv)',
+        '.docx'  => 'Document (*.docx)',
+        '.doc'   => 'Word 97-2003 (*.doc)',
+        '.mht'   => 'Single File Web Page (*.mht, *.mhtml)',
+        '.mhtml' => 'Single File Web Page (*.mht, *.mhtml)',
+        '.dotx'  => 'Template (*.dotx)',
+        '.ods'   => 'OpenDocument Spreadsheet (*.ods)',
+        '.odt'   => 'OpenDocument Text (*.odt)',
+        '.pdf'   => 'Adobe PDF (*.pdf)',
+        '.rtf'   => 'Rich Text Format (*.rtf)',
+        '.xls'   => 'Microsoft Excel 5.0/95 Workbook (*.xls)',
+        '.xlsx'  => 'Excel (*.xlsx)',
+        '.xml'   => 'XML Spreadsheet 2003 (*.xml)',
+        'other'  => 'Other',
+    ];
+
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'date', 'primary', 'content', 'public', 'readonly',
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'content', 'public', 'readonly',
         'root', 'disabled',
         'demo'];
     const SEARCH_ORDER_BY = ['date', 'desc'];
@@ -79,6 +98,20 @@ class Resume extends Model
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class, 'resume_id')->orderBy('post_date', 'desc');
+    }
+
+
+    /**
+     * Returns an array of file types.
+     *
+     * @param $includeBlank bool
+     * @return array
+     */
+    protected static function fileTypes(bool $includeBlank = false): array
+    {
+        return $includeBlank
+            ? array_merge([ '' => ''], self::FILE_TYPES)
+            : self::FILE_TYPES;
     }
 
     /**

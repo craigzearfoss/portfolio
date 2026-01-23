@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
     'title'            => 'Dictionary: ' . $library->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',       'href' => route('home') ],
+        [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Libraries',  'href' => route('guest.dictionary.library.index') ],
         [ 'name' => $library->name ],

@@ -11,7 +11,7 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Reading: ' . $reading->title,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Readings',        'href' => route('admin.personal.reading.index') ],

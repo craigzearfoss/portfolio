@@ -13,9 +13,8 @@ if (canRead('user-group', $admin)) {
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Users',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Users' ]
     ],
     'buttons'          => $buttons,
@@ -34,14 +33,15 @@ if (canRead('user-group', $admin)) {
     <div class="card p-4">
 
         @if($pagination_top)
-            {!! $users->links('vendor.pagination.bulma') !!}
+            {!! $allUsers->links('vendor.pagination.bulma') !!}
         @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>user name</th>
                 <th>name</th>
+                <th style="white-space: nowrap;">user name</th>
+                <th>label</th>
                 <th>team</th>
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
@@ -54,8 +54,9 @@ if (canRead('user-group', $admin)) {
             @if(!empty($bottom_column_headings))
                 <tfoot>
                 <tr>
-                    <th>user name</th>
                     <th>name</th>
+                    <th style="white-space: nowrap;">user name</th>
+                    <th>label</th>
                     <th>team</th>
                     <th>email</th>
                     <th class="has-text-centered">verified</th>
@@ -68,57 +69,64 @@ if (canRead('user-group', $admin)) {
 
             <tbody>
 
-            @forelse ($users as $user)
+            @forelse ($allUsers as $thisUser)
 
-                <tr data-id="{{ $user->id }}">
-                    <td data-field="username">
-                        {!! $user->username !!}
-                    </td>
+                <tr data-id="{{ $thisUser->id }}">
                     <td data-field="name">
-                        {!! $user->name !!}
+                        {!! $thisUser->name !!}
+                    </td>
+                    <td data-field="username" style="white-space: nowrap;">
+                        {{ $thisUser->username }}
+                    </td>
+                    <td data-field="label" style="white-space: nowrap;">
+                        {!! $thisUser->label !!}
                     </td>
                     <td data-field="user_team_id">
-                        @include('user.components.link', [
-                            'name' => $user->team->name,
-                            'href' => route('admin.system.user-team.show', [$user, $user->team->id])
-                        ])
+                        @if(!empty($thisUser->team_id))
+                            @include('admin.components.link', [
+                                'name' => $thisUser->team->name ?? '',
+                                'href' => route('admin.system.user-team.show',
+                                                [ $thisUser, \App\Models\System\UserTeam::where('id', $thisUser->team->id)->first() ]
+                                          )
+                            ])
+                        @endif
                     </td>
-                    <td data-field="email">
-                        {!! $user->email !!}
+                    <td data-field="email" style="white-space: nowrap;">
+                        {!! $thisUser->email !!}
                     </td>
                     <td data-field="email_verified_at" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
+                        @include('admin.components.checkmark', [ 'checked' => $thisUser->email_verified_at ])
                     </td>
                     <td data-field="status">
-                        {!! \App\Models\System\User::statusName($user->status) ?? '' !!}
+                        {!! \App\Models\System\User::statusName($thisUser->status) ?? '' !!}
                     </td>
                     <td data-field=disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $thisUser->disabled ])
                     </td>
                     <td class="is-1">
 
                         <div class="action-button-panel">
 
-                            @if(canRead($user, $admin))
+                            @if(canRead($thisUser, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.system.user.show', $user),
+                                    'href'  => route('admin.system.user.show', $thisUser),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($user, $admin))
+                            @if(canUpdate($thisUser, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.system.user.edit', $user),
+                                    'href'  => route('admin.system.user.edit', $thisUser),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
 
-                            @if (!empty($user->link))
+                            @if (!empty($thisUser->link))
                                 @include('admin.components.link-icon', [
-                                    'title'  => !empty($user->link_name) ? $user->link_name : 'link',
-                                    'href'   => $user->link,
+                                    'title'  => !empty($thisUser->link_name) ? $thisUser->link_name : 'link',
+                                    'href'   => $thisUser->link,
                                     'icon'   => 'fa-external-link',
                                     'target' => '_blank'
                                 ])
@@ -130,8 +138,8 @@ if (canRead('user-group', $admin)) {
                                 ])
                             @endif
 
-                            @if(canDelete($user, $admin))
-                                <form class="delete-resource" action="{!! route('admin.system.user.destroy', $user) !!}" method="POST">
+                            @if(canDelete($thisUser, $admin))
+                                <form class="delete-resource" action="{!! route('admin.system.user.destroy', $thisUser) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     @include('admin.components.button-icon', [
@@ -150,7 +158,7 @@ if (canRead('user-group', $admin)) {
             @empty
 
                 <tr>
-                    <td colspan="8">There are no users.</td>
+                    <td colspan="9">There are no users.</td>
                 </tr>
 
             @endforelse
@@ -159,7 +167,7 @@ if (canRead('user-group', $admin)) {
         </table>
 
         @if($pagination_bottom)
-            {!! $users->links('vendor.pagination.bulma') !!}
+            {!! $allUsers->links('vendor.pagination.bulma') !!}
         @endif
 
     </div>

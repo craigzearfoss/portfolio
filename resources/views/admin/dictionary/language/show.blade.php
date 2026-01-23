@@ -11,7 +11,7 @@
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary: ' . $language->name . ' (language)',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Languages',       'href' => route('admin.dictionary.language.index') ],

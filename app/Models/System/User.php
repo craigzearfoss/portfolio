@@ -2,9 +2,12 @@
 
 namespace App\Models\System;
 
+use App\Models\System\UserGroup;
+use App\Models\System\UserTeam;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -117,11 +120,27 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the system user_team of the admin.
+     * Get the current system user_team of the user.
      */
     public function team(): BelongsTo
     {
         return $this->belongsTo(UserTeam::class, 'user_team_id');
+    }
+
+    /**
+     * Get all the system user_groups for the user.
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(UserGroup::class)->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get all the system user_teams for the user.
+     */
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(UserTeam::class)->orderBy('name', 'asc');
     }
 
     /**

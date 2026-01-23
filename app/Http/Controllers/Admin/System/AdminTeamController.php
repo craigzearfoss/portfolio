@@ -57,7 +57,7 @@ class AdminTeamController extends BaseAdminController
 
         $adminTeam = AdminTeam::create($request->validated());
 
-        return redirect()->route('admin.admin-team.show', $adminTeam)
+        return redirect()->route('admin.system.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully added.');
     }
 
@@ -98,7 +98,7 @@ class AdminTeamController extends BaseAdminController
 
         $adminTeam->update($request->validated());
 
-        return redirect()->route('admin.admin-team.show', $adminTeam)
+        return redirect()->route('admin.system.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully updated.');
     }
 

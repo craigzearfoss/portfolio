@@ -31,10 +31,10 @@ class AdminController extends BaseAdminController
          if (empty($this->admin->root)) {
              return redirect()->route('admin.profile.show');
          } else {
-             $theAdmins = Admin::orderBy('username', 'asc')->paginate($perPage);
+             $allAdmins = Admin::orderBy('username', 'asc')->paginate($perPage);
          }
 
-        return view('admin.system.admin.index', compact('theAdmins'))
+        return view('admin.system.admin.index', compact('allAdmins'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -86,7 +86,9 @@ class AdminController extends BaseAdminController
      */
     public function show(Admin $admin): View
     {
-        return view('admin.system.admin.show', compact('admin'));
+        $thisAdmin = $admin;
+
+        return view('admin.system.admin.show', compact('thisAdmin'));
     }
 
     /**

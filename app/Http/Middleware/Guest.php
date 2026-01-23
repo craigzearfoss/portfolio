@@ -17,11 +17,13 @@ class Guest
      */
     public function handle(Request $request, Closure $next): Response
     {
+        /*
         if ($admin = $request->route('admin')) {
             if (empty($admin->public)) {
                 abort(404);
             }
         }
+        */
 
         return $next($request);
     }

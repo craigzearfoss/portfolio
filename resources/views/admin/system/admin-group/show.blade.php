@@ -11,9 +11,8 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin Group: ' . $adminGroup->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Groups',    'href' => route('admin.system.admin-group.index') ],
         [ 'name' => $adminGroup->name ]
     ],
@@ -85,9 +84,11 @@
 
         <div class="card p-4">
 
-            <h2 class="subtitle">
+            <h2 class="subtitle mb-0">
                 Group Members
             </h2>
+            <hr class="m-1">
+
 
             <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
                 <thead>
@@ -98,12 +99,9 @@
                 </thead>
                 <tbody>
 
-                @php
-                    $members = $adminGroup->members();
-                @endphp
-                @if($members->count() > 0)
+                @if(!empty($adminGroup->members))
 
-                    @foreach($members as $member)
+                    @foreach($adminGroup->members as $member)
 
                         <tr>
                             <td>

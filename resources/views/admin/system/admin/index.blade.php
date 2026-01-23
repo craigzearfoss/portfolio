@@ -13,9 +13,8 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admins',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admins' ]
     ],
     'buttons'          => $buttons,
@@ -34,7 +33,7 @@
     <div class="card p-4">
 
         @if($pagination_top)
-            {!! $theAdmins->links('vendor.pagination.bulma') !!}
+            {!! $allAdmins->links('vendor.pagination.bulma') !!}
         @endif
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
@@ -45,6 +44,7 @@
                 <th>label</th>
                 <th>team</th>
                 <th>email</th>
+                <th class="has-text-centered">verified</th>
                 <th>status</th>
                 <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
@@ -60,6 +60,7 @@
                     <th>label</th>
                     <th>team</th>
                     <th>email</th>
+                    <th class="has-text-centered">verified</th>
                     <th>status</th>
                     <th class="has-text-centered">root</th>
                     <th class="has-text-centered">disabled</th>
@@ -70,7 +71,7 @@
 
             <tbody>
 
-            @forelse ($theAdmins as $thisAdmin)
+            @forelse ($allAdmins as $thisAdmin)
 
                 <tr data-id="{{ $thisAdmin->id }}">
                     <td data-field="name">
@@ -79,7 +80,7 @@
                     <td data-field="username" style="white-space: nowrap;">
                         {{ $thisAdmin->username }}
                     </td>
-                    <td data-field="label">
+                    <td data-field="label" style="white-space: nowrap;">
                         {!! $thisAdmin->label !!}
                     </td>
                     <td data-field="admin_team_id">
@@ -92,10 +93,13 @@
                             ])
                         @endif
                     </td>
-                    <td data-field="email">
+                    <td data-field="email" style="white-space: nowrap;">
                         {!! $thisAdmin->email !!}
                     </td>
-                    <td data-field="phone">
+                    <td data-field="email_verified_at" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $thisUser->email_verified_at ])
+                    </td>
+                    <td data-field="status">
                         {!! \App\Models\System\User::statusName($thisAdmin->status) ?? '' !!}
                     </td>
                     <td data-field="root" class="has-text-centered">
@@ -159,7 +163,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no admins.</td>
+                    <td colspan="10">There are no admins.</td>
                 </tr>
 
             @endforelse
@@ -168,7 +172,7 @@
         </table>
 
         @if($pagination_bottom)
-            {!! $theAdmins->links('vendor.pagination.bulma') !!}
+            {!! $allAdmins->links('vendor.pagination.bulma') !!}
         @endif
 
     </div>

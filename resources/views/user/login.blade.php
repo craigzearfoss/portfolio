@@ -27,7 +27,7 @@
             <div class="has-text-centered">
                 <h4>User logins have been disabled.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{{ route('home') }}"><i
+                    <a class="btn btn-sm btn-solid" href="{{ route('guest.index') }}"><i
                             class="fa fa-house"></i> Home</a>
                 </p>
             </div>

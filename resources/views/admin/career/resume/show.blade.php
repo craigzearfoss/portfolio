@@ -10,7 +10,7 @@
         ];
     } else {
         $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('home') ],
+            [ 'name' => 'Home',            'href' => route('guest.index') ],
             [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ]
@@ -30,7 +30,7 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Resume: ' . $resume->name . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
@@ -101,6 +101,11 @@
         @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => $resume->notes
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'file type',
+            'value' => $resume->file_type
         ])
 
         @include('admin.components.show-row-link', [

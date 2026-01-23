@@ -16,7 +16,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('user_user_groups', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('user_user_group', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
                 ->constrained('users', 'id')
@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('user_user_groups');
+        Schema::connection($this->database_tag)->dropIfExists('user_user_group');
     }
 };

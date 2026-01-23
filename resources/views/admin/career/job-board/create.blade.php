@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New Job Board',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Job Boards',      'href' => route('admin.career.job-board.index') ],

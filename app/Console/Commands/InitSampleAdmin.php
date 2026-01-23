@@ -53,7 +53,7 @@ class InitSampleAdmin extends Command
         'hikaru-sulu'      => [ 'name' => 'Hikaru Sulu',      'label' => 'hikaru-sulu',      'email' => 'sulu@starfleet.gov',          'role' => 'Helmsman',                 'employer' => 'USS Enterprise'                ],
         'les-nessman'      => [ 'name' => 'Les Nessman',      'label' => 'les-nessman',      'email' => 'nessman@wkrp.com',            'role' => 'News Director',            'employer' => 'WKRP Radio'                    ],
         'bo-darville'      => [ 'name' => 'Bo Darville',      'label' => 'bo-darville',      'email' => 'bandit@wkrp.com',             'role' => 'Daredevil Driver',         'employer' => 'Big and Little Enos Burdett'   ],
-        'dan-fielding'     => [ 'name' => 'Dan Fielding',     'label' => 'dan-fielding',     'email' => 'dan.fielding@manhaatan-court.gov',  'role' => 'Assistant District Attorney', 'employer' => 'Manhattan Criminal Court'   ],
+        'dan-fielding'     => [ 'name' => 'Dan Fielding',     'label' => 'dan-fielding',     'email' => 'dan.fielding@manhattan-court.gov',  'role' => 'Assistant District Attorney', 'employer' => 'Manhattan Criminal Court'   ],
     ];
 
     /**

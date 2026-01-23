@@ -105,7 +105,7 @@ class IndexController extends BaseUserController
     public function logout(): RedirectResponse
     {
         Auth::guard('user')->logout();
-        return redirect()->route('home')->with('success', 'User logout successful.');
+        return redirect()->route('guest.index')->with('success', 'User logout successful.');
     }
 
     /**

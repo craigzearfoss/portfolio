@@ -12,7 +12,7 @@ class UserUserTeam extends Model
 
     protected $connection = 'system_db';
 
-    protected $table = 'user_user_teams';
+    protected $table = 'user_user_team';
 
     /**
      * The attributes that are mass assignable.

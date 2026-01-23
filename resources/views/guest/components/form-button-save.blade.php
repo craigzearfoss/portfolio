@@ -1,5 +1,5 @@
 <a
-    href="{{ $cancel_url ?? route('home') }}"
+    href="{{ $cancel_url ?? route('guest.index') }}"
     class="button"
 ><i class="fa-solid fa-close"></i> Cancel</a>
 

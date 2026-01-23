@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Edit My Profile',
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'My Profile',      'href' => route('admin.profile.show') ],
         [ 'name' => 'Edit' ],
     ],

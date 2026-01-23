@@ -10,9 +10,8 @@ if (canRead('user-team', $admin)) {
 @extends('admin.layouts.default', [
     'title'           => $pageTitle ?? 'User Groups',
     'breadcrumbs'     => [
-        [ 'name' => 'Home',            'href' => route('home') ],
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'User Groups' ]
     ],
     'buttons'          => $buttons,

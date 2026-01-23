@@ -12,7 +12,7 @@ class UserUserGroup extends Model
 
     protected $connection = 'system_db';
 
-    protected $table = 'user_user_groups';
+    protected $table = 'user_user_group';
 
     /**
      * The attributes that are mass assignable.

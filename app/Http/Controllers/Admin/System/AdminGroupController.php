@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreUserGroupsRequest;
-use App\Http\Requests\System\UpdateUserGroupsRequest;
-use App\Models\System\UserGroup;
+use App\Http\Requests\System\StoreAdminGroupsRequest;
+use App\Http\Requests\System\UpdateAdminGroupsRequest;
+use App\Models\System\AdminGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 class AdminGroupController extends BaseAdminController
 {
     /**
-     * Display a listing of user groups.
+     * Display a listing of admin groups.
      *
      * @param Request $request
      * @return View
@@ -23,90 +23,90 @@ class AdminGroupController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $userGroups = UserGroup::orderBy('name','asc')->paginate($perPage);
+        $adminGroups = AdminGroup::orderBy('name','asc')->paginate($perPage);
 
-        return view('admin.system.user-group.index', compact('userGroups'))
+        return view('admin.system.admin-group.index', compact('adminGroups'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Show the form for creating a new user group.
+     * Show the form for creating a new admin group.
      *
      * @return View
      */
     public function create(): View
     {
-        return view('admin.system.user-group.create');
+        return view('admin.system.admin-group.create');
     }
 
     /**
-     * Store a newly created user group in storage.
+     * Store a newly created admin group in storage.
      *
-     * @param StoreUserGroupsRequest $request
+     * @param StoreAdminGroupsRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreUserGroupsRequest $request): RedirectResponse
+    public function store(StoreAdminGroupsRequest $request): RedirectResponse
     {
-        $userGroup = UserGroup::create($request->validated());
+        $adminGroup = AdminGroup::create($request->validated());
 
-        return redirect()->route('admin.user-group.show', $userGroup)
-            ->with('success', $userGroup->name . ' successfully added.');
+        return redirect()->route('admin.system.admin-group.show', $adminGroup)
+            ->with('success', $adminGroup->name . ' successfully added.');
     }
 
     /**
-     * Display the specified user group.
+     * Display the specified admin group.
      *
-     * @param UserGroup $userGroup
+     * @param AdminGroup $adminGroup
      * @return View
      */
-    public function show(UserGroup $userGroup): View
+    public function show(AdminGroup $adminGroup): View
     {
-        return view('admin.system.user-group.show', compact('userGroup'));
+        return view('admin.system.admin-group.show', compact('adminGroup'));
     }
 
     /**
-     * Show the form for editing the specified user group.
+     * Show the form for editing the specified admin group.
      *
-     * @param UserGroup $userGroup
+     * @param AdminGroup $adminGroup
      * @return View
      */
-    public function edit(UserGroup $userGroup): View
+    public function edit(AdminGroup $adminGroup): View
     {
-        Gate::authorize('update-resource', $userGroup);
+        Gate::authorize('update-resource', $adminGroup);
 
-        return view('admin.system.user-group.edit', compact('userGroup'));
+        return view('admin.system.admin-group.edit', compact('adminGroup'));
     }
 
     /**
-     * Update the specified user group in storage.
+     * Update the specified admin group in storage.
      *
-     * @param UpdateUserGroupsRequest $request
-     * @param UserGroup $userGroup
+     * @param UpdateAdminGroupsRequest $request
+     * @param AdminGroup $adminGroup
      * @return RedirectResponse
      */
-    public function update(UpdateUserGroupsRequest $request, UserGroup $userGroup): RedirectResponse
+    public function update(UpdateAdminGroupsRequest $request, AdminGroup $adminGroup): RedirectResponse
     {
-        Gate::authorize('update-resource', $userGroup);
+        Gate::authorize('update-resource', $adminGroup);
 
-        $userGroup->update($request->validated());
+        $adminGroup->update($request->validated());
 
-        return redirect()->route('admin.user-group.show', $userGroup)
-            ->with('success', $userGroup->name . ' successfully updated.');
+        return redirect()->route('admin.system.admin-group.show', $adminGroup)
+            ->with('success', $adminGroup->name . ' successfully updated.');
     }
 
     /**
-     * Remove the specified user group from storage.
+     * Remove the specified admin group from storage.
      *
-     * @param UserGroup $userGroup
+     * @param AdminGroup $adminGroup
      * @return RedirectResponse
      */
-    public function destroy(UserGroup $userGroup): RedirectResponse
+    public function destroy(AdminGroup $adminGroup): RedirectResponse
     {
-        Gate::authorize('delete-resource', $userGroup);
+        Gate::authorize('delete-resource', $adminGroup);
 
-        $userGroup->delete();
+        $adminGroup->delete();
 
-        return redirect(referer('admin.system.user-group.index'))
-            ->with('success', $userGroup->name . ' deleted successfully.');
+        return redirect(referer('admin.system.admin-group.index'))
+            ->with('success', $adminGroup->name . ' deleted successfully.');
     }
 }

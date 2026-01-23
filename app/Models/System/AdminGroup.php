@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -62,7 +63,7 @@ class AdminGroup extends Model
     }
 
     /**
-     * Get the system  admin team that owns the admin group.
+     * Get the system admin team that owns the admin group.
      */
     public function team(): BelongsTo
     {
@@ -70,15 +71,10 @@ class AdminGroup extends Model
     }
 
     /**
-     * Returns the members of the admin group.
-     *
-     * @return Collection
+     * Get the members for the admin group.
      */
-    public function members(): Collection
+    public function members(): BelongsToMany
     {
-        return AdminAdminGroup::select('admins.*')
-            ->where('admin_admin_group.admin_group_id', $this->id)
-            ->join('admins', 'admins.id', '=', 'admin_admin_group.admin_id')
-            ->get();
+        return $this->belongsToMany(Admin::class)->orderBy('name', 'asc');
     }
 }
