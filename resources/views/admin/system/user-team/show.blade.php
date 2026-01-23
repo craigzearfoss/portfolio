@@ -36,10 +36,16 @@
             'value' => $userTeam->id
         ])
 
-        @if($admin->root)
+        @if(!empty($userTeam->owner))
+            @include('admin.components.show-row-link', [
+                'name' => 'owner',
+                'label' => $userTeam->owner->username,
+                'href' => route('admin.system.user.show', $userTeam->owner)
+            ])
+        @else
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $userTeam->owner->username
+                'value' => '?'
             ])
         @endif
 
@@ -79,9 +85,10 @@
 
         <div class="card p-4">
 
-            <h2 class="subtitle">
+            <h2 class="subtitle mb-0">
                 Team Members
             </h2>
+            <hr class="m-1">
 
             <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
                 <thead>
@@ -92,31 +99,28 @@
                 </thead>
                 <tbody>
 
-                @php
-                    $members = $userTeam->members();
-                @endphp
-                @if($members->count() > 0)
+                @if(!empty($userTeam->members))
 
-                    @foreach($members as $member)
+                    @foreach($userTeam->members as $member)
 
                         <tr>
                             <td>
                                 {!! $member->username !!}
                             </td>
                             <td>
-                                {!! $member->name) !!}
+                                {!! $member->name !!}
                             </td>
                             <td>
                                 {!! $member->email !!}
                             </td>
                             <td>
                                 <a title="show" class="button is-small px-1 py-0"
-                                   href="{!! route('admin.user.show', $member->id) !!}">
+                                   href="{!! route('admin.system.user.show', $member->id) !!}">
                                     <i class="fa-solid fa-list"></i>
                                 </a>
 
                                 <a title="edit" class="button is-small px-1 py-0"
-                                   href="{!! route('admin.user.edit', $member->id) !!}">
+                                   href="{!! route('admin.system.user.edit', $member->id) !!}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </td>

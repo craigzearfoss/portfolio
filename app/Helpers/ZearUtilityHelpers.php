@@ -230,15 +230,11 @@ if (! function_exists('canCreate')) {
                 abort(500, 'canCreate(): Argument #1 ($resource) must be the name of a resource type');
             }
 
-            $resourceType = Str::camel($resource);
             if (!$resourceType = \App\Models\System\Resource::where('name', $resource)->first()) {
                 return false;
             } else {
-                if (Schema::connection($resourceType->database->tag)->hasColumn($resourceType->name, 'owner_id')) {
-                    return true;
-                } else {
-                    return false;
-                }
+                // non-root admins can only create resources that have an owner_id column
+                return isset($resourceType->owner_id);
             }
         }
     }

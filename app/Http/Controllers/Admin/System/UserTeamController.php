@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\System\StoreUserTeamsRequest;
 use App\Http\Requests\System\UpdateUserTeamsRequest;
 use App\Models\System\UserTeam;
@@ -11,6 +11,110 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
-class UserTeamController extends BaseAdminController
+class UserTeamController extends BaseUserController
 {
+    /**
+     * Display a listing of user teams.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function index(Request $request): View
+    {
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $userTeams = UserTeam::orderBy('name','asc')->paginate($perPage);
+
+        return view('admin.system.user-team.index', compact('userTeams'))
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
+    }
+
+    /**
+     * Show the form for creating a new user team.
+     *
+     * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function create(): View
+    {
+        $owner_id = request()->get('owner_id');
+
+        return view('admin.system.user-team.create', compact('owner_id'));
+    }
+
+    /**
+     * Store a newly created user team in storage.
+     *
+     * @param StoreUserTeamsRequest $request
+     * @return RedirectResponse
+     */
+    public function store(StoreUserTeamsRequest $request): RedirectResponse
+    {
+        $userTeam = UserTeam::create($request->validated());
+
+        return redirect()->route('user.system.user-team.show', $userTeam)
+            ->with('success', $userTeam->name . ' successfully added.');
+    }
+
+    /**
+     * Display the specified user team.
+     *
+     * @param UserTeam $userTeam
+     * @return View
+     */
+    public function show(UserTeam $userTeam): View
+    {
+        return view('admin.system.user-team.show', compact('userTeam'));
+    }
+
+    /**
+     * Show the form for editing the specified user team.
+     *
+     * @param UserTeam $userTeam
+     * @return View
+     */
+    public function edit(UserTeam $userTeam): View
+    {
+        if (!canUpdate($userTeam, $this->admin)) {
+            abort(403, 'You are not allowed to edit this user team.');
+        }
+
+        return view('admin.system.user-team.edit', compact('userTeam'));
+    }
+
+    /**
+     * Update the specified user team in storage.
+     *
+     * @param UpdateUserTeamsRequest $request
+     * @param UserTeam $userTeam
+     * @return RedirectResponse
+     */
+    public function update(UpdateUserTeamsRequest $request, UserTeam $userTeam): RedirectResponse
+    {
+        Gate::authorize('update-resource', $userTeam);
+
+        $userTeam->update($request->validated());
+
+        return redirect()->route('user.system.user-team.show', $userTeam)
+            ->with('success', $userTeam->name . ' successfully updated.');
+    }
+
+    /**
+     * Remove the specified user team from storage.
+     *
+     * @param UserTeam $userTeam
+     * @return RedirectResponse
+     */
+    public function destroy(UserTeam $userTeam): RedirectResponse
+    {
+        if (!canDelete($userTeam, $this->admin)) {
+            abort(403, 'You are not allowed to delete this user team.');
+        }
+
+        $userTeam->delete();
+
+        return redirect(referer('user.system.user-team.index'))
+            ->with('success', $userTeam->name . ' deleted successfully.');
+    }
 }

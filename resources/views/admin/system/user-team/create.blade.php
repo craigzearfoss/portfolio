@@ -37,7 +37,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? '',
+                    'value'    => old('owner_id')  ?? $owner_id ?? null,
                     'required' => true,
                     'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',

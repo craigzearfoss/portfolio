@@ -76,12 +76,19 @@ class BaseController extends Controller
         // ---------------------
         // set the current owner
         // ---------------------
-        if (array_key_exists('owner_id', $urlParams)) {
+        if (($this->envType == 'admin') && !empty($this->admin) && empty($this->admin->root)) {
+
+            $this->owner = $this->admin;
+            $owner_id = $this->owner->id;
+
+        } elseif (array_key_exists('owner_id', $urlParams)) {
+
             // there is an "owner_id" url parameter
             $owner_id = (!empty($urlParams['owner_id'])) ? $urlParams['owner_id'] : null;
             if (!$this->owner = Admin::find($owner_id)) {
                 abort(404, 'Owner ' . $owner_id . ' not found.');
             }
+
         } else {
 
             $adminFromRoute = (($resource == 'admin') && in_array($action, ['show', 'edit']))

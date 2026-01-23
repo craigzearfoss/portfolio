@@ -32,9 +32,7 @@ trait ModelPermissionsTrait
     {
         if (!empty($this->owner_id)) {
 
-            if (!isRootAdmin()
-                && (Auth::guard('admin')->user()->id != $this->owner_id)
-            ) {
+            if (!isRootAdmin() && (Auth::guard('admin')->user()->id != $this->owner_id)) {
                 throw ValidationException::withMessages([
                     'GLOBAL' => 'You are not authorized to update this resource.'
                 ]);

@@ -1,5 +1,12 @@
 @php
-    $currentRouteName = $currentRouteName ?? null;
+    $title            = $title ?? '';
+    $breadcrumbs      = $breadcrumbs ?? [];
+    $buttons          = $buttons ?? [];
+    $errorMessages    = $errorMessages = [];
+    $success          = $success ?? null;
+    $error            = $error ?? null;
+    $menuService      = $menuService ?? null;
+    $currentRouteName = $currentRouteName ?? Route::currentRouteName();
     $admin            = $admin ?? null;
     $user             = $user ?? null;
     $owner            = $owner ?? null;
@@ -14,30 +21,30 @@
 <div id="app">
 
     @include('admin.components.nav-top', [
-        'menuService'      => $menuService ?? null,
-        'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
-        'admin'            => $admin ?? null,
-        'user'             => $user ?? null,
-        'owner'            => $owner ?? null,
+        'menuService'      => $menuService,
+        'currentRouteName' => $currentRouteName,
+        'admin'            => $admin,
+        'user'             => $user,
+        'owner'            => $owner,
     ])
 
     @include('admin.components.nav-left', [
-        'menuService'      => $menuService ?? null,
-        'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
-        'admin'            => $admin ?? null,
-        'user'             => $user ?? null,
-        'owner'            => $owner ?? null,
+        'menuService'      => $menuService,
+        'currentRouteName' => $currentRouteName,
+        'admin'            => $admin,
+        'user'             => $user,
+        'owner'            => $owner,
     ])
 
     @include('admin.components.title-bar', [
-        'title'       => $title ?? '',
+        'title'       => $title,
         'breadcrumbs' => $breadcrumbs ?? []
     ])
 
     @include('admin.components.subtitle-bar', [
-        'title'      => $title ?? '',
+        'title'      => $title,
         'selectList' => $selectList ?? '',
-        'buttons'    => $buttons ?? [],
+        'buttons'    => $buttons,
     ])
 
     <section class="is-main-section px-4 py-3">

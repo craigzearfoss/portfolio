@@ -33,10 +33,14 @@ class AdminGroupController extends BaseAdminController
      * Show the form for creating a new admin group.
      *
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function create(): View
     {
-        return view('admin.system.admin-group.create');
+        $owner_id = request()->get('owner_id');
+
+        return view('admin.system.admin-group.create', compact('owner_id'));
     }
 
     /**
@@ -72,7 +76,9 @@ class AdminGroupController extends BaseAdminController
      */
     public function edit(AdminGroup $adminGroup): View
     {
-        Gate::authorize('update-resource', $adminGroup);
+        if (!canUpdate($adminGroup, $this->admin)) {
+            abort(403, 'You are not allowed to edit this admin group.');
+        }
 
         return view('admin.system.admin-group.edit', compact('adminGroup'));
     }
@@ -102,7 +108,9 @@ class AdminGroupController extends BaseAdminController
      */
     public function destroy(AdminGroup $adminGroup): RedirectResponse
     {
-        Gate::authorize('delete-resource', $adminGroup);
+        if (!canDelete($adminGroup, $this->admin)) {
+            abort(403, 'You are not allowed to delete this admin group.');
+        }
 
         $adminGroup->delete();
 

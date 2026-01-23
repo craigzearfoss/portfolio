@@ -34,9 +34,9 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         // define gate for admin editing a resource
-        Gate::define('update-resource', function (Admin $admin, $resourceObj): bool
-        {
-            if (isRootAdmin()) return true;
+        Gate::define('update-resource', function ($resourceObj, Admin $admin): bool
+        {d($admin);
+            if ($admin->root) return true;
 
             if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
                 return true;
@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
         // define gate for an admin deleting a resource
         Gate::define('delete-resource', function (Admin $admin, $resourceObj): bool
         {
-            if (isRootAdmin()) return true;
+            if ($admin->root) return true;
 
             if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
                 return true;
@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        view()->share('demo', !empty(config('app.demo_url')));
-        view()->share('readonly', boolval(config('app.readonly')));
+        view()->share('demo', config('app.demo_mode'));
+        view()->share('readonly', config('app.readonly'));
     }
 }

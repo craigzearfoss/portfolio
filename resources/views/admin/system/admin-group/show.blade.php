@@ -1,12 +1,14 @@
 @php
     $buttons = [];
     if (canUpdate($adminGroup, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.admin-group.edit', $adminGroup)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-group.edit', $adminGroup) ])->render();
     }
     if (canCreate('admin-group', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Admin Group', 'href' => route('admin.system.admin-group.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
+                                                               'href' => route('admin.system.admin-group.create', [ 'owner_id' => $admin->id ])
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-group.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-group.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin Group: ' . $adminGroup->name,
@@ -53,15 +55,15 @@
             'value' => $adminGroup->name
         ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'slug',
-                'value' => $adminGroup->slug
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'slug',
+            'value' => $adminGroup->slug
+        ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'abbreviation',
-                'value' => $adminGroup->abbreviation
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'abbreviation',
+            'value' => $adminGroup->abbreviation
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -88,7 +90,6 @@
                 Group Members
             </h2>
             <hr class="m-1">
-
 
             <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
                 <thead>

@@ -1,5 +1,5 @@
 @php
-    $class = !empty($class) ? (is_array($class) ? implode(' ', $class) : $class) : 'button is-small is-dark my-0';
+    $class = !empty($class) ? (is_array($class) ? implode(' ', $class) : $class) : 'is-small is-dark my-0';
     $style = !empty($style) ? (is_array($style) ? implode('; ', $style) : '') : '';
 @endphp
 <a href="{{ $href ?? '' }}"

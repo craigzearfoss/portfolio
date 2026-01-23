@@ -33,14 +33,14 @@ class AdminTeamController extends BaseAdminController
      * Show the form for creating a new admin team.
      *
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        $owner_id = request()->get('owner_id');
 
-        return view('admin.system.admin-team.create');
+        return view('admin.system.admin-team.create', compact('owner_id'));
     }
 
     /**
@@ -51,10 +51,6 @@ class AdminTeamController extends BaseAdminController
      */
     public function store(StoreAdminTeamsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can add new admin teams.');
-        }
-
         $adminTeam = AdminTeam::create($request->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
@@ -80,7 +76,9 @@ class AdminTeamController extends BaseAdminController
      */
     public function edit(AdminTeam $adminTeam): View
     {
-        Gate::authorize('update-resource', $adminTeam);
+        if (!canUpdate($adminTeam, $this->admin)) {
+            abort(403, 'You are not allowed to edit this admin team.');
+        }
 
         return view('admin.system.admin-team.edit', compact('adminTeam'));
     }
@@ -110,7 +108,9 @@ class AdminTeamController extends BaseAdminController
      */
     public function destroy(AdminTeam $adminTeam): RedirectResponse
     {
-        Gate::authorize('delete-resource', $adminTeam);
+        if (!canDelete($adminTeam, $this->admin)) {
+            abort(403, 'You are not allowed to delete this admin team.');
+        }
 
         $adminTeam->delete();
 
