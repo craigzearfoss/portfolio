@@ -2,8 +2,15 @@
     $buttons = [];
     if (canCreate('user-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
-                                                               'href' => route('admin.system.user-group.create', [ 'owner_id' => $admin->id ])
+                                                               'href' => route('admin.system.user-group.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
                                                              ])->render();
+    }
+    if (canRead('user-team', $admin)) {
+        $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'User Teams',
+                                                                'href' => route('admin.system.user-team.index')
+                                                              ])->render();
     }
 @endphp
 @extends('admin.layouts.default', [

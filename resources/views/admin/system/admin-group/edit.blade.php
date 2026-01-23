@@ -7,7 +7,7 @@
         [ 'name' => $adminGroup->name ]
     ],
     'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-group.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-group.index') ])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']

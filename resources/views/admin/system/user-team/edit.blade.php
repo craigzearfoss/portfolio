@@ -7,7 +7,7 @@
         [ 'name' => $userTeam->name ]
     ],
     'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.user-team.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-team.index') ])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']

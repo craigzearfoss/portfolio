@@ -1,11 +1,16 @@
 @php
     $buttons = [];
     if (canUpdate($userGroup, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit', $userGroup) ])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit',
+                                                                                $userGroup
+                                                                               )
+                                                              ])->render();
     }
     if (canCreate('user-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
-                                                               'href' => route('admin.system.user-group.create')
+                                                               'href' => route('admin.system.user-group.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
                                                              ])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-group.index') ])->render();

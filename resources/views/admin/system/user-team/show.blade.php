@@ -1,12 +1,19 @@
 @php
     $buttons = [];
     if (canUpdate($userTeam, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.user-team.edit', $userTeam)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-team.edit',
+                                                                                $userTeam
+                                                                               )
+                                                              ])->render();
     }
     if (canCreate('user-team', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New User Team', 'href' => route('admin.system.user-team.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New User Team',
+                                                               'href' => route('admin.system.user-team.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.user-team.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-team.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'User Team: ' . $userTeam->name,
