@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Career',
+    'title'            => $pageTitle ?? (!empty($owner) ? $owner->name . ' Career' : 'Career'),
     'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
@@ -11,7 +11,6 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -32,7 +31,9 @@
                         <li>
                             @include('admin.components.link', [
                                 'name'  => $career->plural,
-                                'href'  => route('admin.career.'.$career->name.'.index', $admin),
+                                'href'  => route('admin.'.$career->database_name.'.'.$career->name.'.index',
+                                                 !empty($owner) ? [ 'owner_id' => $owner ] : []
+                                           ),
                                 'class' => 'list-item',
                             ])
                         </li>

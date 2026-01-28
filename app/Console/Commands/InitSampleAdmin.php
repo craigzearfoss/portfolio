@@ -348,10 +348,10 @@ class InitSampleAdmin extends Command
                 'role'              => self::USER_DATA[$username]['role'] ,
                 'employer'          => self::USER_DATA[$username]['employer'],
                 'email_verified_at' => now(),
-                'public'            => 1,
+                'public'            => true,
                 'status'            => 1,
                 'token'             => '',
-                'root'              => 1,
+                'root'              => false,
                 'image'             => $imagePath,
                 'thumbnail'         => $thumbnailPath,
             ]
@@ -374,28 +374,31 @@ class InitSampleAdmin extends Command
     {
         echo $username . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = Database::where('tag', self::DB_TAG)->first()) {
+        if ($databases = Database::whereIn('tag', [self::DB_TAG, 'dictionary_db'])->get()) {
 
-            $data = [];
+            foreach ($databases as $database) {
 
-            $dataRow = [];
+                $data = [];
+                $dataRow = [];
 
-            foreach($database->toArray() as $key => $value) {
-                if ($key === 'id') {
-                    $dataRow['database_id'] = $value;
-                } elseif ($key === 'owner_id') {
-                    $dataRow['owner_id'] = $ownerId;
-                } else {
-                    $dataRow[$key] = $value;
+                foreach ($database->toArray() as $key => $value) {
+
+                    if ($key === 'id') {
+                        $dataRow['database_id'] = $value;
+                    } elseif ($key === 'owner_id') {
+                        $dataRow['owner_id'] = $ownerId;
+                    } else {
+                        $dataRow[$key] = $value;
+                    }
                 }
+
+                $dataRow['created_at'] = now();
+                $dataRow['updated_at'] = now();
+
+                $data[] = $dataRow;
+
+                AdminDatabase::insert($data);
             }
-
-            $dataRow['created_at']  = now();
-            $dataRow['updated_at']  = now();
-
-            $data[] = $dataRow;
-
-            AdminDatabase::insert($data);
         }
     }
 

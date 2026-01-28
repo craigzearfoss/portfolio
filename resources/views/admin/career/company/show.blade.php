@@ -1,12 +1,16 @@
 @php
     $buttons = [];
     if (canUpdate($company, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.company.edit', $company)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.company.edit', $company) ])->render();
     }
     if (canCreate('company', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Company',
+                                                               'href' => route('admin.career.company.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.company.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.company.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Company: ' . $company->name,
@@ -23,7 +27,6 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

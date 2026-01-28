@@ -1,12 +1,16 @@
 @php
     $buttons = [];
     if (canUpdate($message, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.message.edit', $message)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.message.edit', $message) ])->render();
     }
     if (canCreate('message', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Message',
+                                                               'href' => route('admin.system.message.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.message.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.message.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Message',

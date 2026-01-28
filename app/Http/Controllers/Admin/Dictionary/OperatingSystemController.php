@@ -19,6 +19,8 @@ use Illuminate\Support\Str;
  */
 class OperatingSystemController extends BaseAdminController
 {
+    protected $PAGINATION_PER_PAGE = 30;
+
     /**
      * Display a listing of operations systems.
      *

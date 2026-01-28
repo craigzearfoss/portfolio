@@ -1,10 +1,7 @@
 @php
     $buttons = [];
     if (canUpdate($adminGroup, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-group.edit',
-                                                                                $adminGroup
-                                                                               )
-                                                              ])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-group.edit', $adminGroup)])->render();
     }
     if (canCreate('admin-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',

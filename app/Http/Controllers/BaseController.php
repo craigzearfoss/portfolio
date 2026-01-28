@@ -26,7 +26,7 @@ class BaseController extends Controller
     protected $user = null;
     protected $owner = null;
 
-    protected $PAGINATION_PER_PAGE = 40;
+    protected $PAGINATION_PER_PAGE = 20;
 
     public function __construct(PermissionService $permissionService)
     {
@@ -73,45 +73,57 @@ class BaseController extends Controller
         $action = $parts[count($parts) - 1] ?? null;
         $resource = $parts[count($parts) - 2] ?? null;
 
+        // get the "owner_id" url parameter, if there is one
+        $owner_id = isset($urlParams['owner_id']) ? $urlParams['owner_id'] : null;
+        if (!is_null($owner_id)) {
+            if (empty($owner_id) || ($owner_id == '*')) {
+                $owner_id = '*';
+            }
+        } elseif (filter_var($owner_id, FILTER_VALIDATE_INT) !== false) {
+            $owner_id = intval($owner_id);
+        }
+
         // ---------------------
         // set the current owner
         // ---------------------
-        if (($this->envType == 'admin') && !empty($this->admin) && empty($this->admin->root)) {
+        if (($this->envType == 'admin') && !empty($this->admin)  && empty($this->admin->root)) {
 
+            // this is a non-root admin so they can only view their own resources
             $this->owner = $this->admin;
             $owner_id = $this->owner->id;
 
-        } elseif (array_key_exists('owner_id', $urlParams)) {
+        } elseif ($owner_id == '*') {
 
-            // there is an "owner_id" url parameter
-            $owner_id = (!empty($urlParams['owner_id'])) ? $urlParams['owner_id'] : null;
-            if (!$this->owner = Admin::find($owner_id)) {
-                abort(404, 'Owner ' . $owner_id . ' not found.');
+            // owner_id=* or owner_id= passed in url parameter
+            $this->owner = null;
+            $owner_id = null;
+
+        } elseif (!empty($owner_id)) {
+
+            // valid owner_id url parameter passed in
+            if ($this->owner = Admin::find($owner_id)) {
+                $owner_id = $this->owner->id;
+            } else {
+                $owner_id = null;
             }
 
         } else {
 
-            $adminFromRoute = (($resource == 'admin') && in_array($action, ['show', 'edit']))
-            && !empty($routeParams['admin'])
-            && is_object($routeParams['admin'])
-            && (get_class($routeParams['admin']) == 'App\Models\System\Admin')
-                ? $routeParams['admin']
-                : null;
-            //dd(['envType'=>$this->envType, 'resource'=>$resource, 'action'=>$action, 'routeParams'=>$routeParams, 'adminFromRoute'=>$adminFromRoute]);
-
-            if (!empty($adminFromRoute)) {
-                // this is an admin show or edit page
-                $this->owner = $adminFromRoute;
-                $owner_id = $this->owner->id;
-
+            // get the owner_id from the cookie
+            if ($owner_id = Cookie::get($ownerIdCookieName, null)) {
+                $this->owner = Admin::find($owner_id);
             } else {
-                // get the owner_id from the cookie
-                if ($owner_id = Cookie::get($ownerIdCookieName, null)) {
-                    $this->owner = Admin::find($owner_id);
-                } else {
-                    $this->owner = null;
-                }
+                $this->owner = null;
             }
+        }
+
+        if (empty($this->owner)
+            && ($this->envType == PermissionService::ENV_ADMIN)
+            && !empty($this->admin)
+            && empty($this->admin->root)
+        )  {
+            $this->owner = $this->admin;
+            $owner_id = $this->admin->id;
         }
         Cookie::queue($ownerIdCookieName, $owner_id, 60);
 

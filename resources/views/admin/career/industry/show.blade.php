@@ -23,7 +23,6 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

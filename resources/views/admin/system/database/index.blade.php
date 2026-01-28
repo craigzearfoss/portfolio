@@ -1,7 +1,9 @@
 @php
     $buttons = [];
     if (canCreate('database', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.system.database.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Database',
+                                                               'href' => route('admin.system.database.create')
+                                                             ])->render();
     }
 @endphp
 @extends('admin.layouts.default', [

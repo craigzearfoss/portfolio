@@ -24,29 +24,33 @@ class IndexController extends BaseGuestController
      */
     public function index(Admin|null $admin, Request $request): View
     {
-        $owner = $admin;
-
         if (!empty($owner)) {
 
-            $database = AdminDatabase::where('tag', 'personal_db')->where('owner_id', $owner->id)->first();
-            $resources = AdminResource::ownerResources(
-                $owner->id,
-                PermissionService::ENV_GUEST,
-                $database->database_id,
-                [],
-                [ 'title', 'asc' ]
-            );
+            if ($database = AdminDatabase::where('tag', 'personal_db')->where('owner_id', $owner->id)->first()) {
+                $resources = AdminResource::ownerResources(
+                    $owner->id,
+                    PermissionService::ENV_GUEST,
+                    $database->database_id,
+                    [],
+                    ['title', 'asc']
+                );
+            } else {
+                $resources = [];
+            }
 
         } else {
 
-            $database = Database::where('tag', 'personal_db')->first();
-            $resources = Resource::ownerResources(
-                $owner->id,
-                PermissionService::ENV_GUEST,
-                $database->id,
-                [],
-                [ 'title', 'asc' ]
-            );
+            if ($database = Database::where('tag', 'personal_db')->first()) {
+                $resources = Resource::ownerResources(
+                    null,
+                    PermissionService::ENV_GUEST,
+                    $database->id,
+                    [],
+                    ['title', 'asc']
+                );
+            } else {
+                $resources = [];
+            }
 
         }
 

@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.message.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.message.index') ])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']

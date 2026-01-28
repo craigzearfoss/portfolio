@@ -122,13 +122,13 @@ class AdminDatabase extends Model
                 $parts = explode(' ', $col);
                 $col = $parts[0];
                 if (!empty($parts[1])) {
-                    $operation = trim($parts[1]);
-                    if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->where($col, $operation, $value);
-                    } elseif (strtolower($operation) == 'like') {
+                    $operator = trim($parts[1]);
+                    if (in_array($operator, ['<>', '!=', '=!'])) {
+                        $query->where($col, '<>', $value);
+                    } elseif (strtolower($operator) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid admin_databases filter column: ' . $col . ' ' . $operation);
+                        throw new \Exception('Invalid admin_databases filter column: ' . $col . ' ' . $operator);
                     }
                 } else {
                     $query = $query->where($col, $value);

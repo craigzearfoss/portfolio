@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\System\Admin;
+use App\Models\System\AdminResource;
 use App\Models\System\Resource;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,13 +76,17 @@ class PermissionService
 
     /**
      * Returns an array of resource permissions for the specified ENV type.
+     * //@TODO: Not implemented yet.
      *
+     * @param Admin|null $owner
      * @param string|null $envType - If not specified, this defaults to the type for the current user.
      * @param bool $isRoot
      * @return array
      * @throws \Exception
      */
-    public function resourcePermissions(string|null $envType, bool $isRoot = false): array
+    public function resourcePermissions(Admin|null $owner = null,
+                                        string|null $envType,
+                                        bool $isRoot = false): array
     {
         if (empty($envType)) {
             $envType = self::currentEnvType();
@@ -88,7 +94,10 @@ class PermissionService
 
         $permissions = [];
 
-        foreach (Resource::ownerResources($envType) as $resource) {
+        foreach (!empty($owner)
+                     ? AdminResource::ownerResources($owner->id, $envType)
+                     : Resource::ownerResources(null, $envType)
+                 as $resource) {
 
             if (!array_key_exists($resource->database_name, $permissions)) {
                 $permissions[$resource->database_name] = [

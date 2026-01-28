@@ -1,12 +1,16 @@
 @php
     $buttons = [];
     if (canUpdate($contact, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.contact.edit', $contact)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.contact.edit', $contact) ])->render();
     }
     if (canCreate('contact', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Contact', 'href' => route('admin.career.contact.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Contact',
+                                                               'href' => route('admin.career.contact.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.contact.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.contact.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Contact: ' . $contact->name,
@@ -23,7 +27,6 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

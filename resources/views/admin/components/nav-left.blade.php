@@ -77,6 +77,14 @@
                     'onchange' => "document.location.href='" . url()->current() . '?' . http_build_query($params) . "'+this.value;"
                 ])
 
+            @elseif (!empty($admin))
+
+                <h2 class="ml-2 mb-1 has-text-warning" style="font-size: 1.25rem; font-weight: 600; line-height: 1.25;">
+                    {!! $admin->name !!}
+                </h2>
+                <hr class="mt-0 mb-0 mr-3" style="color: #727c8f; background-color: #727c8f;">
+
+
             @endif
 
         </div>

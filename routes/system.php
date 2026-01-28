@@ -71,7 +71,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('forgot-username', [AdminIndexController::class, 'forgot_username'])->name('forgot-username-submit');
     Route::get('login', [AdminIndexController::class, 'login'])->name('login');
     Route::post('login', [AdminIndexController::class, 'login'])->middleware('throttle:login')->name('login-submit');
-    Route::get('logout', [AdminIndexController::class, 'logout']);
+    Route::get('logout', [AdminIndexController::class, 'logout'])->name('logout');
     Route::get('reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password'])->name('reset-password');
     Route::post('reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password_submit'])->name('reset-password-submit');
 

@@ -1,12 +1,16 @@
 @php
     $buttons = [];
     if (canUpdate($application, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.application.edit', $application)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.application.edit', $application) ])->render();
     }
     if (canCreate('application', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Application',
+                                                               'href' => route('admin.career.application.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                               )
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.application.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'           => $pageTitle ?? 'Application: ' . $application->name,
@@ -23,7 +27,6 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

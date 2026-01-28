@@ -19,6 +19,8 @@ use Illuminate\Support\Str;
  */
 class LanguageController extends BaseAdminController
 {
+    protected $PAGINATION_PER_PAGE = 30;
+
     /**
      * Display a listing of languages.
      *

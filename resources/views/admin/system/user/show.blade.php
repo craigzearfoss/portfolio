@@ -1,13 +1,20 @@
 @php
     $buttons = [];
     if (canUpdate($thisUser, $admin)) {
-        $buttons[] = view('admin.components.nav-button', ['name' => 'Change Password', 'icon'=>'fa-key', 'href' => route('admin.system.user.change-password', $thisUser)])->render();
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.user.edit', $thisUser)])->render();
+        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
+                                                           'icon'=>'fa-key',
+                                                           'href' => route('admin.system.user.change-password', $thisUser)
+                                                         ])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user.edit', $thisUser) ])->render();
     }
     if (canCreate('user', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New User', 'href' => route('admin.system.user.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New User',
+                                                               'href' => route('admin.system.user.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.user.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'User: ' . $thisUser->username,

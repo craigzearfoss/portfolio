@@ -9,7 +9,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.application.index') ])->render(),
     ],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -18,7 +18,6 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

@@ -25,7 +25,7 @@
     'title'            => $pageTitle ?? 'Edit Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.career.communication.index')])->render(),
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.communication.index') ])->render(),
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -34,7 +34,6 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

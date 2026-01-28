@@ -1,7 +1,7 @@
 @php
     $buttons = [];
     if (canCreate('company', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Company', 'href' => route('admin.career.company.create') ])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
@@ -18,7 +18,6 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

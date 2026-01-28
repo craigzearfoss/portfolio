@@ -1,12 +1,16 @@
 @php
     $buttons = [];
     if (canUpdate($resource, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.resource.edit', $resource)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.resource.edit', $resource) ])->render();
     }
     if (canCreate('resource', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resource', 'href' => route('admin.system.resource.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Resource',
+                                                               'href' => route('admin.system.resource.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.resource.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.resource.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Resource: ' . $resource->database->name . '.' . $resource->name,

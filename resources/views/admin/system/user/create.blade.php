@@ -209,7 +209,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add User',
+                'label'      => 'Create User',
                 'cancel_url' => referer('admin.system.user.index')
             ])
 

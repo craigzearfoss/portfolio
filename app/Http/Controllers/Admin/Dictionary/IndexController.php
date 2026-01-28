@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Dictionary\DictionarySection;
 use App\Models\System\Resource;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
 
+/**
+ *
+ */
 class IndexController extends BaseAdminController
 {
-    protected $PAGINATION_PER_PAGE = 30;
-
     public function index(Request $request)
     {
-        $perPage = $request->query('per_page', $this->perPage());
+        $perPage = $request->query('per_page', 30 /*$this->perPage()*/);
 
         $words = DictionarySection::words(null, $perPage);
 

@@ -1,7 +1,7 @@
 @php
     $buttons = [];
     if (canCreate('application', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Application', 'href' => route('admin.career.application.create') ])->render();
     }
 @endphp
 @php
@@ -32,7 +32,6 @@ if (!empty($resume)) {
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

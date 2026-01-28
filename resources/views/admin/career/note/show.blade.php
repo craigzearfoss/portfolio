@@ -37,10 +37,9 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
-    'loggedInAdmin'    => $loggedInAdmin,
-    'loggedInUser'     => $loggedInUser,
     'admin'            => $admin,
-    'user'             => $user
+    'user'             => $user,
+    'owner'            => $owner,
 ])
 
 @section('content')

@@ -1,9 +1,7 @@
 @php
     $buttons = [];
     if (canUpdate($userGroup, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit',
-                                                                                $userGroup
-                                                                               )
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit', $userGroup)
                                                               ])->render();
     }
     if (canCreate('user-group', $admin)) {

@@ -45,21 +45,29 @@ class AdminController extends BaseGuestController
 
     public function show(Admin $admin): View
     {
-        $owner = $admin;
+        if (!empty($this->owner)) {
 
-        if (!$owner->public || $owner->disabled) {
-            abort(404);
+            if (!$this->owner->public || $this->owner->disabled) {
+                abort(404);
+            }
+
+            $databases = AdminDatabase::where('owner_id', $this->owner->id)
+                ->where('name', '!=', 'dictionary')
+                ->where('guest', true)
+                ->orderBy('sequence', 'asc')->get();
+
+            $resources = [];
+            if (!empty($databases)) {
+                foreach (AdminResource::ownerResources($this->owner->id, PermissionService::ENV_GUEST) as $resource) {
+                    $resources[$resource->database_id][] = $resource;
+                }
+            }
+
+        } else {
+            $databases = [];
+            $resources = [];
         }
 
-        $databases = AdminDatabase::where('owner_id', $owner->id)
-            ->where('name', '!=', 'dictionary')
-            ->where('guest', true)
-            ->orderBy('sequence', 'asc')->get();
-
-        $resources = [];
-        foreach(AdminResource::ownerResources($owner->id, PermissionService::ENV_GUEST) as $resource) {
-            $resources[$resource->database_id][] = $resource;
-        };
 
         return view(themedTemplate(
             'guest.system.admin.show'),

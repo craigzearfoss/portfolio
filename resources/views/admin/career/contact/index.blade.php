@@ -1,7 +1,7 @@
 @php
     $buttons = [];
     if (canCreate('contact', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Contact', 'href' => route('admin.career.contact.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Contact', 'href' => route('admin.career.contact.create') ])->render();
     }
 @endphp
 @extends('admin.layouts.default', [

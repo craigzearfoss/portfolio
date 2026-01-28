@@ -1,12 +1,16 @@
 @php
     $buttons = [];
     if (canUpdate($database, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.system.database.edit', $database)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.database.edit', $database) ])->render();
     }
     if (canCreate('database', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.system.database.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Database',
+                                                               'href' => route('admin.system.database.create',
+                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                              )
+                                                             ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.system.database.index')])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.database.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Database: ' . $database->name,

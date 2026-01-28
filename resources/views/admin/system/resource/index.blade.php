@@ -1,7 +1,9 @@
 @php
     $buttons = [];
     if (canCreate('resource', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resource', 'href' => route('admin.system.resource.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Resource',
+                                                               'href' => route('admin.system.resource.create')
+                                                             ])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
