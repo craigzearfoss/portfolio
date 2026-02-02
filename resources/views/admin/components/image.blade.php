@@ -17,7 +17,6 @@
     @if (!empty($download))
         <a class="download-link text-xl"
             title="download file"
-            @if(!empty($alt))alt="{!! $alt !!}" @endif
             data-url="{!! $imageUrl !!}"
             data-filename="{!! $filename ?? '' !!}"
         >
@@ -27,9 +26,9 @@
     @if (!empty($external))
         <a title="open file in a new window"
            class="certificate text-xl"
-	   href="{!! $imageUrl !!}"
-           @if(!empty($alt))alt="{{ $alt }}" @endif
-           target="_blank">
+	       href="{!! $imageUrl !!}"
+           target="_blank"
+        >
             <i class="fa-solid fa-external-link"></i>
         </a>
     @endif

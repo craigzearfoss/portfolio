@@ -40,7 +40,7 @@ class UpdateJobTasksRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('job_id', $this->job_id)
                         ->where('summary', $this->summary)
-                        ->where('id', '!-', $this->job_task->id);
+                        ->where('id', '!=', $this->job_task->id);
                 })
             ],
             'notes'           => ['nullable'],

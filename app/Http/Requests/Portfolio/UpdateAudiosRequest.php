@@ -40,7 +40,7 @@ class UpdateAudiosRequest extends FormRequest
                 Rule::unique('portfolio_db.audios', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->audio->id);
+                        ->where('id', '!=', $this->audio->id);
                 })
             ],
             'slug'              => [
@@ -50,7 +50,7 @@ class UpdateAudiosRequest extends FormRequest
                 Rule::unique('portfolio_db.audios', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->audio->id);
+                        ->where('id', '!=', $this->audio->id);
                 })
             ],
             'parent_id'         => [

@@ -39,6 +39,9 @@ class AddCareer extends Command
     protected $companyId = [];
     protected $contactId = [];
 
+    protected $applications = [];
+    protected $resumes = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -108,7 +111,6 @@ class AddCareer extends Command
 
         $companies = [];
         foreach ($companyQuery->get() as $company) {
-            echo $company->id . ') ' . $company->slug . PHP_EOL;
             $companies[$company->slug] = $company->id;
         }
 
@@ -117,7 +119,7 @@ class AddCareer extends Command
                 'company_id'             => $companies['jobs-by-allup'] ?? null,
                 'role'                   => 'Full-Stack Software Engineer – PHP',
                 'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 1,
                 'active'                 => 1,
                 'post_date'              => '2025-09-22',
@@ -152,7 +154,7 @@ class AddCareer extends Command
                 'company_id'             => $companies['iostudio'] ?? null,
                 'role'                   => 'Senior Software Engineer - Full-Stack Developer',
                 'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 1,
                 'active'                 => 1,
                 'post_date'              => '2025-09-22',
@@ -187,7 +189,7 @@ class AddCareer extends Command
                 'company_id'             => $companies['black-airplane'] ?? null,
                 'role'                   => 'Staff Software Engineer (Fullstack - React/Laravel)',
                 'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 1,
                 'active'                 => 1,
                 'post_date'              => '2025-09-22',
@@ -222,7 +224,7 @@ class AddCareer extends Command
                 'company_id'             => $companies['yard-management-solutions'] ?? null,
                 'role'                   => 'Senior DevOps Engineer (Full-Stack Laravel + AWS Infrastructure)',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,  // 4
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 1,
                 'active'                 => 1,
                 'post_date'              => '2025-11-23',
@@ -259,7 +261,7 @@ EOD,
                 'company_id'             => $companies['mile6'] ?? null,
                 'role'                   => 'Full Stack Developer II',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 2,
                 'active'                 => 1,
                 'post_date'              => '2025-11-23',
@@ -296,7 +298,7 @@ EOD,
                 'company_id'             => $companies['pactfi'] ?? null,
                 'role'                   => 'Senior Software Engineer (Laravel / Vue.js)',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => 4,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => '2025-11-23',
@@ -333,7 +335,7 @@ EOD,
                 'company_id'             => $companies['iclasspro-class-management-software'] ?? null,
                 'role'                   => 'Senior Software Developer (PHP - Laravel)',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 4
+                'resume_id'              => $this->resumes['2025-07-22-senior-php-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 0,
                 'post_date'              => '2025-11-24',
@@ -370,7 +372,7 @@ EOD,
                 'company_id'             => $companies['wild-alaskan-company'] ?? null,
                 'role'                   => 'Senior Fullstack Software Engineer',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,  //16
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 1,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -407,7 +409,7 @@ EOD,
                 'company_id'             => $companies['new-american-funding'] ?? null,
                 'role'                   => 'Software Development Engineer III',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 18
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 3,
                 'active'                 => 0,
                 'post_date'              => '2025-11-24',
@@ -444,7 +446,7 @@ EOD,
                 'company_id'             => $companies['parento'] ?? null,
                 'role'                   => 'Sr. Software Engineer',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 3,
                 'active'                 => 1,
                 'post_date'              => '2025-11-21',
@@ -481,7 +483,7 @@ EOD,
                 'company_id'             => $companies['sensible-care'] ?? null,
                 'role'                   => 'Full Stack Developer',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 16
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 2,
                 'active'                 => 1,
                 'post_date'              => '2025-10-24',
@@ -518,7 +520,7 @@ EOD,
                 'company_id'             => $companies['opendatajobs'] ?? null,
                 'role'                   => 'PHP and Python #jn04',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-php-developer-[prettified]'] ?? null,
                 'rating'                 => 2,
                 'active'                 => 1,
                 'post_date'              => '2025-11-21',
@@ -555,7 +557,7 @@ EOD,
                 'company_id'             => $companies['vorys-sater-seymour-and-pease-llp'] ?? null,
                 'role'                   => 'Senior Software Engineer',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 18
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 3,
                 'active'                 => 1,
                 'post_date'              => '2025-10-24',
@@ -592,7 +594,7 @@ EOD,
                 'company_id'             => $companies['teamworks'] ?? null,
                 'role'                   => 'Senior Software Engineer (Influencer)',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => null,
@@ -629,7 +631,7 @@ EOD,
                 'company_id'             => $companies['laravel'] ?? null,
                 'role'                   => 'Developer Relations Community Manager',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 17
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 0,
                 'post_date'              => '2025-11-17',
@@ -666,7 +668,7 @@ EOD,
                 'company_id'             => $companies['purecars'] ?? null,
                 'role'                   => 'Engineering Team Lead - CDP / DMP',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -703,7 +705,7 @@ EOD,
                 'company_id'             => $companies['cogent-communications'] ?? null,
                 'role'                   => 'Software Developer– Orlando FL',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => '2025-11-10',
@@ -740,7 +742,7 @@ EOD,
                 'company_id'             => $companies['integrity-express-logistics'] ?? null,
                 'role'                   => 'Senior Software Engineer',
                 'job_board_id'           => 9,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 11
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => '2025-11-17',
@@ -774,10 +776,10 @@ EOD,
 EOD,
             ],
             [
-                'company_id'             => $companies['us-service-animal'] ?? null,
+                'company_id'             => $companies['us-service-animals'] ?? null,
                 'role'                   => 'Software Engineer',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 0,
                 'post_date'              => '2025-11-24',
@@ -814,7 +816,7 @@ EOD,
                 'company_id'             => $companies['omnispear-inc'] ?? null,
                 'role'                   => 'Full-Stack PHP Web Developer',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -851,7 +853,7 @@ EOD,
                 'company_id'             => $companies['digital-minds-pakistan'] ?? null,
                 'role'                   => 'Senior Full-Stack Developer & Vue js',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 1,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -888,7 +890,7 @@ EOD,
                 'company_id'             => $companies['business-draft'] ?? null,
                 'role'                   => 'Senior Laravel Developer',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 10
+                'resume_id'              => $this->resumes['2025-07-22-senior-php-developer-[prettified]'] ?? null,
                 'rating'                 => 2,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -925,7 +927,7 @@ EOD,
                 'company_id'             => $companies['sportsrecruits'] ?? null,
                 'role'                   => 'Full Stack Software Engineer (Vue/Laravel)',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   //3
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -962,7 +964,7 @@ EOD,
                 'company_id'             => $companies['red-hawk-technologies-llc'] ?? null,
                 'role'                   => 'LAMP Software Engineer',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 17
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 3,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -999,7 +1001,7 @@ EOD,
                 'company_id'             => $companies['webrock-media'] ?? null,
                 'role'                   => 'PHP Laravel developer',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 17
+                'resume_id'              => $this->resumes['2025-07-22-senior-php-developer-[prettified]'] ?? null,
                 'rating'                 => 3,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -1036,7 +1038,7 @@ EOD,
                 'company_id'             => $companies['venu-elearning-solutions'] ?? null,
                 'role'                   => 'Senior PHP Programmers',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 17
+                'resume_id'              => $this->resumes['2025-07-22-senior-php-developer-[prettified]'] ?? null,
                 'rating'                 => 3,
                 'active'                 => 1,
                 'post_date'              => null,
@@ -1073,7 +1075,7 @@ EOD,
                 'company_id'             => $companies['putnam-recruiting-group'] ?? null,
                 'role'                   => 'Full Stack Engineer',
                 'job_board_id'           => 3,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,   // 19
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => '2025-11-24',
@@ -1110,7 +1112,7 @@ EOD,
                 'company_id'             => $companies['sentry-data-systems'] ?? null,
                 'role'                   => 'Senior Software Engineer',
                 'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 4,
                 'active'                 => 1,
                 'post_date'              => '2025-11-25',
@@ -1149,7 +1151,7 @@ EOD,
                 'company_id'             => $companies['jobs-by-allup46'] ?? null,
                 'role'                   => '',
                 'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecruiter
-                'resume_id'              => null,
+                'resume_id'              => $this->resumes['2025-07-22-senior-full-stack-developer-[prettified]'] ?? null,
                 'rating'                 => 1,
                 'active'                 => 1,
                 'post_date'              => null,
@@ -1185,11 +1187,20 @@ EOD,
 
         if (!empty($data)) {
             foreach ($data as $i => $dataArray) {
-                echo ($i + 1) . ') ' . $dataArray['role'] . PHP_EOL;
                 $dataArray = [$dataArray];
                 Application::insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo], false));
             }
             $this->insertSystemAdminResource($this->adminId, 'applications');
+        }
+
+        $this->applications = [];
+        $query = Application::withoutGlobalScope(AdminPublicScope::class)
+            ->selectRaw('applications.id as application_id, companies.slug as company_slug')
+            ->where('applications.owner_id', $this->adminId)
+            ->join(config('app.career_db').'.companies', 'companies.id', '=', 'company_id')
+            ->orderBy('companies.slug', 'asc');
+        foreach ($query->get() as $row) {
+            $this->applications[$row->company_slug] = $row->application_id;
         }
     }
 
@@ -1257,7 +1268,7 @@ EOD,
             [ 'id' => $this->companyId[26],  'name' => 'Quility Insurance Holdings LLC',   'slug' => 'quility-insurance-holdings-llc',  'industry_id' => 11, 'link' => 'https://quility.com/',                             'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[27],  'name' => 'Divelement Web Services, LLC',     'slug' => 'divelement-web-services-llc',     'industry_id' => 11, 'link' => 'https://divelement.io/',                           'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[28],  'name' => 'Givelify',                         'slug' => 'giverlify',                       'industry_id' => 11, 'link' => 'https://www.givelify.com/',                        'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
-            [ 'id' => $this->companyId[29],  'name' => 'Ingenious',                        'slug' => 'Ingenious',                       'industry_id' => 10, 'link' => 'https://ingenious.agency/',                        'link_name' => null,                       'city' => null,                'state_id' => 6,    'country_id' => 237,  'phone' => null,             'logo' => null,  'logo_small' => null ],
+            [ 'id' => $this->companyId[29],  'name' => 'Ingenious',                        'slug' => 'ingenious',                       'industry_id' => 10, 'link' => 'https://ingenious.agency/',                        'link_name' => null,                       'city' => null,                'state_id' => 6,    'country_id' => 237,  'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[30],  'name' => 'Advocates for Human Potential, Inc.', 'slug' => 'advocates-for-human-potential-inc', 'industry_id' => 11, 'link' => 'https://ahpnet.com/',                         'link_name' => null,                       'city' => null,                'state_id' => 22,   'country_id' => 237,  'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[31],  'name' => 'Qualibar Inc',                     'slug' => 'qualibar-inc',                    'industry_id' => 11, 'link' => 'https://qualibar.com/',                            'link_name' => null,                       'city' => null,                'state_id' => 11,   'country_id' => 237,  'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[32],  'name' => 'MembersFirst',                     'slug' => 'membersfirst',                    'industry_id' => 11, 'link' => 'https://www.membersfirst.com/',                    'link_name' => null,                       'city' => null,                'state_id' => 22,   'country_id' => 237,  'phone' => null,             'logo' => null,  'logo_small' => null ],
@@ -1265,7 +1276,7 @@ EOD,
             [ 'id' => $this->companyId[34],  'name' => 'Inseego',                          'slug' => 'inseego',                         'industry_id' => 11, 'link' => 'https://inseego.com/',                             'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[35],  'name' => 'iClassPro, Inc',                   'slug' => 'iclasspro-inc',                   'industry_id' => 11, 'link' => 'https://www.iclasspro.com/',                       'link_name' => null,                       'city' => null,                'state_id' => 44,   'country_id' => 237,  'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[36],  'name' => 'Avolution',                        'slug' => 'avolution',                       'industry_id' => 11, 'link' => 'https://www.avolutionsoftware.com/',               'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
-            [ 'id' => $this->companyId[37],  'name' => 'McGraw Hill',                      'slug' => 'McGraw Hill',                     'industry_id' => 11, 'link' => 'https://www.mheducation.com/',                     'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
+            [ 'id' => $this->companyId[37],  'name' => 'McGraw Hill',                      'slug' => 'mcgraw-hill',                     'industry_id' => 11, 'link' => 'https://www.mheducation.com/',                     'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[38],  'name' => 'Sumas Edge Corporation',           'slug' => 'sumas-edge-corporation',          'industry_id' => 11, 'link' => 'https://sumasedge.com/',                           'link_name' => null,                       'city' => null,                'state_id' => 31,   'country_id' => 237,  'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[39],  'name' => 'Airbnb',                           'slug' => 'airbnb',                          'industry_id' => 11, 'link' => 'https://www.airbnb.com/',                          'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => 237,  'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[40],  'name' => 'Wikimedia Foundation',             'slug' => 'wikimedia-foundation',            'industry_id' => 11, 'link' => 'https://wikimediafoundation.org/',                 'link_name' => null,                       'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
@@ -1329,7 +1340,7 @@ EOD,
             [ 'id' => $this->companyId[98],   'name' => 'PureCars',                        'slug' => 'purecars',                        'industry_id' => 14, 'link' => 'https://www.purecars.com/',           'link_name'   => null,                     'city' => 'Atlanta',           'state_id' => 11,   'country_id' => null, 'phone' => '(877) 860-7873', 'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[99],   'name' => 'Cogent Communications',           'slug' => 'cogent-communications',           'industry_id' => 11, 'link' => 'https://www.cogentco.com/en/',        'link_name'   => null,                     'city' => 'Washington',        'state_id' => 9,    'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[100],  'name' => 'Integrity Express Logistics',     'slug' => 'integrity-express-logistics',     'industry_id' => 19, 'link' => 'https://ielfreight.com/',             'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
-            [ 'id' => $this->companyId[101],  'name' => 'US Service Animal',               'slug' => 'us-service-animal',               'industry_id' => 2,  'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
+            [ 'id' => $this->companyId[101],  'name' => 'US Service Animals',              'slug' => 'us-service-animals',              'industry_id' => 2,  'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[102],  'name' => 'Omnispear, Inc.',                 'slug' => 'omnispear-inc',                   'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => 'Dayton',            'state_id' => 36,   'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[103],  'name' => 'Digital Minds Pakistan',          'slug' => 'digital-minds-pakistan',          'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[104],  'name' => 'Business Draft',                  'slug' => 'business-draft',                  'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => 'Hillsboro',         'state_id' => 38,   'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
@@ -1451,6 +1462,238 @@ EOD,
 
         //`id`, `owner_id`, `application_id
         $data = [
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['black-airplane'],
+                'name'           => 'Black-Airplane',
+                'slug'           => '2025-11-24-black-airplane',
+                'date'           => '2025-11-24',
+                'content'        => <<<EOD
+<p>Craig Zearfoss&nbsp;&nbsp;</p><p>1291 El Mirasol Loop #424, Davenport, FL 33896&nbsp; |&nbsp; 305-469-6083&nbsp; |&nbsp; craigzearfoss@gmail.com</p><p>November 24, 2025</p><p>My name is Craig Zearfoss. I\'m a full stack developer with my main strength being back-end PHP. I have worked with multiple PHP frameworks, but I really love the way Laravel puts all the pieces together. I\'ve mostly worked on small, collaborative teams, usually on some of the most complex and critical features because of my experience. I love having my hands in code.</p><p>My current role is winding up and I\'m really looking forward to tackling a new project and becoming a valuable member of a new team. In order to demonstrate my Laravel skills I have created the website <a href=\"https://demo.craigzearfoss.com\">https://demo.craigzearfoss.com</a> which is a multi-user site to manage job searches. It is still in early beta development but is a good demonstration of the breadth of my skills. The project repo is at https://github.com/craigzearfoss/portfolio.</p><p>&nbsp;I\'ve always been a W2 employee, but my last two roles have been 1099 and I really miss paid vacation and other benefits.</p><p>I\'d love to speak more with you about myself and this position.</p><p>Sincerely,</p><p>Craig Zearfoss</p>
+EOD,
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['business-draft'],
+                'name'           => 'Business Draft',
+                'slug'           => 'business-draft',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['cogent-communications'],
+                'name'           => 'Cogent Communications',
+                'slug'           => 'cogent-communications',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['digital-minds-pakistan'],
+                'name'           => 'Digital-Minds-Pakistan',
+                'slug'           => 'digital-minds-pakistan',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['iclasspro-class-management-software'],
+                'name'           => 'iClasspro Class Management Software',
+                'slug'           => '2025-11-24-iclasspro-class-management-software',
+                'date'           => '2025-11-24',
+                'content'        => <<<EOD
+<p>Craig Zearfoss&nbsp;&nbsp;</p><p>1291 El Mirasol Loop #424, Davenport, FL 33896&nbsp; |&nbsp; 305-469-6083&nbsp; |&nbsp; craigzearfoss@gmail.com</p><p>November 24, 2025</p><p>My name is Craig Zearfoss. I\'m a full stack developer. I’ve worked with PHP frameworks, but have a strong preference for Laravel. I also do a lot of front end work creating dynamic web interfaces with JavaScript, and also with Vue.js for the past four or five years. I\'ve mostly worked on small, collaborative teams, usually on some of the most complex and critical features because of my experience. I love having my hands in code.</p><p>My current role is winding up and I\'m really looking forward to tackling a new project and becoming a valuable member of a new team. In order to demonstrate my development skills I have created the website <a href=\"https://demo.craigzearfoss.com\">https://demo.craigzearfoss.com</a> which is a multi-user site to manage job searches. It is still in early beta development but is a good demonstration of the breadth of my skills. The project repo is at <a href=\"https://github.com/craigzearfoss/portfolio\">https://github.com/craigzearfoss/portfolio</a>.</p><p>I’m always looking to broaden and enhance my skills. Although I haven’t had the opportunity to use Python in my day-to-day work, I have taken several classes in it and know that I could quickly get up to speed.</p><p>&nbsp;I\'ve always been a W2 employee, but my last two roles have been 1099 and I really miss paid vacation and other benefits.</p><p>I\'d love to speak more with you about myself and this position.</p><p>Sincerely,</p><p>Craig Zearfoss</p>
+EOD,
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['integrity-express-logistics'],
+                'name'           => 'Integrity Express Logistics',
+                'slug'           => 'integrity-express-logistics',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['iostudio'],
+                'name'           => 'Iostudio',
+                'slug'           => '2025-11-24-iostudio',
+                'date'           => '2025-11-24',
+                'content'        => <<<EOD
+<h2><strong>LAMP Software Engineer (Contractor)- job post</strong></h2><p><a href=\"https://www.indeed.com/cmp/Red-Hawk-Technologies?campaignid=mobvjcmp&amp;from=mobviewjob&amp;tk=1jask6n5j229m003&amp;fromjk=b99d722c4b6b5443\">Red Hawk Technologies LLC</a></p><p>Remote</p><p>Contract</p><p><a href=\"https://www.indeed.com/cmp/Red-Hawk-Technologies?campaignid=mobvjcmp&amp;from=mobviewjob&amp;tk=1jask6n5j229m003&amp;fromjk=b99d722c4b6b5443\">Red Hawk Technologies LLC</a></p><p>Remote</p><p>&nbsp;</p><p>&nbsp;</p><h2><strong>Profile insights</strong></h2><p>Here’s how the job qualifications align with your <a href=\"https://profile.indeed.com/\">profile</a>.</p><h3><strong>Skills</strong></h3><p><strong>Web applications</strong></p><p><strong>Python</strong></p><p><strong>Linux</strong></p><ul><li>+ show more</li></ul><p>Do you have experience in <strong>Web applications</strong>?</p><h3><strong>Education</strong></h3><p><strong>Bachelor\'s degree</strong></p><p>&amp;nbsp;</p><h2><strong>Job details</strong></h2><p>Here’s how the job details align with your <a href=\"https://profile.indeed.com/\">profile</a>.</p><h3><strong>Job type</strong></h3><p><strong>Contract</strong></p><p>&amp;nbsp;</p><h2><strong>Full job description</strong></h2><p>We are looking for a talented and experienced LAMP software engineer contractor to join our team. As a LAMP software engineer, you will be responsible for developing, maintaining, and deploying web applications using the LAMP stack (Linux, Apache, MySQL, PHP and Python). This particular role requires experience with Laravel. You will also be responsible for working with other members of the team to design and implement new features and functionality.</p><p>If you are a talented and experienced LAMP software engineer, we encourage you to apply for this exciting opportunity. To apply, please submit your resume to careers@redhawk-tech.com.</p><p><strong>Responsibilities:</strong></p><p>Develop, maintain, and deploy web applications using the LAMP stack</p><p>Work with other members of the team to design and implement new features and functionality</p><p>Troubleshoot and debug web applications</p><p>Work directly with clients and project managers to gather requirements and specifications, and execute</p><p>Stay up-to-date on the latest technologies and trends in web development</p><p>Ability to work independently and on multiple projects simultaneously</p><p><strong>Qualifications:</strong></p><p>Bachelor\'s degree in computer science or a related field</p><p>5+ years of experience in web development using the LAMP stack</p><p>Strong understanding of PHP, MySQL, and Apache. Demonstrated Laravel experience.</p><p>Experience with HTML, CSS, and JavaScript</p><p>Experience with Git and other version control systems</p><p>Excellent problem-solving and debugging skills</p><p>Excellent communication and teamwork skills, you will work directly with clients</p><p>&nbsp;</p><p>&amp;nbsp;</p><p>If you require alternative methods of application or screening, you must approach the employer directly to request this as Indeed is not responsible for the employer\'s application process.</p>
+EOD,
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['jobs-by-allup'],
+                'name'           => 'Jobs by Allup',
+                'slug'           => 'jobs-by-allup',
+                'date'           => null,
+                'content'        => <<<EOD
+<p>Craig Zearfoss&nbsp;&nbsp;</p><p>1291 El Mirasol Loop #424, Davenport, FL 33896&nbsp; |&nbsp; 305-469-6083&nbsp; |&nbsp; craigzearfoss@gmail.com</p><p>November 24, 2025</p><p>My name is Craig Zearfoss. I\'m a full stack developer with my main strength being back-end PHP. I have worked with multiple PHP frameworks, but I really love the way Laravel puts all the pieces together. I\'ve mostly worked on small, collaborative teams, usually on some of the most complex and critical features because of my experience. I love having my hands in code.</p><p>My current role is winding up and I\'m really looking forward to tackling a new project and becoming a valuable member of a new team. In order to demonstrate my Laravel skills I have created the website <a href=\"https://demo.craigzearfoss.com\">https://demo.craigzearfoss.com</a> which is a multi-user site to manage job searches. It is still in early beta development but is a good demonstration of the breadth of my skills. The project repo is at https://github.com/craigzearfoss/portfolio.</p><p>&nbsp;I\'ve always been a W2 employee, but my last two roles have been 1099 and I really miss paid vacation and other benefits.</p><p>I\'d love to speak more with you about myself and this position.</p><p>Sincerely,</p><p>Craig Zearfoss</p>
+EOD,
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['laravel'],
+                'name'           => 'Laravel',
+                'slug'           => 'laravel',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['mile6'],
+                'name'           => 'Mile6',
+                'slug'           => 'mile6',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['new-american-funding'],
+                'name'           => 'New American Funding',
+                'slug'           => 'new-american-funding',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['omnispear-inc'],
+                'name'           => 'Omnispear Inc',
+                'slug'           => 'omnispear-inc',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['opendatajobs'],
+                'name'           => 'Opendatajobs',
+                'slug'           => 'opendatajobs',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['pactfi'],
+                'name'           => 'Pactfi',
+                'slug'           => 'pactfi',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['parento'],
+                'name'           => 'Parento',
+                'slug'           => 'parento',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['purecars'],
+                'name'           => 'Purecars',
+                'slug'           => 'purecars',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['putnam-recruiting-group'],
+                'name'           => 'Putnam Recruiting Group',
+                'slug'           => 'putnam-recruiting-group',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['red-hawk-technologies-llc'],
+                'name'           => 'Red Hawk Technologies LLC',
+                'slug'           => 'red-hawk-technologies-llc',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['sensible-care'],
+                'name'           => 'Sensible Care',
+                'slug'           => 'sensible-care',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['sentry-data-systems'],
+                'name'           => 'Sentry Data Systems',
+                'slug'           => 'sentry-data-systems',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['sportsrecruits'],
+                'name'           => 'Sportsrecruits',
+                'slug'           => 'sportsrecruits',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['teamworks'],
+                'name'           => 'Teamworks',
+                'slug'           => 'teamworks',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['us-service-animals'],
+                'name'           => 'US Service Animals',
+                'slug'           => 'us-service-animals',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['venu-elearning-solutions'],
+                'name'           => 'Venu eLearning Solutions',
+                'slug'           => 'venu-elearning-solutions',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['vorys-sater-seymour-and-pease-llp'],
+                'name'           => 'Vorys, Ssater, Seymour and Pease LLP',
+                'slug'           => 'vorys-sater-seymour-and-pease-llp',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['webrock-media'],
+                'name'           => 'Webrock Media',
+                'slug'           => 'webrock-media',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['wild-alaskan-company'],
+                'name'           => 'Wild Alaskan Company',
+                'slug'           => 'wild-alaskan-company',
+                'date'           => null,
+                'content'        => '',
+            ],
+            [
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['yard-management-solutions'],
+                'name'           => '',
+                'slug'           => '',
+                'date'           => null,
+                'content'        => '',
+            ],
         ];
 
         if (!empty($data)) {
@@ -1534,32 +1777,31 @@ EOD,
         echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
 
         $data = [
-            [ 'name' => 'PHP/MySQL Web Developer',                  'date' => '2015-03-19', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/9avg6ve67wnoooxm3jwbx/resume.doc?rlkey=vzkdjqkuxw59nghmcf8d6v2xa&st=kjkb0kxj&dl=0',                                            'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
-            [ 'name' => 'Senior Web Developer',                     'date' => '2016-11-24', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/n313k7vveguisq3n9wbxf/craigzearfoss.docx?rlkey=3hms59ts6nwy0iqlyyh3bsw7e&st=695lhlbu&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/o7x78isovwo8220144mjz/craigzearfoss.pdf?rlkey=cbg59sg0jdr38qawkuzhtexu3&st=py7h358e&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior Full Stack Developer',              'date' => '2018-12-05', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/v83yu6f23pjtg37xs86er/craigzearfoss.docx?rlkey=m0d5vu31abn31kqmrrvirphk7&st=eaqvpj67&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'date' => '2019-07-28', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/aq4rjtcy8lgr4p3fzk2tu/craigzearfoss.docx?rlkey=axj2g2r0blnn3fj0hgnr4zbxe&st=1wbcx7yl&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/3y0gbw5j1oticsvvquc10/craigzearfoss.pdf?rlkey=4mkpm023j61c7wojr10a605na&st=ckevybmz&dl=0' , 'public'   => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'date' => '2020-03-21', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/3pw6ni7jy3ltmfston3ck/craigzearfoss.docx?rlkey=2xrhukvic3x7y1ycsdujyxp11&st=9jdigq2y&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/u38vtuha8j2wp8h86opim/craigzearfoss.pdf?rlkey=uiaz2lfssza7n4eeqil2yvmsr&st=vzze8s4t&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'date' => '2022-01-13', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/zdivxb8u518v58a9k2swt/craigzearfoss-extended.docx?rlkey=6tjsnn33gmoct7k3kndxquoh8&st=fy0eootp&dl=0',                           'pdf_url'  => 'https://www.dropbox.com/scl/fi/n55xem02slgzhobszsczd/craigzearfoss.docx?rlkey=0wlntvs93fkc38fsdnqmruqd4&st=eh4jrkzo&dl=0', 'public'   => 0 ],
-            [ 'name' => '',                                         'date' => '2023-01-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/kczg2cht4jof2ookdrlor/craigzearfoss.docx?rlkey=fx2er17eq8a7gebkq0s4xkrp2&st=xhfr1ab1&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/dw5n5nwybw01i2axjwt3j/craigzearfoss.pdf?rlkey=y1gp5cuykyns4s4m1zk7ldh4o&st=dytodp4m&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/p91cze7mplhvqoxyipq4b/craigzearfoss.docx?rlkey=d8df5ops5irfni98hp2pfkhys&st=v77425zc&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/eiqyia4ez7stq6pbbiukn/craigzearfoss.docx?rlkey=cpebqb9nkw20pb73yek8g8fyt&st=ggbhhl8f&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
-            [ 'name' => 'Senior Software Engineer [condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/uv8egj3schs5gixqdflcz/craigzearfoss.docx?rlkey=bwwjtdveev6zc08gkrv6sc07x&st=ay3bkv0u&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/e3rdmwiqwxg7uf443dki6/craigzearfoss.pdf?rlkey=9ltwy0ozz4nigp43h2he41vyw&st=kqsv3eg7&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior Software Engineer [streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/keqkxhobp6165za6u1nsq/craigzearfoss.docx?rlkey=tkb3q4xeug3jzef68w4spoux1&st=h0zwcdmh&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/37eb5w83od7p2kd1xrn5c/craigzearfoss.docx?rlkey=pnkdwj465jifxahahcnou1e44&st=gesg99x6&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/f8dwiprt5z64npnm3vcj4/craigzearfoss.pdf?rlkey=c424qxaxysdv2c4n80oium6on&st=ftooahy9&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/7abbsyqyksq666k4s6kt5/craigzearfoss.docx?rlkey=5yrwlx62iu7x3vkn7rhxofgz5&st=tqb1qqqd&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/9wyp4vz3sx59n18e97qg5/craigzearfoss.pdf?rlkey=sh1gp0x99opsy5hbtl3wpojj3&st=apn7djgj&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/d9oox29eju592bl3n8dnv/craigzearfoss.docx?rlkey=5zo2txdbiwdnf5ke0k9vgci90&st=3b8qs7rh&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/dk3dc2wrzgo8idx1nr1dh/craigzearfoss.pdf?rlkey=sdu6h9zz5o37sfpfowip431o1&st=vjuux6f3&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/ufli4yrqgm4lxxs04ye9f/craigzearfoss.docx?rlkey=irkim5uy3onev4vqjagk2rqsg&st=dwoslofe&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/ng4s9j5vtsi8mij8mtii5/craigzearfoss.pdf?rlkey=pfcarlb0c48inmfacmkp4awx6&st=1tizg3mi&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/ps9dthkbuybfggnszsb4i/craigzearfoss.docx?rlkey=r4fk6ngm8uo43e0e8htc3kxux&st=iz6xdu53&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/e3oqy77h3xdqhkmyu6j1n/craigzearfoss.pdf?rlkey=pb1uemaaqxsgbm4qlw2bzneds&st=4m5pgd76&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/xu90c7e5tqukk9j4b2c80/craigzearfoss.docx?rlkey=t247wae4z5i4a7j4qix68f6pl&st=iv9stw8u&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/gju304enbljza2335iy74/craigzearfoss.pdf?rlkey=4dgkal9vo2pxazb7af33sbans&st=kk5de6vn&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/xu90c7e5tqukk9j4b2c80/craigzearfoss.docx?rlkey=t247wae4z5i4a7j4qix68f6pl&st=iv9stw8u&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/gju304enbljza2335iy74/craigzearfoss.pdf?rlkey=4dgkal9vo2pxazb7af33sbans&st=kk5de6vn&dl=0',  'public'   => 0 ],
-            [ 'name' => 'Senior Software Engineer [prettified]',    'date' => '2025-08-07', 'primary' => 1, 'doc_url' => 'https://www.dropbox.com/scl/fi/j7v3olr0dzg35j48p40sn/Craig-Zearfoss_full-stack-developer_20250807.docx?rlkey=b8188h0z70fh7an91wm6jv9nv&st=xearhvb7&dl=0',     'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
-            [ 'name' => 'Full Stack Developer [prettified]',        'date' => '2025-08-07', 'primary' => 1, 'doc_url' => 'https://www.dropbox.com/scl/fi/er3u1zc1342ovlcqq56wk/Craig-Zearfoss_senior-software-engineer_20250807.docx?rlkey=yjuhqc9v2l6voemsm0uu4ily2&st=e0ce63v7&dl=0', 'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
-            //[ 'name' => '',                                         'date' => null,         'primary' => 0, 'doc_url' => null,                                                                                                                                                          'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/p91cze7mplhvqoxyipq4b/craigzearfoss.docx?rlkey=d8df5ops5irfni98hp2pfkhys&st=v77425zc&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/eiqyia4ez7stq6pbbiukn/craigzearfoss.docx?rlkey=cpebqb9nkw20pb73yek8g8fyt&st=ggbhhl8f&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/uv8egj3schs5gixqdflcz/craigzearfoss.docx?rlkey=bwwjtdveev6zc08gkrv6sc07x&st=ay3bkv0u&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/e3rdmwiqwxg7uf443dki6/craigzearfoss.pdf?rlkey=9ltwy0ozz4nigp43h2he41vyw&st=kqsv3eg7&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/keqkxhobp6165za6u1nsq/craigzearfoss.docx?rlkey=tkb3q4xeug3jzef68w4spoux1&st=h0zwcdmh&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/37eb5w83od7p2kd1xrn5c/craigzearfoss.docx?rlkey=pnkdwj465jifxahahcnou1e44&st=gesg99x6&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/f8dwiprt5z64npnm3vcj4/craigzearfoss.pdf?rlkey=c424qxaxysdv2c4n80oium6on&st=ftooahy9&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/7abbsyqyksq666k4s6kt5/craigzearfoss.docx?rlkey=5yrwlx62iu7x3vkn7rhxofgz5&st=tqb1qqqd&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/9wyp4vz3sx59n18e97qg5/craigzearfoss.pdf?rlkey=sh1gp0x99opsy5hbtl3wpojj3&st=apn7djgj&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/d9oox29eju592bl3n8dnv/craigzearfoss.docx?rlkey=5zo2txdbiwdnf5ke0k9vgci90&st=3b8qs7rh&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/dk3dc2wrzgo8idx1nr1dh/craigzearfoss.pdf?rlkey=sdu6h9zz5o37sfpfowip431o1&st=vjuux6f3&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/ufli4yrqgm4lxxs04ye9f/craigzearfoss.docx?rlkey=irkim5uy3onev4vqjagk2rqsg&st=dwoslofe&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/ng4s9j5vtsi8mij8mtii5/craigzearfoss.pdf?rlkey=pfcarlb0c48inmfacmkp4awx6&st=1tizg3mi&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/ps9dthkbuybfggnszsb4i/craigzearfoss.docx?rlkey=r4fk6ngm8uo43e0e8htc3kxux&st=iz6xdu53&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/e3oqy77h3xdqhkmyu6j1n/craigzearfoss.pdf?rlkey=pb1uemaaqxsgbm4qlw2bzneds&st=4m5pgd76&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/xu90c7e5tqukk9j4b2c80/craigzearfoss.docx?rlkey=t247wae4z5i4a7j4qix68f6pl&st=iv9stw8u&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/gju304enbljza2335iy74/craigzearfoss.pdf?rlkey=4dgkal9vo2pxazb7af33sbans&st=kk5de6vn&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'date' => '2025-08-07', 'primary' => 1, 'doc_url' => 'https://www.dropbox.com/scl/fi/j7v3olr0dzg35j48p40sn/Craig-Zearfoss_full-stack-developer_20250807.docx?rlkey=b8188h0z70fh7an91wm6jv9nv&st=xearhvb7&dl=0',     'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
+            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'date' => '2025-08-07', 'primary' => 1, 'doc_url' => 'https://www.dropbox.com/scl/fi/er3u1zc1342ovlcqq56wk/Craig-Zearfoss_senior-software-engineer_20250807.docx?rlkey=yjuhqc9v2l6voemsm0uu4ily2&st=e0ce63v7&dl=0', 'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
+            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'date' => '2025-12-08', 'primary' => 1, 'doc_url' => null,                                                                                                                                                          'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
+            //[ 'name' => '',                                         'slug' => '', 'date' => null,         'primary' => 0, 'doc_url' => null,                                                                                                                                                          'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
         ];
 
         if (!empty($data)) {
             Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'resumes');
+        }
+
+        $this->resumes = [];
+        foreach(Resume::withoutGlobalScope(AdminPublicScope::class)->select(['id', 'slug'])
+                    ->where('owner_id', $this->adminId)->get() as $resume) {
+            $this->resumes[$resume->slug] = $resume->id;
         }
     }
 

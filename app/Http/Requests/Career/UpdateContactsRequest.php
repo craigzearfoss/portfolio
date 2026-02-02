@@ -39,7 +39,7 @@ class UpdateContactsRequest extends FormRequest
                 Rule::unique('career_db.contacts', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->contact->id);
+                        ->where('id', '!=', $this->contact->id);
                 })
             ],
             'slug'            => [
@@ -49,7 +49,7 @@ class UpdateContactsRequest extends FormRequest
                 Rule::unique('career_db.contacts', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->contact->id);
+                        ->where('id', '!=', $this->contact->id);
                 })
             ],
             'title'           => ['string', 'max:100', 'nullable'],

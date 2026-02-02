@@ -84,16 +84,16 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'doc url',
-            'label'  => !empty($resume->doc_url) ? $resume->doc_url : '.doc url',
-            'href'   => $resume->doc_url,
+            'name'   => 'Word doc',
+            'label'  => !empty($resume->doc_url) ? '<i class="fa-solid fa-download"></i>download' : '',
+            'href'   => !empty($resume->doc_url) ? route('download-from-public', [ 'file' => $resume->doc_url, 'name' => $resume->slug ]) : null,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'pdf url',
-            'label'  => !empty ($resume->pdf_url) ? $resume->pdf_url : '.pdf url',
-            'href'   => $resume->pdf_url,
+            'name'   => 'PDF doc',
+            'label'  => !empty($resume->pdf_url) ? '<i class="fa-solid fa-download"></i>download' : '',
+            'href'   => !empty($resume->pdf_url) ? route('download-from-public', [ 'file' => $resume->pdf_url, 'name' => $resume->slug ]) : null,
             'target' => '_blank'
         ])
 

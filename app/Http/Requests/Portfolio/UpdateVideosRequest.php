@@ -40,7 +40,7 @@ class UpdateVideosRequest extends FormRequest
                 Rule::unique('portfolio_db.videos', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->video->id);
+                        ->where('id', '!=', $this->video->id);
                 })
             ],
             'slug'              => [
@@ -50,7 +50,7 @@ class UpdateVideosRequest extends FormRequest
                 Rule::unique('portfolio_db.videos', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->video->id);
+                        ->where('id', '!=', $this->video->id);
                 })
             ],
             'parent_id'         => [

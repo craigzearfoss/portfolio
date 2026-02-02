@@ -39,7 +39,7 @@ class UpdateCoursesRequest extends FormRequest
                 Rule::unique('portfolio_db.courses', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->course->id);
+                        ->where('id', '!=', $this->course->id);
                 })
             ],
             'slug'            => [
@@ -49,7 +49,7 @@ class UpdateCoursesRequest extends FormRequest
                 Rule::unique('portfolio_db.courses', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->course->id);
+                        ->where('id', '!=', $this->course->id);
                 })
             ],
             'featured'        => ['integer', 'between:0,1'],

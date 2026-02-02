@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCoverLettersRequest extends FormRequest
 {
@@ -32,6 +33,26 @@ class StoreCoverLettersRequest extends FormRequest
         return [
             'owner_id'          => ['required', 'integer', 'exists:system_db.admins,id'],
             'application_id'    => ['required', 'integer', 'exists:career_db.applications,id'],
+            'name'         => [
+                'filled',
+                'string',
+                'max:255',
+                Rule::unique('career_db.resumes', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('date', $this->date)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'         => [
+                'filled',
+                'string',
+                'max:255',
+                Rule::unique('career_db.resumes', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('date', $this->date)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'date' => ['date', 'nullable'],
             'content'           => ['nullable'],
             'url'  => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -65,6 +86,8 @@ class StoreCoverLettersRequest extends FormRequest
             'owner_id.exists'         => 'The specified owner does not exist.',
             'application_id.required' => 'Please select an application for the cover letter.',
             'application_id.exists'   => 'The specified application does not exist.',
+            'name.unique'             => 'There is already a cover letter with the same name for this date.',
+            'slug.unique'             => 'There is already a cover letter with the same slug for this date.'
         ];
     }
 }

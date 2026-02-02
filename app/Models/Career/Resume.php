@@ -29,6 +29,7 @@ class Resume extends Model
     protected $fillable = [
         'owner_id',
         'name',
+        'slug',
         'date',
         'primary',
         'content',

@@ -257,7 +257,7 @@
                                                 <td>{!! $application->email !!}</td>
                                             </tr>
                                             <tr>
-                                                <td><strong>{!! !empty($application->alt_email_label ? $application->alt_email_label : 'alt email' !!}</strong></td>
+                                                <td><strong>{!! !empty($application->alt_email_label) ? $application->alt_email_label : 'alt email' !!}</strong></td>
                                                 <td>{!! $application->alt_email !!}</td>
                                             </tr>
                                             </tbody>

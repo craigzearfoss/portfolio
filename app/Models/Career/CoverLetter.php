@@ -28,6 +28,8 @@ class CoverLetter extends Model
     protected $fillable = [
         'owner_id',
         'application_id',
+        'name',
+        'slug',
         'date',
         'content',
         'url',
@@ -51,7 +53,7 @@ class CoverLetter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'date', 'content', 'url', 'link',
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'content', 'url', 'link',
         'link_name', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 

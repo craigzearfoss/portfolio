@@ -32,6 +32,8 @@ return new class extends Migration
             $table->foreignId('application_id')
                 ->constrained('applications', 'id')
                 ->onDelete('cascade');
+            $table->string('name')->index('name_idx');
+            $table->string('slug');
             $table->date('date')->nullable();
             $table->text('content')->nullable();
             $table->string('url', 500)->nullable();
@@ -52,6 +54,9 @@ return new class extends Migration
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['owner_id', 'name', 'date'], 'owner_id_name_date_unique');
+            $table->unique(['owner_id', 'slug', 'date'], 'owner_id_slug_date_unique');
         });
 
         /*

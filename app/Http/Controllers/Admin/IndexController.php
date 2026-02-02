@@ -10,8 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class IndexController extends BaseAdminController
 {
@@ -210,5 +212,47 @@ class IndexController extends BaseAdminController
 
         return redirect()->route('admin.login')
             ->with('success', 'Your password has been changed. You can login with your new password.');
+    }
+
+
+    /**
+     * Download a file from the storage directory.
+     *
+     * @return StreamedResponse|null
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function download_from_storage(): StreamedResponse|null
+    {
+        $filePath = request()->get('file');
+        $newFileName = request()->get('name');
+
+        if (empty($filePath)) {
+            return null;
+        }
+
+        $filePath = str_replace('/', DIRECTORY_SEPARATOR, $filePath);
+        $filePath = str_replace('\\', DIRECTORY_SEPARATOR, $filePath);
+        $filePath = trim($filePath, DIRECTORY_SEPARATOR);
+
+        $filePathParts = explode(DIRECTORY_SEPARATOR, $filePath);
+
+        if (empty($newFileName)) {
+
+            $newFileName = $filePathParts[count($filePathParts) - 1];
+
+        } else {
+
+            $realFileName = explode('.', $filePathParts[count($filePathParts) - 1])[0];
+            $realFileExt = explode('.', $filePathParts[count($filePathParts) - 1])[1] ?? '';
+
+            if (!empty($realFileName)) {
+                if (!$newFileNameExt = explode('.', $newFileName)[1] ?? false) {
+                    $newFileName = $newFileName . '.' . $realFileExt;
+                }
+            }
+        }
+
+        return Storage::disk('public')->download($filePath, $newFileName);
     }
 }

@@ -39,7 +39,7 @@ class UpdateCertificatesRequest extends FormRequest
                 Rule::unique('portfolio_db.certificates', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->certificate->id);
+                        ->where('id', '!=', $this->certificate->id);
                 })
             ],
             'slug'            => [
@@ -49,7 +49,7 @@ class UpdateCertificatesRequest extends FormRequest
                 Rule::unique('portfolio_db.certificates', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->certificate->id);
+                        ->where('id', '!=', $this->certificate->id);
                 })
             ],
             'featured'        => ['integer', 'between:0,1'],

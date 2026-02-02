@@ -42,23 +42,19 @@
             'value' => longDate($resume->date),
         ])
 
-        @if(!empty($resume->doc_url))
-            @include('admin.components.show-row-link', [
-                'name'    => 'MS Word',
-                'label'   => 'resume link',
-                'href'   => $resume->doc_url,
-                'target' => '_blank',
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => 'Word doc',
+            'label'  => !empty($resume->doc_url) ? '<i class="fa-solid fa-download"></i>download' : '',
+            'href'   => !empty($resume->doc_url) ? route('download-from-public', [ 'file' => $resume->doc_url, 'name' => $resume->slug ]) : null,
+            'target' => '_blank'
+        ])
 
-        @if(!empty($resume->pdf_url))
-            @include('admin.components.show-row-link', [
-                'name'   => 'PDF',
-                'label'  => 'resume link',
-                'href'   => $resume->pdf_url,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => 'PDF doc',
+            'label'  => !empty($resume->pdf_url) ? '<i class="fa-solid fa-download"></i>download' : '',
+            'href'   => !empty($resume->pdf_url) ? route('download-from-public', [ 'file' => $resume->pdf_url, 'name' => $resume->slug ]) : null,
+            'target' => '_blank'
+        ])
 
         @if (!empty($resume->description))
             @include('admin.components.show-row', [

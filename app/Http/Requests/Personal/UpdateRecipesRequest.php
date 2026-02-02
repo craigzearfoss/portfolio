@@ -39,7 +39,7 @@ class UpdateRecipesRequest extends FormRequest
                 Rule::unique('personal_db.recipes', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->recipe->id);
+                        ->where('id', '!=', $this->recipe->id);
                 })
             ],
             'slug'         => [
@@ -49,7 +49,7 @@ class UpdateRecipesRequest extends FormRequest
                 Rule::unique('personal_db.recipes', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->slug)
-                        ->where('id', '!-', $this->recipe->id);
+                        ->where('id', '!=', $this->recipe->id);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],

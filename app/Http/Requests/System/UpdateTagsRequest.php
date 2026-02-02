@@ -38,7 +38,7 @@ class UpdateTagsRequest extends FormRequest
                 Rule::unique('system_db.tags', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->tag->id);
+                        ->where('id', '!=', $this->tag->id);
                 })
             ],
             'resource_id'            => ['integer', 'exists:system_db.resources,id', 'nullable'],

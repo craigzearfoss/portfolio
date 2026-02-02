@@ -47,7 +47,7 @@ class UpdateResourcesRequest extends FormRequest
                 Rule::unique('career_db.resources', 'name')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->resource->id);
+                        ->where('id', '!=', $this->resource->id);
                 })
             ],
             'parent_id'      => ['integer', Rule::in(Resource::where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
@@ -58,7 +58,7 @@ class UpdateResourcesRequest extends FormRequest
                 Rule::unique('career_db.resources', 'table')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('table', $this->table)
-                        ->where('id', '!-', $this->resource->id);
+                        ->where('id', '!=', $this->resource->id);
                 })
             ],
             'class'          => ['filled', 'string', 'max:255'],

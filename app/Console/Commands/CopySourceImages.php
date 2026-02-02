@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use App\Models\Career\Application;
 use App\Models\Career\Company;
+use App\Models\Career\CoverLetter;
+use App\Models\Career\Resume;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\Resource;
@@ -81,7 +84,7 @@ class CopySourceImages extends Command
 
         $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
 
-        //$this->copyResourcemages();
+        $this->copyResourcemages();
         $this->copyCoverLetters();
         $this->copyResumes();
 
@@ -169,7 +172,7 @@ class CopySourceImages extends Command
 
                                                     $destFileName = in_array($fileName, self::DEFINED_FILE_NAMES)
                                                         ? generateEncodedFilename(($item->slug ?? $item->name ?? $item->id), $fileName)
-                                                        : generateEncodedFilename($fileName);;
+                                                        : generateEncodedFilename($fileName);
 
                                                     $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
 
@@ -228,18 +231,10 @@ class CopySourceImages extends Command
         $this->imagesSrcPath = rtrim(base_path() . $DS . $this->source, $DS);
         $this->imagesSrcPath = str_replace($DS . 'images', $DS . 'cover-letters', $this->imagesSrcPath);
         if ($imageDir = config('app.image_dir')) {
-            $this->imagesDestPath = rtrim($imageDir, $DS) . $DS . 'career' . $DS . 'cover-letters';
+            $this->imagesDestPath = rtrim($imageDir, $DS) . $DS . 'career' . $DS . 'cover-letter';
         } else {
-            $this->imagesDestPath = imageDir() . $DS . 'career' . $DS . 'cover-letters';
+            $this->imagesDestPath = imageDir() . $DS . 'career' . $DS . 'cover-letter';
         }
-
-        // prompt to continue
-//        echo PHP_EOL . 'Copying images: ' . PHP_EOL;
-//        echo '    from: ' . $this->imagesSrcPath . PHP_EOL;
-//        echo '    to:   ' . $this->imagesDestPath . PHP_EOL;
-//        echo '*Note that this will not overwrite existing files.' . PHP_EOL;
-
-        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
 
         foreach (scandir($this->imagesSrcPath) as $username) {
 
@@ -250,130 +245,82 @@ class CopySourceImages extends Command
             if (!$admin = Admin::where('username', $username)->first()) {
                 echo 'Admin ' . $username . ' not found.' . PHP_EOL;
                 continue;
-            } else {
-                $applications = Admin::select(DB::raw('applications.id AS id'),
-                    DB::raw('companies.id AS company_id'), DB::raw('companies.name AS company_name'))
-                    ->join(config('app.career_db').'.applications',  'applications.owner_id', 'admins.id')
-                    ->join(config('app.career_db').'.companies', 'companies.id', 'applications.company_id')
-                    ->where('admins.username', $username)
-                    ->get();
             }
-dd($applications);
+
             if (File::isDirectory($usernamePath)) {
 
-                echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $usernamePath) . ' ...'. PHP_EOL;
+                echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $usernamePath) . ' ...' . PHP_EOL;
 
-                $applicationQuery = Admin::select(DB::raw('applications.id AS id'),
-                    DB::raw('companies.id AS company_id'), DB::raw('companies.name AS company_name'))
-                    ->join(config('app.career_db').'.applications',  'applications.owner_id', 'admins.id')
-                    ->join(config('app.career_db').'.companies', 'companies.id', 'applications.company_id')
-                    ->where('admins.username', $username);
-dd($applicationQuery->get());
+                $coverLetterQuery = CoverLetter::withoutGlobalScope(AdminPublicScope::class)
+                    ->select(['id', 'slug'])
+                    ->where('cover_letters.owner_id', $admin->id);
 
-                if ($adminDefinition = Admin::where('username', $username)->first()) {
+                $coverLetters = [];
+                foreach ($coverLetterQuery->get() as $coverLetter) {
+                    if (!empty($coverLetter->slug)) {
+                        $coverLetters[$coverLetter->slug] = $coverLetter->id;
+                    }
+                }
 
-                    foreach (scandir($usernamePath) as $companySlug) {
+                foreach (scandir($usernamePath) as $coverLetterFile) {
 
-                        if ($companySlug == '.' || $companySlug == '..') continue;
+                    if ($coverLetterFile == '.' || $coverLetterFile == '..') continue;
 
-                        $companyPath = $usernamePath . $DS . $companySlug;
+                    $coverLetterPath = $usernamePath . $DS . $coverLetterFile;
 
-                        if (File::isDirectory($companyPath)) {
+                    if (File::isFile($coverLetterPath)) {
 
-                            echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $companyPath) . ' ...'
-                                . PHP_EOL;
+                        $fileName = File::name($coverLetterPath);
+                        $fileExt = File::extension($coverLetterPath);
 
-                            if ($companyDefinition = Resource::where('name', $companySlug)->first()) {
+                        if (!array_key_exists($fileName, $coverLetters)) {
+                            echo '    ' . $username . $DS . $coverLetterFile . ' not found in database **' . PHP_EOL;
+                            continue;
+                        }
 
-                                try {
-                                    $reflectionClass = new \ReflectionClass($companyDefinition->class);
-                                } catch (\ReflectionException $e) {
-                                    dd($e);
-                                }
-                                $instance = $reflectionClass->newInstance();
+                        $coverLetterId = $coverLetters[$fileName];
 
-                                foreach (scandir($companyPath) as $slug) {
+                        // determine the destination file
+                        // Note that we encode the filename for enhanced security.
+                        $destPath = $this->imagesDestPath . $DS . $coverLetterId;
+                        $destFileName = generateEncodedFilename($coverLetterId, $coverLetterFile);
+                        $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
 
-                                    if ($slug == '.' || $slug == '..') continue;
+                        if (!File::exists($destPath)) {
+                            File::makeDirectory($destPath, 755, true);
+                        }
 
-                                    $itemPath = $companyPath . $DS . $slug;
+                        if (File::exists($destFile) && !$this->overwrite) {
 
-                                    if (File::isDirectory($itemPath)) {
+                            // the file already exists
+                            echo '    ' . $username . $DS . $coverLetterFile . ' already exists.' . PHP_EOL;
 
-                                        $query = $instance->where(
-                                            in_array($companyDefinition->name, ['admin', 'user'])
-                                                ? 'username'
-                                                : 'slug',
-                                            $slug
-                                        );
+                        } elseif ($this->overwrite || !File::exists($destFile)) {
 
-                                        foreach ($query->get() as $item) {
+                            // copy the file
+                            echo '    ' . $coverLetterFile . ' => '
+                                . str_replace(base_path(), '', $destFile) . PHP_EOL;
 
-                                            echo 'Copying files from ' . $itemPath . PHP_EOL;
+                            File::copy($coverLetterPath, $destFile);
+                        }
 
-                                            foreach (scandir($itemPath) as $itemSlug) {
+                        // update the resource in the database
+                        try {
 
-                                                if ($itemSlug == '.' || $itemSlug == '..') continue;
+                            $relativeDestPath = str_replace(
+                                base_path() .$DS . 'public',
+                                '',
+                                $destFile
+                            );
+                            $urlPath = str_replace(DIRECTORY_SEPARATOR, '/',  $relativeDestPath);
 
-                                                $srcFile = $itemPath . $DS . $itemSlug;
-                                                $property = File::name($srcFile);
+                            $coverLetter = CoverLetter::withoutGlobalScope(AdminPublicScope::class)
+                                ->find($coverLetterId);
+                            $coverLetter->url = $relativeDestPath;
+                            $coverLetter->save();
 
-                                                if (File::isFile($srcFile)) {
-
-                                                    $fileName = File::name($srcFile);
-                                                    $fileExt = File::extension($srcFile);
-
-                                                    // determine the destination file
-                                                    // Note that we encode the filename for enhanced security.
-                                                    $destPath = $this->imagesDestPath . $DS . $databaseSlug . $DS
-                                                        . $resourceSlug . $DS . $item->id;
-
-                                                    $destFileName = in_array($fileName, self::DEFINED_FILE_NAMES)
-                                                        ? generateEncodedFilename(($item->slug ?? $item->name ?? $item->id), $fileName)
-                                                        : generateEncodedFilename($fileName);;
-
-                                                    $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
-
-                                                    if (!File::exists($destPath)) {
-                                                        File::makeDirectory($destPath, 755, true);
-                                                    }
-
-                                                    if (File::exists($destFile) && !$this->overwrite) {
-
-                                                        // the file already exists
-                                                        echo '    ' . $destFile . ' already exists.'. PHP_EOL;
-
-                                                    } elseif ($this->overwrite || !File::exists($destFile)) {
-
-                                                        // copy the file
-                                                        echo '    ' . $itemSlug . ' => '
-                                                            . str_replace(base_path(), '', $destFile) . PHP_EOL;
-                                                        File::copy($srcFile, $destFile);
-                                                    }
-
-                                                    // update the resource in the database
-                                                    try {
-
-                                                        $relativeDestPath = str_replace(
-                                                            base_path() .$DS . 'public',
-                                                            '',
-                                                            $destFile
-                                                        );
-                                                        $urlPath = str_replace(DIRECTORY_SEPARATOR, '/',  $relativeDestPath);
-
-                                                        $item->{$property} = $urlPath;
-                                                        $item->save();
-
-                                                    } catch (\Throwable $e) {
-                                                        $this->failedUpdates[] = $item->id
-                                                            . ' [' . $property . '] => ' . $relativeDestPath;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                        } catch (\Throwable $e) {
+                            $this->failedUpdates[] = $coverLetterId . ' [url] => ' . $relativeDestPath;
                         }
                     }
                 }
@@ -389,133 +336,99 @@ dd($applicationQuery->get());
         $this->imagesSrcPath = rtrim(base_path() . $DS . $this->source, $DS);
         $this->imagesSrcPath = str_replace($DS . 'images', $DS . 'resumes', $this->imagesSrcPath);
         if ($imageDir = config('app.image_dir')) {
-            $this->imagesDestPath = rtrim($imageDir, $DS) . $DS . 'career' . $DS . 'resumes';
+            $this->imagesDestPath = rtrim($imageDir, $DS) . $DS . 'career' . $DS . 'resume';
         } else {
-            $this->imagesDestPath = imageDir() . $DS . 'career' . $DS . 'resumes';
+            $this->imagesDestPath = imageDir() . $DS . 'career' . $DS . 'resume';
         }
 
-        // prompt to continue
-        echo PHP_EOL . 'Copying images: ' . PHP_EOL;
-        echo '    from: ' . $this->imagesSrcPath . PHP_EOL;
-        echo '    to:   ' . $this->imagesDestPath . PHP_EOL;
-        echo '*Note that this will not overwrite existing files.' . PHP_EOL;
+        foreach (scandir($this->imagesSrcPath) as $username) {
 
-        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+            if ($username == '.' || $username == '..') continue;
 
-        foreach (scandir($this->imagesSrcPath) as $databaseSlug) {
+            $usernamePath = $this->imagesSrcPath . $DS . $username;
 
-            if ($databaseSlug == '.' || $databaseSlug == '..') continue;
+            if (!$admin = Admin::where('username', $username)->first()) {
+                echo 'Admin ' . $username . ' not found.' . PHP_EOL;
+                continue;
+            }
 
-            $databasePath = $this->imagesSrcPath . $DS . $databaseSlug;
+            if (File::isDirectory($usernamePath)) {
 
-            if (File::isDirectory($databasePath)) {
+                echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $usernamePath) . ' ...' . PHP_EOL;
 
-                echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $databasePath) . ' ...'. PHP_EOL;
+                $resumeQuery = Resume::withoutGlobalScope(AdminPublicScope::class)
+                    ->select(['id', 'slug'])
+                    ->where('resumes.owner_id', $admin->id);
 
-                if ($databaseDefinition = Database::where('name', $databaseSlug)->first()) {
+                $resumes = [];
+                foreach ($resumeQuery->get() as $resume) {
+                    if (!empty($resume->slug)) {
+                        $resumes[$resume->slug] = $resume->id;
+                    }
+                }
 
-                    foreach (scandir($databasePath) as $resourceSlug) {
+                foreach (scandir($usernamePath) as $resumeFile) {
 
-                        if ($resourceSlug == '.' || $resourceSlug == '..') continue;
+                    if ($resumeFile == '.' || $resumeFile == '..') continue;
 
-                        $resourcePath = $databasePath . $DS . $resourceSlug;
+                    $resumePath = $usernamePath . $DS . $resumeFile;
 
-                        if (File::isDirectory($resourcePath)) {
+                    if (File::isFile($resumePath)) {
 
-                            echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $resourcePath) . ' ...'
-                                . PHP_EOL;
+                        $fileName = File::name($resumePath);
+                        $fileExt = File::extension($resumePath);
 
-                            if ($resourceDefinition = Resource::where('name', $resourceSlug)->first()) {
+                        if (!array_key_exists($fileName, $resumes)) {
+                            echo '    *' . $username . $DS . $resumeFile . ' not found in database.' . PHP_EOL;
+                            continue;
+                        }
 
-                                try {
-                                    $reflectionClass = new \ReflectionClass($resourceDefinition->class);
-                                } catch (\ReflectionException $e) {
-                                    dd($e);
-                                }
-                                $instance = $reflectionClass->newInstance();
+                        $resumeId = $resumes[$fileName];
 
-                                foreach (scandir($resourcePath) as $slug) {
+                        // determine the destination file
+                        // Note that we encode the filename for enhanced security.
+                        $destPath = $this->imagesDestPath . $DS . $resumeId;
+                        $destFileName = generateEncodedFilename($resumeId, $resumeFile);
+                        $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
 
-                                    if ($slug == '.' || $slug == '..') continue;
+                        if (!File::exists($destPath)) {
+                            File::makeDirectory($destPath, 755, true);
+                        }
 
-                                    $itemPath = $resourcePath . $DS . $slug;
+                        if (File::exists($destFile) && !$this->overwrite) {
 
-                                    if (File::isDirectory($itemPath)) {
+                            // the file already exists
+                            echo '    +' . $username . $DS . $resumeFile . ' already exists.' . PHP_EOL;
 
-                                        $query = $instance->where(
-                                            in_array($resourceDefinition->name, ['admin', 'user'])
-                                                ? 'username'
-                                                : 'slug',
-                                            $slug
-                                        );
+                        } elseif ($this->overwrite || !File::exists($destFile)) {
 
-                                        foreach ($query->get() as $item) {
+                            // copy the file
+                            echo '    ' . $username . $DS . $resumeFile . ' => '
+                                . str_replace(base_path(), '', $destFile) . PHP_EOL;
 
-                                            echo 'Copying files from ' . $itemPath . PHP_EOL;
+                            File::copy($resumePath, $destFile);
+                        }
 
-                                            foreach (scandir($itemPath) as $itemSlug) {
+                        // update the resource in the database
+                        try {
 
-                                                if ($itemSlug == '.' || $itemSlug == '..') continue;
-
-                                                $srcFile = $itemPath . $DS . $itemSlug;
-                                                $property = File::name($srcFile);
-
-                                                if (File::isFile($srcFile)) {
-
-                                                    $fileName = File::name($srcFile);
-                                                    $fileExt = File::extension($srcFile);
-
-                                                    // determine the destination file
-                                                    // Note that we encode the filename for enhanced security.
-                                                    $destPath = $this->imagesDestPath . $DS . $databaseSlug . $DS
-                                                        . $resourceSlug . $DS . $item->id;
-
-                                                    $destFileName = in_array($fileName, self::DEFINED_FILE_NAMES)
-                                                        ? generateEncodedFilename(($item->slug ?? $item->name ?? $item->id), $fileName)
-                                                        : generateEncodedFilename($fileName);;
-
-                                                    $destFile = $destPath . $DS . $destFileName . '.' . $fileExt;
-
-                                                    if (!File::exists($destPath)) {
-                                                        File::makeDirectory($destPath, 755, true);
-                                                    }
-
-                                                    if (File::exists($destFile) && !$this->overwrite) {
-
-                                                        // the file already exists
-                                                        echo '    ' . $destFile . ' already exists.'. PHP_EOL;
-
-                                                    } elseif ($this->overwrite || !File::exists($destFile)) {
-
-                                                        // copy the file
-                                                        echo '    ' . $itemSlug . ' => '
-                                                            . str_replace(base_path(), '', $destFile) . PHP_EOL;
-                                                        File::copy($srcFile, $destFile);
-                                                    }
-
-                                                    // update the resource in the database
-                                                    try {
-
-                                                        $relativeDestPath = str_replace(
-                                                            base_path() .$DS . 'public',
-                                                            '',
-                                                            $destFile
-                                                        );
-                                                        $urlPath = str_replace(DIRECTORY_SEPARATOR, '/',  $relativeDestPath);
-
-                                                        $item->{$property} = $urlPath;
-                                                        $item->save();
-
-                                                    } catch (\Throwable $e) {
-                                                        $this->failedUpdates[] = $item->id
-                                                            . ' [' . $property . '] => ' . $relativeDestPath;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                            $relativeDestPath = str_replace(
+                                base_path() .$DS . 'public',
+                                '',
+                                $destFile
+                            );
+                            $resume = Resume::withoutGlobalScope(AdminPublicScope::class)
+                                ->find($resumeId);
+//dd([$resume, $fileExt, $relativeDestPath]);
+                            if ($fileExt == 'pdf') {
+                                $resume->pdf_url = $relativeDestPath;
+                            } else {
+                                $resume->doc_url = $relativeDestPath;
                             }
+                            $resume->save();
+
+                        } catch (\Throwable $e) {
+                            $this->failedUpdates[] = $resumeId . ' [url] => ' . $relativeDestPath;
                         }
                     }
                 }

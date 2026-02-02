@@ -34,14 +34,11 @@
                 </a>
 
                 @if(!empty($coverLetter->url))
-
-                    <a title="{!! !empty($coverLetter->url) ? $coverLetter->url : 'link' !!}"
-                       class="button is-small px-1 py-0"
-                       href="{!! $coverLetter->url !!}"
-                       target="_blank">
-                        <i class="fa-solid fa-external-link"></i>
-                    </a>
+                    @include('admin.components.button-download', [ 'file' => $coverLetter->url,
+                                                                   'name' =>$coverLetter->slug . '-cover-letter' ])
                 @endif
+                @include('admin.components.button-download', [ 'file' => '',
+                                                               'name' =>$coverLetter->slug . '-cover-letter' ])
 
             @endif
 

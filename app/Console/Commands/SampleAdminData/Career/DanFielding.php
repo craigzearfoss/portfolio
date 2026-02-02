@@ -280,10 +280,13 @@ class DanFielding extends Command
         $data = [
             /*
             [
-                'application_id'    => $this->applicationId[1],
-                'date' => '0000-00-00',
-                'content'           => null,
-                'description'       => null,
+                'owner_id'       => $this->adminId,
+                'application_id' => $this->applications['black-airplane'],
+                'name'           => 'Black-Airplane',
+                'slug'           => '2025-11-24-black-airplane',
+                'date'           => '2025-11-24',
+                'content'        => <<<EOD
+EOD,
             ],
             */
         ];
@@ -389,11 +392,12 @@ class DanFielding extends Command
             /*
             [
                 'name'        => '',
-                'date' => '0000-00-00',
+                'slug'        => '',
+                'date'        => '0000-00-00',
                 'primary'     => 0,
-                'year'        => 2025,
-                'content'     => null,
-                'description' => null,
+                'doc_url'     => null,
+                'pdf_url'     => null,
+                'public'      => 0,
             ]
             */
         ];

@@ -7,9 +7,12 @@ use App\Http\Requests\MessageStoreRequest;
 use App\Models\System\Admin;
 use App\Models\System\Message;
 use App\Services\PermissionService;
+use http\Encoding\Stream;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class IndexController extends BaseController
 {
@@ -53,5 +56,45 @@ class IndexController extends BaseController
     {
         return view(themedTemplate('system.terms-and-conditions'));
     }
-    //
+
+    /**
+     * Download a file from the public directory.
+     *
+     * @return StreamedResponse|null
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function download_from_public(): StreamedResponse|null
+    {
+        $filePath = request()->get('file');
+        $newFileName = request()->get('name');
+
+        if (empty($filePath)) {
+            return null;
+        }
+
+        $filePath = str_replace('/', DIRECTORY_SEPARATOR, $filePath);
+        $filePath = str_replace('\\', DIRECTORY_SEPARATOR, $filePath);
+        $filePath = trim($filePath, DIRECTORY_SEPARATOR);
+
+        $filePathParts = explode(DIRECTORY_SEPARATOR, $filePath);
+
+        if (empty($newFileName)) {
+
+            $newFileName = $filePathParts[count($filePathParts) - 1];
+
+        } else {
+
+            $realFileName = explode('.', $filePathParts[count($filePathParts) - 1])[0];
+            $realFileExt = explode('.', $filePathParts[count($filePathParts) - 1])[1] ?? '';
+
+            if (!empty($realFileName)) {
+                if (!$newFileNameExt = explode('.', $newFileName)[1] ?? false) {
+                    $newFileName = $newFileName . '.' . $realFileExt;
+                }
+            }
+        }
+
+        return Storage::disk('public_dir')->download($filePath, $newFileName);
+    }
 }

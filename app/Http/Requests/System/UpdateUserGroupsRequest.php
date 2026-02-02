@@ -40,7 +40,7 @@ class UpdateUserGroupsRequest extends FormRequest
                 Rule::unique('system_db.user_groups', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->user_group->id);
+                        ->where('id', '!=', $this->user_group->id);
                 })
             ],
             'slug'          => [

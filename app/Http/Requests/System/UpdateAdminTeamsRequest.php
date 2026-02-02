@@ -39,7 +39,7 @@ class UpdateAdminTeamsRequest extends FormRequest
                 Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->admin_team->id);
+                        ->where('id', '!=', $this->admin_team->id);
                 })
             ],
             'slug'          => [

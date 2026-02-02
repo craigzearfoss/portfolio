@@ -42,7 +42,7 @@ class UpdateReadingsRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('id', '!=', $this->reading->id)
                         ->where('name', $this->slug)
-                        ->where('id', '!-', $this->id);
+                        ->where('id', '!=', $this->id);
                 })
             ],
             'featured'         => ['integer', 'between:0,1'],

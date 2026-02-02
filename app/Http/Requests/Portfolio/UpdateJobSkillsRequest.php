@@ -41,7 +41,7 @@ class UpdateJobSkillsRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('job_id', $this->job_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->job_skill->id);
+                        ->where('id', '!=', $this->job_skill->id);
                 })
             ],
             'type'                   => ['integer', 'between:0,1'],

@@ -40,7 +40,7 @@ class UpdateReferencesRequest extends FormRequest
                 Rule::unique('career_db.references', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->reference->id);
+                        ->where('id', '!=', $this->reference->id);
                 })
             ],
             'slug'            => [
@@ -50,7 +50,7 @@ class UpdateReferencesRequest extends FormRequest
                 Rule::unique('career_db.references', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->slug)
-                        ->where('id', '!-', $this->reference->id);
+                        ->where('id', '!=', $this->reference->id);
                 })
             ],
             'title'           => ['string', 'max:100', 'nullable'],

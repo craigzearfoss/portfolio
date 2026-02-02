@@ -39,7 +39,7 @@ class UpdateLinksRequest extends FormRequest
                 Rule::unique('portfolio_db.links', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->link->id);
+                        ->where('id', '!=', $this->link->id);
                 })
             ],
             'slug'         => [
@@ -50,7 +50,7 @@ class UpdateLinksRequest extends FormRequest
                 Rule::unique('portfolio_db.links', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->link->id);
+                        ->where('id', '!=', $this->link->id);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
@@ -64,7 +64,7 @@ class UpdateLinksRequest extends FormRequest
                 Rule::unique('portfolio_db.links', 'url')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('url', $this->url)
-                        ->where('id', '!-', $this->link->id);
+                        ->where('id', '!=', $this->link->id);
                 })
             ],
             'notes'        => ['nullable'],

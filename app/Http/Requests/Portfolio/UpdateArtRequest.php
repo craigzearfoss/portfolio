@@ -41,7 +41,7 @@ class UpdateArtRequest extends FormRequest
                 Rule::unique('portfolio_db.art', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->art->id);
+                        ->where('id', '!=', $this->art->id);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],

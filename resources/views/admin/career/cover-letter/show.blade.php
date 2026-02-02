@@ -69,6 +69,13 @@
             'target' => '_blank'
         ])
 
+        @include('admin.components.show-row-link', [
+            'name'   => 'url',
+            'label'  => !empty($coverLetter->doc_url) ? '<i class="fa-solid fa-download"></i>download' : '',
+            'href'   => !empty($coverLetter->doc_url) ? route('download-from-public', [ 'file' => $coverLetter->doc_url, 'name' => $coverLetter->slug ]) : null,
+            'target' => '_blank'
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => $coverLetter->notes

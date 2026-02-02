@@ -36,7 +36,7 @@ class UpdateResourceSettingsRequest extends FormRequest
                 Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->resource_setting->id);
+                        ->where('id', '!=', $this->resource_setting->id);
                 })
             ],
             'setting_type_id' => ['filled', 'integer', 'exists:system_db.setting_types,id'],

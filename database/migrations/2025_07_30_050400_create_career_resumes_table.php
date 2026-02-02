@@ -29,6 +29,7 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
+            $table->string('slug');
             $table->date('date')->nullable();
             $table->boolean('primary')->default(false);
             $table->text('content')->nullable();
@@ -53,6 +54,9 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['owner_id', 'name', 'date'], 'owner_id_name_date_unique');
+            $table->unique(['owner_id', 'slug', 'date'], 'owner_id_slug_date_unique');
         });
 
         /*

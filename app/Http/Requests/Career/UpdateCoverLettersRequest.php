@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCoverLettersRequest extends FormRequest
 {
@@ -32,6 +33,28 @@ class UpdateCoverLettersRequest extends FormRequest
         return [
             'owner_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
             'application_id'    => ['filled', 'integer', 'exists:career_db.applications,id'],
+            'name'              => [
+                'filled',
+                'string',
+                'max:255',
+                Rule::unique('career_db.cover_letters', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name)
+                        ->where('date', $this->date)
+                        ->where('id', '!=', $this->cover_letters->id);
+                })
+            ],
+            'slug'              => [
+                'filled',
+                'string',
+                'max:255',
+                Rule::unique('career_db.cover_letters', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug)
+                        ->where('date', $this->date)
+                        ->where('id', '!=', $this->cover_letters->id);
+                })
+            ],
             'date' => ['date', 'nullable'],
             'content'           => ['nullable'],
             'url'  => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -65,6 +88,29 @@ class UpdateCoverLettersRequest extends FormRequest
             'owner_id.exists'       => 'The specified owner does not exist.',
             'application_id.filled' => 'Please select an application for the cover letter.',
             'application_id.exists' => 'The specified application does not exist.',
+            'name.unique'           => 'There is already a cover letter with the same name for this date.',
+            'slug.unique'           => 'There is already a cover letter with the same slug for this date.'
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $slug = !empty($this['date'])
+                ? $this['date'] . '-' . $this['name']
+                : $this['name'];
+
+            $this->merge([
+                'slug' => uniqueSlug($slug),
+                'career_db.cover_letters',
+                $this->owner_id
+            ]);
+        }
     }
 }

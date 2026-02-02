@@ -40,7 +40,7 @@ class UpdatePublicationsRequest extends FormRequest
                 Rule::unique('portfolio_db.publications', 'title')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('title', $this->title)
-                        ->where('id', '!-', $this->publication->id);
+                        ->where('id', '!=', $this->publication->id);
                 })
             ],
             'slug'              => [
@@ -50,7 +50,7 @@ class UpdatePublicationsRequest extends FormRequest
                 Rule::unique('portfolio_db.publications', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->publication->id);
+                        ->where('id', '!=', $this->publication->id);
                 })
             ],
             'parent_id'         => [

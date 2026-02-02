@@ -44,7 +44,7 @@ class UpdateEducationsRequest extends FormRequest
                 Rule::unique('portfolio_db.education', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->education->id);
+                        ->where('id', '!=', $this->education->id);
                 })
             ],
             'enrollment_month'   => ['integer', 'between:1,12', 'nullable' ],

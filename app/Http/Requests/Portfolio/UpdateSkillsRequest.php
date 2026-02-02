@@ -39,7 +39,7 @@ class UpdateSkillsRequest extends FormRequest
                 Rule::unique('portfolio_db.skills', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->skill->id);
+                        ->where('id', '!=', $this->skill->id);
                 })
             ],
             'version'                 => ['string', 'max:20', 'nullable'],
@@ -51,7 +51,7 @@ class UpdateSkillsRequest extends FormRequest
                 Rule::unique('portfolio_db.skills', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!-', $this->skill->id);
+                        ->where('id', '!=', $this->skill->id);
                 })
             ],
             'featured'                => ['integer', 'between:0,1'],

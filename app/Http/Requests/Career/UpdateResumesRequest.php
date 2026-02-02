@@ -39,7 +39,19 @@ class UpdateResumesRequest extends FormRequest
                 Rule::unique('career_db.resumes', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->resume->id);
+                        ->where('date', $this->date)
+                        ->where('id', '!=', $this->resumes->id);
+                })
+            ],
+            'slug'         => [
+                'filled',
+                'string',
+                'max:255',
+                Rule::unique('career_db.resumes', 'slug')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug)
+                        ->where('date', $this->date)
+                        ->where('id', '!=', $this->resumes->id);
                 })
             ],
             'date'  => ['date', 'nullable'],
@@ -77,6 +89,29 @@ class UpdateResumesRequest extends FormRequest
         return [
             'owner_id.filled' => 'Please select an owner for the resume.',
             'owner_id.exists' => 'The specified owner does not exist.',
+            'name.unique'       => 'There is already a resume with the same name for this date.',
+            'slug.unique'       => 'There is already a resume with the same slug for this date.'
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation()
+    {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $slug = !empty($this['date'])
+                ? $this['date'] . '-' . $this['name']
+                : $this['name'];
+
+            $this->merge([
+                'slug' => uniqueSlug($slug),
+                'career_db.resumes',
+                $this->owner_id
+            ]);
+        }
     }
 }

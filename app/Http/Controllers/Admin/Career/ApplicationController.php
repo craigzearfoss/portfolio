@@ -120,6 +120,7 @@ class ApplicationController extends BaseAdminController
         if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);
         }
+
         return view('admin.career.application.show', compact('application'));
     }
 

@@ -40,7 +40,7 @@ class UpdateJobCoworkersRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('job_id', $this->job_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->job_coworker->id);
+                        ->where('id', '!=', $this->job_coworker->id);
                 })
             ],
             'title'           => ['string', 'max:100', 'nullable'],
