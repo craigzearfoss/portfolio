@@ -3,6 +3,8 @@
 use App\Models\System\Admin;
 use App\Services\PermissionService;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\IOFactory;
 
 if (! function_exists('refererRouteName')) {
     /**
@@ -829,5 +831,40 @@ if (! function_exists('themedTemplate')) {
 
             return $route;
         }
+    }
+}
+
+if (! function_exists('viewDocument')) {
+    /**
+     * Returns the route name of the refering page or null if there was no refering page.
+     *
+     * @return string|null
+     */
+    function viewDocument($filename): string|null
+    {
+        $filePath = Storage::path('documents/' . $filename); // Adjust the path as needed
+
+        $filePath = base_path() . DIRECTORY_SEPARATOR . 'public'
+            . DIRECTORY_SEPARATOR . 'portfolio'
+            . DIRECTORY_SEPARATOR . 'images'
+            . DIRECTORY_SEPARATOR . 'career'
+            . DIRECTORY_SEPARATOR . 'resume'
+            . DIRECTORY_SEPARATOR . '6'
+            . DIRECTORY_SEPARATOR . 'NjIwMjUtMDdiYXNlNjQ6.docx';
+
+        // Load the Word document
+        $phpWord = IOFactory::createReader('Word2007')->load($filePath);
+
+        // Convert to HTML
+        $objWriter = IOFactory::createWriter($phpWord, 'HTML');
+        $htmlContent = '';
+
+        // Save the HTML output to a variable or temporary file
+        ob_start();
+        $objWriter->save('php://output');
+        $htmlContent = ob_get_contents();
+        ob_end_clean();
+
+        return view('document-display', compact('htmlContent'));
     }
 }

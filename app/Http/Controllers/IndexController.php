@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use PhpOffice\PhpWord\IOFactory;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class IndexController extends BaseController
@@ -96,5 +97,35 @@ class IndexController extends BaseController
         }
 
         return Storage::disk('public_dir')->download($filePath, $newFileName);
+    }
+
+    /**
+     * Returns a Microsoft Word document from the public directory as HTML. It is not very most accurate.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|View
+     * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function view_document()
+    {
+        $file = request()->get('file');
+
+        $filePath = base_path() . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $file;
+
+        // Load the Word document
+        $phpWord = IOFactory::createReader('Word2007')->load($filePath);
+
+        // Convert to HTML
+        $objWriter = IOFactory::createWriter($phpWord, 'HTML');
+        $htmlContent = '';
+
+        // Save the HTML output to a variable or temporary file
+        ob_start();
+        $objWriter->save('php://output');
+        $htmlContent = ob_get_contents();
+        ob_end_clean();
+
+        return view('document-display', compact('htmlContent'));
     }
 }

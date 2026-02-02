@@ -12,6 +12,7 @@
         "php": "^8.4",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "phpoffice/phpword": "^1.4",
         "symfony/process": "^7.3",
         "toin0u/geocoder-laravel": "^5.0"
     },
@@ -81,6 +82,13 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "audit": {
+            "ignore": {
+                "PKSA-rkkf-636k-qjb3": "Reason for ignoring this specific advisory",
+                "PKSA-z3gr-8qht-p93v": "Not used in our application context",
+                "PKSA-4s4z-t146-6123": "We have applied a manual patch"
+            }
         }
     },
     "minimum-stability": "stable",

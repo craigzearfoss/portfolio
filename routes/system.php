@@ -32,7 +32,9 @@ Route::get('contact', [IndexController::class, 'contact'])->name('contact');
 Route::post('contact/store', [IndexController::class, 'storeMessage'])->name('contact.storeMessage');
 Route::get('privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
 Route::get('terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
-Route::get('/download-from-public', [IndexController::class, 'download_from_public'])->name('download-from-public');
+
+Route::get('download-from-public', [IndexController::class, 'download_from_public'])->name('download-from-public');
+Route::get('view-document', [IndexController::class, 'view_document'])->name('view-document');
 
 // ---------------------------------------------------------------------------------------------------------------------
 // user routes
