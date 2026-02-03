@@ -68,6 +68,7 @@ class AdminController extends BaseGuestController
             $resources = [];
         }
 
+        $owner = $admin;
 
         return view(themedTemplate(
             'guest.system.admin.show'),

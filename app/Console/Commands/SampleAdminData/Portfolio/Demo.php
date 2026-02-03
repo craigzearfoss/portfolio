@@ -1637,7 +1637,7 @@ class Demo extends Command
                 'role'                   => 'Produce Manager',
                 'slug'                   => 'hoopers-store-(produce-manager)',
                 'featured'               => 0,
-                'summary'                => 'Oversaw he daily operations of produce department, ensuring a fresh and appealing selection of fruits and vegetables for customers.',
+                'summary'                => 'Oversaw the daily operations of produce department, ensuring a fresh and appealing selection of fruits and vegetables for customers.',
                 'start_month'            => 7,
                 'start_year'             => 2019,
                 'end_month'              => 5,
@@ -1725,7 +1725,7 @@ class Demo extends Command
             ],
             [
                 'id'                     => $this->jobId[6],
-                'company'                => 'WRKP Radio',
+                'company'                => 'WKRP Radio',
                 'role'                   => 'PHP Developer',
                 'slug'                   => 'wkrp-radio-(php-developer)',
                 'featured'               => 0,
