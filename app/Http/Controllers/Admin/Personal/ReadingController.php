@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Personal;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreReadingsRequest;
 use App\Http\Requests\Personal\UpdateReadingsRequest;
+use App\Models\Personal\Ingredient;
 use App\Models\Personal\Reading;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -77,7 +78,12 @@ class ReadingController extends BaseAdminController
      */
     public function show(Reading $reading): View
     {
-        return view('admin.personal.reading.show', compact('reading'));
+        list($prev, $next) = Reading::prevAndNextPages($reading->id,
+            'admin.personal.reading.show',
+            $this->owner->id ?? null,
+            ['title', 'asc']);
+
+        return view('admin.personal.reading.show', compact('reading', 'prev', 'next'));
     }
 
     /**

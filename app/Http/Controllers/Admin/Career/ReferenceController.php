@@ -28,7 +28,12 @@ class ReferenceController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $references = Reference::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $references = Reference::where('owner_id', $this->owner->id)
+                ->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $references = Reference::orderBy('name', 'asc')->paginate($perPage);
+        }
 
         return view('admin.career.reference.index', compact('references'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -66,7 +71,12 @@ class ReferenceController extends BaseAdminController
      */
     public function show(Reference $reference): View
     {
-        return view('admin.career.reference.show', compact('reference'));
+        list($prev, $next) = Reference::prevAndNextPages($reference->id,
+            'admin.career.reference.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.career.reference.show', compact('reference', 'prev', 'next'));
     }
 
     /**

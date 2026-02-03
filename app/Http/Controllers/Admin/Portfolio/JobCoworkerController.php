@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobCoworkersRequest;
 use App\Http\Requests\Portfolio\UpdateJobCoworkersRequest;
+use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use Illuminate\Http\RedirectResponse;
@@ -87,7 +88,12 @@ class JobCoworkerController extends BaseAdminController
      */
     public function show(JobCoworker $jobCoworker): View
     {
-        return view('admin.portfolio.job-coworker.show', compact('jobCoworker'));
+        list($prev, $next) = JobCoworker::prevAndNextPages($jobCoworker->id,
+            'admin.portfolio.job-coworker.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.job-coworker.show', compact('jobCoworker', 'prev', 'next'));
     }
 
     /**

@@ -69,7 +69,12 @@ class RecruiterController extends BaseAdminController
      */
     public function show(Recruiter $recruiter): View
     {
-        return view('admin.career.recruiter.show', compact('recruiter'));
+        list($prev, $next) = Recruiter::prevAndNextPages($recruiter->id,
+            'admin.career.recruiter.show',
+            null,
+            ['name', 'asc']);
+
+        return view('admin.career.recruiter.show', compact('recruiter', 'prev', 'next'));
     }
 
     /**

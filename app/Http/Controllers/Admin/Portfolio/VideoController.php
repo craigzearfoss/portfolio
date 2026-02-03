@@ -72,7 +72,12 @@ class VideoController extends BaseAdminController
      */
     public function show(Video $video): View
     {
-        return view('admin.portfolio.video.show', compact('video'));
+        list($prev, $next) = Video::prevAndNextPages($video->id,
+            'admin.portfolio.video.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.video.show', compact('video', 'prev', 'next'));
     }
 
     /**

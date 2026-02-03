@@ -36,6 +36,11 @@ class ResourceController extends BaseAdminController
      */
     public function show(Resource $resource): View
     {
-        return view('admin.system.resource.show', compact('resource'));
+        list($prev, $next) = Resource::prevAndNextPages($resource->id,
+            'admin.system.resource.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.resource.show', compact('resource', 'prev', 'next'));
     }
 }

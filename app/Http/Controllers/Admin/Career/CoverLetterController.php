@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Career;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCoverLettersRequest;
 use App\Http\Requests\Career\UpdateCoverLettersRequest;
+use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,7 +29,11 @@ class CoverLetterController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $coverLetters = CoverLetter::latest()->paginate($perPage);
+        if (!empty($this->owner)) {
+            $coverLetters = CoverLetter::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
+        } else {
+            $coverLetters = CoverLetter::latest()->paginate($perPage);
+        }
 
         return view('admin.career.cover-letter.index', compact('coverLetters'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -66,7 +71,12 @@ class CoverLetterController extends BaseAdminController
      */
     public function show(CoverLetter $coverLetter): View
     {
-        return view('admin.career.cover-letter.show', compact('coverLetter'));
+        list($prev, $next) = CoverLetter::prevAndNextPages($coverLetter->id,
+            'admin.career.cover-letter.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.career.cover-letter.show', compact('coverLetter', 'prev', 'next'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreAudiosRequest;
 use App\Http\Requests\Portfolio\UpdateAudiosRequest;
+use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,7 +73,12 @@ class AudioController extends BaseAdminController
      */
     public function show(Audio $audio): View
     {
-        return view('admin.portfolio.audio.show', compact('audio'));
+        list($prev, $next) = Audio::prevAndNextPages($audio->id,
+            'admin.portfolio.audio.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.audio.show', compact('audio', 'prev', 'next'));
     }
 
     /**

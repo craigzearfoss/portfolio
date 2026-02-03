@@ -1,4 +1,4 @@
-<div class="text-left" style="white-space: nowrap;">
+<div class="has-text-left" style="white-space: nowrap;">
 
     @php
         $limit = !empty($rating) ? ( (($rating - intval($rating)) >= 0.25) ? ceil($rating) : floor($rating) ) : 4;

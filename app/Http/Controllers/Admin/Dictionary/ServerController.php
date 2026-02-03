@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreServersRequest;
 use App\Http\Requests\Dictionary\UpdateServersRequest;
+use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Server;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -77,7 +78,12 @@ class ServerController extends BaseAdminController
      */
     public function show(Server $server): View
     {
-        return view('admin.dictionary.server.show', compact('server'));
+        list($prev, $next) = Server::prevAndNextPages($server->id,
+            'admin.dictionary.server.show',
+            null,
+            ['full_name', 'asc']);
+
+        return view('admin.dictionary.server.show', compact('server', 'prev', 'next'));
     }
 
     /**

@@ -73,7 +73,12 @@ class AwardController extends BaseAdminController
      */
     public function show(Award $award): View
     {
-        return view('admin.portfolio.award.show', compact('award'));
+        list($prev, $next) = Award::prevAndNextPages($award->id,
+            'admin.portfolio.award.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.award.show', compact('award', 'prev', 'next'));
     }
 
     /**

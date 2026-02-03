@@ -87,7 +87,12 @@ class JobTaskController extends BaseAdminController
      */
     public function show(JobTask $jobTask): View
     {
-        return view('admin.portfolio.job-task.show', compact('jobTask'));
+        list($prev, $next) = JobTask::prevAndNextPages($jobTask->id,
+            'admin.portfolio.job-task.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.job-task.show', compact('jobTask', 'prev', 'next'));
     }
 
     /**

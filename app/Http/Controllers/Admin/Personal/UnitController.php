@@ -73,7 +73,12 @@ class UnitController extends BaseAdminController
      */
     public function show(Unit $unit): View
     {
-        return view('admin.personal.unit.show', compact('unit'));
+        list($prev, $next) = Unit::prevAndNextPages($unit->id,
+            'admin.personal.unit.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.personal.unit.show', compact('unit', 'prev', 'next'));
     }
 
     /**

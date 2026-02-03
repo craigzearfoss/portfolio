@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreLinksRequest;
 use App\Http\Requests\Portfolio\UpdateLinksRequest;
+use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,7 +73,12 @@ class LinkController extends BaseAdminController
      */
     public function show(Link $link): View
     {
-        return view('admin.portfolio.link.show', compact('link'));
+        list($prev, $next) = Link::prevAndNextPages($link->id,
+            'admin.portfolio.link.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.link.show', compact('link', 'prev', 'next'));
     }
 
     /**

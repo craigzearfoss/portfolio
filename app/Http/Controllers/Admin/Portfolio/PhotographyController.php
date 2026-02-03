@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StorePhotographyRequest;
 use App\Http\Requests\Portfolio\UpdatePhotographyRequest;
+use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Photography;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -76,7 +77,12 @@ class PhotographyController extends BaseAdminController
      */
     public function show(Photography $photo): View
     {
-        return view('admin.portfolio.photography.show', compact('photo'));
+        list($prev, $next) = Photography::prevAndNextPages($photo->id,
+            'admin.portfolio.photography.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.photography.show', compact('photo', 'prev', 'next'));
     }
 
     /**

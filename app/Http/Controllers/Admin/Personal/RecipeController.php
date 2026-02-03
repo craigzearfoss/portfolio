@@ -72,7 +72,12 @@ class RecipeController extends BaseAdminController
      */
     public function show(Recipe $recipe): View
     {
-        return view('admin.personal.recipe.show', compact('recipe'));
+        list($prev, $next) = Recipe::prevAndNextPages($recipe->id,
+            'admin.personal.recipe.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.personal.recipe.show', compact('recipe', 'prev', 'next'));
     }
 
     /**

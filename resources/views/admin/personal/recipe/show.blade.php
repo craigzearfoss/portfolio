@@ -30,7 +30,7 @@
 
 @section('content')
 
-    <section class="section">
+    <section class="section p-0">
         <div class="container show-container">
             <div class="columns is-12 is-variable">
                 <div class="column is-12-tablet">
@@ -48,6 +48,11 @@
                                 <a>Instructions</a>
                             </li>
                         </ul>
+
+                        <div style="display: inline-block; position: absolute; top: 0; right: 0;">
+                            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+                        </div>
+
                     </div>
 
                     <div class="px-2" id="tab-content">

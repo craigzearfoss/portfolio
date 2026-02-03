@@ -74,7 +74,12 @@ class CertificationController extends BaseAdminController
      */
     public function show(Certification $certification): View
     {
-        return view('admin.portfolio.certification.show', compact('certification'));
+        list($prev, $next) = Certification::prevAndNextPages($certification->id,
+            'admin.portfolio.certification.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.certification.show', compact('certification', 'prev', 'next'));
     }
 
     /**

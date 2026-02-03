@@ -73,7 +73,12 @@ class IndustryController extends BaseAdminController
      */
     public function show(Industry $industry): View
     {
-        return view('admin.career.industry.show', compact('industry'));
+        list($prev, $next) = Industry::prevAndNextPages($industry->id,
+            'admin.career.industry.show',
+            null,
+            ['name', 'asc']);
+
+        return view('admin.career.industry.show', compact('industry', 'prev', 'next'));
     }
 
     /**

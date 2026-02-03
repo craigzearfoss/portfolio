@@ -72,7 +72,12 @@ class CourseController extends BaseAdminController
      */
     public function show(Course $course): View
     {
-        return view('admin.portfolio.course.show', compact('course'));
+        list($prev, $next) = Course::prevAndNextPages($course->id,
+            'admin.portfolio.course.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.course.show', compact('course', 'prev', 'next'));
     }
 
     /**

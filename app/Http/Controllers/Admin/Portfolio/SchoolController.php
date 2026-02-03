@@ -76,7 +76,12 @@ class SchoolController extends BaseAdminController
      */
     public function show(School $school): View
     {
-        return view('admin.portfolio.school.show', compact('school'));
+        list($prev, $next) = School::prevAndNextPages($school->id,
+            'admin.portfolio.school.show',
+            null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.school.show', compact('school', 'prev', 'next'));
     }
 
     /**

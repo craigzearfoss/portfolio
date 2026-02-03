@@ -86,7 +86,12 @@ class JobSkillController extends BaseAdminController
      */
     public function show(JobSkill $jobSkill): View
     {
-        return view('admin.portfolio.job-skill.show', compact('jobSkill'));
+        list($prev, $next) = JobSkill::prevAndNextPages($jobSkill->id,
+            'admin.portfolio.job-skill.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.job-skill.show', compact('jobSkill', 'prev', 'next'));
     }
 
     /**

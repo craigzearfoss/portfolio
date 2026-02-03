@@ -34,11 +34,18 @@ class ApplicationController extends BaseAdminController
 
         $resumeId = $request->resume_id;
         if (!empty($resumeId)) {
+
             $resume = Resume::find($resumeId);
             $applications = Application::where('resume_id', $resumeId)->latest()->paginate($perPage);
+
         } else {
+
             $resume = null;
-            $applications = Application::latest()->paginate($perPage);
+            if (!empty($this->owner)) {
+                $applications = Application::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
+            } else {
+                $applications = Application::latest()->paginate($perPage);
+            }
         }
 
 
@@ -121,7 +128,12 @@ class ApplicationController extends BaseAdminController
             $application = $this->createCoverLetter($application);
         }
 
-        return view('admin.career.application.show', compact('application'));
+        list($prev, $next) = Application::prevAndNextPages($application->id,
+            'admin.career.application.show',
+            $this->owner->id ?? null,
+            ['post_date', 'asc']);
+
+        return view('admin.career.application.show', compact('application', 'prev', 'next'));
     }
 
     /**

@@ -34,7 +34,12 @@ class CompanyController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $companies = Company::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $companies = Company::where('owner_id', $this->owner->id)
+                ->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $companies = Company::orderBy('name', 'asc')->paginate($perPage);
+        }
 
         return view('admin.career.company.index', compact('companies'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -91,7 +96,12 @@ class CompanyController extends BaseAdminController
      */
     public function show(Company $company): View
     {
-        return view('admin.career.company.show', compact('company'));
+        list($prev, $next) = Company::prevAndNextPages($company->id,
+            'admin.career.company.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.career.company.show', compact('company', 'prev', 'next'));
     }
 
     /**

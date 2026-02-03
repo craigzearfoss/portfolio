@@ -29,11 +29,18 @@ class EventController extends BaseAdminController
 
         $applicationId = $request->application_id;
         if (!empty($applicationId)) {
+
             $application = Application::find($applicationId);
             $events = Event::where('application_id', $applicationId)->latest()->paginate($perPage);
+
         } else {
+
             $application = null;
-            $events = Event::latest()->paginate($perPage);
+            if (!empty($this->owner)) {
+                $events = Event::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
+            } else {
+                $events = Event::latest()->paginate($perPage);
+            }
         }
 
         return view('admin.career.event.index', compact('events', 'application'))
@@ -97,7 +104,12 @@ class EventController extends BaseAdminController
      */
     public function show(Event $event): View
     {
-        return view('admin.career.event.show', compact('event'));
+        list($prev, $next) = Event::prevAndNextPages($event->id,
+            'admin.career.event.show',
+            $this->owner->id ?? null,
+            ['post_date', 'asc']);
+
+        return view('admin.career.event.show', compact('event', 'prev', 'next'));
     }
 
     /**

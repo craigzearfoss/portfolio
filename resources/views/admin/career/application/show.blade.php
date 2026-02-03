@@ -61,6 +61,11 @@
                                 <a>Notes</a>
                             </li>
                         </ul>
+
+                        <div style="display: inline-block; position: absolute; top: 0; right: 0;">
+                            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+                        </div>
+
                     </div>
 
                     <div class="px-2" id="tab-content">

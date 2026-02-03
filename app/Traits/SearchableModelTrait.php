@@ -138,4 +138,44 @@ trait SearchableModelTrait
     {
         return self::searchBuilder($filters, $orderBy)->get();
     }
+
+    /**
+     * Returns an array with the urls for the previous page and the next page.
+     *
+     * @param int $id
+     * @param string $route
+     * @param string|null $ownerId
+     * @param array $orderBy
+     * @return null[]
+     */
+    public static function prevAndNextPages(int         $id,
+                                            string      $route,
+                                            string|null $ownerId = null,
+                                            array       $orderBy = ['id', 'asc']): array
+    {
+        $prev = null;
+        $next = null;
+
+        $orderByColumn = is_array($orderBy) ? $orderBy[0] : $orderBy;
+        $orderByDirection = is_array($orderBy) ? $orderBy[1] : 'asc';
+
+        // determine the previous and next resumes
+        $query = self::select('id')->orderBy($orderByColumn, $orderByDirection);
+
+        if (!empty($ownerId)) {
+            $query->where('owner_id', $ownerId);
+        }
+
+        $ids = $query->get()->pluck('id')->toArray();
+        if ($key = array_search($id, $ids)) {
+            if ($prevId = array_key_exists($key - 1, $ids) ? $ids[$key - 1] : null) {
+                $prev = route($route, $prevId);
+            }
+            if ($nextId = array_key_exists($key + 1, $ids) ? $ids[$key + 1] : null) {
+                $next = route($route, $nextId);
+            }
+        }
+
+        return [$prev, $next];
+    }
 }

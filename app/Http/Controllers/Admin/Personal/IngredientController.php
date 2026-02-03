@@ -74,7 +74,12 @@ class IngredientController extends BaseAdminController
      */
     public function show(Ingredient $ingredient): View
     {
-        return view('admin.personal.ingredient.show', compact('ingredient'));
+        list($prev, $next) = Ingredient::prevAndNextPages($ingredient->id,
+            'admin.personal.ingredient.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.personal.ingredient.show', compact('ingredient', 'prev', 'next'));
     }
 
     /**

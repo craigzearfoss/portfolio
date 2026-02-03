@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreFrameworksRequest;
 use App\Http\Requests\Dictionary\UpdateFrameworksRequest;
+use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Framework;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -77,7 +78,12 @@ class FrameworkController extends BaseAdminController
      */
     public function show(Framework $framework): View
     {
-        return view('admin.dictionary.framework.show', compact('framework'));
+        list($prev, $next) = Framework::prevAndNextPages($framework->id,
+            'admin.dictionary.framework.show',
+            null,
+            ['full_name', 'asc']);
+
+        return view('admin.dictionary.framework.show', compact('framework', 'prev', 'next'));
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreCategoriesRequest;
 use App\Http\Requests\Dictionary\UpdateCategoriesRequest;
 use App\Models\Dictionary\Category;
+use App\Models\Personal\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +78,12 @@ class CategoryController extends BaseAdminController
      */
     public function show(Category $category): View
     {
-        return view('admin.dictionary.category.show', compact('category'));
+        list($prev, $next) = Category::prevAndNextPages($category->id,
+            'admin.dictionary.category.show',
+            null,
+            ['full_name', 'asc']);
+
+        return view('admin.dictionary.category.show', compact('category', 'prev', 'next'));
     }
 
     /**

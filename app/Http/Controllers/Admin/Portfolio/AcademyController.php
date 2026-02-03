@@ -74,7 +74,12 @@ class AcademyController extends BaseAdminController
      */
     public function show(Academy $academy): View
     {
-        return view('admin.portfolio.academy.show', compact('academy'));
+        list($prev, $next) = Academy::prevAndNextPages($academy->id,
+            'admin.portfolio.academy.show',
+            null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.academy.show', compact('academy', 'prev', 'next'));
     }
 
     /**

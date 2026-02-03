@@ -65,7 +65,12 @@ class AdminTeamController extends BaseAdminController
      */
     public function show(AdminTeam $adminTeam): View
     {
-        return view('admin.system.admin-team.show', compact('adminTeam'));
+        list($prev, $next) = AdminTeam::prevAndNextPages($adminTeam->id,
+            'admin.system.admin-team.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.admin-team.show', compact('adminTeam', 'prev', 'next'));
     }
 
     /**

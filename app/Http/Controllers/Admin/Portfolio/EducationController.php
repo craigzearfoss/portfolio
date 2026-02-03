@@ -72,7 +72,12 @@ class EducationController extends BaseAdminController
      */
     public function show(Education $education): View
     {
-        return view('admin.portfolio.education.show', compact('education'));
+        list($prev, $next) = Education::prevAndNextPages($education->id,
+            'admin.portfolio.education.show',
+            $this->owner->id ?? null,
+            ['graduation_year', 'desc']);
+
+        return view('admin.portfolio.education.show', compact('education', 'prev', 'next'));
     }
 
     /**

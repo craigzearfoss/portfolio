@@ -65,7 +65,12 @@ class UserGroupController extends BaseUserController
      */
     public function show(UserGroup $userGroup): View
     {
-        return view('admin.system.user-group.show', compact('userGroup'));
+        list($prev, $next) = UserGroup::prevAndNextPages($userGroup->id,
+            'admin.system.user-group.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.user-group.show', compact('userGroup', 'prev', 'next'));
     }
 
     /**

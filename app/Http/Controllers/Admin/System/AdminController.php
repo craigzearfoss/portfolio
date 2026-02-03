@@ -88,7 +88,12 @@ class AdminController extends BaseAdminController
     {
         $thisAdmin = $admin;
 
-        return view('admin.system.admin.show', compact('thisAdmin'));
+        list($prev, $next) = Admin::prevAndNextPages($admin->id,
+            'admin.system.admin.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.admin.show', compact('thisAdmin', 'prev', 'next'));
     }
 
     /**

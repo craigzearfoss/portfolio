@@ -7,6 +7,7 @@ use App\Http\Requests\Career\StoreCommunicationsRequest;
 use App\Http\Requests\Career\UpdateCommunicationsRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
+use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -29,11 +30,18 @@ class CommunicationController extends BaseAdminController
 
         $applicationId = $request->application_id;
         if (!empty($applicationId)) {
+
             $application = Application::find($applicationId);
             $communications = Communication::where('application_id', $applicationId)->latest()->paginate($perPage);
+
         } else {
+
             $application = null;
-            $communications = Communication::latest()->paginate($perPage);
+            if (!empty($this->owner)) {
+                $communications = Communication::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
+            } else {
+                $communications = Communication::latest()->paginate($perPage);
+            }
         }
 
         return view('admin.career.communication.index', compact('communications', 'application'))
@@ -97,7 +105,12 @@ class CommunicationController extends BaseAdminController
      */
     public function show(Communication $communication): View
     {
-        return view('admin.career.communication.show', compact('communication'));
+        list($prev, $next) = Communication::prevAndNextPages($communication->id,
+            'admin.career.communication.show',
+            $this->owner->id ?? null,
+            ['date', 'asc']);
+
+        return view('admin.career.communication.show', compact('communication', 'prev', 'next'));
     }
 
     /**

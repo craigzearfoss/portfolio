@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Personal;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipeStepsRequest;
 use App\Http\Requests\Personal\UpdateRecipeStepsRequest;
+use App\Models\Personal\Ingredient;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
 use Illuminate\Http\RedirectResponse;
@@ -81,7 +82,12 @@ class RecipeStepController extends BaseAdminController
      */
     public function show(RecipeStep $recipeStep): View
     {
-        return view('admin.personal.recipe-step.show', compact('recipeStep'));
+        list($prev, $next) = RecipeStep::prevAndNextPages($recipeStep->id,
+            'admin.personal.recipe-step.show',
+            $this->owner->id ?? null,
+            ['id', 'asc']);
+
+        return view('admin.personal.recipe-step.show', compact('recipeStep', 'prev', 'next'));
     }
 
     /**

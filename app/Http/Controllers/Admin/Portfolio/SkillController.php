@@ -72,7 +72,12 @@ class SkillController extends BaseAdminController
      */
     public function show(Skill $skill): View
     {
-        return view('admin.portfolio.skill.show', compact('skill'));
+        list($prev, $next) = Skill::prevAndNextPages($skill->id,
+            'admin.portfolio.skill.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.skill.show', compact('skill', 'prev', 'next'));
     }
 
     /**

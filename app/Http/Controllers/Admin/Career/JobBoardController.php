@@ -75,7 +75,12 @@ class JobBoardController extends BaseAdminController
      */
     public function show(JobBoard $jobBoard): View
     {
-        return view('admin.career.job-board.show', compact('jobBoard'));
+        list($prev, $next) = JobBoard::prevAndNextPages($jobBoard->id,
+            'admin.career.job-board.show',
+            null,
+            ['name', 'asc']);
+
+        return view('admin.career.job-board.show', compact('jobBoard', 'prev', 'next'));
     }
 
     /**

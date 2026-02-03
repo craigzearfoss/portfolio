@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreDatabasesRequest;
 use App\Http\Requests\Dictionary\UpdateDatabasesRequest;
+use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Database;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +79,12 @@ class DatabaseController extends BaseAdminController
      */
     public function show(Database $database): View
     {
-        return view('admin.dictionary.database.show', compact('database'));
+        list($prev, $next) = Database::prevAndNextPages($database->id,
+            'admin.dictionary.database.show',
+            null,
+            ['full_name', 'asc']);
+
+        return view('admin.dictionary.database.show', compact('database', 'prev', 'next'));
     }
 
     /**

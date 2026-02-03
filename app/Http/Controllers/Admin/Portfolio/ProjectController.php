@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreProjectsRequest;
 use App\Http\Requests\Portfolio\UpdateProjectsRequest;
+use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,7 +73,12 @@ class ProjectController extends BaseAdminController
      */
     public function show(Project $project): View
     {
-        return view('admin.portfolio.project.show', compact('project'));
+        list($prev, $next) = Project::prevAndNextPages($project->id,
+            'admin.portfolio.project.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.project.show', compact('project', 'prev', 'next'));
     }
 
     /**

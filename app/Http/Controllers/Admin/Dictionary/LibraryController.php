@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreLibrariesRequest;
 use App\Http\Requests\Dictionary\UpdateLibrariesRequest;
+use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Library;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -77,7 +78,12 @@ class LibraryController extends BaseAdminController
      */
     public function show(Library $library): View
     {
-        return view('admin.dictionary.library.show', compact('library'));
+        list($prev, $next) = Library::prevAndNextPages($library->id,
+            'admin.dictionary.library.show',
+            null,
+            ['full_name', 'asc']);
+
+        return view('admin.dictionary.library.show', compact('library', 'prev', 'next'));
     }
 
     /**

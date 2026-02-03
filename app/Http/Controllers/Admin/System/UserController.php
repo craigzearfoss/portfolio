@@ -84,7 +84,12 @@ class UserController extends BaseUserController
     {
         $thisUser = $user;
 
-        return view('admin.system.user.show', compact('thisUser'));
+        list($prev, $next) = User::prevAndNextPages($user->id,
+            'admin.system.user.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.user.show', compact('thisUser', 'next', 'prev'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreArtRequest;
 use App\Http\Requests\Portfolio\UpdateArtRequest;
+use App\Models\Portfolio\Academy;
 use App\Models\Portfolio\Art;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -73,7 +74,12 @@ class ArtController extends BaseAdminController
      */
     public function show(Art $art): View
     {
-        return view('admin.portfolio.art.show', compact('art'));
+        list($prev, $next) = Art::prevAndNextPages($art->id,
+            'admin.portfolio.art.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.art.show', compact('art', 'prev', 'next'));
     }
 
     /**

@@ -29,11 +29,18 @@ class NoteController extends BaseAdminController
 
         $applicationId = $request->application_id;
         if (!empty($applicationId)) {
+
             $application = Application::find($applicationId);
             $notes = Note::where('application_id', $applicationId)->latest()->paginate($perPage);
+
         } else {
+
             $application = null;
-            $notes = Note::latest()->paginate($perPage);
+            if (!empty($this->owner)) {
+                $notes = Note::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
+            } else {
+                $notes = Note::latest()->paginate($perPage);
+            }
         }
 
         return view('admin.career.note.index', compact('notes', 'application'))
@@ -97,7 +104,12 @@ class NoteController extends BaseAdminController
      */
     public function show(Note $note): View
     {
-        return view('admin.career.note.show', compact('note'));
+        list($prev, $next) = Note::prevAndNextPages($note->id,
+            'admin.career.note.show',
+            $this->owner->id ?? null,
+            ['created_at', 'asc']);
+
+        return view('admin.career.note.show', compact('note', 'prev', 'next'));
     }
 
     /**

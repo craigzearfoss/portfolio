@@ -30,7 +30,12 @@ class ContactController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $contacts = Contact::orderBy('name', 'asc')->paginate($perPage);
+        if (!empty($this->owner)) {
+            $contacts = Contact::where('owner_id', $this->owner->id)
+                ->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $contacts = Contact::orderBy('name', 'asc')->paginate($perPage);
+        }
 
         return view('admin.career.contact.index', compact('contacts'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -68,7 +73,12 @@ class ContactController extends BaseAdminController
      */
     public function show(Contact $contact): View
     {
-        return view('admin.career.contact.show', compact('contact'));
+        list($prev, $next) = Contact::prevAndNextPages($contact->id,
+            'admin.career.contact.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.career.contact.show', compact('contact', 'prev', 'next'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreStacksRequest;
 use App\Http\Requests\Dictionary\UpdateStacksRequest;
+use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Stack;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -77,7 +78,12 @@ class StackController extends BaseAdminController
      */
     public function show(Stack $stack): View
     {
-        return view('admin.dictionary.stack.show', compact('stack'));
+        list($prev, $next) =Stack::prevAndNextPages($stack->id,
+            'admin.dictionary.stack.show',
+            null,
+            ['full_name', 'asc']);
+
+        return view('admin.dictionary.stack.show', compact('stack', 'prev', 'next'));
     }
 
     /**

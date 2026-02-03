@@ -65,7 +65,12 @@ class AdminGroupController extends BaseAdminController
      */
     public function show(AdminGroup $adminGroup): View
     {
-        return view('admin.system.admin-group.show', compact('adminGroup'));
+        list($prev, $next) = AdminGroup::prevAndNextPages($adminGroup->id,
+            'admin.system.admin-group.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.admin-group.show', compact('adminGroup', 'prev', 'next'));
     }
 
     /**

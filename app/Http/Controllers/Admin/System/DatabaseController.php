@@ -36,6 +36,11 @@ class DatabaseController extends BaseAdminController
      */
     public function show(Database $database): View
     {
-        return view('admin.system.database.show', compact('database'));
+        list($prev, $next) = Database::prevAndNextPages($database->id,
+            'admin.system.database.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.database.show', compact('database', 'prev', 'next'));
     }
 }

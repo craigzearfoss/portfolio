@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Personal;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipeIngredientsRequest;
 use App\Http\Requests\Personal\UpdateRecipeIngredientsRequest;
+use App\Models\Personal\Ingredient;
 use App\Models\Personal\RecipeIngredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -79,7 +80,12 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function show(RecipeIngredient $recipeIngredient): View
     {
-        return view('admin.personal.recipe-ingredient.show', compact('recipeIngredient'));
+        list($prev, $next) = Ingredient::prevAndNextPages($recipeIngredient->id,
+            'admin.personal.recipe-ingredient.show',
+            $this->owner->id ?? null,
+            ['id', 'asc']);
+
+        return view('admin.personal.recipe-ingredient.show', compact('recipeIngredient', 'prev', 'next'));
     }
 
     /**

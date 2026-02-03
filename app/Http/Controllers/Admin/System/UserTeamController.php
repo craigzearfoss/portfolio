@@ -65,7 +65,12 @@ class UserTeamController extends BaseUserController
      */
     public function show(UserTeam $userTeam): View
     {
-        return view('admin.system.user-team.show', compact('userTeam'));
+        list($prev, $next) = UserTeam::prevAndNextPages($userTeam->id,
+            'admin.system.user-team.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.user-team.show', compact('userTeam', 'prev', 'next'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreOperatingSystemsRequest;
 use App\Http\Requests\Dictionary\UpdateOperatingSystemsRequest;
+use App\Models\Dictionary\Category;
 use App\Models\Dictionary\OperatingSystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -77,7 +78,12 @@ class OperatingSystemController extends BaseAdminController
      */
     public function show(OperatingSystem $operatingSystem): View
     {
-        return view('admin.dictionary.operating-system.show', compact('operatingSystem'));
+        list($prev, $next) = OperatingSystem::prevAndNextPages($operatingSystem->id,
+            'admin.dictionary.operating-system.show',
+            null,
+            ['full_name', 'asc']);
+
+        return view('admin.dictionary.operating-system.show', compact('operatingSystem', 'prev', 'next'));
     }
 
     /**

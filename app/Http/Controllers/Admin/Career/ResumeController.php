@@ -31,12 +31,30 @@ class ResumeController extends BaseAdminController
 
         $applicationId = $request->application_id;
         if (!empty($applicationId)) {
+
             $application = Application::find($applicationId);
-            $resumes = Resume::where('application_id', $applicationId)->orderBy('date', 'desc')
-                ->orderby('name', 'asc')->paginate($perPage);
+            if (!empty($this->owner)) {
+                $resumes = Resume::where('owner_id', $this->owner->id)
+                    ->where('application_id', $applicationId)
+                    ->orderBy('date', 'desc')
+                    ->orderby('name', 'asc')->paginate($perPage);
+            } else {
+                $resumes = Resume::where('application_id', $applicationId)
+                    ->orderBy('date', 'desc')
+                    ->orderby('name', 'asc')->paginate($perPage);
+            }
+
         } else {
+
             $application = null;
-            $resumes = Resume::orderBy('date', 'desc')->orderby('name', 'asc')->paginate($perPage);
+            if (!empty($this->owner)) {
+                $resumes = Resume::where('owner_id', $this->owner->id)
+                    ->orderBy('date', 'desc')
+                    ->orderby('name', 'asc')->paginate($perPage);
+            } else {
+                $resumes = Resume::orderBy('date', 'desc')
+                    ->orderby('name', 'asc')->paginate($perPage);
+            }
         }
 
         return view('admin.career.resume.index', compact('resumes', 'application'))
@@ -101,22 +119,10 @@ class ResumeController extends BaseAdminController
      */
     public function show(Resume $resume): View
     {
-        // determine the previous and next resumes
-        $resumeIds = Resume::select('id')
-            ->where('owner_id', $this->owner->id)
-            ->orderBy('date', 'asc')
-            ->get()->pluck('id')->toArray();
-
-        $prev = null;
-        $next = null;
-        if ($key = array_search($resume->id, $resumeIds)) {
-            if ($prevId = array_key_exists($key - 1, $resumeIds) ? $resumeIds[$key - 1] : null) {
-                $prev = route('admin.career.resume.show', $prevId);
-            }
-            if ($nextId = array_key_exists($key + 1, $resumeIds) ? $resumeIds[$key + 1] : null) {
-                $next = route('admin.career.resume.show', $nextId);
-            }
-        }
+        list($prev, $next) = Resume::prevAndNextPages($resume->id,
+            'admin.career.resume.show',
+            $this->owner->id ?? null,
+            ['date', 'asc']);
 
         return view('admin.career.resume.show', compact('resume', 'prev', 'next'));
     }

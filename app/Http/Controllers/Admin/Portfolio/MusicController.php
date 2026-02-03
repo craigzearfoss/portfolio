@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreMusicRequest;
 use App\Http\Requests\Portfolio\UpdateMusicRequest;
+use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Music;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,7 +73,12 @@ class MusicController extends BaseAdminController
      */
     public function show(Music $music): View
     {
-        return view('admin.portfolio.music.show', compact('music'));
+        list($prev, $next) = Music::prevAndNextPages($music->id,
+            'admin.portfolio.music.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.music.show', compact('music', 'prev', 'next'));
     }
 
     /**

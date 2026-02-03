@@ -72,7 +72,12 @@ class JobController extends BaseAdminController
      */
     public function show(Job $job): View
     {
-        return view('admin.portfolio.job.show', compact('job'));
+        list($prev, $next) = Job::prevAndNextPages($job->id,
+            'admin.portfolio.job.show',
+            $this->owner->id ?? null,
+            ['company', 'asc']);
+
+        return view('admin.portfolio.job.show', compact('job', 'prev', 'next'));
     }
 
     /**

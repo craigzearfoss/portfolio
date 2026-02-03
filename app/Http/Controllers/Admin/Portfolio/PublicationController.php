@@ -72,7 +72,12 @@ class PublicationController extends BaseAdminController
      */
     public function show(Publication $publication): View
     {
-        return view('admin.portfolio.publication.show', compact('publication'));
+        list($prev, $next) = Publication::prevAndNextPages($publication->id,
+            'admin.portfolio.publication.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.portfolio.publication.show', compact('publication', 'prev', 'next'));
     }
 
     /**
