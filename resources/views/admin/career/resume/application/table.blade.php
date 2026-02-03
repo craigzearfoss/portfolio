@@ -16,22 +16,28 @@ $notes = $notes ?? [];
 
         <tr>
             <td>
-                company
+                @include('admin.components.link', [
+                    'name' => $application->company->name,
+                    'href' => route('admin.career.company.show', $application->company)
+                ])
             </td>
             <td>
-                {{ $application['role'] ?? '' }}
+                @include('admin.components.link', [
+                    'name' => $application->role,
+                    'href' => route('admin.career.application.show', $application)
+                ])
             </td>
             <td>
-                @include('admin.components.checkmark', [ 'checked' => !empty($application['active']) ])
+                @include('admin.components.checkmark', [ 'checked' => !empty($application->active) ])
             </td>
             <td>
-                {{ shortDateTime($application['post_date']) }}
+                {{ !empty($application->post_date) ? date("m/d/Y", strtotime($application->post_date)) : '' }}
             </td>
             <td>
-                {{ shortDateTime($application['apply_date']) }}
+                {{ !empty($application->apply_date) ? date("m/d/Y", strtotime($application->apply_date)) : '' }}
             </td>
             <td>
-                {{ shortDateTime($application['close_date']) }}
+                {{ !empty($application->close_date) ? date("m/d/Y", strtotime($application->close_date)) : '' }}
             </td>
         </tr>
 

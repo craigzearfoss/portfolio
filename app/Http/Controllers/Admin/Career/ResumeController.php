@@ -101,7 +101,24 @@ class ResumeController extends BaseAdminController
      */
     public function show(Resume $resume): View
     {
-        return view('admin.career.resume.show', compact('resume'));
+        // determine the previous and next resumes
+        $resumeIds = Resume::select('id')
+            ->where('owner_id', $this->owner->id)
+            ->orderBy('date', 'asc')
+            ->get()->pluck('id')->toArray();
+
+        $prev = null;
+        $next = null;
+        if ($key = array_search($resume->id, $resumeIds)) {
+            if ($prevId = array_key_exists($key - 1, $resumeIds) ? $resumeIds[$key - 1] : null) {
+                $prev = route('admin.career.resume.show', $prevId);
+            }
+            if ($nextId = array_key_exists($key + 1, $resumeIds) ? $resumeIds[$key + 1] : null) {
+                $next = route('admin.career.resume.show', $nextId);
+            }
+        }
+
+        return view('admin.career.resume.show', compact('resume', 'prev', 'next'));
     }
 
     /**
@@ -146,7 +163,6 @@ class ResumeController extends BaseAdminController
         }
 
         $resume->update($request->validated());
-
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
