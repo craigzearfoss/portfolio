@@ -214,6 +214,9 @@ div.content ul.menu-list li {
     list-style: none;
 }
 
+div.action-button-panel {
+    white-space: nowrap;
+}
 div.action-button-panel form.delete-resource {
     display: inline;
 }

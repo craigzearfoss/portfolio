@@ -1460,7 +1460,6 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into Career\\CoverLetter ...\n";
 
-        //`id`, `owner_id`, `application_id
         $data = [
             [
                 'owner_id'       => $this->adminId,
@@ -1665,7 +1664,7 @@ EOD,
             [
                 'owner_id'       => $this->adminId,
                 'application_id' => $this->applications['vorys-sater-seymour-and-pease-llp'],
-                'name'           => 'Vorys, Ssater, Seymour and Pease LLP',
+                'name'           => 'Vorys, Sater, Seymour and Pease LLP',
                 'slug'           => 'vorys-sater-seymour-and-pease-llp',
                 'date'           => null,
                 'content'        => '',
