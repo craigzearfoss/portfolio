@@ -48,68 +48,116 @@
 
     <hr class="navbar-divider">
 
+    <div style="height: 12px; margin: 0; padding: 0;"></div>
+
     @if(!empty($coverLetter))
 
-        <div style="height: 12px; margin: 0; padding: 0;"></div>
+        <div style="display: flex; align-items: flex-start; column-gap: 20px;">
 
-        @include('admin.components.show-row-link', [
-            'name'  => 'date',
-            'value' => longDate($coverLetter->date),
-        ])
+            <div style="flex: 1; padding: 5px;">
 
-        @include('admin.components.show-row', [
-            'name'  => 'content',
-            'value' => $coverLetter->content
-        ])
+                @include('admin.components.show-row-link', [
+                    'name'  => 'date',
+                    'value' => longDate($coverLetter->date),
+                ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'url',
-            'href'   => $coverLetter->url,
-            'target' => '_blank'
-        ])
+                @if (!empty($coverLetter->url))
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $coverLetter->notes
-        ])
+                    @if(in_array(Illuminate\Support\Facades\File::extension($coverLetter->fillepath), ['doc', 'docx']))
 
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($coverLetter->link_name) ? $coverLetter->link_name : 'link',
-            'href'   => $coverLetter->link,
-            'target' => '_blank'
-        ])
+                        @include('admin.components.show-row-link', [
+                            'name'   => 'Word doc',
+                            'label'  => '<i class="fa-solid fa-download"></i>download',
+                            'href'   => route('download-from-public', [ 'file' => $coverLetter->url, 'name' => $coverLetter->slug ]),
+                            'target' => '_blank',
+                            'style'  => 'white-space: nowrap'
+                        ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $coverLetter->description
-        ])
+                        <div style="flex: 1; padding: 5px;">
+                            <iframe src="{{ str_replace('\\', '/', $coverLetter->url) }}"
+                                    style="width:100%; min-height:300px; border: 1px solid #ccc;">
+                            </iframe>
+                        <div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => $coverLetter->disclaimer
-                       ])
-        ])
+                    @else
 
-        @include('admin.components.show-row-images', [
-            'resource' => $coverLetter,
-            'download' => true,
-            'external' => true,
-        ])
+                        @include('admin.components.show-row-link', [
+                            'name'   => 'PDF doc',
+                            'label'  => '<i class="fa-solid fa-download"></i>download',
+                            'href'   => route('download-from-public', [ 'file' => $coverLetter->url, 'name' => $coverLetter->slug ]),
+                            'target' => '_blank',
+                            'style'  => 'white-space: nowrap'
+                        ])
 
-        @include('admin.components.show-row-settings', [
-            'resource' => $coverLetter,
-        ])
+                            <div style="flex: 1; padding: 5px;">
+                                <iframe src="{{ route('view-document', ['file' => $coverLetter->url]) }}"
+                                        style="width:100%; min-height:300px; border: 1px solid #ccc;">
+                                </iframe>
+                            <div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($coverLetter->created_at)
-        ])
+                    @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($coverLetter->updated_at)
-        ])
+                @endif
+
+                @include('admin.components.show-row', [
+                    'name'  => 'content',
+                    'value' => $coverLetter->content
+                ])
+
+                @include('admin.components.show-row-link', [
+                    'name'   => 'url',
+                    'href'   => $coverLetter->url,
+                    'target' => '_blank'
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'notes',
+                    'value' => $coverLetter->notes
+                ])
+
+                @include('admin.components.show-row-link', [
+                    'name'   => !empty($coverLetter->link_name) ? $coverLetter->link_name : 'link',
+                    'href'   => $coverLetter->link,
+                    'target' => '_blank'
+                ])
+
+                @if (!empty($coverLetter->description))
+                    @include('admin.components.show-row', [
+                        'name'  => 'description',
+                        'value' => $coverLetter->description
+                    ])
+                @endif
+
+                @include('admin.components.show-row', [
+                    'name'  => 'disclaimer',
+                    'value' => view('admin.components.disclaimer', [
+                                    'value' => $coverLetter->disclaimer
+                               ])
+                ])
+
+                @include('admin.components.show-row-images', [
+                    'resource' => $coverLetter,
+                    'download' => true,
+                    'external' => true,
+                ])
+
+                @include('admin.components.show-row-settings', [
+                    'resource' => $coverLetter,
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'created at',
+                    'value' => longDateTime($coverLetter->created_at)
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'updated at',
+                    'value' => longDateTime($coverLetter->updated_at)
+                ])
+
+            </div>
+
+        </div>
 
     @endif
 

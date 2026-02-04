@@ -67,10 +67,6 @@
                                 <a>Applications</a>
                             </li>
 
-                            <div style="display: inline-block; position: absolute; top: 0; right: 0;">
-                                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-                            </div>
-
                         </ul>
 
                         <div style="display: inline-block; position: absolute; top: 0; right: 0;">
@@ -95,15 +91,15 @@
                                     'value' => longDate($resume->date)
                                 ])
 
-                                @if(!empty($resume->pdf_url))
+                                @if(!empty($resume->pdf_filepath))
 
-                                    <iframe src="{{ str_replace('\\', '/', $resume->pdf_url) }}"
+                                    <iframe src="{{ str_replace('\\', '/', $resume->pdf_filepath) }}"
                                             style="width:100%; min-height:800px; border: 1px solid #ccc;">
                                     </iframe>
 
-                                @elseif(!empty($resume->doc_url))
+                                @elseif(!empty($resume->doc_filepath))
 
-                                    <iframe src="{{ route('view-document', ['file' => $resume->pdf_url]) }}"
+                                    <iframe src="{{ route('view-document', ['file' => $resume->doc_filepath]) }}"
                                             style="width:100%; min-height:800px; border: 1px solid #ccc;">
                                     </iframe>
 

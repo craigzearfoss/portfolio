@@ -163,6 +163,7 @@ class BaseController extends Controller
         Cookie::queue($userIdCookieName, $user_id, 60);
 
         // inject variables into blade templates
+        view()->share('envType', $this->envType);
         view()->share('admin', $this->admin);
         view()->share('user', $this->user);
         view()->share('owner', $this->owner);

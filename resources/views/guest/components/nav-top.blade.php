@@ -100,7 +100,7 @@
 
                             @include('guest.components.nav-link-top', [
                                 'name'   => $menuItem->title,
-                                'href'   => false,
+                                'href'   => $menuItem->url ?? false,
                                 'class'  => 'navbar-link is-arrowless',
                                 'icon'   => ''
                             ])

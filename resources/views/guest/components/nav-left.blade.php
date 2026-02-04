@@ -1,56 +1,31 @@
 @if($menuItems = $menuService->leftMenu())
 
     @php
-        $isAdminEnv = !empty($currentRouteName) && (explode('.', $currentRouteName)[0] == 'admin');
+        $menuService      = $menuService ?? null;
+        $currentRouteName = $currentRouteName ??  Route::currentRouteName();
+        $admin            = $admin ?? null;
+        $user             = $user ?? null;
+        $owner            = $owner ?? null;
     @endphp
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
             <div class="aside-tools-label">
 
+                @include('guest.components.link', [
+                    'name'  => 'Home',
+                    'href'  => route('guest.index'),
+                    'class' => 'has-text-primary',
+                    'style' => 'font-size: 1.2em; font-weight: 700; color: #ffe08a !important;',
+                ])
+
                 @if(isAdmin())
 
-                    @include('guest.components.link', [
-                        'name'  => 'Home',
-                        'href'  => route('guest.index'),
-                        'class' => 'has-text-primary',
-                        'style' => array_merge(
-                            [
-                                'margin-right: 8px',
-                                'font-size: 1.4em',
-                                'font-weight: 700',
-                                'padding: 4px',
-                                'border-radius: 6px',
-                            ],
-                            !$isAdminEnv
-                                ? ['opacity: 0.;', 'border: 2px inset gray', 'background-color: rgb(38, 41, 48)']
-                                : ['border: 2px outset gray']
-                        ),
-                    ])
+                    /
 
                     @include('guest.components.link', [
                         'name'  => 'Admin',
-                        'href'  => route('guest.index'),
-                        'class' => 'has-text-primary',
-                        'style' => array_merge(
-                            [
-                                'margin-right: 8px',
-                                'font-size: 1.4em',
-                                'font-weight: 700',
-                                'padding: 4px',
-                                'border-radius: 6px',
-                            ],
-                            $isAdminEnv
-                                ? ['opacity: 0.;', 'border: 2px inset gray', 'background-color: rgb(38, 41, 48)']
-                                : ['border: 2px outset gray']
-                        ),
-                    ])
-
-                @else
-
-                    @include('guest.components.link', [
-                        'name'  => 'Home',
-                        'href'  => route('guest.index'),
+                        'href'  => route('admin.dashboard'),
                         'class' => 'has-text-primary',
                         'style' => 'font-size: 1.2em; font-weight: 700',
                     ])

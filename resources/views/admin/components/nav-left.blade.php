@@ -12,50 +12,21 @@
         <div class="aside-tools">
             <div class="aside-tools-label">
 
-                @if(isAdmin())
+                @include('guest.components.link', [
+                    'name'  => 'Home',
+                    'href'  => route('guest.index'),
+                    'class' => 'has-text-primary',
+                    'style' => 'font-size: 1.2em; font-weight: 700',
+                ])
 
-                    @include('admin.components.link', [
-                        'name'  => 'Home',
-                        'href'  => route('guest.index'),
-                        'class' => 'has-text-primary',
-                        'style' => array_merge(
-                            [
-                                'margin-right: 8px',
-                                'font-size: 1.4em',
-                                'font-weight: 700',
-                                'padding: 4px',
-                                'border-radius: 6px',
-                            ],
-                            ['border: 2px outset gray']
-                        ),
-                    ])
+                /
 
-                    @include('admin.components.link', [
-                        'name'  => 'Admin',
-                        'href'  => route('admin.index'),
-                        'class' => 'has-text-primary',
-                        'style' => array_merge(
-                            [
-                                'margin-right: 8px',
-                                'font-size: 1.4em',
-                                'font-weight: 700',
-                                'padding: 4px',
-                                'border-radius: 6px',
-                            ],
-                            ['border: 2px outset gray']
-                        ),
-                    ])
-
-                @else
-
-                    @include('admin.components.link', [
-                        'name'  => 'Home',
-                        'href'  => route('guest.index'),
-                        'class' => 'has-text-primary',
-                        'style' => 'font-size: 1.2em; font-weight: 700',
-                    ])
-
-                @endif
+                @include('guest.components.link', [
+                    'name'  => 'Admin',
+                    'href'  => route('admin.dashboard'),
+                    'class' => 'has-text-primary',
+                    'style' => 'font-size: 1.2em; font-weight: 700; color: #ffe08a !important;',
+                ])
 
             </div>
         </div>
@@ -84,69 +55,72 @@
                 </h2>
                 <hr class="mt-0 mb-0 mr-3" style="color: #727c8f; background-color: #727c8f;">
 
-
             @endif
 
         </div>
 
-        @for ($i = 0; $i < count($menuItems); $i++)
+        @if (!in_array($currentRouteName, ['admin.login', 'admin.login-submit']))
 
-            <ul class="menu is-menu-main" style="font-size: 1rem;">
+            @for ($i = 0; $i < count($menuItems); $i++)
 
-                <p class="menu-label menu-label-left">
-                    @include('admin.components.nav-link-left', [
-                        'level'  => 1,
-                        'name'   => $menuItems[$i]->title,
-                        'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
-                        'active' => $menuItems[$i]->active,
-                        'class'  => 'has-text-white'
-                    ])
-                </p>
+                <ul class="menu is-menu-main" style="font-size: 1rem;">
 
-                @if(!empty($menuItems[$i]->children))
+                    <p class="menu-label menu-label-left">
+                        @include('admin.components.nav-link-left', [
+                            'level'  => 1,
+                            'name'   => $menuItems[$i]->title,
+                            'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
+                            'active' => $menuItems[$i]->active,
+                            'class'  => 'has-text-white'
+                        ])
+                    </p>
 
-                    <ul class="menu-list pl-2" style="margin-left: 1em;">
+                    @if(!empty($menuItems[$i]->children))
 
-                        @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
-                            <li>
-                                @include('admin.components.nav-link-left', [
-                                    'level'  => 2,
-                                    'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
-                                    'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
-                                    'active' => $menu2Item->active,
-                                    'icon'   => !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle'
-                                ])
+                        <ul class="menu-list pl-2" style="margin-left: 1em;">
 
-                                @if(!empty($menu2Item->children))
-    @php //@TODO: This isn't working @endphp
-                                    <ul class="menu-list pl-2" style="margin-left: 1em;">
+                            @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
+                                <li>
+                                    @include('admin.components.nav-link-left', [
+                                        'level'  => 2,
+                                        'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
+                                        'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
+                                        'active' => $menu2Item->active,
+                                        'icon'   => !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle'
+                                    ])
 
-                                        @foreach ($menu2Item->children as $menu3Item)
-                                        <li>
-                                            @include('admin.components.nav-link-left', [
-                                                'level'  => 3,
-                                                'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
-                                                'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
-                                                'active' => $menu3Item->active,
-                                                'icon'   => !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle'
-                                            ])
-                                        </li>
-                                        @endforeach
+                                    @if(!empty($menu2Item->children))
+        @php //@TODO: This isn't working @endphp
+                                        <ul class="menu-list pl-2" style="margin-left: 1em;">
 
-                                    </ul>
+                                            @foreach ($menu2Item->children as $menu3Item)
+                                            <li>
+                                                @include('admin.components.nav-link-left', [
+                                                    'level'  => 3,
+                                                    'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
+                                                    'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
+                                                    'active' => $menu3Item->active,
+                                                    'icon'   => !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle'
+                                                ])
+                                            </li>
+                                            @endforeach
 
-                                @endif
+                                        </ul>
 
-                            </li>
-                        @endforeach
+                                    @endif
 
-                    </ul>
+                                </li>
+                            @endforeach
 
-                @endif
+                        </ul>
 
-            </ul>
+                    @endif
 
-        @endfor
+                </ul>
+
+            @endfor
+
+        @endif
 
     </aside>
 

@@ -379,8 +379,8 @@ EOD,
                 'slug'        => '',
                 'date'        => '0000-00-00',
                 'primary'     => 0,
-                'doc_url'     => null,
-                'pdf_url'     => null,
+                'doc_filepath'     => null,
+                'pdf_filepath'     => null,
                 'public'      => 0,
             ]
             */

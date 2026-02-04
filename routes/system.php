@@ -68,6 +68,12 @@ Route::name('user.')->group(function () {
 // admin routes
 // ---------------------------------------------------------------------------------------------------------------------
 Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('about', [IndexController::class, 'about'])->name('about');
+    Route::get('contact', [IndexController::class, 'contact'])->name('contact');
+    Route::post('contact/store', [IndexController::class, 'storeMessage'])->name('contact.storeMessage');
+    Route::get('privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
+    Route::get('terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
+
     Route::get('forgot-password', [AdminIndexController::class, 'forgot_password'])->name('forgot-password');
     Route::post('forgot-password', [AdminIndexController::class, 'forgot_password'])->name('forgot-password-submit');
     Route::get('forgot-username', [AdminIndexController::class, 'forgot_username'])->name('forgot-username');

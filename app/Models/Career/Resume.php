@@ -33,8 +33,8 @@ class Resume extends Model
         'date',
         'primary',
         'content',
-        'doc_url',
-        'pdf_url',
+        'doc_filepath',
+        'pdf_filepath',
         'file_type',
         'notes',
         'link',
@@ -73,9 +73,8 @@ class Resume extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'content', 'public', 'readonly',
-        'root', 'disabled',
-        'demo'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'doc_filepath', 'pdf_filepath',
+        'content', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['date', 'desc'];
 
     protected static function booted()

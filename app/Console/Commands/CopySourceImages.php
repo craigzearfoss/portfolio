@@ -316,11 +316,11 @@ class CopySourceImages extends Command
 
                             $coverLetter = CoverLetter::withoutGlobalScope(AdminPublicScope::class)
                                 ->find($coverLetterId);
-                            $coverLetter->url = $relativeDestPath;
+                            $coverLetter->filepath = $relativeDestPath;
                             $coverLetter->save();
 
                         } catch (\Throwable $e) {
-                            $this->failedUpdates[] = $coverLetterId . ' [url] => ' . $relativeDestPath;
+                            $this->failedUpdates[] = $coverLetterId . ' [filepath] => ' . $relativeDestPath;
                         }
                     }
                 }
@@ -421,14 +421,14 @@ class CopySourceImages extends Command
                                 ->find($resumeId);
 //dd([$resume, $fileExt, $relativeDestPath]);
                             if ($fileExt == 'pdf') {
-                                $resume->pdf_url = $relativeDestPath;
+                                $resume->pdf_filepath = $relativeDestPath;
                             } else {
-                                $resume->doc_url = $relativeDestPath;
+                                $resume->doc_filepath = $relativeDestPath;
                             }
                             $resume->save();
 
                         } catch (\Throwable $e) {
-                            $this->failedUpdates[] = $resumeId . ' [url] => ' . $relativeDestPath;
+                            $this->failedUpdates[] = $resumeId . ' [filepath] => ' . $relativeDestPath;
                         }
                     }
                 }

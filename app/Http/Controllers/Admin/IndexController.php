@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\MessageStoreRequest;
 use App\Mail\ResetPassword;
 use App\Models\System\Admin;
 use App\Models\System\Message;
@@ -214,6 +215,39 @@ class IndexController extends BaseAdminController
             ->with('success', 'Your password has been changed. You can login with your new password.');
     }
 
+    public function about(): View
+    {
+        return view(themedTemplate('system.about'));
+    }
+
+    public function contact(): View
+    {
+        return view(themedTemplate('system.contact'));
+    }
+
+    /**
+     * Store a submitted contact message in storage.
+     *
+     * @param MessageStoreRequest $messageStoreRequest
+     * @return RedirectResponse
+     */
+    public function storeMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
+    {die('999');
+        $message = Message::create($messageStoreRequest->validated());
+
+        return redirect(route('admin.dashboard'))
+            ->with('success', 'Your message has been sent. Thank you!.');
+    }
+
+    public function privacy_policy(): View
+    {
+        return view(themedTemplate('system.privacy-policy'));
+    }
+
+    public function terms_and_conditions(): View
+    {
+        return view(themedTemplate('system.terms-and-conditions'));
+    }
 
     /**
      * Download a file from the storage directory.

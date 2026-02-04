@@ -32,9 +32,9 @@ return new class extends Migration
             $table->string('slug');
             $table->date('date')->nullable();
             $table->boolean('primary')->default(false);
+            $table->string('doc_filepath')->nullable();
+            $table->string('pdf_filepath')->nullable();
             $table->text('content')->nullable();
-            $table->string('doc_url')->nullable();
-            $table->string('pdf_url')->nullable();
             $table->string('file_type', 10)->default('other');
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

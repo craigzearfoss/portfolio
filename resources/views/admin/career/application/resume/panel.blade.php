@@ -28,6 +28,7 @@
     </h3>
 
     <hr class="navbar-divider">
+
     <div style="height: 12px; margin: 0; padding: 0;"></div>
 
     @if (!empty($resume))

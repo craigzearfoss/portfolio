@@ -31,8 +31,8 @@ class CoverLetter extends Model
         'name',
         'slug',
         'date',
+        'filepath',
         'content',
-        'url',
         'notes',
         'link',
         'link_name',
@@ -53,7 +53,7 @@ class CoverLetter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'content', 'url', 'link',
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'filepath', 'content', 'link',
         'link_name', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 

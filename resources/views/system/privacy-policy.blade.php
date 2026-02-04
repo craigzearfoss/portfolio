@@ -1,4 +1,4 @@
-@extends('guest.layouts.default', [
+@extends($envType == 'admin' ? 'admin.layouts.default' : 'guest.layouts.default', [
     'title'            => $pageTitle ?? 'Privacy Policy',
     'subtitle'         => null,
     'breadcrumbs'      => [

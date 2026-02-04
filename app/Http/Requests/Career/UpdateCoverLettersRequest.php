@@ -55,11 +55,11 @@ class UpdateCoverLettersRequest extends FormRequest
                         ->where('id', '!=', $this->cover_letters->id);
                 })
             ],
-            'date' => ['date', 'nullable'],
+            'date'              => ['date', 'nullable'],
+            'filepath'          => ['string', 'max:500', 'nullable'],
             'content'           => ['nullable'],
-            'url'  => ['string', 'url:http,https', 'max:500', 'nullable'],
             'notes'             => ['nullable'],
-            'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link'              => ['string', 'max:500', 'nullable'],
             'link_name'         => ['string', 'max:255', 'nullable'],
             'description'       => ['nullable'],
             'disclaimer'        => ['string', 'max:500', 'nullable'],

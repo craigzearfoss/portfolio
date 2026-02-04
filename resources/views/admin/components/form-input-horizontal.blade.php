@@ -1,6 +1,6 @@
 @php
-    $name    = !empty($name)  ? $name : '';
-    $id      = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst(trim($name, '#')) : 'Name'));
+    $name    = !empty($name) ? $name : '';
+    $id      = !empty($id) ? $id : ('input' . (!empty($name) ? ucfirst(trim($name, '#')) : 'Name'));
     $type    = !empty($type) ? $type : 'text';
     $label   = !empty($label) ? $label : (!empty($name) ? $name : '');
     $value   = $value ?? '';

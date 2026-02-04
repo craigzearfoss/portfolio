@@ -49,86 +49,91 @@
 
         </div>
 
-        <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
-            <div class="navbar-end">
+        @if (!in_array($currentRouteName, ['admin.login', 'admin.login-submit']))
 
-                @foreach($menuItems as $menuItem)
+            <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
+                <div class="navbar-end">
 
-                    @if($menuItem->name == 'user-dropdown')
+                    @foreach($menuItems as $menuItem)
 
-                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
+                        @if($menuItem->name == 'user-dropdown')
 
-                            @php
-                                $name = '';
-                                if (!empty($menuItem->thumbnail)) {
-                                    $name .= '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
-                                }
-                                $name .= '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
-                                if (!empty($menuItem->icon)) {
-                                    $name .= '<span class="text-xl"><i class="fa-solid '.$menuItem->icon.'"></i>';
-                                }
-                            @endphp
+                            <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
 
-                            @include('admin.components.nav-link-top', [
-                                'name'       => $name,
-                                'href'       => false,
-                                'class'      => 'navbar-link is-arrowless',
-                                'icon'       => false
-                            ])
+                                @php
+                                    $name = '';
+                                    if (!empty($menuItem->thumbnail)) {
+                                        $name .= '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
+                                    }
+                                    $name .= '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
+                                    if (!empty($menuItem->icon)) {
+                                        $name .= '<span class="text-xl"><i class="fa-solid '.$menuItem->icon.'"></i>';
+                                    }
+                                @endphp
 
-                            @if (!empty($menuItem->children))
-                                <div class="navbar-dropdown">
+                                @include('admin.components.nav-link-top', [
+                                    'name'       => $name,
+                                    'href'       => false,
+                                    'class'      => 'navbar-link is-arrowless',
+                                    'icon'       => false
+                                ])
 
-                                    @foreach($menuItem->children as $menuSubItem)
-                                        @include('admin.components.nav-link-top', [
-                                            'name'   => (!empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title),
-                                            'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
-                                            'active' => $menuSubItem->active,
-                                            'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
-                                        ])
-                                    @endforeach
+                                @if (!empty($menuItem->children))
+                                    <div class="navbar-dropdown">
 
-                                </div>
-                            @endif
+                                        @foreach($menuItem->children as $menuSubItem)
+                                            @include('admin.components.nav-link-top', [
+                                                'name'   => (!empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title),
+                                                'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
+                                                'active' => $menuSubItem->active,
+                                                'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
+                                            ])
+                                        @endforeach
 
-                        </div>
+                                    </div>
+                                @endif
 
-                    @else
+                            </div>
 
-                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
+                        @else
 
-                            @include('admin.components.nav-link-top', [
-                                'name'   => $menuItem->title,
-                                'href'   => false,
-                                'class'  => 'navbar-link is-arrowless',
-                                'icon'   => ''
-                            ])
+                            <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
 
-                            @if(!empty($menuItem->children))
+                                @include('admin.components.nav-link-top', [
+                                    'name'   => $menuItem->title,
+                                    'href'   => false,
+                                    'class'  => 'navbar-link is-arrowless',
+                                    'icon'   => ''
+                                ])
 
-                                <div class="navbar-dropdown">
+                                @if(!empty($menuItem->children))
 
-                                    @foreach($menuItem->children as $menuSubItem)
-                                        @include('admin.components.nav-link-top', [
-                                            'name'   => !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title,
-                                            'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
-                                            'active' => $menuSubItem->active,
-                                            'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
-                                        ])
-                                    @endforeach
+                                    <div class="navbar-dropdown">
 
-                                </div>
+                                        @foreach($menuItem->children as $menuSubItem)
+                                            @include('admin.components.nav-link-top', [
+                                                'name'   => !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title,
+                                                'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
+                                                'active' => $menuSubItem->active,
+                                                'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
+                                            ])
+                                        @endforeach
 
-                            @endif
+                                    </div>
 
-                        </div>
+                                @endif
 
-                    @endif
+                            </div>
 
-                @endforeach
+                        @endif
 
+                    @endforeach
+
+                </div>
             </div>
-        </div>
+
+        @endif
+
     </nav>
 
 @endif

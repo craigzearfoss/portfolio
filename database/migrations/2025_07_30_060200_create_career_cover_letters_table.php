@@ -35,8 +35,8 @@ return new class extends Migration
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->date('date')->nullable();
+            $table->string('filepath', 500)->nullable();
             $table->text('content')->nullable();
-            $table->string('url', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
