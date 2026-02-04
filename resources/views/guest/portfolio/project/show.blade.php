@@ -1,11 +1,11 @@
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ?? 'Project: ' . $project->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',              'href' => route('guest.index') ],
-        [ 'name' => 'Users',             'href' => route('guest.index') ],
+        [ 'name' => 'Home',       'href' => route('guest.index') ],
+        [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.portfolio.index', $owner) ],
-        [ 'name' => 'Projects',          'href' => route('guest.portfolio.project.index', $owner) ],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+        [ 'name' => 'Projects',   'href' => route('guest.portfolio.project.index', $owner) ],
         [ 'name' => $project->name ],
     ],
     'buttons'          => [

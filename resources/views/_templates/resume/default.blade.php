@@ -1,11 +1,22 @@
-@extends('guest.layouts.default', [
+@php
+    $envType = (explode('.', Route::currentRouteName())[0] == 'admin') ? 'admin' : 'guest';
+
+    $breadcrumbs = [];
+    $breadcrumbs[] = [ 'name' => 'Home',       'href' => route('admin.index') ];
+    if ($envType == 'admin') {
+        $breadcrumbs[] = [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ];
+        $breadcrumbs[] = [ 'name' => 'Career',           'href' => route('admin.career.index') ];
+        $breadcrumbs[] = [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index') ];
+        $breadcrumbs[] = [ 'name' => $title ?? 'Preview'];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Candidates',       'href' => route('guest.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name,       'href' => route('guest.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => $title ?? 'Resume'];
+    }
+@endphp
+@extends($envType . '.layouts.default', [
     'title'            => $pageTitle ?? $owner->name . ' resume',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',       'href' => route('guest.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.index') ],
-        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => $title ?? 'Resume' ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => [],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -21,7 +32,9 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $resume->disclaimer ?? null ])
+    @if($envType != 'admin')
+        @include('guest.components.disclaimer', [ 'value' => $resume->disclaimer ?? null ])
+    @endif
 
     <div class="resume-container card p-4">
 
@@ -34,7 +47,7 @@
             >
 
                 <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
-                    @include('guest.components.image', [
+                    @include($envType . '.components.image', [
                         'src'   => $job->logo_small,
                         'alt'   => (!empty($job->company) ?$job->company : 'company') . ' logo',
                         'width' => '48px',

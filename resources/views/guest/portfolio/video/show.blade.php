@@ -2,7 +2,7 @@
     'title'            => $pageTitle ?? 'Video: ' . $video->name,
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.index') ],
+        [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Videos',     'href' => route('guest.portfolio.video.index', $owner) ],

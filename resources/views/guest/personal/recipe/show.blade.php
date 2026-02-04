@@ -2,7 +2,7 @@
     'title'            => $pageTitle ?? 'Recipe: ' . $recipe->name,
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.index') ],
+        [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
         [ 'name' => 'Personal',   'href' => route('guest.personal.index', $admin) ],
         [ 'name' => 'Recipes',    'href' => route('guest.personal.recipe.index', $admin) ],

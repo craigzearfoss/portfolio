@@ -43,4 +43,23 @@ class IndexController extends BaseGuestController
         return view(themedTemplate('system.index'), compact('admin', 'admins', 'featuredAdmin'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
+
+    /**
+     * Guest candidates home page.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function candidates(Request $request): View
+    {
+        $perPage = $request->query('per_page', $this->perPage());
+
+        $admin = null;
+        $owners = \App\Models\System\Admin::where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('name', 'asc')->paginate($perPage);
+
+        return view(themedTemplate('guest.system.admin.index'), compact('admin', 'owners'))
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
+    }
 }

@@ -2,7 +2,7 @@
     'title'            => $pageTitle ?? 'Personal',
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.index') ],
+        [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => $title ?? 'Personal' ],
     ],

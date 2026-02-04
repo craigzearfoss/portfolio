@@ -33,6 +33,9 @@ Route::post('contact/store', [IndexController::class, 'storeMessage'])->name('co
 Route::get('privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
 Route::get('terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
 
+Route::get('candidates', [GuestIndexController::class, 'candidates'])->name('guest.admin.index');
+
+
 Route::get('download-from-public', [IndexController::class, 'download_from_public'])->name('download-from-public');
 Route::get('view-document', [IndexController::class, 'view_document'])->name('view-document');
 
@@ -119,7 +122,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // ---------------------------------------------------------------------------------------------------------------------
 // guest routes
 // ---------------------------------------------------------------------------------------------------------------------
-Route::get('/{admin:label}', [GuestSystemAdminController::class, 'show'])->name('guest.admin.show');
+Route::get('{admin:label}', [GuestSystemAdminController::class, 'show'])->name('guest.admin.show');
 
 Route::name('guest.')->group(function () {
     Route::get('/', [GuestIndexController::class, 'index'])->name('index');

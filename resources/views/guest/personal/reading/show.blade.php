@@ -2,7 +2,7 @@
     'title'            => $pageTitle ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
     'breadcrumbs'      => [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
-        [ 'name' => 'Users',      'href' => route('guest.index') ],
+        [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Personal',   'href' => route('guest.personal.index', $owner) ],
         [ 'name' => 'Readings',   'href' => route('guest.personal.reading.index', $owner) ],

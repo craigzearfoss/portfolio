@@ -1,9 +1,9 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Users',
+    'title'            => $pageTitle ?? 'Candidates',
     'breadcrumbs'      => [
         [ 'name' => 'Home', 'href' => route('guest.index') ],
-        [ 'name' => 'Users']
+        [ 'name' => 'Candidates']
     ],
     'buttons'          => [],
     'errorMessages'    => $errors->any()
