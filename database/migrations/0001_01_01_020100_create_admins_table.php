@@ -232,7 +232,7 @@ return new class extends Migration
             'username'          => $this->demoUsername,
             'name'              => $this->demoName,
             'label'             => $this->demoLabel,
-            'role'              => 'Site Administrator',
+            'role'              => 'Sample Administrator',
             'email'             => 'demo-admin@sample.com',
             'email_verified_at' => now(),
             'password'          => Hash::make($this->demoPassword),

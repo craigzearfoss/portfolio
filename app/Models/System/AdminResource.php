@@ -159,7 +159,7 @@ class AdminResource extends Model
             } else {
                 $parts = explode(' ', $col);
                 $col = $parts[0];
-//echo ' / ' . $col;
+
                 if (!empty($parts[1])) {
                     $operator = trim($parts[1]);
 

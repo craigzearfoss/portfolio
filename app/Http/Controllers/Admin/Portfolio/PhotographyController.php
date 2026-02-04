@@ -30,9 +30,9 @@ class PhotographyController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
-            $photos = Photo::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+            $photos = Photography::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
         } else {
-            $photos = Photo::orderBy('name', 'asc')->paginate($perPage);
+            $photos = Photography::orderBy('name', 'asc')->paginate($perPage);
         }
 
         $pageTitle = empty($this->owner) ? 'Photos' : $this->owner->name . ' Photos';

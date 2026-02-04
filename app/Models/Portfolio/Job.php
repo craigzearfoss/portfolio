@@ -154,22 +154,31 @@ class Job extends Model
         return $this->company . (!empty($this->role) ? ' (' . $this->role . ')' : '');
     }
 
-    public static function resumeTemplate()
+    /**
+     * Returns the current resume template.
+     *
+     * @param string|null $name
+     * @return string
+     */
+    public static function resumeTemplate(string|null $name = null): string
     {
-        $template = 'default';
+        if (empty($name)) {
 
-        if ($database = Database::where('tag', self::DATABASE_TAG)->first()) {
-            if ($resource = Resource::where('database_id', $database->id)->where('table', 'jobs')->first()) {
-                $value = ResourceSetting::getSetting($resource->id, 'template');
-                if (!empty($value)) {
-                    $template = $value;
+            $name = 'default';
+
+            if ($database = Database::where('tag', self::DATABASE_TAG)->first()) {
+                if ($resource = Resource::where('database_id', $database->id)->where('table', 'jobs')->first()) {
+                    $value = ResourceSetting::getSetting($resource->id, 'template');
+                    if (!empty($value)) {
+                        $name = $value;
+                    }
                 }
             }
         }
 
-        $resumePath = 'guest.portfolio.resume.templates.' . $template;
+        $template = '_templates.resume.' . $name;
 
-        return $resumePath;
+        return $template;
     }
 
     /**

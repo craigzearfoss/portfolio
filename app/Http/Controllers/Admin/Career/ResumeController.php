@@ -7,6 +7,9 @@ use App\Http\Requests\Career\StoreResumesRequest;
 use App\Http\Requests\Career\UpdateResumesRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Resume;
+use App\Models\Portfolio\Job;
+use App\Models\System\Admin;
+use App\Services\ResumeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -193,5 +196,18 @@ class ResumeController extends BaseAdminController
 
         return redirect(referer('admin.career.resume.index'))
             ->with('success', $resume->name . ' resume deleted successfully.');
+    }
+
+    /**
+     * Display the current resume.
+     *
+     * @param Admin $admin
+     * @return View
+     */
+    public function preview(Admin $admin): View
+    {
+        $owner = $admin;
+
+        return (new ResumeService($owner, 'default'))->view();
     }
 }

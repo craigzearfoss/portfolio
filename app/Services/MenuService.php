@@ -61,9 +61,9 @@ class MenuService
             ? [ 'menu' => 1, 'public' => 1, 'disabled' => 0 ]
             : (!empty($this->admin) && !empty($this->admin->root) ? [] :[ 'menu' => 1, 'disabled' => 0 ]);
 
-        if (($this->envType == PermissionService::ENV_ADMIN) && !$this->isRootAdmin) {
-            $filters['root <>'] = 1;
-        }
+        //if (($this->envType == PermissionService::ENV_ADMIN) && !$this->isRootAdmin) {
+        //    $filters['root <>'] = 1;
+        //}
 
         if (!empty($owner)) {
             if ($this->owner->root) {
@@ -409,7 +409,7 @@ class MenuService
             if ($resumeMenuItem = $this->getResumeMenuItem(1)) {
                 $menu = array_merge([$resumeMenuItem], $menu);
             }
-            }
+        }
 
         return array_values($menu);
     }

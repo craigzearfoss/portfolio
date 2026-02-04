@@ -25,7 +25,7 @@
 
     <div class="resume-container card p-4">
 
-        @foreach($jobs as $i=>$job)
+        @foreach($resumeService->jobs as $i=>$job)
 
             <div class="list-item-content mb-3 border-bottom is-flex"
                  @if($i > 0)
@@ -107,11 +107,11 @@
         @endforeach
 
 
-        @if($educations->count() > 0)
+        @if($resumeService->educations->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Education</h2>
 
-            @foreach($educations as $i=>$education)
+            @foreach($resumeService->educations as $i=>$education)
 
                 <div class="list-item-content mb-3 border-bottom is-flex pl-4"
                      @if($i > 0)
@@ -139,11 +139,11 @@
         @endif
 
 
-        @if($certificates->count() > 0)
+        @if($resumeService->certificates->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Certifications</h2>
 
-            @foreach($certificates as $i=>$certificate)
+            @foreach($resumeService->certificates as $i=>$certificate)
 
                 <div class="list-item-content mb-3 border-bottom is-flex pl-4"
                      @if($i > 0)
@@ -167,11 +167,11 @@
         @endif
 
 
-        @if($awards->count() > 0)
+        @if($resumeService->awards->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Awards</h2>
 
-            @foreach($awards as $i=>$award)
+            @foreach($resumeService->awards as $i=>$award)
 
                 <div class="list-item-content border-bottom is-flex pl-4">
                     <div style="display: inline-block;">
@@ -192,7 +192,7 @@
         @endif
 
 
-        @if($skills->count() > 0)
+        @if($resumeService->skills->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Skills</h2>
 
@@ -201,7 +201,7 @@
                 <div class="list-item-description pt-1">
 
                     <span class="mr-1" style="display: inline-block;"> ·
-                        {!! implode('</span><span class="mr-1" style="display: inline-block;"> · ', array_column($skills->toArray(), 'name')) !!}
+                        {!! implode('</span><span class="mr-1" style="display: inline-block;"> · ', array_column($resumeService->skills->toArray(), 'name')) !!}
                     </span>
 
                 </div>
