@@ -7,7 +7,7 @@
         $backRoute = 'user.dashboard';
     } else {
         $envType = 'guest';
-        $backRoute = 'home';
+        $backRoute = 'guest.index';
     }
     $message = $exception->getMessage();
 @endphp

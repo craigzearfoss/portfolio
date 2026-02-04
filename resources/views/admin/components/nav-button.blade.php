@@ -1,6 +1,6 @@
 @php
     $class = !empty($class) ? (is_array($class) ? implode(' ', $class) : $class) : 'button is-small is-dark my-0';
-    $style = !empty($style) ? (is_array($style) ? implode('; ', $style) : '') : '';
+    $style = !empty($style) ? (is_array($style) ? implode('; ', $style) : $style) : '';
 @endphp
 <a href="{{ $href ?? '' }}"
    @if (!empty($target ?? ''))target="{!! $target !!}" @endif

@@ -201,12 +201,13 @@ class ResumeController extends BaseAdminController
     /**
      * Display the current resume.
      *
-     * @param Admin $admin
      * @return View
      */
-    public function preview(Admin $admin): View
+    public function preview($adminId = null): View
     {
-        $owner = $admin;
+        $owner = empty($adminId)
+            ? $this->owner
+            : Admin::find($adminId);
 
         return (new ResumeService($owner, 'default'))->view();
     }

@@ -1,5 +1,9 @@
 @php
     $buttons = [];
+        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Preview Current Resume',
+                                                           'href' => route('admin.career.resume.preview', $owner),
+                                                           'style' => 'background-color: #3e8ed0 !important;'
+                                                         ])->render();
     if (canCreate('resume', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
@@ -25,12 +29,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ??  'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Resumes' ]
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

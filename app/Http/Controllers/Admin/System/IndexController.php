@@ -18,7 +18,7 @@ class IndexController extends BaseAdminController
         $databaseId = Database::where('tag', 'system_db')->first()->id ?? null;
 
         $systems = !empty($databaseId)
-            ? Resource::ownerResources($this->owner->id, PermissionService::ENV_ADMIN, $databaseId)
+            ? AdminResource::ownerResources($this->owner->id, PermissionService::ENV_ADMIN, $databaseId)
             : [];
 
         return view('admin.system.index', compact('systems'));

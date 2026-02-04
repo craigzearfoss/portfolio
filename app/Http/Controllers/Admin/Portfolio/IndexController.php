@@ -18,7 +18,7 @@ class IndexController extends BaseAdminController
         $databaseId = Database::where('tag', 'portfolio_db')->first()->id ?? null;
 
         $portfolios = !empty($databaseId)
-            ? AdminResource::ownerResources($this->owner->id , PermissionService::ENV_ADMIN, $databaseId)
+            ? AdminResource::ownerResources($this->owner->id, PermissionService::ENV_ADMIN, $databaseId)
             : [];
 
         return view('admin.portfolio.index', compact('portfolios'));

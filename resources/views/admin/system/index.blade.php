@@ -31,7 +31,9 @@
                         <li>$system->database_name
                             @include('admin.components.link', [
                                 'name'  => $system->plural,
-                                'href'  => route('admin.system.'.$system->database_name.'.index'),
+                                'href'  => route('admin.'.$system->database_name.'.'.$system->name.'.index',
+                                                 $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
+                                           ),
                                 'class' => 'list-item',
                             ])
                         </li>

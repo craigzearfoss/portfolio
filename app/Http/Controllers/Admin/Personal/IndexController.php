@@ -13,16 +13,12 @@ use Illuminate\View\View;
  */
 class IndexController extends BaseAdminController
 {
-    public function index()
-    {//dd([$this->owner, !empty($this->owner->root) ? [] : [ 'root <>' => 1 ]]);
+    public function index(): View
+    {
         $databaseId = Database::where('tag', 'personal_db')->first()->id ?? null;
 
         $personals = !empty($databaseId)
-            ? AdminResource::ownerResources($this->owner->id ,
-                                            PermissionService::ENV_ADMIN,
-                                            $databaseId,
-                                            !empty($this->owner->root) ? [] : [ 'root <>' => 1 ]
-                                           )
+            ? AdminResource::ownerResources($this->owner->id, PermissionService::ENV_ADMIN, $databaseId)
             : [];
 
         return view('admin.personal.index', compact('personals'));

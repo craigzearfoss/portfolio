@@ -32,7 +32,7 @@
                             @include('admin.components.link', [
                                 'name'  => $career->plural,
                                 'href'  => route('admin.'.$career->database_name.'.'.$career->name.'.index',
-                                                 !empty($owner) ? [ 'owner_id' => $owner ] : []
+                                                 $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
                                            ),
                                 'class' => 'list-item',
                             ])

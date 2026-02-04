@@ -41,4 +41,6 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('note', AdminCareerNoteController::class);
     Route::resource('reference', AdminCareerReferenceController::class);
     Route::resource('resume', AdminCareerResumeController::class);
+    //Route::get('resume/preview/{admin}', [AdminCareerResumeController::class, 'preview'])->name('resume.preview');
+    Route::get('resume/preview/{admin?}', [AdminCareerResumeController::class, 'preview'])->name('resume.preview');
 });

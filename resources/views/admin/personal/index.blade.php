@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Personal',
+    'title'            => $pageTitle ?? (!empty($owner) ? $owner->name . ' Personal' : 'Personal'),
     'breadcrumbs'      => [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
@@ -31,7 +31,9 @@
                         <li>
                             @include('admin.components.link', [
                                 'name'  => $personal->plural,
-                                'href'  => route('admin.personal.'.$personal->name.'.index', $owner),
+                                'href'  => route('admin.'.$personal->database_name.'.'.$personal->name.'.index',
+                                                 $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
+                                           ),
                                 'class' => 'list-item',
                             ])
                         </li>

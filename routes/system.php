@@ -110,6 +110,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('resource', AdminSystemResourceController::class);
             Route::resource('session', AdminSystemSessionController::class);
             Route::resource('setting', AdminSystemSettingController::class);
+            Route::get('system/', [AdminSystemIndexController::class, 'index'])->name('index');
             Route::resource('user', AdminSystemUserController::class);
             Route::get('user/{user}/change-password', [AdminSystemUserController::class, 'change_password'])->name('user.change-password');
             Route::post('user/{user}/change-password', [AdminSystemUserController::class, 'change_password_submit'])->name('user.change-password-submit');

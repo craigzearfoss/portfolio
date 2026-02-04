@@ -238,29 +238,34 @@ class MenuService
 
         foreach($this->databases as $database) {
 
-            if (Route::has($database->route)) {
-                if ($this->envType == PermissionService::ENV_ADMIN) {
-                    $url = ((!empty($this->admin) && !empty($this->admin->root))
-                            && !$this->showAll
-                           )
-                        ? route($database->route, [ 'owner_id' => $this->owner->id ])
-                        : route($database->route);
-                } else {
-                    $url = (!empty($this->owner) && !in_array($database->name, ['dictionary']))
-                        ? route($database->route, $this->owner)
-                        : route($database->route);
-                }
-            } else {
-                $url = 'ROUTE: ' . $database->route;
-            }
+            if ($this->includeItem($database)) {
 
-            $database->level    = 1;
-            $database->label    = $database->title;
-            $database->route    = $this->envType . '.' . $database->name . '.index';
-            $database->url      = $url;
-            $database->children = [];
-            $database->active   = !empty($this->currentRouteName) && ($database->route === $this->currentRouteName) ? 1 : 0;
-            $menu[$database->database_id ?? $database->id] = $database;
+                $route = $this->envType . '.' . $database->name . '.index';
+
+                if (Route::has($route)) {
+                    if ($this->envType == PermissionService::ENV_ADMIN) {
+                        $url = ((!empty($this->admin) && !empty($this->admin->root))
+                                && !$this->showAll
+                               )
+                            ? route($route, [ 'owner_id' => $this->owner->id ])
+                            : route($route);
+                    } else {
+                        $url = (!empty($this->owner) && !in_array($database->name, ['dictionary']))
+                            ? route($route, $this->owner)
+                            : route($route);
+                    }
+                } else {
+                    $url = 'DATABASE ROUTE: ' . $route;
+                }
+
+                $database->level    = 1;
+                $database->label    = $database->title;
+                $database->route    = $route;
+                $database->url      = $url;
+                $database->children = [];
+                $database->active   = !empty($this->currentRouteName) && ($database->route === $this->currentRouteName) ? 1 : 0;
+                $menu[$database->database_id ?? $database->id] = $database;
+                }
         }
 
         return $menu;
@@ -332,72 +337,75 @@ class MenuService
 
             foreach ($menu as $dbId => $menuItem) {
 
-                // insert level 1 items
-                if (array_key_exists(1, $levelResources)) {
+                if ($this->includeItem($menuItem)) {
 
-                    foreach ($levelResources[1] as $level1Resource) {
+                    // insert level 1 items
+                    if (array_key_exists(1, $levelResources)) {
 
-                        if ($level1Resource->database_id == $dbId) {
+                        foreach ($levelResources[1] as $level1Resource) {
 
-                            $level1Resource= $this->getResourceMenuItem($level1Resource);
+                            if ($level1Resource->database_id == $dbId) {
 
-                            // insert level 2 items
-                            if (array_key_exists(2, $levelResources)) {
+                                $level1Resource = $this->getResourceMenuItem($level1Resource);
 
-                                foreach ($levelResources[2] as $level2Resource) {
-                                    if (!empty($level2Resource['parent_id'])) {
+                                // insert level 2 items
+                                if (array_key_exists(2, $levelResources)) {
 
-                                        if ($level2Resource->parent_id == ($level1Resource->resource_id ?? $level1Resource['id'] ?? null)) {
+                                    foreach ($levelResources[2] as $level2Resource) {
+                                        if (!empty($level2Resource['parent_id'])) {
 
-                                            $level2Resource= $this->getResourceMenuItem($level2Resource);
+                                            if ($level2Resource->parent_id == ($level1Resource->resource_id ?? $level1Resource['id'] ?? null)) {
 
-                                            // insert level 3 items
-                                            if (array_key_exists(3, $levelResources)) {
+                                                $level2Resource = $this->getResourceMenuItem($level2Resource);
 
-                                                foreach ($levelResources[3] as $level3Resource) {
-                                                    if (!empty($level2Resource->parent_id)) {
+                                                // insert level 3 items
+                                                if (array_key_exists(3, $levelResources)) {
 
-                                                        if ($level3Resource->parent_id == ($level2Resource->resource_id ?? $level2Resource['id'] ?? null)) {
+                                                    foreach ($levelResources[3] as $level3Resource) {
+                                                        if (!empty($level2Resource->parent_id)) {
 
-                                                            $level3Resource= $this->getResourceMenuItem($level3Resource);
+                                                            if ($level3Resource->parent_id == ($level2Resource->resource_id ?? $level2Resource['id'] ?? null)) {
 
-                                                            // insert level 4 items
-                                                            if (array_key_exists(4, $levelResources)) {
+                                                                $level3Resource = $this->getResourceMenuItem($level3Resource);
 
-                                                                foreach ($levelResources[4] as $level4Resource) {
-                                                                    if (!empty($level3Resource->parent_id)) {
+                                                                // insert level 4 items
+                                                                if (array_key_exists(4, $levelResources)) {
 
-                                                                        if ($level4Resource->parent_id== ($level3Resource->resource_id ?? $level3Resource['id'] ?? null)) {
+                                                                    foreach ($levelResources[4] as $level4Resource) {
+                                                                        if (!empty($level3Resource->parent_id)) {
 
-                                                                            $level4Resource= $this->getResourceMenuItem($level4Resource);
+                                                                            if ($level4Resource->parent_id == ($level3Resource->resource_id ?? $level3Resource['id'] ?? null)) {
 
-                                                                            $children = $level3Resource->children;
-                                                                            $children[] = $level4Resource;
-                                                                            $level3Resource->children = $children;
+                                                                                $level4Resource = $this->getResourceMenuItem($level4Resource);
+
+                                                                                $children = $level3Resource->children;
+                                                                                $children[] = $level4Resource;
+                                                                                $level3Resource->children = $children;
+                                                                            }
                                                                         }
                                                                     }
                                                                 }
-                                                            }
 
-                                                            $children = $level2Resource->children;
-                                                            $children[] = $level3Resource;
-                                                            $level2Resource->children = $children;
+                                                                $children = $level2Resource->children;
+                                                                $children[] = $level3Resource;
+                                                                $level2Resource->children = $children;
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            }
 
-                                            $children = $level1Resource->children;
-                                            $children[] = $level2Resource;
-                                            $level1Resource->children = $children;
+                                                $children = $level1Resource->children;
+                                                $children[] = $level2Resource;
+                                                $level1Resource->children = $children;
+                                            }
                                         }
                                     }
                                 }
-                            }
 
-                            $children = $menu[$dbId]->children;
-                            $children[] = $level1Resource;
-                            $menu[$dbId]->children = $children;
+                                $children = $menu[$dbId]->children;
+                                $children[] = $level1Resource;
+                                $menu[$dbId]->children = $children;
+                            }
                         }
                     }
                 }
@@ -478,8 +486,13 @@ class MenuService
         }
 
         // get route and url
-        $routeName = 'guest.resume';
-        $url = !empty($this->owner) ? route($routeName, $this->owner) : '';
+        if ($this->envType == PermissionService::ENV_ADMIN) {
+            $routeName = 'admin.career.resume.preview';
+            $url = !empty($this->owner) ? route($routeName, $this->owner) : '';
+        } else {
+            $routeName = 'guest.resume';
+            $url = !empty($this->owner) ? route($routeName, $this->owner) : '';
+        }
 
         $menuItem = new stdClass();
         $menuItem->owner_id       = $this->owner->id;
@@ -544,7 +557,7 @@ class MenuService
                     : route($route);
             }
         } else {
-            $url = 'ROUTE: ' . $route;
+            $url = 'RESOURCE ROUTE: ' . $route;
         }
 
         $resource->label    = $resource->title;
@@ -554,5 +567,43 @@ class MenuService
         $resource->active = !empty($this->currentRouteName) && ($resource->route === $this->currentRouteName) ? 1 : 0;
 
         return $resource;
+    }
+
+    /**
+     * Returns true if the specified item should be included in the menu.
+     *
+     * @param $menuItem
+     * @return bool
+     */
+    private function includeItem($menuItem): bool
+    {
+        if (empty($menuItem->menu)) {
+            return false;
+
+        }
+        switch ($this->envType) {
+            case PermissionService::ENV_ADMIN:
+                if (empty($this->admin)) {
+                    return false;
+                } elseif(!empty($this->admin->root)) {
+                    // root admins can see every menu item
+                    return true;
+                } elseif (empty($menuItem->admin) || empty($menuItem->global)) {
+                    return false;
+                }
+                break;
+            case PermissionService::ENV_USER:
+                if (empty($this->user) || empty($menuItem->user) || empty($menuItem->global)) {
+                    return false;
+                }
+                break;
+            case PermissionService::ENV_GUEST:
+                if (empty($menuItem->guest) || empty($menuItem->global)) {
+                    return false;
+                }
+                break;
+        }
+
+        return true;
     }
 }

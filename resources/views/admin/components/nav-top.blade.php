@@ -3,10 +3,9 @@
     @php
         $menuService      = $menuService ?? null;
         $currentRouteName = $currentRouteName ??  Route::currentRouteName();
-        $loggedInAdmin    = $loggedInAdmin ?? null;
         $admin            = $admin ?? null;
         $user             = $user ?? null;
-        $isAdminEnv       = (explode('.', $currentRouteName)[0] == 'admin');
+        $owner            = $owner ?? null;
     @endphp
 
     <nav id="navbar-main" class="navbar is-fixed-top">
@@ -56,6 +55,7 @@
 
                     @foreach($menuItems as $menuItem)
 
+                        <?php /* user dropdown menu at the top right */ ?>
                         @if($menuItem->name == 'user-dropdown')
 
                             <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
@@ -101,7 +101,7 @@
 
                                 @include('admin.components.nav-link-top', [
                                     'name'   => $menuItem->title,
-                                    'href'   => false,
+                                    'href'   =>  $menuItem->url ?? false,
                                     'class'  => 'navbar-link is-arrowless',
                                     'icon'   => ''
                                 ])

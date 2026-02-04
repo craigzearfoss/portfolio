@@ -13,12 +13,12 @@ use Illuminate\View\View;
  */
 class IndexController extends BaseAdminController
 {
-    public function index()
+    public function index(): View
     {
         $databaseId = Database::where('tag', 'career_db')->first()->id ?? null;
 
         $careers = !empty($databaseId)
-            ? AdminResource::ownerResources($this->owner->id , PermissionService::ENV_ADMIN, $databaseId)
+            ? AdminResource::ownerResources($this->owner->id, PermissionService::ENV_ADMIN, $databaseId)
             : [];
 
         return view('admin.career.index', compact('careers'));

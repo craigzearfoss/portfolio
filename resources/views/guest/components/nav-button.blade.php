@@ -12,7 +12,7 @@
 
     // get styles
     $style = isset($style)
-        ? (is_array($style) ? implode('; ', $style) : '')
+        ? (is_array($style) ? implode('; ', $style) : $style)
         : '';
 
     // get icon
