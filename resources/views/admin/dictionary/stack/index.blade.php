@@ -1,4 +1,13 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Stacks' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate('stack', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Stack', 'href' => route('admin.dictionary.stack.create')])->render();
@@ -6,12 +15,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary (stacks)',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
-        [ 'name' => 'Stacks' ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'selectList'       => View::make('admin.components.form-select', [
         'name'     => '',
         'label'    => '',

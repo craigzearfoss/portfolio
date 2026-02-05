@@ -1,4 +1,13 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Operating Systems' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate('operating-system', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Operating System', 'href' => route('admin.dictionary.operating-system.create')])->render();
@@ -6,12 +15,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary (operating systems)',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
-        [ 'name' => 'Operating Systems' ]
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'selectList'       => View::make('admin.components.form-select', [
         'name'     => '',
         'label'    => '',
@@ -20,7 +24,7 @@
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]),
-    'buttons'          => $buttons,7
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,

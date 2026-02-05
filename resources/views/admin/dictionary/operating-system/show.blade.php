@@ -1,22 +1,26 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',              'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',        'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Operating Systems', 'href' => route('admin.dictionary.operating-system.index') ],
+        [ 'name' => $operatingSystem->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($operatingSystem, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.operating-system.edit', $operatingSystem)])->render();
     }
     if (canCreate('operating-system', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Operating System', 'href' => route('admin.dictionary.operating-system.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Operating-System', 'href' => route('admin.dictionary.operating-system.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary: ' . $operatingSystem->name . ' (operating system)',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',              'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',        'href' => route('admin.dictionary.index') ],
-        [ 'name' => 'Operating Systems', 'href' => route('admin.dictionary.operating-system.index') ],
-        [ 'name' => $operatingSystem->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

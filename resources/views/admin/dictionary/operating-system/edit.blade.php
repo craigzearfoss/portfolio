@@ -1,16 +1,23 @@
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',                 'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',      'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',           'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Operating-Systems',    'href' => route('admin.dictionary.operating-system.index') ],
+        [ 'name' => $operatingSystem->name, 'href' => route('admin.dictionary.operating-system.show', $operating-system) ],
+        [ 'name' => 'Edit' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.operating-system.index')])->render()
+    ];
+@endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary: ' . $operatingSystem->name . ' (operating system)',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',                  'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',            'href' => route('admin.dictionary.index') ],
-        [ 'name' => 'Operating Systems',     'href' => route('admin.dictionary.operating-system.index') ],
-        [ 'name' => $operatingSystem->name,  'href' => route('admin.dictionary.operating-system.show', $operatingSystem->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render(),
-    ],
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

@@ -1,4 +1,13 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Libraries' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate('library', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Library', 'href' => route('admin.dictionary.library.create')])->render();
@@ -6,13 +15,8 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary (libraries)',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
-        [ 'name' => 'Libraries' ]
-    ],
-    'selectList'    => View::make('admin.components.form-select', [
+    'breadcrumbs'      => $breadcrumbs,
+    'selectList'       => View::make('admin.components.form-select', [
         'name'     => '',
         'label'    => '',
         'value'    => route('admin.dictionary.library.index'),

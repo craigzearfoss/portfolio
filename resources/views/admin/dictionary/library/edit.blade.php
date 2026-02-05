@@ -1,16 +1,23 @@
-@extends('admin.layouts.default', [
-    'title'            => 'Dictionary: ' . $library->name . ' (library)',
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Libraries',       'href' => route('admin.dictionary.library.index') ],
-        [ 'name' => $library->name,    'href' => route('admin.dictionary.library.show', $library->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render(),
-    ],
+        [ 'name' => $library->name,    'href' => route('admin.dictionary.library.show', $library) ],
+        [ 'name' => 'Edit' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.library.index')])->render()
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => 'Dictionary: ' . $library->name . ' (library)',
+    'breadcrumbs'      => $breacrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
