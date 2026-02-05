@@ -4,7 +4,6 @@
     $demoUsername  = config('app.demo_admin_username');
     $demoPassword  = config('app.demo_admin_password');
     $demoAutologin = config('app.demo_admin_autologin');
-dd(!empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']);
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Login',
