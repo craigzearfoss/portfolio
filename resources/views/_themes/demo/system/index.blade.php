@@ -81,7 +81,7 @@
 
     <div class="card p-4">
 
-        <h4 class="title is-size-4">Users</h4>
+        <h4 class="title is-size-4">Candidates</h4>
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
