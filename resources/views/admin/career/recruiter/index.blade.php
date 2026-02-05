@@ -1,4 +1,13 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Recruiters' ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate('recruiter', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recruiter', 'href' => route('admin.career.recruiter.create')])->render();
@@ -6,12 +15,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Recruiters',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Recruiters' ]
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

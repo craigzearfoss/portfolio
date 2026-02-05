@@ -1,15 +1,29 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New Education',
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Education',       'href' => route('admin.portfolio.education.index') ],
-        [ 'name' => 'Add' ],
-    ],
-    'buttons'          => [
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Education',  'href' => route('admin.portfolio.education.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+        $breadcrumbs[] = [ 'name' => 'Education',  'href' => route('admin.portfolio.education.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Add' ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.education.index')])->render(),
-    ],
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Add New Education',
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

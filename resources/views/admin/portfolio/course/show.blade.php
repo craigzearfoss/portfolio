@@ -1,22 +1,33 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Courses',    'href' => route('admin.portfolio.course.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+        $breadcrumbs[] = [ 'name' => 'Courses',    'href' => route('admin.portfolio.course.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => $course->name ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($course, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.course.edit', $course)])->render();
     }
     if (canCreate('course', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.course.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Course: ' . $course->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Courses',         'href' => route('admin.portfolio.course.index') ],
-        [ 'name' => $course->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

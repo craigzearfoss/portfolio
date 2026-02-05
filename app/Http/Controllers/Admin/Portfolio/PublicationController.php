@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdatePublicationsRequest;
 use App\Models\Portfolio\Publication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -88,7 +89,11 @@ class PublicationController extends BaseAdminController
      */
     public function edit(Publication $publication): View
     {
-        Gate::authorize('update-resource', $publication);
+        if (!isRootAdmin() && ($publication->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $publication);
 
         return view('admin.portfolio.publication.edit', compact('publication'));
     }
@@ -102,8 +107,6 @@ class PublicationController extends BaseAdminController
      */
     public function update(UpdatePublicationsRequest $request, Publication $publication): RedirectResponse
     {
-        Gate::authorize('update-resource', $publication);
-
         $publication->update($request->validated());
 
         return redirect()->route('admin.portfolio.publication.show', $publication)
@@ -118,7 +121,11 @@ class PublicationController extends BaseAdminController
      */
     public function destroy(Publication $publication): RedirectResponse
     {
-        Gate::authorize('delete-resource', $publication);
+        if (!isRootAdmin() && ($publication->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $publication);
 
         $publication->delete();
 

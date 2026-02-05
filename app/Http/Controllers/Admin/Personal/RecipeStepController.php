@@ -10,6 +10,7 @@ use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -98,7 +99,11 @@ class RecipeStepController extends BaseAdminController
      */
     public function edit(RecipeStep $recipeStep): View
     {
-        Gate::authorize('update-resource', $recipeStep);
+        if (!isRootAdmin() && ($recipeStep->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $recipeStep);
 
         return view('admin.personal.recipe-step.edit', compact('recipeStep'));
     }
@@ -112,8 +117,6 @@ class RecipeStepController extends BaseAdminController
      */
     public function update(UpdateRecipeStepsRequest $request, RecipeStep $recipeStep): RedirectResponse
     {
-        Gate::authorize('update-resource', $recipeStep);
-
         $recipeStep->update($request->validated());
 
         return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
@@ -128,7 +131,11 @@ class RecipeStepController extends BaseAdminController
      */
     public function destroy(RecipeStep $recipeStep): RedirectResponse
     {
-        Gate::authorize('delete-resource', $recipeStep);
+        if (!isRootAdmin() && ($recipeStep->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $recipeStep);
 
         $recipeStep->delete();
 

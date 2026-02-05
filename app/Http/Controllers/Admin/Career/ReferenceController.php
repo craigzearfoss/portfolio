@@ -8,6 +8,7 @@ use App\Http\Requests\Career\UpdateReferencesRequest;
 use App\Models\Career\Reference;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -87,7 +88,11 @@ class ReferenceController extends BaseAdminController
      */
     public function edit(Reference $reference): View
     {
-        Gate::authorize('update-resource', $reference);
+        if (!isRootAdmin() && ($reference->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $reference);
 
         return view('admin.career.reference.edit', compact('reference'));
     }
@@ -101,8 +106,6 @@ class ReferenceController extends BaseAdminController
      */
     public function update(UpdateReferencesRequest $request, Reference $reference): RedirectResponse
     {
-        Gate::authorize('update-resource', $reference);
-
         $reference->update($request->validated());
 
         return redirect()->route('admin.career.reference.show', $reference)
@@ -117,7 +120,11 @@ class ReferenceController extends BaseAdminController
      */
     public function destroy(Reference $reference): RedirectResponse
     {
-        Gate::authorize('delete-resource', $reference);
+        if (!isRootAdmin() && ($reference->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $reference);
 
         $reference->delete();
 

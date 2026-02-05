@@ -14,6 +14,7 @@ use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -144,7 +145,11 @@ class ApplicationController extends BaseAdminController
      */
     public function edit(Application $application): View
     {
-        Gate::authorize('update-resource', $application);
+        if (!isRootAdmin() && ($application->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $application);
 
         return view('admin.career.application.edit', compact('application'));
     }
@@ -159,8 +164,6 @@ class ApplicationController extends BaseAdminController
     public function update(UpdateApplicationsRequest $request,
                            Application               $application): RedirectResponse
     {
-        Gate::authorize('update-resource', $application);
-
         $application->update($request->validated());
 
         return redirect()->route('admin.career.application.show', $application)
@@ -175,7 +178,11 @@ class ApplicationController extends BaseAdminController
      */
     public function destroy(Application $application): RedirectResponse
     {
-        Gate::authorize('delete-resource', $application);
+        if (!isRootAdmin() && ($application->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $application);
 
         $application->delete();
 

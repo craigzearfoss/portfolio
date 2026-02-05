@@ -1,16 +1,23 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'School: ' . $school->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Schools',         'href' => route('admin.portfolio.school.index') ],
-        [ 'name' => $school->name,     'href' => route('admin.portfolio.school.show', $school->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
+        [ 'name' => $school->name,     'href' => route('admin.portfolio.school.show', $school) ],
+        [ 'name' => 'Edit' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.school.index')])->render(),
-    ],
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'School: ' . $school->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

@@ -9,6 +9,7 @@ use App\Models\Personal\Ingredient;
 use App\Models\Personal\Reading;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -94,7 +95,11 @@ class ReadingController extends BaseAdminController
      */
     public function edit(Reading $reading): View
     {
-        Gate::authorize('update-resource', $reading);
+        if (!isRootAdmin() && ($reading->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $reading);
 
         return view('admin.personal.reading.edit', compact('reading'));
     }
@@ -108,8 +113,6 @@ class ReadingController extends BaseAdminController
      */
     public function update(UpdateReadingsRequest $request, Reading $reading): RedirectResponse
     {
-        Gate::authorize('update-resource', $reading);
-
         $reading->update($request->validated());
 
         return redirect()->route('admin.personal.reading.show', $reading)
@@ -124,7 +127,11 @@ class ReadingController extends BaseAdminController
      */
     public function destroy(Reading $reading): RedirectResponse
     {
-        Gate::authorize('delete-resource', $reading);
+        if (!isRootAdmin() && ($reading->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $reading);
 
         $reading->delete();
 

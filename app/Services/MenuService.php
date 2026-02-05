@@ -30,6 +30,8 @@ class MenuService
     protected $user = null;
     protected $owner = null;
 
+    protected $showAll = false;
+
     protected $currentRouteName = null;
 
     public function __construct(string|null $envType = null,
@@ -45,7 +47,7 @@ class MenuService
         $this->currentRouteName = !empty($currentRouteName) ? $currentRouteName : Route::currentRouteName();
         $this->showAll          = false;
 
-        if (($this->envType == PermissionService::ENV_ADMIN) && !empty(($this->admin) && !empty($this->admin->root))) {
+        if (($this->envType == PermissionService::ENV_ADMIN) && empty($this->owner) && !empty($this->admin->root)) {
             $this->showAll = true;
             $this->owner = $this->admin;
         }
@@ -545,9 +547,8 @@ class MenuService
         if (Route::has($route)) {
             if ($this->envType == PermissionService::ENV_ADMIN) {
                 $url = ($resource->has_owner
-                        && !in_array($resource->database_name, ['dictionary'])
                         && (!empty($this->admin) && !empty($this->admin->root))
-                        && !empty($this->showAll)
+                        && !$this->showAll
                        )
                     ? route($route, [ 'owner_id' => $this->owner->id ])
                     : route($route);

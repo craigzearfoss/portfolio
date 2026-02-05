@@ -9,6 +9,7 @@ use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -87,7 +88,11 @@ class CoverLetterController extends BaseAdminController
      */
     public function edit(CoverLetter $coverLetter): View
     {
-        Gate::authorize('update-resource', $coverLetter);
+        if (!isRootAdmin() && ($coverLetter->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $coverLetter);
 
         return view('admin.career.cover-letter.edit', compact('coverLetter'));
     }
@@ -102,8 +107,6 @@ class CoverLetterController extends BaseAdminController
     public function update(UpdateCoverLettersRequest $request,
                            CoverLetter               $coverLetter): RedirectResponse
     {
-        Gate::authorize('update-resource', $coverLetter);
-
         $coverLetter->update($request->validated());
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
@@ -118,7 +121,11 @@ class CoverLetterController extends BaseAdminController
      */
     public function destroy(CoverLetter $coverLetter): RedirectResponse
     {
-        Gate::authorize('delete-resource', $coverLetter);
+        if (!isRootAdmin() && ($coverLetter->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $coverLetter);
 
         $coverLetter->delete();
 

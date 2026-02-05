@@ -1,26 +1,33 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Companies',  'href' => route('admin.career.company.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
+        $breadcrumbs[] = [ 'name' => 'Companies',  'href' => route('admin.career.company.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => $company->name ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($company, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.company.edit', $company) ])->render();
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.company.edit', $company)])->render();
     }
     if (canCreate('company', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Company',
-                                                               'href' => route('admin.career.company.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create', $owner ?? $admin)])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.company.index') ])->render();
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.company.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Company: ' . $company->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Companies',       'href' => route('admin.career.company.index') ],
-        [ 'name' => $company->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

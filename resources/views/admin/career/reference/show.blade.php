@@ -1,22 +1,33 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'References', 'href' => route('admin.career.reference.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index') ];
+        $breadcrumbs[] = [ 'name' => 'References', 'href' => route('admin.career.reference.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => $reference->name ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($reference, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.reference.edit', $reference)])->render();
     }
     if (canCreate('reference', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.reference.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Reference: ' . $reference->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'References',      'href' => route('admin.career.reference.index') ],
-        [ 'name' => $reference->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

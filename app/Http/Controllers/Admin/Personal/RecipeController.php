@@ -8,6 +8,7 @@ use App\Http\Requests\Personal\UpdateRecipesRequest;
 use App\Models\Personal\Recipe;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -88,7 +89,11 @@ class RecipeController extends BaseAdminController
      */
     public function edit(Recipe $recipe): View
     {
-        Gate::authorize('update-resource', $recipe);
+        if (!isRootAdmin() && ($recipe->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $recipe);
 
         return view('admin.personal.recipe.edit', compact('recipe'));
     }
@@ -102,8 +107,6 @@ class RecipeController extends BaseAdminController
      */
     public function update(UpdateRecipesRequest $request, Recipe $recipe): RedirectResponse
     {
-        Gate::authorize('update-resource', $recipe);
-
         $recipe->update($request->validated());
 
         return redirect()->route('admin.personal.recipe.show', $recipe)
@@ -118,7 +121,11 @@ class RecipeController extends BaseAdminController
      */
     public function destroy(Recipe $recipe): RedirectResponse
     {
-        Gate::authorize('delete-resource', $recipe);
+        if (!isRootAdmin() && ($recipe->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $recipe);
 
         $recipe->delete();
 

@@ -9,6 +9,7 @@ use App\Models\Career\Application;
 use App\Models\Career\Event;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -121,7 +122,11 @@ class EventController extends BaseAdminController
      */
     public function edit(Event $event, Request $request): View
     {
-        Gate::authorize('update-resource', $event);
+        if (!isRootAdmin() && ($event->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $event);
 
         $urlParams = [];
         if ($applicationId = $request->get('application_id')) {
@@ -140,8 +145,6 @@ class EventController extends BaseAdminController
      */
     public function update(UpdateEventsRequest $request, Event $event): RedirectResponse
     {
-        Gate::authorize('update-resource', $event);
-
         $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -172,7 +175,11 @@ class EventController extends BaseAdminController
      */
     public function destroy(Event $event): RedirectResponse
     {
-        Gate::authorize('delete-resource', $event);
+        if (!isRootAdmin() && ($event->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $event);
 
         $event->delete();
 

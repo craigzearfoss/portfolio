@@ -1,22 +1,33 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Audio',      'href' => route('admin.portfolio.audio.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+        $breadcrumbs[] = [ 'name' => 'Audio',      'href' => route('admin.portfolio.audio.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => $audio->name ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($audio, $admin)) {
-       $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.audio.edit', $audio)])->render();
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.audio.edit', $audio)])->render();
     }
     if (canCreate('audio', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Audio', 'href' => route('admin.portfolio.audio.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Audio', 'href' => route('admin.portfolio.audio.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.audio.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Audio: ' . $audio->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Audio',           'href' => route('admin.portfolio.audio.index') ],
-        [ 'name' => $audio->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

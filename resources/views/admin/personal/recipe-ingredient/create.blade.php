@@ -1,4 +1,3 @@
-CREATE
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New Recipe Ingredient',
     'breadcrumbs'      => [

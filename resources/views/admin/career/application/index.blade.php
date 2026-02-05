@@ -1,27 +1,23 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Career',   'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Career',   'href' => route('admin.career.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Applications' ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate('application', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Application', 'href' => route('admin.career.application.create') ])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create', $owner ?? $admin)])->render();
     }
-@endphp
-@php
-if (!empty($resume)) {
-    $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
-        [ 'name' => $resume->name,     'href' => route('admin.career.resume.show', $resume) ],
-        [ 'name' => 'Applications' ]
-    ];
-} else {
-    $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications' ]
-    ];
-}
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : ''),
@@ -245,7 +241,7 @@ if (!empty($resume)) {
                             @endif
 
                             @if(canDelete($application, $admin))
-                                <form class="delete-resource" action="{!! route('admin.personal.ingredient.destroy', $application) !!}" method="POST">
+                                <form class="delete-resource" action="{!! route('admin.career.application.destroy', $application) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     @include('admin.components.button-icon', [

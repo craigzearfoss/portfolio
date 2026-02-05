@@ -9,6 +9,7 @@ use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Photography;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -93,7 +94,11 @@ class PhotographyController extends BaseAdminController
      */
     public function edit(Photography $photo): View
     {
-        Gate::authorize('update-resource', $photo);
+        if (!isRootAdmin() && ($photo->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $photo);
 
         return view('admin.portfolio.photography.edit', compact('photo'));
     }
@@ -107,8 +112,6 @@ class PhotographyController extends BaseAdminController
      */
     public function update(UpdatePhotographyRequest $request, Photography $photo): RedirectResponse
     {
-        Gate::authorize('update-resource', $photo);
-
         $photo->update($request->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
@@ -123,7 +126,11 @@ class PhotographyController extends BaseAdminController
      */
     public function destroy(Photography $photo): RedirectResponse
     {
-        Gate::authorize('delete-resource', $photo);
+        if (!isRootAdmin() && ($photo->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $photo);
 
         $photo->delete();
 

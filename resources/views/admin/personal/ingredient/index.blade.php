@@ -1,4 +1,13 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Ingredients' ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate('ingredient', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Ingredient', 'href' => route('admin.personal.ingredient.create')])->render();
@@ -6,12 +15,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Ingredients',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Ingredients' ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

@@ -1,16 +1,31 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Link: ' . $link->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Links',           'href' => route('admin.portfolio.link.index') ],
-        [ 'name' => $link->name,       'href' => route('admin.portfolio.link.show', $link->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Links',      'href' => route('admin.portfolio.link.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $link->name,  'href' => route('admin.portfolio.link.show', [$link->id, 'owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+        $breadcrumbs[] = [ 'name' => 'Links',      'href' => route('admin.portfolio.link.index') ];
+        $breadcrumbs[] = [ 'name' => $link->name,  'href' => route('admin.portfolio.link.show', $link->id) ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.link.index')])->render(),
-    ],
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Link: ' . $link->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

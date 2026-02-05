@@ -97,8 +97,6 @@ class UserGroupController extends BaseUserController
      */
     public function update(UpdateUserGroupsRequest $request, UserGroup $userGroup): RedirectResponse
     {
-        Gate::authorize('update-resource', $userGroup);
-
         $userGroup->update($request->validated());
 
         return redirect()->route('admin.system.user-group.show', $userGroup)

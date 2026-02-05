@@ -1,16 +1,31 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? (!empty($title) ? $title : 'Contact: ' . $contact->name),
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Contacts',        'href' => route('admin.career.contact.index') ],
-        [ 'name' => $contact->name,    'href' => route('admin.career.contact.show', $contact->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.contact.index') ])->render(),
-    ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Contacts',     'href' => route('admin.career.contact.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $contact->name, 'href' => route('admin.career.contact.show', [$contact->id, 'owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
+        $breadcrumbs[] = [ 'name' => 'Contacts',     'href' => route('admin.career.contact.index') ];
+        $breadcrumbs[] = [ 'name' => $contact->name, 'href' => route('admin.career.contact.show', $contact->id) ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.career.contact.index')])->render(),
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? (!empty($title) ? $title : 'Contact: ' . $contact->name),
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

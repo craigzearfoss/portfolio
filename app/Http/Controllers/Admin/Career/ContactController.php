@@ -10,6 +10,7 @@ use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -89,7 +90,11 @@ class ContactController extends BaseAdminController
      */
     public function edit(Contact $contact): View
     {
-        Gate::authorize('update-resource', $contact);
+        if (!isRootAdmin() && ($contact->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $contact);
 
         return view('admin.career.contact.edit', compact('contact'));
     }
@@ -103,8 +108,6 @@ class ContactController extends BaseAdminController
      */
     public function update(UpdateContactsRequest $request, Contact $contact): RedirectResponse
     {
-        Gate::authorize('update-resource', $contact);
-
         $contact->update($request->validated());
 
         return redirect()->route('admin.career.application.show', $contact)
@@ -119,7 +122,11 @@ class ContactController extends BaseAdminController
      */
     public function destroy(Contact $contact): RedirectResponse
     {
-        Gate::authorize('delete-resource', $contact);
+        if (!isRootAdmin() && ($contact->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $contact);
 
         $contact->delete();
 

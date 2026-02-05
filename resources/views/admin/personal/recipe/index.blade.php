@@ -1,23 +1,34 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Recipes' ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate('recipe', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe', 'href' => route('admin.personal.recipe.create', $owner)])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe', 'href' => route('admin.personal.recipe.create', $owner ?? $admin)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Recipes',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes' ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'admin'            => $owner,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
 ])

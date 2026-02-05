@@ -1,26 +1,33 @@
 @php
-    $buttons = [];
-    if (canUpdate($application, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.career.application.edit', $application) ])->render();
-    }
-    if (canCreate('application', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Application',
-                                                               'href' => route('admin.career.application.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
-                                                               )
-                                                             ])->render();
-    }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.career.application.index') ])->render();
-@endphp
-@extends('admin.layouts.default', [
-    'title'           => $pageTitle ?? 'Application: ' . $application->name,
-    'breadcrumbs'     => [
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',    'href' => route('admin.career.application.index') ],
-        [ 'name' => $application->name ],
-    ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index') ];
+        $breadcrumbs[] = [ 'name' => 'Applications', 'href' => route('admin.career.application.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => $application->name ];
+
+    // set navigation buttons
+    $buttons = [];
+    if (canUpdate($application, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.application.edit', $application)])->render();
+    }
+    if (canCreate('application', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create', $owner ?? $admin)])->render();
+    }
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render();
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Application: ' . $application->name,
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

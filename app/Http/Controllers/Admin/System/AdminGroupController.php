@@ -97,8 +97,6 @@ class AdminGroupController extends BaseAdminController
      */
     public function update(UpdateAdminGroupsRequest $request, AdminGroup $adminGroup): RedirectResponse
     {
-        Gate::authorize('update-resource', $adminGroup);
-
         $adminGroup->update($request->validated());
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)

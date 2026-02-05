@@ -9,6 +9,7 @@ use App\Models\Portfolio\Academy;
 use App\Models\Portfolio\Art;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -90,7 +91,11 @@ class ArtController extends BaseAdminController
      */
     public function edit($art): View
     {
-        Gate::authorize('update-resource', $art);
+        if (!isRootAdmin() && ($art->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $art);
 
         return view('admin.portfolio.art.edit', compact('art'));
     }
@@ -104,8 +109,6 @@ class ArtController extends BaseAdminController
      */
     public function update(UpdateArtRequest $request, Art $art): RedirectResponse
     {
-        Gate::authorize('update-resource', $art);
-
         $art->update($request->validated());
 
         return redirect()->route('admin.portfolio.art.show', $art)
@@ -120,7 +123,11 @@ class ArtController extends BaseAdminController
      */
     public function destroy(Art $art): RedirectResponse
     {
-        Gate::authorize('delete-resource', $art);
+        if (!isRootAdmin() && ($art->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $art);
 
         $art->delete();
 

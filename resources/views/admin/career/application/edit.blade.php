@@ -1,16 +1,31 @@
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',           'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name,       'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Career',           'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Applications',     'href' => route('admin.career.application.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', [$application->id, 'owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Career',           'href' => route('admin.career.index') ];
+        $breadcrumbs[] = [ 'name' => 'Applications',     'href' => route('admin.career.application.index') ];
+        $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render(),
+    ];
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? (!empty($title) ? $title : 'Application: ' . $application->name),
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',             'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',     'href' => route('admin.career.application.index') ],
-        [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', [ 'href' => referer('admin.career.application.index') ])->render(),
-    ],
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

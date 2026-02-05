@@ -97,8 +97,6 @@ class AdminTeamController extends BaseAdminController
      */
     public function update(UpdateAdminTeamsRequest $request, AdminTeam $adminTeam): RedirectResponse
     {
-        Gate::authorize('update-resource', $adminTeam);
-
         $adminTeam->update($request->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)

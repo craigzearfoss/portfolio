@@ -1,4 +1,14 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',               'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Certifications',     'href' => route('admin.portfolio.certification.index') ],
+        [ 'name' => $certification->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($certification, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.certification.edit', $certification)])->render();
@@ -10,13 +20,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Certification: ' . $certification->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],
-        [ 'name' => $certification->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

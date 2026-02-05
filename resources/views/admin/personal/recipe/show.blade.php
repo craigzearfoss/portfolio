@@ -1,22 +1,33 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Recipes',    'href' => route('admin.personal.recipe.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index') ];
+        $breadcrumbs[] = [ 'name' => 'Recipes',    'href' => route('admin.personal.recipe.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => $recipe->name ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($recipe, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe.edit', $recipe)])->render();
     }
     if (canCreate('recipe', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe', 'href' => route('admin.personal.recipe.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe', 'href' => route('admin.personal.recipe.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Recipe: ' . $recipe->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => $recipe->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

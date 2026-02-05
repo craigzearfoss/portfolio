@@ -13,6 +13,7 @@ use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -112,7 +113,11 @@ class CompanyController extends BaseAdminController
      */
     public function edit(Company $company): View
     {
-        Gate::authorize('update-resource', $company);
+        if (!isRootAdmin() && ($company->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $company);
 
         return view('admin.career.company.edit', compact('company'));
     }
@@ -126,8 +131,6 @@ class CompanyController extends BaseAdminController
      */
     public function update(UpdateCompaniesRequest $request, Company $company): RedirectResponse
     {
-        Gate::authorize('update-resource', $company);
-
         $company->update($request->validated());
 
         return redirect()->route('admin.career.company.show', $company)
@@ -142,7 +145,11 @@ class CompanyController extends BaseAdminController
      */
     public function destroy(Company $company): RedirectResponse
     {
-        Gate::authorize('delete-resource', $company);
+        if (!isRootAdmin() && ($company->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $company);
 
         $company->delete();
 

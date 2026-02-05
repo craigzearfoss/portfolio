@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateAwardsRequest;
 use App\Models\Portfolio\Award;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -89,7 +90,11 @@ class AwardController extends BaseAdminController
      */
     public function edit(Award $award): View
     {
-        Gate::authorize('update-resource', $award);
+        if (!isRootAdmin() && ($award->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $award);
 
         return view('admin.portfolio.award.edit', compact('award'));
     }
@@ -103,8 +108,6 @@ class AwardController extends BaseAdminController
      */
     public function update(UpdateAwardsRequest $request, Award $award): RedirectResponse
     {
-        Gate::authorize('update-resource', $award);
-
         $award->update($request->validated());
 
         return redirect()->route('admin.portfolio.award.show', $award)
@@ -119,7 +122,11 @@ class AwardController extends BaseAdminController
      */
     public function destroy(Award $award): RedirectResponse
     {
-        Gate::authorize('delete-resource', $award);
+        if (!isRootAdmin() && ($award->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $award);
 
         $award->delete();
 

@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateSkillsRequest;
 use App\Models\Portfolio\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -88,7 +89,11 @@ class SkillController extends BaseAdminController
      */
     public function edit(Skill $skill): View
     {
-        Gate::authorize('update-resource', $skill);
+        if (!isRootAdmin() && ($skill->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $skill);
 
         return view('admin.portfolio.skill.edit', compact('skill'));
     }
@@ -102,8 +107,6 @@ class SkillController extends BaseAdminController
      */
     public function update(UpdateSkillsRequest $request, Skill $skill): RedirectResponse
     {
-        Gate::authorize('update-resource', $skill);
-
         $skill->update($request->validated());
 
         return redirect()->route('admin.portfolio.skill.show', $skill)
@@ -118,7 +121,11 @@ class SkillController extends BaseAdminController
      */
     public function destroy(Skill $skill): RedirectResponse
     {
-        Gate::authorize('delete-resource', $skill);
+        if (!isRootAdmin() && ($skill->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $skill);
 
         $skill->delete();
 

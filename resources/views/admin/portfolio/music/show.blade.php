@@ -1,22 +1,33 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Music',      'href' => route('admin.portfolio.music.index', ['owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
+        $breadcrumbs[] = [ 'name' => 'Music',      'href' => route('admin.portfolio.music.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($music, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.music.edit', $music)])->render();
     }
     if (canCreate('music', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Music', 'href' => route('admin.portfolio.music.create')])->render();
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Music', 'href' => route('admin.portfolio.music.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.music.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Music',           'href' => route('admin.portfolio.music.index') ],
-        [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
@@ -154,7 +165,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => !empty($music->link_name) ? $music->link_name ?? 'link',
+            'name'   => !empty($music->link_name) ? $music->link_name : 'link',
             'href'   => $music->link,
             'target' => '_blank'
         ])

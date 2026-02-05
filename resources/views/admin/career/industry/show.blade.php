@@ -1,4 +1,14 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Industries',      'href' => route('admin.career.industry.index') ],
+        [ 'name' => $industry->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($industry, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.industry.edit', $industry)])->render();
@@ -10,13 +20,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Industry: ' . $industry->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Industries',      'href' => route('admin.career.industry.index') ],
-        [ 'name' => $industry->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

@@ -1,4 +1,14 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
+        [ 'name' => 'Ingredients',     'href' => route('admin.personal.ingredient.index') ],
+        [ 'name' => $ingredient->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($ingredient, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.ingredient.edit', $ingredient)])->render();
@@ -10,13 +20,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Ingredient: ' . $ingredient->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Ingredients',     'href' => route('admin.personal.ingredient.index') ],
-        [ 'name' => $ingredient->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

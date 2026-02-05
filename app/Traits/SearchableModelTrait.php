@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Schema;
 
 trait SearchableModelTrait
 {
@@ -159,10 +160,17 @@ trait SearchableModelTrait
         $orderByColumn = is_array($orderBy) ? $orderBy[0] : $orderBy;
         $orderByDirection = is_array($orderBy) ? $orderBy[1] : 'asc';
 
+        $className = self::class;
+        $object = new $className();
+        $databaseTag = $object->getConnectionName();
+        $tableName = $object->getTable();
+
         // determine the previous and next resumes
         $query = self::select('id')->orderBy($orderByColumn, $orderByDirection);
 
-        if (!empty($ownerId)) {
+        if (!empty($ownerId)
+            && Schema::hasColumn(config('app.'.$databaseTag) . '.' . $tableName, 'owner_id')
+        ) {
             $query->where('owner_id', $ownerId);
         }
 

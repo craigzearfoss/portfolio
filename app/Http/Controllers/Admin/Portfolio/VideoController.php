@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateVideosRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -88,6 +89,10 @@ class VideoController extends BaseAdminController
      */
     public function edit(Video $video): View
     {
+        if (!isRootAdmin() && ($video->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
         //Gate::authorize('update-resource', $video);
 
         return view('admin.portfolio.video.edit', compact('video'));
@@ -102,8 +107,6 @@ class VideoController extends BaseAdminController
      */
     public function update(UpdateVideosRequest $request, Video $video): RedirectResponse
     {
-        Gate::authorize('update-resource', $video);
-
         $video->update($request->validated());
 
         return redirect()->route('admin.portfolio.video.show', $video)
@@ -118,7 +121,11 @@ class VideoController extends BaseAdminController
      */
     public function destroy(Video $video): RedirectResponse
     {
-        Gate::authorize('delete-resource', $video);
+        if (!isRootAdmin() && ($video->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $video);
 
         $video->delete();
 

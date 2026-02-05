@@ -9,6 +9,7 @@ use App\Models\Career\Application;
 use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -121,7 +122,11 @@ class NoteController extends BaseAdminController
      */
     public function edit(Note $note, Request $request): View
     {
-        Gate::authorize('update-resource', $note);
+        if (!isRootAdmin() && ($note->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $note);
 
         $urlParams = [];
         if ($applicationId = $request->get('application_id')) {
@@ -140,8 +145,6 @@ class NoteController extends BaseAdminController
      */
     public function update(UpdateNotesRequest $request, Note $note): RedirectResponse
     {
-        Gate::authorize('update-resource', $note);
-
         $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -172,7 +175,11 @@ class NoteController extends BaseAdminController
      */
     public function destroy(Note $note): RedirectResponse
     {
-        Gate::authorize('delete-resource', $note);
+        if (!isRootAdmin() && ($note->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $note);
 
         $note->delete();
 

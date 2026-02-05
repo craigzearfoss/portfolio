@@ -1,22 +1,26 @@
 @php
-    $buttons = [];
-    if (canUpdate($recruiter, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.recruiter.edit', $admin)])->render();
-    }
-    if (canCreate('recruiter', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recruiter', 'href' => route('admin.career.recruiter.create')])->render();
-    }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.recruiter.index', $admin)])->render();
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Recruiter: ' . $recruiter->name,
-    'breadcrumbs'      => [
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Recruiters',      'href' => route('admin.career.recruiter.index') ],
-        [ 'name' => $recruiter->name ],
-    ],
+        [ 'name' => $recruiter->name ]
+    ];
+
+    // set navigation buttons
+    $buttons = [];
+    if (canUpdate($recruiter, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.recruiter.edit', $recruiter)])->render();
+    }
+    if (canCreate('recruiter', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recruiter', 'href' => route('admin.career.recruiter.create')])->render();
+    }
+    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.recruiter.index')])->render();
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Recruiter: ' . $recruiter->name,
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

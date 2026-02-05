@@ -8,6 +8,7 @@ use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
@@ -100,7 +101,11 @@ class UserController extends BaseUserController
      */
     public function edit(User $user): View
     {
-        Gate::authorize('update-resource', $user);
+        if (!isRootAdmin()) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $user);
 
         return view('admin.system.user.edit', compact('user'));
     }
@@ -114,8 +119,6 @@ class UserController extends BaseUserController
      */
     public function update(UpdateUsersRequest $request, User $user): RedirectResponse
     {
-        Gate::authorize('update-resource', $user);
-
         $user->update($request->validated());
 
         return redirect()->route('user.user.show', $user)
@@ -130,7 +133,11 @@ class UserController extends BaseUserController
      */
     public function destroy(User $user): RedirectResponse
     {
-        Gate::authorize('delete-resource', $user);
+        if (!isRootAdmin()) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $user);
 
         return redirect(referer('admin.system.user.index'))
             ->with('success', $user->username . ' deleted successfully.');

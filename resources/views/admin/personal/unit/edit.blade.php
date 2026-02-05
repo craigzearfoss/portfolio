@@ -1,17 +1,24 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Unit: ' . $unit->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
-        [ 'name' => $unit->name,       'href' => route('admin.personal.unit.show', $unit->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.unit.index')])->render(),
-    ],
-    'errorMessages' => $errors->any()
+        [ 'name' => $unit->name,       'href' => route('admin.personal.unit.show', $unit) ],
+        [ 'name' => 'Edit' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.personal.unit.index')])->render(),
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Unit: ' . $unit->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,

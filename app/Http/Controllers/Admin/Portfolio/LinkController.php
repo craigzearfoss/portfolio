@@ -9,6 +9,7 @@ use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -89,7 +90,11 @@ class LinkController extends BaseAdminController
      */
     public function edit(Link $link): View
     {
-        Gate::authorize('update-resource', $link);
+        if (!isRootAdmin() && ($link->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $link);
 
         return view('admin.portfolio.link.edit', compact('link'));
     }
@@ -103,8 +108,6 @@ class LinkController extends BaseAdminController
      */
     public function update(UpdateLinksRequest $request, Link $link): RedirectResponse
     {
-        Gate::authorize('update-resource', $link);
-
         $link->update($request->validated());
 
         return redirect()->route('admin.portfolio.link.show', $link)
@@ -119,7 +122,11 @@ class LinkController extends BaseAdminController
      */
     public function destroy(Link $link): RedirectResponse
     {
-        Gate::authorize('delete-resource', $link);
+        if (!isRootAdmin() && ($link->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $link);
 
         $link->delete();
 

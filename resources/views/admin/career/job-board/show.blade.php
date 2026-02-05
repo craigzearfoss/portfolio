@@ -1,4 +1,14 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Job Boards',      'href' => route('admin.career.job-board.index') ],
+        [ 'name' => $jobBoard->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($jobBoard, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.job-board.edit', $jobBoard)])->render();
@@ -10,13 +20,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Job Board: ' . $jobBoard->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Job Boards',      'href' => route('admin.career.job-board.index') ],
-        [ 'name' => $jobBoard->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
@@ -43,7 +47,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $jobBoard->name ??
+            'value' => $jobBoard->name
         ])
 
         @include('admin.components.show-row', [

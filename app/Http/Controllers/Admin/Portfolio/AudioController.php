@@ -9,6 +9,7 @@ use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -89,7 +90,11 @@ class AudioController extends BaseAdminController
      */
     public function edit(Audio $audio): View
     {
-        Gate::authorize('update-resource', $audio);
+        if (!isRootAdmin() && ($audio->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $audio);
 
         return view('admin.portfolio.audio.edit', compact('audio'));
     }
@@ -103,8 +108,6 @@ class AudioController extends BaseAdminController
      */
     public function update(UpdateAudiosRequest $request, Audio $audio): RedirectResponse
     {
-        Gate::authorize('update-resource', $audio);
-
         $audio->update($request->validated());
 
         return redirect()->route('admin.portfolio.audio.show', $audio)
@@ -119,7 +122,11 @@ class AudioController extends BaseAdminController
      */
     public function destroy(Audio $audio): RedirectResponse
     {
-        Gate::authorize('delete-resource', $audio);
+        if (!isRootAdmin() && ($audio->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $audio);
 
         $audio->delete();
 

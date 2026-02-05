@@ -9,6 +9,7 @@ use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -89,7 +90,11 @@ class ProjectController extends BaseAdminController
      */
     public function edit(Project $project): View
     {
-        Gate::authorize('update-resource', $project);
+        if (!isRootAdmin() && ($project->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $project);
 
         return view('admin.portfolio.project.edit', compact('project'));
     }
@@ -103,8 +108,6 @@ class ProjectController extends BaseAdminController
      */
     public function update(UpdateProjectsRequest $request, Project $project): RedirectResponse
     {
-        Gate::authorize('update-resource', $project);
-
         $project->update($request->validated());
 
         return redirect()->route('admin.portfolio.project.show', [$this->currentAdmin, $project])
@@ -119,7 +122,11 @@ class ProjectController extends BaseAdminController
      */
     public function destroy(Project $project): RedirectResponse
     {
-        Gate::authorize('delete-resource', $project);
+        if (!isRootAdmin() && ($project->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $project);
 
         $project->delete();
 

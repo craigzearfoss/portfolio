@@ -1,4 +1,14 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
+        [ 'name' => 'Units',     'href' => route('admin.personal.unit.index') ],
+        [ 'name' => $unit->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($unit, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.unit.edit', $unit)])->render();
@@ -10,13 +20,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Unit: ' . $unit->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
-        [ 'name' => $unit->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

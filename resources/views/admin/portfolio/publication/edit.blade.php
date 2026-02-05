@@ -1,16 +1,31 @@
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',           'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name,       'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',        'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Publications',     'href' => route('admin.portfolio.publication.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $publication->name, 'href' => route('admin.portfolio.publication.show', [$publication->id, 'owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Portfolio',        'href' => route('admin.portfolio.index') ];
+        $breadcrumbs[] = [ 'name' => 'Publications',     'href' => route('admin.portfolio.publication.index') ];
+        $breadcrumbs[] = [ 'name' => $publication->name, 'href' => route('admin.portfolio.publication.show', $publication->id) ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.publication.index')])->render(),
+    ];
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Publication: ' . $publication->title,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',             'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',        'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Publications',     'href' => route('admin.portfolio.publication.index') ],
-        [ 'name' => $publication->name, 'href' => route('admin.portfolio.publication.show', $publication->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.publication.index')])->render(),
-    ],
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

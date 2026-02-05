@@ -1,22 +1,26 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Schools',         'href' => route('admin.portfolio.school.index') ],
+        [ 'name' => $school->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($school, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.school.edit', $school)])->render();
     }
-    if (canCreate('school', $admin->id)) {
+    if (canCreate('school', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New School', 'href' => route('admin.portfolio.school.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.school.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'School: ' . $school->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Schools',         'href' => route('admin.portfolio.school.index') ],
-        [ 'name' => $school->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

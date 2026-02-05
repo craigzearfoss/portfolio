@@ -1,16 +1,31 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Photography: ' . $photo->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Photography',     'href' => route('admin.portfolio.photography.index') ],
-        [ 'name' => $photo->name,      'href' => route('admin.portfolio.photography.show', $photo->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
+    ];
+    if (!empty($owner) && !empty($admin) && $admin->root) {
+        $breadcrumbs[] = [ 'name' => 'Admins',      'href' => route('admin.system.admin.index') ];
+        $breadcrumbs[] = [ 'name' => $owner->name,  'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',   'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Photography', 'href' => route('admin.portfolio.photography.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $photo->name,  'href' => route('admin.portfolio.photography.show', [$photo->id, 'owner_id'=>$owner->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Portfolio',   'href' => route('admin.portfolio.index') ];
+        $breadcrumbs[] = [ 'name' => 'Photography', 'href' => route('admin.portfolio.photography.index') ];
+        $breadcrumbs[] = [ 'name' => $photo->name,  'href' => route('admin.portfolio.photography.show', $photo->id) ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Edit' ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.photography.index')])->render(),
-    ],
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Photography: ' . $photo->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

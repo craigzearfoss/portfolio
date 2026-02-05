@@ -10,6 +10,7 @@ use App\Models\Career\Communication;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -122,7 +123,11 @@ class CommunicationController extends BaseAdminController
      */
     public function edit(Communication $communication, Request $request): View
     {
-        Gate::authorize('update-resource', $communication);
+        if (!isRootAdmin() && ($communication->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $communication);
 
         $urlParams = [];
         if ($applicationId = $request->get('application_id')) {
@@ -142,8 +147,6 @@ class CommunicationController extends BaseAdminController
     public function update(UpdateCommunicationsRequest $request,
                            Communication               $communication): RedirectResponse
     {
-        Gate::authorize('update-resource', $communication);
-
         $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -174,7 +177,11 @@ class CommunicationController extends BaseAdminController
      */
     public function destroy(Communication $communication): RedirectResponse
     {
-        Gate::authorize('delete-resource', $communication);
+        if (!isRootAdmin() && ($communication->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $communication);
 
         $communication->delete();
 

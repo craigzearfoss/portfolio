@@ -1,16 +1,23 @@
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',                'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',     'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',           'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Certifications',      'href' => route('admin.portfolio.certification.index') ],
+        [ 'name' => $ceertification->name, 'href' => route('admin.portfolio.certification.show', $ceertification) ],
+        [ 'name' => 'Edit' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.certification.index')])->render(),
+    ];
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Certification: ' . $certification->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',               'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certifications',     'href' => route('admin.portfolio.certification.index') ],
-        [ 'name' => $certification->name, 'href' => route('admin.portfolio.certification.show', $certification->id) ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.certification.index')])->render(),
-    ],
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

@@ -12,6 +12,7 @@ use App\Models\System\Admin;
 use App\Services\ResumeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -139,7 +140,11 @@ class ResumeController extends BaseAdminController
      */
     public function edit(Resume $resume, Request $request): View
     {
-        Gate::authorize('update-resource', $resume);
+        if (!isRootAdmin() && ($resume->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $resume);
 
         $urlParams = [];
         if ($applicationId = $request->get('application_id')) {
@@ -158,8 +163,6 @@ class ResumeController extends BaseAdminController
      */
     public function update(UpdateResumesRequest $request, Resume $resume): RedirectResponse
     {
-        Gate::authorize('update-resource', $resume);
-
         $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -190,7 +193,11 @@ class ResumeController extends BaseAdminController
      */
     public function destroy(Resume $resume): RedirectResponse
     {
-        Gate::authorize('delete-resource', $resume);
+        if (!isRootAdmin() && ($resume->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $resume);
 
         $resume->delete();
 

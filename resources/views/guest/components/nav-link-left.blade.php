@@ -19,7 +19,7 @@
             break;
     }
 
-    $htmlString = view('admin.components.nav-button', [
+    $htmlString = view('admin.components.nav-link', [
             'name'   => $name ?? false,
             'href'   => $href ?? false,
             'class'  => $classes,

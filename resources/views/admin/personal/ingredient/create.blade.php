@@ -1,15 +1,22 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New Ingredient',
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Ingredients',     'href' => route('admin.personal.ingredient.index') ],
-        [ 'name' => 'Add' ],
-    ],
-    'buttons'          => [
+        [ 'name' => 'Add' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.personal.ingredient.index')])->render(),
-    ],
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Add New Ingredient',
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

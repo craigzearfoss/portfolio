@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateCertificatesRequest;
 use App\Models\Portfolio\Certificate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -88,7 +89,11 @@ class CertificateController extends BaseAdminController
      */
     public function edit(Certificate $certificate): View
     {
-        Gate::authorize('edit-resource', $certificate);
+        if (!isRootAdmin() && ($certificate->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $certificate);
 
         return view('admin.portfolio.certificate.edit', compact('certificate'));
     }
@@ -103,8 +108,6 @@ class CertificateController extends BaseAdminController
     public function update(UpdateCertificatesRequest $request,
                            Certificate               $certificate): RedirectResponse
     {
-        Gate::authorize('edit-resource', $certificate);
-
         $certificate->update($request->validated());
 
         return redirect()->route('admin.portfolio.certificate.show', $certificate)
@@ -119,7 +122,11 @@ class CertificateController extends BaseAdminController
      */
     public function destroy(Certificate $certificate): RedirectResponse
     {
-        Gate::authorize('delete-resource', $certificate);
+        if (!isRootAdmin() && ($certificate->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $certificate);
 
         $certificate->delete();
 

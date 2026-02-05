@@ -10,6 +10,7 @@ use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -105,7 +106,11 @@ class JobCoworkerController extends BaseAdminController
      */
     public function edit(JobCoworker $jobCoworker, Request $request): View
     {
-        Gate::authorize('update-resource', $jobCoworker);
+        if (!isRootAdmin() && ($jobCoworker->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('update-resource', $jobCoworker);
 
         return view('admin.portfolio.job-coworker.edit', compact('jobCoworker'));
     }
@@ -119,8 +124,6 @@ class JobCoworkerController extends BaseAdminController
      */
     public function update(UpdateJobCoworkersRequest $request, JobCoworker $jobCoworker): RedirectResponse
     {
-        Gate::authorize('update-resource', $jobCoworker);
-
         $jobCoworker->update($request->validated());
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
@@ -135,7 +138,11 @@ class JobCoworkerController extends BaseAdminController
      */
     public function destroy(JobCoworker $jobCoworker): RedirectResponse
     {
-        Gate::authorize('delete-resource', $jobCoworker);
+        if (!isRootAdmin() && ($jobCoworker->owner_id !== Auth::guard('admin')->user()->id)) {
+            Abort(403, 'Not Authorized.');
+        }
+        //@TODO: Get authorization gate working.
+        //Gate::authorize('delete-resource', $jobCoworker);
 
         $jobCoworker->delete();
 

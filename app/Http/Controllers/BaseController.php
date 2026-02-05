@@ -110,6 +110,7 @@ class BaseController extends Controller
         } elseif (!empty($this->routeParams['admin'])) {
 
             $this->owner = $this->routeParams['admin'];
+            $owner_id = $this->owner->id;
 
         } else {
 
@@ -117,6 +118,7 @@ class BaseController extends Controller
                 // get the owner_id from the cookie
                 if ($owner_id = $this->cookies['owner_id']) {
                     $this->owner = Admin::find($owner_id);
+                    $owner_id = $this->owner->id;
                 } else {
                     $this->owner = null;
                 }
@@ -167,7 +169,8 @@ class BaseController extends Controller
         }
         Cookie::queue(self::USER_ID_COOKIE, $user_id, 60);
 
-        $this->menuService = new MenuService($this->envType,
+        $this->menuService = new MenuService(
+            $this->envType,
             $this->owner,
             $this->admin,
             $this->user,

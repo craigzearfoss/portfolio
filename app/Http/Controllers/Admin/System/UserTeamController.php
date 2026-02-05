@@ -97,8 +97,6 @@ class UserTeamController extends BaseUserController
      */
     public function update(UpdateUserTeamsRequest $request, UserTeam $userTeam): RedirectResponse
     {
-        Gate::authorize('update-resource', $userTeam);
-
         $userTeam->update($request->validated());
 
         return redirect()->route('user.system.user-team.show', $userTeam)

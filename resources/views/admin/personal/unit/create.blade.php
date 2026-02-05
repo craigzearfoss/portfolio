@@ -1,15 +1,22 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New Unit',
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
-        [ 'name' => 'Add' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.unit.index')])->render(),
-    ],
+        [ 'name' => 'Add' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.personal.unit.index')])->render(),
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Add New Unit',
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
