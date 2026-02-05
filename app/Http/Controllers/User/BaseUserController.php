@@ -8,15 +8,18 @@ use Illuminate\Http\Request;
 
 class BaseUserController extends BaseController
 {
+    const OWNER_ID_COOKIE = 'user_owner_id';
+    const USER_ID_COOKIE = 'user_user_id';
+
     public function __construct(PermissionService $permissionService, Request $request)
     {
         parent::__construct($permissionService);
 
-        $this->setCurrentAdminAndUser();
+        $this->initialize('user');
 
-        $this->envType = 'user';
-
-        view()->share('envType', $this->envType);
+        if (isset($_GET['debug'])) {
+            $this->ddDebug();
+        }
 
         $resp = $this->permissionGate();
     }

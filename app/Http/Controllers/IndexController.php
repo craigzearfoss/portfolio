@@ -21,7 +21,7 @@ class IndexController extends BaseController
     {
         parent::__construct($permissionService);
 
-        $this->setCurrentAdminAndUser();
+        $this->initialize('guest');
     }
 
     public function about(): View

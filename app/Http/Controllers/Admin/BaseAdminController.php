@@ -12,15 +12,18 @@ use Illuminate\Support\Facades\Route;
 
 class BaseAdminController extends BaseController
 {
+    const OWNER_ID_COOKIE = 'admin_owner_id';
+    const USER_ID_COOKIE = 'admin_user_id';
+
     public function __construct(PermissionService $permissionService, Request $request)
     {
         parent::__construct($permissionService);
 
-        $this->setCurrentAdminAndUser();
+        $this->initialize('admin');
 
-        $this->envType = 'admin';
-
-        view()->share('envType', $this->envType);
+        if (isset($_GET['debug'])) {
+            $this->ddDebug();
+        }
 
         $resp = $this->permissionGate();
     }
