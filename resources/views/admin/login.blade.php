@@ -1,8 +1,18 @@
+@php
+    $loginEnabled  = config('app.admin_login_enabled');
+    $isDemoEnabled = config('app.demo_admin_enabled');
+    $demoUsername  = config('app.demo_admin_username');
+    $demoPassword  = config('app.demo_admin_password');
+    $demoAutologin = config('app.demo_admin_autologin');
+dd(!empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']);
+@endphp
 @extends('admin.layouts.default', [
-    'title'            => 'Login',
+    'title'            => $pageTitle ?? 'Login',
     'breadcrumbs'      => [],
     'buttons'          => [],
-    'errorMessages'    => $errors->messages() ?? [],
+    'errorMessages'    => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
@@ -20,19 +30,32 @@
             Admin Login
         </div>
 
-        @if (!config('app.admin_login_enabled'))
+        @if (!$loginEnabled)
 
             <div class="has-text-centered">
                 <h4>Admin logins have been disabled.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{!! route('admin.index') !!}"><i
-                            class="fa fa-house"></i> Home</a>
+                    @include('admin.components.link', [ 'name' => 'Home',
+                                                        'href' => route('admin.index'),
+                                                        'icon' => 'fa-house'
+                    ])
                 </p>
             </div>
 
         @else
 
-            <form action="{!! route('admin.login-submit') !!}" method="POST">
+            @if($demoAutologin)
+
+                <div class="p-2 has-text-centered">
+                    <p class="mb-1">
+                        To log in as the <strong>demo</strong> admin use the credentials below.
+                    </p>
+                    <code class=" has-text-primary">{{ $demoUsername }} / {{ $demoPassword }}</code>
+                </div>
+
+            @endif
+
+            <form action="{{ route('admin.login-submit') }}" method="POST">
                 @csrf
 
                 @include('admin.components.form-hidden', [
@@ -62,7 +85,12 @@
                 ])
 
                 <div class="has-text-centered my-3">
-                    <a class="text-primary-600 hover:underline" href="{!! route('admin.forgot-password') !!}">Forgot Password?</a>
+                    @include('admin.components.link', [
+                        'name'       => 'Forgot Password?',
+                        'href'       => route('admin.forgot-password'),
+                        'style'      => 'text-primary-600 hover:underline',
+                        'cancel_url' => referer('admin.index')
+                    ])
                 </div>
 
                 <div class="has-text-centered">

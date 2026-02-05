@@ -1,4 +1,11 @@
-@extends('user.layouts.empty', [
+@php
+    $loginEnabled  = config('app.user_login_enabled');
+    $isDemoEnabled = config('app.demo_user_enabled');
+    $demoUsername  = config('app.demo_user_username');
+    $demoPassword  = config('app.demo_user_password');
+    $demoAutologin = config('app.demo_user_autologin');
+@endphp
+@extends('user.layouts.default', [
     'title'            => $pageTitle ?? 'Login',
     'breadcrumbs'      => [],
     'buttons'          => [],
@@ -27,12 +34,25 @@
             <div class="has-text-centered">
                 <h4>User logins have been disabled.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{{ route('guest.index') }}"><i
-                            class="fa fa-house"></i> Home</a>
+                    @include('admin.components.link', [ 'name' => 'Home',
+                                                        'href' => route('admin.index'),
+                                                        'icon' => 'fa-house'
+                    ])
                 </p>
             </div>
 
         @else
+
+            @if($demoAutologin)
+
+                <div class="p-2 has-text-centered">
+                    <p class="mb-1">
+                        To log in as the <strong>demo</strong> admin use the credentials below.
+                    </p>
+                    <code class=" has-text-primary">{{ $demoUsername }} / {{ $demoPassword }}</code>
+                </div>
+
+            @endif
 
             <form action="{{ route('user.login-submit') }}" method="POST">
                 @csrf
@@ -64,9 +84,22 @@
                 ])
 
                 <div class="has-text-centered my-3">
-                    <a class="text-primary-600 hover:underline" href="{{ route('user.forgot-password') }}">Forgot Password?</a>
+                    @include('admin.components.link', [
+                        'name'       => 'Forgot Password?',
+                        'href'       => route('user.forgot-password'),
+                        'style'      => 'text-primary-600 hover:underline',
+                        'cancel_url' => referer('admin.index')
+                    ])
+
                     |
-                    <a class="text-primary-600 hover:underline" href="{{ route('user.forgot-username') }}">Forgot User Name?</a>
+
+                    @include('admin.components.link', [
+                        'name'       => 'Forgot User Name?',
+                        'href'       => route('user.forgot-username'),
+                        'style'      => 'text-primary-600 hover:underline',
+                        'cancel_url' => referer('admin.index')
+                    ])
+
                 </div>
 
                 <div class="has-text-centered">

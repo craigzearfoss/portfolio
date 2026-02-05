@@ -88,7 +88,7 @@ class IndexController extends BaseUserController
             } else {
                 return view(themedTemplate('user.login'))
                     ->with('username', $username)
-                    ->withErrors('Incorrect login information.<br>Double-check the username and password and try signing in again.');
+                    ->withErrors(['GLOBAL' => 'Incorrect login information.<br>Double-check the username and password and try signing in again.']);
             }
 
         } else {

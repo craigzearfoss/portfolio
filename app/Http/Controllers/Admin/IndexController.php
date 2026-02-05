@@ -103,7 +103,7 @@ class IndexController extends BaseAdminController
             } else {
                 return view(themedTemplate('admin.login'))
                     ->with('username', $username)
-                    ->withErrors('Incorrect login information.<br>Double-check the username and password and try signing in again.');
+                    ->withErrors(['GLOBAL' => 'Incorrect login information.<br>Double-check the username and password and try signing in again.']);
             }
 
         } else {
