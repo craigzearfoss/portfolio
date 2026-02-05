@@ -76,5 +76,8 @@ composer install --ignore-platform-req=php
 echo -e "sudo chmod -R 775 $PROJECT_DIR/public/images"
 sudo chmod -R 775 $PROJECT_DIR/public/images
 
+echo -e "sudo chmod -R 775 $PROJECT_DIR/public/portfolio"
+sudo chmod -R 775 $PROJECT_DIR/public/portfolio
+
 echo -e "\nphp artisan optimize"
 php artisan optimize
