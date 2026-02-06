@@ -35,7 +35,7 @@ $resource = $resource ?? null;
 
                     <div class="item" style="flex: 1; white-space: nowrap;">
                         <span><strong>sequence:</strong></span>
-                        <span>{{ empty($resource->sequence) ? $resource->sequence : '0' }}</span>
+                        <span>{{ $resource->sequence ?? '0' }}</span>
                     </div>
 
                 @endif
