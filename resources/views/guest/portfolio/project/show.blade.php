@@ -80,7 +80,7 @@
         @if(!empty($project->repository_url))
             @include('guest.components.show-row-link', [
                 'name'   => 'repository',
-                'label'  => $project->repository_name,
+                'label'  => $project->repository_url,
                 'href'   => $project->repository_url,
                 'target' => '_blank'
             ])

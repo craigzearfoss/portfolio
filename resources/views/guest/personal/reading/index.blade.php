@@ -30,6 +30,10 @@
 
 @section('content')
 
+    @if($owner->demo)
+        @include('guest.components.disclaimer')
+    @endif
+
     <?php /*
     <div class="search-container card p-2 pb-0 mb-1">
         <form id="searchForm" action="{{ route('guest.personal.reading.index') }}" method="get">

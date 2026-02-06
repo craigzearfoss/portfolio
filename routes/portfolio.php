@@ -81,9 +81,7 @@ Route::name('guest.')->middleware('guest')->group(function () {
     Route::get('/{admin:label}/portfolio/course', [GuestPortfolioCourseController::class, 'index'])->name('portfolio.course.index');
     Route::get('/{admin:label}/portfolio/course/{slug}', [GuestPortfolioCourseController::class, 'show'])->name('portfolio.course.show');
     Route::get('/{admin:label}/portfolio/education', [GuestPortfolioEducationController::class, 'index'])->name('portfolio.education.index');
-    Route::get('/{admin:label}/portfolio/education/{id}', [GuestPortfolioEducationController::class, 'show'])->name('portfolio.education.show');
     Route::get('/{admin:label}/portfolio/job', [GuestPortfolioJobController::class, 'index'])->name('portfolio.job.index');
-    Route::get('/{admin:label}/portfolio/job/{slug}', [GuestPortfolioJobController::class, 'show'])->name('portfolio.job.show');
     Route::get('/{admin:label}/portfolio/link', [GuestPortfolioLinkController::class, 'index'])->name('portfolio.link.index');
     Route::get('/{admin:label}/portfolio/link/{slug}', [GuestPortfolioLinkController::class, 'show'])->name('portfolio.link.show');
     Route::get('/{admin:label}/portfolio/music', [GuestPortfolioMusicController::class, 'index'])->name('portfolio.music.index');
@@ -95,7 +93,6 @@ Route::name('guest.')->middleware('guest')->group(function () {
     Route::get('/{admin:label}/portfolio/publication', [GuestPortfolioPublicationController::class, 'index'])->name('portfolio.publication.index');
     Route::get('/{admin:label}/portfolio/publication/{slug}', [GuestPortfolioPublicationController::class, 'show'])->name('portfolio.publication.show');
     Route::get('/{admin:label}/portfolio/skill', [GuestPortfolioSkillController::class, 'index'])->name('portfolio.skill.index');
-    Route::get('/{admin:label}/portfolio/skill/{slug}', [GuestPortfolioSkillController::class, 'show'])->name('portfolio.skill.show');
     Route::get('/{admin:label}/portfolio/video', [GuestPortfolioVideoController::class, 'index'])->name('portfolio.video.index');
     Route::get('/{admin:label}/portfolio/video/{slug}', [GuestPortfolioVideoController::class, 'show'])->name('portfolio.video.show');
 });

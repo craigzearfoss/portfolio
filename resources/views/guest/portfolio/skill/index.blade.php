@@ -30,6 +30,10 @@
 
 @section('content')
 
+    @if($owner->demo)
+        @include('guest.components.disclaimer')
+    @endif
+
     <div class="card p-4">
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
@@ -58,11 +62,7 @@
 
                 <tr>
                     <td>
-                        @include('guest.components.link', [
-                            'name'  => $skill->name,
-                            'href'  => route('guest.portfolio.skill.show', [$owner, $skill->slug]),
-                            'class' => $skill->featured ? 'has-text-weight-bold' : ''
-                        ])
+                        <strong>{!! $skill->name !!}</strong>
                     </td>
                     <td>
                         {!! $skill->category->name ?? '' !!}

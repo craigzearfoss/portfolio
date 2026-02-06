@@ -30,6 +30,10 @@
 
 @section('content')
 
+    @if($owner->demo)
+        @include('guest.components.disclaimer')
+    @endif
+
     <div class="card p-4">
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">

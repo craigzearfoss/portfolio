@@ -6,7 +6,7 @@
         [ 'name' => $owner->name,   'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Certificates', 'href' => route('guest.portfolio.certificate.index', $owner) ],
-        [ 'name' => $art->name ],
+        [ 'name' => $certificate->name ],
     ];
 
     // set navigation buttons
