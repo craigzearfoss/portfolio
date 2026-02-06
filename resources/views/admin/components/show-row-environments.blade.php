@@ -10,13 +10,13 @@ $class = $class ?? '';
 $resource = $resource ?? null;
 @endphp
 <div class="columns {!! $class !!}" {!! $style !!}>
-    <div class="column is-2" style="min-width: 6rem;"><strong></strong></div>
+    <div class="column is-2" style="min-width: 6rem;"><strong>environments</strong></div>
     <div class="column is-10 pl-0">
         <div>
 
             <div class="container" style="display: flex; gap: 1em;">
 
-                @foreach(['public', 'readonly', 'root', 'disabled', 'demo'] as $setting)
+                @foreach(['guest', 'user', 'admin', 'global'] as $setting)
 
                     @if($resource->hasAttribute($setting))
 
@@ -30,15 +30,6 @@ $resource = $resource ?? null;
                     @endif
 
                 @endforeach
-
-                @if($resource->hasAttribute('sequence'))
-
-                    <div class="item" style="flex: 1; white-space: nowrap;">
-                        <span><strong>sequence:</strong></span>
-                        <span>{{ empty($resource->sequence) ? $resource->sequence : '0' }}</span>
-                    </div>
-
-                @endif
 
             </div>
 

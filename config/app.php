@@ -50,7 +50,7 @@ return [
     'record_logins'          => boolval(env('APP_RECORD_LOGINS', false)),
     'contactable'            => boolval(env('APP_CONTACTABLE', false)),
     'theme'                  => env('APP_THEME', null),
-    'bottom_column_headings' => boolval(env('APP_BOTTOM_COLUMN_HEADINGS', 1)),
+    'bottom_column_headings' => boolval(env('APP_BOTTOM_COLUMN_HEADINGS', 0)),
     'pagination_per_page'    => intval(env('APP_PAGINATION_PER_PAGE', 20)),
     'pagination_theme'       => env('APP_PAGINATION_TEMPLATE', 'default'),
     'pagination_bottom'      => boolval(env('APP_PAGINATION_BOTTOM', 1)),

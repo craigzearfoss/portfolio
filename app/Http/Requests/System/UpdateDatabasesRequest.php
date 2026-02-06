@@ -4,6 +4,7 @@ namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
 class UpdateDatabasesRequest extends FormRequest
 {
@@ -24,11 +25,15 @@ class UpdateDatabasesRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$database = Route::current()->parameters()['database']) {
+            abort(503, 'No database specified.');
+        }
+
         return [
             'owner_id'       => ['integer', 'exists:system_db.admins,id'],
-            'name'           => ['filled', 'string', 'max:50', 'unique:databases,name,'.$this->databases->id],
-            'database'       => ['filled', 'string', 'max:50', 'unique:databases,database,'.$this->databases->id],
-            'tag'            => ['filled', 'string', 'max:50', 'unique:databases,tag,'.$this->databases->id],
+            'name'           => ['filled', 'string', 'max:50', 'unique:databases,name,'.$database->id],
+            'database'       => ['filled', 'string', 'max:50', 'unique:databases,database,'.$database->id],
+            'tag'            => ['filled', 'string', 'max:50', 'unique:databases,tag,'.$database->id],
             'title'          => ['filled', 'string', 'max:50'],
             'plural'         => ['filled', 'string', 'max:50'],
             'guest'          => ['integer', 'between:0,1'],

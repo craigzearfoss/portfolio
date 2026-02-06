@@ -16,22 +16,13 @@ $resource = $resource ?? null;
 
             <div class="container" style="display: flex; gap: 1em;">
 
-                @if($resource->hasAttribute('sequence'))
-
-                    <div class="item" style="padding: 0.3em; flex: 1; white-space: nowrap;">
-                        <span><strong>sequence:</strong></span>
-                        <span>{{ empty($resource->sequence) ? $resource->sequence : '0' }}</span>
-                    </div>
-
-                @endif
-
                 @foreach(['public', 'readonly', 'root', 'disabled', 'demo'] as $setting)
 
                     @if($resource->hasAttribute($setting))
 
-                        <div class="item" style="padding: 0.3em; flex: 1; white-space: nowrap;">
+                        <div class="item" style="max-width: 6em; flex: 1; white-space: nowrap;">
                             <span>
-                                @include('user.components.checkbox', [ 'checked' => !empty($resource->{$setting}) ])
+                                @include('admin.components.checkbox', [ 'checked' => !empty($resource->{$setting}) ])
                             </span>
                             <span><strong>{{ $setting == 'readonly' ? 'read-only' : $setting }}</strong></span>
                         </div>
@@ -39,6 +30,15 @@ $resource = $resource ?? null;
                     @endif
 
                 @endforeach
+
+                @if($resource->hasAttribute('sequence'))
+
+                    <div class="item" style="flex: 1; white-space: nowrap;">
+                        <span><strong>sequence:</strong></span>
+                        <span>{{ empty($resource->sequence) ? $resource->sequence : '0' }}</span>
+                    </div>
+
+                @endif
 
             </div>
 

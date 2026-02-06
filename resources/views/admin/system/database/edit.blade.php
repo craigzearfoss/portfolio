@@ -1,10 +1,11 @@
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Database: ' . $database->name,
     'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Databases',       'href' => route('admin.system.database.index') ],
-        [ 'name' => $database->name ],
+        [ 'name' => 'Home',                  'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
+        [ 'name' => 'Databases',             'href' => route('admin.system.database.index') ],
+        [ 'name' => $database->name . ' db', 'href' => route('admin.system.database.show', $database) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons'          => [
         view('admin.components.nav-button-back', [ 'href' => referer('admin.system.database.index') ])->render(),
@@ -98,74 +99,23 @@
                 'message'   => $message ?? '',
             ])
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'guest',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('guest') ?? $database->guest,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'user',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('user') ?? $database->user,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'admin',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('admin') ?? $database->admin,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'global',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('global') ?? $database->global,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'menu',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('menu') ?? $database->menu,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-input', [
-                                'name'      => 'menu_level',
-                                'label'     => 'menu level',
-                                'type'      => 'number',
-                                'value'     => old('menu_level') ?? $database->menu_level,
-                                'required'  => true,
-                                'message'   => $message ?? '',
-                            ])
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'icon',
                 'value'     => old('icon') ?? $database->icon,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-environments-horizontal', [
+                'guest'  => old('guest') ?? $database->guest,
+                'user'   => old('user') ?? $database->user,
+                'admin'  => old('admin') ?? $database->admin,
+                'global' => old('global') ?? $database->global,
+            ])
+
+            @include('admin.components.form-menu-fields-horizontal', [
+                'menu'       => old('menu') ?? $database->menu,
+                'menu_level' => old('meni_level') ?? $database->menu_level,
             ])
 
             @include('admin.components.form-settings-horizontal', [

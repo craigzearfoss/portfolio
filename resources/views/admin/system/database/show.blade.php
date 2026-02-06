@@ -3,13 +3,6 @@
     if (canUpdate($database, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.database.edit', $database) ])->render();
     }
-    if (canCreate('database', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Database',
-                                                               'href' => route('admin.system.database.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
-    }
     $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.database.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
@@ -76,39 +69,18 @@
             'value' => $database->plural
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'guest',
-            'checked' => $database->guest
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'user',
-            'checked' => $database->user
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'admin',
-            'checked' => $database->admin
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'global',
-            'checked' => $database->global
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'menu',
-            'checked' => $database->menu
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'menu level',
-            'value' => $database->menu_level
-        ])
-
         @include('admin.components.show-row-icon', [
             'name' => 'icon',
             'icon' => $database->icon
+        ])
+
+        @include('admin.components.show-row-environments', [
+            'resource' => $database,
+        ])
+
+        @include('admin.components.show-row-menu-fields', [
+            'menu'       => $database->menu,
+            'menu_level' => $database->menu_level,
         ])
 
         @include('admin.components.show-row-settings', [

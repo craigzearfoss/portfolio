@@ -26,12 +26,24 @@
         <div class="section">
             <div class="columns">
                 <div class="column is-three-fifths is-offset-one-fifth">
-                    <div class="box has-text-centered">
-                        <h1 class="title">403 Forbidden</h1>
-                        <p>You tried to access a page for which you are not authorized.</p>
 
-                        <p>If you are the application owner check the logs for more information.</p>
-                    </div>
+                    @if(!empty($message))
+
+                        <div class="box has-text-centered">
+                            <h1 class="title">403 Forbidden</h1>
+                            <p>{{ $message }}</p>
+                        </div>
+
+                    @else
+
+                        <div class="box has-text-centered">
+                            <h1 class="title">403 Forbidden</h1>
+                            <p>You tried to access a page for which you are not authorized.</p>
+                            <p>If you are the application owner check the logs for more information.</p>
+                        </div>
+
+                    @endif
+
                     <div>
 
                         @include($envType.'.components.link', [

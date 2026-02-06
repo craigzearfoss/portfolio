@@ -1,10 +1,5 @@
 @php
     $buttons = [];
-    if (canCreate('database', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Database',
-                                                               'href' => route('admin.system.database.create')
-                                                             ])->render();
-    }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Databases',
@@ -42,12 +37,12 @@
                 <th>database</th>
                 <th>tag</th>
                 <th>title</th>
-                <th>icon</th>
+                <th class="has-text-centered">icon</th>
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
                 <th class="has-text-centered">admin</th>
                 <th class="has-text-centered">global</th>
-                <th>sequence</th>
+                <th class="has-text-centered">sequence</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -64,12 +59,12 @@
                     <th>database</th>
                     <th>tag</th>
                     <th>title</th>
-                    <th>icon</th>
+                    <th class="has-text-centered">icon</th>
                     <th class="has-text-centered">guest</th>
                     <th class="has-text-centered">user</th>
                     <th class="has-text-centered">admin</th>
                     <th class="has-text-centered">global</th>
-                    <th>sequence</th>
+                    <th class="has-text-centered">sequence</th>
                     <th class="has-text-centered">public</th>
                     <th class="has-text-centered">disabled</th>
                     <th>actions</th>
@@ -106,7 +101,7 @@
                     <td data-field="title">
                         {!! $database->title !!}
                     </td>
-                    <td data-field="icon">
+                    <td data-field="icon" class="has-text-centered">
                         @if (!empty($database->icon))
                             <span class="text-xl">
                                 <i class="fa-solid {!! $database->icon !!}"></i>
@@ -126,7 +121,7 @@
                     <td data-field="admin" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->global ])
                     </td>
-                    <td data-field="sequence">
+                    <td data-field="sequence" class="has-text-centered">
                         {{ $database->sequence }}
                     </td>
                     <td data-field="public" class="has-text-centered">
@@ -153,18 +148,6 @@
                                     'href'  => route('admin.system.database.edit', $database),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
-                            @endif
-
-                            @if(canDelete($database, $admin))
-                                <form class="delete-resource" action="{!! route('admin.system.database.destroy', $database) !!}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    @include('admin.components.button-icon', [
-                                        'title' => 'delete',
-                                        'class' => 'delete-btn',
-                                        'icon'  => 'fa-trash'
-                                    ])
-                                </form>
                             @endif
 
                         </div>
