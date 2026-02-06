@@ -1,14 +1,21 @@
-@extends('guest.layouts.default', [
-    'title'            => 'Dictionary: ' . $language->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Languages',  'href' => route('guest.dictionary.language.index') ],
         [ 'name' => $language->name ],
-    ],
-    'buttons'          => [
-        view('guest.components.nav-button-back', ['href' => referer('guest.dictionary.index')])->render(),
-    ],
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('guest.components.nav-button-back', ['href' => referer('guest.dictionary.index')])->render()
+    ];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => 'Dictionary: ' . $language->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

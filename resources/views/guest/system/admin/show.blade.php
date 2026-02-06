@@ -1,11 +1,18 @@
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ??  !empty($owner->name) ? $owner->name : $owner->username,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => !empty($owner->name) ? $owner->name : $owner->username ]
-    ],
-    'buttons'          => [],
+    ];
+
+    // set navigation buttons
+    $buttons = [];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => $pageTitle ??  !empty($owner->name) ? $owner->name : $owner->username,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

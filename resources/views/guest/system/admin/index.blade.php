@@ -1,11 +1,17 @@
-@php @endphp
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home', 'href' => route('guest.index') ],
+        [ 'name' => 'Candidates' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [];
+@endphp
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ?? 'Candidates',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home', 'href' => route('guest.index') ],
-        [ 'name' => 'Candidates']
-    ],
-    'buttons'          => [],
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

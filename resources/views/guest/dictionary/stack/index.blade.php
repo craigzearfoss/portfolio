@@ -1,10 +1,18 @@
-@extends('guest.layouts.default', [
-    'title'            => 'Dictionary: Stacks' ,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
-        [ 'name' => 'Stacks' ],
-    ],
+        [ 'name' => 'Stacks' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => 'Dictionary: Stacks' ,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'selectList'       => View::make('guest.components.form-select', [
                             'name'     => '',
                             'label'    => '',
@@ -13,8 +21,7 @@
                             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
                             'message'  => $message ?? '',
                         ]),
-    'buttons'          => [],
-    'errorMessages' => $errors->any()
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
