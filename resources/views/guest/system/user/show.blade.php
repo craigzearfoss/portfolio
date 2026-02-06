@@ -10,16 +10,17 @@
     $buttons = [];
 @endphp
 @extends('guest.layouts.default', [
-    'title'         => $pageTitle ??  !empty($user->name) ? $user->name : $user->username,
-    'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->any()
+    'title'            => $pageTitle ??  !empty($user->name) ? $user->name : $user->username,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
+    'menuService'      => $menuService,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
