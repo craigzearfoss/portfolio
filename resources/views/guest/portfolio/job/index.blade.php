@@ -13,7 +13,7 @@
 @endphp
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ?? $owner->name . ' jobs',
-    'breadcrumbs'      => $breadcrumb,
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']

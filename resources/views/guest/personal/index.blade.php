@@ -42,7 +42,9 @@
                         <li>
                             @include('admin.components.link', [
                                 'name'  => $personal->plural,
-                                'href'  => route('guest.personal.'.$personal->name.'.index', $owner),
+                                'href'  => Route::has('guest.personal.'.$personal->name.'.index')
+                                                ? route('guest.personal.'.$personal->name.'.index', $owner)
+                                                : '',
                                 'class' => 'list-item',
                             ])
                         </li>
