@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Http\Middleware\Admin;
 use App\Services\PermissionService;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Blade;
@@ -27,16 +28,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(\Request $request): void
     {
-        if (config('app.env') === 'production') {
+        if (App::environment('production')) {
             URL::forceScheme('https');
         }
 
         Paginator::useBootstrap();
 
+        // @TODO: fix dated
         // define gate for admin editing a resource
         Gate::define('update-resource', function ($resourceObj, Admin $admin): bool
-        {d($admin);
-            if ($admin->root) return true;
+        {
+            if (!empty($admin->root)) return true;
 
             if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
                 return true;
@@ -48,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
         // define gate for an admin deleting a resource
         Gate::define('delete-resource', function (Admin $admin, $resourceObj): bool
         {
-            if ($admin->root) return true;
+            if (!empty($admin->root)) return true;
 
             if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
                 return true;
