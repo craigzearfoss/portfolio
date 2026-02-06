@@ -11,25 +11,27 @@
 
 <body>
 
-<div id="app">
+    <div id="app">
 
-    <section class="is-main-section px-4 py-3">
+        <section class="is-main-section px-4 py-3">
 
-        @include('user.components.messages', [
-            'errorMessages' => $errorMessages ?? [],
-            'success'       => $success ?? null,
-            'error'         => $error ?? null,
-        ])
+            @include('user.components.messages', [
+                'errorMessages' => $errorMessages ?? [],
+                'success'       => $success ?? null,
+                'error'         => $error ?? null,
+            ])
 
-        <div class="container">
-            @yield('content')
-        </div>
+            <div class="container">
+                @yield('content')
+            </div>
 
-    </section>
+        </section>
 
-    @include('user.components.footer')
+        @include('user.components.footer')
 
-</div>
+    </div>
+
+    {!! CookieConsent::scripts() !!}
 
 </body>
 

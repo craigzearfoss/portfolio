@@ -27,33 +27,17 @@ class IndexController extends BaseGuestController
     {
         if (!empty($this->owner)) {
 
-            if ($database = AdminDatabase::where('tag', 'portfolio_db')->where('owner_id', $this->owner->id)->first()) {
-                $resources = AdminResource::ownerResources(
-                    $this->owner->id,
-                    PermissionService::ENV_GUEST,
-                    $database->database_id,
-                    [],
-                    ['title', 'asc']
-                );
-            } else {
-                $resources = [];
-            }
+            $databaseId = Database::where('tag', 'portfolio_db')->first()->id ?? null;
+
+            $portfolios = !empty($databaseId)
+                ? AdminResource::ownerResources($this->owner->id, PermissionService::ENV_GUEST, $databaseId)
+                : [];
 
         } else {
 
-            if ($database = Database::where('tag', 'portfolio_db')->first()) {
-                $resources = Resource::ownerResources(
-                    null,
-                    PermissionService::ENV_GUEST,
-                    $database->id,
-                    [],
-                    ['title', 'asc']
-                );
-            } else {
-                $resources = [];
-            }
+            $portfolios = [];
         }
 
-        return view(themedTemplate('guest.portfolio.index'), compact('owner', 'database', 'resources'));
+        return view(themedTemplate('guest.portfolio.index'), compact('portfolios'));
     }
 }

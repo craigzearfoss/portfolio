@@ -13,6 +13,7 @@ class AwardController extends BaseGuestController
 {
     /**
      * Display a listing of awards.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -20,20 +21,19 @@ class AwardController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $awards = Award::where('owner_id', $owner->id)
+        $awards = Award::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.award.index'), compact('owner', 'awards'))
+        return view(themedTemplate('guest.portfolio.award.index'), compact('awards'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified award.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -41,12 +41,10 @@ class AwardController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$award = Award::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$award = Award::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.award.show'), compact('owner', 'award'));
+        return view(themedTemplate('guest.portfolio.award.show'), compact('award'));
     }
 }

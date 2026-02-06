@@ -11,21 +11,23 @@
 
 <body>
 
-<div id="app">
+    <div id="app">
 
-    <section class="is-main-section px-4 py-3">
+        <section class="is-main-section px-4 py-3">
 
-        @include('admin.components.messages', [
-            'errorMessages' => $errorMessages ?? [],
-            'success'       => $success ?? null,
-            'error'         => $error ?? null,
-        ])
+            @include('admin.components.messages', [
+                'errorMessages' => $errorMessages ?? [],
+                'success'       => $success ?? null,
+                'error'         => $error ?? null,
+            ])
 
-        @yield('content')
+            @yield('content')
 
-    </section>
+        </section>
 
-</div>
+    </div>
+
+    {!! CookieConsent::scripts() !!}
 
 </body>
 

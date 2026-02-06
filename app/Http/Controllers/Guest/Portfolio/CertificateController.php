@@ -16,6 +16,7 @@ class CertificateController extends BaseGuestController
 {
     /**
      * Display a listing of certificates.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -23,20 +24,19 @@ class CertificateController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $certificates = Certificate::where('owner_id', $owner->id)
+        $certificates = Certificate::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.certificate.index'), compact('owner', 'certificates'))
+        return view(themedTemplate('guest.portfolio.certificate.index'), compact('certificates'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified certificate.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -44,12 +44,10 @@ class CertificateController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$certificate = Certificate::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$certificate = Certificate::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.certificate.show'), compact('owner', 'certificate'));
+        return view(themedTemplate('guest.portfolio.certificate.show'), compact('certificate'));
     }
 }

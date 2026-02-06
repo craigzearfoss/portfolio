@@ -16,6 +16,7 @@ class CourseController extends BaseGuestController
 {
     /**
      * Display a listing of courses.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -23,20 +24,19 @@ class CourseController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $courses = Course::where('owner_id', $owner->id)
+        $courses = Course::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.course.index'), compact('owner', 'courses'))
+        return view(themedTemplate('guest.portfolio.course.index'), compact('courses'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified course.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -44,12 +44,10 @@ class CourseController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$course = Course::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$course = Course::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.course.show'), compact('owner', 'course'));
+        return view(themedTemplate('guest.portfolio.course.show'), compact('course'));
     }
 }

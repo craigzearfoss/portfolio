@@ -16,6 +16,7 @@ class LinkController extends BaseGuestController
 {
     /**
      * Display a listing of links.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -23,20 +24,19 @@ class LinkController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $links = Link::where('owner_id', $owner->id)
+        $links = Link::where('owner_id', $this->owner->id)
             ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.link.index'), compact('owner', 'links'))
+        return view(themedTemplate('guest.portfolio.link.index'), compact('links'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified link.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -46,10 +46,10 @@ class LinkController extends BaseGuestController
     {
         $owner = $admin;
 
-        if (!$link = Link::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$link = Link::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.link.show'), compact('owner', 'link'));
+        return view(themedTemplate('guest.portfolio.link.show'), compact('link'));
     }
 }

@@ -1,12 +1,19 @@
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Portfolios',
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => $title ?? 'Portfolio' ],
-    ],
-    'buttons'          => [],
+        [ 'name' => $owner->name ?? 'Portfolio' ],
+    ];
+
+    // set navigation buttons
+    $buttons = [];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => $pageTitle ?? (!empty($owner) ? 'Portfolio for ' . $owner->name : 'Portfolio'),
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -22,40 +29,32 @@
 
 @section('content')
 
-    <div class="card m-4">
+    <div class="card m-0">
 
         <div class="card-body p-4">
 
-            <div class="container">
-                <div class="content">
+            <div class="list is-hoverable">
 
-                    <h3 class="title">
-                        {!! $owner->name !!} Portfolio
-                    </h3>
+                <ul class="menu-list" style="max-width: 20em;">
 
-                    <ul class="menu-list ml-4 mb-2">
+                    @foreach ($portfolios as $portfolio)
 
-                        @foreach ($resources as $resource)
+                        <li>
+                            @include('admin.components.link', [
+                                'name'  => $portfolio->plural,
+                                'href'  => route('guest.portfolio.'.$portfolio->name.'.index', $owner),
+                                'class' => 'list-item',
+                            ])
+                        </li>
 
-                            @if(empty($resource->global) && Route::has('guest.admin.portfolio.'.$resource->name.'.index'))
-                                <li>
-                                    @include('guest.components.link', [
-                                        'name'  => $resource->plural,
-                                        'href'  => route('guest.portfolio.'.$resource->name.'.index', $owner),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
+                    @endforeach
 
-                        @endforeach
+                </ul>
 
-                    </ul>
-
-                </div>
             </div>
 
         </div>
 
-    </div>
+</div>
 
 @endsection

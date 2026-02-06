@@ -16,6 +16,7 @@ class MusicController extends BaseGuestController
 {
     /**
      * Display a listing of music.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -23,20 +24,19 @@ class MusicController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = Music::where('owner_id', $owner->id)
+        $musics = Music::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')->orderBy('artist', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.music.index'), compact('owner', 'musics'))
+        return view(themedTemplate('guest.portfolio.music.index'), compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified music.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -44,12 +44,10 @@ class MusicController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$music = Music::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$music = Music::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.music.show'), compact('owner', 'music'));
+        return view(themedTemplate('guest.portfolio.music.show'), compact('music'));
     }
 }

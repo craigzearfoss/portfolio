@@ -11,52 +11,54 @@
 
 <body>
 
-<div id="app">
+    <div id="app">
 
-    @include('user.components.nav-top', [
-        'menuService'      => $menuService ?? null,
-        'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
-        'admin'            => $admin ?? null,
-        'user'             => $user ?? null,
-        'owner'            => $owner ?? null,
-    ])
-
-    @include('user.components.nav-left', [
-        'menuService'      => $menuService ?? null,
-        'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
-        'admin'            => $admin ?? null,
-        'user'             => $user ?? null,
-        'owner'            => $owner ?? null,
-    ])
-
-    @include('user.components.title-bar', [
-        'title'       => $title ?? '',
-        'breadcrumbs' => $breadcrumbs ?? []
-    ])
-
-    @include('user.components.subtitle-bar', [
-        'title'      => $title ?? '',
-        'selectList' => $selectList ?? '',
-        'buttons'    => $buttons ?? [],
-    ])
-
-    <section class="is-main-section px-4 py-3">
-
-        @include('user.components.messages', [
-            'errorMessages' => $errorMessages ?? [],
-            'success'       => $success ?? null,
-            'error'         => $error ?? null,
+        @include('user.components.nav-top', [
+            'menuService'      => $menuService ?? null,
+            'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
+            'admin'            => $admin ?? null,
+            'user'             => $user ?? null,
+            'owner'            => $owner ?? null,
         ])
 
-        <div class="container">
-            @yield('content')
-        </div>
+        @include('user.components.nav-left', [
+            'menuService'      => $menuService ?? null,
+            'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
+            'admin'            => $admin ?? null,
+            'user'             => $user ?? null,
+            'owner'            => $owner ?? null,
+        ])
 
-    </section>
+        @include('user.components.title-bar', [
+            'title'       => $title ?? '',
+            'breadcrumbs' => $breadcrumbs ?? []
+        ])
 
-    @include('user.components.footer')
+        @include('user.components.subtitle-bar', [
+            'title'      => $title ?? '',
+            'selectList' => $selectList ?? '',
+            'buttons'    => $buttons ?? [],
+        ])
 
-</div>
+        <section class="is-main-section px-4 py-3">
+
+            @include('user.components.messages', [
+                'errorMessages' => $errorMessages ?? [],
+                'success'       => $success ?? null,
+                'error'         => $error ?? null,
+            ])
+
+            <div class="container">
+                @yield('content')
+            </div>
+
+        </section>
+
+        @include('user.components.footer')
+
+    </div>
+
+    {!! CookieConsent::scripts() !!}
 
 </body>
 

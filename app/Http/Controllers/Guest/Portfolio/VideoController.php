@@ -16,6 +16,7 @@ class VideoController extends BaseGuestController
 {
     /**
      * Display a listing of videos.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -23,20 +24,19 @@ class VideoController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $videos = Video::where('owner_id', $owner->id)
+        $videos = Video::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.video.index'), compact('owner', 'videos'))
+        return view(themedTemplate('guest.portfolio.video.index'), compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified video.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -44,12 +44,10 @@ class VideoController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$video = Video::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$video = Video::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.video.show'), compact('owner', 'video'));
+        return view(themedTemplate('guest.portfolio.video.show'), compact('video'));
     }
 }

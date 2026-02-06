@@ -43,6 +43,13 @@ class AdminController extends BaseGuestController
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
+    /**
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
+     *
+     * @param Admin $admin
+     * @return View
+     * @throws \Exception
+     */
     public function show(Admin $admin): View
     {
         if (!empty($this->owner)) {
@@ -68,11 +75,9 @@ class AdminController extends BaseGuestController
             $resources = [];
         }
 
-        $owner = $admin;
-
         return view(themedTemplate(
             'guest.system.admin.show'),
-            compact('owner', 'databases', 'resources')
+            compact('databases', 'resources')
         );
     }
 }

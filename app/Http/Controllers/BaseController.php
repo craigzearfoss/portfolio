@@ -24,18 +24,20 @@ class BaseController extends Controller
      * The logged in admin, logged-in user, and current owner that is being viewed.
      */
     protected $admin = null;
-    protected $user = null;
+    protected $user  = null;
+
     protected $owner = null;
 
-    protected $action           = null;
-    protected $currentRouteName = null;
-    protected $routeParams      = [];
-    protected $urlParams        = [];
-    protected $resource         = null;
+    protected $action            = null;
+    protected $currentRouteName  = null;
+    protected $routeParams       = [];
+    protected $urlParams         = [];
+    protected $resource          = null;
 
-    protected $cookies          = [];
+    protected $cookies           = [];
 
-    protected $menuService      = null;
+    protected $permissionService = null;
+    protected $menuService       = null;
 
     protected $PAGINATION_PER_PAGE = 20;
 

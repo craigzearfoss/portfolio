@@ -16,6 +16,7 @@ class AudioController extends BaseGuestController
 {
     /**
      * Display a listing of audios.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -23,20 +24,19 @@ class AudioController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $audios = Audio::where('owner_id', $owner->id)
+        $audios = Audio::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.audio.index'), compact('owner', 'audios'))
+        return view(themedTemplate('guest.portfolio.audio.index'), compact('audios'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified audio.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -44,12 +44,10 @@ class AudioController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$audio = Audio::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$audio = Audio::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.audio.show'), compact('owner', 'audio'));
+        return view(themedTemplate('guest.portfolio.audio.show'), compact('audio'));
     }
 }

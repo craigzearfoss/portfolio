@@ -16,6 +16,7 @@ class IndexController extends BaseGuestController
 {
     /**
      * Display a listing of personal resources.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin|null $admin
      * @param Request $request
@@ -24,36 +25,19 @@ class IndexController extends BaseGuestController
      */
     public function index(Admin|null $admin, Request $request): View
     {
-        if (!empty($owner)) {
+        if (!empty($this->owner)) {
 
-            if ($database = AdminDatabase::where('tag', 'personal_db')->where('owner_id', $owner->id)->first()) {
-                $resources = AdminResource::ownerResources(
-                    $owner->id,
-                    PermissionService::ENV_GUEST,
-                    $database->database_id,
-                    [],
-                    ['title', 'asc']
-                );
-            } else {
-                $resources = [];
-            }
+            $databaseId = Database::where('tag', 'personal_db')->first()->id ?? null;
+
+            $personals = !empty($databaseId)
+                ? AdminResource::ownerResources($this->owner->id, PermissionService::ENV_GUEST, $databaseId)
+                : [];
 
         } else {
 
-            if ($database = Database::where('tag', 'personal_db')->first()) {
-                $resources = Resource::ownerResources(
-                    null,
-                    PermissionService::ENV_GUEST,
-                    $database->id,
-                    [],
-                    ['title', 'asc']
-                );
-            } else {
-                $resources = [];
-            }
-
+            $personals = [];
         }
 
-        return view(themedTemplate('guest.personal.index'), compact('owner', 'database', 'resources'));
+        return view(themedTemplate('guest.personal.index'), compact('personals'));
     }
 }

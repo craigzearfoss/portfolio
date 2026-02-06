@@ -580,8 +580,8 @@ class MenuService
     {
         if (empty($menuItem->menu)) {
             return false;
-
         }
+
         switch ($this->envType) {
             case PermissionService::ENV_ADMIN:
                 if (empty($this->admin)) {
@@ -599,6 +599,11 @@ class MenuService
                 }
                 break;
             case PermissionService::ENV_GUEST:
+                if (in_array(get_class($menuItem), ['App\Models\System\AdminDatabase', 'App\Models\System\Database'])
+                    && ($menuItem->name == 'system')
+                ) {
+                    return false;
+                }
                 if (empty($menuItem->guest) || empty($menuItem->global)) {
                     return false;
                 }

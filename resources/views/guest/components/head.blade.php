@@ -21,6 +21,8 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fontawesome-free-7.0.0-web/css/all.min.css') }}">
 
+    {!! CookieConsent::styles() !!}
+
 <?php /*
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">

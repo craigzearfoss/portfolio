@@ -13,6 +13,7 @@ class SkillController extends BaseGuestController
 {
     /**
      * Display a listing of skills.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -20,20 +21,19 @@ class SkillController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
-        $skills = Skill::where('owner_id', $owner->id)
+        $skills = Skill::where('owner_id', $this->owner->id)
             ->orderBy('level', 'desc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.skill.index'), compact('owner', 'skills'))
+        return view(themedTemplate('guest.portfolio.skill.index'), compact('skills'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified skill.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -41,12 +41,10 @@ class SkillController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$skill = Skill::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$skill = Skill::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.skill.show'), compact('owner', 'skill'));
+        return view(themedTemplate('guest.portfolio.skill.show'), compact('skill'));
     }
 }

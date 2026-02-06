@@ -24,15 +24,13 @@ class RecipeController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipes = Recipe::where('owner_id', $owner->id)
+        $recipes = Recipe::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.personal.recipe.index'), compact('owner', 'recipes'))
+        return view(themedTemplate('guest.personal.recipe.index'), compact('recipes'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,12 +43,10 @@ class RecipeController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$recipe = Recipe::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$recipe = Recipe::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.personal.recipe.show'), compact('owner', 'recipe'));
+        return view(themedTemplate('guest.personal.recipe.show'), compact('recipe'));
     }
 }

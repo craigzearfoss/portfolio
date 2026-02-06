@@ -16,6 +16,7 @@ class ProjectController extends BaseGuestController
 {
     /**
      * Display a listing of projects.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -23,20 +24,19 @@ class ProjectController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $projects = Project::where('owner_id', $owner->id)
+        $projects = Project::where('owner_id', $this->owner->id)
             ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.project.index'), compact('owner', 'projects'))
+        return view(themedTemplate('guest.portfolio.project.index'), compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified project.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -44,12 +44,10 @@ class ProjectController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$project = Project::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$project = Project::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.project.show'), compact('owner', 'project'));
+        return view(themedTemplate('guest.portfolio.project.show'), compact('project'));
     }
 }

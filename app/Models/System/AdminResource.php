@@ -121,7 +121,10 @@ class AdminResource extends Model
                                           array       $filters = [],
                                           array       $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
-        if ($envType == 'root') $envType = PermissionService::ENV_ADMIN;
+        if ($envType == 'root') {
+            $envType = PermissionService::ENV_ADMIN;
+        }
+
         if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
             throw new \Exception('ENV type ' . $envType . ' not supported');
         }
@@ -136,7 +139,8 @@ class AdminResource extends Model
             ->orderBy($sortField, $sortDir);
 
         if (!empty($ownerId)) {
-            $query->where('admin_resources.owner_id', $ownerId);
+            $query->where('has_owner', true)
+                ->where('admin_resources.owner_id', $ownerId);
         }
 
         // apply env type filter

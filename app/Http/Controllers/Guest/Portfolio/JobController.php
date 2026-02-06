@@ -19,6 +19,7 @@ class JobController extends BaseGuestController
 {
     /**
      * Display a listing of jobs.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -26,21 +27,20 @@ class JobController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = Job::where('owner_id', $owner->id)
+        $jobs = Job::where('owner_id', $this->owner->id)
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.job.index'), compact('owner', 'jobs'))
+        return view(themedTemplate('guest.portfolio.job.index'), compact('jobs'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified job.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -48,13 +48,11 @@ class JobController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$job = Job::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$job = Job::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.job.show'), compact('owner', 'job'));
+        return view(themedTemplate('guest.portfolio.job.show'), compact('job'));
     }
     /**
      * @param Admin $admin

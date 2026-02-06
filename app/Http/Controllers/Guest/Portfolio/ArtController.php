@@ -16,6 +16,7 @@ class ArtController extends BaseGuestController
 {
     /**
      * Display a listing of art.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param Request $request
@@ -23,20 +24,19 @@ class ArtController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $owner = $admin;
-
         $perPage = $request->query('per_page', $this->perPage());
 
-        $arts = Art::where('owner_id', $owner->id)
+        $arts = Art::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')->orderBy('artist', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.art.index'), compact('owner', 'arts'))
+        return view(themedTemplate('guest.portfolio.art.index'), compact('arts'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified art.
+     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
      * @param Admin $admin
      * @param string $slug
@@ -44,12 +44,10 @@ class ArtController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        $owner = $admin;
-
-        if (!$art = Art::where('owner_id', $owner->id)->where('slug', $slug)->first()) {
+        if (!$art = Art::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.art.show'), compact('owner', 'art'));
+        return view(themedTemplate('guest.portfolio.art.show'), compact('art'));
     }
 }
