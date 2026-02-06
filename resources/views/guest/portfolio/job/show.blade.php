@@ -1,16 +1,23 @@
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Job: ' . $job->name . (!empty($job->year) ? ' - ' . $job->year : ''),
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
-        [ 'name' => 'Job',        'href' => route('guest.portfolio.job.index', $owner) ],
-        [ 'name' => $job->name . (!empty($job->year) ? ' - ' . $job->year : '') ],
-    ],
-    'buttons'          => [
-        view('guest.components.nav-button-back', ['href' => referer('guest.admin.portfolio.job.index', $owner)])->render(),
-    ],
+        [ 'name' => 'Jobs',       'href' => route('guest.portfolio.job.index', $owner) ],
+        [ 'name' => $job->name ],
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('guest.components.nav-button-back',  ['href' => referer('guest.admin.portfolio.job.index', $owner)])->render(),
+    ];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => $pageTitle ?? 'Job: ' . $job->name . (!empty($job->year) ? ' - ' . $job->year : ''),
+    'breadcrumbs'      => $breadcrumb,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

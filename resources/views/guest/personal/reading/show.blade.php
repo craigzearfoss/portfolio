@@ -1,16 +1,23 @@
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Personal',   'href' => route('guest.personal.index', $owner) ],
         [ 'name' => 'Readings',   'href' => route('guest.personal.reading.index', $owner) ],
         [ 'name' => $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : '') ],
-    ],
-    'buttons'          => [
-        view('guest.components.nav-button-back', ['href' => referer('guest.admin.personal.reading.index', $owner)])->render(),
-    ],
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('guest.components.nav-button-back',  ['href' => referer('guest.admin.personal.reading.index', $owner)])->render(),
+    ];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => $pageTitle ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

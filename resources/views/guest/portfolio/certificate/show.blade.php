@@ -1,16 +1,23 @@
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Certificate: ' . $certificate->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',         'href' => route('guest.index') ],
         [ 'name' => 'Candidates',   'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name,   'href' => route('guest.admin.show', $owner)],
-        [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $certificate->owner) ],
-        [ 'name' => 'Certificates', 'href' => route('guest.portfolio.certificate.index', $certificate->owner) ],
-        [ 'name' => $certificate->name ],
-    ],
-    'buttons'          => [
-        view('guest.components.nav-button-back', ['href' => referer('guest.admin.portfolio.certificate.index', $owner)])->render(),
-    ],
+        [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index', $owner) ],
+        [ 'name' => 'Certificates', 'href' => route('guest.portfolio.certificate.index', $owner) ],
+        [ 'name' => $art->name ],
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('guest.components.nav-button-back',  ['href' => referer('guest.admin.portfolio.certificate.index', $owner)])->render(),
+    ];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => $pageTitle ?? 'Certificate: ' . $certificate->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

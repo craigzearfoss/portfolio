@@ -1,16 +1,23 @@
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Audio: ' . $audio->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
         [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Audio',      'href' => route('guest.portfolio.audio.index', $owner) ],
         [ 'name' => $audio->name ],
-    ],
-    'buttons'          => [
-        view('guest.components.nav-button-back', ['href' => referer('guest.admin.portfolio.audio.index', $owner)])->render(),
-    ],
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('guest.components.nav-button-back',  ['href' => referer('guest.admin.portfolio.audio.index', $owner)])->render(),
+    ];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => $pageTitle ?? 'Audio: ' . $audio->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

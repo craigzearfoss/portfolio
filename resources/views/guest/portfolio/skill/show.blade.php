@@ -1,16 +1,23 @@
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Skill: ' . $skill->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index',$owner) ],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
         [ 'name' => 'Skills',     'href' => route('guest.portfolio.skill.index', $owner) ],
         [ 'name' => $skill->name ],
-    ],
-    'buttons'          => [
-        view('guest.components.nav-button-back', ['href' => referer('guest.admin.portfolio.skill.index', $owner)])->render(),
-    ],
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('guest.components.nav-button-back',  ['href' => referer('guest.admin.portfolio.skill.index', $owner)])->render(),
+    ];
+@endphp
+@extends('guest.layouts.default', [
+    'title'            => $pageTitle ?? 'Skill: ' . $skill->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

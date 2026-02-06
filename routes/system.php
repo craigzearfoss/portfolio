@@ -24,6 +24,17 @@ use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
 use Illuminate\Support\Facades\Route;
 
+// The following were copied from the dictionary.php routes file.
+use App\Http\Controllers\Guest\Dictionary\CategoryController as GuestDictionaryCategoryController;
+use App\Http\Controllers\Guest\Dictionary\DatabaseController as GuestDictionaryDatabaseController;
+use App\Http\Controllers\Guest\Dictionary\FrameworkController as GuestDictionaryFrameworkController;
+use App\Http\Controllers\Guest\Dictionary\IndexController as GuestDictionaryIndexController;
+use App\Http\Controllers\Guest\Dictionary\LanguageController as GuestDictionaryLanguageController;
+use App\Http\Controllers\Guest\Dictionary\LibraryController as GuestDictionaryLibraryController;
+use App\Http\Controllers\Guest\Dictionary\OperatingSystemController as GuestDictionaryOperatingSystemController;
+use App\Http\Controllers\Guest\Dictionary\ServerController as GuestDictionaryServerController;
+use App\Http\Controllers\Guest\Dictionary\StackController as GuestDictionaryStackController;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // base routes
 // ---------------------------------------------------------------------------------------------------------------------
@@ -118,6 +129,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('user-team', AdminSystemUserTeamController::class)->parameter('user-team', 'user_team');
         });
     });
+});
+
+// ---------------------------------------------------------------------------------------------------------------------
+// guest dictionary routes
+// Copied from dictionary.php routes file.
+// ---------------------------------------------------------------------------------------------------------------------
+Route::prefix('dictionary')->middleware('guest')->name('guest.dictionary.')->group(function () {
+    Route::get('/', [GuestDictionaryIndexController::class, 'index'])->name('index');
+    Route::get('/category', [GuestDictionaryCategoryController::class, 'index'])->name('category.index');
+    Route::get('/category/{slug}', [GuestDictionaryCategoryController::class, 'show'])->name('category.show');
+    Route::get('/database', [GuestDictionaryDatabaseController::class, 'index'])->name('database.index');
+    Route::get('/database/{slug}', [GuestDictionaryDatabaseController::class, 'show'])->name('database.show');
+    Route::get('/framework', [GuestDictionaryFrameworkController::class, 'index'])->name('framework.index');
+    Route::get('/framework/{slug}', [GuestDictionaryFrameworkController::class, 'show'])->name('framework.show');
+    Route::get('/language', [GuestDictionaryLanguageController::class, 'index'])->name('language.index');
+    Route::get('/language/{slug}', [GuestDictionaryLanguageController::class, 'show'])->name('language.show');
+    Route::get('/library', [GuestDictionaryLibraryController::class, 'index'])->name('library.index');
+    Route::get('/library/{slug}', [GuestDictionaryLibraryController::class, 'show'])->name('library.show');
+    Route::get('/operating-system', [GuestDictionaryOperatingSystemController::class, 'index'])->name('operating-system.index');
+    Route::get('/operating-system/{slug}', [GuestDictionaryOperatingSystemController::class, 'show'])->name('operating-system.show');
+    Route::get('/server', [GuestDictionaryServerController::class, 'index'])->name('server.index');
+    Route::get('/server/{slug}', [GuestDictionaryServerController::class, 'show'])->name('server.show');
+    Route::get('/stack', [GuestDictionaryStackController::class, 'index'])->name('stack.index');
+    Route::get('/stack/{slug}', [GuestDictionaryStackController::class, 'show'])->name('stack.show');
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
