@@ -19,6 +19,7 @@
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
     'currentRouteName' => Route::currentRouteName(),
+    'menuService'      => $menuService,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -53,39 +54,39 @@
             */ ?>
             <tbody>
 
-            @forelse ($owners as $owner)
+            @forelse ($candidates as $candidate)
 
-                <tr data-id="{{ $owner->id }}">
+                <tr data-id="{{ $candidate->id }}">
                     <td data-field="thumbnail" style="width: 32px;">
-                        @if(!empty($owner->thumbnail))
+                        @if(!empty($candidate->thumbnail))
                             @include('guest.components.link', [
                                 'name' => view('guest.components.image', [
-                                                'src'      => $owner->thumbnail,
+                                                'src'      => $candidate->thumbnail,
                                                 'alt'      => 'profile image',
                                                 'width'    => '30px',
-                                                'filename' => $owner->thumbnail
+                                                'filename' => $candidate->thumbnail
                                             ]),
-                                'href' => route('guest.admin.show', $owner),
+                                'href' => route('guest.admin.show', $candidate),
                             ])
                         @endif
                     </td>
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name' => !empty($owner->name) ? $owner->name : $owner->label,
-                            'href' => route('guest.admin.show', $owner),
+                            'name' => !empty($candidate->name) ? $candidate->name : $candidate->label,
+                            'href' => route('guest.admin.show', $candidate),
                         ])
                     </td>
                     <td data-field="role">
-                        {!! $owner->role !!}
+                        {!! $candidate->role !!}
                     </td>
                     <td data-field="employer">
-                        {!! $owner->employer !!}
+                        {!! $candidate->employer !!}
                 </tr>
 
             @empty
 
                 <tr>
-                    <td colspan="4">There are no admins.</td>
+                    <td colspan="4">There are no candidates.</td>
                 </tr>
 
             @endforelse
@@ -93,7 +94,7 @@
             </tbody>
         </table>
 
-        {!! $owners->links('vendor.pagination.bulma') !!}
+        {!! $candidates->links('vendor.pagination.bulma') !!}
 
     </div>
 

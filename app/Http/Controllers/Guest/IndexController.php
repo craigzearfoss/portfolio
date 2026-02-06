@@ -55,11 +55,11 @@ class IndexController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $admin = null;
-        $owners = \App\Models\System\Admin::where('public', 1)
+        $candidates = \App\Models\System\Admin::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('name', 'asc')->paginate($perPage);
 
-        return view(themedTemplate('guest.system.admin.index'), compact('admin', 'owners'))
+        return view(themedTemplate('guest.system.admin.index'), compact('admin', 'candidates'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 }
