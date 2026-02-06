@@ -1,4 +1,5 @@
 <section class="hero is-hero-bar">
+
     <div class="hero-body p-3">
         <div class="level">
 
@@ -19,14 +20,11 @@
                 @if (!empty($buttons))
                     <div class="level-item">
                         <div class="buttons is-right">
+
                             @foreach ($buttons as $button)
-                                <a href="{{ $button['href'] ?? '' }}"
-                                   @if (!empty($button['target']))target="{{ $button['target'] }}" @endif
-                                   class="button is-small is-dark my-0"
-                                >
-                                    {!! $button['name'] ?? '#name#' !!}
-                                </a>
+                                {!! $button !!}
                             @endforeach
+
                         </div>
                     </div>
                 @endif

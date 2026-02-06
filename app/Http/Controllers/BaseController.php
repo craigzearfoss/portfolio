@@ -114,6 +114,12 @@ class BaseController extends Controller
             $this->owner = $this->routeParams['admin'];
             $owner_id = $this->owner->id;
 
+        //} elseif ($this->currentRouteName == 'guest.index') {
+        //
+        //    // home page
+        //    $this->owner = null;
+        //    $owner_id = null;
+
         } else {
 
             if (empty($this->owner)) {
