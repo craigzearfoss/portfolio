@@ -1,18 +1,17 @@
 @php
-    $buttons = [];
-    if (canCreate('resource', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Resource',
-                                                               'href' => route('admin.system.resource.create')
-                                                             ])->render();
-    }
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Resources',
-    'breadcrumbs'      => [
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Resources' ],
-    ],
+    ];
+
+    // set navigation buttons
+    $buttons = [];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Resources',
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
@@ -38,15 +37,17 @@
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th>name</th>
                 <th>database</th>
+                <th>name</th>
                 <th>table</th>
-                <th>icon</th>
+                <th class="has-text-centered">icon</th>
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
                 <th class="has-text-centered">admin</th>
                 <th class="has-text-centered">global</th>
                 <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">menu</th>
+                <th class="has-text-centered">menu<br>level</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -59,15 +60,17 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th>name</th>
                     <th>database</th>
+                    <th>name</th>
                     <th>table</th>
-                    <th>icon</th>
-                    <th>sequence</th>
+                    <th class="has-text-centered">icon</th>
                     <th class="has-text-centered">guest</th>
                     <th class="has-text-centered">user</th>
                     <th class="has-text-centered">admin</th>
                     <th class="has-text-centered">global</th>
+                    <th class="has-text-centered">sequence</th>
+                    <th class="has-text-centered">menu</th>
+                    <th class="has-text-centered">menu<br>level</th>
                     <th class="has-text-centered">public</th>
                     <th class="has-text-centered">disabled</th>
                     <th>actions</th>
@@ -92,16 +95,16 @@
                             @endif
                         </td>
                     @endif
-                    <td data-field="name">
-                        {!! $resource->name !!}
-                    </td>
                     <td data-field="database.name">
                         {!! $resource->database->name ?? '' !!}
+                    </td>
+                    <td data-field="name">
+                        {!! $resource->name !!}
                     </td>
                     <td data-field="table">
                         {!! $resource->table !!}
                     </td>
-                    <td data-field="icon">
+                    <td data-field="icon" class="has-text-centered">
                         @if (!empty($resource->icon))
                             <span class="text-xl">
                                 <i class="fa-solid {!! $resource->icon !!}"></i>
@@ -118,11 +121,17 @@
                     <td data-field="admin" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->admin ])
                     </td>
-                    <td data-field="admin" class="has-text-centered">
+                    <td data-field="global" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->global ])
                     </td>
-                    <td data-field="sequence">
+                    <td data-field="sequence" class="has-text-centered">
                         {{ $resource->sequence }}
+                    </td>
+                    <td data-field="menu" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->menu ])
+                    </td>
+                    <td data-field="menu_level" class="has-text-centered">
+                        {{ $resource->menu_level }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->public ])
@@ -150,18 +159,6 @@
                                 ])
                             @endif
 
-                            @if(canDelete($resource, $admin))
-                                <form class="delete-resource" action="{!! route('admin.system.resource.destroy', $resource) !!}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    @include('admin.components.button-icon', [
-                                        'title' => 'delete',
-                                        'class' => 'delete-btn',
-                                        'icon'  => 'fa-trash'
-                                    ])
-                                </form>
-                            @endif
-
                         </div>
 
                     </td>
@@ -170,7 +167,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '13' : '12' }}">There are no resources.</td>
+                    <td colspan="{{ $admin->root ? '15' : '14' }}">There are no resources.</td>
                 </tr>
 
             @endforelse

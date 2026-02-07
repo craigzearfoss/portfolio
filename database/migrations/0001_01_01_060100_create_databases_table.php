@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('tag', 50)->unique();
             $table->string('title', 50);
             $table->string('plural', 50);
+            $table->boolean('has_owner')->default(true);
             $table->boolean('guest')->default(false);
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);

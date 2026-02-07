@@ -108,6 +108,6 @@ class DatabaseController extends BaseAdminController
      */
     public function destroy(Database $database): RedirectResponse
     {
-        abort(403, 'Databases must be deleted.');
+        abort(403, 'Databases cannot be deleted.');
     }
 }

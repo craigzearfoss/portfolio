@@ -6,7 +6,10 @@ use App\Models\System\Database;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDatabasesRequest extends FormRequest
+/**
+ *
+ */
+class StoreResourcesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -32,6 +35,7 @@ class StoreDatabasesRequest extends FormRequest
             'tag'            => ['required', 'string', 'max:50', 'unique:'.Database::class],
             'title'          => ['required', 'string', 'max:50'],
             'plural'         => ['required', 'string', 'max:50'],
+            'has_owner'      => ['integer', 'between:0,1'],
             'guest'          => ['integer', 'between:0,1'],
             'user'           => ['integer', 'between:0,1'],
             'admin'          => ['integer', 'between:0,1'],

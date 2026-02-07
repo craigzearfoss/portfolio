@@ -38,7 +38,7 @@ class Resource extends Model
         'guest',
         'user',
         'admin',
-        'global',   // the resource has no owner
+        'global',
         'menu',
         'menu_level',
         'menu_collapsed',
@@ -167,63 +167,6 @@ class Resource extends Model
                 }
             }
         }
-
-        return $query->get();
-    }
-
-    /**
-     * Returns the resources.
-     *
-     * @param string|null $envType
-     * @param int|null $databaseId
-     * @param array $filters
-     * @param array $orderBy
-     * @return \Illuminate\Database\Eloquent\Collection
-     * @throws \Exception
-     */
-    public static function ownerResources___OLD(string|null $envType,
-                                          int|null    $databaseId = null,
-                                          array       $filters = [],
-                                          array       $orderBy = [ 'sequence' => 'asc' ]): Collection
-    {
-        if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
-            throw new \Exception('ENV type ' . $envType . ' not supported');
-        }
-
-        $query = AdminResource::orderBy($orderBy[0] ?? 'sequence', $orderBy[1] ?? 'asc');
-
-        // apply env type filter
-        if (!empty($databaseId)) {
-            $query->where($envType, 1);
-        }
-
-        // apply database filter
-        if (!empty($databaseId)) {
-            $query->where('database_id', $databaseId);
-        }
-
-        // Apply filters to the query.
-        foreach ($filters as $col => $value) {
-            if (is_array($value)) {
-                $query = $query->whereIn($col, $value);
-            } else {
-                $parts = explode(' ', $col);
-                $col = $parts[0];
-                if (!empty($parts[1])) {
-                    $operation = trim($parts[1]);
-                    if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->where($col, $operation, $value);
-                    } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($col, $value);
-                    } else {
-                        throw new \Exception('Invalid resource filter column: ' . $col . ' ' . $operation);
-                    }
-                } else {
-                    $query = $query->where($col, $value);
-                }
-            }
-        }
-
 
         return $query->get();
     }

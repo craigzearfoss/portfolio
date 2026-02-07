@@ -35,7 +35,7 @@ class UpdateResourcesRequest extends FormRequest
                 'filled',
                 'integer',
                 'exists:system_db.databases,id',
-                Rule::unique('system_db.admin_resources', 'database_id')->where(function ($query) {
+                Rule::unique('system_db.resources', 'database_id')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('resource_id', $this->database_id);
                 }),
@@ -44,18 +44,18 @@ class UpdateResourcesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:50',
-                Rule::unique('career_db.resources', 'name')->where(function ($query) {
+                Rule::unique('system_db.resources', 'name')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('name', $this->name)
                         ->where('id', '!=', $this->resource->id);
                 })
             ],
-            'parent_id'      => ['integer', Rule::in(Resource::where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
+            'parent_id'      => ['integer', Rule::in(Resource::where('id', '!=', $this->id)->get()->pluck('id')->toArray()), 'nullable'],
             'table'          => [
                 'filled',
                 'string',
                 'max:50',
-                Rule::unique('career_db.resources', 'table')->where(function ($query) {
+                Rule::unique('system_db.resources', 'table')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('table', $this->table)
                         ->where('id', '!=', $this->resource->id);

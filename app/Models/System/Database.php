@@ -31,6 +31,7 @@ class Database extends Model
         'tag',
         'title',
         'plural',
+        'has_owner',
         'guest',
         'user',
         'admin',
@@ -63,7 +64,7 @@ class Database extends Model
     }
 
     /**
-     * Get the system esources of the database.
+     * Get the system resources of the database.
      */
     public function resources(): HasMany
     {

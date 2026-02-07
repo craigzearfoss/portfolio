@@ -1,13 +1,17 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Databases' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Databases',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Databases' ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
@@ -43,6 +47,8 @@
                 <th class="has-text-centered">admin</th>
                 <th class="has-text-centered">global</th>
                 <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">menu</th>
+                <th class="has-text-centered">menu<br>level</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -65,6 +71,8 @@
                     <th class="has-text-centered">admin</th>
                     <th class="has-text-centered">global</th>
                     <th class="has-text-centered">sequence</th>
+                    <th class="has-text-centered">menu</th>
+                    <th class="has-text-centered">menu<br>level</th>
                     <th class="has-text-centered">public</th>
                     <th class="has-text-centered">disabled</th>
                     <th>actions</th>
@@ -118,11 +126,17 @@
                     <td data-field="admin" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->admin ])
                     </td>
-                    <td data-field="admin" class="has-text-centered">
+                    <td data-field="global" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->global ])
                     </td>
                     <td data-field="sequence" class="has-text-centered">
                         {{ $database->sequence }}
+                    </td>
+                    <td data-field="menu" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $database->menu ])
+                    </td>
+                    <td data-field="menu_level" class="has-text-centered">
+                        {{ $database->menu_level }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
@@ -158,7 +172,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '14' : '13' }}">There are no databases.</td>
+                    <td colspan="{{ $admin->root ? '16' : '15' }}">There are no databases.</td>
                 </tr>
 
             @endforelse

@@ -5,7 +5,6 @@ namespace App\Http\Requests\System;
 use App\Models\System\Resource;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 /**
  *
@@ -35,7 +34,7 @@ class StoreResourcesRequest extends FormRequest
                 'required',
                 'integer',
                 'exists:system_db.databases,id',
-                Rule::unique('system_db.admin_resources', 'database_id')->where(function ($query) {
+                Rule::unique('system_db.resources', 'database_id')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('resource_id', $this->database_id);
                 }),
@@ -44,7 +43,7 @@ class StoreResourcesRequest extends FormRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('career_db.resources', 'name')->where(function ($query) {
+                Rule::unique('system_db.resources', 'name')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('name', $this->name);
                 })
@@ -54,7 +53,7 @@ class StoreResourcesRequest extends FormRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('career_db.resources', 'table')->where(function ($query) {
+                Rule::unique('system_db.resources', 'table')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('table', $this->table);
                 })

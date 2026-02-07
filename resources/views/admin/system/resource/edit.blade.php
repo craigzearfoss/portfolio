@@ -1,14 +1,23 @@
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',                            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Resources',                       'href' => route('admin.system.resource.index') ],
+        [ 'name' => $resource->database->name . ' db', 'href' => route('admin.system.database.show', $resource->database) ],
+        [ 'name' => $resource->name,                   'href' => route('admin.system.resource.show', $resource) ],
+        [ 'name' => 'Edit' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.resource.index') ])->render(),
+    ];
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Resource: ' . $resource->database->name . '.' . $resource->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
-        [ 'name' => $resource->database->name . '.' . $resource->name ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.resource.index') ])->render(),
-    ],
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -102,88 +111,28 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'plural',
                 'value'     => old('plural') ?? $resource->plural,
+                'required'  => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
-
-            @include('admin.components.form-checkbox', [
-                'name'            => 'has_owner',
-                'label'           => 'has owner',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('has_owner') ?? $resource->has_owner,
-                'disabled'        => true,
-                'message'         => $message ?? '',
-            ])
-
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'guest',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('guest') ?? $resource->guest,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'user',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('user') ?? $resource->user,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'admin',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('admin') ?? $resource->admin,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'global',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('global') ?? $resource->global,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'menu',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('menu') ?? $resource->menu,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-input', [
-                                'name'      => 'menu_level',
-                                'label'     => 'menu level',
-                                'type'      => 'number',
-                                'value'     => old('menu_level') ?? $resource->menu_level,
-                                'required'  => true,
-                                'message'   => $message ?? '',
-                            ])
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'icon',
                 'value'     => old('icon') ?? $resource->icon,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-environments-horizontal', [
+                'guest'  => old('guest') ?? $resource->guest,
+                'user'   => old('user') ?? $resource->user,
+                'admin'  => old('admin') ?? $resource->admin,
+                'global' => old('global') ?? $resource->global,
+            ])
+
+            @include('admin.components.form-menu-fields-horizontal', [
+                'menu'       => old('menu') ?? $resource->menu,
+                'menu_level' => old('meni_level') ?? $resource->menu_level,
             ])
 
             @include('admin.components.form-settings-horizontal', [

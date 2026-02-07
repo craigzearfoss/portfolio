@@ -6,6 +6,9 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
 
+/**
+ *
+ */
 class UpdateDatabasesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
@@ -36,6 +39,7 @@ class UpdateDatabasesRequest extends FormRequest
             'tag'            => ['filled', 'string', 'max:50', 'unique:databases,tag,'.$database->id],
             'title'          => ['filled', 'string', 'max:50'],
             'plural'         => ['filled', 'string', 'max:50'],
+            'has_owner'      => ['integer', 'between:0,1'],
             'guest'          => ['integer', 'between:0,1'],
             'user'           => ['integer', 'between:0,1'],
             'admin'          => ['integer', 'between:0,1'],

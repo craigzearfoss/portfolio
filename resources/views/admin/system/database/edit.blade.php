@@ -1,15 +1,22 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Database: ' . $database->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',                  'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
         [ 'name' => 'Databases',             'href' => route('admin.system.database.index') ],
         [ 'name' => $database->name . ' db', 'href' => route('admin.system.database.show', $database) ],
         [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', [ 'href' => referer('admin.system.database.index') ])->render(),
-    ],
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Database: ' . $database->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],

@@ -1,25 +1,23 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',                            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Resources',                       'href' => route('admin.system.resource.index') ],
+        [ 'name' => $resource->database->name . ' db', 'href' => route('admin.system.database.show', $resource->database) ],
+        [ 'name' => $resource->name ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate($resource, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.resource.edit', $resource) ])->render();
-    }
-    if (canCreate('resource', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Resource',
-                                                               'href' => route('admin.system.resource.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.resource.index') ])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Resource: ' . $resource->database->name . '.' . $resource->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
-        [ 'name' => $resource->database->name . '.' . $resource->name ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
@@ -82,7 +80,7 @@
                         @foreach($resource->children as $child)
                             <li>
                                 @include('admin.components.link', [
-                                    'name' => $child->nam,
+                                    'name' => $child->name,
                                     'href' => route('admin.system.resource.show', $child)
                                 ])
                             </li>
@@ -112,44 +110,18 @@
             'value' => $resource->plural
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'has owner',
-            'checked' => $resource->has_owner
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'guest',
-            'checked' => $resource->guest
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'user',
-            'checked' => $resource->user
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'admin',
-            'checked' => $resource->admin
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'global',
-            'checked' => $resource->global
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'menu',
-            'checked' => $resource->menu
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'menu level',
-            'value' => $resource->menu_level
-        ])
-
         @include('admin.components.show-row-icon', [
             'name' => 'icon',
             'icon' => $resource->icon
+        ])
+
+        @include('admin.components.show-row-environments', [
+            'resource' => $resource,
+        ])
+
+        @include('admin.components.show-row-menu-fields', [
+            'menu'       => $resource->menu,
+            'menu_level' => $resource->menu_level,
         ])
 
         @include('admin.components.show-row-settings', [
