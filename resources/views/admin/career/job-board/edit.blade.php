@@ -132,7 +132,7 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $jobBoard->thumbnail,
+                'src'       => old('thumbnail') ?? $jobBoard->thumbnail,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -146,13 +146,14 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $jobBoard->public,
-                'readonly' => old('readonly') ?? $jobBoard->readonly,
-                'root'     => old('root') ?? $jobBoard->root,
-                'disabled' => old('disabled') ?? $jobBoard->disabled,
-                'demo'     => old('demo') ?? $jobBoard->demo,
-                'sequence' => old('sequence') ?? $jobBoard->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $jobBoard->public,
+                'readonly'    => old('readonly') ?? $jobBoard->readonly,
+                'root'        => old('root')     ?? $jobBoard->root,
+                'disabled'    => old('disabled') ?? $jobBoard->disabled,
+                'demo'        => old('demo')     ?? $jobBoard->demo,
+                'sequence'    => old('sequence') ?? $jobBoard->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

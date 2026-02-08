@@ -68,33 +68,6 @@
             ])
         @endif
 
-        @if(!empty($art->image_url))
-
-            @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $art->image_url,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-            ])
-
-        @endif
-
-        @if(!empty($art->link))
-            @include('guest.components.show-row-link', [
-                'name'   => !empty($art->link_name) ? $art->link_name : 'link',
-                'href'   => $art->link,
-                'target' => '_blank'
-            ])
-        @endif
-
-        @if(!empty($art->description))
-            @include('guest.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($art->description)
-            ])
-        @endif
-
         @if(!empty($art->image))
             @include('guest.components.show-row-image-credited', [
                 'name'         => 'image',
@@ -124,6 +97,21 @@
                     $art->name . (!empty($art->artist) ? '-by-' . $art->artist : '') . '-thumbnail',
                     $art->thumbnail
                  ),
+            ])
+        @endif
+
+        @if(!empty($art->link))
+            @include('guest.components.show-row-link', [
+                'name'   => !empty($art->link_name) ? $art->link_name : 'link',
+                'href'   => $art->link,
+                'target' => '_blank'
+            ])
+        @endif
+
+        @if(!empty($art->description))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => nl2br($art->description)
             ])
         @endif
 

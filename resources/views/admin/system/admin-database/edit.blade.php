@@ -215,13 +215,14 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public')   ?? $adminDatabase->public,
-                'readonly' => old('readonly') ?? $adminDatabase->readonly,
-                'root'     => old('root')     ?? $adminDatabase->root,
-                'disabled' => old('disabled') ?? $adminDatabase->disabled,
-                'demo'     => old('demo')     ?? $adminDatabase->demo,
-                'sequence' => old('sequence') ?? $adminDatabase->sequence,
-                'message'  => $message ?? '',
+                'public'     => old('public')   ?? $adminDatabase->public,
+                'readonly'    => old('readonly') ?? $adminDatabase->readonly,
+                'root'        => old('root')     ?? $adminDatabase->root,
+                'disabled'    => old('disabled') ?? $adminDatabase->disabled,
+                'demo'        => old('demo')     ?? $adminDatabase->demo,
+                'sequence'    => old('sequence') ?? $adminDatabase->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

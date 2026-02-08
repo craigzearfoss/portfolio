@@ -32,7 +32,6 @@ class Art extends Model
         'featured',
         'summary',
         'year',
-        'image_url',
         'notes',
         'link',
         'link_name',

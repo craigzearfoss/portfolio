@@ -238,33 +238,34 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $job->thumbnail,
+                'src'       => old('thumbnail') ?? $job->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'logo',
-                'value'     => old('logo') ?? $job->logo,
+                'src'       => old('logo') ?? $job->logo,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'logo_small',
-                'value'     => old('logo_small') ?? $job->logo_small,
+                'src'       => old('logo_small') ?? $job->logo_small,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $job->public,
-                'readonly' => old('readonly') ?? $job->readonly,
-                'root'     => old('root') ?? $job->root,
-                'disabled' => old('disabled') ?? $job->disabled,
-                'demo'     => old('demo') ?? $job->demo,
-                'sequence' => old('sequence') ?? $job->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $job->public,
+                'readonly'    => old('readonly') ?? $job->readonly,
+                'root'        => old('root')     ?? $job->root,
+                'disabled'    => old('disabled') ?? $job->disabled,
+                'demo'        => old('demo')     ?? $job->demo,
+                'sequence'    => old('sequence') ?? $job->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

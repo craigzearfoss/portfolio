@@ -177,19 +177,20 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $owner->thumbnail,
+                'src'       => old('thumbnail') ?? $owner->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $owner->public,
-                'readonly' => old('readonly') ?? $owner->readonly,
-                'root'     => old('root') ?? $owner->root,
-                'disabled' => old('disabled') ?? $owner->disabled,
-                'demo'     => old('demo') ?? $owner->demo,
-                'sequence' => old('sequence') ?? $owner->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $owner->public,
+                'readonly'    => old('readonly') ?? $owner->readonly,
+                'root'        => old('root')     ?? $owner->root,
+                'disabled'    => old('disabled') ?? $owner->disabled,
+                'demo'        => old('demo')     ?? $owner->demo,
+                'sequence'    => old('sequence') ?? $owner->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-checkbox-horizontal', [

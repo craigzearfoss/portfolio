@@ -16,6 +16,11 @@
                     {!! $value ?? '' !!}
                 </span>
             </label>
+
+            @if(!empty($text))
+                <span class="ml-2 pt-1"><i>{!! $text !!}</i></span>
+            @endif
+
         </div>
     </div>
 </div>

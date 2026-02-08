@@ -20,7 +20,5 @@ class BaseGuestController extends BaseController
         if (isset($_GET['debug'])) {
             $this->ddDebug();
         }
-
-        $resp = $this->permissionGate();
     }
 }

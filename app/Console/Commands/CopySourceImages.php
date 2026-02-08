@@ -23,10 +23,8 @@ class CopySourceImages extends Command
     const DEFINED_FILE_NAMES = [
         'certificate_url',
         'image',
-        'image_url',
         'logo',
         'logo_small',
-        'photo_url',
         'profile',
         'thumbnail',
     ];

@@ -118,33 +118,34 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $school->thumbnail,
+                'src'       => old('thumbnail') ?? $school->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'logo',
-                'value'     => old('logo') ?? $school->logo,
+                'src'       => old('logo') ?? $school->logo,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'logo_small',
-                'value'     => old('logo_small') ?? $school->logo_small,
+                'src'       => old('logo_small') ?? $school->logo_small,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $school->public,
-                'readonly' => old('readonly') ?? $school->readonly,
-                'root'     => old('root') ?? $school->root,
-                'disabled' => old('disabled') ?? $school->disabled,
-                'demo'     => old('demo') ?? $school->demo,
-                'sequence' => old('sequence') ?? $school->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $school->public,
+                'readonly'    => old('readonly') ?? $school->readonly,
+                'root'        => old('root')     ?? $school->root,
+                'disabled'    => old('disabled') ?? $school->disabled,
+                'demo'        => old('demo')     ?? $school->demo,
+                'sequence'    => old('sequence') ?? $school->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

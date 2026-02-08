@@ -141,24 +141,27 @@
                 'image'   => old('image') ?? $art->image,
                 'credit'  => old('image_credit') ?? $art->image_credit,
                 'source'  => old('image_source') ?? $art->image_source,
+                'text'    => 'Recommended size 300px by 400px. (WxH)',
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $art->thumbnail,
+                'src'       => old('thumbnail') ?? $art->thumbnail,
                 'maxlength' => 500,
+                'text'      => 'Recommended size 120px by 120px. (WxH)',
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $art->public,
-                'readonly' => old('readonly') ?? $art->readonly,
-                'root'     => old('root') ?? $art->root,
-                'disabled' => old('disabled') ?? $art->disabled,
-                'demo'     => old('demo') ?? $art->demo,
-                'sequence' => old('sequence') ?? $art->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $art->public,
+                'readonly'    => old('readonly') ?? $art->readonly,
+                'root'        => old('root')     ?? $art->root,
+                'disabled'    => old('disabled') ?? $art->disabled,
+                'demo'        => old('demo')     ?? $art->demo,
+                'sequence'    => old('sequence') ?? $art->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

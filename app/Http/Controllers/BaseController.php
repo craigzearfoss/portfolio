@@ -232,9 +232,4 @@ class BaseController extends Controller
             'menuService'          => $this->menuService,
         ]);
     }
-
-    public function permissionGate()
-    {
-        return true;
-    }
 }

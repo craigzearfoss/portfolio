@@ -22,9 +22,7 @@ class BaseAdminController extends BaseController
         $this->initialize('admin');
 
         if (isset($_GET['debug'])) {
-            $this->ddDebug();
+            //$this->ddDebug();
         }
-
-        $resp = $this->permissionGate();
     }
 }

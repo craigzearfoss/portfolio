@@ -111,8 +111,8 @@ class MikeBrady extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Two Sisters (On the Terrace)', 'artist' => 'Pierre-Auguste Renoir', 'slug' => 'two-sisters-(on-the-terrace)-by-pierre-auguste-renoir', 'summary' => null, 'year' => 1881, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir004.jpg',                                         'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Eye See',                      'artist' => 'Ron Liberti',           'slug' => 'eye-see-by-ron-liberti',                                'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1463154142676-UYGQKNP4RKVF4T0N2UD5/eyesee.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null ],
+            [ 'name' => 'Two Sisters (On the Terrace)', 'artist' => 'Pierre-Auguste Renoir', 'slug' => 'two-sisters-(on-the-terrace)-by-pierre-auguste-renoir', 'summary' => null, 'year' => 1881, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir004.jpg',                                         'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Eye See',                      'artist' => 'Ron Liberti',           'slug' => 'eye-see-by-ron-liberti',                                'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1463154142676-UYGQKNP4RKVF4T0N2UD5/eyesee.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
@@ -122,7 +122,7 @@ class MikeBrady extends Command
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
-                'image_url'   => null,
+                'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,

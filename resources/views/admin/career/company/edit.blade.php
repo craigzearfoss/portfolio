@@ -173,32 +173,33 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $company->thumbnail,
+                'src'     => old('thumbnail') ?? $company->thumbnail,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'logo',
-                'value'     => old('logo') ?? $company->logo,
+                'src'       => old('logo') ?? $company->logo,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'logo_small',
-                'value'     => old('logo_small') ?? $company->logo_small,
+                'src'       => old('logo_small') ?? $company->logo_small,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $company->public,
-                'readonly' => old('readonly') ?? $company->readonly,
-                'root'     => old('root') ?? $company->root,
-                'disabled' => old('disabled') ?? $company->disabled,
-                'demo'     => old('demo') ?? $company->demo,
-                'sequence' => old('sequence') ?? $company->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $company->public,
+                'readonly'    => old('readonly') ?? $company->readonly,
+                'root'        => old('root')     ?? $company->root,
+                'disabled'    => old('disabled') ?? $company->disabled,
+                'demo'        => old('demo')     ?? $company->demo,
+                'sequence'    => old('sequence') ?? $company->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

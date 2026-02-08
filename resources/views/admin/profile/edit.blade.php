@@ -27,7 +27,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.profile.update') }}" method="POST">
+        <form action="{{ route('admin.profile.update', $admin) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -87,7 +87,7 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $admin->thumbnail,
+                'src'       => old('thumbnail') ?? $admin->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])

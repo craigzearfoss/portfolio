@@ -178,19 +178,20 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $certificate->thumbnail,
+                'src'       => old('thumbnail') ?? $certificate->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $certificate->public,
-                'readonly' => old('readonly') ?? $certificate->readonly,
-                'root'     => old('root') ?? $certificate->root,
-                'disabled' => old('disabled') ?? $certificate->disabled,
-                'demo'     => old('demo') ?? $certificate->demo,
-                'sequence' => old('sequence') ?? $certificate->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $certificate->public,
+                'readonly'    => old('readonly') ?? $certificate->readonly,
+                'root'        => old('root')     ?? $certificate->root,
+                'disabled'    => old('disabled') ?? $certificate->disabled,
+                'demo'        => old('demo')     ?? $certificate->demo,
+                'sequence'    => old('sequence') ?? $certificate->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

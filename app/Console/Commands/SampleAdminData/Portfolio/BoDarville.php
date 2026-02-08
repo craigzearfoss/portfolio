@@ -120,7 +120,7 @@ class BoDarville extends Command
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
-                'image_url'   => null,
+                'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,

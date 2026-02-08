@@ -163,18 +163,19 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $resume->thumbnail,
+                'src'   => old('thumbnail') ?? $resume->thumbnail,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $resume->public,
-                'readonly' => old('readonly') ?? $resume->readonly,
-                'root'     => old('root') ?? $resume->root,
-                'disabled' => old('disabled') ?? $resume->disabled,
-                'demo'     => old('demo') ?? $resume->demo,
-                'sequence' => old('sequence') ?? $resume->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $resume->public,
+                'readonly'    => old('readonly') ?? $resume->readonly,
+                'root'        => old('root')     ?? $resume->root,
+                'disabled'    => old('disabled') ?? $resume->disabled,
+                'demo'        => old('demo')     ?? $resume->demo,
+                'sequence'    => old('sequence') ?? $resume->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

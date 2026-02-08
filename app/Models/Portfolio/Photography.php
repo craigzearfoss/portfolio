@@ -32,7 +32,6 @@ class Photography extends Model
         'credit',
         'model',
         'location',
-        'photo_url',
         'copyright',
         'notes',
         'link',

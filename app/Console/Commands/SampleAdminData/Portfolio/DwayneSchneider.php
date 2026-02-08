@@ -111,9 +111,9 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Paris Street; Rainy Weather', 'artist' => 'Gustave Caillebotte', 'slug' => 'paris-street-rainy weather-by-gustave-caillebotte', 'summary' => null, 'year' => 1877, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Gustave_Caillebotte/paintings-wm/caillebotte016.jpg',                                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
-            [ 'name' => 'Pipe Lite',                   'artist' => 'Ron Liberti',         'slug' => 'pipe-lite-by-ron-liberti',                          'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1700155997410-QNQVSCXLRF5P4BW9XW7A/Pipe+Lite+%231+Test+Print+.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null ],
-            [ 'name' => '(untitled)',                  'artist' => 'Wes Freed',           'slug' => '(untitled-8)-by-wes freed',                         'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://i.pinimg.com/736x/4e/72/ce/4e72cee3880dee1ef216e72ddff4b76c.jpg',                                                                              'link_name' => null,              'link' => null,                             'notes' => null, 'description' => null ],
+            [ 'name' => 'Paris Street; Rainy Weather', 'artist' => 'Gustave Caillebotte', 'slug' => 'paris-street-rainy weather-by-gustave-caillebotte', 'summary' => null, 'year' => 1877, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Gustave_Caillebotte/paintings-wm/caillebotte016.jpg',                                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'Pipe Lite',                   'artist' => 'Ron Liberti',         'slug' => 'pipe-lite-by-ron-liberti',                          'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1700155997410-QNQVSCXLRF5P4BW9XW7A/Pipe+Lite+%231+Test+Print+.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => '(untitled)',                  'artist' => 'Wes Freed',           'slug' => '(untitled-8)-by-wes freed',                         'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image' => 'https://i.pinimg.com/736x/4e/72/ce/4e72cee3880dee1ef216e72ddff4b76c.jpg',                                                                              'link_name' => null,              'link' => null,                             'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
@@ -123,7 +123,7 @@ class DwayneSchneider extends Command
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
-                'image_url'   => null,
+                'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,

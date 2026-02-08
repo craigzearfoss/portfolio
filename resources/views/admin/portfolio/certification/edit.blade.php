@@ -109,33 +109,34 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $certification->thumbnail,
+                'src'       => old('thumbnail') ?? $certification->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'logo',
-                'value'     => old('logo') ?? $certification->logo,
+                'src'       => old('logo') ?? $certification->logo,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'logo_small',
-                'value'     => old('logo_small') ?? $certification->logo_small,
+                'scr'       => old('logo_small') ?? $certification->logo_small,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $certification->public,
-                'readonly' => old('readonly') ?? $certification->readonly,
-                'root'     => old('root') ?? $certification->root,
-                'disabled' => old('disabled') ?? $certification->disabled,
-                'demo'     => old('demo') ?? $certification->demo,
-                'sequence' => old('sequence') ?? $certification->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $certification->public,
+                'readonly'    => old('readonly') ?? $certification->readonly,
+                'root'        => old('root')     ?? $certification->root,
+                'disabled'    => old('disabled') ?? $certification->disabled,
+                'demo'        => old('demo')     ?? $certification->demo,
+                'sequence'    => old('sequence') ?? $certification->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

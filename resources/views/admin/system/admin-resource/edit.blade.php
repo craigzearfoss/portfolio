@@ -150,6 +150,7 @@
                 'demo'     => old('demo')     ?? $adminResource->demo,
                 'sequence' => old('sequence') ?? $adminResource->sequence,
                 'message'  => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

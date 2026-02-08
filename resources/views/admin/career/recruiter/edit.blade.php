@@ -176,7 +176,7 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $recruiter->thumbnail,
+                'src'     => old('thumbnail') ?? $recruiter->thumbnail,
                 'message' => $message ?? '',
             ])
 
@@ -189,13 +189,14 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $recruiter->public,
-                'readonly' => old('readonly') ?? $recruiter->readonly,
-                'root'     => old('root') ?? $recruiter->root,
-                'disabled' => old('disabled') ?? $recruiter->disabled,
-                'demo'     => old('demo') ?? $recruiter->demo,
-                'sequence' => old('sequence') ?? $recruiter->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $recruiter->public,
+                'readonly'    => old('readonly') ?? $recruiter->readonly,
+                'root'        => old('root')     ?? $recruiter->root,
+                'disabled'    => old('disabled') ?? $recruiter->disabled,
+                'demo'        => old('demo')     ?? $recruiter->demo,
+                'sequence'    => old('sequence') ?? $recruiter->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

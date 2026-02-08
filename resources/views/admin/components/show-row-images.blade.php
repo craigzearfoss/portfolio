@@ -19,13 +19,10 @@ $resource = $resource ?? null;
 
             @foreach([
                 'certificate_url',
-                'photo_url',
-                'image_url',
                 'image',
                 'thumbnail',
                 'logo',
                 'logo_small',
-                'photo_url',
             ] as $imageName)
 
                 @if($resource->hasAttribute($imageName))
@@ -48,11 +45,6 @@ $resource = $resource ?? null;
                                         $src   = $resource->image;
                                         $width = '300px';
                                         break;
-                                    case 'image_url':
-                                        $imageName = 'image url';
-                                        $src   = $resource->image_url;
-                                        $width = '300px';
-                                        break;
                                     case 'logo':
                                         $src   = $resource->logo;
                                         $width = '100px';
@@ -61,11 +53,6 @@ $resource = $resource ?? null;
                                         $imageName = 'logo small';
                                         $src   = $resource->logo_small;
                                         $width = '100px';
-                                        break;
-                                    case 'photo_url':
-                                        $imageName = 'photo url';
-                                        $src   = $resource->photo_url;
-                                        $width = '300px';
                                         break;
                                     case 'thumbnail':
                                         $src   = $resource->thumbnail;

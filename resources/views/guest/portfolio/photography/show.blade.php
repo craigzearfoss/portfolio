@@ -56,6 +56,32 @@
             ])
         @endif
 
+        @if(!empty($photo->image))
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $photo->image,
+                'alt'          => $photo->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($photo->name, $photo->image),
+                'image_credit' => $photo->image_credit,
+                'image_source' => $photo->image_source,
+            ])
+        @endif
+
+        @if(!empty($photo->thumbnail))
+            @include('guest.components.show-row-image', [
+                'name'     => 'thumbnail',
+                'src'      => $photo->thumbnail,
+                'alt'      => $photo->name . '-thumbnail',
+                'width'    => '40px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($photo->name . '-thumbnail', $photo->thumbnail)
+            ])
+        @endif
+
         @if(!empty($photo->year))
             @include('guest.components.show-row', [
                 'name'    => 'year',
@@ -103,44 +129,6 @@
             @include('guest.components.show-row', [
                 'name'  => 'description',
                 'value' => nl2br($photo->description)
-            ])
-        @endif
-
-        @if(!empty($photo->photo_url))
-            @include('guest.components.show-row-image', [
-                'name'     => 'photo',
-                'src'      => $photo->photo_url,
-                'alt'      => $photo->name . ' photo',
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($photo->name . '-photo_url', $photo->photo_url)
-            ])
-        @endif
-
-        @if(!empty($photo->image))
-            @include('guest.components.show-row-image-credited', [
-                'name'         => 'image',
-                'src'          => $photo->image,
-                'alt'          => $photo->name,
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => getFileSlug($photo->name, $photo->image),
-                'image_credit' => $photo->image_credit,
-                'image_source' => $photo->image_source,
-            ])
-        @endif
-
-        @if(!empty($photo->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $photo->thumbnail,
-                'alt'      => $photo->name . '-thumbnail',
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($photo->name . '-thumbnail', $photo->thumbnail)
             ])
         @endif
 

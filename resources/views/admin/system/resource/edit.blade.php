@@ -136,13 +136,14 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public')   ?? $resource->public,
-                'readonly' => old('readonly') ?? $resource->readonly,
-                'root'     => old('root')     ?? $resource->root,
-                'disabled' => old('disabled') ?? $resource->disabled,
-                'demo'     => old('demo')     ?? $resource->demo,
-                'sequence' => old('sequence') ?? $resource->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $resource->public,
+                'readonly'    => old('readonly') ?? $resource->readonly,
+                'root'        => old('root')     ?? $resource->root,
+                'disabled'    => old('disabled') ?? $resource->disabled,
+                'demo'        => old('demo')     ?? $resource->demo,
+                'sequence'    => old('sequence') ?? $resource->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

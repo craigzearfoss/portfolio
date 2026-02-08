@@ -91,79 +91,20 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ??  $recipeStep->thumbnail,
+                'src'     => old('thumbnail') ??  $recipeStep->thumbnail,
                 'message' => $message ?? '',
             ])
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field" style="flex-grow: 0;">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'public',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('public') ?? $recipeStep->public,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'readonly',
-                                'label'           => 'read-only',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? $recipeStep->readonly,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'root',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('root') ?? $recipeStep->root,
-                                'disabled'        => !$admin->root,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'disabled',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? $recipeStep->disabled,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'demo',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('demo') ?? $recipeStep->demo,
-                                'message'         => $message ?? '',
-                            ])
-
-                            <div style="display: inline-block; width: 10em;">
-                                <label class="label" style="display: inline-block !important;">sequence</label>
-                                <span class="control ">
-                                    <input class="input"
-                                           style="margin-top: -4px;"
-                                           type="number"
-                                           id="inputSequence"
-                                           name="sequence"
-                                           min="0"
-                                           value="{{ old('sequence') ?? $recipeStep->sequence }}"
-                                    >
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            @include('admin.components.form-settings-horizontal', [
+                'public'      => old('public')   ?? $recipeStep->public,
+                'readonly'    => old('readonly') ?? $recipeStep->readonly,
+                'root'        => old('root')     ?? $recipeStep->root,
+                'disabled'    => old('disabled') ?? $recipeStep->disabled,
+                'demo'        => old('demo')     ?? $recipeStep->demo,
+                'sequence'    => old('sequence') ?? $recipeStep->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
+            ])
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

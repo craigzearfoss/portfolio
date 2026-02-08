@@ -34,7 +34,6 @@ return new class extends Migration
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
             $table->integer('year')->nullable();
-            $table->string('image_url', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
@@ -66,9 +65,10 @@ return new class extends Migration
                 'featured'       => 0,
                 'summary'        => null,
                 'year'           => null,
-                'image_url'      => null,
+                'thumbnail'      => null,
                 'notes'          => null,
                 'description'    => '',
+                'image'          => null,
                 'public'         => 1,
             ]
         ];

@@ -42,7 +42,7 @@ class ProfileController extends BaseAdminController
      * @return RedirectResponse
      */
     public function update(UpdateAdminsRequest $request): RedirectResponse
-    {
+    { die ('here');
         $admin = $this->admin;
         $admin->update($request->validated());
 

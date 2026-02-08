@@ -111,7 +111,7 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Starry Night', 'artist' => 'Vincent van Gogh', 'slug' => 'starry-night-by-vincent-van-gogh', 'summary' => null, 'year' => 1889, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh001.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => 'Starry Night', 'artist' => 'Vincent van Gogh', 'slug' => 'starry-night-by-vincent-van-gogh', 'summary' => null, 'year' => 1889, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh001.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
@@ -121,7 +121,7 @@ class DwightSchrute extends Command
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
-                'image_url'   => null,
+                'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,

@@ -110,27 +110,20 @@
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $jobTask->thumbnail,
+                'src'       => old('thumbnail') ?? $jobTask->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $jobTask->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
-            ])
-
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $jobTask->public,
-                'readonly' => old('readonly') ?? $jobTask->readonly,
-                'root'     => old('root') ?? $jobTask->root,
-                'disabled' => old('disabled') ?? $jobTask->disabled,
-                'demo'     => old('demo') ?? $jobTask->demo,
-                'sequence' => old('sequence') ?? $jobTask->sequence,
-                'message'  => $message ?? '',
+                'public'      => old('public')   ?? $jobTask->public,
+                'readonly'    => old('readonly') ?? $jobTask->readonly,
+                'root'        => old('root')     ?? $jobTask->root,
+                'disabled'    => old('disabled') ?? $jobTask->disabled,
+                'demo'        => old('demo')     ?? $jobTask->demo,
+                'sequence'    => old('sequence') ?? $jobTask->sequence,
+                'message'     => $message ?? '',
+                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

@@ -30,10 +30,10 @@ class UpdateUnitsRequest extends FormRequest
             'abbreviation' => ['filled', 'max:20', 'unique:personal_db.units,abbreviation,'.$this->unit->id],
             'system'       => ['string', 'max:10', 'nullable'],
             'description'  => ['nullable'],
-            'image'        => ['string', 'max:500', 'nullable'],
+            'image'        => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],
             'image_source' => ['string', 'max:255', 'nullable'],
-            'thumbnail'    => ['string', 'max:500', 'nullable'],
+            'thumbnail'    => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048', 'nullable'],
             'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
     }
