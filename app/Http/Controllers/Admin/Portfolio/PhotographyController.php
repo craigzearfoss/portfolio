@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StorePhotographyRequest;
 use App\Http\Requests\Portfolio\UpdatePhotographyRequest;
@@ -28,6 +29,8 @@ class PhotographyController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'photography', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -36,7 +39,7 @@ class PhotographyController extends BaseAdminController
             $photos = Photography::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Photos' : $this->owner->name . ' Photos';
+        $pageTitle = empty($this->owner) ? 'Photos' : $this->owner->name . ' photos';
 
         return view('admin.portfolio.photography.index', compact('photos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -78,6 +81,8 @@ class PhotographyController extends BaseAdminController
      */
     public function show(Photography $photo): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
+
         list($prev, $next) = Photography::prevAndNextPages($photo->id,
             'admin.portfolio.photography.show',
             $this->owner->id ?? null,
@@ -89,16 +94,14 @@ class PhotographyController extends BaseAdminController
     /**
      * Show the form for editing the specified photo.
      *
-     * @param Photography $photo
+     * @param int $id
      * @return View
      */
-    public function edit(Photography $photo): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($photo->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $photo);
+        $photo = Photography::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
 
         return view('admin.portfolio.photography.edit', compact('photo'));
     }
@@ -126,11 +129,7 @@ class PhotographyController extends BaseAdminController
      */
     public function destroy(Photography $photo): RedirectResponse
     {
-        if (!isRootAdmin() && ($photo->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $photo);
+        deleteGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
 
         $photo->delete();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreMusicRequest;
 use App\Http\Requests\Portfolio\UpdateMusicRequest;
@@ -28,6 +29,8 @@ class MusicController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'music', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -36,7 +39,7 @@ class MusicController extends BaseAdminController
             $musics = Music::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Music' : $this->owner->name . ' Music';
+        $pageTitle = empty($this->owner) ? 'Music' : $this->owner->name . ' music';
 
         return view('admin.portfolio.music.index', compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -74,6 +77,8 @@ class MusicController extends BaseAdminController
      */
     public function show(Music $music): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
+
         list($prev, $next) = Music::prevAndNextPages($music->id,
             'admin.portfolio.music.show',
             $this->owner->id ?? null,
@@ -85,16 +90,14 @@ class MusicController extends BaseAdminController
     /**
      * Show the form for editing the specified music.
      *
-     * @param Music $music
+     * @param int $id
      * @return View
      */
-    public function edit(Music $music): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($music->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $music);
+        $music = Music::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
 
         return view('admin.portfolio.music.edit', compact('music'));
     }
@@ -122,11 +125,7 @@ class MusicController extends BaseAdminController
      */
     public function destroy(Music $music): RedirectResponse
     {
-        if (!isRootAdmin() && ($music->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $music);
+        deleteGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
 
         $music->delete();
 

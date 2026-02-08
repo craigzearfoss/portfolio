@@ -9,7 +9,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('certification', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'certification', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certification', 'href' => route('admin.portfolio.certification.create')])->render();
     }
 @endphp
@@ -84,7 +84,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($certification, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $certification, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.certification.show', $certification),
@@ -92,7 +92,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($certification, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $certification, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.certification.edit', $certification),
@@ -115,7 +115,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($certification, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $certification, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.certification.destroy', $certification) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

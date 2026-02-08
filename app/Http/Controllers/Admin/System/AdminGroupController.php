@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminGroupsRequest;
 use App\Http\Requests\System\UpdateAdminGroupsRequest;
@@ -24,6 +25,8 @@ class AdminGroupController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'admin-group', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $adminGroups = AdminGroup::orderBy('name','asc')->paginate($perPage);
@@ -41,9 +44,9 @@ class AdminGroupController extends BaseAdminController
      */
     public function create(): View
     {
-        $owner_id = request()->get('owner_id');
+        createGate(PermissionEntityTypes::RESOURCE, 'admin-group', $this->admin);
 
-        return view('admin.system.admin-group.create', compact('owner_id'));
+        return view('admin.system.admin-group.create');
     }
 
     /**
@@ -68,6 +71,8 @@ class AdminGroupController extends BaseAdminController
      */
     public function show(AdminGroup $adminGroup): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
+
         list($prev, $next) = AdminGroup::prevAndNextPages($adminGroup->id,
             'admin.system.admin-group.show',
             $this->owner->id ?? null,
@@ -79,14 +84,14 @@ class AdminGroupController extends BaseAdminController
     /**
      * Show the form for editing the specified admin group.
      *
-     * @param AdminGroup $adminGroup
+     * @param int $id
      * @return View
      */
-    public function edit(AdminGroup $adminGroup): View
+    public function edit(int $id): View
     {
-        if (!canUpdate($adminGroup, $this->admin)) {
-            abort(403, 'You are not allowed to edit this admin group.');
-        }
+        $adminGroup = AdminGroup::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
 
         return view('admin.system.admin-group.edit', compact('adminGroup'));
     }
@@ -114,9 +119,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function destroy(AdminGroup $adminGroup): RedirectResponse
     {
-        if (!canDelete($adminGroup, $this->admin)) {
-            abort(403, 'You are not allowed to delete this admin group.');
-        }
+        updateGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
 
         $adminGroup->delete();
 

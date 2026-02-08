@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreArtRequest;
 use App\Http\Requests\Portfolio\UpdateArtRequest;
@@ -28,6 +29,10 @@ class ArtController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
+
+        readGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -36,7 +41,7 @@ class ArtController extends BaseAdminController
             $arts = Art::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Art' : $this->owner->name . ' Art';
+        $pageTitle = empty($this->owner) ? 'Art' : $this->owner->name . ' art';
 
         return view('admin.portfolio.art.index', compact('arts','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -75,6 +80,8 @@ class ArtController extends BaseAdminController
      */
     public function show(Art $art): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
+
         list($prev, $next) = Art::prevAndNextPages($art->id,
             'admin.portfolio.art.show',
             $this->owner->id ?? null,
@@ -86,16 +93,14 @@ class ArtController extends BaseAdminController
     /**
      * Show the form for editing the specified art.
      *
-     * @param Art $art
+     * @param int $id
      * @return View
      */
-    public function edit($art): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($art->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $art);
+        $art = Art::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
 
         return view('admin.portfolio.art.edit', compact('art'));
     }
@@ -123,11 +128,7 @@ class ArtController extends BaseAdminController
      */
     public function destroy(Art $art): RedirectResponse
     {
-        if (!isRootAdmin() && ($art->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $art);
+        deleteGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
 
         $art->delete();
 

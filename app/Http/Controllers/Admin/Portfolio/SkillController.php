@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreSkillsRequest;
 use App\Http\Requests\Portfolio\UpdateSkillsRequest;
@@ -27,6 +28,8 @@ class SkillController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'skill', $this->admin);
+
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -35,7 +38,7 @@ class SkillController extends BaseAdminController
             $skills = Skill::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Skills' : $this->owner->name . ' Skills';
+        $pageTitle = empty($this->owner) ? 'Skills' : $this->owner->name . ' skills';
 
         return view('admin.portfolio.skill.index', compact('skills'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -73,6 +76,8 @@ class SkillController extends BaseAdminController
      */
     public function show(Skill $skill): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
+
         list($prev, $next) = Skill::prevAndNextPages($skill->id,
             'admin.portfolio.skill.show',
             $this->owner->id ?? null,
@@ -84,16 +89,14 @@ class SkillController extends BaseAdminController
     /**
      * Show the form for editing the specified skill.
      *
-     * @param Skill $skill
+     * @param int $id
      * @return View
      */
-    public function edit(Skill $skill): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($skill->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $skill);
+        $skill = Skill::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
 
         return view('admin.portfolio.skill.edit', compact('skill'));
     }
@@ -121,11 +124,7 @@ class SkillController extends BaseAdminController
      */
     public function destroy(Skill $skill): RedirectResponse
     {
-        if (!isRootAdmin() && ($skill->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $skill);
+        deleteGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
 
         $skill->delete();
 

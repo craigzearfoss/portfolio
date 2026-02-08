@@ -18,7 +18,7 @@
     }
 
     $buttons = [];
-    if (canCreate('event', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'event', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
     }
 @endphp
@@ -125,7 +125,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($event, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $event, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.event.show', $event),
@@ -133,7 +133,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($event, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $event, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.event.edit', $event),
@@ -156,7 +156,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($event, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $event, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.event.destroy', $event) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

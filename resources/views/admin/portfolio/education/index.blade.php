@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('education', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'education', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Education', 'href' => route('admin.portfolio.education.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -116,7 +116,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($education, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $education, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.education.show', $education),
@@ -124,7 +124,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($education, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $education, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.education.edit', $education),
@@ -147,7 +147,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($education, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $education, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.education.destroy', $education) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

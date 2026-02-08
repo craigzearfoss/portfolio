@@ -1,6 +1,6 @@
 @php
     $buttons = [];
-    if (canCreate('academy', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'academy', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Academy', 'href' => route('admin.portfolio.academy.create', $owner ??  $admin)])->render();
     }
 @endphp
@@ -70,7 +70,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($academy, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $academy, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.academy.show', $academy),
@@ -78,7 +78,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($academy, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $academy, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.academy.edit', $academy),
@@ -101,7 +101,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($academy, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $academy, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.academy.destroy', $academy) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

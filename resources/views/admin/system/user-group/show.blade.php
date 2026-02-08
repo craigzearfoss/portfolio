@@ -1,10 +1,10 @@
 @php
     $buttons = [];
-    if (canUpdate($userGroup, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $userGroup, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit', $userGroup)
                                                               ])->render();
     }
-    if (canCreate('user-group', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
                                                                'href' => route('admin.system.user-group.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []

@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($academy, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $academy, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.academy.edit', $academy)])->render();
     }
-    if (canCreate('academy', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'academy', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Academy', 'href' => route('admin.portfolio.academy.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.academy.index')])->render();

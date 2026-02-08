@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('music', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'music', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Music', 'href' => route('admin.portfolio.music.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -116,7 +116,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($music, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $music, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.music.show', $music),
@@ -124,7 +124,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($music, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $music, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.music.edit', $music),
@@ -147,7 +147,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($music, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $music, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.music.destroy', $music) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobTasksRequest;
 use App\Http\Requests\Portfolio\UpdateJobTasksRequest;
@@ -26,6 +27,8 @@ class JobTaskController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'job-task', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if ($jobId = $request->job_id) {
@@ -43,7 +46,7 @@ class JobTaskController extends BaseAdminController
             $jobTasks = JobTask::latest()->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Job Tasks' : $this->owner->name . ' Job Tasks';
+        $pageTitle = empty($this->owner) ? 'Job Tasks' : $this->owner->name . ' job tasks';
 
         return view('admin.portfolio.job-task.index', compact('jobTasks', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -88,6 +91,8 @@ class JobTaskController extends BaseAdminController
      */
     public function show(JobTask $jobTask): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
+
         list($prev, $next) = JobTask::prevAndNextPages($jobTask->id,
             'admin.portfolio.job-task.show',
             $this->owner->id ?? null,
@@ -99,17 +104,14 @@ class JobTaskController extends BaseAdminController
     /**
      * Show the form for editing the specified job task.
      *
-     * @param JobTask $jobTask
-     * @param Request $request
+     * @param int $id
      * @return View
      */
-    public function edit(JobTask $jobTask, Request $request): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($jobTask->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $jobTask);
+        $jobTask = JobTask::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
 
         return view('admin.portfolio.job-task.edit', compact('jobTask'));
     }
@@ -137,11 +139,7 @@ class JobTaskController extends BaseAdminController
      */
     public function destroy(JobTask $jobTask): RedirectResponse
     {
-        if (!isRootAdmin() && ($jobTask->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $jobTask);
+        deleteGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
 
         $jobTask->delete();
 

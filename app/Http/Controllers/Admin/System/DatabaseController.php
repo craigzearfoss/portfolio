@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreDatabasesRequest;
 use App\Http\Requests\System\UpdateDatabasesRequest;
@@ -23,6 +24,8 @@ class DatabaseController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'database', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $databases = Database::orderBy('name', 'asc')->paginate($perPage);
@@ -62,6 +65,8 @@ class DatabaseController extends BaseAdminController
      */
     public function show(Database $database): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
+
         list($prev, $next) = Database::prevAndNextPages($database->id,
             'admin.system.database.show',
             $this->owner->id ?? null,
@@ -73,14 +78,14 @@ class DatabaseController extends BaseAdminController
     /**
      * Show the form for editing the specified database.
      *
-     * @param Database $database
+     * @param int $id
      * @return View
      */
-    public function edit(Database $database): View
+    public function edit(int $id): View
     {
-        if (!canUpdate($database, $this->admin)) {
-            abort(403, 'You are not allowed to edit this database.');
-        }
+        $database = Database::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
 
         return view('admin.system.database.edit', compact('database'));
     }

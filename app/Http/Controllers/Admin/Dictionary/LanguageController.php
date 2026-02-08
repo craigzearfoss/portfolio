@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreLanguagesRequest;
 use App\Http\Requests\Dictionary\UpdateLanguagesRequest;
@@ -30,6 +31,8 @@ class LanguageController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'language', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $languages = Language::orderBy('name', 'asc')->paginate($perPage);
@@ -78,6 +81,8 @@ class LanguageController extends BaseAdminController
      */
     public function show(Language $language): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $language, $this->admin);
+
         list($prev, $next) = Language::prevAndNextPages($language->id,
             'admin.dictionary.language.show',
             null,
@@ -89,12 +94,14 @@ class LanguageController extends BaseAdminController
     /**
      * Show the form for editing the specified language.
      *
-     * @param Language $language
+     * @param int $id
      * @return View
      */
-    public function edit(Language $language): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $language);
+        $language = Language::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $language, $this->admin);
 
         return view('admin.dictionary.language.edit', compact('language'));
     }
@@ -124,7 +131,7 @@ class LanguageController extends BaseAdminController
      */
     public function destroy(Language $language): RedirectResponse
     {
-        Gate::authorize('delete-resource', $language);
+        deleteGate(PermissionEntityTypes::RESOURCE, $language, $this->admin);
 
         $language->delete();
 

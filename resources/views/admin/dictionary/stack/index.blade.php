@@ -9,7 +9,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('stack', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'stack', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Stack', 'href' => route('admin.dictionary.stack.create')])->render();
     }
 @endphp
@@ -87,7 +87,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($server, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $server, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.dictionary.stack.show', $stack),
@@ -95,7 +95,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($stack, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $stack, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.stack.edit', $stack),
@@ -133,17 +133,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($stack, $admin))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
-                            @endif
-
-                            @if(canDelete($stack, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $stack, $admin))
                                 <form class="delete-resource" action="{!! route('admin.dictionary.stack.destroy', $stack) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -1,6 +1,6 @@
 @php
     $buttons = [];
-    if (canCreate('recipe-ingredient', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create', $owner)])->render();
     }
 @endphp
@@ -100,7 +100,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($recipeIngredient, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.personal.recipe-ingredient.show', [$owner, $recipeIngredient->id]),
@@ -108,7 +108,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($recipeIngredient, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.personal.recipe-ingredient.edit', [$owner, $recipeIngredient->id]),
@@ -131,7 +131,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($recipeIngredient, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin))
                                 <form class="delete-resource" action="{!! route('admin.personal.recipe-ingredient.destroy', $recipeIngredient) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

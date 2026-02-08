@@ -1,6 +1,11 @@
 <?php
 
+use App\Enums\PermissionEntityTypes;
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
+use App\Models\System\AdminResource;
+use App\Models\System\Database;
+use App\Models\System\Resource;
 use App\Services\PermissionService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -212,62 +217,34 @@ if (! function_exists('isRootAdmin')) {
 if (! function_exists('canCreate')) {
 
     /**
-     * Returns true if an admin can create a resource.
-     * Parameter #1, $resource, must be the name of a resource type.
+     * Returns true if an admin can create an entity.
+     * Parameter #2, $entity, must be the name of an entity (ex. database or resource).
      *
-     * @param $resource
+     * @param \App\Enums\PermissionEntityTypes|string $entityType
+     * @param string $entity
      * @param Admin|null $admin
      * @return bool
      */
-    function canCreate($resource, \App\Models\System\Admin|null $admin = null): bool
+    function canCreate(\App\Enums\PermissionEntityTypes|string $entityType,
+                       string $entity,
+                       \App\Models\System\Admin|null $admin = null): bool
     {
-        if (empty($resource)) {
-            abort(500, 'canCreate(): Argument #1 ($resource) cannot be empty');
+        if (empty($entity)) {
+            abort(500, 'canCreate(): Argument #2 ($entity) cannot be empty');
         } elseif (empty($admin)) {
             return false;
         } elseif (!empty($admin->root)) {
             return true;
         } else {
-            if (!is_string($resource)) {
-                abort(500, 'canCreate(): Argument #1 ($resource) must be the name of a resource type');
-            }
 
-            if (!$resourceType = \App\Models\System\Resource::where('name', $resource)->first()) {
-                return false;
+            if ($entityType === \App\Enums\PermissionEntityTypes::DATABASE) {
+                $entity = \App\Models\System\AdminDatabase::where('name', $entity)->first();
             } else {
-                // non-root admins can only create resources that have an owner_id column
-                return isset($resourceType->owner_id);
-            }
-        }
-    }
-}
-
-if (! function_exists('canDelete')) {
-
-    /**
-     * Returns true if an admin can delete a resource.
-     * Parameter #1, $resource, must be a resource object.
-     *
-     * @param $resource
-     * @param Admin|null $admin
-     * @return bool
-     */
-    function canDelete($resource, \App\Models\System\Admin|null $admin = null): bool
-    {
-        if (empty($resource)) {
-            abort(500, 'canDelete(): Argument #1 ($resource) cannot be empty');
-        } elseif (empty($admin)) {
-            return false;
-        } elseif (!empty($admin->root)) {
-            return true;
-        } else {
-            if (is_string($resource)) {
-                abort(500, 'canDelete(): Argument #1 ($resource) must be a resource object');
+                $entity = \App\Models\System\AdminResource::where('name', $entity)->first();
             }
 
-            // non-root admins can only delete resources that they own
-            $resourceColumns = $resource->attributesToArray();
-            if (!isset($resourceColumns['owner_id']) || ($resourceColumns['owner_id'] != $admin->id)) {
+            // non-root admins cannot create root entities
+            if(empty($entity) || !empty($entity->root)) {
                 return false;
             } else {
                 return true;
@@ -279,25 +256,44 @@ if (! function_exists('canDelete')) {
 if (! function_exists('canRead')) {
 
     /**
-     * Returns true if an admin can read a resource.
-     * Parameter #1, $resource, must be a resource object or the name of a resource type.
+     * Returns true if an admin can read an entity.
+     * Parameter #2, $entity, must be an entity object or the name of an entity type.
+     * @TODO: Note that we allow admins to read other admin's entities. We should probably implement a RBAC system.
      * @TODO: Note that this does not handle duplicate table names. Right now the only duplicates we have are "database".
      *
-     * @param $resource
+     * @param \App\Enums\PermissionEntityTypes|string $entityType
+     * @param $entity
      * @param Admin|null $admin
      * @return bool
      */
-    function canRead($resource, \App\Models\System\Admin|null $admin = null): bool
+    function canRead(\App\Enums\PermissionEntityTypes|string $entityType,
+                     $entity, \App\Models\System\Admin|null
+                     $admin = null): bool
     {
-        if (empty($resource)) {
-            abort(500, 'canRead(): Argument #1 ($resource) cannot be empty');
+        if (empty($entity)) {
+            abort(500, 'canRead(): Argument #2 ($entity) cannot be empty.');
         } elseif (empty($admin)) {
             return false;
         } elseif (!empty($admin->root)) {
             return true;
         } else {
-            //@TODO: do we need to do any additional checking
-            return true;
+
+            if (is_string($entity)) {
+                if ($entityType === \App\Enums\PermissionEntityTypes::DATABASE) {
+                    $entity = \App\Models\System\AdminDatabase::where('owner_id', $admin->id)
+                        ->where('name', $entity)->first();
+                } else {
+                    $entity = \App\Models\System\AdminResource::where('owner_id', $admin->id)
+                        ->where('name', $entity)->first();
+                }
+            }
+
+            // non-root admins cannot read root entities
+            if(empty($entity) || !empty($entity->root)) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }
@@ -305,33 +301,153 @@ if (! function_exists('canRead')) {
 if (! function_exists('canUpdate')) {
 
     /**
-     * Returns true if an admin can update a resource.
-     * Parameter #1, $resource, must be a resource object.
+     * Returns true if an admin can update an entity.
+     * Only root admins can update entities that belong to other admins.
+     * * Parameter #2, $entity, must be an entity object.
      *
-     * @param $resource
+     * @param \App\Enums\PermissionEntityTypes $entityType
+     * @param $entity
      * @param Admin|null $admin
      * @return bool
      */
-    function canUpdate($resource, \App\Models\System\Admin|null $admin = null): bool
+    function canUpdate(\App\Enums\PermissionEntityTypes $entityType,
+                       $entity,
+                       \App\Models\System\Admin|null $admin = null): bool
     {
-        if (empty($resource)) {
-            abort(500, 'canUpdate(): Argument #1 ($resource) cannot be empty');
+        if (empty($entity)) {
+            abort(500, 'canUpdate(): Argument #2 ($entity) cannot be empty');
         } elseif (empty($admin)) {
             return false;
         } elseif (!empty($admin->root)) {
             return true;
         } else {
-            if (is_string($resource)) {
-                abort(500, 'canUpdate(): Argument #1 ($resource) must be a resource object');
+
+            if (!is_string($entity)) {
+                if (!$table = $entity->getTable()) {
+                    abort(500, 'canUpdate(): Table not found in Argument #2 ($entity). ' . callingFunction());
+                } elseif (!$adminResourceRow = AdminResource::where('table', $table)->first()) {
+                    abort(500, 'canUpdate(): Resource not found for table ' . $table . '. ' . callingFunction());
+                }
             }
 
-            // non-root admins can only update resources that they own
-            $resourceColumns = $resource->attributesToArray();
-            if (!isset($resourceColumns['owner_id']) || ($resourceColumns['owner_id'] != $admin->id)) {
+            // non-root admins can only update entities that they own
+            $entityColumns = $entity->attributesToArray();
+            if (!isset($entityColumns['owner_id']) || ($entityColumns['owner_id'] != $admin->id)) {
                 return false;
             } else {
                 return true;
             }
+        }
+    }
+}
+
+if (! function_exists('canDelete')) {
+
+    /**
+     * Returns true if an admin can delete an entity.
+     * Only root admins can delete entities that belong to other admins.
+     * Parameter #2, $entity, must be an entity object.
+     *
+     * @param \App\Enums\PermissionEntityTypes $entityType
+     * @param $entity
+     * @param Admin|null $admin
+     * @return bool
+     */
+    function canDelete(\App\Enums\PermissionEntityTypes $entityType,
+                       $entity,
+                       \App\Models\System\Admin|null $admin = null): bool
+    {
+        if (empty($entity)) {
+            abort(500, 'canDelete(): Argument #2 ($entity) cannot be empty.');
+        } elseif (empty($admin)) {
+            return false;
+        } elseif (!empty($admin->root)) {
+            return true;
+        } else {
+
+            if (empty($entity)) {
+                abort(500, 'canDelete(): Argument #2 ($entity) cannot be empty');
+            } elseif (!$table = $entity->getTable()) {
+                abort(500, 'canDelete(): Table not found in Argument #2 ($entity). ' . callingFunction());
+            } elseif (!$adminResourceRow = AdminResource::where('table', $table)->first()) {
+                abort(500, 'canDelete(): Resource not found for table ' . $table . '. ' . callingFunction());
+            }
+
+            // non-root admins can only delete entities that they own
+            $entityColumns = $entity->attributesToArray();
+            if (!isset($entityColumns['owner_id']) || ($entityColumns['owner_id'] != $admin->id)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+}
+
+if (! function_exists('createGate')) {
+    /**
+     * @param \App\Enums\PermissionEntityTypes|string $entityType
+     * @param string $entity
+     * @param Admin|null $admin
+     * @return void
+     */
+    function createGate(\App\Enums\PermissionEntityTypes|string $entityType,
+                        string                                  $entity,
+                        \App\Models\System\Admin|null           $admin = null)
+    {
+        if (!canCreate($entityType, $entity, $admin)) {
+            abort(403, 'Read not authorized.');
+        }
+    }
+}
+
+if (! function_exists('readGate')) {
+    /**
+     * @param \App\Enums\PermissionEntityTypes|string $entityType
+     * @param $entity
+     * @param Admin|null $admin
+     * @return void
+     */
+    function readGate(\App\Enums\PermissionEntityTypes|string $entityType,
+                      $entity,
+                      \App\Models\System\Admin|null $admin = null)
+    {
+        if (!canRead($entityType, $entity, $admin)) {
+            abort(403, 'Read not authorized.');
+        }
+    }
+}
+
+if (! function_exists('updateGate')) {
+    /**
+     * @param \App\Enums\PermissionEntityTypes $entityType
+     * @param $entity
+     * @param Admin|null $admin
+     * @return void
+     */
+    function updateGate(\App\Enums\PermissionEntityTypes $entityType,
+                        $entity,
+                        \App\Models\System\Admin|null $admin = null)
+    {
+        if (!canUpdate($entityType, $entity, $admin)) {
+            abort(403, 'Update not authorized.');
+        }
+    }
+}
+
+if (! function_exists('deleteGate')) {
+    /**
+     * @param \App\Enums\PermissionEntityTypes $entityType
+     * @param $entity
+     * @param Admin|null $admin
+     * @return void
+     */
+    function deleteGate(\App\Enums\PermissionEntityTypes $entityType,
+                        $entity,
+                        \App\Models\System\Admin|null $admin = null)
+    {
+        if (!canDelete($entityType, $entity, $admin)) {
+            abort(403, 'Delete not authorized.');
         }
     }
 }
@@ -863,5 +979,28 @@ if (! function_exists('viewDocument')) {
         ob_end_clean();
 
         return view('document-display', compact('htmlContent'));
+    }
+}
+
+if (! function_exists('calledFunction')) {
+    function calledFunction()
+    {
+        // Get the call stack
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+
+        // The first element [0] is the current function; the second element [1] is the caller
+        $callerFunction = $trace[1]['function'] ?? 'N/A';
+        $callerClass = $trace[1]['class'] ?? 'N/A';
+        $callerLine = $trace[1]['line'] ?? 'N/A';
+        $callerFile = $trace[1]['file'] ?? 'N/A';
+
+        echo "Called by function: $callerFunction in class: $callerClass, file: $callerFile on line: $callerLine";
+    }
+}
+
+if (! function_exists('calledFunction')) {
+    function callingFunction()
+    {
+        calledFunction();
     }
 }

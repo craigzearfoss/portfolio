@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($company, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $company, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.company.edit', $company)])->render();
     }
-    if (canCreate('company', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'company', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.company.index')])->render();

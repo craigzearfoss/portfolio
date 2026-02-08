@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreReferencesRequest;
 use App\Http\Requests\Career\UpdateReferencesRequest;
@@ -27,6 +28,8 @@ class ReferenceController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'reference', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -72,6 +75,8 @@ class ReferenceController extends BaseAdminController
      */
     public function show(Reference $reference): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
+
         list($prev, $next) = Reference::prevAndNextPages($reference->id,
             'admin.career.reference.show',
             $this->owner->id ?? null,
@@ -83,16 +88,14 @@ class ReferenceController extends BaseAdminController
     /**
      * Show the form for editing the specified reference.
      *
-     * @param Reference $reference
+     * @param int $id
      * @return View
      */
-    public function edit(Reference $reference): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($reference->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $reference);
+        $reference = Reference::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
 
         return view('admin.career.reference.edit', compact('reference'));
     }
@@ -120,11 +123,7 @@ class ReferenceController extends BaseAdminController
      */
     public function destroy(Reference $reference): RedirectResponse
     {
-        if (!isRootAdmin() && ($reference->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $reference);
+        deleteGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
 
         $reference->delete();
 

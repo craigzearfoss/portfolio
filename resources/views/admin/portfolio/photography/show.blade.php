@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($photo, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $photo, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.photography.edit', $photo)])->render();
     }
-    if (canCreate('$photo', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'photography', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Photo', 'href' => route('admin.portfolio.photography.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.photography.index')])->render();

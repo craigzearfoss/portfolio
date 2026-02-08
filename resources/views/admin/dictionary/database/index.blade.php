@@ -9,7 +9,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('database', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'database', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.dictionary.database.create')])->render();
     }
 @endphp
@@ -87,7 +87,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($database, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $database, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.dictionary.database.show', $database),
@@ -95,7 +95,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($database, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $database, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.database.edit', $database),
@@ -133,7 +133,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($database, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $database, $admin))
                                 <form class="delete-resource" action="{!! route('admin.dictionary.database.destroy', $database) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($video, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $video, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.video.edit', $video)])->render();
     }
-    if (canCreate('video', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'video', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Video', 'href' => route('admin.portfolio.video.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.video.index')])->render();

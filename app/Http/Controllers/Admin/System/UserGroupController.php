@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\System\StoreUserGroupsRequest;
 use App\Http\Requests\System\UpdateUserGroupsRequest;
@@ -21,6 +22,8 @@ class UserGroupController extends BaseUserController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'user-group', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $userGroups = UserGroup::orderBy('name','asc')->paginate($perPage);
@@ -38,9 +41,9 @@ class UserGroupController extends BaseUserController
      */
     public function create(): View
     {
-        $owner_id = request()->get('owner_id');
+        createGate(PermissionEntityTypes::RESOURCE, 'user-group', $this->admin);
 
-        return view('admin.system.user-group.create', compact('owner_id'));
+        return view('admin.system.user-group.create');
     }
 
     /**
@@ -65,6 +68,8 @@ class UserGroupController extends BaseUserController
      */
     public function show(UserGroup $userGroup): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
+
         list($prev, $next) = UserGroup::prevAndNextPages($userGroup->id,
             'admin.system.user-group.show',
             $this->owner->id ?? null,
@@ -76,14 +81,14 @@ class UserGroupController extends BaseUserController
     /**
      * Show the form for editing the specified user group.
      *
-     * @param UserGroup $userGroup
+     * @param int $id
      * @return View
      */
-    public function edit(UserGroup $userGroup): View
+    public function edit(int $id): View
     {
-        if (!canUpdate($userGroup, $this->admin)) {
-            abort(403, 'You are not allowed to edit this user group.');
-        }
+        $userGroup = UserGroup::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
 
         return view('admin.system.user-group.edit', compact('userGroup'));
     }
@@ -111,9 +116,7 @@ class UserGroupController extends BaseUserController
      */
     public function destroy(UserGroup $userGroup): RedirectResponse
     {
-        if (!canDelete($userGroup, $this->admin)) {
-            abort(403, 'You are not allowed to delete this user group.');
-        }
+        deleteGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
 
         $userGroup->delete();
 

@@ -10,10 +10,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($framework, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $framework, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.framework.edit', $framework)])->render();
     }
-    if (canCreate('framework', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'framework', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Framework', 'href' => route('admin.dictionary.framework.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

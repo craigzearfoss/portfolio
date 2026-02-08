@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreDatabasesRequest;
 use App\Http\Requests\Dictionary\UpdateDatabasesRequest;
@@ -31,6 +32,8 @@ class DatabaseController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'database', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $databases = Database::orderBy('name', 'asc')->paginate($perPage);
@@ -79,6 +82,8 @@ class DatabaseController extends BaseAdminController
      */
     public function show(Database $database): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
+
         list($prev, $next) = Database::prevAndNextPages($database->id,
             'admin.dictionary.database.show',
             null,
@@ -90,12 +95,14 @@ class DatabaseController extends BaseAdminController
     /**
      * Show the form for editing the specified database.
      *
-     * @param Database $database
+     * @param int $id
      * @return View
      */
-    public function edit(Database $database): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $database);
+        $database = Database::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
 
         return view('admin.dictionary.database.edit', compact('database'));
     }
@@ -128,7 +135,7 @@ class DatabaseController extends BaseAdminController
      */
     public function destroy(Database $database, Request $request): RedirectResponse
     {
-        Gate::authorize('delete-resource', $database);
+        deleteGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
 
         $database->delete();
 

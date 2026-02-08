@@ -10,10 +10,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($library, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $library, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.library.edit', $library)])->render();
     }
-    if (canCreate('library', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'library', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Library', 'href' => route('admin.dictionary.library.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

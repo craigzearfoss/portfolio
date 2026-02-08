@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCertificatesRequest;
 use App\Http\Requests\Portfolio\UpdateCertificatesRequest;
@@ -27,6 +28,8 @@ class CertificateController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -35,7 +38,7 @@ class CertificateController extends BaseAdminController
             $certificates = Certificate::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Certificates' : $this->owner->name . ' Certificates';
+        $pageTitle = empty($this->owner) ? 'Certificates' : $this->owner->name . ' certificates';
 
         return view('admin.portfolio.certificate.index', compact('certificates', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -73,6 +76,8 @@ class CertificateController extends BaseAdminController
      */
     public function show(Certificate $certificate): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $certificate, $this->admin);
+
         list($prev, $next) = Certificate::prevAndNextPages($certificate->id,
             'admin.portfolio.certificate.show',
             $this->owner->id ?? null,
@@ -84,16 +89,14 @@ class CertificateController extends BaseAdminController
     /**
      * Show the form for editing the specified certificate.
      *
-     * @param Certificate $certificate
+     * @param int $id
      * @return View
      */
-    public function edit(Certificate $certificate): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($certificate->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $certificate);
+        $certificate = Certificate::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $certificate, $this->admin);
 
         return view('admin.portfolio.certificate.edit', compact('certificate'));
     }
@@ -122,11 +125,7 @@ class CertificateController extends BaseAdminController
      */
     public function destroy(Certificate $certificate): RedirectResponse
     {
-        if (!isRootAdmin() && ($certificate->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $certificate);
+        deleteGate(PermissionEntityTypes::RESOURCE, $certificate, $this->admin);
 
         $certificate->delete();
 

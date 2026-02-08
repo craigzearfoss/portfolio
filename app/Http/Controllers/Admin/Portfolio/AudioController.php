@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
+use App\Http\Middleware\Admin;
 use App\Http\Requests\Portfolio\StoreAudiosRequest;
 use App\Http\Requests\Portfolio\UpdateAudiosRequest;
 use App\Models\Portfolio\Art;
@@ -28,6 +30,8 @@ class AudioController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'audio', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -36,7 +40,7 @@ class AudioController extends BaseAdminController
             $audios = Audio::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Audio' : $this->owner->name . ' Audio';
+        $pageTitle = empty($this->owner) ? 'Audio' : $this->owner->name . ' audio';
 
         return view('admin.portfolio.audio.index', compact('audios','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -74,6 +78,8 @@ class AudioController extends BaseAdminController
      */
     public function show(Audio $audio): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
+
         list($prev, $next) = Audio::prevAndNextPages($audio->id,
             'admin.portfolio.audio.show',
             $this->owner->id ?? null,
@@ -85,16 +91,14 @@ class AudioController extends BaseAdminController
     /**
      * Show the form for editing the specified audio.
      *
-     * @param Audio $audio
+     * @param int $id
      * @return View
      */
-    public function edit(Audio $audio): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($audio->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $audio);
+        $audio = Audio::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
 
         return view('admin.portfolio.audio.edit', compact('audio'));
     }
@@ -122,11 +126,7 @@ class AudioController extends BaseAdminController
      */
     public function destroy(Audio $audio): RedirectResponse
     {
-        if (!isRootAdmin() && ($audio->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $audio);
+        deleteGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
 
         $audio->delete();
 

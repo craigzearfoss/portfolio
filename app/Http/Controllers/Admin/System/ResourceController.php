@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreResourcesRequest;
 use App\Http\Requests\System\UpdateResourcesRequest;
@@ -23,6 +24,8 @@ class ResourceController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'resource', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $resources = Resource::orderBy('database_id')->orderBy('name')->paginate($perPage);
@@ -62,6 +65,8 @@ class ResourceController extends BaseAdminController
      */
     public function show(Resource $resource): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $resource, $this->admin);
+
         list($prev, $next) = Resource::prevAndNextPages($resource->id,
             'admin.system.resource.show',
             $this->owner->id ?? null,
@@ -73,14 +78,14 @@ class ResourceController extends BaseAdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Resource $resource
+     * @param int $id
      * @return View
      */
-    public function edit(Resource $resource): View
+    public function edit(int $id): View
     {
-        if (!canUpdate($resource, $this->admin)) {
-            abort(403, 'You are not allowed to edit this resource.');
-        }
+        $resource = Resource::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $resource, $this->admin);
 
         return view('admin.system.resource.edit', compact('resource'));
     }

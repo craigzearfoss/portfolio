@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($recipeIngredient)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient)])->render();
     }
-    if (canCreate('recipe-ingredient')) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-ingredient.index')])->render();

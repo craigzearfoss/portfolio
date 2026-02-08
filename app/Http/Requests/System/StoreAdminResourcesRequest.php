@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\System\Resource;
+use App\Models\System\AdminResource;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class StoreAdminResourcesRequest extends FormRequest
             'resource_id'    => [
                 'filled',
                 'integer',
-                'exists:system_db.databases,id',
+                'exists:system_db.admin_databases,id',
                 Rule::unique('system_db.admin_resources', 'resource_id')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('resource_id', $this->resource_id);
@@ -59,7 +59,7 @@ class StoreAdminResourcesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:50',
-                Rule::unique('career_db.resources', 'name')->where(function ($query) {
+                Rule::unique('system_db.admin_resources', 'name')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('name', $this->name);
                 })
@@ -69,7 +69,7 @@ class StoreAdminResourcesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:50',
-                Rule::unique('career_db.resources', 'table')->where(function ($query) {
+                Rule::unique('system_db.admin_resources', 'table')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('table', $this->table);
                 })

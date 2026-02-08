@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreSchoolsRequest;
 use App\Http\Requests\Portfolio\UpdateSchoolsRequest;
@@ -25,6 +26,8 @@ class SchoolController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'school', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $schools = School::searchBuilder($request->all(), ['name', 'asc'])->paginate($perPage)
@@ -76,6 +79,8 @@ class SchoolController extends BaseAdminController
      */
     public function show(School $school): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
+
         list($prev, $next) = School::prevAndNextPages($school->id,
             'admin.portfolio.school.show',
             null,
@@ -87,12 +92,14 @@ class SchoolController extends BaseAdminController
     /**
      * Show the form for editing the specified school.
      *
-     * @param School $school
+     * @param int $id
      * @return View
      */
-    public function edit(School $school): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $school);
+        $school = School::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
 
         return view('admin.portfolio.school.edit', compact('school'));
     }
@@ -122,7 +129,7 @@ class SchoolController extends BaseAdminController
      */
     public function destroy(School $school): RedirectResponse
     {
-        Gate::authorize('delete-resource', $school);
+        deleteGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
 
         $school->delete();
 

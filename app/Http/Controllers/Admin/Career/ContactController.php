@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCompanyContactsRequest;
 use App\Http\Requests\Career\StoreContactsRequest;
@@ -29,6 +30,8 @@ class ContactController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'contact', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -74,6 +77,8 @@ class ContactController extends BaseAdminController
      */
     public function show(Contact $contact): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
+
         list($prev, $next) = Contact::prevAndNextPages($contact->id,
             'admin.career.contact.show',
             $this->owner->id ?? null,
@@ -85,16 +90,14 @@ class ContactController extends BaseAdminController
     /**
      * Show the form for editing the specified contact.
      *
-     * @param Contact $contact
+     * @param int $id
      * @return View
      */
-    public function edit(Contact $contact): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($contact->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $contact);
+        $contact = Contact::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
 
         return view('admin.career.contact.edit', compact('contact'));
     }
@@ -122,11 +125,7 @@ class ContactController extends BaseAdminController
      */
     public function destroy(Contact $contact): RedirectResponse
     {
-        if (!isRootAdmin() && ($contact->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $contact);
+        deleteGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
 
         $contact->delete();
 

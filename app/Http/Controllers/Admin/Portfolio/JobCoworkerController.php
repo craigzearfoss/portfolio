@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobCoworkersRequest;
 use App\Http\Requests\Portfolio\UpdateJobCoworkersRequest;
@@ -27,6 +28,8 @@ class JobCoworkerController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'job-coworker', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if ($jobId = $request->job_id) {
@@ -44,7 +47,7 @@ class JobCoworkerController extends BaseAdminController
             $jobCoworkers = JobCoworker::latest()->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Job Coworkers' : $this->owner->name . ' Job Coworkers';
+        $pageTitle = empty($this->owner) ? 'Job Coworkers' : $this->owner->name . ' job coworkers';
 
         return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -89,6 +92,8 @@ class JobCoworkerController extends BaseAdminController
      */
     public function show(JobCoworker $jobCoworker): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
+
         list($prev, $next) = JobCoworker::prevAndNextPages($jobCoworker->id,
             'admin.portfolio.job-coworker.show',
             $this->owner->id ?? null,
@@ -100,17 +105,14 @@ class JobCoworkerController extends BaseAdminController
     /**
      * Show the form for editing the specified job coworker.
      *
-     * @param JobCoworker $jobCoworker
-     * @param Request $request
+     * @param int $id
      * @return View
      */
-    public function edit(JobCoworker $jobCoworker, Request $request): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($jobCoworker->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $jobCoworker);
+        $jobCoworker = JobCoworker::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
 
         return view('admin.portfolio.job-coworker.edit', compact('jobCoworker'));
     }
@@ -138,11 +140,7 @@ class JobCoworkerController extends BaseAdminController
      */
     public function destroy(JobCoworker $jobCoworker): RedirectResponse
     {
-        if (!isRootAdmin() && ($jobCoworker->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $jobCoworker);
+        deleteGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
 
         $jobCoworker->delete();
 

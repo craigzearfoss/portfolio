@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($course, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $course, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.course.edit', $course)])->render();
     }
-    if (canCreate('course', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'course', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.course.index')])->render();

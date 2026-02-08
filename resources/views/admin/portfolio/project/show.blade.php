@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($project, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $project, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.project.edit', $project)])->render();
     }
-    if (canCreate('project', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'project', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Project', 'href' => route('admin.portfolio.project.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.project.index')])->render();

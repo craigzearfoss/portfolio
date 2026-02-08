@@ -124,23 +124,23 @@
             ])
 
             @include('admin.components.form-environments-horizontal', [
-                'guest'  => old('guest') ?? $resource->guest,
-                'user'   => old('user') ?? $resource->user,
-                'admin'  => old('admin') ?? $resource->admin,
+                'guest'  => old('guest')  ?? $resource->guest,
+                'user'   => old('user')   ?? $resource->user,
+                'admin'  => old('admin')  ?? $resource->admin,
                 'global' => old('global') ?? $resource->global,
             ])
 
             @include('admin.components.form-menu-fields-horizontal', [
-                'menu'       => old('menu') ?? $resource->menu,
+                'menu'       => old('menu')       ?? $resource->menu,
                 'menu_level' => old('meni_level') ?? $resource->menu_level,
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $resource->public,
+                'public'   => old('public')   ?? $resource->public,
                 'readonly' => old('readonly') ?? $resource->readonly,
-                'root'     => old('root') ?? $resource->root,
+                'root'     => old('root')     ?? $resource->root,
                 'disabled' => old('disabled') ?? $resource->disabled,
-                'demo'     => old('demo') ?? $resource->demo,
+                'demo'     => old('demo')     ?? $resource->demo,
                 'sequence' => old('sequence') ?? $resource->sequence,
                 'message'  => $message ?? '',
             ])

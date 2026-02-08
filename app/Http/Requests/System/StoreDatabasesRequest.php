@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  */
-class StoreResourcesRequest extends FormRequest
+class StoreDatabasesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

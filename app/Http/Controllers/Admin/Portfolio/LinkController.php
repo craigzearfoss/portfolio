@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreLinksRequest;
 use App\Http\Requests\Portfolio\UpdateLinksRequest;
@@ -28,6 +29,8 @@ class LinkController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'link', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -36,7 +39,7 @@ class LinkController extends BaseAdminController
             $links = Link::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Links' : $this->owner->name . ' Links';
+        $pageTitle = empty($this->owner) ? 'Links' : $this->owner->name . ' links';
 
         return view('admin.portfolio.link.index', compact('links', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -74,6 +77,8 @@ class LinkController extends BaseAdminController
      */
     public function show(Link $link): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
+
         list($prev, $next) = Link::prevAndNextPages($link->id,
             'admin.portfolio.link.show',
             $this->owner->id ?? null,
@@ -85,16 +90,14 @@ class LinkController extends BaseAdminController
     /**
      * Show the form for editing the specified link.
      *
-     * @param Link $link
+     * @param int $id
      * @return View
      */
-    public function edit(Link $link): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($link->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $link);
+        $link = Link::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
 
         return view('admin.portfolio.link.edit', compact('link'));
     }
@@ -122,11 +125,7 @@ class LinkController extends BaseAdminController
      */
     public function destroy(Link $link): RedirectResponse
     {
-        if (!isRootAdmin() && ($link->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $link);
+        deleteGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
 
         $link->delete();
 

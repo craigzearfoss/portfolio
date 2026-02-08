@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminsRequest;
 use App\Http\Requests\Career\StoreCompanyContactsRequest;
@@ -33,6 +34,8 @@ class CompanyController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'company', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -97,6 +100,8 @@ class CompanyController extends BaseAdminController
      */
     public function show(Company $company): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+
         list($prev, $next) = Company::prevAndNextPages($company->id,
             'admin.career.company.show',
             $this->owner->id ?? null,
@@ -108,16 +113,14 @@ class CompanyController extends BaseAdminController
     /**
      * Show the form for editing the specified company.
      *
-     * @param Company $company
+     * @param int $id
      * @return View
      */
-    public function edit(Company $company): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($company->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $company);
+        $company = Company::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
 
         return view('admin.career.company.edit', compact('company'));
     }
@@ -145,11 +148,7 @@ class CompanyController extends BaseAdminController
      */
     public function destroy(Company $company): RedirectResponse
     {
-        if (!isRootAdmin() && ($company->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $company);
+        deleteGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
 
         $company->delete();
 

@@ -9,7 +9,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('language', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'language', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Language', 'href' => route('admin.dictionary.language.create')])->render();
     }
 @endphp
@@ -87,7 +87,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($language, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $language, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.dictionary.language.show', $language),
@@ -95,7 +95,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($language, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $language, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.language.edit', $language),
@@ -133,7 +133,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($language, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $language, $admin))
                                 <form class="delete-resource" action="{!! route('admin.dictionary.language.destroy', $language) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

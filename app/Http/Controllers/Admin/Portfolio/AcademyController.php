@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreAcademiesRequest;
 use App\Http\Requests\Portfolio\UpdateAcademiesRequest;
@@ -24,6 +25,8 @@ class AcademyController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'academy', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $academies = Academy::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
@@ -74,6 +77,8 @@ class AcademyController extends BaseAdminController
      */
     public function show(Academy $academy): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $academy, $this->admin);
+
         list($prev, $next) = Academy::prevAndNextPages($academy->id,
             'admin.portfolio.academy.show',
             null,
@@ -85,16 +90,14 @@ class AcademyController extends BaseAdminController
     /**
      * Show the form for editing the specified academy.
      *
-     * @param Academy $academy
+     * @param int $id
      * @return View
      */
-    public function edit(Academy $academy): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $academy);
+        $academy = Academy::findOrFail($id);
 
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit academies.');
-        }
+        updateGate(PermissionEntityTypes::RESOURCE, $academy, $this->admin);
 
         return view('admin.portfolio.academy.edit', compact('academy'));
     }
@@ -128,11 +131,7 @@ class AcademyController extends BaseAdminController
      */
     public function destroy(Academy $academy): RedirectResponse
     {
-        Gate::authorize('delete-resource', $academy);
-
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete academies.');
-        }
+        deleteGate(PermissionEntityTypes::RESOURCE, $academy, $this->admin);
 
         $academy->delete();
 

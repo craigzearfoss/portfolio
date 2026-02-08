@@ -1,13 +1,13 @@
 @php
     $buttons = [];
-    if (canCreate('user-group', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Team',
                                                                'href' => route('admin.system.user-team.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
-    if (canRead('user-group', $admin)) {
+    if (canRead(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'User Groups',
                                                                 'href' => route('admin.system.user-group.index')
                                                               ])->render();
@@ -89,18 +89,18 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($userTeam, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $userTeam, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.user-team.show', $userTeam->id),
+                                    'href'  => route('admin.system.user-team.show', $userTeam->id),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate($userTeam, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $userTeam, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.user-team.edit', $userTeam->id),
+                                    'href'  => route('admin.system.user-team.edit', $userTeam->id),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -120,7 +120,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($userTeam, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $userTeam, $admin))
                                 <form class="delete-resource" action="{!! route('admin.system.user-team.destroy', $userTeam) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

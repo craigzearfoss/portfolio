@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($recipe, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe.edit', $recipe)])->render();
     }
-    if (canCreate('recipe', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'recipe', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe', 'href' => route('admin.personal.recipe.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe.index')])->render();

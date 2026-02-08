@@ -10,10 +10,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($ingredient, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $ingredient, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.ingredient.edit', $ingredient)])->render();
     }
-    if (canCreate('ingredient', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'ingredient', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Ingredient', 'href' => route('admin.personal.ingredient.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.ingredient.index')])->render();

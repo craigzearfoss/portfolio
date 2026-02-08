@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreUnitsRequest;
 use App\Http\Requests\Personal\UpdateUnitsRequest;
@@ -24,6 +25,8 @@ class UnitController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'unit', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $units = Unit::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
@@ -73,6 +76,8 @@ class UnitController extends BaseAdminController
      */
     public function show(Unit $unit): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
+
         list($prev, $next) = Unit::prevAndNextPages($unit->id,
             'admin.personal.unit.show',
             $this->owner->id ?? null,
@@ -84,12 +89,14 @@ class UnitController extends BaseAdminController
     /**
      * Show the form for editing the specified unit.
      *
-     * @param Unit $unit
+     * @param int $id
      * @return View
      */
-    public function edit(Unit $unit): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $unit);
+        $unit = Unit::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
 
         return view('admin.personal.unit.edit', compact('unit'));
     }
@@ -119,7 +126,7 @@ class UnitController extends BaseAdminController
      */
     public function destroy(Unit $unit): RedirectResponse
     {
-        Gate::authorize('delete-resource', $unit);
+        deleteGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
 
         $unit->delete();
 

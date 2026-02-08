@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreOperatingSystemsRequest;
 use App\Http\Requests\Dictionary\UpdateOperatingSystemsRequest;
@@ -30,6 +31,8 @@ class OperatingSystemController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'operating-system', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $operatingSystems = OperatingSystem::orderBy('name', 'asc')->paginate($perPage);
@@ -78,6 +81,8 @@ class OperatingSystemController extends BaseAdminController
      */
     public function show(OperatingSystem $operatingSystem): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $operatingSystem, $this->admin);
+
         list($prev, $next) = OperatingSystem::prevAndNextPages($operatingSystem->id,
             'admin.dictionary.operating-system.show',
             null,
@@ -89,12 +94,14 @@ class OperatingSystemController extends BaseAdminController
     /**
      * Show the form for editing the specified operating system.
      *
-     * @param OperatingSystem $operatingSystem
+     * @param int $id
      * @return View
      */
-    public function edit(OperatingSystem $operatingSystem): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $operatingSystem);
+        $operatingSystem = OperatingSystem::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $operatingSystem, $this->admin);
 
         return view('admin.dictionary.operating-system.edit', compact('operatingSystem'));
     }
@@ -125,7 +132,7 @@ class OperatingSystemController extends BaseAdminController
      */
     public function destroy(OperatingSystem $operatingSystem): RedirectResponse
     {
-        Gate::authorize('delete-resource', $operatingSystem);
+        deleteGate(PermissionEntityTypes::RESOURCE, $operatingSystem, $this->admin);
 
         $operatingSystem->delete();
 

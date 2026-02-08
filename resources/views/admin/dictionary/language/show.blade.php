@@ -10,10 +10,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($language, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $language, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.language.edit', $language)])->render();
     }
-    if (canCreate('language', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'language', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Language', 'href' => route('admin.dictionary.language.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

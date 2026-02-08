@@ -9,7 +9,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('recruiter', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'recruiter', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recruiter', 'href' => route('admin.career.recruiter.create')])->render();
     }
 @endphp
@@ -89,7 +89,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($recruiter, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $recruiter, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.recruiter.show', $recruiter),
@@ -97,7 +97,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($recruiter, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recruiter, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.recruiter.edit', $recruiter),
@@ -120,7 +120,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($recruiter, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $recruiter, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.recruiter.destroy', $recruiter) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

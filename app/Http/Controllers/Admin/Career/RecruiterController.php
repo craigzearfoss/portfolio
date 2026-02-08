@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreRecruitersRequest;
 use App\Http\Requests\Career\UpdateRecruitersRequest;
@@ -21,6 +22,8 @@ class RecruiterController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'recruiter', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $recruiters = Recruiter::orderBy('name', 'asc')->paginate($perPage);
@@ -69,6 +72,8 @@ class RecruiterController extends BaseAdminController
      */
     public function show(Recruiter $recruiter): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
+
         list($prev, $next) = Recruiter::prevAndNextPages($recruiter->id,
             'admin.career.recruiter.show',
             null,
@@ -80,12 +85,14 @@ class RecruiterController extends BaseAdminController
     /**
      * Show the form for editing the specified recruiter.
      *
-     * @param Recruiter $recruiter
+     * @param int $id
      * @return View
      */
-    public function edit(Recruiter $recruiter): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $recruiter);
+        $recruiter = Recruiter::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
 
         return view('admin.career.recruiter.edit', compact('recruiter'));
     }
@@ -115,7 +122,7 @@ class RecruiterController extends BaseAdminController
      */
     public function destroy(Recruiter $recruiter): RedirectResponse
     {
-        Gate::authorize('delete-resource', $recruiter);
+        deleteGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
 
         $recruiter->delete();
 

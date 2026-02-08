@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreIndustriesRequest;
 use App\Http\Requests\Career\UpdateIndustriesRequest;
@@ -25,6 +26,8 @@ class IndustryController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'industry', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $industries = Industry::orderBy('name', 'asc')->paginate($perPage);
@@ -73,6 +76,8 @@ class IndustryController extends BaseAdminController
      */
     public function show(Industry $industry): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
+
         list($prev, $next) = Industry::prevAndNextPages($industry->id,
             'admin.career.industry.show',
             null,
@@ -84,16 +89,14 @@ class IndustryController extends BaseAdminController
     /**
      * Show the form for editing the specified industry.
      *
-     * @param Industry $industry
+     * @param int $id
      * @return View
      */
-    public function edit(Industry $industry): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $industry);
+        $industry = Industry::findOrFail($id);
 
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit industries.');
-        }
+        updateGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
 
         return view('admin.career.industry.edit', compact('industry'));
     }
@@ -127,11 +130,7 @@ class IndustryController extends BaseAdminController
      */
     public function destroy(Industry $industry): RedirectResponse
     {
-        Gate::authorize('delete-resource', $industry);
-
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete industries.');
-        }
+        deleteGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
 
         $industry->delete();
 

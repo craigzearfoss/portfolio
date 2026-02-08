@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreAwardsRequest;
 use App\Http\Requests\Portfolio\UpdateAwardsRequest;
@@ -27,6 +28,8 @@ class AwardController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'award', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -35,7 +38,7 @@ class AwardController extends BaseAdminController
             $awards = Award::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Awards' : $this->owner->name . ' Awards';
+        $pageTitle = empty($this->owner) ? 'Awards' : $this->owner->name . ' awards';
 
         return view('admin.portfolio.award.index', compact('awards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -74,6 +77,8 @@ class AwardController extends BaseAdminController
      */
     public function show(Award $award): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
+
         list($prev, $next) = Award::prevAndNextPages($award->id,
             'admin.portfolio.award.show',
             $this->owner->id ?? null,
@@ -85,16 +90,14 @@ class AwardController extends BaseAdminController
     /**
      * Show the form for editing the specified award.
      *
-     * @param Award $award
+     * @param int $id
      * @return View
      */
-    public function edit(Award $award): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($award->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $award);
+        $award = Award::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
 
         return view('admin.portfolio.award.edit', compact('award'));
     }
@@ -122,11 +125,7 @@ class AwardController extends BaseAdminController
      */
     public function destroy(Award $award): RedirectResponse
     {
-        if (!isRootAdmin() && ($award->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $award);
+        deleteGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
 
         $award->delete();
 

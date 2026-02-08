@@ -9,7 +9,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('library', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'library', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Library', 'href' => route('admin.dictionary.library.create')])->render();
     }
 @endphp
@@ -87,7 +87,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($library, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $library, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.dictionary.library.show', $library),
@@ -95,7 +95,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($library, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $library, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.library.edit', $library),
@@ -133,7 +133,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($library, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $library, $admin))
                                 <form class="delete-resource" action="{!! route('admin.dictionary.library.destroy', $library) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

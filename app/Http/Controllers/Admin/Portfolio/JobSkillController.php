@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobSkillsRequest;
 use App\Http\Requests\Portfolio\UpdateJobSkillsRequest;
@@ -26,6 +27,8 @@ class JobSkillController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'job-skill', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if ($jobId = $request->job_id) {
@@ -43,7 +46,7 @@ class JobSkillController extends BaseAdminController
             $jobSkills = JobSkill::latest()->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Job Skills' : $this->owner->name . ' Job Skills';
+        $pageTitle = empty($this->owner) ? 'Job Skills' : $this->owner->name . ' job skills';
 
         return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -87,6 +90,8 @@ class JobSkillController extends BaseAdminController
      */
     public function show(JobSkill $jobSkill): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
+
         list($prev, $next) = JobSkill::prevAndNextPages($jobSkill->id,
             'admin.portfolio.job-skill.show',
             $this->owner->id ?? null,
@@ -98,17 +103,14 @@ class JobSkillController extends BaseAdminController
     /**
      * Show the form for editing the specified job skill.
      *
-     * @param JobSkill $jobSkill
-     * @param Request $request
+     * @param int $id
      * @return View
      */
-    public function edit(JobSkill $jobSkill, Request $request): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($jobSkill->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $jobSkill);
+        $jobSkill = JobSkill::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
 
         return view('admin.portfolio.job-skill.edit', compact('jobSkill'));
     }
@@ -136,11 +138,7 @@ class JobSkillController extends BaseAdminController
      */
     public function destroy(JobSkill $jobSkill): RedirectResponse
     {
-        if (!isRootAdmin() && ($jobSkill->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $jobSkill);
+        deleteGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
 
         $jobSkill->delete();
 

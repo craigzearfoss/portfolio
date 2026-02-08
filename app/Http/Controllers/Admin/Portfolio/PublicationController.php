@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StorePublicationsRequest;
 use App\Http\Requests\Portfolio\UpdatePublicationsRequest;
@@ -27,6 +28,8 @@ class PublicationController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'publication', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -35,7 +38,7 @@ class PublicationController extends BaseAdminController
             $publications = Publication::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Publications' : $this->owner->name . ' Publications';
+        $pageTitle = empty($this->owner) ? 'Publications' : $this->owner->name . ' publications';
 
         return view('admin.portfolio.publication.index', compact('publications', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -73,6 +76,8 @@ class PublicationController extends BaseAdminController
      */
     public function show(Publication $publication): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $publication, $this->admin);
+
         list($prev, $next) = Publication::prevAndNextPages($publication->id,
             'admin.portfolio.publication.show',
             $this->owner->id ?? null,
@@ -84,16 +89,14 @@ class PublicationController extends BaseAdminController
     /**
      * Show the form for editing the specified publication.
      *
-     * @param Publication $publication
+     * @param int $id
      * @return View
      */
-    public function edit(Publication $publication): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($publication->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $publication);
+        $publication = Publication::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $publication, $this->admin);
 
         return view('admin.portfolio.publication.edit', compact('publication'));
     }
@@ -121,11 +124,7 @@ class PublicationController extends BaseAdminController
      */
     public function destroy(Publication $publication): RedirectResponse
     {
-        if (!isRootAdmin() && ($publication->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $publication);
+        deleteGate(PermissionEntityTypes::RESOURCE, $publication, $this->admin);
 
         $publication->delete();
 

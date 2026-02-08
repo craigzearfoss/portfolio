@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCoursesRequest;
 use App\Http\Requests\Portfolio\UpdateCoursesRequest;
@@ -27,6 +28,8 @@ class CourseController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'course', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -35,7 +38,7 @@ class CourseController extends BaseAdminController
             $courses = Course::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Courses' : $this->owner->name . ' Courses';
+        $pageTitle = empty($this->owner) ? 'Courses' : $this->owner->name . ' courses';
 
         return view('admin.portfolio.course.index', compact('courses', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -73,6 +76,8 @@ class CourseController extends BaseAdminController
      */
     public function show(Course $course): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $course, $this->admin);
+
         list($prev, $next) = Course::prevAndNextPages($course->id,
             'admin.portfolio.course.show',
             $this->owner->id ?? null,
@@ -84,16 +89,14 @@ class CourseController extends BaseAdminController
     /**
      * Show the form for editing the specified course.
      *
-     * @param Course $course
+     * @param int $id
      * @return View
      */
-    public function edit(Course $course): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($course->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $course);
+        $course = Course::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $course, $this->admin);
 
         return view('admin.portfolio.course.edit', compact('course'));
     }
@@ -121,11 +124,7 @@ class CourseController extends BaseAdminController
      */
     public function destroy(Course $course): RedirectResponse
     {
-        if (!isRootAdmin() && ($course->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $course);
+        deleteGate(PermissionEntityTypes::RESOURCE, $course, $this->admin);
 
         $course->delete();
 

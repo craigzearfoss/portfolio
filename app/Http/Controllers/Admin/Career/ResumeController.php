@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreResumesRequest;
 use App\Http\Requests\Career\UpdateResumesRequest;
 use App\Models\Career\Application;
+use App\Models\Career\Communication;
 use App\Models\Career\Resume;
 use App\Models\Portfolio\Job;
 use App\Models\System\Admin;
@@ -31,6 +33,8 @@ class ResumeController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'resume', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $applicationId = $request->application_id;
@@ -123,6 +127,8 @@ class ResumeController extends BaseAdminController
      */
     public function show(Resume $resume): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
+
         list($prev, $next) = Resume::prevAndNextPages($resume->id,
             'admin.career.resume.show',
             $this->owner->id ?? null,
@@ -134,20 +140,20 @@ class ResumeController extends BaseAdminController
     /**
      * Show the form for editing the specified resume.
      *
-     * @param Resume $resume
+     * @param int $id
      * @param Request $request
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function edit(Resume $resume, Request $request): View
+    public function edit(int $id, Request $request): View
     {
-        if (!isRootAdmin() && ($resume->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $resume);
+        $resume = Resume::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
 
         $urlParams = [];
-        if ($applicationId = $request->get('application_id')) {
+        if ($applicationId = request()->get('application_id')) {
             $urlParams['application_id'] = $applicationId;
         }
 
@@ -193,11 +199,7 @@ class ResumeController extends BaseAdminController
      */
     public function destroy(Resume $resume): RedirectResponse
     {
-        if (!isRootAdmin() && ($resume->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $resume);
+        deleteGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
 
         $resume->delete();
 

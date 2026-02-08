@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCoverLettersRequest;
 use App\Http\Requests\Career\UpdateCoverLettersRequest;
@@ -28,6 +29,8 @@ class CoverLetterController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'cover-letter', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -72,6 +75,8 @@ class CoverLetterController extends BaseAdminController
      */
     public function show(CoverLetter $coverLetter): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
+
         list($prev, $next) = CoverLetter::prevAndNextPages($coverLetter->id,
             'admin.career.cover-letter.show',
             $this->owner->id ?? null,
@@ -83,16 +88,14 @@ class CoverLetterController extends BaseAdminController
     /**
      * Show the form for editing the specified cover letter.
      *
-     * @param CoverLetter $coverLetter
+     * @param int $id
      * @return View
      */
-    public function edit(CoverLetter $coverLetter): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($coverLetter->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $coverLetter);
+        $coverLetter = CoverLetter::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
 
         return view('admin.career.cover-letter.edit', compact('coverLetter'));
     }
@@ -121,11 +124,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function destroy(CoverLetter $coverLetter): RedirectResponse
     {
-        if (!isRootAdmin() && ($coverLetter->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $coverLetter);
+        deleteGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
 
         $coverLetter->delete();
 

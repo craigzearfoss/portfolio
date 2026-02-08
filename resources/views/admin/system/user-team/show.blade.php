@@ -1,10 +1,10 @@
 @php
     $buttons = [];
-    if (canUpdate($userTeam, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $userTeam, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-team.edit', $userTeam)
                                                               ])->render();
     }
-    if (canCreate('user-team', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-team', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New User Team',
                                                                'href' => route('admin.system.user-team.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []

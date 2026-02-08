@@ -20,10 +20,10 @@
     }
 
     $buttons = [];
-    if (canUpdate($note, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $note, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.note.edit', $note)])->render();
     }
-    if (canCreate('note', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'note', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.note.index')])->render();

@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('certificate', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'certificate', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certificate', 'href' => route('admin.portfolio.certificate.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -121,7 +121,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($certificate, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.certificate.show', $certificate),
@@ -129,7 +129,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($certificate, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.certificate.edit', [$admin, $certificate->id]),
@@ -152,7 +152,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($certificate, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.certificate.destroy', $certificate) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

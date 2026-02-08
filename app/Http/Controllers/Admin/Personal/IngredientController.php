@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreIngredientsRequest;
 use App\Http\Requests\Personal\UpdateIngredientsRequest;
@@ -9,6 +10,7 @@ use App\Models\Personal\Ingredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\In;
 use Illuminate\View\View;
 
 /**
@@ -24,6 +26,8 @@ class IngredientController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'ingredient', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $ingredients = Ingredient::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
@@ -74,6 +78,8 @@ class IngredientController extends BaseAdminController
      */
     public function show(Ingredient $ingredient): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $ingredient, $this->admin);
+
         list($prev, $next) = Ingredient::prevAndNextPages($ingredient->id,
             'admin.personal.ingredient.show',
             $this->owner->id ?? null,
@@ -85,12 +91,14 @@ class IngredientController extends BaseAdminController
     /**
      * Show the form for editing the specified ingredient.
      *
-     * @param Ingredient $ingredient
+     * @param int $id
      * @return View
      */
-    public function edit(Ingredient $ingredient): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $ingredient);
+        $ingredient = Ingredient::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $ingredient, $this->admin);
 
         return view('admin.personal.ingredient.edit', compact('ingredient'));
     }
@@ -120,7 +128,7 @@ class IngredientController extends BaseAdminController
      */
     public function destroy(Ingredient $ingredient): RedirectResponse
     {
-        Gate::authorize('delete-resource', $ingredient);
+        deleteGate(PermissionEntityTypes::RESOURCE, $ingredient, $this->admin);
 
         $ingredient->delete();
 

@@ -10,10 +10,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($school, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $school, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.school.edit', $school)])->render();
     }
-    if (canCreate('school', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'school', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New School', 'href' => route('admin.portfolio.school.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.school.index')])->render();

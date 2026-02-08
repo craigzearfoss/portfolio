@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\System\AdminController as AdminSystemAdminController;
+use App\Http\Controllers\Admin\System\AdminDatabaseController as AdminSystemAdminDatabaseController;
 use App\Http\Controllers\Admin\System\AdminGroupController as AdminSystemAdminGroupController;
+use App\Http\Controllers\Admin\System\AdminResourceController as AdminSystemAdminResourceController;
 use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTeamController;
 use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
 use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexController;
@@ -116,9 +118,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
             Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
             Route::resource('database', AdminSystemDatabaseController::class);
+            Route::resource('admin-database', AdminSystemAdminDatabaseController::class)->parameter('admin-database', 'admin_database');
             Route::resource('log', AdminSystemLogController::class);
             Route::resource('message', AdminMessageController::class);
             Route::resource('resource', AdminSystemResourceController::class);
+            Route::resource('admin-resource', AdminSystemAdminResourceController::class)->parameter('admin-resource', 'admin_resource');
             Route::resource('session', AdminSystemSessionController::class);
             Route::resource('setting', AdminSystemSettingController::class);
             Route::get('system/', [AdminSystemIndexController::class, 'index'])->name('index');

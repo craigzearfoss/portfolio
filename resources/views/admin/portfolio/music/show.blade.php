@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($music, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $music, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.music.edit', $music)])->render();
     }
-    if (canCreate('music', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'music', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Music', 'href' => route('admin.portfolio.music.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.music.index')])->render();

@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('video', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'video', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Video', 'href' => route('admin.portfolio.video.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -101,7 +101,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($video, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $video, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.video.show', $admin),
@@ -109,7 +109,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($video, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $video, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.video.edit', $video),
@@ -132,7 +132,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($video, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $video, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.video.destroy', $video) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -10,10 +10,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($industry, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $industry, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.industry.edit', $industry)])->render();
     }
-    if (canCreate('industry', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'industry', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Industry', 'href' => route('admin.career.industry.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.industry.index')])->render();

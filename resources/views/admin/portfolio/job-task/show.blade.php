@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($jobTask, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $jobTask, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.job-task.edit', $jobTask)])->render();
     }
-    if (canCreate('job-task', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'job-task', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Task', 'href' => route('admin.portfolio.job-task.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-task.index')])->render();

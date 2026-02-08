@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreEventsRequest;
 use App\Http\Requests\Career\UpdateEventsRequest;
@@ -26,6 +27,8 @@ class EventController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'event', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $applicationId = $request->application_id;
@@ -105,6 +108,8 @@ class EventController extends BaseAdminController
      */
     public function show(Event $event): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
+
         list($prev, $next) = Event::prevAndNextPages($event->id,
             'admin.career.event.show',
             $this->owner->id ?? null,
@@ -116,20 +121,19 @@ class EventController extends BaseAdminController
     /**
      * Show the form for editing the specified event.
      *
-     * @param Event $event
-     * @param Request $request
+     * @param int $id
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function edit(Event $event, Request $request): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($event->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $event);
+        $event = Event::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
 
         $urlParams = [];
-        if ($applicationId = $request->get('application_id')) {
+        if ($applicationId = request()->get('application_id')) {
             $urlParams['application_id'] = $applicationId;
         }
 
@@ -175,11 +179,7 @@ class EventController extends BaseAdminController
      */
     public function destroy(Event $event): RedirectResponse
     {
-        if (!isRootAdmin() && ($event->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $event);
+        deleteGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
 
         $event->delete();
 

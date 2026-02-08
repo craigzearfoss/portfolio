@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($certificate, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.certificate.edit', $certificate)])->render();
     }
-    if (canCreate('certificate', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'certificate', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certificate', 'href' => route('admin.portfolio.certificate.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.certificate.index')])->render();

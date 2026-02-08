@@ -9,7 +9,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('framework', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'framework', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Framework', 'href' => route('admin.dictionary.framework.create')])->render();
     }
 @endphp
@@ -87,7 +87,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($framework, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $framework, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.dictionary.framework.show', $framework),
@@ -95,7 +95,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($framework, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $framework, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.framework.edit', $framework),
@@ -133,7 +133,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($framework, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $framework, $admin))
                                 <form class="delete-resource" action="{!! route('admin.dictionary.framework.destroy', $framework) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

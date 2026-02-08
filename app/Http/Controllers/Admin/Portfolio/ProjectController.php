@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreProjectsRequest;
 use App\Http\Requests\Portfolio\UpdateProjectsRequest;
@@ -28,6 +29,8 @@ class ProjectController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'project', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -36,7 +39,7 @@ class ProjectController extends BaseAdminController
             $projects = Project::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Projects' : $this->owner->name . ' Projects';
+        $pageTitle = empty($this->owner) ? 'Projects' : $this->owner->name . ' projects';
 
         return view('admin.portfolio.project.index', compact('projects', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -74,6 +77,8 @@ class ProjectController extends BaseAdminController
      */
     public function show(Project $project): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
+
         list($prev, $next) = Project::prevAndNextPages($project->id,
             'admin.portfolio.project.show',
             $this->owner->id ?? null,
@@ -85,16 +90,14 @@ class ProjectController extends BaseAdminController
     /**
      * Show the form for editing the specified project.
      *
-     * @param Project $project
+     * @param int $id
      * @return View
      */
-    public function edit(Project $project): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($project->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $project);
+        $project = Project::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
 
         return view('admin.portfolio.project.edit', compact('project'));
     }
@@ -122,11 +125,7 @@ class ProjectController extends BaseAdminController
      */
     public function destroy(Project $project): RedirectResponse
     {
-        if (!isRootAdmin() && ($project->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $project);
+        deleteGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
 
         $project->delete();
 

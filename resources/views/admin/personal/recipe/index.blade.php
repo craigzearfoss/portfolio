@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('recipe', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'recipe', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe', 'href' => route('admin.personal.recipe.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -106,7 +106,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($recipe, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.personal.recipe.show', [$owner, $recipe->id]),
@@ -114,7 +114,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($recipe, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.personal.recipe.edit', [$owner, $recipe->id]),
@@ -137,7 +137,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($recipe, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin))
                                 <form class="delete-resource" action="{!! route('admin.personal.recipe.destroy', $recipe) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

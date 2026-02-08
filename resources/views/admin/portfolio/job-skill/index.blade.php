@@ -14,7 +14,7 @@
     }
 
     $buttons = [];
-    if (canCreate('job-skill', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'job-skill', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create')])->render();
     }
 @endphp
@@ -99,7 +99,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($jobSkill, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $jobSkill, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.job-skill.show', $jobSkill),
@@ -107,7 +107,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($jobSkill, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $jobSkill, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.job-skill.edit', $jobSkill),
@@ -130,7 +130,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($jobSkill, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $jobSkill, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.job-skill.destroy', $jobSkill) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

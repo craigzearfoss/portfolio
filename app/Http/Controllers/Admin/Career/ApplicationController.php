@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreApplicationsRequest;
 use App\Http\Requests\Career\UpdateApplicationsRequest;
@@ -31,6 +32,8 @@ class ApplicationController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'application', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $resumeId = $request->resume_id;
@@ -125,6 +128,8 @@ class ApplicationController extends BaseAdminController
      */
     public function show(Application $application): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
+
         if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);
         }
@@ -140,16 +145,14 @@ class ApplicationController extends BaseAdminController
     /**
      * Show the form for editing the specified application.
      *
-     * @param Application $application
+     * @param int $id $application
      * @return View
      */
-    public function edit(Application $application): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($application->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $application);
+        $application = Application::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
 
         return view('admin.career.application.edit', compact('application'));
     }
@@ -178,11 +181,7 @@ class ApplicationController extends BaseAdminController
      */
     public function destroy(Application $application): RedirectResponse
     {
-        if (!isRootAdmin() && ($application->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $application);
+        deleteGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
 
         $application->delete();
 

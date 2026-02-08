@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipeStepsRequest;
 use App\Http\Requests\Personal\UpdateRecipeStepsRequest;
@@ -28,6 +29,8 @@ class RecipeStepController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'recipe-step', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if ($recipeId = $request->recipe_id) {
@@ -45,7 +48,7 @@ class RecipeStepController extends BaseAdminController
             $recipeSteps = RecipeStep::latest()->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Recipe Steps' : $this->owner->name . ' Recipe Steps';
+        $pageTitle = empty($this->owner) ? 'Recipe Steps' : $this->owner->name . ' recipe steps';
 
         return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -83,6 +86,8 @@ class RecipeStepController extends BaseAdminController
      */
     public function show(RecipeStep $recipeStep): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $recipeStep, $this->admin);
+
         list($prev, $next) = RecipeStep::prevAndNextPages($recipeStep->id,
             'admin.personal.recipe-step.show',
             $this->owner->id ?? null,
@@ -94,16 +99,14 @@ class RecipeStepController extends BaseAdminController
     /**
      * Show the form for editing the specified recipe step.
      *
-     * @param RecipeStep $recipeStep
+     * @param int $id
      * @return View
      */
-    public function edit(RecipeStep $recipeStep): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($recipeStep->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $recipeStep);
+        $recipeStep = RecipeStep::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $recipeStep, $this->admin);
 
         return view('admin.personal.recipe-step.edit', compact('recipeStep'));
     }
@@ -131,11 +134,7 @@ class RecipeStepController extends BaseAdminController
      */
     public function destroy(RecipeStep $recipeStep): RedirectResponse
     {
-        if (!isRootAdmin() && ($recipeStep->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $recipeStep);
+        deleteGate(PermissionEntityTypes::RESOURCE, $recipeStep, $this->admin);
 
         $recipeStep->delete();
 

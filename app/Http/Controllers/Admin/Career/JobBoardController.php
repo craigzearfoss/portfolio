@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreJobBoardsRequest;
 use App\Http\Requests\Career\UpdateJobBoardsRequest;
@@ -27,6 +28,8 @@ class JobBoardController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'job-board', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $jobBoards = JobBoard::orderBy('name', 'asc')->paginate($perPage);
@@ -75,6 +78,8 @@ class JobBoardController extends BaseAdminController
      */
     public function show(JobBoard $jobBoard): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
+
         list($prev, $next) = JobBoard::prevAndNextPages($jobBoard->id,
             'admin.career.job-board.show',
             null,
@@ -86,17 +91,14 @@ class JobBoardController extends BaseAdminController
     /**
      * Show the form for editing the specified job board.
      *
-     * @param JobBoard $jobBoard
-     * @param Request $request
+     * @param int $id
      * @return View
      */
-    public function edit(JobBoard $jobBoard, Request $request): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $jobBoard);
+        $jobBoard = JobBoard::findOrFail($id);
 
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit job boards.');
-        }
+        updateGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
 
         return view('admin.career.job-board.edit', compact('jobBoard'));
     }
@@ -126,7 +128,7 @@ class JobBoardController extends BaseAdminController
      */
     public function destroy(JobBoard $jobBoard): RedirectResponse
     {
-        Gate::authorize('delete-resource', $jobBoard);
+        deleteGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
 
         $jobBoard->delete();
 

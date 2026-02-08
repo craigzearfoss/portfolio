@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($recipeStep, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeStep, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-step.edit', $recipeStep)])->render();
     }
-    if (canCreate('recipe-step', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'recipe-step', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-step.index')])->render();

@@ -10,10 +10,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($stack, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $stack, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.stack.edit', $stack)])->render();
     }
-    if (canCreate('stack', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'stack', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Stack', 'href' => route('admin.dictionary.stack.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

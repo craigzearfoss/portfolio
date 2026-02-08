@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCertificationsRequest;
 use App\Http\Requests\Portfolio\UpdateCertificationsRequest;
@@ -24,6 +25,8 @@ class CertificationController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'certification', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $certifications = Certification::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
@@ -74,6 +77,8 @@ class CertificationController extends BaseAdminController
      */
     public function show(Certification $certification): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
+
         list($prev, $next) = Certification::prevAndNextPages($certification->id,
             'admin.portfolio.certification.show',
             $this->owner->id ?? null,
@@ -85,12 +90,14 @@ class CertificationController extends BaseAdminController
     /**
      * Show the form for editing the specified certification.
      *
-     * @param Certification $certification
+     * @param int $id
      * @return View
      */
-    public function edit(Certification $certification): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $certification);
+        $certification = Certification::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
 
         return view('admin.portfolio.certification.edit', compact('certification'));
     }
@@ -124,7 +131,7 @@ class CertificationController extends BaseAdminController
      */
     public function destroy(Certification $certification): RedirectResponse
     {
-        Gate::authorize('delete-resource', $certification);
+        deleteGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
 
         $certification->delete();
 

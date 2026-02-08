@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($communication, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $communication, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.communication.edit', $communication)])->render();
     }
-    if (canCreate('communication', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.communication.index')])->render();

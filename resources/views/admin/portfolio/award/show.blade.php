@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($award, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $award, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.award.edit', $award)])->render();
     }
-    if (canCreate('award', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'award', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Award', 'href' => route('admin.portfolio.award.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.award.index')])->render();

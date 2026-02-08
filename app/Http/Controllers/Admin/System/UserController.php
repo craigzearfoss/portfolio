@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\System\StoreUsersRequest;
 use App\Http\Requests\System\UpdateUsersRequest;
@@ -23,6 +24,8 @@ class UserController extends BaseUserController
      */
     public function index(Request $request): View|RedirectResponse
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'user', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
          if (empty($this->admin->root)) {
@@ -42,9 +45,7 @@ class UserController extends BaseUserController
      */
     public function create(): View
     {
-        if (!isRootUser()) {
-            abort(403, 'Only root users can access this page.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'user', $this->admin);
 
         return view('admin.system.user.create');
     }
@@ -83,6 +84,8 @@ class UserController extends BaseUserController
      */
     public function show(User $user): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $user, $this->admin);
+
         $thisUser = $user;
 
         list($prev, $next) = User::prevAndNextPages($user->id,
@@ -96,16 +99,14 @@ class UserController extends BaseUserController
     /**
      * Show the form for editing the specified user.
      *
-     * @param User $user
+     * @param int $id
      * @return View
      */
-    public function edit(User $user): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin()) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $user);
+        $user = User::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $user, $this->admin);
 
         return view('admin.system.user.edit', compact('user'));
     }
@@ -133,11 +134,9 @@ class UserController extends BaseUserController
      */
     public function destroy(User $user): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $user);
+        deleteGate(PermissionEntityTypes::RESOURCE, $user, $this->admin);
+
+        $user->delete();
 
         return redirect(referer('admin.system.user.index'))
             ->with('success', $user->username . ' deleted successfully.');

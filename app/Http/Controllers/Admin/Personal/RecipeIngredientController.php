@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipeIngredientsRequest;
 use App\Http\Requests\Personal\UpdateRecipeIngredientsRequest;
+use App\Models\Dictionary\Framework;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\RecipeIngredient;
 use Illuminate\Http\RedirectResponse;
@@ -26,6 +28,8 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if ($recipeId = $request->recipe_id) {
@@ -43,7 +47,7 @@ class RecipeIngredientController extends BaseAdminController
             $recipeIngredients = RecipeIngredient::latest()->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Recipe Steps' : $this->owner->name . ' Recipe Steps';
+        $pageTitle = empty($this->owner) ? 'Recipe Ingredients' : $this->owner->name . ' recipe ingredients';
 
         return view('admin.personal.recipe-ingredient.index', compact('recipeIngredients', 'recipeId', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -81,6 +85,8 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function show(RecipeIngredient $recipeIngredient): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $this->admin);
+
         list($prev, $next) = Ingredient::prevAndNextPages($recipeIngredient->id,
             'admin.personal.recipe-ingredient.show',
             $this->owner->id ?? null,
@@ -92,16 +98,14 @@ class RecipeIngredientController extends BaseAdminController
     /**
      * Show the form for editing the specified recipe ingredient.
      *
-     * @param RecipeIngredient $recipeIngredient
+     * @param int $id
      * @return View
      */
-    public function edit(RecipeIngredient $recipeIngredient): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($recipeIngredient->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $recipeIngredient);
+        $recipeIngredient = RecipeIngredient::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $this->admin);
 
         return view('admin.personal.recipe-ingredient.edit', compact('recipeIngredient'));
     }
@@ -130,11 +134,7 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function destroy(RecipeIngredient $recipeIngredient): RedirectResponse
     {
-        if (!isRootAdmin() && ($recipeIngredient->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $recipeIngredient);
+        deleteGate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $this->admin);
 
         $recipeIngredient->delete();
 

@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('reference', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'reference', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -106,7 +106,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($reference, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $reference, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.reference.show', $reference),
@@ -114,7 +114,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($reference, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $reference, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.reference.edit', $reference),
@@ -137,7 +137,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($reference, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $reference, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.reference.destroy', $reference) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

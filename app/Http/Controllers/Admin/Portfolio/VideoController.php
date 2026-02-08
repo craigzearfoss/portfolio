@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreVideosRequest;
 use App\Http\Requests\Portfolio\UpdateVideosRequest;
@@ -27,6 +28,8 @@ class VideoController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'video', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -35,7 +38,7 @@ class VideoController extends BaseAdminController
             $videos = Video::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        $pageTitle = empty($this->owner) ? 'Videos' : $this->owner->name . ' Videos';
+        $pageTitle = empty($this->owner) ? 'Videos' : $this->owner->name . ' videos';
 
         return view('admin.portfolio.video.index', compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -73,6 +76,8 @@ class VideoController extends BaseAdminController
      */
     public function show(Video $video): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
+
         list($prev, $next) = Video::prevAndNextPages($video->id,
             'admin.portfolio.video.show',
             $this->owner->id ?? null,
@@ -84,16 +89,14 @@ class VideoController extends BaseAdminController
     /**
      * Show the form for editing the specified video.
      *
-     * @param Video $video
+     * @param int $id
      * @return View
      */
-    public function edit(Video $video): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($video->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $video);
+        $video = Video::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
 
         return view('admin.portfolio.video.edit', compact('video'));
     }
@@ -121,11 +124,7 @@ class VideoController extends BaseAdminController
      */
     public function destroy(Video $video): RedirectResponse
     {
-        if (!isRootAdmin() && ($video->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $video);
+        deleteGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
 
         $video->delete();
 

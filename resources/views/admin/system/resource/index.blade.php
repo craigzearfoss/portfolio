@@ -143,7 +143,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($resource, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $resource, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.system.resource.show', $resource),
@@ -151,7 +151,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($resource, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $resource, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.system.resource.edit', $resource),

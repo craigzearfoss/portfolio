@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('contact', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'contact', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Contact', 'href' => route('admin.career.contact.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -107,7 +107,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($contact, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $contact, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.contact.show', $contact),
@@ -115,7 +115,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($contact, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $contact, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.contact.edit', $contact),
@@ -138,7 +138,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($contact, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $contact, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.contact.destroy', $contact) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

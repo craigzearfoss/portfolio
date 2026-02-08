@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreLibrariesRequest;
 use App\Http\Requests\Dictionary\UpdateLibrariesRequest;
@@ -30,6 +31,8 @@ class LibraryController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'library', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $libraries = Library::orderBy('name', 'asc')->paginate($perPage);
@@ -78,6 +81,8 @@ class LibraryController extends BaseAdminController
      */
     public function show(Library $library): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $library, $this->admin);
+
         list($prev, $next) = Library::prevAndNextPages($library->id,
             'admin.dictionary.library.show',
             null,
@@ -89,12 +94,14 @@ class LibraryController extends BaseAdminController
     /**
      * Show the form for editing the specified library.
      *
-     * @param Library $library
+     * @param int $id
      * @return View
      */
-    public function edit(Library $library): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $library);
+        $library = Library::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $library, $this->admin);
 
         return view('admin.dictionary.library.edit', compact('library'));
     }
@@ -124,7 +131,7 @@ class LibraryController extends BaseAdminController
      */
     public function destroy(Library $library): RedirectResponse
     {
-        Gate::authorize('delete-resource', $library);
+        deleteGate(PermissionEntityTypes::RESOURCE, $library, $this->admin);
 
         $library->delete();
 

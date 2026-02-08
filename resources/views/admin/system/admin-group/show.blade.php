@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($adminGroup, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $adminGroup, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-group.edit', $adminGroup)])->render();
     }
-    if (canCreate('admin-group', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
                                                                'href' => route('admin.system.admin-group.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []

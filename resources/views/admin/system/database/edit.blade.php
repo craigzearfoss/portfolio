@@ -73,7 +73,6 @@
                 'message'   => $message ?? '',
             ])
 
-
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'database',
                 'value'     => old('database') ?? $database->database,
@@ -114,23 +113,23 @@
             ])
 
             @include('admin.components.form-environments-horizontal', [
-                'guest'  => old('guest') ?? $database->guest,
-                'user'   => old('user') ?? $database->user,
-                'admin'  => old('admin') ?? $database->admin,
+                'guest'  => old('guest')  ?? $database->guest,
+                'user'   => old('user')   ?? $database->user,
+                'admin'  => old('admin')  ?? $database->admin,
                 'global' => old('global') ?? $database->global,
             ])
 
             @include('admin.components.form-menu-fields-horizontal', [
-                'menu'       => old('menu') ?? $database->menu,
+                'menu'       => old('menu')       ?? $database->menu,
                 'menu_level' => old('meni_level') ?? $database->menu_level,
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $database->public,
+                'public'   => old('public')   ?? $database->public,
                 'readonly' => old('readonly') ?? $database->readonly,
-                'root'     => old('root') ?? $database->root,
+                'root'     => old('root')     ?? $database->root,
                 'disabled' => old('disabled') ?? $database->disabled,
-                'demo'     => old('demo') ?? $database->demo,
+                'demo'     => old('demo')     ?? $database->demo,
                 'sequence' => old('sequence') ?? $database->sequence,
                 'message'  => $message ?? '',
             ])

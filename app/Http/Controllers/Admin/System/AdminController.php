@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminsRequest;
 use App\Http\Requests\System\UpdateAdminsRequest;
@@ -26,6 +27,8 @@ class AdminController extends BaseAdminController
      */
     public function index(Request $request): View|RedirectResponse
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'admin', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
          if (empty($this->admin->root)) {
@@ -46,7 +49,7 @@ class AdminController extends BaseAdminController
     public function create(): View
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
+            abort(403, 'Only root admins can add admins.');
         }
 
         return view('admin.system.admin.create');
@@ -86,6 +89,8 @@ class AdminController extends BaseAdminController
      */
     public function show(Admin $admin): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $admin, $this->admin);
+
         $thisAdmin = $admin;
 
         list($prev, $next) = Admin::prevAndNextPages($admin->id,
@@ -99,12 +104,14 @@ class AdminController extends BaseAdminController
     /**
      * Show the form for editing the specified admin.
      *
-     * @param Admin $admin
+     * @param int $id
      * @return View
      */
-    public function edit(Admin $admin): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $admin);
+        $admin = Admin::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $admin, $this->admin);
 
         return view('admin.system.admin.edit', compact('admin'));
     }
@@ -134,7 +141,11 @@ class AdminController extends BaseAdminController
      */
     public function destroy(Admin $admin): RedirectResponse
     {
-        Gate::authorize('delete-resource', $admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can delete admins.');
+        } elseif ($admin->id == $this->admin->id ) {
+            abort(403, 'An admin cannot delete themselves.');
+        }
 
         return redirect(referer('admin.system.admin.index'))
             ->with('success', $admin->username . ' deleted successfully.');

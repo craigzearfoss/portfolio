@@ -1,0 +1,117 @@
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+    ];
+    if (isRootAdmin() && !empty($owner)) {
+        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
+        $breadcrumbs[] = [ 'name' => 'Databases', 'href' => route('admin.system.admin-database.index', [ 'owner_id'=>$owner->id ]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Databases', 'href' => route('admin.system.admin-database.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => $adminDatabase->name . ' db' ];
+
+    // set navigation buttons
+    $buttons = [];
+    if (isRootAdmin() && !empty($owner)) {
+        if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $adminDatabase, $admin)) {
+            $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', [ $adminDatabase, 'owner_id'=>$owner->id ]) ])->render();
+        }
+    } else {
+        if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $adminDatabase, $admin)) {
+            $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', $adminDatabase) ])->render();
+        }
+    }
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-database.index', (isRootAdmin() && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : []) ])->render();
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Database: ' . $adminDatabase->name . ' db for ' . $adminDatabase->owner->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
+    'errorMessages'    => $errors->messages() ?? [],
+    'success'          => session('success') ?? null,
+    'error'            => session('error') ?? null,
+    'menuService'      => $menuService,
+    'currentRouteName' => Route::currentRouteName(),
+    'admin'            => $admin,
+    'user'             => $user,
+    'owner'            => $owner,
+])
+
+@section('content')
+
+    <div class="show-container card p-4">
+
+        <div style="display: inline-block; position: absolute; top: 0; right: 0;">
+            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+        </div>
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $adminDatabase->id
+        ])
+
+        @if($admin->root)
+            @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $adminDatabase->owner->username
+            ])
+        @endif
+
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $adminDatabase->name
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'database',
+            'value' => $adminDatabase->database
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'tag',
+            'value' => $adminDatabase->tag
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'title',
+            'value' => $adminDatabase->title
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'plural',
+            'value' => $adminDatabase->plural
+        ])
+
+        @include('admin.components.show-row-icon', [
+            'name' => 'icon',
+            'icon' => $adminDatabase->icon
+        ])
+
+        @include('admin.components.show-row-environments', [
+            'resource' => $adminDatabase,
+        ])
+
+        @include('admin.components.show-row-menu-fields', [
+            'menu'       => $adminDatabase->menu,
+            'menu_level' => $adminDatabase->menu_level,
+        ])
+
+        @include('admin.components.show-row-settings', [
+            'resource' => $adminDatabase,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($adminDatabase->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($adminDatabase->updated_at)
+        ])
+
+    </div>
+
+@endsection

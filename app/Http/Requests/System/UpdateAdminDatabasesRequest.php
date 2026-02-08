@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\System\Database;
+use App\Models\System\AdminDatabase;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +34,10 @@ class UpdateAdminDatabasesRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$adminDatabase = Route::current()->parameters()['admin_database']) {
+            abort(503, 'No database specified.');
+        }
+
         return [
             'owner_id'       => ['integer', 'exists:system_db.admins,id'],
             'database_id'    => [
@@ -45,11 +49,12 @@ class UpdateAdminDatabasesRequest extends FormRequest
                         ->where('database_id', $this->database_id);
                 }),
             ],
-            'name'           => ['filled', 'string', 'max:50', 'unique:'.Database::class],
-            'database'       => ['filled', 'string', 'max:50', 'unique:'.Database::class],
-            'tag'            => ['filled', 'string', 'max:50', 'unique:'.Database::class],
+            'name'           => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,name,'.$adminDatabase->id],
+            'database'       => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,database,'.$adminDatabase->id],
+            'tag'            => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,tag,'.$adminDatabase->id],
             'title'          => ['filled', 'string', 'max:50'],
             'plural'         => ['filled', 'string', 'max:50'],
+            'has_owner'      => ['integer', 'between:0,1'],
             'guest'          => ['integer', 'between:0,1'],
             'user'           => ['integer', 'between:0,1'],
             'admin'          => ['integer', 'between:0,1'],

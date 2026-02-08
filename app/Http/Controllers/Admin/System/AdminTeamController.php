@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminTeamsRequest;
 use App\Http\Requests\System\UpdateAdminTeamsRequest;
@@ -21,6 +22,8 @@ class AdminTeamController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'admin-team', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $adminTeams = AdminTeam::orderBy('name','asc')->paginate($perPage);
@@ -38,9 +41,9 @@ class AdminTeamController extends BaseAdminController
      */
     public function create(): View
     {
-        $owner_id = request()->get('owner_id');
+        createGate(PermissionEntityTypes::RESOURCE, 'admin-team', $this->admin);
 
-        return view('admin.system.admin-team.create', compact('owner_id'));
+        return view('admin.system.admin-team.create');
     }
 
     /**
@@ -65,6 +68,8 @@ class AdminTeamController extends BaseAdminController
      */
     public function show(AdminTeam $adminTeam): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
+
         list($prev, $next) = AdminTeam::prevAndNextPages($adminTeam->id,
             'admin.system.admin-team.show',
             $this->owner->id ?? null,
@@ -76,14 +81,14 @@ class AdminTeamController extends BaseAdminController
     /**
      * Show the form for editing the specified admin team.
      *
-     * @param AdminTeam $adminTeam
+     * @param int $id
      * @return View
      */
-    public function edit(AdminTeam $adminTeam): View
+    public function edit(int $id): View
     {
-        if (!canUpdate($adminTeam, $this->admin)) {
-            abort(403, 'You are not allowed to edit this admin team.');
-        }
+        $adminTeam = AdminTeam::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
 
         return view('admin.system.admin-team.edit', compact('adminTeam'));
     }
@@ -111,9 +116,7 @@ class AdminTeamController extends BaseAdminController
      */
     public function destroy(AdminTeam $adminTeam): RedirectResponse
     {
-        if (!canDelete($adminTeam, $this->admin)) {
-            abort(403, 'You are not allowed to delete this admin team.');
-        }
+        deleteGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
 
         $adminTeam->delete();
 

@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($skill, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $skill, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.skill.edit', $skill)])->render();
     }
-    if (canCreate('skill', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'skill', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Skill', 'href' => route('admin.portfolio.skill.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.skill.index')])->render();

@@ -18,10 +18,10 @@
     }
 
     $buttons = [];
-    if (canUpdate($resume, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $resume, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.resume.edit', $resume)])->render();
     }
-    if (canCreate('resume', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.resume.index')])->render();

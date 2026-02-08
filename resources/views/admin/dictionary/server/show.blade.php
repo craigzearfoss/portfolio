@@ -10,10 +10,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($server, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $server, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.server.edit', $server)])->render();
     }
-    if (canCreate('server', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'server', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Server', 'href' => route('admin.dictionary.server.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

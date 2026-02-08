@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreCategoriesRequest;
 use App\Http\Requests\Dictionary\UpdateCategoriesRequest;
@@ -30,6 +31,8 @@ class CategoryController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'category', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $categories = Category::orderBy('name', 'asc')->paginate($perPage);
@@ -78,6 +81,8 @@ class CategoryController extends BaseAdminController
      */
     public function show(Category $category): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $category, $this->admin);
+
         list($prev, $next) = Category::prevAndNextPages($category->id,
             'admin.dictionary.category.show',
             null,
@@ -89,12 +94,14 @@ class CategoryController extends BaseAdminController
     /**
      * Show the form for editing the specified category.
      *
-     * @param Category $category
+     * @param int $id
      * @return View
      */
-    public function edit(Category $category): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $category);
+        $category = Category::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $category, $this->admin);
 
         return view('admin.dictionary.category.edit', compact('category'));
     }
@@ -124,7 +131,7 @@ class CategoryController extends BaseAdminController
      */
     public function destroy(Category $category): RedirectResponse
     {
-        Gate::authorize('delete-resource', $category);
+        deleteGate(PermissionEntityTypes::RESOURCE, $category, $this->admin);
 
         $category->delete();
 

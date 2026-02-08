@@ -17,10 +17,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($reading, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $reading, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.reading.edit', $reading)])->render();
     }
-    if (canCreate('reading', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'reading', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reading', 'href' => route('admin.personal.reading.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.reading.index')])->render();

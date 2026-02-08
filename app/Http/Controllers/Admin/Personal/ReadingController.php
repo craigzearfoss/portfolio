@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreReadingsRequest;
 use App\Http\Requests\Personal\UpdateReadingsRequest;
@@ -27,6 +28,8 @@ class ReadingController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'reading', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -41,7 +44,7 @@ class ReadingController extends BaseAdminController
                 ->appends(request()->except('page'));
         }
 
-        $pageTitle = empty($this->owner) ? 'Readings' : $this->owner->name . ' Readings';
+        $pageTitle = empty($this->owner) ? 'Readings' : $this->owner->name . ' readings';
 
         return view('admin.personal.reading.index', compact('readings', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -79,6 +82,8 @@ class ReadingController extends BaseAdminController
      */
     public function show(Reading $reading): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
+
         list($prev, $next) = Reading::prevAndNextPages($reading->id,
             'admin.personal.reading.show',
             $this->owner->id ?? null,
@@ -90,16 +95,14 @@ class ReadingController extends BaseAdminController
     /**
      * Show the form for editing the specified reading.
      *
-     * @param Reading $reading
+     * @param int $id
      * @return View
      */
-    public function edit(Reading $reading): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($reading->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $reading);
+        $reading = Reading::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
 
         return view('admin.personal.reading.edit', compact('reading'));
     }
@@ -127,11 +130,7 @@ class ReadingController extends BaseAdminController
      */
     public function destroy(Reading $reading): RedirectResponse
     {
-        if (!isRootAdmin() && ($reading->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $reading);
+        deleteGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
 
         $reading->delete();
 

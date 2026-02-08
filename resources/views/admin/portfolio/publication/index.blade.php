@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate('publication', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'publication', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Publication', 'href' => route('admin.portfolio.publication.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -111,7 +111,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($publication, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $publication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.publication.show', $publication),
@@ -119,7 +119,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($publication, $admin))
+                            @if(\App\Enums\PermissionEntityTypes::RESOURCE, canUpdate($publication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.publication.edit', $publication),
@@ -142,7 +142,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($publication, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $publication, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.publication.destroy', $publication) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreFrameworksRequest;
 use App\Http\Requests\Dictionary\UpdateFrameworksRequest;
@@ -30,6 +31,8 @@ class FrameworkController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'framework', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $frameworks = Framework::orderBy('name', 'asc')->paginate($perPage);
@@ -78,6 +81,8 @@ class FrameworkController extends BaseAdminController
      */
     public function show(Framework $framework): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $framework, $this->admin);
+
         list($prev, $next) = Framework::prevAndNextPages($framework->id,
             'admin.dictionary.framework.show',
             null,
@@ -89,17 +94,16 @@ class FrameworkController extends BaseAdminController
     /**
      * Show the form for editing the specified framework.
      *
-     * @param Framework $framework
-     * @param Request $request
+     * @param int $id
      * @return View
      */
-    public function edit(Framework $framework, Request $request): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $framework);
+        $framework = Framework::findOrFail($id);
 
-        $referer = $request->headers->get('referer');
+        updateGate(PermissionEntityTypes::RESOURCE, $framework, $this->admin);
 
-        return view('admin.dictionary.framework.edit', compact('framework', 'referer'));
+        return view('admin.dictionary.framework.edit', compact('framework'));
     }
 
     /**
@@ -128,7 +132,7 @@ class FrameworkController extends BaseAdminController
      */
     public function destroy(Framework $framework, Request $request): RedirectResponse
     {
-        Gate::authorize('delete-resource', $framework);
+        deleteGate(PermissionEntityTypes::RESOURCE, $framework, $this->admin);
 
         $framework->delete();
 

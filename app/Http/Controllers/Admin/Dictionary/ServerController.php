@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreServersRequest;
 use App\Http\Requests\Dictionary\UpdateServersRequest;
@@ -30,6 +31,8 @@ class ServerController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'server', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $servers = Server::orderBy('name', 'asc')->paginate($perPage);
@@ -78,6 +81,8 @@ class ServerController extends BaseAdminController
      */
     public function show(Server $server): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $server, $this->admin);
+
         list($prev, $next) = Server::prevAndNextPages($server->id,
             'admin.dictionary.server.show',
             null,
@@ -89,12 +94,14 @@ class ServerController extends BaseAdminController
     /**
      * Show the form for editing the specified server.
      *
-     * @param Server $server
+     * @param int $id
      * @return View
      */
-    public function edit(Server $server): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $server);
+        $server = Server::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $server, $this->admin);
 
         return view('admin.dictionary.server.edit', compact('server'));
     }
@@ -124,7 +131,7 @@ class ServerController extends BaseAdminController
      */
     public function destroy(Server $server): RedirectResponse
     {
-        Gate::authorize('delete-resource', $server);
+        deleteGate(PermissionEntityTypes::RESOURCE, $server, $this->admin);
 
         $server->delete();
 

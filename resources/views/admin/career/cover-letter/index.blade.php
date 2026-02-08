@@ -1,6 +1,6 @@
 @php
     $buttons = [];
-    if (canCreate('cover-letter', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'cover-letter', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
     }
 @endphp
@@ -91,7 +91,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($coverLetter, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $coverLetter, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.cover-letter.show', $coverLetter),
@@ -99,7 +99,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($coverLetter, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $coverLetter, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.cover-letter.edit', $coverLetter),
@@ -122,7 +122,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($coverLetter, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $coverLetter, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.cover-letter.destroy', $coverLetter) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

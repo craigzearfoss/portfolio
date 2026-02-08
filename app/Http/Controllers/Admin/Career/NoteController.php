@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreNotesRequest;
 use App\Http\Requests\Career\UpdateNotesRequest;
@@ -26,6 +27,8 @@ class NoteController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'note', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $applicationId = $request->application_id;
@@ -105,6 +108,8 @@ class NoteController extends BaseAdminController
      */
     public function show(Note $note): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
+
         list($prev, $next) = Note::prevAndNextPages($note->id,
             'admin.career.note.show',
             $this->owner->id ?? null,
@@ -116,20 +121,19 @@ class NoteController extends BaseAdminController
     /**
      * Show the form for editing the specified note.
      *
-     * @param Note $note
-     * @param Request $request
+     * @param int $id
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function edit(Note $note, Request $request): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($note->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $note);
+        $note = Note::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
 
         $urlParams = [];
-        if ($applicationId = $request->get('application_id')) {
+        if ($applicationId = request()->get('application_id')) {
             $urlParams['application_id'] = $applicationId;
         }
 
@@ -175,11 +179,7 @@ class NoteController extends BaseAdminController
      */
     public function destroy(Note $note): RedirectResponse
     {
-        if (!isRootAdmin() && ($note->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $note);
+        deleteGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
 
         $note->delete();
 

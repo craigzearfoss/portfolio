@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreStacksRequest;
 use App\Http\Requests\Dictionary\UpdateStacksRequest;
@@ -30,6 +31,8 @@ class StackController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'stack', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $stacks = Stack::orderBy('name', 'asc')->paginate($perPage);
@@ -78,7 +81,9 @@ class StackController extends BaseAdminController
      */
     public function show(Stack $stack): View
     {
-        list($prev, $next) =Stack::prevAndNextPages($stack->id,
+        readGate(PermissionEntityTypes::RESOURCE, $stack, $this->admin);
+
+        list($prev, $next) = Stack::prevAndNextPages($stack->id,
             'admin.dictionary.stack.show',
             null,
             ['full_name', 'asc']);
@@ -89,12 +94,14 @@ class StackController extends BaseAdminController
     /**
      * Show the form for editing the specified stack.
      *
-     * @param Stack $stack
+     * @param int $id
      * @return View
      */
-    public function edit(Stack $stack): View
+    public function edit(int $id): View
     {
-        Gate::authorize('update-resource', $stack);
+        $stack = Stack::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $stack, $this->admin);
 
         return view('admin.dictionary.stack.edit', compact('stack'));
     }
@@ -124,7 +131,7 @@ class StackController extends BaseAdminController
      */
     public function destroy(Stack $stack): RedirectResponse
     {
-        Gate::authorize('delete-resource', $stack);
+        deleteGate(PermissionEntityTypes::RESOURCE, $stack, $this->admin);
 
         $stack->delete();
 

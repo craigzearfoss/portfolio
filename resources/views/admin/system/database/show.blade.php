@@ -9,7 +9,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate($database, $admin)) {
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $database, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.database.edit', $database) ])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.database.index') ])->render();

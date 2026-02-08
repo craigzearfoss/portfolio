@@ -1,6 +1,6 @@
 @php
     $buttons = [];
-    if (canCreate('message', $admin)) {
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'message', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
     }
 @endphp
@@ -74,7 +74,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead($message, $admin))
+                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.system.message.show', $message),
@@ -82,7 +82,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate($message, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.system.message.edit', $message),
@@ -90,7 +90,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($message, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin))
                                 @csrf
                                 @method('DELETE')
                                 @include('admin.components.button-icon', [
@@ -100,7 +100,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete($message, $admin))
+                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin))
                                 <form class="delete-resource" action="{!! route('admin.system.message.destroy', $message) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

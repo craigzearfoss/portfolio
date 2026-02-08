@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCommunicationsRequest;
 use App\Http\Requests\Career\UpdateCommunicationsRequest;
@@ -27,6 +28,8 @@ class CommunicationController extends BaseAdminController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'communication', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $applicationId = $request->application_id;
@@ -106,6 +109,8 @@ class CommunicationController extends BaseAdminController
      */
     public function show(Communication $communication): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
+
         list($prev, $next) = Communication::prevAndNextPages($communication->id,
             'admin.career.communication.show',
             $this->owner->id ?? null,
@@ -117,20 +122,19 @@ class CommunicationController extends BaseAdminController
     /**
      * Show the form for editing the specified communication.
      *
-     * @param Communication $communication
-     * @param Request $request
+     * @param int $id
      * @return View
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function edit(Communication $communication, Request $request): View
+    public function edit(int $id): View
     {
-        if (!isRootAdmin() && ($communication->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('update-resource', $communication);
+        $communication = Communication::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
 
         $urlParams = [];
-        if ($applicationId = $request->get('application_id')) {
+        if ($applicationId = request()->get('application_id')) {
             $urlParams['application_id'] = $applicationId;
         }
 
@@ -177,11 +181,7 @@ class CommunicationController extends BaseAdminController
      */
     public function destroy(Communication $communication): RedirectResponse
     {
-        if (!isRootAdmin() && ($communication->owner_id !== Auth::guard('admin')->user()->id)) {
-            Abort(403, 'Not Authorized.');
-        }
-        //@TODO: Get authorization gate working.
-        //Gate::authorize('delete-resource', $communication);
+        deleteGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
 
         $communication->delete();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\System\StoreUserTeamsRequest;
 use App\Http\Requests\System\UpdateUserTeamsRequest;
@@ -21,6 +22,8 @@ class UserTeamController extends BaseUserController
      */
     public function index(Request $request): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'user-team', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
         $userTeams = UserTeam::orderBy('name','asc')->paginate($perPage);
@@ -38,9 +41,9 @@ class UserTeamController extends BaseUserController
      */
     public function create(): View
     {
-        $owner_id = request()->get('owner_id');
+        createGate(PermissionEntityTypes::RESOURCE, 'user-team', $this->admin);
 
-        return view('admin.system.user-team.create', compact('owner_id'));
+        return view('admin.system.user-team.create');
     }
 
     /**
@@ -65,6 +68,8 @@ class UserTeamController extends BaseUserController
      */
     public function show(UserTeam $userTeam): View
     {
+        readGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
+
         list($prev, $next) = UserTeam::prevAndNextPages($userTeam->id,
             'admin.system.user-team.show',
             $this->owner->id ?? null,
@@ -76,14 +81,14 @@ class UserTeamController extends BaseUserController
     /**
      * Show the form for editing the specified user team.
      *
-     * @param UserTeam $userTeam
+     * @param int $id
      * @return View
      */
-    public function edit(UserTeam $userTeam): View
+    public function edit(int $id): View
     {
-        if (!canUpdate($userTeam, $this->admin)) {
-            abort(403, 'You are not allowed to edit this user team.');
-        }
+        $userTeam = UserTeam::findOrFail($id);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
 
         return view('admin.system.user-team.edit', compact('userTeam'));
     }
@@ -111,9 +116,7 @@ class UserTeamController extends BaseUserController
      */
     public function destroy(UserTeam $userTeam): RedirectResponse
     {
-        if (!canDelete($userTeam, $this->admin)) {
-            abort(403, 'You are not allowed to delete this user team.');
-        }
+        deleteGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
 
         $userTeam->delete();
 

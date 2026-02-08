@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Prompt to confirm with a delete button is clicked.
     const deleteButtons = document.querySelectorAll('.delete-btn');
     deleteButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
             if (confirm('Are you sure you want to delete?')) {
                 button.form.submit();
             }
