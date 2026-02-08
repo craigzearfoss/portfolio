@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('tag', 50)->index('tag_idx');
             $table->string('title', 50);
             $table->string('plural', 50);
+            $table->boolean('has_owner')->default(true);
             $table->boolean('guest')->default(false);
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);
@@ -46,7 +47,7 @@ return new class extends Migration
             $table->string('icon', 50)->nullable();
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(true);
+            $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
             $table->integer('sequence')->default(false);

@@ -53,7 +53,7 @@ return new class extends Migration
             $table->string('icon', 50)->nullable();
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(true);
+            $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
             $table->integer('sequence')->default(false);
@@ -97,8 +97,9 @@ return new class extends Migration
                         'icon'           => $systemResource->icon,
                         'public'         => $systemResource->public,
                         'readonly'       => $systemResource->readonly,
+                        'root'           => $systemResource->root,
                         'disabled'       => $systemResource->disabled,
-                        'demo'           => $systemResource->disabled,
+                        'demo'           => $systemResource->demo,
                         'sequence'       => $systemResource->sequence,
                     ];
                 }

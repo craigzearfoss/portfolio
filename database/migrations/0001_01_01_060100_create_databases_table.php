@@ -49,7 +49,7 @@ return new class extends Migration
             $table->string('icon', 50)->nullable();
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(true);
+            $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
             $table->integer('sequence')->default(false);
@@ -68,6 +68,7 @@ return new class extends Migration
                 'tag'            => 'system_db',
                 'title'          => 'System',
                 'plural'         => 'Systems',
+                'has_owner'      => true,
                 'guest'          => true,
                 'user'           => true,
                 'admin'          => true,

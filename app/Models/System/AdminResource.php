@@ -139,7 +139,7 @@ class AdminResource extends Model
             ->orderBy($sortField, $sortDir);
 
         if (!empty($ownerId)) {
-            $query->where('has_owner', true)
+            $query->where('admin_resources.has_owner', true)
                 ->where('admin_resources.owner_id', $ownerId);
         }
 

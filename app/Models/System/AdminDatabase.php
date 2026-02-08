@@ -34,6 +34,7 @@ class AdminDatabase extends Model
         'tag',
         'title',
         'plural',
+        'has_owner',
         'guest',
         'user',
         'admin',
@@ -86,9 +87,9 @@ class AdminDatabase extends Model
      * @throws \Exception
      */
     public static function ownerDatabases(int|null    $ownerId,
-                                        string|null $envType = PermissionService::ENV_GUEST,
-                                        array       $filters = [],
-                                        array       $orderBy = [ 'sequence' => 'asc' ]): Collection
+                                          string|null $envType = PermissionService::ENV_GUEST,
+                                          array       $filters = [],
+                                          array       $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
         if ($envType == 'root') $envType = PermissionService::ENV_ADMIN;
         if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
