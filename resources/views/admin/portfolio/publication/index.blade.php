@@ -119,7 +119,7 @@
                                 ])
                             @endif
 
-                            @if(\App\Enums\PermissionEntityTypes::RESOURCE, canUpdate($publication, $admin))
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $publication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.publication.edit', $publication),

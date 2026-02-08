@@ -33,9 +33,10 @@ class JobController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
-            $jobs = Job::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+            $jobs = Job::where('owner_id', $this->owner->id)
+                ->orderBy('start_year', 'desc')->orderBy('start_month', 'desc')->paginate($perPage);
         } else {
-            $jobs = Job::orderBy('name', 'asc')->paginate($perPage);
+            $jobs = Job::orderBy('start_year', 'desc')->orderBy('start_month', 'desc')->paginate($perPage);
         }
 
         $pageTitle = empty($this->owner) ? 'Jobs' : $this->owner->name . ' jobs';

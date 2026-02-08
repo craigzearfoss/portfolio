@@ -103,7 +103,7 @@
                         {!! $thisAdmin->email !!}
                     </td>
                     <td data-field="email_verified_at" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $thisUser->email_verified_at ])
+                        @include('admin.components.checkmark', [ 'checked' => $thisAdmin->email_verified_at ])
                     </td>
                     <td data-field="status">
                         {!! \App\Models\System\User::statusName($thisAdmin->status) ?? '' !!}

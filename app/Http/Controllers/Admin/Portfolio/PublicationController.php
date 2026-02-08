@@ -33,9 +33,9 @@ class PublicationController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
-            $publications = Publication::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
+            $publications = Publication::where('owner_id', $this->owner->id)->orderBy('title', 'asc')->paginate($perPage);
         } else {
-            $publications = Publication::orderBy('name', 'asc')->paginate($perPage);
+            $publications = Publication::orderBy('title', 'asc')->paginate($perPage);
         }
 
         $pageTitle = empty($this->owner) ? 'Publications' : $this->owner->name . ' publications';

@@ -58,27 +58,30 @@ class MenuService
             throw new \Exception('Invalid current ENV type');
         }
 
-        // get the resources
-        $filters = in_array($this->envType, [PermissionService::ENV_GUEST, PermissionService::ENV_USER])
-            ? [ 'menu' => 1, 'public' => 1, 'disabled' => 0 ]
-            : (!empty($this->admin) && !empty($this->admin->root) ? [] :[ 'menu' => 1, 'disabled' => 0 ]);
+        // set the filters for the databases and resources
+        $filters = [];
+        if ($this->envType !== PermissionService::ENV_ADMIN) {
+            $filters['public'] = 1;
+        }
+        if (empty($this->admin) || empty($this->admin->root)) {
+            // note that root admins have all resource type added to the menu
+            $filters['menu'] = 1;
+            $filters['disabled'] = 0;
+        }
 
-        //if (($this->envType == PermissionService::ENV_ADMIN) && !$this->isRootAdmin) {
-        //    $filters['root <>'] = 1;
-        //}
-
+        // get the databases and resources
         if (!empty($owner)) {
             if ($this->owner->root) {
                 $this->databases = Database::ownerDatabases(null, $this->envType, $filters);
-                $this->resources = Resource::ownerResources(null,null, null, $filters);
+                $this->resources = Resource::ownerResources(null, $this->envType, null, $filters);
             } else {
                 $this->databases = AdminDatabase::ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
-                $this->resources = AdminResource::ownerResources($this->owner->id, null,null, $filters);
+                $this->resources = AdminResource::ownerResources($this->owner->id, $this->envType,null, $filters);
             }
         } else {
             if ($this->showAll) {
                 $this->databases = Database::ownerDatabases(null, $this->envType, $filters);
-                $this->resources = Resource::ownerResources(null, null, null, $filters);
+                $this->resources = Resource::ownerResources(null, $this->envType, null, $filters);
             } else {
                 $this->databases = [];
                 $this->resources = [];
@@ -594,7 +597,7 @@ class MenuService
                 } elseif(!empty($this->admin->root)) {
                     // root admins can see every menu item
                     return true;
-                } elseif (empty($menuItem->admin) || empty($menuItem->global)) {
+                } elseif (empty($menuItem->admin) && empty($menuItem->global)) {
                     return false;
                 }
                 break;

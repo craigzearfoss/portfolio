@@ -3,11 +3,8 @@
     @php
         $menuService      = $menuService ?? null;
         $currentRouteName = $currentRouteName ??  Route::currentRouteName();
-        $loggedInAdmin    = $loggedInAdmin ?? null;
-        $loggedInUser     = $loggedInUser ?? null;
         $admin            = $admin ?? null;
         $user             = $user ?? null;
-        $isAdminEnv       = (explode('.', $currentRouteName)[0] == 'admin');
     @endphp
 
     <nav id="navbar-main" class="navbar is-fixed-top">
