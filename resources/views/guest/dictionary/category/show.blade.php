@@ -3,7 +3,7 @@
     $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
-        [ 'name' => 'Catgories', 'href' => route('guest.dictionary.category.index') ],
+        [ 'name' => '$Breadcrumbs', 'href' => route('guest.dictionary.category.index') ],
         [ 'name' => $category->name ],
     ];
 
