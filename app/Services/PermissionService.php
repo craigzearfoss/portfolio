@@ -10,16 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PermissionService
 {
-    const ENV_ADMIN = 'admin';
-    const ENV_USER = 'user';
-    const ENV_GUEST = 'guest';
-
-    const ENV_TYPES = [
-        self::ENV_ADMIN,
-        self::ENV_USER,
-        self::ENV_GUEST,
-    ];
-
     const ACTION_CREATE = 'CREATE';
     const ACTION_READ = 'READ';
     const ACTION_UPDATE = 'UPDATE';
