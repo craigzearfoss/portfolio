@@ -101,7 +101,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $certification->image,
+                'src'     => old('image') ?? $certification->image,
                 'credit'  => old('image_credit') ?? $certification->image_credit,
                 'source'  => old('image_source') ?? $certification->image_source,
                 'message' => $message ?? '',
@@ -111,6 +111,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $certification->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 
@@ -118,6 +120,8 @@
                 'name'      => 'logo',
                 'src'       => old('logo') ?? $certification->logo,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 
@@ -125,6 +129,8 @@
                 'name'      => 'logo_small',
                 'scr'       => old('logo_small') ?? $certification->logo_small,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

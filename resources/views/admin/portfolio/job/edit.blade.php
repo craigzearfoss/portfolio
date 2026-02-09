@@ -62,7 +62,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $job->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -168,9 +174,7 @@
                 'label'    => 'employment type',
                 'value'    => old('job_employment_type_id') ?? $job->job_employment_type_id,
                 'required' => true,
-                'list'     => \App\Models\Portfolio\JobEmploymentType::listOptions(
-                                    [], 'id', 'name', true
-                                ),
+                'list'     => \App\Models\Portfolio\JobEmploymentType::listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 
@@ -179,9 +183,7 @@
                 'label'    => 'location type',
                 'value'    => old('job_location_type_id') ?? $job->job_location_type_id,
                 'required' => true,
-                'list'     => \App\Models\Portfolio\JobLocationType::listOptions(
-                                    [], 'id', 'name', true
-                                ),
+                'list'     => \App\Models\Portfolio\JobLocationType::listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 
@@ -230,7 +232,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $job->image,
+                'src'     => old('image') ?? $job->image,
                 'credit'  => old('image_credit') ?? $job->image_credit,
                 'source'  => old('image_source') ?? $job->image_source,
                 'message' => $message ?? '',
@@ -240,6 +242,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $job->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 
@@ -247,6 +251,8 @@
                 'name'      => 'logo',
                 'src'       => old('logo') ?? $job->logo,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 
@@ -254,6 +260,8 @@
                 'name'      => 'logo_small',
                 'src'       => old('logo_small') ?? $job->logo_small,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

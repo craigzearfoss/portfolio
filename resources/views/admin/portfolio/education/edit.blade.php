@@ -63,7 +63,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $education->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -78,7 +84,13 @@
                 'label'    => 'degree type',
                 'value'    => old('degree_type_id') ?? $education->degree_type_id,
                 'required' => true,
-                'list'     => \App\Models\Portfolio\DegreeType::listOptions([], 'id', 'name', true, false, ['name', 'asc']),
+                'list'     => \App\Models\Portfolio\DegreeType::listOptions([],
+                                                                            'id',
+                                                                            'name',
+                                                                            true,
+                                                                            false,
+                                                                            [ 'name', 'asc' ]
+                                                                           ),
                 'message'  => $message ?? '',
             ])
 
@@ -220,7 +232,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $education->image,
+                'src'     => old('image') ?? $education->image,
                 'credit'  => old('image_credit') ?? $education->image_credit,
                 'source'  => old('image_source') ?? $education->image_source,
                 'message' => $message ?? '',
@@ -230,6 +242,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $education->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

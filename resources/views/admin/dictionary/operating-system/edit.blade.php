@@ -147,7 +147,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $operatingSystem->image,
+                'src'     => old('image') ?? $operatingSystem->image,
                 'credit'  => old('image_credit') ?? $operatingSystem->image_credit,
                 'source'  => old('image_source') ?? $operatingSystem->image_source,
                 'message' => $message ?? '',
@@ -157,6 +157,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $operatingSystem->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

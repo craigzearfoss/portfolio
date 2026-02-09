@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\MessageStoreRequest;
 use App\Models\System\Admin;
@@ -21,7 +22,7 @@ class IndexController extends BaseController
     {
         parent::__construct($permissionService);
 
-        $this->initialize('guest');
+        $this->initialize(EnvTypes::GUEST);
     }
 
     public function about(): View

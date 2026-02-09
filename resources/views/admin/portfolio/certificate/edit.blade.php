@@ -64,7 +64,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $certificate->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -170,7 +176,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $certificate->image,
+                'src'     => old('image') ?? $certificate->image,
                 'credit'  => old('image_credit') ?? $certificate->image_credit,
                 'source'  => old('image_source') ?? $certificate->image_source,
                 'message' => $message ?? '',
@@ -180,6 +186,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $certificate->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

@@ -26,6 +26,7 @@
             'admin'            => $admin,
             'user'             => $user,
             'owner'            => $owner,
+            ''
         ])
 
         @include('admin.components.nav-left', [

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\EnvTypes;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
 use App\Models\System\Resource;
@@ -36,16 +37,16 @@ class PermissionService
      *
      * @param string $resourceType
      * @param string $action
-     * @param string $envType
+     * @param EnvTypes $envType
      * @return bool
      */
-    public function allowResource(string $resourceType, string $action, string $envType = 'guest'): bool
+    public function allowResource(string $resourceType, string $action, EnvTypes $envType = EnvTypes::GUEST): bool
     {
         if (empty($envType)) {
-            $envType = self::currentEnvType();
+            $envType = getEnvType();
         }
 
-        if (in_array($envType, [self::ENV_GUEST, self::ENV_USER])) {
+        if (in_array($envType, [ EnvTypes::GUEST, EnvTypes::USER ])) {
 
             // Guests and users can only read resource types.
             if ($action !== self::ACTION_READ) {
@@ -57,7 +58,7 @@ class PermissionService
                         ->get()->count() > 0;
             }
 
-        } elseif ($envType === self::ENV_ADMIN) {
+        } elseif ($envType === EnvTypes::ADMIN) {
 
             if (!empty(Auth::guard('admin')->user()->root)) {
                 // Root admins can view disabled resource types.
@@ -79,17 +80,17 @@ class PermissionService
      * //@TODO: Not implemented yet.
      *
      * @param Admin|null $owner
-     * @param string|null $envType - If not specified, this defaults to the type for the current user.
+     * @param EnvTypes|null $envType - If not specified, this defaults to the type for the current user.
      * @param bool $isRoot
      * @return array
      * @throws \Exception
      */
-    public function resourcePermissions(Admin|null $owner = null,
-                                        string|null $envType,
-                                        bool $isRoot = false): array
+    public function resourcePermissions(Admin|null    $owner = null,
+                                        EnvTypes|null $envType,
+                                        bool          $isRoot = false): array
     {
         if (empty($envType)) {
-            $envType = self::currentEnvType();
+            $envType = getEnvType();
         }
 
         $permissions = [];
@@ -110,7 +111,7 @@ class PermissionService
 
             $permissions[$resource->database_name]['READ'][] = $resource->name;
 
-            if ($envType ===  self::ENV_ADMIN) {
+            if ($envType === EnvTypes::ADMIN) {
                 if ($isRoot || empty($resource->root)) {
                     $permissions[$resource->database_name]['CREATE'][] = $resource->name;
                     $permissions[$resource->database_name]['UPDATE'][] = $resource->name;
@@ -120,21 +121,5 @@ class PermissionService
         }
 
         return $permissions;
-    }
-
-    /**
-     * Returns the current ENV type of the user.
-     *
-     * @return string
-     */
-    public static function currentEnvType(): string
-    {
-        if (Auth::guard('admin')->user()) {
-            return self::ENV_ADMIN;
-        } elseif (Auth::guard('user')->user()) {
-            return self::ENV_USER;
-        } else {
-            return self::ENV_GUEST;
-        }
     }
 }

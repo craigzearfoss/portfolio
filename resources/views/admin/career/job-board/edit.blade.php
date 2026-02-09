@@ -124,7 +124,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $jobBoard->image,
+                'src'     => old('image') ?? $jobBoard->image,
                 'credit'  => old('image_credit') ?? $jobBoard->image_credit,
                 'source'  => old('image_source') ?? $jobBoard->image_source,
                 'message' => $message ?? '',
@@ -133,7 +133,9 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $jobBoard->thumbnail,
-                'maxlength' => 255,
+                'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guest;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\BaseController;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class BaseGuestController extends BaseController
     {
         parent::__construct($permissionService);
 
-        $this->initialize('guest');
+        $this->initialize(EnvTypes::GUEST);
 
         if (isset($_GET['debug'])) {
             $this->ddDebug();

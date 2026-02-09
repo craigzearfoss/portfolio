@@ -1,17 +1,21 @@
 @php
-    if (isAdmin()) {
-        $envType = 'admin';
-        $backRoute = 'admin.dashboard';
-    } elseif (isUser()) {
-        $envType = 'user';
-        $backRoute = 'user.dashboard';
-    } else {
-        $envType = 'guest';
-        $backRoute = 'guest.index';
+    $envType = getEnvType();
+    switch ($envType) {
+        case \App\Enums\EnvTypes::ADMIN:
+            $backRoute = 'admin.dashboard';
+            break;
+        case \App\Enums\EnvTypes::USER:
+            $backRoute = 'user.dashboard';
+            break;
+        case \App\Enums\EnvTypes::GUEST:
+        case \App\Enums\EnvTypes::GLOBAL:
+        default:
+            $backRoute = 'guest.index';
+            break;
     }
     $message = $exception->getMessage();
 @endphp
-@extends($envType.'.layouts.empty', [
+@extends($envType->value.'.layouts.empty', [
     'title' => '403 Forbidden',
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -40,7 +44,7 @@
                     </div>
 
 
-                    @include($envType.'.components.link', [
+                    @include($envType->value.'.components.link', [
                         'name' => 'Back',
                         'href' => referer($backRoute)
                     ])

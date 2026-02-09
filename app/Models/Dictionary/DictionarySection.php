@@ -2,6 +2,7 @@
 
 namespace App\Models\Dictionary;
 
+use App\Enums\EnvTypes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -47,15 +48,13 @@ class DictionarySection extends Model
      * @param array $filters
      * @param bool $includeBlank
      * @param string $keyField - id, name, slug, table, or route
-     * @param string $envType
+     * @param EnvTypes|null $envType
      * @return array|string[]
      */
-    public static function listOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        string $keyField = 'id',
-        string $envType= ''
-    ): array
+    public static function listOptions(array         $filters = [],
+                                       bool          $includeBlank = false,
+                                       string        $keyField = 'id',
+                                       EnvTypes|null $envType = null): array
     {
         if (!in_array($keyField, ['id', 'name', 'slug', 'table', 'route'])) {
             return [];
@@ -64,7 +63,7 @@ class DictionarySection extends Model
         $options = [];
         if ($includeBlank) {
             $key = $keyField == 'route'
-                ? route((!empty($envType) ? $envType . '.' : '') . 'dictionary.index')
+                ? route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.index')
                 : '';
             $options = [
                 $key => ''
@@ -87,7 +86,7 @@ class DictionarySection extends Model
                     $key = $dictionarySection->{$keyField};
                     break;
                 case 'route':
-                    $key =route((!empty($envType) ? $envType . '.' : '') . 'dictionary.'.$dictionarySection->slug.'.index');
+                    $key =route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.'.$dictionarySection->slug.'.index');
                     break;
             }
 

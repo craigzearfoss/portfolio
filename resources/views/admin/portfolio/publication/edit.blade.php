@@ -62,7 +62,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $publication->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -84,7 +90,11 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? $publication->parent_id,
-                'list'    => \App\Models\Portfolio\Publication::listOptions(['id <>' => $publication->id], 'id', 'title', true),
+                'list'    => \App\Models\Portfolio\Publication::listOptions([ 'id <>' => $publication->id ],
+                                                                            'id',
+                                                                            'title',
+                                                                            true
+                                                                           ),
                 'message' => $message ?? '',
             ])
 
@@ -300,7 +310,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $publication->image,
+                'src'     => old('image') ?? $publication->image,
                 'credit'  => old('image_credit') ?? $publication->image_credit,
                 'source'  => old('image_source') ?? $publication->image_source,
                 'message' => $message ?? '',
@@ -310,6 +320,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $publication->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

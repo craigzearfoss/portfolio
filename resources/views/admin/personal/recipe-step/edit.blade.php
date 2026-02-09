@@ -47,7 +47,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $recipeStep->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -83,7 +89,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $recipeStep->image,
+                'src'     => old('image') ?? $recipeStep->image,
                 'credit'  => old('image_credit') ?? $recipeStep->image_credit,
                 'source'  => old('image_source') ?? $recipeStep->image_source,
                 'message' => $message ?? '',
@@ -92,6 +98,8 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'src'     => old('thumbnail') ??  $recipeStep->thumbnail,
+                'credit'    => false,
+                'source'    => false,
                 'message' => $message ?? '',
             ])
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\System\Database;
 use App\Models\System\AdminResource;
@@ -18,7 +19,7 @@ class IndexController extends BaseAdminController
         $databaseId = Database::where('tag', 'career_db')->first()->id ?? null;
 
         $careers = !empty($databaseId)
-            ? AdminResource::ownerResources($this->owner->id, PermissionService::ENV_ADMIN, $databaseId)
+            ? AdminResource::ownerResources($this->owner->id, EnvTypes::ADMIN, $databaseId)
             : [];
 
         return view('admin.career.index', compact('careers'));

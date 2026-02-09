@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\EnvTypes;
 use App\Models\System\Admin;
 use App\Models\System\User;
 use App\Services\MenuService;
@@ -54,9 +55,9 @@ class BaseController extends Controller
      * @return void
      * @throws \Exception
      */
-    protected function initialize($envTpe = PermissionService::ENV_GUEST)
+    protected function initialize($envType = EnvTypes::GUEST)
     {
-        $this->envType = $envTpe;
+        $this->envType = $envType;
 
         $this->admin = loggedInAdmin();
         $this->user  = loggedInUser();
@@ -88,7 +89,7 @@ class BaseController extends Controller
         // ---------------------
         // set the current owner
         // ---------------------
-        if (($this->envType == PermissionService::ENV_ADMIN) && !empty($this->admin) && empty($this->admin->root)) {
+        if (($this->envType == EnvTypes::ADMIN) && !empty($this->admin) && empty($this->admin->root)) {
 
             // this is a non-root admin so they can only view their own resources
             $this->owner = $this->admin;
@@ -134,7 +135,7 @@ class BaseController extends Controller
         }
 
         if (empty($this->owner)
-            && ($this->envType == PermissionService::ENV_ADMIN)
+            && ($this->envType == EnvTypes::ADMIN)
             && !empty($this->admin)
             && empty($this->admin->root)
         )  {

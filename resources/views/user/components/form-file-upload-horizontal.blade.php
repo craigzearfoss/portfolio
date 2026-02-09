@@ -1,6 +1,17 @@
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{!! $label ?? $name ?? '' !!}</label>
+        <label class="label">
+            {!! $label ?? $name ?? '' !!}
+            @if (!empty($src))
+                <a title="preview"
+                   class="is-small px-1 py-0"
+                   href="{{ $src }}"
+                   target="_blank"
+                >
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+            @endif
+        </label>
     </div>
     <div class="field-body">
         <div class="field">
@@ -17,7 +28,7 @@
                             </span>
                         </span>
                         <span class="file-name">
-                            {!! $value ?? '' !!}
+                            {!! $src ?? '' !!}
                         </span>
                     </label>
 

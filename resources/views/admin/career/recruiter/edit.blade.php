@@ -168,16 +168,19 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $recruiter->image,
+                'src'     => old('image') ?? $recruiter->image,
                 'credit'  => old('image_credit') ?? $recruiter->image_credit,
                 'source'  => old('image_source') ?? $recruiter->image_source,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'src'     => old('thumbnail') ?? $recruiter->thumbnail,
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'src'       => old('thumbnail') ?? $recruiter->thumbnail,
+                'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

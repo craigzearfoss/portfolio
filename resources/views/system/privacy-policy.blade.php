@@ -1,4 +1,4 @@
-@extends($envType == 'admin' ? 'admin.layouts.default' : 'guest.layouts.default', [
+@extends($envType == \App\Enums\EnvTypes::ADMIN ? 'admin.layouts.default' : 'guest.layouts.default', [
     'title'            => $pageTitle ?? 'Privacy Policy',
     'subtitle'         => null,
     'breadcrumbs'      => [

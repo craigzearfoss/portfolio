@@ -48,7 +48,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $jobSkill->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -131,7 +137,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $jobSkill->image,
+                'src'     => old('image') ?? $jobSkill->image,
                 'credit'  => old('image_credit') ?? $jobSkill->image_credit,
                 'source'  => old('image_source') ?? $jobSkill->image_source,
                 'message' => $message ?? '',
@@ -141,6 +147,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $jobSkill->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

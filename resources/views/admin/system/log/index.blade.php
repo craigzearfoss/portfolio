@@ -40,7 +40,13 @@
                 @include('admin.components.form-select', [
                     'name'     => 'username',
                     'value'    => Request::get('username'),
-                    'list'     => \App\Models\System\Admin::listOptions([], 'username', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Admin::listOptions([],
+                                                                        'username',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'style'    => 'width: 10rem;',
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])

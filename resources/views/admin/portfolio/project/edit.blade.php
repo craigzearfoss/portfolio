@@ -62,7 +62,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $project->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -159,7 +165,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $project->image,
+                'src'     => old('image') ?? $project->image,
                 'credit'  => old('image_credit') ?? $project->image_credit,
                 'source'  => old('image_source') ?? $project->image_source,
                 'message' => $message ?? '',
@@ -169,6 +175,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $project->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

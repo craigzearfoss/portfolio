@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\BaseController;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class BaseUserController extends BaseController
     {
         parent::__construct($permissionService);
 
-        $this->initialize('user');
+        $this->initialize(EnvTypes::USER);
 
         if (isset($_GET['debug'])) {
             $this->ddDebug();

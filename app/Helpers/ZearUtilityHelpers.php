@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EnvTypes;
 use App\Enums\PermissionEntityTypes;
 use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
@@ -10,6 +11,32 @@ use App\Services\PermissionService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\IOFactory;
+
+if (! function_exists('getEnvType')) {
+    /**
+     * Determines the environment from the current route name.
+     *
+     * @return EnvTypes
+     */
+    function getEnvType()
+    {
+        $currentRoute = Route::currentRouteName();
+        switch (!empty($currentRoute) ? explode('.', $currentRoute)[0] : '') {
+            case 'admin':
+                $envType = EnvTypes::ADMIN;
+                break;
+            case 'user':
+                $envType = EnvTypes::USER;
+                break;
+            case 'guest':
+            default:
+                $envType = EnvTypes::GUEST;
+                break;
+        }
+
+        return $envType;
+    }
+}
 
 if (! function_exists('refererRouteName')) {
     /**
@@ -878,19 +905,19 @@ if (! function_exists('themedTemplate')) {
         /**
          * Returns the route for a resource.
          *
-         * @param string $envType
+         * @param EnvTypes $envType
          * @param string $databaseName
          * @param string|null $tableName
          * @param Admin|null $admin
          * @return string|null
          */
-        function getResourceRouteName(string $envType,
-                                      string $databaseName,
-                                      string|null $tableName = null,
+        function getResourceRouteName(EnvTypes                      $envType,
+                                      string                        $databaseName,
+                                      string|null                   $tableName = null,
                                       \App\Models\System\Admin|null $admin = null): string|null
         {
             $routeParts   = [];
-            $routeParts[] = $envType;
+            $routeParts[] = $envType->value;
 
             $routeParts[] = $databaseName;
             if (!empty($tableName)) $routeParts[] = $tableName;
@@ -910,33 +937,33 @@ if (! function_exists('themedTemplate')) {
         /**
          * Returns an admin route by checking if it is for an admin with root privileges.
          */
-        function adminResourceRouteName(string                                                       $databaseName,
-                                        \App\Models\System\Resource|\App\Models\System\AdminResource $resource,
-                                        string                                                       $action,
-                                        string                                                       $envType = PermissionService::ENV_GUEST,
-                                                                                                     $isRoot = false): string
+        function adminResourceRouteName(string                 $databaseName,
+                                        Resource|AdminResource $resource,
+                                        string                 $action,
+                                        EnvTypes               $envType = EnvTypes::GUEST,
+                                                               $isRoot = false): string
         {
             //dd($resource);
-            $envType = $isRoot ? 'root' : 'admin';
+            //??????????$envType =  $isRoot ? 'root' : 'admin';
 
-            $parts = [$envType];
+            $parts = [$envType->value];
             if ($databaseName != 'system') {
                 $parts[] = $databaseName;
             }
             $parts[] = $resource->name;
-            if (($envType == PermissionService::ENV_ADMIN) && $isRoot) {
+            if (($envType == EnvTypes::ADMIN) && $isRoot) {
 
             } else {
                 $parts[] = $databaseName;
             }
-            $parts[] = ($envType == PermissionService::ENV_ADMIN) && $isRoot
+            $parts[] = ($envType == EnvTypes::ADMIN) && $isRoot
                 ? $resource->id
                 : (property_exists($resource, 'slug') ? $resource->slug : $resource->id);
             $parts[] = $action;
             dd($parts);
             $route = implode('.', $parts);
 
-            // if the "root" route doesn't exist fallback to the "admin" route
+            //??????? if the "root" route doesn't exist fallback to the "admin" route
             if (($envType == 'root') && !Route::has($route)) {
                 array_shift($parts);
                 $route = '.admin' . implode('.', $parts);

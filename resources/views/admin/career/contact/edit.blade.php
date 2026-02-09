@@ -62,7 +62,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $contact->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -165,16 +171,19 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $contact->image,
+                'src'     => old('image') ?? $contact->image,
                 'credit'  => old('image_credit') ?? $contact->image_credit,
                 'source'  => old('image_source') ?? $contact->image_source,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'src'     => old('thumbnail') ?? $contact->thumbnail,
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'src'       => old('thumbnail') ?? $contact->thumbnail,
+                'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [

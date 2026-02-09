@@ -41,16 +41,13 @@
 
                 @include('user.components.form-select-nolabel', [
                     'value'    => !empty($admin->label) ? $admin->label : '',
-                    'list'     => \App\Models\System\Admin::listOptions(
-                                        [
-                                            'public' => 1,
-                                        ],
-                                        'label',
-                                        'name',
-                                        true,
-                                        false,
-                                        ['name', 'asc'
-                                    ]),
+                    'list'     => \App\Models\System\Admin::listOptions([ 'public' => 1 ],
+                                                                        'label',
+                                                                        'name',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'name', 'asc']
+                                                                       ),
                     'style'    => 'font-size: 1.1rem; font-weight: 700',
                     'onchange' => "document.location.href='/'+this.value;"
                 ])

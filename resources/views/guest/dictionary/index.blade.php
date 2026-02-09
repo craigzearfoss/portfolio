@@ -16,7 +16,11 @@
             'name'     => '',
             'label'    => '',
             'value'    => '',
-            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'guest'),
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([],
+                                                                                true,
+                                                                                'route',
+                                                                                \App\Enums\EnvTypes::GUEST
+                                                                               ),
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),

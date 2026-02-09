@@ -62,7 +62,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $recipe->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -254,7 +260,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $recipe->image,
+                'src'     => old('image') ?? $recipe->image,
                 'credit'  => old('image_credit') ?? $recipe->image_credit,
                 'source'  => old('image_source') ?? $recipe->image_source,
                 'message' => $message ?? '',
@@ -264,6 +270,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $recipe->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

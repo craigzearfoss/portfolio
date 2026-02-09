@@ -13,7 +13,7 @@
                     </span>
                 </span>
                 <span class="file-name">
-                    {!! $value ?? '' !!}
+                    {!! $src ?? '' !!}
                 </span>
             </label>
 

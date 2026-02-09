@@ -178,19 +178,6 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? '',
-                'credit'  => old('image_credit') ?? '',
-                'source'  => old('image_source') ?? '',
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'src'     => old('thumbnail') ?? '',
-                'message' => $message ?? '',
-            ])
-
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'status',
                 'value'   => old('status') ?? 0,

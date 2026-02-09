@@ -2,6 +2,7 @@
 
 namespace App\Models\System;
 
+use App\Enums\EnvTypes;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
 use App\Services\PermissionService;
@@ -80,20 +81,20 @@ class AdminDatabase extends Model
      * Returns the databases for specified owner.
      *
      * @param int|null $ownerId
-     * @param string|null $envType
+     * @param EnvTypes|null $envType
      * @param array $filters
      * @param array $orderBy
      * @return Collection
      * @throws \Exception
      */
-    public static function ownerDatabases(int|null    $ownerId,
-                                          string|null $envType = PermissionService::ENV_GUEST,
-                                          array       $filters = [],
-                                          array       $orderBy = [ 'sequence' => 'asc' ]): Collection
+    public static function ownerDatabases(int|null      $ownerId,
+                                          EnvTypes|null $envType = EnvTypes::GUEST,
+                                          array         $filters = [],
+                                          array         $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
-        if ($envType == 'root') $envType = PermissionService::ENV_ADMIN;
-        if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
-            throw new \Exception('ENV type ' . $envType . ' not supported');
+        //?????????if ($envType == 'root') $envType = EnvTypes::ADMIN;
+        if (!empty($envType) && !in_array($envType,  [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
+            throw new \Exception('ENV type ' . $envType->value . ' not supported');
         }
 
         $sortField = $orderBy[0] ?? 'sequence';
@@ -109,7 +110,7 @@ class AdminDatabase extends Model
 
         // apply env type filter
         if (!empty($envType)) {
-            $query->where('admin_databases.'.$envType, 1);
+            $query->where('admin_databases.'.$envType->value, 1);
         }
 
         // Apply filters to the query.

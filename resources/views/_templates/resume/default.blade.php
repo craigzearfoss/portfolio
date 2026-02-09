@@ -1,9 +1,9 @@
 @php
-    $envType = (explode('.', Route::currentRouteName())[0] == 'admin') ? 'admin' : 'guest';
+    $envType = getEnvType();
 
     $breadcrumbs = [];
     $breadcrumbs[] = [ 'name' => 'Home',       'href' => route('admin.index') ];
-    if ($envType == 'admin') {
+    if ($envType->value == 'admin') {
         $breadcrumbs[] = [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ];
         $breadcrumbs[] = [ 'name' => 'Career',           'href' => route('admin.career.index') ];
         $breadcrumbs[] = [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index') ];
@@ -14,7 +14,7 @@
         $breadcrumbs[] = [ 'name' => $title ?? 'Resume'];
     }
 @endphp
-@extends($envType . '.layouts.default', [
+@extends($envType->value . '.layouts.default', [
     'title'            => $pageTitle ?? $owner->name . ' resume',
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => [],
@@ -32,7 +32,7 @@
 
 @section('content')
 
-    @if($envType != 'admin')
+    @if($envType->value != 'admin')
         @include('guest.components.disclaimer', [ 'value' => $resume->disclaimer ?? null ])
     @endif
 
@@ -47,7 +47,7 @@
             >
 
                 <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
-                    @include($envType . '.components.image', [
+                    @include($envType->value . '.components.image', [
                         'src'   => $job->logo_small,
                         'alt'   => (!empty($job->company) ?$job->company : 'company') . ' logo',
                         'width' => '48px',

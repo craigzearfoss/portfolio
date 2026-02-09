@@ -44,7 +44,7 @@
             >
 
                 <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
-                    @include($envType . '.components.image', [
+                    @include($envType->value . '.components.image', [
                         'src'   => $job->logo_small,
                         'alt'   => (!empty($job->company) ?$job->company : 'company') . ' logo',
                         'width' => '48px',

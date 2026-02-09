@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guest\System;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Http\Requests\MessageStoreRequest;
 use App\Http\Requests\System\StoreUsersRequest;
@@ -65,7 +66,7 @@ class AdminController extends BaseGuestController
 
             $resources = [];
             if (!empty($databases)) {
-                foreach (AdminResource::ownerResources($this->owner->id, PermissionService::ENV_GUEST) as $resource) {
+                foreach (AdminResource::ownerResources($this->owner->id, EnvTypes::GUEST) as $resource) {
                     $resources[$resource->database_id][] = $resource;
                 }
             }

@@ -33,7 +33,7 @@
 
         <div class="control ml-2 mt-2">
 
-            @if(isRootAdmin())
+            @if(!empty($admin->root))
 
                 @php
                     $params = request()->input();
@@ -43,7 +43,14 @@
 
                 @include('admin.components.form-select-nolabel', [
                     'value'    => !empty($owner->id) ? $owner->id : '',
-                    'list'     => \App\Models\System\Admin::listOptions([], 'id', 'name', true, false, ['name', 'asc']),
+                    'list'     => \App\Models\System\Admin::listOptions([],
+                                                                        'id',
+                                                                        'name',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'name', 'asc' ],
+                                                                        getEnvType()
+                                                                       ),
                     'style'    => 'font-size: 1.1rem; font-weight: 700',
                     'onchange' => "document.location.href='" . url()->current() . '?' . http_build_query($params) . "'+this.value;"
                 ])

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\BaseController;
 use App\Models\System\Admin;
 use App\Services\PermissionService;
@@ -19,7 +20,7 @@ class BaseAdminController extends BaseController
     {
         parent::__construct($permissionService);
 
-        $this->initialize('admin');
+        $this->initialize(EnvTypes::ADMIN);
 
         if (isset($_GET['debug'])) {
             //$this->ddDebug();

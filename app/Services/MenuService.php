@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
@@ -15,7 +16,7 @@ use stdClass;
 
 class MenuService
 {
-    protected $envType = PermissionService::ENV_GUEST;
+    protected $envType = null;
 
     protected $databases = [];
     protected $resources = [];
@@ -34,33 +35,33 @@ class MenuService
 
     protected $currentRouteName = null;
 
-    public function __construct(string|null $envType = null,
+    public function __construct(EnvTypes|null $envType = null,
                                 Admin|null  $owner = null,
                                 Admin|null  $admin = null,
                                 User|null   $user = null,
                                 string|null $currentRouteName = null)
     {
-        $this->envType          = !empty($envType) ? $envType : PermissionService::currentEnvType();
+        $this->envType          = $envType ?? getEnvType();
         $this->owner            = $owner;
         $this->admin            = !empty($admi) ? $admin : loggedInAdmin();
         $this->user             = !empty($user) ? $user : loggedInUser();
         $this->currentRouteName = !empty($currentRouteName) ? $currentRouteName : Route::currentRouteName();
         $this->showAll          = false;
 
-        if (($this->envType == PermissionService::ENV_ADMIN) && empty($this->owner) && !empty($this->admin->root)) {
+        if (($this->envType == EnvTypes::ADMIN) && empty($this->owner) && !empty($this->admin->root)) {
             $this->showAll = true;
             $this->owner = $this->admin;
         }
 
-        $this->isRootAdmin      = ($this->envType == PermissionService::ENV_ADMIN) && !empty($this->admin) && $this->admin->root;
+        $this->isRootAdmin      = ($this->envType == EnvTypes::ADMIN) && !empty($this->admin) && $this->admin->root;
 
-        if (!in_array($this->envType, PermissionService::ENV_TYPES)) {
+        if (!in_array($this->envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
             throw new \Exception('Invalid current ENV type');
         }
 
         // set the filters for the databases and resources
         $filters = [];
-        if ($this->envType !== PermissionService::ENV_ADMIN) {
+        if ($this->envType !== EnvTypes::ADMIN) {
             $filters['public'] = 1;
         }
         if (empty($this->admin) || empty($this->admin->root)) {
@@ -174,7 +175,7 @@ class MenuService
 
         $menu = $this->getResourceMenu();
 
-        if ($this->envType == PermissionService::ENV_GUEST) {
+        if ($this->envType == EnvTypes::GUEST) {
             $menu[] = $this->menuItem(['title'=>'Candidates', 'route'=>'guest.admin.index', 'icon'=>'fa-dashboard' ]);
         }
 
@@ -249,10 +250,10 @@ class MenuService
 
             if ($this->includeItem($database)) {
 
-                $route = $this->envType . '.' . $database->name . '.index';
+                $route = $this->envType->value . '.' . $database->name . '.index';
 
                 if (Route::has($route)) {
-                    if ($this->envType == PermissionService::ENV_ADMIN) {
+                    if ($this->envType == EnvTypes::ADMIN) {
                         $url = ((!empty($this->admin) && !empty($this->admin->root))
                                 && !$this->showAll
                                )
@@ -336,7 +337,7 @@ class MenuService
         $menu = [];
 
         // get level 1 admin/user/guest-specific items
-        if (in_array($this->envType, [PermissionService::ENV_ADMIN, PermissionService::ENV_GUEST])) {
+        if (in_array($this->envType, [EnvTypes::ADMIN, EnvTypes::GUEST])) {
 
             // get the database menu items
             $menu = $this->getDatabaseMenuItems();
@@ -489,13 +490,13 @@ class MenuService
 
         // if there are no jobs for this owner then return null
         if (Resource::withoutGlobalScope(AdminPublicScope::class)
-                ->where('name', 'job')->where($this->envType, 1)->where('public', 1)->count() == 0
+                ->where('name', 'job')->where($this->envType->value, 1)->where('public', 1)->count() == 0
         ) {
             return null;
         }
 
         // get route and url
-        if ($this->envType == PermissionService::ENV_ADMIN) {
+        if ($this->envType == EnvTypes::ADMIN) {
             $routeName = 'admin.career.resume.preview';
             $url = !empty($this->owner) ? route($routeName, $this->owner) : '';
         } else {
@@ -517,10 +518,11 @@ class MenuService
         $menuItem->plural         = 'Resumes';
         $menuItem->label          = 'Resume';
         $menuItem->active         = $routeName == $this->currentRouteName;
-        $menuItem->guest          = $this->envType == 'guest' ? 1 : 0;
-        $menuItem->user           = $this->envType == 'user' ? 1 : 0;
-        $menuItem->admin          = $this->envType == 'admin' ? 1 : 0;
-        $menuItem->global         = $this->envType == 'global' ? 1 : 0;
+        //????????????????
+        $menuItem->guest          = $this->envType == EnvTypes::GUEST ? 1 : 0;
+        $menuItem->user           = $this->envType == EnvTypes::USER ? 1 : 0;
+        $menuItem->admin          = $this->envType == EnvTypes::ADMIN ? 1 : 0;
+        $menuItem->global         = $this->envType == EnvTypes::GLOBAL ? 1 : 0;
         $menuItem->menu           = 1;
         $menuItem->menu_level     = $level;
         $menuItem->menu_collapsed = 1;
@@ -549,10 +551,10 @@ class MenuService
      */
     public function getResourceMenuItem(Resource|AdminResource $resource): Resource|AdminResource
     {
-        $route = $this->envType . '.' . $resource->database_name . '.' . $resource->name . '.index';
+        $route = $this->envType->value . '.' . $resource->database_name . '.' . $resource->name . '.index';
 
         if (Route::has($route)) {
-            if ($this->envType == PermissionService::ENV_ADMIN) {
+            if ($this->envType == EnvTypes::ADMIN) {
                 $url = ($resource->has_owner
                         && (!empty($this->admin) && !empty($this->admin->root))
                         && !$this->showAll
@@ -591,7 +593,7 @@ class MenuService
 
         switch ($this->envType) {
 
-            case PermissionService::ENV_ADMIN:
+            case EnvTypes::ADMIN:
                 if (empty($this->admin)) {
                     return false;
                 } elseif(!empty($this->admin->root)) {
@@ -602,13 +604,13 @@ class MenuService
                 }
                 break;
 
-            case PermissionService::ENV_USER:
+            case EnvTypes::USER:
                 if (empty($this->user) || empty($menuItem->user) || empty($menuItem->global)) {
                     return false;
                 }
                 break;
 
-            case PermissionService::ENV_GUEST:
+            case EnvTypes::GUEST:
                 if (in_array(get_class($menuItem), ['App\Models\System\AdminDatabase', 'App\Models\System\Database'])
                     && ($menuItem->name == 'system')
                 ) {

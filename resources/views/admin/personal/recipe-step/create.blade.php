@@ -41,7 +41,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -73,19 +79,6 @@
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? '',
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? '',
-                'credit'  => old('image_credit') ?? '',
-                'source'  => old('image_source') ?? '',
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'src'     => old('thumbnail') ?? '',
                 'message' => $message ?? '',
             ])
 

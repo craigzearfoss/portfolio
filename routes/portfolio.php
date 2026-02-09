@@ -44,6 +44,8 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
 
     Route::get('/', [AdminPortfolioIndexController::class, 'index'])->name('index');
 
+    Route::get('image-upload/{resourceName}/{imageName}', [AdminPortfolioIndexController::class, 'upload'])->name('image.upload');
+
     Route::resource('academy', AdminPortfolioAcademyController::class);
     Route::resource('certification', AdminPortfolioCertificationController::class);
     Route::resource('school', AdminPortfolioSchoolController::class);

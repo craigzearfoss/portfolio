@@ -1,4 +1,4 @@
-@extends($envType == 'admin' ? 'admin.layouts.default' : 'guest.layouts.default', [
+@extends($envType == \App\Enums\EnvTypes::ADMIN ? 'admin.layouts.default' : 'guest.layouts.default', [
     'title'            => $pageTitle ?? 'Contact Us',
     'subtitle'         => null,
     'breadcrumbs'      => [
@@ -30,7 +30,7 @@
 
         @else
 
-            <form action="{{ $envType == 'admin' ? route('admin.contact.storeMessage') : route('contact.storeMessage') }}" method="POST">
+            <form action="{{ $envType == \App\Enums\EnvTypes::ADMIN ? route('admin.contact.storeMessage') : route('contact.storeMessage') }}" method="POST">
                 @csrf
 
                 <div class="column is-6">

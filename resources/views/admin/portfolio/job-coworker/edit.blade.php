@@ -48,7 +48,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $jobCoworker->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -152,7 +158,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $jobCoworker->image,
+                'src'     => old('image') ?? $jobCoworker->image,
                 'credit'  => old('image_credit') ?? $jobCoworker->image_credit,
                 'source'  => old('image_source') ?? $jobCoworker->image_source,
                 'message' => $message ?? '',
@@ -162,6 +168,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $jobCoworker->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

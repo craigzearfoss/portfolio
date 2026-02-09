@@ -41,7 +41,13 @@
                 @include('admin.components.form-select', [
                     'name'     => 'author',
                     'value'    => Request::get('author'),
-                    'list'     => \App\Models\Personal\Reading::listOptions([], 'author', 'author', true, false, ['author', 'asc']),
+                    'list'     => \App\Models\Personal\Reading::listOptions([],
+                                                                           'author',
+                                                                           'author',
+                                                                           true,
+                                                                           false,
+                                                                           [ 'author', 'asc' ]
+                                                                          ),
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])
             </div>

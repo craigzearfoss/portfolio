@@ -16,7 +16,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary: ' . $library->name . ' (library)',
-    'breadcrumbs'      => $breacrumbs,
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -133,7 +133,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $library->image,
+                'src'   => old('image') ?? $library->image,
                 'credit'  => old('image_credit') ?? $library->image_credit,
                 'source'  => old('image_source') ?? $library->image_source,
                 'message' => $message ?? '',
@@ -143,6 +143,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $library->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

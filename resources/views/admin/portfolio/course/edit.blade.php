@@ -62,7 +62,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $course->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -191,7 +197,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $course->image,
+                'src'     => old('image') ?? $course->image,
                 'credit'  => old('image_credit') ?? $course->image_credit,
                 'source'  => old('image_source') ?? $course->image_source,
                 'message' => $message ?? '',
@@ -201,6 +207,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $course->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

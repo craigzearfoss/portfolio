@@ -2,10 +2,15 @@
 
 namespace App\Traits;
 
+use App\Enums\EnvTypes;
+use App\Models\Scopes\AdminPublicScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ *
+ */
 trait SearchableModelTrait
 {
     /**
@@ -17,15 +22,17 @@ trait SearchableModelTrait
      * @param bool $includeBlank
      * @param bool $includeOther
      * @param array $orderBy
+     * @param EnvTypes $envType
      * @return array
      * @throws \Exception
      */
-    public static function listOptions(array  $filters = [],
-                                       string $valueColumn = 'id',
-                                       string $labelColumn = 'name',
-                                       bool   $includeBlank = false,
-                                       bool   $includeOther = false,
-                                       array  $orderBy = self::SEARCH_ORDER_BY): array
+    public static function listOptions(array    $filters = [],
+                                       string   $valueColumn = 'id',
+                                       string   $labelColumn = 'name',
+                                       bool     $includeBlank = false,
+                                       bool     $includeOther = false,
+                                       array    $orderBy = self::SEARCH_ORDER_BY,
+                                       EnvTypes $envType = EnvTypes::GUEST): array
     {
         $other = null;
 
@@ -38,7 +45,12 @@ trait SearchableModelTrait
         $sortColumn = $orderBy[0] ?? 'name';
         $sortDir = $orderBy[1] ?? 'asc';
 
-        $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
+        if ($envType == EnvTypes::ADMIN) {
+            $query = self::withoutGlobalScope(\App\Models\Scopes\AdminPublicScope::class)
+                ->select($selectColumns)->orderBy($sortColumn, $sortDir);
+        } else {
+            $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
+        }
 
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
@@ -61,7 +73,7 @@ trait SearchableModelTrait
                 }
             }
         }
-
+//$query->ddRawSql();
         foreach ($query->get() as $row) {
             if ($row->{$labelColumn} == 'other') {
                 $other = $row;

@@ -2,6 +2,7 @@
 
 namespace App\Models\System;
 
+use App\Enums\EnvTypes;
 use App\Models\System\ResourceSetting;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
@@ -102,22 +103,22 @@ class Resource extends Model
      * Returns the resources for specified owner.
      *
      * @param int|null $ownerId
-     * @param string|null $envType
+     * @param EnvTypes|null $envType
      * @param int|null $databaseId
      * @param array $filters
      * @param array $orderBy
      * @return \Illuminate\Database\Eloquent\Collection
      * @throws \Exception
      */
-    public static function ownerResources(int|null    $ownerId,
-                                          string|null $envType = PermissionService::ENV_GUEST,
-                                          int|null    $databaseId = null,
-                                          array       $filters = [],
-                                          array       $orderBy = [ 'sequence' => 'asc' ]): Collection
+    public static function ownerResources(int|null      $ownerId,
+                                          EnvTypes|null $envType = EnvTypes::GUEST,
+                                          int|null      $databaseId = null,
+                                          array         $filters = [],
+                                          array         $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
-        if ($envType == 'root') $envType = PermissionService::ENV_ADMIN;
-        if (!empty($envType) && !in_array($envType, PermissionService::ENV_TYPES)) {
-            throw new \Exception('ENV type ' . $envType . ' not supported');
+        //?????????if ($envType == 'root') $envType = EnvTypes::ADMIN;
+        if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
+            throw new \Exception('ENV type ' . $envType->value . ' not supported');
         }
 
         $sortField = $orderBy[0] ?? 'sequence';
@@ -135,7 +136,7 @@ class Resource extends Model
 
         // apply env type filter
         if (!empty($envType)) {
-            $query->where('resources.'.$envType, 1);
+            $query->where('resources.'.$envType->value, 1);
         }
 
         // apply database filter

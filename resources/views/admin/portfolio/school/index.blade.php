@@ -36,7 +36,13 @@
                     'name'     => 'state_id',
                     'label'    => 'state',
                     'value'    => Request::get('state_id'),
-                    'list'     => \App\Models\System\State::listOptions([], 'id', 'name', true, false, ['name', 'asc']),
+                    'list'     => \App\Models\System\State::listOptions([],
+                                                                        'id',
+                                                                        'name',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'name', 'asc' ]
+                                                                       ),
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])
             </div>

@@ -139,28 +139,6 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? '',
-                'credit'  => old('image_credit') ?? '',
-                'source'  => old('image_source') ?? '',
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'thumbnail',
-                'src'       => old('thumbnail') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('seq') ?? 0,
-                'min'         => 0,
-                'message'     => $message ?? '',
-            ])
-
             @include('admin.components.form-settings-horizontal', [
                 'public'      => old('public')   ?? 0,
                 'readonly'    => old('readonly') ?? 0,

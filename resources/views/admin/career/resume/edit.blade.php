@@ -63,7 +63,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $resume->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -155,16 +161,19 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $resume->image,
+                'src'     => old('image') ?? $resume->image,
                 'credit'  => old('image_credit') ?? $resume->image_credit,
                 'source'  => old('image_source') ?? $resume->image_source,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'src'   => old('thumbnail') ?? $resume->thumbnail,
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'src'       => old('thumbnail') ?? $resume->thumbnail,
+                'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [

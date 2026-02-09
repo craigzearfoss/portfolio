@@ -317,7 +317,7 @@ class AddCraigZearfoss extends Command
                 'role'              => $this->role,
                 'employer'          => $this->employer,
                 'email_verified_at' => now(),
-                'public'            => false,
+                'public'            => true,
                 'status'            => 1,
                 'token'             => '',
                 'root'              => false,

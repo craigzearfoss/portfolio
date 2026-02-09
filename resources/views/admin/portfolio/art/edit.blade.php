@@ -40,6 +40,36 @@
 
 @section('content')
 
+    <?php /*
+    <form action="{{ route('admin.portfolio.image.upload', ['art', 'image']) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @include('admin.components.form-image-upload', [
+            'image'   => old('image') ?? $art->image,
+            'credit'  => old('image_credit') ?? $art->image_credit,
+            'source'  => old('image_source') ?? $art->image_source,
+            'accept'  => ['.jpeg', '.png', '.jpg', '.gif', '.svg'],
+            'text'    => 'Recommended size 300px by 400px. (WxH)',
+            'message' => $message ?? '',
+        ])
+
+
+        <div class="mb-3">
+            <label class="form-label" for="inputImage">Image:</label>
+            <input
+                type="file"
+                name="image"
+                id="inputImage"
+                class="form-control @error('image') is-invalid @enderror">
+            @error('image')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Upload</button>
+        </div>
+    </form>
+    */ ?>
+
     <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.portfolio.art.update', $art) }}" method="POST">
@@ -62,7 +92,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $art->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -138,18 +174,19 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $art->image,
-                'credit'  => old('image_credit') ?? $art->image_credit,
-                'source'  => old('image_source') ?? $art->image_source,
-                'text'    => 'Recommended size 300px by 400px. (WxH)',
-                'message' => $message ?? '',
+                'src'       => old('image') ?? $art->image,
+                'credit'    => old('image_credit') ?? $art->image_credit,
+                'source'    => old('image_source') ?? $art->image_source,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
+            @include('admin.components.form-image-horizontal', [
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $art->thumbnail,
+                'credit'    => false,
+                'source'    => false,
                 'maxlength' => 500,
-                'text'      => 'Recommended size 120px by 120px. (WxH)',
                 'message'   => $message ?? '',
             ])
 

@@ -60,9 +60,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $adminDatabase->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions(
-                        ['root' => 1], 'id', 'username', true, false, ['username', 'asc']
-                    ),
+                    'list'     => \App\Models\System\Owner::listOptions([ 'root' => 1 ],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                        [ 'username', 'asc' ]
+                                                                       ),
                     'message'  => $message ?? '',
                 ])
 

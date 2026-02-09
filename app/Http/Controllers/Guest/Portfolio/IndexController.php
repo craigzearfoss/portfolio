@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
@@ -30,7 +31,7 @@ class IndexController extends BaseGuestController
             $databaseId = Database::where('tag', 'portfolio_db')->first()->id ?? null;
 
             $portfolios = !empty($databaseId)
-                ? AdminResource::ownerResources($this->owner->id, PermissionService::ENV_GUEST, $databaseId)
+                ? AdminResource::ownerResources($this->owner->id, EnvTypes::GUEST, $databaseId)
                 : [];
 
         } else {

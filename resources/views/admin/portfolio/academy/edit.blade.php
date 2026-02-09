@@ -64,7 +64,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $academy->image,
+                'src'     => old('image') ?? $academy->image,
                 'credit'  => old('image_credit') ?? $academy->image_credit,
                 'source'  => old('image_source') ?? $academy->image_source,
                 'message' => $message ?? '',
@@ -74,6 +74,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $academy->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 
@@ -81,6 +83,8 @@
                 'name'      => 'logo',
                 'src'       => old('logo') ?? $academy->logo,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 
@@ -88,6 +92,8 @@
                 'name'      => 'logo_small',
                 'src'       => old('logo_small') ?? $academy->logo_small,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 

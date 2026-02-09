@@ -63,7 +63,13 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $video->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([],
+                                                                        'id',
+                                                                        'username',
+                                                                        true,
+                                                                        false,
+                                                                         [ 'username', 'asc' ]
+                                                                        ),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -85,7 +91,7 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? $video->parent_id,
-                'list'    => \App\Models\Portfolio\Video::listOptions(['id <>' => $video->id], 'id', 'name', true),
+                'list'    => \App\Models\Portfolio\Video::listOptions([ 'id <>' => $video->id ], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -237,7 +243,7 @@
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $video->image,
+                'src'     => old('image') ?? $video->image,
                 'credit'  => old('image_credit') ?? $video->image_credit,
                 'source'  => old('image_source') ?? $video->image_source,
                 'message' => $message ?? '',
@@ -247,6 +253,8 @@
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $video->thumbnail,
                 'maxlength' => 500,
+                'credit'    => false,
+                'source'    => false,
                 'message'   => $message ?? '',
             ])
 
