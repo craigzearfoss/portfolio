@@ -7,6 +7,6 @@
    class="{!! $class !!}"
    @if (!empty($style))style="{!! $style !!}" @endif
 >
-    {!! !empty($icon) ? '<i class="fa ' . $icon . '"></i>' : '' !!}
+    {!! !empty($icon) ? '<i class="fa ' . $icon . ' mr-1"></i>' : '' !!}
     {!! $name ?? '' !!}
 </a>

@@ -8,7 +8,7 @@
         $owner            = $owner ?? null;
     @endphp
 
-    <nav id="navbar-main" class="navbar is-fixed-top">
+    <nav id="navbar-main" class="navbar is-fixed-top has-background-success">
         <div class="navbar-brand">
 
             @include('admin.components.nav-link-top', [
@@ -20,8 +20,8 @@
 
             <div class="navbar-item has-control">
 
-                <span class="mr-4 has-text-primary" style=" font-size: 1.5em; font-weight: 800;">
-                    {{ config('app.name') }}
+                <span class="mr-4 has-text-dark" style=" font-size: 1.5em; font-weight: 800;">
+                    {{ config('app.name') }} Admin Area
                 </span>
 
                 @if(isDemo())

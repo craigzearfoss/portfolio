@@ -31,6 +31,10 @@ class MenuService
     protected $user = null;
     protected $owner = null;
 
+    protected $globalDatabases = [
+        'dictionary',
+    ];
+
     protected $showAll = false;
 
     protected $currentRouteName = null;
@@ -84,7 +88,7 @@ class MenuService
                 $this->databases = Database::ownerDatabases(null, $this->envType, $filters);
                 $this->resources = Resource::ownerResources(null, $this->envType, null, $filters);
             } else {
-                $this->databases = [];
+                $this->databases = Database::ownerDatabases(null, $this->envType, [ 'name' => $this->globalDatabases ]);
                 $this->resources = [];
             }
         }
@@ -115,7 +119,7 @@ class MenuService
         }
 
         // add user menu items
-        if ($this->hasUsers) {
+        if ($this->hasUsers && config('app.users_enabled')) {
             if (!empty($this->user)) {
                 $menu[] = $this->menuItem([ 'title'=>'User Dashboard',       'route'=>'user.dashboard' ], 1);
                 $menu[] = $this->menuItem([ 'title'=>'My User Profile',      'route'=>'user.profile.show' ],  1);
@@ -184,7 +188,9 @@ class MenuService
                 $menu[] = $this->menuItem([ 'title'=>'User Dashboard', 'route'=>'user.dashboard', 'icon' => 'fa-dashboard' ]);
                 $menu[] = $this->menuItem([ 'title'=>'My Profile',     'route'=>'user.profile.show' ]);
             } else {
-                $menu[] = $this->menuItem([ 'title'=>'User Login',     'route'=>'user.login', 'icon'=>'fa-sign-in', 'name'=>'user-login' ], 1);
+                if (config('app.users_enabled')) {
+                    $menu[] = $this->menuItem(['title' => 'User Login', 'route' => 'user.login', 'icon' => 'fa-sign-in', 'name' => 'user-login'], 1);
+                }
             }
         }
 
@@ -204,15 +210,17 @@ class MenuService
                 $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'My Admin Profile', 'route'=>'admin.profile.show',            'icon'=>'fa-user' ]);
                 $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'Change Password',  'route'=>'admin.profile.change-password', 'icon' =>'fa-lock' ]);
 
-                if (!empty($this->user)) {
-                    $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'User Dashboard', 'route'=>'user.dashboard', 'icon'=>'fa-dashboard' ]);
-                    $menu[] = $this->menuItem([ 'title'=>'My Profile', 'route'=>'user.profile.show' ]);
-                } else {
-                    $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'User Login', 'route'=>'user.login', 'icon'=>'fa-sign-in' ]);
+                if (config('app.users_enabled')) {
+                    if (!empty($this->user)) {
+                        $adminDropdownMenu->children[] = $this->menuItem(['title' => 'User Dashboard', 'route' => 'user.dashboard', 'icon' => 'fa-dashboard']);
+                        $menu[] = $this->menuItem(['title' => 'My Profile', 'route' => 'user.profile.show']);
+                    } else {
+                        $adminDropdownMenu->children[] = $this->menuItem(['title' => 'User Login', 'route' => 'user.login', 'icon' => 'fa-sign-in']);
+                    }
                 }
 
                 $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'Admin Logout', 'route'=>'admin.logout', 'icon'=>'fa-sign-out' ]);
-                if (!empty($this->user)) {
+                if (!empty($this->user) && config('app.users_enabled')) {
                     $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'User Logout', 'route'=>'user.logout', 'icon'=>'fa-sign-out' ]);
                 }
 

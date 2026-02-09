@@ -10,22 +10,20 @@
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
-            <div class="aside-tools-label">
+            <div class="aside-tools-label has-text-left" style="width: 100%;">
 
-                @include('guest.components.link', [
-                    'name'  => 'Home',
-                    'href'  => route('guest.index'),
-                    'class' => 'has-text-primary',
-                    'style' => 'font-size: 1.2em; font-weight: 700',
+                @include('admin.components.button-home', [
+                    'name'     => 'Home',
+                    'href'     => route('guest.index'),
+                    'selected' => false,
                 ])
 
-                /
+                <span>&nbsp;&nbsp;&nbsp;</span>
 
-                @include('guest.components.link', [
-                    'name'  => 'Admin',
-                    'href'  => route('admin.dashboard'),
-                    'class' => 'has-text-primary',
-                    'style' => 'font-size: 1.2em; font-weight: 700; color: #ffe08a !important;',
+                @include('admin.components.button-home', [
+                    'name'     => 'Admin',
+                    'href'     => route('admin.dashboard'),
+                    'selected' => true,
                 ])
 
             </div>
@@ -40,6 +38,8 @@
                     if (array_key_exists('owner_id', $params)) unset($params['owner_id']);
                     $params['owner_id'] = '';
                 @endphp
+
+                <div class="has-text-light">admins</div>
 
                 @include('admin.components.form-select-nolabel', [
                     'value'    => !empty($owner->id) ? $owner->id : '',

@@ -21,5 +21,9 @@ class BaseUserController extends BaseController
         if (isset($_GET['debug'])) {
             $this->ddDebug();
         }
+
+        if (!config('app.users_enabled')) {
+            abort(403, 'Users are not enabled on the site.');
+        }
     }
 }

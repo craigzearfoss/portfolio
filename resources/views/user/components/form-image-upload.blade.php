@@ -83,7 +83,6 @@ if (!empty($style)) {
     </div>
     <div class="field-body">
 
-
         <div class="content mb-0 mr-2">
             <div class="control">
                 <input class="input {!! $class !!} @error('role') is-invalid @enderror"

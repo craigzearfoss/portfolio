@@ -110,10 +110,21 @@ class BaseController extends Controller
                 $owner_id = null;
             }
 
+        } elseif (!empty($this->routeParams['admin']) && is_string($this->routeParams['admin'])) {
+
+            if ($this->owner = Admin::find($this->routeParams['admin']) ) {
+                $owner_id = $this->owner->id;
+            } else {
+                $owner_id = null;
+            }
+
         } elseif (!empty($this->routeParams['admin'])) {
 
-            $this->owner = $this->routeParams['admin'];
-            $owner_id = $this->owner->id;
+            if ($this->owner = $this->routeParams['admin']) {
+                $owner_id = $this->owner->id;
+            } else {
+                $owner_id = null;
+            }
 
         //} elseif ($this->currentRouteName == 'guest.index') {
         //

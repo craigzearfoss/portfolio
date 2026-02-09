@@ -40,17 +40,16 @@
 
 @section('content')
 
-    <?php /*
     @include('admin.components.overlay-image-upload', [
-        'name'    => 'frmImageUpload',
-        'action'  => route('admin.portfolio.image.upload', ['art', 'image']),
-        'file'    => $art->image,
-        'credit'  => $art->credit,
-        'src'     => $art->source,
-        'accept'  => ['.jpeg', '.png', '.jpg', '.gif', '.svg'],
-        'message' => $message ?? '',
+        'name'        => 'frmImageUpload',
+        'action'      => route('admin.portfolio.image.upload', ['art', 'image']),
+        'file'        => $art->image,
+        'credit'      => $art->credit,
+        'src'         => $art->source,
+        'maxFileSize' => config('app.upload_max_file_size'),
+        'accept'      => config('app.upload_image_accept'),
+        'message'     => $message ?? '',
     ])
-    */ ?>
 
     <div class="edit-container card form-container p-4">
 

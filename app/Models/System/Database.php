@@ -117,6 +117,7 @@ class Database extends Model
                 $query = $query->whereIn($col, $value);
             } else {
                 $parts = explode(' ', $col);
+
                 $col = $parts[0];
                 if (!empty($parts[1])) {
                     $operator = trim($parts[1]);

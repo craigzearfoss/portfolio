@@ -10,27 +10,21 @@
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
-            <div class="aside-tools-label">
+            <div class="aside-tools-label has-text-left" style="width: 100%;">
 
-                @include('guest.components.link', [
-                    'name'  => 'Home',
-                    'href'  => route('guest.index'),
-                    'class' => 'has-text-primary',
-                    'style' => 'font-size: 1.2em; font-weight: 700; color: #ffe08a !important;',
+                @include('admin.components.button-home', [
+                    'name'     => 'Home',
+                    'href'     => route('guest.index'),
+                    'selected' => true,
                 ])
 
-                @if(isAdmin())
+                <span>&nbsp;&nbsp;&nbsp;</span>
 
-                    /
-
-                    @include('guest.components.link', [
-                        'name'  => 'Admin',
-                        'href'  => route('admin.dashboard'),
-                        'class' => 'has-text-primary',
-                        'style' => 'font-size: 1.2em; font-weight: 700',
-                    ])
-
-                @endif
+                @include('admin.components.button-home', [
+                    'name'     => 'Admin',
+                    'href'     => route('admin.dashboard'),
+                    'selected' => false,
+                ])
 
             </div>
         </div>
@@ -38,6 +32,8 @@
         <div class="control ml-2 mt-2">
 
             @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
+
+                <div class="has-text-light">candidates</div>
 
                 @include('guest.components.form-select-nolabel', [
                     'value'    => !empty($owner->label) ? $owner->label : '',

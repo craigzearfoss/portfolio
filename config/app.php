@@ -33,7 +33,9 @@ return [
     'open_enrollment'        => boolval(env('APP_OPEN_ENROLLMENT', false)),
     'owner'                  => env('APP_OWNER', ''),
     'featured_admin'         => env('APP_FEATURED_ADMIN', null),
+    'admins_enabled'         => boolval(env('APP_ADMINS_ENABLED', true)),
     'admin_login_enabled'    => boolval(env('APP_ADMIN_LOGIN_ENABLED', false)),
+    'users_enabled'          => boolval(env('APP_USERS_ENABLED', true)),
     'user_login_enabled'     => boolval(env('APP_USER_LOGIN_ENABLED', false)),
     'demo_mode'              => boolval(env('APP_DEMO_MODE', false)),
     'demo_disclaimer'        => env('APP_DEMO_DISCLAIMER', 'For demonstration purposes only.'),
@@ -51,6 +53,14 @@ return [
     'contactable'            => boolval(env('APP_CONTACTABLE', false)),
     'theme'                  => env('APP_THEME', null),
     'bottom_column_headings' => boolval(env('APP_BOTTOM_COLUMN_HEADINGS', 0)),
+    'upload_enabled'         => boolval(env('APP_UPLOAD_ENABLED', false)),
+    'upload_max_file_size'   => intval(env('APP_UPLOAD_MAX_FILE_SIZE', 2048)),
+    'upload_image_accept'    => !empty(trim(env('APP_UPLOAD_IMAGE_ACCEPT', '')))
+                                    ? explode('|', trim(env('APP_UPLOAD_IMAGE_ACCEPT', '')))
+                                    : [],
+    'upload_doc_accept'      => !empty(trim(env('APP_UPLOAD_DOC_ACCEPT', '')))
+                                    ? explode('|', trim(env('APP_UPLOAD_DOC_ACCEPT', '')))
+                                    : [],
     'pagination_per_page'    => intval(env('APP_PAGINATION_PER_PAGE', 20)),
     'pagination_theme'       => env('APP_PAGINATION_TEMPLATE', 'default'),
     'pagination_bottom'      => boolval(env('APP_PAGINATION_BOTTOM', 1)),

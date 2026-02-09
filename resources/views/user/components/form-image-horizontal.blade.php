@@ -48,9 +48,13 @@
                        style="" maxlength="500"
                 >
 
-                @include('user.components.form-button-upload', [
-                    'name' => !empty($src) ? 'Replace' : 'Upload'
-                ])
+                @if(config('app.upload_enabled'))
+
+                    @include('user.components.form-button-upload', [
+                        'name' => !empty($src) ? 'Replace' : 'Upload'
+                    ])
+
+                @endif
 
             </div>
         </div>
