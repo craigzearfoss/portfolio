@@ -106,7 +106,7 @@
                                                     'class' => 'pt-1 pb-1',
                                                 ])
                                             @else
-                                                {!! $resource->plural !!}
+                                                <?php /* {!! $resource->plural !!} */ ?>
                                             @endif
                                         </li>
                                     @endif

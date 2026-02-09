@@ -39,15 +39,20 @@
 
                     @foreach ($personals as $personal)
 
-                        <li>
-                            @include('admin.components.link', [
-                                'name'  => $personal->plural,
-                                'href'  => Route::has('guest.personal.'.$personal->name.'.index')
-                                                ? route('guest.personal.'.$personal->name.'.index', $owner)
-                                                : '',
-                                'class' => 'list-item',
-                            ])
-                        </li>
+                        <?php /* @TODO: This is a hack to filter out level 2 resources. Need to find the proper way to do this */ ?>
+                        @if(!in_array($personal->name, ['recipe-ingredient', 'recipe-step']))
+
+                            <li>
+                                @include('admin.components.link', [
+                                    'name'  => $personal->plural,
+                                    'href'  => Route::has('guest.personal.'.$personal->name.'.index')
+                                                    ? route('guest.personal.'.$personal->name.'.index', $owner)
+                                                    : '',
+                                    'class' => 'list-item',
+                                ])
+                            </li>
+
+                        @endif
 
                     @endforeach
 
