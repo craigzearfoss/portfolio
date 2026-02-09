@@ -41,33 +41,15 @@
 @section('content')
 
     <?php /*
-    <form action="{{ route('admin.portfolio.image.upload', ['art', 'image']) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @include('admin.components.form-image-upload', [
-            'image'   => old('image') ?? $art->image,
-            'credit'  => old('image_credit') ?? $art->image_credit,
-            'source'  => old('image_source') ?? $art->image_source,
-            'accept'  => ['.jpeg', '.png', '.jpg', '.gif', '.svg'],
-            'text'    => 'Recommended size 300px by 400px. (WxH)',
-            'message' => $message ?? '',
-        ])
-
-
-        <div class="mb-3">
-            <label class="form-label" for="inputImage">Image:</label>
-            <input
-                type="file"
-                name="image"
-                id="inputImage"
-                class="form-control @error('image') is-invalid @enderror">
-            @error('image')
-            <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Upload</button>
-        </div>
-    </form>
+    @include('admin.components.overlay-image-upload', [
+        'name'    => 'frmImageUpload',
+        'action'  => route('admin.portfolio.image.upload', ['art', 'image']),
+        'file'    => $art->image,
+        'credit'  => $art->credit,
+        'src'     => $art->source,
+        'accept'  => ['.jpeg', '.png', '.jpg', '.gif', '.svg'],
+        'message' => $message ?? '',
+    ])
     */ ?>
 
     <div class="edit-container card form-container p-4">
