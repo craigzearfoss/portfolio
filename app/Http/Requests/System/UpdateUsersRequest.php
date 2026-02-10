@@ -80,7 +80,7 @@ class UpdateUsersRequest extends FormRequest
             'latitude'          => [Rule::numeric(), 'nullable'],
             'longitude'         => [Rule::numeric(), 'nullable'],
             'phone'             => ['string', 'max:50', 'nullable'],
-            'email'             => ['filled', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$this->user->id],
+            'email'             => ['string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$this->user->id],
             'email_verified_at' => ['nullable'],
             'birthday'          => ['date', 'nullable'],
             'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],

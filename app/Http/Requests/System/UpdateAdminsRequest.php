@@ -72,7 +72,7 @@ class UpdateAdminsRequest extends FormRequest
             'latitude'         => [Rule::numeric(), 'nullable'],
             'longitude'        => [Rule::numeric(), 'nullable'],
             'phone'            => ['string', 'max:50', 'nullable'],
-            'email'            => ['filled', 'string', 'lowercase', 'email', 'max:255', 'unique:admins,email,'.$this->admin->id,],
+            'email'            => ['string', 'lowercase', 'email', 'max:255', 'unique:admins,email,'.$this->admin->id,],
             'birthday'         => ['date', 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
