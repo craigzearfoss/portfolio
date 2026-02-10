@@ -44,15 +44,10 @@
     <script src="{{ asset('assets/development-only/main.js') }}"></script>
 
     @if(!empty($googleRecaptchaKey))
-        <script src="https://www.google.com/recaptcha/api.js?render={{ $googleRecaptchaKey }}" async defer></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
         <script>
-            function onClick(e) {
-                e.preventDefault();
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('{{ $googleRecaptchaKey }}', {action: 'submit'}).then(function(token) {
-                        // Add your logic to submit to your backend server here.
-                    });
-                });
+            function onSubmit(token) {
+                document.getElementById("demo-form").submit();
             }
         </script>
     @endif
