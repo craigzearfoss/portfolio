@@ -54,7 +54,7 @@
 
             @endif
 
-            <form action="{{ route('admin.login-submit') }}" method="POST">
+            <form id="formMain" action="{{ route('admin.login-submit') }}" method="POST">
                 @csrf
 
                 @include('admin.components.form-hidden', [
