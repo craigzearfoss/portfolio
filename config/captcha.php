@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'sitekey' => env('RECAPTCHA_SITE_KEY'),
-    'secret' => env('RECAPTCHA_SECRET_KEY'),
+    'sitekey' => env('GOOGLE_RECAPTCHA_KEY'),
+    'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
 ];

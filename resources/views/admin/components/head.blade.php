@@ -36,8 +36,26 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/style.css') }}">
 */ ?>
 
+    @php
+        $googleRecaptchaKey = config('app.google_recaptcha_key');
+    @endphp
+
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/development-only/main.js') }}"></script>
-    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+
+    @if(!empty($googleRecaptchaKey))
+        <script src="https://www.google.com/recaptcha/api.js?render={{ $googleRecaptchaKey }}" async defer></script>
+        <script>
+            function onClick(e) {
+                e.preventDefault();
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('{{ $googleRecaptchaKey }}', {action: 'submit'}).then(function(token) {
+                        // Add your logic to submit to your backend server here.
+                    });
+                });
+            }
+        </script>
+    @endif
+
 </head>
 @include('admin.components.google-tag')
