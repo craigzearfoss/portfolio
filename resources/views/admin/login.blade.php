@@ -83,15 +83,6 @@
                     'message'     => $message ?? '',
                 ])
 
-                <div class="has-text-centered my-3">
-                    @include('admin.components.link', [
-                        'name'       => 'Forgot Password?',
-                        'href'       => route('admin.forgot-password'),
-                        'style'      => 'text-primary-600 hover:underline',
-                        'cancel_url' => referer('admin.index')
-                    ])
-                </div>
-
                 <div class="form-group mt-4">
                     @error('g-recaptcha-response')
                     <span class="text-danger">{{ $message }}</span>
@@ -104,6 +95,7 @@
                     @include('admin.components.form-button-submit', [
                         'label'      => 'Login',
                         'cancel_url' => referer('admin.index'),
+                        'class'      => !empty($googleRecaptchaKey) ? 'g-captcha' : null,
                         'props'      => !empty($googleRecaptchaKey)
                                             ? [
                                                 'data-sitekey'  => $googleRecaptchaKey,
@@ -111,6 +103,15 @@
                                                 'data-action'   => 'submit',
                                               ]
                                             : []
+                    ])
+                </div>
+
+                <div class="has-text-centered my-3">
+                    @include('admin.components.link', [
+                        'name'       => 'Forgot Password?',
+                        'href'       => route('admin.forgot-password'),
+                        'style'      => 'text-primary-600 hover:underline',
+                        'cancel_url' => referer('admin.index')
                     ])
                 </div>
 
