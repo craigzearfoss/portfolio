@@ -31,6 +31,9 @@ class MenuService
     protected $user = null;
     protected $owner = null;
 
+    protected $adminsEnabled = true;
+    protected $usersEnabled = true;
+
     protected $globalDatabases = [
         'dictionary',
     ];
@@ -58,6 +61,12 @@ class MenuService
         }
 
         $this->isRootAdmin      = ($this->envType == EnvTypes::ADMIN) && !empty($this->admin) && $this->admin->root;
+        if ($this->isRootAdmin) {
+            $this->owner = $this->admin;
+        }
+
+        $this->adminsEnabled    = config('app.admins_enabled');
+        $this->usersEnabled     = config('app.users_enabled');
 
         if (!in_array($this->envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
             throw new \Exception('Invalid current ENV type');
@@ -133,15 +142,11 @@ class MenuService
         // add admin menu items
         if ($this->hasAdmins) {
 
-            if ($this->isRootAdmin) {
-                $menu[] = $this->menuItem([ 'title'=>'Settings', 'route'=>'admin.system.settings.show' ], 1);
-            }
-
             if (!empty($this->admin)) {
-                $menu[] = $this->menuItem([ 'title'=>'Admin Dashboard',       'route'=>'admin.dashboard' ], 1);
-                $menu[] = $this->menuItem([ 'title'=>'My Admin Profile',      'route'=>'admin.profile.show' ], 1);
-                //$menu[] = $this->menuItem([ 'title'=>'Change Admin Password', 'route'=>'admin.profile.change-password' ], 1);
-                $menu[] = $this->menuItem([ 'title'=>'Admin Logout',          'route'=>'admin.logout', 'icon'=>'fa-sign-out' ], 1);
+                $menu[] = $this->menuItem([ 'title'=>'Admin Dashboard',  'route'=>'admin.dashboard' ], 1);
+                $menu[] = $this->menuItem([ 'title'=>'My Admin Profile', 'route'=>'admin.profile.show' ], 1);
+                //$menu[] = $this->menuItem([ 'title'=>'Change Password',  'route'=>'admin.profile.change-password' ], 1);
+                $menu[] = $this->menuItem([ 'title'=>'Admin Logout',     'route'=>'admin.logout', 'icon'=>'fa-sign-out' ], 1);
 
                 if ($this->isRootAdmin) {
                     foreach ($menu as $i => $menuItem) {
@@ -185,8 +190,8 @@ class MenuService
 
         if ($this->hasUsers && empty($this->admin)) {
             if (!empty($this->user)) {
-                $menu[] = $this->menuItem([ 'title'=>'User Dashboard', 'route'=>'user.dashboard', 'icon' => 'fa-dashboard' ]);
-                $menu[] = $this->menuItem([ 'title'=>'My Profile',     'route'=>'user.profile.show' ]);
+                $menu[] = $this->menuItem([ 'title'=>'User Dashboard',  'route'=>'user.dashboard', 'icon' => 'fa-dashboard' ]);
+                $menu[] = $this->menuItem([ 'title'=>'My Profile',      'route'=>'user.profile.show' ]);
             } else {
                 if (config('app.users_enabled')) {
                     $menu[] = $this->menuItem(['title' => 'User Login', 'route' => 'user.login', 'icon' => 'fa-sign-in', 'name' => 'user-login'], 1);
@@ -208,7 +213,7 @@ class MenuService
 
                 $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'Admin Dashboard',  'route'=>'admin.dashboard',               'icon'=>'fa-dashboard' ]);
                 $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'My Admin Profile', 'route'=>'admin.profile.show',            'icon'=>'fa-user' ]);
-                $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'Change Password',  'route'=>'admin.profile.change-password', 'icon' =>'fa-lock' ]);
+                //$adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'Change Password',  'route'=>'admin.profile.change-password', 'icon' =>'fa-lock' ]);
 
                 if (config('app.users_enabled')) {
                     if (!empty($this->user)) {
@@ -362,7 +367,7 @@ class MenuService
 
                         foreach ($levelResources[1] as $level1Resource) {
 
-                            if ($level1Resource->database_id == $dbId) {
+                            if (($level1Resource->database_id == $dbId) && $this->includeResource($level1Resource)) {
 
                                 $level1Resource = $this->getResourceMenuItem($level1Resource);
 
@@ -372,8 +377,9 @@ class MenuService
                                     foreach ($levelResources[2] as $level2Resource) {
                                         if (!empty($level2Resource['parent_id'])) {
 
-                                            if ($level2Resource->parent_id == ($level1Resource->resource_id ?? $level1Resource['id'] ?? null)) {
-
+                                            if (($level2Resource->parent_id == ($level1Resource->resource_id ?? $level1Resource['id'] ?? null))
+                                                && $this->includeResource($level2Resource)
+                                            ) {
                                                 $level2Resource = $this->getResourceMenuItem($level2Resource);
 
                                                 // insert level 3 items
@@ -382,8 +388,9 @@ class MenuService
                                                     foreach ($levelResources[3] as $level3Resource) {
                                                         if (!empty($level2Resource->parent_id)) {
 
-                                                            if ($level3Resource->parent_id == ($level2Resource->resource_id ?? $level2Resource['id'] ?? null)) {
-
+                                                            if (($level3Resource->parent_id == ($level2Resource->resource_id ?? $level2Resource['id'] ?? null))
+                                                                && $this->includeResource($level3Resource)
+                                                            ) {
                                                                 $level3Resource = $this->getResourceMenuItem($level3Resource);
 
                                                                 // insert level 4 items
@@ -392,8 +399,9 @@ class MenuService
                                                                     foreach ($levelResources[4] as $level4Resource) {
                                                                         if (!empty($level3Resource->parent_id)) {
 
-                                                                            if ($level4Resource->parent_id == ($level3Resource->resource_id ?? $level3Resource['id'] ?? null)) {
-
+                                                                            if (($level4Resource->parent_id == ($level3Resource->resource_id ?? $level3Resource['id'] ?? null))
+                                                                                && $this->includeResource($level4Resource)
+                                                                            ) {
                                                                                 $level4Resource = $this->getResourceMenuItem($level4Resource);
 
                                                                                 $children = $level3Resource->children;
@@ -630,6 +638,30 @@ class MenuService
                 break;
         }
 
+        return true;
+    }
+
+    /**
+     * Returns true if the specified resource should be included in the menu.
+     *
+     * @param $resource
+     * @return bool
+     */
+    private function includeResource($resource): bool
+    {
+        // @TODO: Need to also check the database for duplicate resource names
+        // is users are not enabled then don't show associated resources
+        if (!$this->usersEnabled && in_array($resource->name, ['user', 'user-group', 'user-team']))
+        {
+            return false;
+        }
+
+        // @TODO: Need to also check the database for duplicate resource names
+        // is admins are not enabled then don't show associated resources
+        if (!$this->adminsEnabled && in_array($resource->name, ['admin', 'admin-group', 'admin-team']))
+        {
+            return false;
+        }
         return true;
     }
 }

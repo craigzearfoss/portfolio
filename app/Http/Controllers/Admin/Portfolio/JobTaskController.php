@@ -60,6 +60,8 @@ class JobTaskController extends BaseAdminController
      */
     public function create(Request $request): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'job-task', $this->admin);
+
         if ($jobId = $request->query('job_id')) {
             $job = Job::find($jobId);
         } else {
@@ -77,6 +79,8 @@ class JobTaskController extends BaseAdminController
      */
     public function store(StoreJobTasksRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'jobTask', $this->admin);
+
         $jobTask = JobTask::create($request->validated());
 
         return redirect()->route('admin.portfolio.job-task.show', $jobTask)
@@ -126,6 +130,8 @@ class JobTaskController extends BaseAdminController
     public function update(UpdateJobTasksRequest $request, JobTask $jobTask): RedirectResponse
     {
         $jobTask->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
 
         return redirect()->route('admin.portfolio.job-task.show', $jobTask)
             ->with('success', 'Job task successfully updated.');

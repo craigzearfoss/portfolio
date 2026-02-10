@@ -57,6 +57,8 @@ class AdminGroupController extends BaseAdminController
      */
     public function store(StoreAdminGroupsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
+
         $adminGroup = AdminGroup::create($request->validated());
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
@@ -106,6 +108,8 @@ class AdminGroupController extends BaseAdminController
     public function update(UpdateAdminGroupsRequest $request, AdminGroup $adminGroup): RedirectResponse
     {
         $adminGroup->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
             ->with('success', $adminGroup->name . ' successfully updated.');

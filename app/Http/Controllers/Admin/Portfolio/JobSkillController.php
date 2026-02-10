@@ -60,6 +60,8 @@ class JobSkillController extends BaseAdminController
      */
     public function create(Request $request): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'job-skill', $this->admin);
+
         $jobId = $request->job_id;
         $job = !empty($jobId)
             ? Job::find($jobId)
@@ -76,6 +78,8 @@ class JobSkillController extends BaseAdminController
      */
     public function store(StoreJobSkillsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'jobSkill', $this->admin);
+
         $jobSkill = JobSkill::create($request->validated());
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
@@ -125,6 +129,8 @@ class JobSkillController extends BaseAdminController
     public function update(UpdateJobSkillsRequest $request, JobSkill $jobSkill): RedirectResponse
     {
         $jobSkill->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
             ->with('success', $jobSkill->name . ' successfully updated.');

@@ -52,6 +52,8 @@ class LinkController extends BaseAdminController
      */
     public function create(Request $request): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'link', $this->admin);
+
         return view('admin.portfolio.link.create');
     }
 
@@ -63,6 +65,8 @@ class LinkController extends BaseAdminController
      */
     public function store(StoreLinksRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'link', $this->admin);
+
         $link = Link::create($request->validated());
 
         return redirect()->route('admin.portfolio.link.show', $link)
@@ -112,6 +116,8 @@ class LinkController extends BaseAdminController
     public function update(UpdateLinksRequest $request, Link $link): RedirectResponse
     {
         $link->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
 
         return redirect()->route('admin.portfolio.link.show', $link)
             ->with('success', $link->name . ' link successfully updated.');

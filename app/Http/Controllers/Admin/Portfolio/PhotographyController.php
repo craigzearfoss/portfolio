@@ -52,10 +52,8 @@ class PhotographyController extends BaseAdminController
      */
     public function create(): View
     {
-        if (! Gate::allows('root-only')) {
-            abort(403, 'Unauthorized action.');
-        }
-        Gate::authorize('create-get', Auth::guard('admin')->user());
+        createGate(PermissionEntityTypes::RESOURCE, 'photography', $this->admin);
+
         return view('admin.portfolio.photography.create');
     }
 
@@ -67,6 +65,8 @@ class PhotographyController extends BaseAdminController
      */
     public function store(StorePhotographyRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'photography', $this->admin);
+
         $photo = Photography::create($request->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
@@ -116,6 +116,8 @@ class PhotographyController extends BaseAdminController
     public function update(UpdatePhotographyRequest $request, Photography $photo): RedirectResponse
     {
         $photo->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $photography, $this->admin);
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully updated.');

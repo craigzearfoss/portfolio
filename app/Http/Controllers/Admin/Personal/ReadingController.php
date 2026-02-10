@@ -57,6 +57,8 @@ class ReadingController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'reading', $this->admin);
+
         return view('admin.personal.reading.create');
     }
 
@@ -68,6 +70,8 @@ class ReadingController extends BaseAdminController
      */
     public function store(StoreReadingsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'reading', $this->admin);
+
         $reading = Reading::create($request->validated());
 
         return redirect()->route('admin.personal.reading.show', $reading)
@@ -117,6 +121,8 @@ class ReadingController extends BaseAdminController
     public function update(UpdateReadingsRequest $request, Reading $reading): RedirectResponse
     {
         $reading->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
 
         return redirect()->route('admin.personal.reading.show', $reading)
             ->with('success', $reading->title . ' successfully updated.');

@@ -10,6 +10,9 @@ use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class LogController extends BaseAdminController
 {
 }

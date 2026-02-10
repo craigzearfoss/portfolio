@@ -99,9 +99,11 @@ class LibraryController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $library = Library::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update libraries.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $library, $this->admin);
+        $library = Library::findOrFail($id);
 
         return view('admin.dictionary.library.edit', compact('library'));
     }
@@ -115,7 +117,9 @@ class LibraryController extends BaseAdminController
      */
     public function update(UpdateLibrariesRequest $request, Library $library): RedirectResponse
     {
-        Gate::authorize('update-resource', $library);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update libraries.');
+        }
 
         $library->update($request->validated());
 
@@ -131,7 +135,9 @@ class LibraryController extends BaseAdminController
      */
     public function destroy(Library $library): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $library, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can delete a lirary.');
+        }
 
         $library->delete();
 

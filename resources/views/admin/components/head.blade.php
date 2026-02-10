@@ -36,10 +36,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/style.css') }}">
 */ ?>
 
-    @php
-        $googleRecaptchaKey = config('app.google_recaptcha_key');
-    @endphp
-
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/development-only/main.js') }}"></script>
 

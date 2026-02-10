@@ -44,9 +44,8 @@ class UnitController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add units.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'unit', $this->admin);
+
         return view('admin.personal.unit.create');
     }
 
@@ -58,9 +57,7 @@ class UnitController extends BaseAdminController
      */
     public function store(StoreUnitsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add units.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'unit', $this->admin);
 
         $unit = Unit::create($request->validated());
 
@@ -110,9 +107,9 @@ class UnitController extends BaseAdminController
      */
     public function update(UpdateUnitsRequest $request, Unit $unit): RedirectResponse
     {
-        Gate::authorize('update-resource', $unit);
-
         $unit->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
 
         return redirect()->route('admin.personal.unit.show', $unit)
             ->with('success', $unit->name . ' successfully updated.');

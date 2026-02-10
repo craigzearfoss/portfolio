@@ -59,6 +59,8 @@ class EventController extends BaseAdminController
      */
     public function create(Request $request): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'event', $this->admin);
+
         $urlParams = [];
         $application = null;
         if ($applicationId = $request->get('application_id')) {
@@ -77,6 +79,8 @@ class EventController extends BaseAdminController
      */
     public function store(StoreEventsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'event', $this->admin);
+
         $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -161,6 +165,8 @@ class EventController extends BaseAdminController
         }
 
         $event->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

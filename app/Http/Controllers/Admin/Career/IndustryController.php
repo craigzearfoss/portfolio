@@ -43,9 +43,7 @@ class IndustryController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add industries.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'industry', $this->admin);
 
         return view('admin.career.industry.create');
     }
@@ -58,9 +56,7 @@ class IndustryController extends BaseAdminController
      */
     public function store(StoreIndustriesRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add industries.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'industry', $this->admin);
 
         $industry = Industry::create($request->validated());
 
@@ -110,13 +106,9 @@ class IndustryController extends BaseAdminController
      */
     public function update(UpdateIndustriesRequest $request, Industry $industry): RedirectResponse
     {
-        Gate::authorize('update-resource', $industry);
-
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update industries.');
-        }
-
         $industry->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
 
         return redirect()->route('admin.career.industry.show', $industry)
             ->with('success', $industry->name . ' successfully updated.');

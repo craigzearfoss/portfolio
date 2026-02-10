@@ -65,6 +65,8 @@ class ApplicationController extends BaseAdminController
      */
     public function create(Request $request): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'application', $this->admin);
+
         $errorMessages = [];
         $urlParams = [];
 
@@ -108,6 +110,8 @@ class ApplicationController extends BaseAdminController
      */
     public function store(StoreApplicationsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'application', $this->admin);
+
         $application = Application::create($request->validated());
 
         // Create a cover letter for the application.
@@ -169,6 +173,8 @@ class ApplicationController extends BaseAdminController
     {
         $application->update($request->validated());
 
+        updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
+
         return redirect()->route('admin.career.application.show', $application)
             ->with('success', 'Application successfully updated.');
     }
@@ -197,6 +203,8 @@ class ApplicationController extends BaseAdminController
      */
     protected function createCoverLetter(Application $application): Application
     {
+        updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
+
         if (empty($application->coverLetter)) {
             CoverLetter::insert([
                 'owner_id'       => $application->owner_id,

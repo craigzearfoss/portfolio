@@ -24,7 +24,9 @@ class ResourceController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'resource', $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Not authorized.');
+        }
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -65,7 +67,9 @@ class ResourceController extends BaseAdminController
      */
     public function show(Resource $resource): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $resource, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Not authorized.');
+        }
 
         list($prev, $next) = Resource::prevAndNextPages($resource->id,
             'admin.system.resource.show',
@@ -83,9 +87,11 @@ class ResourceController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $resource = Resource::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Not authorized.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $resource, $this->admin);
+        $resource = Resource::findOrFail($id);
 
         return view('admin.system.resource.edit', compact('resource'));
     }
@@ -99,6 +105,10 @@ class ResourceController extends BaseAdminController
      */
     public function update(UpdateResourcesRequest $request, Resource $resource): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Not authorized.');
+        }
+
         $resource->update($request->validated());
 
         return redirect()->route('admin.system.resource.show', $resource)

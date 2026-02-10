@@ -99,9 +99,11 @@ class FrameworkController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $framework = Framework::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update frameworks.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $framework, $this->admin);
+        $framework = Framework::findOrFail($id);
 
         return view('admin.dictionary.framework.edit', compact('framework'));
     }
@@ -115,7 +117,9 @@ class FrameworkController extends BaseAdminController
      */
     public function update(UpdateFrameworksRequest $request, Framework $framework): RedirectResponse
     {
-        Gate::authorize('update-resource', $framework);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update frameworks.');
+        }
 
         $framework->update($request->validated());
 
@@ -132,7 +136,9 @@ class FrameworkController extends BaseAdminController
      */
     public function destroy(Framework $framework, Request $request): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $framework, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can delete a framework.');
+        }
 
         $framework->delete();
 

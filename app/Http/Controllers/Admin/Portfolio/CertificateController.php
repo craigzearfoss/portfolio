@@ -51,6 +51,8 @@ class CertificateController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
+
         return view('admin.portfolio.certificate.create');
     }
 
@@ -62,6 +64,8 @@ class CertificateController extends BaseAdminController
      */
     public function store(StoreCertificatesRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
+
         $certificate = Certificate::create($request->validated());
 
         return redirect()->route('admin.portfolio.certificate.show', $certificate)
@@ -112,6 +116,8 @@ class CertificateController extends BaseAdminController
                            Certificate               $certificate): RedirectResponse
     {
         $certificate->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $certificate, $this->admin);
 
         return redirect()->route('admin.portfolio.certificate.show', $certificate)
             ->with('success', $certificate->name . ' certificate successfully updated.');

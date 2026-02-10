@@ -31,8 +31,6 @@ class ArtController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
 
-        readGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
-
         $perPage = $request->query('per_page', $this->perPage());
 
         if (!empty($this->owner)) {
@@ -54,6 +52,8 @@ class ArtController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
+
         return view('admin.portfolio.art.create');
     }
 
@@ -66,6 +66,8 @@ class ArtController extends BaseAdminController
      */
     public function store(StoreArtRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
+
         $art = Art::create($request->validated());
 
         return redirect()->route('admin.portfolio.art.show', $art)
@@ -115,6 +117,8 @@ class ArtController extends BaseAdminController
     public function update(UpdateArtRequest $request, Art $art): RedirectResponse
     {
         $art->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
 
         return redirect()->route('admin.portfolio.art.show', $art)
             ->with('success', $art->name . ' successfully updated.');

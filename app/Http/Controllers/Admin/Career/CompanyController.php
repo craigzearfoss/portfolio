@@ -57,6 +57,8 @@ class CompanyController extends BaseAdminController
      */
     public function create(Request $request): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'company', $this->admin);
+
         $urlParams = [];
         if ($newApplication = $request->query('new_application')) $urlParams[ 'new_application'] = 1;
         if ($resumeId = $request->get('resume_id')) $urlParams['resume_id'] = $resumeId;
@@ -80,6 +82,8 @@ class CompanyController extends BaseAdminController
         if ($coverLetterId = $request->query('cover_letter_id')) $urlParams['cover_letter_id'] = $coverLetterId;
 
         $company = Company::create($request->validated());
+
+        createGate(PermissionEntityTypes::RESOURCE, 'company', $this->admin);
 
         $message = $company->name . ' successfully added.';
         if ($newApplication) {
@@ -136,6 +140,8 @@ class CompanyController extends BaseAdminController
     {
         $company->update($request->validated());
 
+        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+
         return redirect()->route('admin.career.company.show', $company)
             ->with('success', $company->name . ' successfully updated.');
     }
@@ -164,6 +170,8 @@ class CompanyController extends BaseAdminController
      */
     public function addContact(Company $company): View
     {
+        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+
         return view('admin.career.company.contact.add', compact('company'));
     }
 
@@ -176,6 +184,8 @@ class CompanyController extends BaseAdminController
      */
     public function attachContact(int $companyId, StoreCompanyContactsRequest $request): RedirectResponse
     {
+        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+
         $company = Company::find($companyId);
 
         $data = $request->validated();
@@ -212,6 +222,8 @@ class CompanyController extends BaseAdminController
      */
     public function detachContact(Company $company, Contact $contact): RedirectResponse
     {
+        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+
         $company->contacts()->detach($contact->id);
 
         return redirect(referer('admin.career.company.index'))

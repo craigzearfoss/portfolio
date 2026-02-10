@@ -50,6 +50,8 @@ class CoverLetterController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'cover-letter', $this->admin);
+
         return view('admin.career.cover-letter.create');
     }
 
@@ -61,6 +63,8 @@ class CoverLetterController extends BaseAdminController
      */
     public function store(StoreCoverLettersRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'cover-letter', $this->admin);
+
         $coverLetter = CoverLetter::create($request->validated());
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
@@ -111,6 +115,8 @@ class CoverLetterController extends BaseAdminController
                            CoverLetter               $coverLetter): RedirectResponse
     {
         $coverLetter->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover letter successfully updated.');

@@ -10,6 +10,7 @@ use App\Models\System\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
@@ -125,9 +126,14 @@ class AdminController extends BaseAdminController
      */
     public function update(UpdateAdminsRequest $request, Admin $admin): RedirectResponse
     {
+        $admin->update($request->validated());
+
         updateGate(PermissionEntityTypes::RESOURCE, $request, $this->admin);
 
-        $admin->update($request->validated());
+        if (!empty($this->owner) && ($this->owner->id == $admin->id)) {
+            // @TODO: fix
+            Cookie::queue(self::OWNER_ID_COOKIE, null, 60);
+        }
 
         return redirect()->route('admin.system.admin.show', $admin)
             ->with('success', $admin->username . ' successfully updated.');

@@ -44,9 +44,7 @@ class CertificationController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add certifications.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'certification', $this->admin);
 
         return view('admin.portfolio.certification.create');
     }
@@ -59,9 +57,7 @@ class CertificationController extends BaseAdminController
      */
     public function store(StoreCertificationsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add certifications.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'certification', $this->admin);
 
         $certification = Certification::create($request->validated());
 
@@ -111,13 +107,9 @@ class CertificationController extends BaseAdminController
      */
     public function update(UpdateCertificationsRequest $request, Certification $certification): RedirectResponse
     {
-        Gate::authorize('update-resource', $certification);
-
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update certifications.');
-        }
-
         $certification->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
 
         return redirect()->route('admin.portfolio.certification.show', $certification)
             ->with('success', $certification->name . ' successfully updated.');

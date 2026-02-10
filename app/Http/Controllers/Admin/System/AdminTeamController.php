@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class AdminTeamController extends BaseAdminController
 {
     /**
@@ -54,6 +57,8 @@ class AdminTeamController extends BaseAdminController
      */
     public function store(StoreAdminTeamsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'admin-team', $this->admin);
+
         $adminTeam = AdminTeam::create($request->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
@@ -103,6 +108,8 @@ class AdminTeamController extends BaseAdminController
     public function update(UpdateAdminTeamsRequest $request, AdminTeam $adminTeam): RedirectResponse
     {
         $adminTeam->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully updated.');

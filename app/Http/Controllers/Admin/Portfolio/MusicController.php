@@ -52,6 +52,8 @@ class MusicController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'music', $this->admin);
+
         return view('admin.portfolio.music.create');
     }
 
@@ -63,6 +65,8 @@ class MusicController extends BaseAdminController
      */
     public function store(StoreMusicRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'music', $this->admin);
+
         $music = Music::create($request->validated());
 
         return redirect()->route('admin.portfolio.music.show', $music)
@@ -112,6 +116,8 @@ class MusicController extends BaseAdminController
     public function update(UpdateMusicRequest $request, Music $music): RedirectResponse
     {
         $music->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
 
         return redirect()->route('admin.portfolio.music.show', $music)
             ->with('success', $music->name . ' successfully updated.');

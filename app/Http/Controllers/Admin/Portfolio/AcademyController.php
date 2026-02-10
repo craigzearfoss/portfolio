@@ -44,9 +44,7 @@ class AcademyController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add academies.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'academy', $this->admin);
 
         return view('admin.portfolio.academy.create');
     }
@@ -59,9 +57,7 @@ class AcademyController extends BaseAdminController
      */
     public function store(StoreAcademiesRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add academies.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'academy', $this->admin);
 
         $academy = Academy::create($request->validated());
 
@@ -111,13 +107,9 @@ class AcademyController extends BaseAdminController
      */
     public function update(UpdateAcademiesRequest $request, Academy $academy): RedirectResponse
     {
-        Gate::authorize('update-resource', $academy);
-
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update academies.');
-        }
-
         $academy->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $academy, $this->admin);
 
         return redirect()->route('admin.portfolio.academy.show', $academy)
             ->with('success', $academy->name . ' successfully updated.');

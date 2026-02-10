@@ -46,9 +46,7 @@ class SchoolController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add schools.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'school', $this->admin);
 
         return view('admin.portfolio.school.create');
     }
@@ -61,9 +59,7 @@ class SchoolController extends BaseAdminController
      */
     public function store(StoreSchoolsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add schools.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'school', $this->admin);
 
         $school = School::create($request->validated());
 
@@ -113,9 +109,9 @@ class SchoolController extends BaseAdminController
      */
     public function update(UpdateSchoolsRequest $request, School $school): RedirectResponse
     {
-        Gate::authorize('update-resource', $school);
-
         $school->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $$school, $this->admin);
 
         return redirect()->route('admin.portfolio.school.show', $school)
             ->with('success', $school->name . ' successfully updated.');

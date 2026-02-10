@@ -99,9 +99,11 @@ class CategoryController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $category = Category::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update categories.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $category, $this->admin);
+        $category = Category::findOrFail($id);
 
         return view('admin.dictionary.category.edit', compact('category'));
     }
@@ -115,7 +117,9 @@ class CategoryController extends BaseAdminController
      */
     public function update(UpdateCategoriesRequest $request, Category $category): RedirectResponse
     {
-        Gate::authorize('update-resource', $category);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update categories.');
+        }
 
         $category->update($request->validated());
 
@@ -131,7 +135,9 @@ class CategoryController extends BaseAdminController
      */
     public function destroy(Category $category): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $category, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can delete a category.');
+        }
 
         $category->delete();
 

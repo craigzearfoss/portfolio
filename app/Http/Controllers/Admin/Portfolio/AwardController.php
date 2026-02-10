@@ -51,6 +51,8 @@ class AwardController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'award', $this->admin);
+
         return view('admin.portfolio.award.create');
     }
 
@@ -63,6 +65,8 @@ class AwardController extends BaseAdminController
      */
     public function store(StoreAwardsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'award', $this->admin);
+
         $award = Award::create($request->validated());
 
         return redirect()->route('admin.portfolio.award.show', $award)
@@ -112,6 +116,8 @@ class AwardController extends BaseAdminController
     public function update(UpdateAwardsRequest $request, Award $award): RedirectResponse
     {
         $award->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
 
         return redirect()->route('admin.portfolio.award.show', $award)
             ->with('success', $award->name . ' successfully updated.');

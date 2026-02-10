@@ -45,9 +45,7 @@ class IngredientController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add ingredients.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'ingredient', $this->admin);
 
         return view('admin.personal.ingredient.create');
     }
@@ -60,9 +58,7 @@ class IngredientController extends BaseAdminController
      */
     public function store(StoreIngredientsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add ingredients.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'ingredient', $this->admin);
 
         $ingredient = Ingredient::create($request->validated());
 
@@ -112,9 +108,9 @@ class IngredientController extends BaseAdminController
      */
     public function update(UpdateIngredientsRequest $request, Ingredient $ingredient): RedirectResponse
     {
-        Gate::authorize('update-resource', $ingredient);
-
         $ingredient->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $ingredient, $this->admin);
 
         return redirect()->route('admin.personal.ingredient.show', $ingredient)
             ->with('success', $ingredient->name . ' successfully updated.');

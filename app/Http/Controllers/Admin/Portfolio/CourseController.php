@@ -51,6 +51,8 @@ class CourseController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'course', $this->admin);
+
         return view('admin.portfolio.course.create');
     }
 
@@ -62,6 +64,8 @@ class CourseController extends BaseAdminController
      */
     public function store(StoreCoursesRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'course', $this->admin);
+
         $course = Course::create($request->validated());
 
         return redirect()->route('admin.portfolio.course.show', $course)
@@ -111,6 +115,8 @@ class CourseController extends BaseAdminController
     public function update(UpdateCoursesRequest $request, Course $course): RedirectResponse
     {
         $course->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $course, $this->admin);
 
         return redirect()->route('admin.portfolio.course.show', $course)
             ->with('success', $course->name . ' successfully updated.');

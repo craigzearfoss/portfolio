@@ -99,9 +99,11 @@ class OperatingSystemController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $operatingSystem = OperatingSystem::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update operating systems.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $operatingSystem, $this->admin);
+        $operatingSystem = OperatingSystem::findOrFail($id);
 
         return view('admin.dictionary.operating-system.edit', compact('operatingSystem'));
     }
@@ -116,7 +118,9 @@ class OperatingSystemController extends BaseAdminController
     public function update(UpdateOperatingSystemsRequest $request,
                            OperatingSystem               $operatingSystem): RedirectResponse
     {
-        Gate::authorize('update-resource', $operatingSystem);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update operating systems.');
+        }
 
         $operatingSystem->update($request->validated());
 
@@ -132,7 +136,9 @@ class OperatingSystemController extends BaseAdminController
      */
     public function destroy(OperatingSystem $operatingSystem): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $operatingSystem, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can delete an operating system.');
+        }
 
         $operatingSystem->delete();
 

@@ -99,9 +99,11 @@ class LanguageController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $language = Language::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update languages.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $language, $this->admin);
+        $language = Language::findOrFail($id);
 
         return view('admin.dictionary.language.edit', compact('language'));
     }
@@ -115,7 +117,9 @@ class LanguageController extends BaseAdminController
      */
     public function update(UpdateLanguagesRequest $request, Language $language): RedirectResponse
     {
-        Gate::authorize('update-resource', $language);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update frameworks.');
+        }
 
         $language->update($request->validated());
 
@@ -131,7 +135,9 @@ class LanguageController extends BaseAdminController
      */
     public function destroy(Language $language): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $language, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can delete a lagnuage.');
+        }
 
         $language->delete();
 

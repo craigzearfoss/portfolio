@@ -24,7 +24,9 @@ class DatabaseController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'database', $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Not authorized.');
+        }
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -65,7 +67,9 @@ class DatabaseController extends BaseAdminController
      */
     public function show(Database $database): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Not authorized.');
+        }
 
         list($prev, $next) = Database::prevAndNextPages($database->id,
             'admin.system.database.show',
@@ -83,9 +87,11 @@ class DatabaseController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $database = Database::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Not authorized.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
+        $database = Database::findOrFail($id);
 
         return view('admin.system.database.edit', compact('database'));
     }
@@ -99,6 +105,10 @@ class DatabaseController extends BaseAdminController
      */
     public function update(UpdateDatabasesRequest $request, Database $database): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Not authorized.');
+        }
+
         $database->update($request->validated());
 
         return redirect()->route('admin.system.database.show', $database)

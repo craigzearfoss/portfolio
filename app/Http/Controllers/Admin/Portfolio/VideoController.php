@@ -51,6 +51,8 @@ class VideoController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'video', $this->admin);
+
         return view('admin.portfolio.video.create');
     }
 
@@ -62,6 +64,8 @@ class VideoController extends BaseAdminController
      */
     public function store(StoreVideosRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'video', $this->admin);
+
         $video = Video::create($request->validated());
 
         return redirect()->route('admin.portfolio.video.show', $video)
@@ -111,6 +115,8 @@ class VideoController extends BaseAdminController
     public function update(UpdateVideosRequest $request, Video $video): RedirectResponse
     {
         $video->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
 
         return redirect()->route('admin.portfolio.video.show', $video)
             ->with('success', $video->name . ' successfully updated.');

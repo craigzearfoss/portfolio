@@ -45,9 +45,7 @@ class JobBoardController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add job boards.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'job-board', $this->admin);
 
         return view('admin.career.job-board.create');
     }
@@ -60,9 +58,7 @@ class JobBoardController extends BaseAdminController
      */
     public function store(StoreJobBoardsRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add job boards.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'job-board', $this->admin);
 
         $jobBoard =JobBoard::create($request->validated());
 
@@ -112,9 +108,9 @@ class JobBoardController extends BaseAdminController
      */
     public function update(UpdateJobBoardsRequest $request, JobBoard $jobBoard): RedirectResponse
     {
-        Gate::authorize('update-resource', $jobBoard);
-
         $jobBoard->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
 
         return redirect()->route('admin.career.job-board.show', $jobBoard)
             ->with('success', $jobBoard->name . ' successfully updated.');

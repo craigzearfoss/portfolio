@@ -50,6 +50,8 @@ class AdminDatabaseController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'admin-database', $this->admin);
+
         abort(403, 'Admin databases must be added by site developers.');
     }
 
@@ -107,6 +109,7 @@ class AdminDatabaseController extends BaseAdminController
     public function update(UpdateAdminDatabasesRequest $request, AdminDatabase $adminDatabase): RedirectResponse
     {
         $adminDatabase->update($request->validated());
+        updateGate(PermissionEntityTypes::RESOURCE, $adminDatabase, $this->admin);
 
         return redirect()->route('admin.system.admin-database.show', $adminDatabase)
             ->with('success', $adminDatabase->name . ' successfully updated.');

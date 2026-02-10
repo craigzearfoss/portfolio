@@ -99,9 +99,11 @@ class StackController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $stack = Stack::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update stacks.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $stack, $this->admin);
+        $stack = Stack::findOrFail($id);
 
         return view('admin.dictionary.stack.edit', compact('stack'));
     }
@@ -115,7 +117,9 @@ class StackController extends BaseAdminController
      */
     public function update(UpdateStacksRequest $request, Stack $stack): RedirectResponse
     {
-        Gate::authorize('update-resource', $stack);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update stacks.');
+        }
 
         $stack->update($request->validated());
 
@@ -131,7 +135,9 @@ class StackController extends BaseAdminController
      */
     public function destroy(Stack $stack): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $stack, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can delete a stack.');
+        }
 
         $stack->delete();
 

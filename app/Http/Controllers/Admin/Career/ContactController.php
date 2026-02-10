@@ -52,6 +52,8 @@ class ContactController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'contact', $this->admin);
+
         return view('admin.career.contact.create');
     }
 
@@ -63,6 +65,8 @@ class ContactController extends BaseAdminController
      */
     public function store(StoreContactsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'contact', $this->admin);
+
         $contact = Contact::create($request->validated());
 
         return redirect()->route('admin.career.contact.show', $contact)
@@ -113,6 +117,8 @@ class ContactController extends BaseAdminController
     {
         $contact->update($request->validated());
 
+        updateGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
+
         return redirect()->route('admin.career.application.show', $contact)
             ->with('success', $contact->name . ' successfully updated.');
     }
@@ -141,6 +147,8 @@ class ContactController extends BaseAdminController
      */
     public function addCompany(Contact $contact): View
     {
+        updateGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
+
         return view('admin.career.contact.company.add', compact('contact'));
     }
 
@@ -153,6 +161,8 @@ class ContactController extends BaseAdminController
      */
     public function attachCompany(int $contactId, StoreCompanyContactsRequest $request): RedirectResponse
     {
+        updateGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
+
         $contact = Contact::find($contactId);
 
         $data = $request->validated();
@@ -189,6 +199,8 @@ class ContactController extends BaseAdminController
      */
     public function detachCompany(Contact $contact, Company $company): RedirectResponse
     {
+        updateGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
+
         $contact->companies()->detach($company->id);
 
         return redirect(referer('admin.career.contact.index'))

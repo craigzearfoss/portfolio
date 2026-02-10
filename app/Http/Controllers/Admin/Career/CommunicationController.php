@@ -60,6 +60,8 @@ class CommunicationController extends BaseAdminController
      */
     public function create(Request $request): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'communication', $this->admin);
+
         $urlParams = [];
         $application = null;
         if ($applicationId = $request->get('application_id')) {
@@ -78,6 +80,8 @@ class CommunicationController extends BaseAdminController
      */
     public function store(StoreCommunicationsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'communication', $this->admin);
+
         $applicationId = $request->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -163,6 +167,8 @@ class CommunicationController extends BaseAdminController
         }
 
         $communication->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

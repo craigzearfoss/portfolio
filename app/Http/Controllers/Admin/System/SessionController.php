@@ -8,6 +8,9 @@ use App\Models\System\Session;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class SessionController extends BaseAdminController
 {
 }

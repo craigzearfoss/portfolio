@@ -99,9 +99,11 @@ class ServerController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $server = Server::findOrFail($id);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update servers.');
+        }
 
-        updateGate(PermissionEntityTypes::RESOURCE, $server, $this->admin);
+        $server = Server::findOrFail($id);
 
         return view('admin.dictionary.server.edit', compact('server'));
     }
@@ -115,7 +117,9 @@ class ServerController extends BaseAdminController
      */
     public function update(UpdateServersRequest $request, Server $server): RedirectResponse
     {
-        Gate::authorize('update-resource', $server);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update servers.');
+        }
 
         $server->update($request->validated());
 
@@ -131,7 +135,9 @@ class ServerController extends BaseAdminController
      */
     public function destroy(Server $server): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $server, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can delete a server.');
+        }
 
         $server->delete();
 

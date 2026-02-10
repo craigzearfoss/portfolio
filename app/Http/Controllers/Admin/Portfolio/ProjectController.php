@@ -52,6 +52,8 @@ class ProjectController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'project', $this->admin);
+
         return view('admin.portfolio.project.create');
     }
 
@@ -63,9 +65,11 @@ class ProjectController extends BaseAdminController
      */
     public function store(StoreProjectsRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'project', $this->admin);
+
         $project = Project::create($request->validated());
 
-        return redirect()->route('admin.portfolio.project.show', [$this->currentAdmin, $project])
+        return redirect()->route('admin.portfolio.project.show', $project)
             ->with('success', $project->name . ' project successfully added.');
     }
 
@@ -113,7 +117,9 @@ class ProjectController extends BaseAdminController
     {
         $project->update($request->validated());
 
-        return redirect()->route('admin.portfolio.project.show', [$this->currentAdmin, $project])
+        updateGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
+
+        return redirect()->route('admin.portfolio.project.show', $project)
             ->with('success', $project->name . ' project successfully updated.');
     }
 

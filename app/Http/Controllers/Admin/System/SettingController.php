@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class SettingController extends BaseAdminController
 {
 }

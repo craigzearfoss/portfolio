@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class UserController extends BaseUserController
 {
     /**
@@ -24,8 +27,6 @@ class UserController extends BaseUserController
      */
     public function index(Request $request): View|RedirectResponse
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'user', $this->admin);
-
         $perPage = $request->query('per_page', $this->perPage());
 
          if (empty($this->admin->root)) {

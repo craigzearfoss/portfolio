@@ -61,6 +61,8 @@ class JobCoworkerController extends BaseAdminController
      */
     public function create(Request $request): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'job-cowroker', $this->admin);
+
         if ($jobId = $request->query('job_id')) {
             $job = Job::find($jobId);
         } else {
@@ -78,6 +80,8 @@ class JobCoworkerController extends BaseAdminController
      */
     public function store(StoreJobCoworkersRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'jobCoworker', $this->admin);
+
         $jobCoworker = JobCoworker::create($request->validated());
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
@@ -127,6 +131,8 @@ class JobCoworkerController extends BaseAdminController
     public function update(UpdateJobCoworkersRequest $request, JobCoworker $jobCoworker): RedirectResponse
     {
         $jobCoworker->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $jobCoworkers, $this->admin);
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
             ->with('success', $jobCoworker->name . ' successfully updated.');

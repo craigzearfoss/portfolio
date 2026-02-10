@@ -51,6 +51,8 @@ class RecipeController extends BaseAdminController
      */
     public function create(): View
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'recipe', $this->admin);
+
         return view('admin.personal.recipe.create');
     }
 
@@ -62,6 +64,8 @@ class RecipeController extends BaseAdminController
      */
     public function store(StoreRecipesRequest $request): RedirectResponse
     {
+        createGate(PermissionEntityTypes::RESOURCE, 'recipe', $this->admin);
+
         $recipe = Recipe::create($request->validated());
 
         return redirect()->route('admin.personal.recipe.show', $recipe)
@@ -111,6 +115,8 @@ class RecipeController extends BaseAdminController
     public function update(UpdateRecipesRequest $request, Recipe $recipe): RedirectResponse
     {
         $recipe->update($request->validated());
+
+        updateGate(PermissionEntityTypes::RESOURCE, $recipe, $this->admin);
 
         return redirect()->route('admin.personal.recipe.show', $recipe)
             ->with('success', $recipe->name . ' successfully updated.');

@@ -39,9 +39,7 @@ class RecruiterController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add recruiters.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'recruiter', $this->admin);
 
         return view('admin.career.recruiter.create');
     }
@@ -54,9 +52,7 @@ class RecruiterController extends BaseAdminController
      */
     public function store(StoreRecruitersRequest $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can add recruiters.');
-        }
+        createGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
 
         $recruiter = Recruiter::create($request->validated());
 
@@ -106,9 +102,9 @@ class RecruiterController extends BaseAdminController
      */
     public function update(UpdateRecruitersRequest $request, Recruiter $recruiter): RedirectResponse
     {
-        Gate::authorize('update-resource', $recruiter);
+        $certificate->update($request->validated());
 
-        $recruiter->update($request->validated());
+        updateGate(PermissionEntityTypes::RESOURCE, $$recruiter, $this->admin);
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
             ->with('success', $recruiter->name . ' successfully updated.');
