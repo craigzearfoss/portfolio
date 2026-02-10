@@ -38,7 +38,15 @@
 
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/development-only/main.js') }}"></script>
-    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+
+    @if(config('app.recaptcha_enabled'))
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script>
+            function onSubmit(token) {
+                document.getElementById("frmMain").submit();
+            }
+        </script>
+    @endif
 
 </head>
 @include('guest.components.google-tag')

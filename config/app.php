@@ -66,6 +66,7 @@ return [
     'pagination_bottom '      => boolval(env('APP_PAGINATION_BOTTOM', 1)),
     'pagination_top'          => boolval(env('APP_PAGINATION_TOP', 0)),
     'google_tag'              => env('GOOGLE_TAG', ''),
+    'captcha_enabled'         => boolval(env('RECAPTCHA_ENABLED', false)),
     'google_recaptcha_key'    => env('GOOGLE_RECAPTCHA_KEY', ''),
     'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET', ''),
 

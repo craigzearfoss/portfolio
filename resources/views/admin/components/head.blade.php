@@ -43,7 +43,7 @@
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/development-only/main.js') }}"></script>
 
-    @if(!empty($googleRecaptchaKey))
+    @if(config('app.recaptcha_enabled'))
         <script src="https://www.google.com/recaptcha/api.js"></script>
         <script>
             function onSubmit(token) {

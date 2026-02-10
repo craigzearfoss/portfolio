@@ -88,15 +88,17 @@ class IndexController extends BaseAdminController
                 'password' => ['required'],
             ]);
 
-            $request->validate([
-                'g-recaptcha-response' => 'required|string',
-            ]);
+            if (config('app.captcha_enabled')) {
+                $request->validate([
+                    'g-recaptcha-response' => 'required|string',
+                ]);
 
-            // Validate reCAPTCHA
-            $this->validateRecaptchaOrFail(
-                $request->input('g-recaptcha-response'),
-                'LOGIN'
-            );
+                // Validate reCAPTCHA
+                $this->validateRecaptchaOrFail(
+                    $request->input('g-recaptcha-response'),
+                    'LOGIN'
+                );
+            }
 
             $data = [
                 'username' => $username,

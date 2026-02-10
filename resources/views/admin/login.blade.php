@@ -90,15 +90,15 @@
                     <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}" data-action="LOGIN"></div>
                 </div>
 
-                @php( $googleRecaptchaKey = config('app.google_recaptcha_key') )
+                @php( $captchaEnabled = config('app.recaptcha_enabled'))
                 <div class="has-text-centered">
                     @include('admin.components.form-button-submit', [
                         'label'      => 'Login',
                         'cancel_url' => referer('admin.index'),
-                        'class'      => !empty($googleRecaptchaKey) ? 'g-captcha' : null,
-                        'props'      => !empty($googleRecaptchaKey)
+                        'class'      => !empty($captchaEnabled) ? 'g-captcha' : null,
+                        'props'      => !empty($captchaEnabled)
                                             ? [
-                                                'data-sitekey'  => $googleRecaptchaKey,
+                                                'data-sitekey'  =>  config('app.app.google_recaptcha_key'),
                                                 'data-callback' => 'onSubmit',
                                                 'data-action'   => 'submit',
                                               ]
