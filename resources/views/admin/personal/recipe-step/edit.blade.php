@@ -95,12 +95,13 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'src'     => old('thumbnail') ??  $recipeStep->thumbnail,
+            @include('admin.components.form-image-horizontal', [
+                'name'      => 'thumbnail',
+                'src'       => old('thumbnail') ?? $recipeStep->thumbnail,
                 'credit'    => false,
                 'source'    => false,
-                'message' => $message ?? '',
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [

@@ -174,12 +174,12 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
+            @include('admin.components.form-image-horizontal', [
                 'name'      => 'thumbnail',
                 'src'       => old('thumbnail') ?? $recruiter->thumbnail,
-                'maxlength' => 500,
                 'credit'    => false,
                 'source'    => false,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
