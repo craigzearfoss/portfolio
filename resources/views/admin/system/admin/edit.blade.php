@@ -1,3 +1,4 @@
+@php dd($errors->get('GLOBAL')) @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin: ' . $owner->username,
     'breadcrumbs'      => [
