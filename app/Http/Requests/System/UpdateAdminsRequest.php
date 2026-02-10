@@ -21,7 +21,7 @@ class UpdateAdminsRequest extends FormRequest
     {
         $this->checkDemoMode();
 
-        if (isRootAdmin() || ($this->admin === Auth::guard('admin')->user()->id)) {
+        if (isRootAdmin() || ($this->admin->id === Auth::guard('admin')->user()->id)) {
             return true;
         }
 
@@ -72,7 +72,14 @@ class UpdateAdminsRequest extends FormRequest
             'latitude'         => [Rule::numeric(), 'nullable'],
             'longitude'        => [Rule::numeric(), 'nullable'],
             'phone'            => ['string', 'max:50', 'nullable'],
-            'email'            => ['string', 'lowercase', 'email', 'max:255', 'unique:admins,email,'.$this->admin->id,],
+            /* TODO: You can't update the admin's emails
+            'email'         => [
+                'email',
+                'lowercase',
+                'max:255',
+                'unique:admins,email,'.$this->admin->id,
+            ],
+            */
             'birthday'         => ['date', 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],

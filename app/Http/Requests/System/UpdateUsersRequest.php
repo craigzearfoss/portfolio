@@ -81,6 +81,14 @@ class UpdateUsersRequest extends FormRequest
             'longitude'         => [Rule::numeric(), 'nullable'],
             'phone'             => ['string', 'max:50', 'nullable'],
             'email'             => ['string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$this->user->id],
+            /* TODO: You can't update the user's emails
+            'email'         => [
+                'email',
+                'lowercase',
+                'max:255',
+                'unique:admins,email,'.$this->user->id,
+            ],
+            */
             'email_verified_at' => ['nullable'],
             'birthday'          => ['date', 'nullable'],
             'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],
