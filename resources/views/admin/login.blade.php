@@ -92,6 +92,13 @@
                     ])
                 </div>
 
+                <div class="form-group mt-4">
+                    @error('g-recaptcha-response')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}" data-action="LOGIN"></div>
+                </div>
+
                 <div class="has-text-centered">
                     @include('admin.components.form-button-submit', [
                         'label'      => 'Login',

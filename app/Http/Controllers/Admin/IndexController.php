@@ -6,6 +6,7 @@ use App\Http\Requests\MessageStoreRequest;
 use App\Mail\ResetPassword;
 use App\Models\System\Admin;
 use App\Models\System\Message;
+use App\Traits\RecaptchaValidation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class IndexController extends BaseAdminController
 {
+    use RecaptchaValidation;
     /**
      * Display the admin index page.
      *
@@ -85,6 +87,16 @@ class IndexController extends BaseAdminController
                 'username' => ['required'],
                 'password' => ['required'],
             ]);
+
+            $request->validate([
+                'g-recaptcha-response' => 'required|string',
+            ]);
+
+            // Validate reCAPTCHA
+            $this->validateRecaptchaOrFail(
+                $request->input('g-recaptcha-response'),
+                'LOGIN'
+            );
 
             $data = [
                 'username' => $username,

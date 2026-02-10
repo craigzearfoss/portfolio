@@ -37,8 +37,7 @@
 */ ?>
 
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
-
     <script src="{{ asset('assets/development-only/main.js') }}"></script>
-
+    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 </head>
 @include('admin.components.google-tag')
