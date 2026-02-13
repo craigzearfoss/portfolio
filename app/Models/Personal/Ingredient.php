@@ -45,8 +45,8 @@ class Ingredient extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'full_name', 'name', 'public', 'readonly', 'root', 'disabled'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_COLUMNS = ['id', 'full_name', 'name', 'public', 'readonly', 'root', 'disabled'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -65,8 +65,8 @@ class Ingredient extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
-            $query->where('id', '=', $filters['id']);
+        return self::when(!empty($filters['id']), function ($query) use ($filters) {
+            $query->where('id', '=', intval($filters['id']));
         })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $name = $filters['name'];
@@ -75,8 +75,6 @@ class Ingredient extends Model
                         ->orWhere('name', 'LIKE', '%' . $name . '%');
                 });
             });
-
-        return $query;
     }
 
     /**

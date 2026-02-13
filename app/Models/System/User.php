@@ -5,6 +5,7 @@ namespace App\Models\System;
 use App\Models\System\UserGroup;
 use App\Models\System\UserTeam;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -98,10 +99,80 @@ class User extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'user_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role', 'street',
+    const array SEARCH_COLUMNS = ['id', 'user_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role', 'street',
         'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root',
         'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['username', 'asc'];
+    const array SEARCH_ORDER_BY = ['username', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
+            }
+            $filters['owner_id'] = $owner->id;
+        }
+
+        return self::when(isset($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(!empty($filters['username']), function ($query) use ($filters) {
+                $query->where('username', 'like', '%' . $filters['username'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(!empty($filters['label']), function ($query) use ($filters) {
+                $query->where('label', 'like', '%' . $filters['label'] . '%');
+            })
+            ->when(!empty($filters['salutation']), function ($query) use ($filters) {
+                $query->where('salutation', 'like', '%' . $filters['salutation'] . '%');
+            })
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where('title', 'like', '%' . $filters['title'] . '%');
+            })
+            ->when(!empty($filters['role']), function ($query) use ($filters) {
+                $query->where('role', 'like', '%' . $filters['role'] . '%');
+            })
+            ->when(!empty($filters['employer']), function ($query) use ($filters) {
+                $query->where('employer', 'like', '%' . $filters['employer'] . '%');
+            })
+            ->when(!empty($filters['city']), function ($query) use ($filters) {
+                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+            })
+            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
+                $query->where('state_id', '=', intval($filters['state_id']));
+            })
+            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
+                $query->where('country_id', '=', intval($filters['country_id']));
+            })
+            ->when(!empty($filters['phone']), function ($query) use ($filters) {
+                $query->where('phone', 'LIKE', '%' . $filters['phone'] . '%');
+            })
+            ->when(!empty($filters['email']), function ($query) use ($filters) {
+                $query->where('email', 'LIKE', '%' . $filters['email'] . '%');
+            })
+            ->when(!empty($filters['birthday']), function ($query) use ($filters) {
+                $query->where('birthday', '=',  $filters['birthday']);
+            })
+            ->when(isset($filters['requires_relogin']), function ($query) use ($filters) {
+                $query->where('requires_relogin', '=', boolval($filters['requires_relogin']));
+            })
+            ->when(isset($filters['status']), function ($query) use ($filters) {
+                $query->where('status', '=', boolval($filters['status']));
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
+            });
+    }
 
     /**
      * Get the system country that owns the user.

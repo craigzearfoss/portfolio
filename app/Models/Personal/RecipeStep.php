@@ -45,8 +45,8 @@ class RecipeStep extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'recipe_id', 'step','public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['recipe_id', 'asc'];
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'recipe_id', 'step','public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_ORDER_BY = ['recipe_id', 'asc'];
 
     protected static function booted()
     {
@@ -72,7 +72,7 @@ class RecipeStep extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return self::when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
@@ -87,8 +87,6 @@ class RecipeStep extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

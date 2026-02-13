@@ -6,6 +6,8 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreDatabasesRequest;
 use App\Http\Requests\System\UpdateDatabasesRequest;
+use App\Models\Portfolio\Video;
+use App\Models\System\Admin;
 use App\Models\System\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,7 +24,7 @@ class DatabaseController extends BaseAdminController
      * @param Request $request
      * @return View
      */
-    public function index(Request $request): View
+    public function index(Request $request): View|RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Not authorized.');
@@ -30,9 +32,16 @@ class DatabaseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $databases = Database::orderBy('name', 'asc')->paginate($perPage)->appends(request()->except('page'));
+        if (empty($this->admin->root)) {
+            return redirect()->route('admin.system.admin-database.show', $this->admin);
+        } else {
+            $databases = Database::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+                ->orderBy('owner_id', 'asc')
+                ->orderBy('name', 'asc')
+                ->paginate($perPage)->appends(request()->except('page'));
+        }
 
-        $pageTitle = 'Database';
+        $pageTitle = 'Databases';
 
         return view('admin.system.database.index', compact('databases', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

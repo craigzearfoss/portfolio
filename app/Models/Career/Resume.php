@@ -77,9 +77,9 @@ class Resume extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'doc_filepath', 'pdf_filepath',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'doc_filepath', 'pdf_filepath',
         'content', 'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['date', 'desc'];
+    const array SEARCH_ORDER_BY = ['date', 'desc'];
 
     protected static function booted()
     {
@@ -209,7 +209,7 @@ class Resume extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters)
+        return self::getSearchQuery($filters)
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -225,7 +225,5 @@ class Resume extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 }

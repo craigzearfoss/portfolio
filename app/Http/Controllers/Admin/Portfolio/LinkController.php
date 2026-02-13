@@ -32,10 +32,11 @@ class LinkController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $links = Link::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
             ->orderBy('name', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Links' : 'Links';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Links' : 'Links';
 
         return view('admin.portfolio.link.index', compact('links', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

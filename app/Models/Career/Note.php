@@ -43,9 +43,9 @@ class Note extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'subject', 'body', 'public',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'subject', 'body', 'public',
         'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['subject', 'asc'];
+    const array SEARCH_ORDER_BY = ['subject', 'asc'];
 
     protected static function booted()
     {
@@ -71,7 +71,7 @@ class Note extends Model
             $filters[] = ['owner_id' => $owner->id];
         }
 
-        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return self::when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
@@ -88,8 +88,6 @@ class Note extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

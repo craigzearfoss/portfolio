@@ -60,10 +60,10 @@ class Education extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id', 'currently_enrolled',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id', 'currently_enrolled',
         'completed', 'start_month', 'start_year', 'end_month', 'end_year', 'public', 'readonly', 'root', 'disabled',
         'demo'];
-    const SEARCH_ORDER_BY = ['major', 'asc'];
+    const array SEARCH_ORDER_BY = ['major', 'asc'];
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -82,7 +82,9 @@ class Education extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters)
+        return self::when(!empty($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', intval($filters['id']));
+            })
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -122,8 +124,6 @@ class Education extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     protected static function booted()

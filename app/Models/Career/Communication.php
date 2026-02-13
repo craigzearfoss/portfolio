@@ -49,9 +49,9 @@ class Communication extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'subject', 'to', 'from', 'date', 'time', 'body',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'subject', 'to', 'from', 'date', 'time', 'body',
         'public', 'readonly', 'root', 'disabled', 'demo',];
-    const SEARCH_ORDER_BY = ['subject', 'asc'];
+    const array SEARCH_ORDER_BY = ['subject', 'asc'];
 
     protected static function booted()
     {
@@ -77,7 +77,7 @@ class Communication extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return self::when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
@@ -107,8 +107,6 @@ class Communication extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

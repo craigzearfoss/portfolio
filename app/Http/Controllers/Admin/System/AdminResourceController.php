@@ -6,6 +6,7 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminResourcesRequest;
 use App\Http\Requests\System\UpdateAdminResourcesRequest;
+use App\Models\Portfolio\Video;
 use App\Models\System\AdminResource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,16 +29,12 @@ class AdminResourceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $adminResources = AdminResource::where('owner_id', $this->owner->id)
-                ->orderBy('database_id', 'asc')->orderBy('name', 'asc')->paginate($perPage)
-                ->appends(request()->except('page'));
-        } else {
-            $adminResources = AdminResource::orderBy('database_id')
-                ->orderBy('database_id', 'asc')->orderBy('name')->paginate($perPage)->appends(request()->except('page'));
-        }
+        $adminResources = AdminResource::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner)) ? $this->owner->name . ' - Resources' : 'Resources';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Resources' : 'Resources';
 
         return view('admin.system.admin-resource.index', compact('adminResources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

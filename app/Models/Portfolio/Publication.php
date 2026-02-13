@@ -81,11 +81,11 @@ class Publication extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'title', 'parent_id', 'featured', 'publication_name', 'publisher',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'title', 'parent_id', 'featured', 'publication_name', 'publisher',
         'date', 'year', 'credit', 'freelance', 'fiction', 'nonfiction', 'technical', 'research', 'poetry', 'online',
         'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet', 'public', 'readonly', 'root', 'disabled',
         'demo'];
-    const SEARCH_ORDER_BY = ['title', 'asc'];
+    const array SEARCH_ORDER_BY = ['title', 'asc'];
 
     protected static function booted()
     {
@@ -111,7 +111,7 @@ class Publication extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return self::when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
@@ -186,8 +186,6 @@ class Publication extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

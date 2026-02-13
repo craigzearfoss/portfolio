@@ -39,6 +39,7 @@ class ApplicationController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $query = Application::searchQuery(request()->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
             ->orderBy('created_at', 'desc');
         if ($resume = $request->resume_id ? Resume::findOrFail($request->resume_id) : null) {
             $query->where('resume_id', $resume->id);

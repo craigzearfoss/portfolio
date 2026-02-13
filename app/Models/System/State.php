@@ -10,6 +10,7 @@ use App\Models\Career\Reference;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\School;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,8 +37,32 @@ class State extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'code', 'name', 'country_id'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_COLUMNS = ['id', 'code', 'name', 'country_id'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        return self::when(isset($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(!empty($filters['code']), function ($query) use ($filters) {
+                $query->where('code', '=', $filters['code']);
+            })
+            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
+                $query->where('country_id', '=', intval($filters['country_id']));
+            });
+    }
 
     /**
      * Get the system admins for the state.

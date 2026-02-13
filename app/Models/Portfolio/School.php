@@ -59,9 +59,9 @@ class School extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'slug', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
+    const array SEARCH_COLUMNS = ['id', 'name', 'slug', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
         'zip', 'country_id'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the system country that owns the school.

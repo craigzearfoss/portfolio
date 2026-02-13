@@ -47,9 +47,9 @@ class Event extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'time', 'location', 'attendees',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'time', 'location', 'attendees',
         'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['subject', 'asc'];
+    const array SEARCH_ORDER_BY = ['subject', 'asc'];
 
     protected static function booted()
     {
@@ -75,7 +75,7 @@ class Event extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters, $owner)
+        return self::getSearchQuery($filters, $owner)
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -97,8 +97,6 @@ class Event extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

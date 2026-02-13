@@ -52,8 +52,8 @@ class Stack extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled', 'owner'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_COLUMNS = ['id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled', 'owner'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -132,7 +132,7 @@ class Stack extends Model
      */
     public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return self::when(!empty($filters['id']), function ($query) use ($filters) {
             $query->where('id', '=', intval($filters['id']));
         })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
@@ -158,7 +158,5 @@ class Stack extends Model
             ->when(!empty($filters['owner']), function ($query) use ($filters) {
                 $query->where('owner', 'like', '%' . $filters['owner'] . '%');
             });
-
-        return $query;
     }
 }

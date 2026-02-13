@@ -5,6 +5,7 @@ namespace App\Models\System;
 use App\Enums\EnvTypes;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -52,9 +53,62 @@ class Database extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'guest', 'user', 'admin',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'guest', 'user', 'admin',
         'global', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
+            }
+            $filters['owner_id'] = $owner->id;
+        }
+
+        return self::getSearchQuery($filters)
+            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(!empty($filters['database']), function ($query) use ($filters) {
+                $query->where('database', 'like', '%' . $filters['database'] . '%');
+            })
+            ->when(!empty($filters['tag']), function ($query) use ($filters) {
+                $query->where('tag', 'like', '%' . $filters['tag'] . '%');
+            })
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where('title', 'like', '%' . $filters['title'] . '%');
+            })
+            ->when(!empty($filters['plural']), function ($query) use ($filters) {
+                $query->where('plural', 'like', '%' . $filters['plural'] . '%');
+            })
+            ->when(isset($filters['has_owner']), function ($query) use ($filters) {
+                $query->where('has_owner', '=', boolval(['has_owner']));
+            })
+            ->when(isset($filters['menu']), function ($query) use ($filters) {
+                $query->where('menu', '=', boolval(['menu']));
+            })
+            ->when(isset($filters['menu_level']), function ($query) use ($filters) {
+                $query->where('menu_level', '=', intval(['menu_level']));
+            })
+            ->when(isset($filters['menu_collapsed']), function ($query) use ($filters) {
+                $query->where('menu_collapsed', '=', boolval(['menu_collapsed']));
+            })
+            ->when(isset($filters['icon']), function ($query) use ($filters) {
+                $query->where('icon', '=', ['icon']);
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
+            });
+    }
 
     /**
      * Get the system owner who owns the database.
@@ -146,8 +200,8 @@ class Database extends Model
      * @return array
      */
     public static function getResourceTypes(string|null $dbName = null,
-                                        array       $filters = [],
-                                        array       $orderBy = ['seq', 'asc']):  array
+                                            array       $filters = [],
+                                            array       $orderBy = ['seq', 'asc']):  array
     {
         $query = Database::select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
             , 'databases.database as database_database'

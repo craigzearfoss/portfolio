@@ -61,9 +61,9 @@ class Skill extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'type', 'featured', 'level', 'dictionary_category_id',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'type', 'featured', 'level', 'dictionary_category_id',
         'start_year', 'end_year', 'years', 'public', 'readonly', 'root', 'disabled','demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -77,23 +77,46 @@ class Skill extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param Admin|Owner|null $owner
      * @return Builder
      */
     public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
-            if ($request->has('owner_id')) {
-                $request->offsetUnset('owner_id');
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
             }
-            $request->merge([ 'owner_id' => $owner->id ]);
+            $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($request, $owner)
-            ->when(!empty($request->get('owner_id')), function ($query) use ($request) {
-                $query->where('owner_id', '=', $request->query('owner_id'));
+        return self::getSearchQuery($filters)
+            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(!empty($filters['version']), function ($query) use ($filters) {
+                $query->where('version', 'like', '%' . $filters['version'] . '%');
+            })
+            ->when(isset($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(isset($filters['level']), function ($query) use ($filters) {
+                $query->where('level', '=', intval(['level']));
+            })
+            ->when(isset($filters['dictionary_category_id']), function ($query) use ($filters) {
+                $query->where('dictionary_category_id', '=', intval(['dictionary_category_id']));
+            })
+            ->when(isset($filters['start_year']), function ($query) use ($filters) {
+                $query->where('start_year', '=', intval(['start_year']));
+            })
+            ->when(isset($filters['end_year']), function ($query) use ($filters) {
+                $query->where('end_year', '=', intval(['end_year']));
+            })
+            ->when(isset($filters['years']), function ($query) use ($filters) {
+                $query->where('years', '=', intval(['years']));
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

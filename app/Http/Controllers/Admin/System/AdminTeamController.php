@@ -29,9 +29,12 @@ class AdminTeamController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminTeams = AdminTeam::orderBy('name','asc')->paginate($perPage)->appends(request()->except('page'));
+        $adminTeams = AdminTeam::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner)) ? $this->owner->name . ' - Teams' : 'Teams';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Teams' : 'Teams';
 
         return view('admin.system.admin-team.index', compact('adminTeams', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

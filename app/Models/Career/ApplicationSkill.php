@@ -44,10 +44,10 @@ class ApplicationSkill extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['owner_id', 'name', 'resource_id', 'model_class', 'model_item_id', 'dictionary_category_id',
+    const array SEARCH_COLUMNS = ['owner_id', 'name', 'resource_id', 'model_class', 'model_item_id', 'dictionary_category_id',
         'dictionary_term_id', 'level', 'start_year', 'end_year', 'years', 'public', 'readonly', 'root', 'disabled',
         'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {

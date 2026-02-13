@@ -73,10 +73,10 @@ class Audio extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'parent_id', 'featured', 'full_episode', 'clip', 'podcast',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'parent_id', 'featured', 'full_episode', 'clip', 'podcast',
         'source_recording', 'date', 'year', 'company', 'credit', 'show', 'location', 'public', 'readonly', 'root',
         'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -102,9 +102,9 @@ class Audio extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters)
+        return self::getSearchQuery($filters)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', $filters['owner_id']);
+                $query->where('owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['artist']), function ($query) use ($filters) {
                 $query->where('artist', 'like', '%' . $filters['artist'] . '%');
@@ -145,8 +145,6 @@ class Audio extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

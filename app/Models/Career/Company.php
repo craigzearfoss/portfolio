@@ -75,9 +75,9 @@ class Company extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'industry_id', 'street', 'street2', 'city', 'state_id', 'zip',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'industry_id', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -103,11 +103,11 @@ class Company extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters)
+        return self::getSearchQuery($filters)
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
-            ->when(!empty(['industry_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['industry_id']), function ($query) use ($filters) {
                 $query->where('industry_id', '=', intval($filters['industry_id']));
             })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
@@ -136,8 +136,6 @@ class Company extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

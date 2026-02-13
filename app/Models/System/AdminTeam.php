@@ -4,8 +4,8 @@ namespace App\Models\System;
 
 use App\Models\System\AdminAdminTeam;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,8 +15,7 @@ use Illuminate\Notifications\Notifiable;
 
 class AdminTeam extends Model
 {
-    /** @use HasFactory<\Database\Factories\AdminTeamFactory> */
-    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, Notifiable, SoftDeletes;
 
     protected $connection = 'system_db';
 
@@ -50,8 +49,37 @@ class AdminTeam extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation', 'public', 'readonly', 'root', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation', 'public', 'readonly', 'root', 'demo'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
+            }
+            $filters['owner_id'] = $owner->id;
+        }
+
+        return self::getSearchQuery($filters)
+            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
+                $query->where('abbreviation', '=', $filters['abbreviation']);
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
+            });
+    }
 
     /**
      * Get the system owner of the admin team.

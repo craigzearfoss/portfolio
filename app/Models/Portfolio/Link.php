@@ -54,8 +54,8 @@ class Link extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -81,7 +81,7 @@ class Link extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters, $owner)
+        return self::getSearchQuery($filters, $owner)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -91,8 +91,6 @@ class Link extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

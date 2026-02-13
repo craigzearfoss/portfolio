@@ -27,13 +27,13 @@ class UserController extends BaseUserController
      */
     public function index(Request $request): View|RedirectResponse
     {
+        readGate(PermissionEntityTypes::RESOURCE, 'user', $this->admin);
+
         $perPage = $request->query('per_page', $this->perPage());
 
-         if (empty($this->admin->root)) {
-             abort(403, 'Unauthorized.');
-         } else {
-             $allUsers = User::orderBy('username', 'asc')->paginate($perPage)->appends(request()->except('page'));
-         }
+        $allUsers = User::searchQuery($request->all())
+            ->orderBy('username', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Users';
 
@@ -61,7 +61,7 @@ class UserController extends BaseUserController
      */
     public function store(StoreUsersRequest $request): RedirectResponse
     {
-        if (!isRootUser()) {
+        if (!$this->isRootAdmin) {
             abort(403, 'Only root users can create new users.');
         }
 

@@ -65,9 +65,9 @@ class JobCoworker extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'job_id', 'name', 'title', 'level_id', 'work_phone', 'personal_phone',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'job_id', 'name', 'title', 'level_id', 'work_phone', 'personal_phone',
         'work_email', 'personal_email', 'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -93,7 +93,7 @@ class JobCoworker extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters, $owner)
+        return self::getSearchQuery($filters, $owner)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -124,8 +124,6 @@ class JobCoworker extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

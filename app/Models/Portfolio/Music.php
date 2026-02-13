@@ -64,9 +64,9 @@ class Music extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'parent_id', 'name', 'artist', 'featured', 'collection', 'track', 'label',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'parent_id', 'name', 'artist', 'featured', 'collection', 'track', 'label',
         'catalog_number', 'year', 'release_date', 'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -92,7 +92,7 @@ class Music extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters, $owner)
+        return self::getSearchQuery($filters, $owner)
             ->when(isset($filters['parent_id']), function ($query) use ($filters) {
                 $query->where('parent_id', '=', intval($filters['parent_id']));
             })
@@ -126,8 +126,6 @@ class Music extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

@@ -225,7 +225,7 @@ trait SearchableModelTrait
     public static function getSearchQuery(array $filters = [], Owner|Admin|null $owner = null): Builder
     {
         $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', $filters['id']);
+                $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', 'like', '%' . $filters['name'] . '%');

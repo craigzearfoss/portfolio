@@ -6,6 +6,7 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminGroupsRequest;
 use App\Http\Requests\System\UpdateAdminGroupsRequest;
+use App\Models\System\AdminDatabase;
 use App\Models\System\AdminGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,9 +30,12 @@ class AdminGroupController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminGroups = AdminGroup::orderBy('name','asc')->paginate($perPage)->appends(request()->except('page'));
+        $adminGroups = AdminGroup::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner)) ? $this->owner->name . ' - Groups' : 'Groups';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Groups' : 'Groups';
 
         return view('admin.system.admin-group.index', compact('adminGroups', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

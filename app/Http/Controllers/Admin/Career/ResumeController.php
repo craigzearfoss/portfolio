@@ -39,6 +39,7 @@ class ResumeController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $query = Resume::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
             ->orderBy('name', 'desc');
         if ($application = $request->application_id ? Application::findOrFail($request->application_id) : null) {
             $query->leftJoin(config('app.career_db').'.applications', 'applications.resume_id', '=', 'resumes.id')
@@ -99,7 +100,7 @@ class ResumeController extends BaseAdminController
             return redirect()->route('admin.career.application.show', $application)
                 ->with('success', $resume->name . ' resume successfully added.');
         } else {
-            return redirect()->route('admin.career.resume.show', $resume, $urlParams)
+            return redirect()->route('admin.career.resume.show', $resume, $request->all())
                 ->with('success', $resume->name . ' resume successfully added.');
         }
     }

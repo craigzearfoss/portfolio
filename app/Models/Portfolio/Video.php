@@ -73,10 +73,10 @@ class Video extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'parent_id', 'featured', 'full_episode', 'clip', 'public_access',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'parent_id', 'featured', 'full_episode', 'clip', 'public_access',
         'source_recording', 'date', 'year', 'company', 'credit', 'location', 'public', 'readonly', 'root', 'disabled',
         'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -90,23 +90,61 @@ class Video extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param Admin|Owner|null $owner
      * @return Builder
      */
     public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
-            if ($request->has('owner_id')) {
-                $request->offsetUnset('owner_id');
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
             }
-            $request->merge([ 'owner_id' => $owner->id ]);
+            $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($request, $owner)
-            ->when(!empty($request->get('owner_id')), function ($query) use ($request) {
-                $query->where('owner_id', '=', $request->query('owner_id'));
+        return self::getSearchQuery($filters)
+            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+                $query->where('parent_id', '=', intval(['parent_id']));
+            })
+            ->when(isset($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(isset($filters['full_episode']), function ($query) use ($filters) {
+                $query->where('full_episode', '=', boolval(['full_episode']));
+            })
+            ->when(isset($filters['clip']), function ($query) use ($filters) {
+                $query->where('clip', '=', boolval(['clip']));
+            })
+            ->when(isset($filters['public_access']), function ($query) use ($filters) {
+                $query->where('public_access', '=', boolval(['public_access']));
+            })
+            ->when(isset($filters['source_recording']), function ($query) use ($filters) {
+                $query->where('source_recording', '=', boolval(['source_recording']));
+            })
+            ->when(isset($filters['date']), function ($query) use ($filters) {
+                $query->where('date', '=', $filters['date']);
+            })
+            ->when(isset($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', intval($filters['year']));
+            })
+            ->when(!empty($filters['company']), function ($query) use ($filters) {
+                $query->where('company', 'like', '%' . $filters['company'] . '%');
+            })
+            ->when(!empty($filters['credit']), function ($query) use ($filters) {
+                $query->where('credit', 'like', '%' . $filters['credit'] . '%');
+            })
+            ->when(!empty($filters['show']), function ($query) use ($filters) {
+                $query->where('show', 'like', '%' . $filters['show'] . '%');
+            })
+            ->when(!empty($filters['location']), function ($query) use ($filters) {
+                $query->where('location', 'like', '%' . $filters['location'] . '%');
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

@@ -36,6 +36,7 @@ class ReadingController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $readings = Reading::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
             ->orderBy('title', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));
 

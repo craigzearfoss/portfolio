@@ -51,9 +51,9 @@ class JobBoard extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'primary', 'local', 'regional', 'national', 'international', 'public',
+    const array SEARCH_COLUMNS = ['id', 'name', 'primary', 'local', 'regional', 'national', 'international', 'public',
         'link', 'link_name', 'readonly', 'root', 'disabled'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the career applications for the job board.

@@ -35,6 +35,7 @@ class RecipeStepController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $query = RecipeStep::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
             ->orderBy('recipe_id', 'asc');
         if ($recipe = $request->recipe_id ? Recipe::findOrFail($request->recipe_id) : null) {
             $query->where('recipe_id', $recipe->id);

@@ -6,6 +6,7 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreResourcesRequest;
 use App\Http\Requests\System\UpdateResourcesRequest;
+use App\Models\System\AdminResource;
 use App\Models\System\Resource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class ResourceController extends BaseAdminController
      * @param Request $request
      * @return View
      */
-    public function index(Request $request): View
+    public function index(Request $request): View|RedirectResponse
     {
         if (!isRootAdmin()) {
             abort(403, 'Not authorized.');
@@ -30,10 +31,16 @@ class ResourceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $resources = Resource::orderBy('database_id')->orderBy('name')->paginate($perPage)
-            ->appends(request()->except('page'));
+        if (empty($this->admin->root)) {
+            return redirect()->route('admin.system.admin-resource.show', $this->admin);
+        } else {
+            $resources = AdminResource::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+                ->orderBy('owner_id', 'asc')
+                ->orderBy('name', 'asc')
+                ->paginate($perPage)->appends(request()->except('page'));
+        }
 
-        $pageTitle = 'Resources';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Resources' : 'Resources';
 
         return view('admin.system.resource.index', compact('resources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

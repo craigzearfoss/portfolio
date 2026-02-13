@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Middleware\Admin;
 use App\Http\Requests\System\StoreAdminDatabasesRequest;
 use App\Http\Requests\System\UpdateAdminDatabasesRequest;
+use App\Models\Portfolio\Video;
 use App\Models\System\AdminDatabase;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,15 +30,12 @@ class AdminDatabaseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $adminDatabases = AdminDatabase::where('owner_id', $this->owner->id)->orderBy('name', 'asc')
-                ->paginate($perPage)->appends(request()->except('page'));
-        } else {
-            $adminDatabases = AdminDatabase::orderBy('name', 'asc')->paginate($perPage)
-                ->appends(request()->except('page'));
-        }
+        $adminDatabases = AdminDatabase::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner)) ? $this->owner->name . ' - Databases' : 'Databases';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Databases' : 'Databases';
 
         return view('admin.system.admin-database.index', compact('adminDatabases', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

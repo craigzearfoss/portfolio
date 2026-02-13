@@ -31,20 +31,12 @@ class VideoController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if ($this->isRootAdmin) {
-            $query = Video::orderBy('name', 'asc');
-            if (($owner_id = $request->owner_id) && ($owner = Owner::findOrFail($owner_id))) {
-                $query->where('owner_id', $owner_id);
-            }
-        } elseif (!empty($this->owner)) {
-            $query = Video::where('owner_id', $this->owner->id)->orderBy('name', 'asc');
-            $owner = $this->owner;
-            $owner_id = $owner->id;
-        }
+        $videos = Video::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $videos = $query->paginate($perPage)->appends(request()->except('page'));
-
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Videos' : 'Videos';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Videos' : 'Videos';
 
         return view('admin.portfolio.video.index', compact('videos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

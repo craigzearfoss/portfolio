@@ -7,6 +7,7 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminsRequest;
 use App\Http\Requests\System\UpdateAdminsRequest;
+use App\Models\Portfolio\Video;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
@@ -40,12 +41,15 @@ class AdminController extends BaseAdminController
          if (empty($this->admin->root)) {
              return redirect()->route('admin.profile.show');
          } else {
-             $allAdmins = Admin::searchQuery($request->all())
-                 ->orderBy('username', 'asc')
+             $allAdmins = Admin::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+                 ->orderBy('owner_id', 'asc')
+                 ->orderBy('name', 'asc')
                  ->paginate($perPage)->appends(request()->except('page'));
          }
 
-        return view('admin.system.admin.index', compact('allAdmins'))
+        $pageTitle = 'Admins';
+
+        return view('admin.system.admin.index', compact('allAdmins', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

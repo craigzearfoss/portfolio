@@ -55,9 +55,9 @@ class CoverLetter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'filepath', 'content', 'link',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'filepath', 'content', 'link',
         'link_name', 'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -83,7 +83,7 @@ class CoverLetter extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::getSearchQuery($filters)
+        return self::getSearchQuery($filters)
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -96,8 +96,6 @@ class CoverLetter extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

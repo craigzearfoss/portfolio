@@ -72,10 +72,10 @@ class Recruiter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'local', 'regional', 'national', 'international', 'street', 'street2',
+    const array SEARCH_COLUMNS = ['id', 'name', 'local', 'regional', 'national', 'international', 'street', 'street2',
         'city', 'state_id', 'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly',
         'root', 'disabled'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -87,7 +87,7 @@ class Recruiter extends Model
      */
     public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        $query = self::getSearchQuery($filters, $owner)
+        return self::getSearchQuery($filters, $owner)
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', 'like', '%' . $filters['name'] . '%');
             })
@@ -129,8 +129,6 @@ class Recruiter extends Model
             ->when(!empty($filters['body']), function ($query) use ($filters) {
                 $query->where('body', 'like', '%' . $filters['body'] . '%');
             });
-
-        return $query;
     }
 
     /**

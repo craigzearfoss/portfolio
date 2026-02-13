@@ -3,9 +3,7 @@
 namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
-use App\Models\System\UserUserTeam;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,8 +13,7 @@ use Illuminate\Notifications\Notifiable;
 
 class UserTeam extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserTeamFactory> */
-    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, Notifiable, SoftDeletes;
 
     protected $connection = 'system_db';
 
@@ -50,10 +47,32 @@ class UserTeam extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation', 'public', 'readonly', 'root', 'disabled',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation', 'public', 'readonly', 'root', 'disabled',
         'demo',
     ];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        return self::getSearchQuery($filters)
+            ->when(isset($filters['user_id']), function ($query) use ($filters) {
+                $query->where('user_id', '=', intval($filters['user_id']));
+            })
+            ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
+                $query->where('abbreviation', '=', $filters['abbreviation']);
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
+            });
+    }
 
     /**
      * Get the system owner of the user team.
@@ -68,7 +87,7 @@ class UserTeam extends Model
      */
     public function members(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->orderBy('name', 'asc');
+        return $this->belongsToMany(User::class)->orderBy('name');
     }
 
     /**

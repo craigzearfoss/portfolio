@@ -29,7 +29,9 @@ class UserGroupController extends BaseUserController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $userGroups = UserGroup::orderBy('name','asc')->paginate($perPage)->appends(request()->except('page'));
+        $userGroups = UserGroup::searchQuery($request->all())
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'User Groups';
 

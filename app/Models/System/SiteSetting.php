@@ -3,6 +3,7 @@
 namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class SiteSetting extends Model
@@ -28,8 +29,34 @@ class SiteSetting extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'setting_type_id', 'value'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_COLUMNS = ['id', 'name', 'setting_type_id', 'value'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['admin_id']);
+            }
+            $filters['admin_id'] = $owner->id;
+        }
+
+        return self::getSearchQuery($filters, $owner)
+            ->when(!empty($filters['setting_type_id']), function ($query) use ($filters) {
+                $query->where('setting_type_id', '=', intval($filters['setting_type_id']));
+            })
+            ->when(!empty($filters['value']), function ($query) use ($filters) {
+                $query->where('value', 'like', '%' . $filters['value'] . '%');
+            });
+    }
 
     /**
      * Returns the value of the setting for the specified setting or null if not found.

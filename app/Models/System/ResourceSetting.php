@@ -4,6 +4,7 @@ namespace App\Models\System;
 
 use App\Models\System\SettingType;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -32,8 +33,33 @@ class ResourceSetting extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'resource_id', 'name', 'setting_type_id', 'value'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'resource_id', 'name', 'setting_type_id', 'value'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        return self::getSearchQuery($filters)
+            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(isset($filters['resource_id']), function ($query) use ($filters) {
+                $query->where('resource_id', '=', intval($filters['resource_id']));
+            })
+            ->when(isset($filters['setting_type_id']), function ($query) use ($filters) {
+                $query->where('setting_type_id', '=', intval($filters['setting_type_id']));
+            })
+            ->when(!empty($filters['value']), function ($query) use ($filters) {
+                $query->where('value', 'like', '%' . $filters['value'] . '%');
+            });
+    }
 
     /**
      * Get the system resource of the resource setting.

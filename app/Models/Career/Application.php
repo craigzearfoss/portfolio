@@ -91,13 +91,13 @@ class Application extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating', 'active',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating', 'active',
         'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max', 'compensation_unit_id',
         'job_duration_type_id', 'job_employment_type_id', 'job_location_type_id', 'street', 'street2', 'city',
         'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation', 'health', 'phone',
         'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label',
         'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['role', 'asc'];
+    const array SEARCH_ORDER_BY = ['role', 'asc'];
 
     protected static function booted()
     {
@@ -123,7 +123,7 @@ class Application extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return self::when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
@@ -211,8 +211,6 @@ class Application extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

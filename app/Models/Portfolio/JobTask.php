@@ -52,8 +52,8 @@ class JobTask extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['owner_id', 'job_id', 'title', 'public', 'readonly', 'root', 'disabled', 'demo'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_COLUMNS = ['owner_id', 'job_id', 'title', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -79,7 +79,7 @@ class JobTask extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = self::when(isset($filters['id']), function ($query) use ($filters) {
+        return self::when(isset($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
@@ -94,8 +94,6 @@ class JobTask extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
-
-        return $query;
     }
 
     /**

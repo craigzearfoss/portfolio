@@ -40,6 +40,7 @@ class CompanyController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $companies = Company::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('owner_id', 'asc')
             ->orderBy('name', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -178,9 +179,9 @@ class CompanyController extends BaseAdminController
      */
     public function attachContact(int $companyId, StoreCompanyContactsRequest $request): RedirectResponse
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
-
         $company = Company::find($companyId);
+
+        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
 
         $data = $request->validated();
 
