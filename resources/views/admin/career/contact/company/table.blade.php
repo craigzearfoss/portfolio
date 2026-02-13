@@ -1,7 +1,7 @@
 @php
 $companies = $companies ?? [];
 @endphp
-<table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+<table class="table admin-table">
     <thead>
     <th>name</th>
     <th>active</th>
@@ -20,9 +20,6 @@ $companies = $companies ?? [];
                     'name' => $company->name,
                     'href' => route('admin.career.company.show', $company)
                 ])
-            </td>
-            <td data-field="featured" class="has-text-centered">
-                @include('admin.components.checkmark', [ 'checked' => $company->pivot->active ])
             </td>
             <td data-field="industry.name">
                 {{ $company->industry['name'] ?? '' }}

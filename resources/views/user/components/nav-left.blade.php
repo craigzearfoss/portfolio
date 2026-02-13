@@ -37,13 +37,14 @@
 
                 @include('user.components.form-select-nolabel', [
                     'value'    => !empty($admin->label) ? $admin->label : '',
-                    'list'     => \App\Models\System\Admin::listOptions([ 'public' => 1 ],
-                                                                        'label',
-                                                                        'name',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'name', 'asc']
-                                                                       ),
+                    'list'     => \App\Models\System\Admin::listOptions(
+                                      [ 'public' => 1 ],
+                                      'label',
+                                      'name',
+                                      true,
+                                      false,
+                                      ['name', 'asc']
+                                  ),
                     'style'    => 'font-size: 1.1rem; font-weight: 700',
                     'onchange' => "document.location.href='/'+this.value;"
                 ])
@@ -58,13 +59,14 @@
 
                 <ul class="menu is-menu-main" style="font-size: 1rem;">
 
-                    <p class="menu-label pb-0 mb-0">
-                        <a @if (!empty($menuItems[$i]->url))href="{{ $menuItems[$i]->url }}" @endif
-                           class="has-text-white {{ $menuItems[$i]->active ? 'is-active' : '' }}"
-                           style="padding: 0.3rem;"
-                        >
-                            {{ $menuItems[$i]->title }}
-                        </a>
+                    <p class="menu-label menu-label-left">
+                        @include('guest.components.nav-link-left', [
+                            'level'  => 1,
+                            'name'   => $menuItems[$i]->title,
+                            'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
+                            'active' => $menuItems[$i]->active,
+                            'class'  => 'has-text-white'
+                        ])
                     </p>
 
                     @if(!empty($menuItems[$i]->children))
@@ -73,19 +75,13 @@
 
                             @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
                                 <li>
-                                    <a @if (!empty($menu2Item->url))href="{{ $menu2Item->url }}"  @endif
-                                        class="{{ $menu2Item->active ? 'is-active' : '' }}"
-                                       style="padding: 0.3rem;"
-                                    >
-                                        <div class="menu-item">
-                                            <span class="text-xl">
-                                                <i class="fa-solid {{ !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle' }}"></i>
-                                            </span>
-                                            <span class="menu-item-label">
-                                                {{ !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title }}
-                                            </span>
-                                        </div>
-                                    </a>
+                                    @include('guest.components.nav-link-left', [
+                                        'level'  => 2,
+                                        'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
+                                        'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
+                                        'active' => $menu2Item->active,
+                                        'icon'   => !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle'
+                                    ])
 
 
                                     @if(!empty($menu2Item->children))
@@ -93,21 +89,14 @@
                                         <ul class="menu-list pl-2" style="margin-left: 1em;">
 
                                             @foreach ($menu2Item->children as $menu3Item)
-                                            <li>ffff
-                                                <a @if (!empty($menu3Item->url))href="{{ $$menu3Item->url }}"  @endif
-                                                class="{{ $menu3Item->active ? 'is-active' : '' }}"
-                                                   style="padding: 0.3rem;"
-                                                >
-                                                    <div class="menu-item">
-                                                    <span class="text-xl">
-                                                        <i class="fa-solid {{ !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle' }}"></i>
-                                                    </span>
-                                                        <span class="menu-item-label">
-                                                        {{ !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title }}
-                                                    </span>
-                                                    </div>
-                                                </a>
-
+                                            <li>
+                                                @include('guest.components.nav-link-left', [
+                                                    'level'  => 3,
+                                                    'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
+                                                    'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
+                                                    'active' => $menu3Item->active,
+                                                    'icon'   => !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle'
+                                                ])
                                             </li>
                                             @endforeach
 

@@ -31,7 +31,7 @@ class JobTask extends Model
     protected $fillable = [
         'owner_id',
         'job_id',
-        'title',
+        'featured',
         'summary',
         'notes',
         'link',
@@ -87,6 +87,9 @@ class JobTask extends Model
             })
             ->when(isset($filters['job_id']), function ($query) use ($filters) {
                 $query->where('job_id', '=', intval($filters['job_id']));
+            })
+            ->when(isset($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval($filters['featured']));
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where('summary', 'like', '%' . $filters['summary'] . '%');

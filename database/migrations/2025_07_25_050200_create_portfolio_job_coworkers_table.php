@@ -41,6 +41,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('title', 100)->nullable();
+            $table->boolean('featured')->default(false);
             $table->integer('level_id')->default(1);  // 1-coworker, 2-superior, 3-subordinate
             $table->string('work_phone', 20)->nullable();
             $table->string('personal_phone', 20)->nullable();

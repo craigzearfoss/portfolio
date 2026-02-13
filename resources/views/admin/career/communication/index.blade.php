@@ -49,7 +49,7 @@
             {!! $communications->links('vendor.pagination.bulma') !!}
         @endif
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))

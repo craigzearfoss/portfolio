@@ -43,15 +43,15 @@
             {!! $readings->links('vendor.pagination.bulma') !!}
         @endif
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
+                <th class="has-text-centered"><span title="featured reading">featured</span></th>
                 <th>title</th>
                 <th>author</th>
-                <th class="has-text-centered">featured</th>
                 <th>type</th>
                 <th class="has-text-centered">publication year</th>
                 <th>media</th>
@@ -68,9 +68,9 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
+                    <th class="has-text-centered"><span title="featured reading">featured</span></th>
                     <th>name</th>
                     <th>author</th>
-                    <th class="has-text-centered">featured</th>
                     <th>type</th>
                     <th class="has-text-centered">publication year</th>
                     <th>media</th>

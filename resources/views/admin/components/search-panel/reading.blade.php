@@ -1,6 +1,7 @@
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
+    
         <form id="searchForm" action="{!! $action ?? route('admin.personal.reading.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) !!}" method="get">
 
             @if($isRootAdmin)
@@ -43,7 +44,7 @@
                     'name'     => 'author',
                     'value'    => Request::get('author'),
                     'list'     => \App\Models\Personal\Reading::listOptions(
-                        [],
+                        !empty($owner->root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []),
                         'author',
                         'author',
                         true,

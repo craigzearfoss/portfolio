@@ -1,7 +1,7 @@
 @php
 $contacts = $contacts ?? [];
 @endphp
-<table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+<table class="table admin-table">
     <thead>
     <th>name</th>
     <th>active</th>
@@ -19,9 +19,6 @@ $contacts = $contacts ?? [];
                     'name' => $contact->name,
                     'href' => route('admin.career.contact.show', $contact)
                 ])
-            </td>
-            <td data-field="featured" class="has-text-centered">
-                @include('admin.components.checkmark', [ 'checked' => $contact->pivot->active ])
             </td>
             <td>
                 {{ $contact->phone ?? '' }}

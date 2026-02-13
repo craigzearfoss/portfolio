@@ -38,15 +38,13 @@
                 @include('guest.components.form-select-nolabel', [
                     'value'    => !empty($owner->label) ? $owner->label : '',
                     'list'     => \App\Models\System\Admin::listOptions(
-                                        [
-                                            'public' => 1,
-                                        ],
-                                        'label',
-                                        'name',
-                                        true,
-                                        false,
-                                        ['name', 'asc'
-                                    ]),
+                                      [ 'public' => 1 ],
+                                      'label',
+                                      'name',
+                                      true,
+                                      false,
+                                      ['name', 'asc']
+                                  ),
                     'style'    => 'font-size: 1.1rem; font-weight: 700',
                     'onchange' => "document.location.href='/'+this.value;"
                 ])
@@ -59,7 +57,7 @@
 
             <ul class="menu is-menu-main" style="font-size: 1rem;">
 
-                <p class="menu-label pb-0 mb-0">
+                <p class="menu-label menu-label-left">
                     @include('guest.components.nav-link-left', [
                         'level'  => 1,
                         'name'   => $menuItems[$i]->title,

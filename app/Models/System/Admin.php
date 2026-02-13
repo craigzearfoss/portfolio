@@ -38,6 +38,7 @@ class Admin extends Authenticatable
         'title',
         'role',
         'employer',
+        'job_status_id',
         'street',
         'street2',
         'city',
@@ -147,6 +148,9 @@ class Admin extends Authenticatable
             })
             ->when(!empty($filters['employer']), function ($query) use ($filters) {
                 $query->where('employer', 'like', '%' . $filters['employer'] . '%');
+            })
+            ->when(isset($filters['job_status_id']), function ($query) use ($filters) {
+                $query->where('job_status_id', '=', intval($filters['job_status_id']));
             })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where('city', 'LIKE', '%' . $filters['city'] . '%');

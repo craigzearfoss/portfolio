@@ -1,9 +1,9 @@
 <section class="hero is-hero-bar">
 
-    <div class="hero-body p-3">
+    <div class="subtitle-bar hero-body p-3">
         <div class="level">
 
-            <div class="level-left">
+            <div class="level-left" style="display: inline-block;">
                 <div class="level-item">
                     <h1 class="title is-size-4">
                         {!! $title ?? '' !!}
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="level-right">
+            <div class="level-right" style="display: inline-block;">
                 @if (!empty($buttons))
                     <div class="level-item">
                         <div class="buttons is-right">

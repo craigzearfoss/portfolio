@@ -31,14 +31,16 @@ if (!empty($style)) {
                     'message'         => $message ?? '',
                 ])
 
-                @include('user.components.form-checkbox', [
-                    'name'            => 'root',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => $root ?? 0,
-                    'disabled'        => !isRootAdmin(),
-                    'message'         => $message ?? '',
-                ])
+                @if(!empty($isRootAdmin))
+                    @include('user.components.form-checkbox', [
+                        'name'            => 'root',
+                        'value'           => 1,
+                        'unchecked_value' => 0,
+                        'checked'         => $root ?? 0,
+                        'disabled'        => $root ?? 0,
+                        'message'         => $message ?? '',
+                    ])
+                @endif
 
                 @include('user.components.form-checkbox', [
                     'name'            => 'disabled',

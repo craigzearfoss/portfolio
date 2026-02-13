@@ -31,6 +31,7 @@ class JobSkill extends Model
         'owner_id',
         'job_id',
         'name',
+        'featured',
         'type', // 0=soft skill, 1=hard skill
         'dictionary_category_id',
         'dictionary_term_id',
@@ -89,6 +90,9 @@ class JobSkill extends Model
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
+            ->when(isset($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval($filters['featured']));
+            })
             ->when(isset($filters['type']), function ($query) use ($filters) {
                 $query->where('type', '=', intval($filters['type']));
             })
@@ -97,9 +101,6 @@ class JobSkill extends Model
             })
             ->when(isset($filters['dictionary_term_id']), function ($query) use ($filters) {
                 $query->where('dictionary_term_id', '=', intval($filters['dictionary_term_id']));
-            })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
             })
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));

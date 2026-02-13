@@ -47,9 +47,9 @@
 
 @section('content')
 
-    <div style="display: flex;">
+    <div class="floating-div-container">
 
-        <div class="show-container card p-4 mb-2">
+        <div class="show-container card p-4 mb-2 mr-2" style="display: inline-block; width: auto;">
 
             <div style="display: inline-block; position: absolute; top: 0; right: 0;">
                 @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
@@ -120,7 +120,7 @@
 
         </div>
 
-        <div class="show-container card p-4 mb-2">
+        <div class="show-container card p-4 mb-2" style="display: inline-block; width: auto;">
 
             @include('admin.components.image', [
                 'src'      => $thisAdmin->image,
@@ -130,13 +130,10 @@
             ])
 
         </div>
-    </div>
-
-    <div style="display: flex;">
 
         @foreach($dbColumns as $title=>$resources)
 
-            <div class="card m-2 p-4">
+            <div class="card m-2 p-4" style="display: inline-block; width: auto;">
 
                 <div class="card-head" style="border-bottom: #5c636a 2px outset;">
                     <strong>{{ $title }}</strong>

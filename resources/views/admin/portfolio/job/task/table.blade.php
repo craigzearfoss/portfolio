@@ -1,7 +1,7 @@
 @php
     $tasks = $tasks ?? [];
 @endphp
-<table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+<table class="table admin-table">
     <thead>
     <th>summary</th>
     <th>actions</th>

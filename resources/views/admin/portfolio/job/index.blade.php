@@ -47,7 +47,7 @@
                 Settings
             </div>
             <div>
-            <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <table class="table admin-table">
                 <thead>
                 <tr>
                     <th>name</th>
@@ -55,6 +55,7 @@
                     <th>value</th>
                 </tr>
                 </thead>
+
                 <tbody>
                     @foreach($resource->settings as $setting)
                         <td>
@@ -81,16 +82,16 @@
             {!! $jobs->links('vendor.pagination.bulma') !!}
         @endif
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
+                <th class="has-text-centered"><span title="featured job">featured</span></th>
                 <th>company</th>
                 <th>logo</th>
                 <th>role</th>
-                <th class="has-text-centered">featured</th>
                 <th>start date</th>
                 <th>end date</th>
                 <th class="has-text-centered">public</th>
@@ -105,10 +106,10 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
+                    <th class="has-text-centered"><span title="featured job">featured</span></th>
                     <th>company</th>
                     <th>logo</th>
                     <th>role</th>
-                    <th class="has-text-centered">featured</th>
                     <th>start date</th>
                     <th>end date</th>
                     <th class="has-text-centered">public</th>
@@ -145,11 +146,11 @@
                         @include('admin.components.checkmark', [ 'checked' => $job->featured ])
                     </td>
                     <td data-field="start_month|start_year">
-                        @if(!empty($job->start_month)){!! date('F', mktime(0, 0, 0, $job->start_month, 10)) !!} @endif
+                        @if(!empty($job->start_month)){!! date('M', mktime(0, 0, 0, $job->start_month, 10)) !!} @endif
                         {!! $job->start_year !!}
                     </td>
                     <td data-field="end_month|end_year">
-                        @if(!empty($job->end_month)){!! date('F', mktime(0, 0, 0, $job->end_month, 10)) !!} @endif
+                        @if(!empty($job->end_month)){!! date('M', mktime(0, 0, 0, $job->end_month, 10)) !!} @endif
                         {!! $job->end_year !!}
                     </td>
                     <td data-field="public" class="has-text-centered">

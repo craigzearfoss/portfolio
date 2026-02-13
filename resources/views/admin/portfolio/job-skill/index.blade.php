@@ -42,12 +42,13 @@
             {!! $jobSkills->links('vendor.pagination.bulma') !!}
         @endif
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
+                <th class="has-text-centered"><span title="featured job skill">featured</span></th>
                 <th>name</th>
                 <th>company</th>
                 <th>summary</th>
@@ -63,6 +64,7 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
+                    <th class="has-text-centered"><span title="featured job skill">featured</span></th>
                     <th>name</th>
                     <th>company</th>
                     <th>summary</th>
@@ -157,7 +159,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no job skills.</td>
+                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no job skills.</td>
                 </tr>
 
             @endforelse

@@ -29,6 +29,7 @@ return new class extends Migration
                 ->constrained('jobs', 'id')
                 ->onDelete('cascade');
             $table->string('name', 100)->index('name_idx');
+            $table->boolean('featured')->default(false);
             $table->boolean('type')->default(true);
             $table->foreignId('dictionary_category_id')
                 ->nullable()

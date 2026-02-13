@@ -2,12 +2,21 @@
 
     @php
         $portfolioResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
-            $admin-> id,
+            $admin->id,
             'portfolio',
             [
                 'public'   => 1,
                 'disabled' => 0,
-            ]
+            ],
+        );
+
+        $personalResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
+            $admin->id,
+            'personal',
+            [
+                'public'   => 1,
+                'disabled' => 0,
+            ],
         );
     @endphp
 
@@ -78,7 +87,31 @@
                                 <li>
                                     @include('user.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => 'user.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => route('user.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'class' => 'pt-1 pb-1',
+                                    ])
+                                </li>
+                            @endif
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+                <div>
+
+                    <h1 class="title is-size-5 mt-2 mb-0">Personal</h1>
+
+                    <ul class="menu-list ml-4 mb-2">
+
+                        @foreach ($personalResourceTypes as $resourceType)
+
+                            @if(empty($resourceType['global']) && Route::has('user.admin.personal.'.$resourceType['name'].'.index'))
+                                <li>
+                                    @include('user.components.link', [
+                                        'name'  => $resourceType['plural'],
+                                        'href'  => route('user.personal.'.$resourceType['name'].'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

@@ -1,6 +1,11 @@
-<a
-    href="{{ $cancel_url ?? route('guest.index') }}"
-    class="button is-small is-dark"
+@php
+    $propArray = [];
+    foreach ($props as $key=>$value) {
+        $propsArray[] = "{$key}={$value}";
+    }
+@endphp
+<a href="{{ $cancel_url ?? route('user.index') }}"
+   class="button is-small is-dark"
 ><i class="fa-solid fa-close"></i> Cancel</a>
 
 <button
@@ -9,6 +14,10 @@
     @if (!empty($id))id="{!! $id !!}" @endif
     class="button is-small is-dark {!! $class ?? '' !!}"
     @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
+    {{ implode('; ', $propsArray) }}
     @if (!empty($onclick))onclick="{!! $onclick !!}" @endif
     {{ !empty($disabled) || !empty($readonly) ? 'disabled' : '' }}
-><i class="fa-solid fa-floppy-disk"></i> {!! $label ?? 'Submit' !!}</button>
+>
+    <i class="fa-solid fa-floppy-disk"></i> 
+    {!! $label ?? 'Submit' !!}
+</button>

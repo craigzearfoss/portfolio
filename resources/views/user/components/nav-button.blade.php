@@ -1,12 +1,31 @@
 @php
-    $class = !empty($class) ? (is_array($class) ? implode(' ', $class) : $class) : 'button is-small is-dark my-0';
-    $style = !empty($style) ? (is_array($style) ? implode('; ', $style) : $style) : '';
+    $icon = $icon ?? false;
+    $dataTarget = $dataTarget ?? false;
+
+    // get name
+    $name = $name ?? '';
+
+    // get classes
+    $class = isset($class)
+        ? (is_array($class) ? implode(' ', $class) : $class)
+        : 'button is-small is-dark my-0';
+
+    // get styles
+    $style = isset($style)
+        ? (is_array($style) ? implode('; ', $style) : $style)
+        : '';
+
+    // get icon
+    $icon = ($icon === false)
+        ? ''
+        : (false === strpos($icon, '<') ? '<i class="fa ' . $icon . '"></i>' : $icon);
 @endphp
-<a href="{{ $href ?? '' }}"
+<a @if(isset($href) && ($href !== false))href="{!! $href !!}" @endif
    @if (!empty($target ?? ''))target="{!! $target !!}" @endif
-   class="{!! $class !!}"
+   @if (!empty($class))class="{!! $class !!}" @endif
    @if (!empty($style))style="{!! $style !!}" @endif
+   @if(!empty($dataTarget))data-target="{{ $dataTarget }}" @endif
 >
-    {!! !empty($icon) ? '<i class="fa ' . $icon . ' mr-1"></i>' : '' !!}
-    {!! $name ?? '' !!}
+    {!! $icon !!}
+    {!! $name !!}
 </a>

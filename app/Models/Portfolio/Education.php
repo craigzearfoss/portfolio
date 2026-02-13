@@ -33,6 +33,7 @@ class Education extends Model
         'minor',
         'school_id',
         'slug',
+        'featured',
         'enrollment_month',
         'enrollment_year',
         'graduated',

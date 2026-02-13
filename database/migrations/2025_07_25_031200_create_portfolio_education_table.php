@@ -46,6 +46,7 @@ return new class extends Migration
                 ->constrained('schools', 'id')
                 ->onDelete('cascade');
             $table->string('slug');
+            $table->boolean('featured')->default(false);
             $table->integer('enrollment_month')->nullable();
             $table->integer('enrollment_year')->nullable();
             $table->boolean('graduated')->default(false);
@@ -81,6 +82,7 @@ return new class extends Migration
                 'owner_id        => null
                 'title'          => '',
                 'slug'           => '',
+                'featured'       => 0,
                 'parent_id       => null,
                 'featured'       => 0,
                 'summary'        => null,

@@ -100,7 +100,7 @@ class Reading extends Model
             ->when(isset($filters['fiction']), function ($query) use ($filters) {
                 $query->where('fiction', '=', boolval($filters['fiction']));
             })
-            ->when(isset($filters['fiction']), function ($query) use ($filters) {
+            ->when(isset($filters['nonfiction']), function ($query) use ($filters) {
                 $query->where('nonfiction', '=', boolval($filters['nonfiction']));
             })
             ->when(isset($filters['paper']), function ($query) use ($filters) {

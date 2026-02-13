@@ -45,14 +45,14 @@
             {!! $recipes->links('vendor.pagination.bulma') !!}
         @endif
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
+                <th class="has-text-centered"><span title="featured recipe">featured</span></th>
                 <th>name</th>
-                <th class="has-text-centered">featured</th>
                 <th>type</th>
                 <th>meal</th>
                 <th class="has-text-centered">public</th>
@@ -67,8 +67,8 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
+                    <th class="has-text-centered"><span title="featured recipe">featured</span></th>
                     <th>name</th>
-                    <th class="has-text-centered">featured</th>
                     <th>type</th>
                     <th>meal</th>
                     <th class="has-text-centered">public</th>
@@ -161,7 +161,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin0>root ? '8' : '7' }}">There are no recipes.</td>
+                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no recipes.</td>
                 </tr>
 
             @endforelse

@@ -16,7 +16,7 @@
 
     @if (!empty($download))
         <a class="download-link text-xl"
-            title="download file"
+            title="{{ $title ?? 'download file' }}"
             data-url="{!! $imageUrl !!}"
             data-filename="{!! $filename ?? '' !!}"
         >
@@ -24,11 +24,10 @@
         </a>
     @endif
     @if (!empty($external))
-        <a title="open file in a new window"
+        <a title="{{ $title ?? 'open file in a new window' }}"
            class="certificate text-xl"
 	       href="{!! $imageUrl !!}"
-           target="_blank"
-        >
+           target="_blank">
             <i class="fa-solid fa-external-link"></i>
         </a>
     @endif

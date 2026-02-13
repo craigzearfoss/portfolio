@@ -45,16 +45,16 @@
             {!! $awards->links('vendor.pagination.bulma') !!}
         @endif
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
+                <th class="has-text-centered"><span title="featured award">featured</span></th>
                 <th>name</th>
                 <th>year</th>
                 <th>organization</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -67,10 +67,10 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
+                    <th class="has-text-centered"><span title="featured award">featured</span></th>
                     <th>name</th>
                     <th>year</th>
                     <th>organization</th>
-                    <th class="has-text-centered">featured</th>
                     <th class="has-text-centered">public</th>
                     <th class="has-text-centered">disabled</th>
                     <th>actions</th>

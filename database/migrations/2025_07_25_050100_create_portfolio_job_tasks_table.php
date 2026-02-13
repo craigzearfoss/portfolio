@@ -39,6 +39,7 @@ return new class extends Migration
             $table->foreignId('job_id')
                 ->constrained('jobs', 'id')
                 ->onDelete('cascade');
+            $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

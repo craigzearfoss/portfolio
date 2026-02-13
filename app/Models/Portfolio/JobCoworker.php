@@ -34,6 +34,7 @@ class JobCoworker extends Model
         'job_id',
         'name',
         'title',
+        'featured',
         'level_id',
         'work_phone',
         'personal_phone',
@@ -103,11 +104,11 @@ class JobCoworker extends Model
             ->when(!empty($filters['title']), function ($query) use ($filters) {
                 $query->where('title', 'like', '%' . $filters['title'] . '%');
             })
+            ->when(isset($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval($filters['featured']));
+            })
             ->when(isset($filters['level_id']), function ($query) use ($filters) {
                 $query->where('level_id', '=', intval($filters['level_id']));
-            })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
             })
             ->when(!empty($filters['work_phone']), function ($query) use ($filters) {
                 $query->where('work_phone', 'like', '%' . $filters['work_phone'] . '%');

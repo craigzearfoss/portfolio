@@ -54,6 +54,7 @@
 
                     @foreach($menuItems as $menuItem)
 
+                        <?php /* user dropdown menu at the top right */ ?>
                         @if($menuItem->name == 'user-dropdown')
 
                             <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
