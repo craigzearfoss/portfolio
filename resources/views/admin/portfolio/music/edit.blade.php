@@ -10,13 +10,13 @@
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
         $breadcrumbs[] = [ 'name' => 'Music',      'href' => route('admin.portfolio.music.index', ['owner_id'=>$owner->id]) ];
         $breadcrumbs[] = [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
-                           'href' => route('admin.portfolio.music.show', [$music->id, 'owner_id'=>$owner->id])
+                           'href' => route('admin.portfolio.music.show', [$music, 'owner_id'=>$owner->id])
                          ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
         $breadcrumbs[] = [ 'name' => 'Music',      'href' => route('admin.portfolio.music.index') ];
         $breadcrumbs[] = [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
-                           'href' => route('admin.portfolio.music.show', $music->id)
+                           'href' => route('admin.portfolio.music.show', $music)
                          ];
     }
     $breadcrumbs[] = [ 'name' => 'Edit' ];
@@ -46,7 +46,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.music.update', $music->id) }}" method="POST">
+        <form action="{{ route('admin.portfolio.music.update', array_merge([$music], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

@@ -1,13 +1,18 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Log' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Log',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Logs' ],
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any() ?? [],
     'success'          => session('success') ?? null,
@@ -21,9 +26,8 @@
 
 @section('content')
 
-
     <div class="search-container card p-2">
-        <form id="searchForm" action="{!! route('admin.log.index') !!}" method="get">
+        <form id="searchForm" action="{!! route('admin.system.log.index') !!}" method="get">
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'type',

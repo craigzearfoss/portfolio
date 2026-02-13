@@ -8,6 +8,7 @@ use App\Http\Requests\Career\StoreCoverLettersRequest;
 use App\Http\Requests\Career\UpdateCoverLettersRequest;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,13 +34,13 @@ class CoverLetterController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $coverLetters = CoverLetter::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
-        } else {
-            $coverLetters = CoverLetter::latest()->paginate($perPage);
-        }
+        $coverLetters = CoverLetter::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.career.cover-letter.index', compact('coverLetters'))
+        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Cover Letters' : 'Cover Letters';
+
+        return view('admin.career.cover-letter.index', compact('coverLetters', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

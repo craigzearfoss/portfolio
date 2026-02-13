@@ -28,7 +28,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.job-task.update', $jobTask->id) }}" method="POST">
+        <form action="{{ route('admin.portfolio.job-task.update', array_merge([$jobTask], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

@@ -1,4 +1,13 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Groups' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
@@ -12,12 +21,8 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Admin Groups',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Admin Groups' ]
-    ],
+    'title'            => $pageTitle ?? 'Groups',
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
@@ -30,6 +35,10 @@
 ])
 
 @section('content')
+
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-group.index') ])
+    @endif
 
     <div class="card p-4">
 

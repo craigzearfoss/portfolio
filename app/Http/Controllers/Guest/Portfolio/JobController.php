@@ -32,7 +32,7 @@ class JobController extends BaseGuestController
         $jobs = Job::where('owner_id', $this->owner->id)
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.job.index'), compact('jobs'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

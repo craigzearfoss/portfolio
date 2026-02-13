@@ -32,9 +32,13 @@ class JobBoardController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobBoards = JobBoard::orderBy('name', 'asc')->paginate($perPage);
+        $jobBoards = JobBoard::searchQuery($request->all())
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.career.job-board.index', compact('jobBoards'))
+        $pageTitle = 'Job Boards';
+
+        return view('admin.career.job-board.index', compact('jobBoards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

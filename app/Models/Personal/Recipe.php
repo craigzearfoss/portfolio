@@ -3,12 +3,15 @@
 namespace App\Models\Personal;
 
 use App\Models\Scopes\AdminPublicScope;
+use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
 class Recipe extends Model
 {
@@ -93,6 +96,76 @@ class Recipe extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
+            }
+            $filters['owner_id'] = $owner->id;
+        }
+
+        $query = self::getSearchQuery($filters, $owner)
+            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(isset($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(isset($filters['source']), function ($query) use ($filters) {
+                $query->where('source', '=', $filters['source']);
+            })
+            ->when(isset($filters['author']), function ($query) use ($filters) {
+                $query->where('author', '=', $filters['author']);
+            })
+            ->when(isset($filters['prep_time']), function ($query) use ($filters) {
+                $query->where('prep_time', '<=', intval($filters['prep_time']));
+            })
+            ->when(isset($filters['total_time']), function ($query) use ($filters) {
+                $query->where('total_time', '<=', intval($filters['total_time']));
+            })
+            ->when(isset($filters['main']), function ($query) use ($filters) {
+                $query->where('main', '=', boolval(['main']));
+            })
+            ->when(isset($filters['side']), function ($query) use ($filters) {
+                $query->where('side', '=', boolval(['side']));
+            })
+            ->when(isset($filters['dessert']), function ($query) use ($filters) {
+                $query->where('dessert', '=', boolval(['dessert']));
+            })
+            ->when(isset($filters['appetizer']), function ($query) use ($filters) {
+                $query->where('appetizer', '=', boolval(['appetizer']));
+            })
+            ->when(isset($filters['beverage']), function ($query) use ($filters) {
+                $query->where('beverage', '=', boolval(['beverage']));
+            })
+            ->when(isset($filters['breakfast']), function ($query) use ($filters) {
+                $query->where('breakfast', '=', boolval(['breakfast']));
+            })
+            ->when(isset($filters['lunch']), function ($query) use ($filters) {
+                $query->where('lunch', '=', boolval(['lunch']));
+            })
+            ->when(isset($filters['dinner']), function ($query) use ($filters) {
+                $query->where('dinner', '=', boolval(['dinner']));
+            })
+            ->when(isset($filters['snack']), function ($query) use ($filters) {
+                $query->where('snack', '=', boolval(['snack']));
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
+            });
+
+        return $query;
     }
 
     /**

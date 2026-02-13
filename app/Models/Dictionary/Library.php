@@ -3,7 +3,10 @@
 namespace App\Models\Dictionary;
 
 use App\Models\Scopes\AdminPublicScope;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Library extends Model
@@ -57,6 +60,46 @@ class Library extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $name = $filters['name'];
+                $query->orWhere(function ($query) use ($name) {
+                    $query->where('full_name', 'LIKE', '%' . $name . '%')
+                        ->orWhere('name', 'LIKE', '%' . $name . '%')
+                        ->orWhere('abbreviation', 'LIKE', '%' . $name . '%');
+                });
+            })
+            ->when(!empty($filters['definition']), function ($query) use ($filters) {
+                $query->where('definition', 'like', '%' . $filters['definition'] . '%');
+            })
+            ->when(isset($filters['open_source']), function ($query) use ($filters) {
+                $query->where('open_source', '=', boolval($filters['open_source']));
+            })
+            ->when(isset($filters['proprietary']), function ($query) use ($filters) {
+                $query->where('proprietary', '=', boolval($filters['proprietary']));
+            })
+            ->when(isset($filters['compiled']), function ($query) use ($filters) {
+                $query->where('compiled', '=', boolval($filters['compiled']));
+            })
+            ->when(!empty($filters['owner']), function ($query) use ($filters) {
+                $query->where('owner', 'like', '%' . $filters['owner'] . '%');
+            });
+
+        return $query;
     }
 
     /**

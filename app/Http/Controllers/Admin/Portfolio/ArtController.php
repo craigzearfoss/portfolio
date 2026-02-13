@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\StoreArtRequest;
 use App\Http\Requests\Portfolio\UpdateArtRequest;
 use App\Models\Portfolio\Academy;
 use App\Models\Portfolio\Art;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +25,6 @@ class ArtController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -33,13 +32,11 @@ class ArtController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $arts = Art::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $arts = Art::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $arts = Art::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Art' : $this->owner->name . ' art';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Art' : 'Art';
 
         return view('admin.portfolio.art.index', compact('arts','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -95,13 +92,11 @@ class ArtController extends BaseAdminController
     /**
      * Show the form for editing the specified art.
      *
-     * @param int $id
+     * @param Art $art
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Art $art): View
     {
-        $art = Art::findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
 
         return view('admin.portfolio.art.edit', compact('art'));

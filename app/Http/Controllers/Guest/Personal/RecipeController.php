@@ -28,7 +28,7 @@ class RecipeController extends BaseGuestController
 
         $recipes = Recipe::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.personal.recipe.index'), compact('recipes'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

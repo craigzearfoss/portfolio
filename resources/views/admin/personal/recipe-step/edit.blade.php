@@ -6,7 +6,7 @@
         [ 'name' => 'Personal',                   'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',                    'href' => route('admin.personal.recipe.index') ],
         [ 'name' => $recipeStep->recipe['name'],  'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
-        [ 'name' => 'Step ' . $recipeStep->step , 'href' => route('admin.personal.recipe-step.show', $recipeStep->id) ],
+        [ 'name' => 'Step ' . $recipeStep->step , 'href' => route('admin.personal.recipe-step.show', $recipeStep) ],
         [ 'name' => 'Edit' ],
     ],
     'buttons'          => [
@@ -28,7 +28,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.personal.recipe-step.update', $recipeStep) }}" method="POST">
+        <form action="{{ route('admin.personal.recipe-step.update', array_merge([$recipeStep], request()->all())) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

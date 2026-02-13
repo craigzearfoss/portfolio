@@ -9,6 +9,7 @@ use App\Http\Requests\Career\StoreContactsRequest;
 use App\Http\Requests\Career\UpdateContactsRequest;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,14 +35,13 @@ class ContactController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $contacts = Contact::where('owner_id', $this->owner->id)
-                ->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $contacts = Contact::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $contacts = Contact::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.career.contact.index', compact('contacts'))
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Contacts' : 'Contacts';
+
+        return view('admin.career.contact.index', compact('contacts', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

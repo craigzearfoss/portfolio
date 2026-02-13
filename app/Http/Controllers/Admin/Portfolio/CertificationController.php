@@ -29,7 +29,9 @@ class CertificationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $certifications = Certification::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
+        $certifications = Certification::searchQuery($request->all())
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Certifications';
 

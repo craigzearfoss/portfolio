@@ -40,7 +40,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.company.store', $urlParams) }}" method="POST">
+        <form action="{{ route('admin.career.company.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

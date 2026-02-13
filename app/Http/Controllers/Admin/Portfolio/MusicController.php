@@ -6,8 +6,8 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreMusicRequest;
 use App\Http\Requests\Portfolio\UpdateMusicRequest;
-use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Music;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +24,6 @@ class MusicController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -33,15 +31,13 @@ class MusicController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $musics = Music::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $musics = Music::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $musics = Music::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Music' : $this->owner->name . ' music';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Music' : 'Music';
 
-        return view('admin.portfolio.music.index', compact('musics'))
+        return view('admin.portfolio.music.index', compact('musics', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

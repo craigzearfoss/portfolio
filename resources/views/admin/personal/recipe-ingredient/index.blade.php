@@ -28,6 +28,8 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.recipe-child', [ 'action' => route('admin.personal.recipe-ingredient.index') ])
+
     <div class="card p-4">
 
         @if($pagination_top)
@@ -40,7 +42,7 @@
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                @if(empty($recipeId))
+                @if(empty($recipe))
                     <th>recipe</th>
                 @endif
                 <th>name</th>
@@ -56,7 +58,7 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    @if(empty($recipeId))
+                    @if(empty($recipe))
                         <th>recipe</th>
                     @endif
                     <th>name</th>
@@ -77,7 +79,7 @@
                             {{ $recipeIngredient->owner->username ?? '' }}
                         </td>
                     @endif
-                    @if(empty($recipeId))
+                    @if(empty($recipe))
                         <td data-field="recipe.name">
                             @if(!empty($recipeIngredient->recipe))
                                 @include('admin.components.link', [
@@ -94,7 +96,7 @@
                         {!! $recipeIngredient->amount !!}
                     </td>
                     <td data-field="unit.name">
-                        {!! $recipeIngredient->unit->name ?? '') !!}
+                        {!! $recipeIngredient->unit->name ?? '' !!}
                     </td>
                     <td class="is-1">
 
@@ -103,7 +105,7 @@
                             @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.recipe-ingredient.show', [$owner, $recipeIngredient->id]),
+                                    'href'  => route('admin.personal.recipe-ingredient.show', [$owner, $recipeIngredient]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -111,7 +113,7 @@
                             @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.recipe-ingredient.edit', [$owner, $recipeIngredient->id]),
+                                    'href'  => route('admin.personal.recipe-ingredient.edit', [$owner, $recipeIngredient]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif
@@ -153,7 +155,7 @@
                 <tr>
                     @php
                         $cols = $admin->root ? '5' : '4';
-                        if (!empty($recipeId)) $cols++;
+                        if (!empty($recipe)) $cols++;
                     @endphp
                     <td colspan="{{ $cols }}">There are no recipe ingredients.</td>
                 </tr>

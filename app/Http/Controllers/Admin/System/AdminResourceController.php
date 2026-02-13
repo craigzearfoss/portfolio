@@ -30,15 +30,16 @@ class AdminResourceController extends BaseAdminController
 
         if (!empty($this->owner)) {
             $adminResources = AdminResource::where('owner_id', $this->owner->id)
-                ->orderBy('database_id', 'asc')->orderBy('name', 'asc')->paginate($perPage);
+                ->orderBy('database_id', 'asc')->orderBy('name', 'asc')->paginate($perPage)
+                ->appends(request()->except('page'));
         } else {
             $adminResources = AdminResource::orderBy('database_id')
-                ->orderBy('database_id', 'asc')->orderBy('name')->paginate($perPage);
+                ->orderBy('database_id', 'asc')->orderBy('name')->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $pageTitle = (!empty($this->owner) ? 'Resources for ' . $this->owner->name : 'Resources');
+        $pageTitle = ($this->isRootAdmin && !empty($this->owner)) ? $this->owner->name . ' - Resources' : 'Resources';
 
-        return view('admin.system.admin-resource.index', compact('adminResources'))
+        return view('admin.system.admin-resource.index', compact('adminResources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

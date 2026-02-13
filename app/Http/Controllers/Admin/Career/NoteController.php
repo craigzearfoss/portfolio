@@ -8,8 +8,10 @@ use App\Http\Requests\Career\StoreNotesRequest;
 use App\Http\Requests\Career\UpdateNotesRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Note;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
@@ -31,23 +33,17 @@ class NoteController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $applicationId = $request->application_id;
-        if (!empty($applicationId)) {
-
-            $application = Application::find($applicationId);
-            $notes = Note::where('application_id', $applicationId)->latest()->paginate($perPage);
-
-        } else {
-
-            $application = null;
-            if (!empty($this->owner)) {
-                $notes = Note::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
-            } else {
-                $notes = Note::latest()->paginate($perPage);
-            }
+        $query = Note::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('created_at', 'desc');
+        if ($application = $request->application_id ? Application::findOrFail($request->application_id) : null) {
+            $query->where('application_id', $application->id);
         }
 
-        return view('admin.career.note.index', compact('notes', 'application'))
+        $notes = $query->paginate($perPage)->appends(request()->except('page'));
+
+        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Notes' : 'Notes';
+
+        return view('admin.career.note.index', compact('notes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -61,14 +57,11 @@ class NoteController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'note', $this->admin);
 
-        $urlParams = [];
-        $application = null;
-        if ($applicationId = $request->get('application_id')) {
-            $urlParams['application_id'] = $applicationId;
-            $application = Application::find($applicationId);
-        }
+        $application = !empty($request->application_id)
+            ? Application::find($request->application_id)
+            : null;
 
-        return view('admin.career.note.create', compact('application', 'urlParams'));
+        return view('admin.career.note.create', compact('application'));
     }
 
     /**
@@ -125,23 +118,14 @@ class NoteController extends BaseAdminController
     /**
      * Show the form for editing the specified note.
      *
-     * @param int $id
+     * @param Note $note
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function edit(int $id): View
+    public function edit(Note $note): View
     {
-        $note = Note::findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
 
-        $urlParams = [];
-        if ($applicationId = request()->get('application_id')) {
-            $urlParams['application_id'] = $applicationId;
-        }
-
-        return view('admin.career.note.edit', compact('note', 'urlParams'));
+        return view('admin.career.note.edit', compact('note'));
     }
 
     /**

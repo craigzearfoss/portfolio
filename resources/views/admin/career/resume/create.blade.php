@@ -5,7 +5,7 @@
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
             [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ],
             [ 'name' => 'Add' ]
         ];
@@ -41,7 +41,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.resume.store', $urlParams ?? []) }}" method="POST">
+        <form action="{{ route('admin.career.resume.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

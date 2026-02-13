@@ -34,6 +34,8 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.job-child', [ 'action' => route('admin.portfolio.job-skill.index') ])
+
     <div class="card p-4">
 
         @if($pagination_top)
@@ -46,9 +48,9 @@
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
+                <th>name</th>
                 <th>company</th>
                 <th>summary</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -61,9 +63,9 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
+                    <th>name</th>
                     <th>company</th>
                     <th>summary</th>
-                    <th class="has-text-centered">featured</th>
                     <th class="has-text-centered">public</th>
                     <th class="has-text-centered">disabled</th>
                     <th>actions</th>
@@ -81,6 +83,11 @@
                             {{ $jobSkill->owner->username ?? '' }}
                         </td>
                     @endif
+                    <td data-field="name">
+                        @if($jobSkill->job)
+                            {!! $jobSkill->name ?? '' !!}
+                        @endif
+                    </td>
                     <td data-field="job.company">
                         @if($jobSkill->job)
                             {!! $jobSkill->job->company ?? '' !!}

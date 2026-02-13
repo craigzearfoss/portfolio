@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StorePublicationsRequest;
 use App\Http\Requests\Portfolio\UpdatePublicationsRequest;
 use App\Models\Portfolio\Publication;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,6 @@ class PublicationController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -32,13 +31,11 @@ class PublicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $publications = Publication::where('owner_id', $this->owner->id)->orderBy('title', 'asc')->paginate($perPage);
-        } else {
-            $publications = Publication::orderBy('title', 'asc')->paginate($perPage);
-        }
+        $publications = Publication::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Publications' : $this->owner->name . ' publications';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Publications' : 'Publications';
 
         return view('admin.portfolio.publication.index', compact('publications', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

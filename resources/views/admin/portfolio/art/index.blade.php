@@ -6,8 +6,9 @@
     ];
     if (!empty($owner) && !empty($admin) && $admin->root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index',
+                                                                    !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
+                                                                   )];
     } else {
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
     }
@@ -16,7 +17,10 @@
     // set navigation buttons
     $buttons = [];
     if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'art', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Art', 'href' => route('admin.portfolio.art.create', $owner ?? $admin)])->render();
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Art',
+                                                               'href' => route('admin.portfolio.art.create',
+                                                                               !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
+                                                                              )])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
@@ -34,6 +38,10 @@
 ])
 
 @section('content')
+
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.art.index') ])
+    @endif
 
     <div class="card p-4">
 

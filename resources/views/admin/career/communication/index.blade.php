@@ -39,6 +39,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.communication.index') ])
+    @endif
+
     <div class="card p-4">
 
         @if($pagination_top)

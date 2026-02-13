@@ -25,7 +25,7 @@ class AwardController extends BaseGuestController
 
         $awards = Award::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')->orderBy('name', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.award.index'), compact('awards'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

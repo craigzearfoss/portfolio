@@ -34,9 +34,11 @@
         @include('guest.components.disclaimer')
     @endif
 
+    @include('guest.components.search-panel.reading', [ 'action' => route('guest.personal.reading.index', $owner) ])
+
     <?php /*
     <div class="search-container card p-2 pb-0 mb-1">
-        <form id="searchForm" action="{{ route('guest.personal.reading.index') }}" method="get">
+        <form id="searchForm" action="{{ route('guest.personal.reading.index', request()->all()) }}" method="get">
             <div class="control">
                 @include('guest.components.form-select', [
                     'name'     => 'author',

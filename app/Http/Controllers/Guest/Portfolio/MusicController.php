@@ -28,7 +28,7 @@ class MusicController extends BaseGuestController
 
         $musics = Music::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')->orderBy('artist', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.music.index'), compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

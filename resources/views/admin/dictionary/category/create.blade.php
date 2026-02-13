@@ -33,7 +33,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.dictionary.category.store') }}" method="POST">
+        <form action="{{ route('admin.dictionary.category.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

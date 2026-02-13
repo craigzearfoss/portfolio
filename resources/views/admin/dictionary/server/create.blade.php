@@ -4,7 +4,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
-        [ 'name' => 'Servers',       'href' => route('admin.dictionary.service.index') ],
+        [ 'name' => 'Servers',         'href' => route('admin.dictionary.server.index') ],
         [ 'name' => 'Add' ]
     ];
 
@@ -33,7 +33,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.dictionary.server.store') }}" method="POST">
+        <form action="{{ route('admin.dictionary.server.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

@@ -8,11 +8,14 @@ use App\Http\Requests\Personal\StoreReadingsRequest;
 use App\Http\Requests\Personal\UpdateReadingsRequest;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\Reading;
+use App\Models\System\Owner;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
+use Spatie\QueryBuilder\QueryBuilder;
 
 /**
  *
@@ -32,19 +35,11 @@ class ReadingController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $readings = Reading::searchBuilder(
-                array_merge($request->all(), ['owner_id' => $this->owner->id]),
-                ['title', 'asc'])->paginate($perPage)
-                ->appends(request()->except('page'));
-        } else {
-            $readings = Reading::searchBuilder(
-                $request->all(),
-                ['title', 'asc'])->paginate($perPage)
-                ->appends(request()->except('page'));
-        }
+        $readings = Reading::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('title', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Readings' : $this->owner->name . ' readings';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Readings' : 'Readings';
 
         return view('admin.personal.reading.index', compact('readings', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

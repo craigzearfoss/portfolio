@@ -1,14 +1,23 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Admin Group: ' . $adminGroup->name,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Admin Groups',    'href' => route('admin.system.admin-group.index') ],
-        [ 'name' => $adminGroup->name ]
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-group.index') ])->render(),
-    ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Groups',          'href' => route('admin.system.admin-group.index') ],
+        [ 'name' => $adminGroup->name, 'href' => route('admin.system.admin-group.show', $adminGroup->id) ],
+        [ 'name' => 'Edit' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-group.index') ])->render()
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? $adminGroup->name .  ' Group',
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -25,7 +34,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin-group.update', $adminGroup->id) }}" method="POST">
+        <form action="{{ route('admin.system.admin-group.update', array_merge([$adminGroup], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

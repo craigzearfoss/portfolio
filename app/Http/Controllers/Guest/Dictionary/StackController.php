@@ -25,7 +25,7 @@ class StackController extends BaseGuestController
 
         $stacks = Stack::where('name', '!=', 'other')
             ->orderBy('name', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.dictionary.stack.index'), compact('stacks'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

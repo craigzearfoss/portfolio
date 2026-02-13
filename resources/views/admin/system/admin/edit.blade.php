@@ -1,14 +1,22 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Admin: ' . $owner->username,
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
-        [ 'name' => $owner->username ]
-    ],
-    'buttons'          => [
+        [ 'name' => $owner->name ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin.index') ])->render(),
-    ],
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? $owner->name,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -25,7 +33,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin.update', $owner->id) }}" method="POST">
+        <form action="{{ route('admin.system.admin.update', array_merge([$owner], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

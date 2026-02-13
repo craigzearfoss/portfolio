@@ -5,9 +5,9 @@
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
-            [ 'name' => 'Communications',   'href' => route('admin.career.communication.index', ['application_id' => $application->id]) ],
-            [ 'name' => 'Communication',    'href' => route('admin.career.communication.show', $communication, ['application_id' => $application->id) ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Communications',   'href' => route('admin.career.communication.index', ['application_id' => $application]) ],
+            [ 'name' => 'Communication',    'href' => route('admin.career.communication.show', $communication, ['application_id' => $application->id)],
             [ 'name' => 'Edit' ]
         ];
     } else {
@@ -43,7 +43,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.communication.update', $communication, $urlParams ?? []) }}" method="POST">
+        <form action="{{ route('admin.career.communication.update', array_merge([$communication], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

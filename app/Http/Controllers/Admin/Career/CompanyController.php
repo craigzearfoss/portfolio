@@ -12,6 +12,7 @@ use App\Http\Requests\Career\StoreContactsRequest;
 use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,14 +39,13 @@ class CompanyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $companies = Company::where('owner_id', $this->owner->id)
-                ->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $companies = Company::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $companies = Company::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.career.company.index', compact('companies'))
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Companies' : 'Companies';
+
+        return view('admin.career.company.index', compact('companies', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -59,13 +59,7 @@ class CompanyController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'company', $this->admin);
 
-        $urlParams = [];
-        if ($newApplication = $request->query('new_application')) $urlParams[ 'new_application'] = 1;
-        if ($resumeId = $request->get('resume_id')) $urlParams['resume_id'] = $resumeId;
-        if ($coverLetterId = $request->get('cover_letter_id')) $urlParams['cover_letter_id'] = $coverLetterId;
-        if ($newApplication = $request->query('new_application')) $urlParams[ 'new_application'] = 1;
-
-        return view('admin.career.company.create', compact('urlParams'));
+        return view('admin.career.company.create');
     }
 
     /**

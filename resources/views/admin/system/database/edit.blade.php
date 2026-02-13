@@ -33,7 +33,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.database.update', $database) }}" method="POST">
+        <form action="{{ route('admin.system.database.update', array_merge([$database], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

@@ -29,43 +29,6 @@
             </div>
         </div>
 
-        <div class="control ml-2 mt-2">
-
-            @if(!empty($admin->root))
-
-                @php
-                    $params = request()->input();
-                    if (array_key_exists('owner_id', $params)) unset($params['owner_id']);
-                    $params['owner_id'] = '';
-                @endphp
-
-                <div class="has-text-light">admins</div>
-
-                @include('admin.components.form-select-nolabel', [
-                    'value'    => !empty($owner->id) ? $owner->id : '',
-                    'list'     => \App\Models\System\Admin::listOptions([],
-                                                                        'id',
-                                                                        'name',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'name', 'asc' ],
-                                                                        getEnvType()
-                                                                       ),
-                    'style'    => 'font-size: 1.1rem; font-weight: 700',
-                    'onchange' => "document.location.href='" . url()->current() . '?' . http_build_query($params) . "'+this.value;"
-                ])
-
-            @elseif (!empty($admin))
-
-                <h2 class="ml-2 mb-1 has-text-warning" style="font-size: 1.25rem; font-weight: 600; line-height: 1.25;">
-                    {!! $admin->name !!}
-                </h2>
-                <hr class="mt-0 mb-0 mr-3" style="color: #727c8f; background-color: #727c8f;">
-
-            @endif
-
-        </div>
-
         @if (!in_array($currentRouteName, ['admin.login', 'admin.login-submit']))
 
             @for ($i = 0; $i < count($menuItems); $i++)

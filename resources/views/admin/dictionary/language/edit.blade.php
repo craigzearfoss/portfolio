@@ -33,7 +33,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.dictionary.language.update', $language) }}" method="POST">
+        <form action="{{ route('admin.dictionary.language.update', array_merge([$language], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

@@ -11,6 +11,7 @@ use App\Models\Career\Communication;
 use App\Models\Career\Resume;
 use App\Models\Portfolio\Job;
 use App\Models\System\Admin;
+use App\Models\System\Owner;
 use App\Services\ResumeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,35 +38,18 @@ class ResumeController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $applicationId = $request->application_id;
-        if (!empty($applicationId)) {
-
-            $application = Application::find($applicationId);
-            if (!empty($this->owner)) {
-                $resumes = Resume::where('owner_id', $this->owner->id)
-                    ->where('application_id', $applicationId)
-                    ->orderBy('date', 'desc')
-                    ->orderby('name', 'asc')->paginate($perPage);
-            } else {
-                $resumes = Resume::where('application_id', $applicationId)
-                    ->orderBy('date', 'desc')
-                    ->orderby('name', 'asc')->paginate($perPage);
-            }
-
-        } else {
-
-            $application = null;
-            if (!empty($this->owner)) {
-                $resumes = Resume::where('owner_id', $this->owner->id)
-                    ->orderBy('date', 'desc')
-                    ->orderby('name', 'asc')->paginate($perPage);
-            } else {
-                $resumes = Resume::orderBy('date', 'desc')
-                    ->orderby('name', 'asc')->paginate($perPage);
-            }
+        $query = Resume::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'desc');
+        if ($application = $request->application_id ? Application::findOrFail($request->application_id) : null) {
+            $query->leftJoin(config('app.career_db').'.applications', 'applications.resume_id', '=', 'resumes.id')
+                ->where('applications.id', $application->id);
         }
 
-        return view('admin.career.resume.index', compact('resumes', 'application'))
+        $resumes = $query->paginate($perPage)->appends(request()->except('page'));
+
+        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Resumes' : 'Resumes';
+
+        return view('admin.career.resume.index', compact('resumes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -79,14 +63,11 @@ class ResumeController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'resume', $this->admin);
 
-        $urlParams = [];
-        $application = null;
-        if ($applicationId = $request->get('application_id')) {
-            $urlParams['application_id'] = $applicationId;
-            $application = Application::find($applicationId);
-        }
+        $application = !empty($request->application_id)
+            ? Application::find($request->application_id)
+            : null;
 
-        return view('admin.career.resume.create', compact('application', 'urlParams'));
+        return view('admin.career.resume.create', compact('application'));
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Requests\Career\StoreEventsRequest;
 use App\Http\Requests\Career\UpdateEventsRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Event;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,23 +32,17 @@ class EventController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $applicationId = $request->application_id;
-        if (!empty($applicationId)) {
-
-            $application = Application::find($applicationId);
-            $events = Event::where('application_id', $applicationId)->latest()->paginate($perPage);
-
-        } else {
-
-            $application = null;
-            if (!empty($this->owner)) {
-                $events = Event::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
-            } else {
-                $events = Event::latest()->paginate($perPage);
-            }
+        $query = Event::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('created_at', 'desc');
+        if ($application = $request->application_id ? Application::findOrFail($request->application_id) : null) {
+            $query->where('application_id', $application->id);
         }
 
-        return view('admin.career.event.index', compact('events', 'application'))
+        $events = $query->paginate($perPage)->appends(request()->except('page'));
+
+        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Events' : 'Events';
+
+        return view('admin.career.event.index', compact('events', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -61,14 +56,11 @@ class EventController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'event', $this->admin);
 
-        $urlParams = [];
-        $application = null;
-        if ($applicationId = $request->get('application_id')) {
-            $urlParams['application_id'] = $applicationId;
-            $application = Application::find($applicationId);
-        }
+        $application = ($request->application_id)
+            ? Application::find($request->application_id)
+            : null;
 
-        return view('admin.career.event.create', compact('application', 'urlParams'));
+        return view('admin.career.event.create', compact('application'));
     }
 
     /**
@@ -125,23 +117,14 @@ class EventController extends BaseAdminController
     /**
      * Show the form for editing the specified event.
      *
-     * @param int $id
+     * @param Event $event
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function edit(int $id): View
+    public function edit(Event $event): View
     {
-        $event = Event::findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
 
-        $urlParams = [];
-        if ($applicationId = request()->get('application_id')) {
-            $urlParams['application_id'] = $applicationId;
-        }
-
-        return view('admin.career.event.edit', compact('event', 'urlParams'));
+        return view('admin.career.event.edit', compact('event'));
     }
 
     /**

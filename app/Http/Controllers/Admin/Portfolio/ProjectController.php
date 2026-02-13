@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\StoreProjectsRequest;
 use App\Http\Requests\Portfolio\UpdateProjectsRequest;
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Project;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +25,6 @@ class ProjectController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -33,13 +32,11 @@ class ProjectController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $projects = Project::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $projects = Project::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $projects = Project::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Projects' : $this->owner->name . ' projects';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Projects' : 'Projects';
 
         return view('admin.portfolio.project.index', compact('projects', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -1,16 +1,21 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Messages' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'message', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Message',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Messages' ],
-    ],
+    'title'            => $pageTitle ?? 'Messages',
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any() ?? [],
     'success'          => session('success') ?? null,

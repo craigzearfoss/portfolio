@@ -40,7 +40,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.photography.store') }}" method="POST">
+        <form action="{{ route('admin.portfolio.photography.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
@@ -52,7 +52,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? '',
+                    'value'    => old('owner_id') ?? request()->owner_id,
                     'required' => true,
                     'list'     => \App\Models\System\Owner::listOptions([],
                                                                         'id',

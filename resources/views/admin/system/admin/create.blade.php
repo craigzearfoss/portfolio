@@ -1,14 +1,22 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New Admin',
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
-        [ 'name' => 'Add' ]
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin.index')])->render(),
-    ],
+        [ 'name' => 'Create' ]
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin.index') ])->render(),
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Create New Admin',
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -25,7 +33,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin.store') }}" method="POST">
+        <form action="{{ route('admin.system.admin.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

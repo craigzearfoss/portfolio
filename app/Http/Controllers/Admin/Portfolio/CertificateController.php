@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCertificatesRequest;
 use App\Http\Requests\Portfolio\UpdateCertificatesRequest;
 use App\Models\Portfolio\Certificate;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,6 @@ class CertificateController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -32,13 +31,11 @@ class CertificateController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $certificates = Certificate::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $certificates = Certificate::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $certificates = Certificate::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Certificates' : $this->owner->name . ' certificates';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Certificates' : 'Certificates';
 
         return view('admin.portfolio.certificate.index', compact('certificates', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

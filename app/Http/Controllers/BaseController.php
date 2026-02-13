@@ -25,9 +25,10 @@ class BaseController extends Controller
      * The logged in admin, logged-in user, and current owner that is being viewed.
      */
     protected $admin = null;
-    protected $user  = null;
-
     protected $owner = null;
+    protected $owner_id = null;
+    protected $isRootAdmin = false;
+    protected $user  = null;
 
     protected $action            = null;
     protected $currentRouteName  = null;
@@ -59,16 +60,20 @@ class BaseController extends Controller
     {
         $this->envType = $envType;
 
-        $this->admin = loggedInAdmin();
-        $this->user  = loggedInUser();
-
+        $this->admin       = loggedInAdmin();
+        $this->isRootAdmin = !empty($this->admin->root);
         $this->owner = null;
+        $this->user        = loggedInUser();
 
         // get the url/route information
         $this->action           = Route::currentRouteAction();
         $this->currentRouteName = Route::currentRouteName();
         $this->routeParams      = Route::current()->parameters();
-        $this->urlParams        = request()->all();
+        $this->urlParams        = array_filter(
+            request()->query(),
+            function ($value, $key) { return !empty($value); },
+            ARRAY_FILTER_USE_BOTH
+        );
         $parts                  = explode('.', $this->currentRouteName);
         $this->resource         = $parts[count($parts) - 2] ?? null;
 
@@ -132,6 +137,11 @@ class BaseController extends Controller
         //    $this->owner = null;
         //    $owner_id = null;
 
+        } elseif (!empty($this->admin)) {
+
+            $this->owner = $this->admin;
+            $owner_id = $this->owner->id ?? null;
+
         } else {
 
             if (empty($this->owner)) {
@@ -191,7 +201,7 @@ class BaseController extends Controller
 
         $this->menuService = new MenuService(
             $this->envType,
-            $this->owner,
+            $this->isRootAdmin ? null : $this->owner,
             $this->admin,
             $this->user,
             $this->currentRouteName
@@ -200,9 +210,16 @@ class BaseController extends Controller
         // inject variables into blade templates
         view()->share('envType', $this->envType);
         view()->share('admin', $this->admin);
-        view()->share('user', $this->user);
+        view()->share('isRootAdmin', $this->isRootAdmin);
         view()->share('owner', $this->owner);
+/*
+        view()->share('owner', $this->owner
+            ? (!empty($this->urlParams['owner_id']) ? $this->owner : null)
+            : $this->owner);
+*/
+        view()->share('user', $this->user);
         view()->share('menuService', $this->menuService);
+        view()->share('urlParams', $this->urlParams);
 
         // inject pagination variables into blade templates
         view()->share('pagination_bottom', config('app.pagination_bottom'));

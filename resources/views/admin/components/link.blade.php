@@ -3,12 +3,11 @@
 @endphp
 @if (!empty($href) || !empty($name))
 
-    <a
-        @if (!empty($href))href="{!! $href !!}" @endif
-        @if (!empty($target))target="{!! $target !!}" @endif
-        @if (!empty($class))class="{!! $class !!}" @endif
-        @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
-        @if (!empty($onclick))
+    <a @if (!empty($href))href="{!! $href !!}" @endif
+       @if (!empty($target))target="{!! $target !!}" @endif
+       @if (!empty($class))class="{{ is_array($class) ? implode('; ', $class) . ';' : $class }}" @endif
+       @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
+       @if (!empty($onclick))
             onclick="{!! $onclick !!}"
         @endif
     >

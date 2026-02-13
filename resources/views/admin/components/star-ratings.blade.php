@@ -1,23 +1,18 @@
 <div class="has-text-left" style="white-space: nowrap;">
 
     @php
-        $limit = !empty($rating) ? ( (($rating - intval($rating)) >= 0.25) ? ceil($rating) : floor($rating) ) : 4;
+        if (empty($max)) {
+            $max = !empty($rating) ? ( (($rating - intval($rating)) >= 0.25) ? ceil($rating) : floor($rating) ) : 4;
+        }
     @endphp
 
-    @if (empty($max))
-        @for ($cnt=1; $cnt<=$limit; $cnt++)
-            @if ((floor($rating) >= $cnt) || ($rating - $cnt) >= 0.75 )
-                <i class="fa-solid fa-star"></i>
-            @else
-                <i class="fa-solid fa-star-half"></i>
-            @endif
-        @endfor
-        {{ $label ?? '' }}
-    @else
-        //TODO rating with max
-        @for ($cnt=1; $cnt<$max; $cnt++)
+    @for ($cnt=1; $cnt<$max + 1; $cnt++)
+        @if($cnt <= $rating)
             <i class="fa-solid fa-star"></i>
-        @endfor
-        {{ $label ?? '' }}
-    @endif
+        @elseif (!empty($rating) && (floor($rating) == $cnt) && ($rating - $cnt)) < 0.75 ))
+            <i class="fa-solid fa-star-half"></i>
+        @endif
+    @endfor
+    {{ $label ?? '' }}
+
 </div>

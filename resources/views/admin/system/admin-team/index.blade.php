@@ -1,4 +1,13 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Teams' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Team',
@@ -14,12 +23,8 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Admin Teams',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Admin Teams' ]
-    ],
+    'title'            => $pageTitle ?? 'Teams',
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
@@ -32,6 +37,10 @@
 ])
 
 @section('content')
+
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-team.index') ])
+    @endif
 
     <div class="card p-4">
 

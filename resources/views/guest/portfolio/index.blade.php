@@ -4,7 +4,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => $owner->name ?? 'Portfolio' ],
+        [ 'name' => 'Portfolio' ],
     ];
 
     // set navigation buttons
@@ -29,34 +29,32 @@
 
 @section('content')
 
-    <div class="card m-0">
+    <div style="display: flex;">
 
-        <div class="card-body p-4">
+        <div class="card m-0">
+            <div class="card-body p-4">
+                <div class="list is-hoverable">
+                    <ul class="menu-list" style="max-width: 20em;">
 
-            <div class="list is-hoverable">
+                        @foreach ($portfolios as $portfolio)
 
-                <ul class="menu-list" style="max-width: 20em;">
+                            <li>
+                                @include('admin.components.link', [
+                                    'name'  => $portfolio->plural,
+                                    'href'  => Route::has('guest.portfolio.'.$portfolio->name.'.index')
+                                                    ? route('guest.portfolio.'.$portfolio->name.'.index', $owner)
+                                                    : '',
+                                    'class' => 'list-item',
+                                ])
+                            </li>
 
-                    @foreach ($portfolios as $portfolio)
+                        @endforeach
 
-                        <li>
-                            @include('admin.components.link', [
-                                'name'  => $portfolio->plural,
-                                'href'  => Route::has('guest.portfolio.'.$portfolio->name.'.index')
-                                                ? route('guest.portfolio.'.$portfolio->name.'.index', $owner)
-                                                : '',
-                                'class' => 'list-item',
-                            ])
-                        </li>
-
-                    @endforeach
-
-                </ul>
-
+                    </ul>
+                </div>
             </div>
-
         </div>
 
-</div>
+    </div>
 
 @endsection

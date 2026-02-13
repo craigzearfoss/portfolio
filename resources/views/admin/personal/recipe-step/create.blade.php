@@ -27,7 +27,7 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.personal.recipe-step.store') }}" method="POST">
+        <form action="{{ route('admin.personal.recipe-step.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

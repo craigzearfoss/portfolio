@@ -9,6 +9,7 @@ use App\Http\Requests\Career\UpdateCommunicationsRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Resume;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,23 +33,17 @@ class CommunicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $applicationId = $request->application_id;
-        if (!empty($applicationId)) {
-
-            $application = Application::find($applicationId);
-            $communications = Communication::where('application_id', $applicationId)->latest()->paginate($perPage);
-
-        } else {
-
-            $application = null;
-            if (!empty($this->owner)) {
-                $communications = Communication::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
-            } else {
-                $communications = Communication::latest()->paginate($perPage);
-            }
+        $query = Communication::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('date', 'desc');
+        if ($application = $request->application_id ? Application::findOrFail($request->application_id) : null) {
+            $query->where('application_id', $application->id);
         }
 
-        return view('admin.career.communication.index', compact('communications', 'application'))
+        $communications = $query->paginate($perPage)->appends(request()->except('page'));
+
+        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Communications' : 'Communications';
+
+        return view('admin.career.communication.index', compact('communications', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -62,14 +57,11 @@ class CommunicationController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'communication', $this->admin);
 
-        $urlParams = [];
-        $application = null;
-        if ($applicationId = $request->get('application_id')) {
-            $urlParams['application_id'] = $applicationId;
-            $application = Application::find($applicationId);
-        }
+        $application = !empty($request->application_id)
+            ? Application::find($request->application_id)
+            : null;
 
-        return view('admin.career.communication.create', compact('application', 'urlParams'));
+        return view('admin.career.communication.create', compact('application'));
     }
 
     /**
@@ -126,23 +118,14 @@ class CommunicationController extends BaseAdminController
     /**
      * Show the form for editing the specified communication.
      *
-     * @param int $id
+     * @param Communication $communication
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function edit(int $id): View
+    public function edit(Communication $communication): View
     {
-        $communication = Communication::findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
 
-        $urlParams = [];
-        if ($applicationId = request()->get('application_id')) {
-            $urlParams['application_id'] = $applicationId;
-        }
-
-        return view('admin.career.communication.edit', compact('communication', 'urlParams'));
+        return view('admin.career.communication.edit', compact('communication'));
     }
 
     /**

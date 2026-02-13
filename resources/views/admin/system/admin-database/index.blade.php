@@ -3,11 +3,9 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Databases' ],
     ];
-    if (isRootAdmin() && !empty($owner)) {
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-    }
-    $breadcrumbs[] = [ 'name' => 'Databases' ];
 
     // set navigation buttons
     $buttons = [];
@@ -27,6 +25,10 @@
 ])
 
 @section('content')
+
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-database.index') ])
+    @endif
 
     <div class="card p-4">
 

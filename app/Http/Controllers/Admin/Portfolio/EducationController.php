@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreEducationsRequest;
 use App\Http\Requests\Portfolio\UpdateEducationsRequest;
 use App\Models\Portfolio\Education;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,6 @@ class EducationController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -32,13 +31,11 @@ class EducationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $educations = Education::where('owner_id', $this->owner->id)->orderBy('enrollment_year', 'desc')->paginate($perPage);
-        } else {
-            $educations = Education::orderBy('enrollment_year', 'desc')->paginate($perPage);
-        }
+        $educations = Education::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Education' : $this->owner->name . ' eEducation';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Education' : 'Education';
 
         return view('admin.portfolio.education.index', compact('educations', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

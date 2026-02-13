@@ -6,7 +6,7 @@
         [ 'name' => 'Personal',              'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',               'href' => route('admin.personal.recipe.index') ],
         [ 'name' => 'Ingredients',           'href' => route('admin.personal.recipe-ingredient.index') ],
-        [ 'name' => $recipeIngredient->name, 'href' => route('admin.personal.recipe-ingredient.show', $recipeIngredient->id) ],
+        [ 'name' => $recipeIngredient->name, 'href' => route('admin.personal.recipe-ingredient.show', $recipeIngredient) ],
         [ 'name' => 'Edit' ],
     ],
     'buttons'          => [
@@ -28,7 +28,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.personal.recipe-ingredient.update', $recipeIngredient) }}" method="POST">
+        <form action="{{ route('admin.personal.recipe-ingredient.update', array_merge([$recipeIngredient], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

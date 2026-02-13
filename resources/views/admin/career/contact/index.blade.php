@@ -35,6 +35,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.contact.index') ])
+    @endif
+
     <div class="card p-4">
 
         @if($pagination_top)
@@ -88,7 +92,14 @@
                         {!! $contact->name !!}
                     </td>
                     <td data-field="contact.company.names" style="white-space: nowrap;">
-                        {!! implode(', ', $contact->companies->pluck('name')->toArray()) !!}
+                        @php
+                            $companyLinks = $contact->companies->map(
+                                function ($company) {
+                                    return '<a href="' . route('admin.career.company.show', $company) . '">' . $company->name . '</a>';
+                                }
+                            );
+                        @endphp
+                        {!! $companyLinks->implode(', ') !!}
                     </td>
                     <td data-field="phone" style="white-space: nowrap;">
                         {!! $contact->phone !!}

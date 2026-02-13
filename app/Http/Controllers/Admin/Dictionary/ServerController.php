@@ -35,7 +35,9 @@ class ServerController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $servers = Server::orderBy('name', 'asc')->paginate($perPage);
+        $servers = Category::searchQuery($request->all())
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.server.index', compact('servers'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

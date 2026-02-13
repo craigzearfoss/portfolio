@@ -9,11 +9,11 @@
         $breadcrumbs[] = [ 'name' => $owner->name,        'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
         $breadcrumbs[] = [ 'name' => 'Certificates',      'href' => route('admin.portfolio.certificate.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $certificate->name,  'href' => route('admin.portfolio.certificate.show', [$certificate->id, 'owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $certificate->name,  'href' => route('admin.portfolio.certificate.show', [$certificate, 'owner_id'=>$owner->id]) ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ];
         $breadcrumbs[] = [ 'name' => 'Certificates',      'href' => route('admin.portfolio.certificate.index') ];
-        $breadcrumbs[] = [ 'name' => $certificate->name,  'href' => route('admin.portfolio.certificate.show', $certificate->id) ];
+        $breadcrumbs[] = [ 'name' => $certificate->name,  'href' => route('admin.portfolio.certificate.show', $certificate) ];
     }
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
@@ -43,7 +43,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.certificate.update', $certificate) }}"
+        <form action="{{ route('admin.portfolio.certificate.update', array_merge([$certificate], request()->all())) }}"
               method="POST">
             @csrf
             @method('PUT')

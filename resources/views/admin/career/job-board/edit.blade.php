@@ -34,7 +34,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.job-board.update', $jobBoard) }}" method="POST">
+        <form action="{{ route('admin.career.job-board.update', array_merge([$jobBoard], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

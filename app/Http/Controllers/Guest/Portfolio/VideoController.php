@@ -28,7 +28,7 @@ class VideoController extends BaseGuestController
 
         $videos = Video::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.video.index'), compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

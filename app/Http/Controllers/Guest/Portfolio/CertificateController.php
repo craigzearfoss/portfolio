@@ -28,7 +28,7 @@ class CertificateController extends BaseGuestController
 
         $certificates = Certificate::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.certificate.index'), compact('certificates'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

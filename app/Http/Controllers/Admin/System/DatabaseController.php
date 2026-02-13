@@ -30,9 +30,11 @@ class DatabaseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $databases = Database::orderBy('name', 'asc')->paginate($perPage);
+        $databases = Database::orderBy('name', 'asc')->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.system.database.index', compact('databases'))
+        $pageTitle = 'Database';
+
+        return view('admin.system.database.index', compact('databases', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

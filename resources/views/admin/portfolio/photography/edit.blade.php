@@ -9,11 +9,11 @@
         $breadcrumbs[] = [ 'name' => $owner->name,  'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',   'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
         $breadcrumbs[] = [ 'name' => 'Photography', 'href' => route('admin.portfolio.photography.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $photo->name,  'href' => route('admin.portfolio.photography.show', [$photo->id, 'owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $photo->name,  'href' => route('admin.portfolio.photography.show', [$photo, 'owner_id'=>$owner->id]) ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Portfolio',   'href' => route('admin.portfolio.index') ];
         $breadcrumbs[] = [ 'name' => 'Photography', 'href' => route('admin.portfolio.photography.index') ];
-        $breadcrumbs[] = [ 'name' => $photo->name,  'href' => route('admin.portfolio.photography.show', $photo->id) ];
+        $breadcrumbs[] = [ 'name' => $photo->name,  'href' => route('admin.portfolio.photography.show', $photo) ];
     }
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
@@ -42,7 +42,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.photography.update', $photo) }}" method="POST">
+        <form action="{{ route('admin.portfolio.photography.update', array_merge([$photo], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

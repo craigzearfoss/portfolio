@@ -28,7 +28,7 @@ class ArtController extends BaseGuestController
 
         $arts = Art::where('owner_id', $this->owner->id)
             ->orderBy('name', 'asc')->orderBy('artist', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.art.index'), compact('arts'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

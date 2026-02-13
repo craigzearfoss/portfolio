@@ -3,15 +3,11 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
+        [ 'name' => $resource->name,   'href' => route('admin.system.resource.show', $resource->id) ],
+        [ 'name' => 'Edit' ]
     ];
-    if (isRootAdmin() && !empty($owner)) {
-        $breadcrumbs[] = [ 'name' => $owner->name,                           'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Databases',                            'href' => route('admin.system.admin-database.index', [ 'owner_id'=>$owner ]) ];
-        $breadcrumbs[] = [ 'name' => $adminResource->database->name . ' db', 'href' => route('admin.system.admin-database.show', [ $adminResource->database, 'owner_id'=>$owner ]) ];
-        $breadcrumbs[] = [ 'name' => 'Resources',                            'href' => route('admin.system.admin-resource.index', [ 'owner_id'=>$owner->id ]) ];
-        $breadcrumbs[] = [ 'name' => $adminResource->name,                   'href' => route('admin.system.admin-resource.show', [ $adminResource, 'owner_id'=>$owner->id ]) ];
-    }
-    $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $buttons = [];
@@ -22,7 +18,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Resource: ' . $adminResource->database->name . '.' . $adminResource->name,
+    'title'            => $pageTitle ?? $adminResource->database->name . '.' . $adminResource->name . ' Resource',
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
@@ -41,7 +37,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin-resource.update', (isRootAdmin() && !empty($owner)) ? [ $adminResource, 'owner_id'=>$owner->id ] : [ $adminResource ]) }}" method="POST">
+        <form action="{{ route('admin.system.admin-resource.update', array_merge([$adminResource], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

@@ -28,7 +28,7 @@ class EducationController extends BaseGuestController
 
         $educations = Education::where('owner_id', $this->owner->id)
             ->orderBy('graduation_year', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.education.index'), compact('educations'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

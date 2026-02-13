@@ -6,13 +6,14 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StorePhotographyRequest;
 use App\Http\Requests\Portfolio\UpdatePhotographyRequest;
-use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Photography;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
+use PHPUnit\TextUI\Configuration\Php;
 
 /**
  *
@@ -24,8 +25,6 @@ class PhotographyController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -33,13 +32,11 @@ class PhotographyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $photos = Photography::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $photos = Photography::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $photos = Photography::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Photos' : $this->owner->name . ' photos';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Photography' : 'Photography';
 
         return view('admin.portfolio.photography.index', compact('photos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -76,19 +73,22 @@ class PhotographyController extends BaseAdminController
     /**
      * Display the specified photo.
      *
-     * @param Photography $photo
+     * @param Photography $photography
      * @return View
      */
-    public function show(Photography $photo): View
+    public function show(Photography $photography): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
+        readGate(PermissionEntityTypes::RESOURCE, $photo = $photography, $this->admin);
 
-        list($prev, $next) = Photography::prevAndNextPages($photo->id,
+        list($prev, $next) = Photography::prevAndNextPages(
+            $photo->id,
             'admin.portfolio.photography.show',
             $this->owner->id ?? null,
             ['name', 'asc']);
 
-        return view('admin.portfolio.photography.show', compact('photo', 'prev', 'next'));
+        $owner = Owner::findOrFail($photo->owner_id);
+
+        return view('admin.portfolio.photography.show', compact('photo', 'owner', 'prev', 'next'));
     }
 
     /**
@@ -103,7 +103,9 @@ class PhotographyController extends BaseAdminController
 
         updateGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
 
-        return view('admin.portfolio.photography.edit', compact('photo'));
+        $owner = Owner::findOrFail($photo->owner_id);
+
+        return view('admin.portfolio.photography.edit', compact('photo', 'owner'));
     }
 
     /**
@@ -113,11 +115,11 @@ class PhotographyController extends BaseAdminController
      * @param Photography $photo
      * @return RedirectResponse
      */
-    public function update(UpdatePhotographyRequest $request, Photography $photo): RedirectResponse
+    public function update(UpdatePhotographyRequest $request, Photography $photography): RedirectResponse
     {
-        $photo->update($request->validated());
+        updateGate(PermissionEntityTypes::RESOURCE, $photo = $photography, $this->admin);
 
-        updateGate(PermissionEntityTypes::RESOURCE, $photography, $this->admin);
+        $photography->update($request->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully updated.');

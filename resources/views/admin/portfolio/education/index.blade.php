@@ -35,6 +35,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.education.index') ])
+    @endif
+
     <div class="card p-4">
 
         @if($pagination_top)
@@ -47,14 +51,14 @@
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th>degree<br>type</th>
+                <th class="has-text-centered">degree<br>type</th>
                 <th>major</th>
                 <th>minor</th>
                 <th>school</th>
-                <th>enrollment<br>date</th>
+                <th class="has-text-centered">enrollment<br>date</th>
                 <th>graduated</th>
-                <th>graduation<br>date</th>
-                <th>currently<br>enrolled</th>
+                <th class="has-text-centered">graduation<br>date</th>
+                <th class="has-text-centered">currently<br>enrolled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -65,14 +69,14 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th>degree<br>type</th>
+                    <th class="has-text-centered">degree<br>type</th>
                     <th>major</th>
                     <th>minor</th>
                     <th>school</th>
-                    <th>enrollment<br>date</th>
+                    <th class="has-text-centered">enrollment<br>date</th>
                     <th>graduated</th>
-                    <th>graduation<br>date</th>
-                    <th>currently<br>enrolled</th>
+                    <th class="has-text-centered">graduation<br>date</th>
+                    <th class="has-text-centered">currently<br>enrolled</th>
                     <th>actions</th>
                 </tr>
                 </tfoot>
@@ -100,13 +104,13 @@
                     <td data-field="school.name">
                         {!! $education->school->name ?? '' !!}
                     </td>
-                    <td data-field="enrollment_month|enrollment_year">
+                    <td data-field="enrollment_month|enrollment_year" class="has-text-centered">
                         {!! $education->enrollment_year !!}
                     </td>
                     <td data-field="graduated" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $education->graduated ])
                     </td>
-                    <td data-field="graduation_month|graduation_year">
+                    <td data-field="graduation_month|graduation_year" class="has-text-centered">
                         {!! $education->graduation_year !!}
                     </td>
                     <td data-field="currently_enrolled" class="has-text-centered">

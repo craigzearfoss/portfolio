@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreReferencesRequest;
 use App\Http\Requests\Career\UpdateReferencesRequest;
 use App\Models\Career\Reference;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,14 +33,13 @@ class ReferenceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $references = Reference::where('owner_id', $this->owner->id)
-                ->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $references = Reference::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $references = Reference::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.career.reference.index', compact('references'))
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' References' : 'References';
+
+        return view('admin.career.reference.index', compact('references', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

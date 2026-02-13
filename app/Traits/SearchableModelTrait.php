@@ -4,8 +4,11 @@ namespace App\Traits;
 
 use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -73,7 +76,7 @@ trait SearchableModelTrait
                 }
             }
         }
-//$query->ddRawSql();
+
         foreach ($query->get() as $row) {
             if ($row->{$labelColumn} == 'other') {
                 $other = $row;
@@ -197,5 +200,37 @@ trait SearchableModelTrait
         }
 
         return [$prev, $next];
+    }
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = []): Builder
+    {
+        return self::searchQuery($filters);
+    }
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Owner|Admin|null $owner
+     * @return Builder
+     */
+    public static function getSearchQuery(array $filters = [], Owner|Admin|null $owner = null): Builder
+    {
+        $query = self::when(!empty($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', $filters['id']);
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            });
+
+        return $query;
     }
 }

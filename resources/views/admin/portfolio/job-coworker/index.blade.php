@@ -34,6 +34,8 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.job-child', [ 'action' => route('admin.portfolio.job-coworker.index') ])
+
     <div class="card p-4">
 
         @if($pagination_top)

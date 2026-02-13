@@ -5,7 +5,7 @@
         [ 'name' => 'Admin Dashboard',     'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',           'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certifications',      'href' => route('admin.portfolio.certification.index') ],
-        [ 'name' => $ceertification->name, 'href' => route('admin.portfolio.certification.show', $ceertification) ],
+        [ 'name' => $certification->name, 'href' => route('admin.portfolio.certification.show', $ceertification) ],
         [ 'name' => 'Edit' ]
     ];
 
@@ -34,7 +34,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.certification.update', $certification) }}" method="POST">
+        <form action="{{ route('admin.portfolio.certification.update', array_merge([$certification], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

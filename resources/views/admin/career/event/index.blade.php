@@ -5,7 +5,7 @@
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
             [ 'name' => 'Events' ]
         ];
     } else {
@@ -37,6 +37,10 @@
 ])
 
 @section('content')
+
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.event.index') ])
+    @endif
 
     <div class="card p-4">
 

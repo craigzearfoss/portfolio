@@ -34,7 +34,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.dictionary.framework.update', $framework) }}" method="POST">
+        <form action="{{ route('admin.dictionary.framework.update', array_merge([$framework], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

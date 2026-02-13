@@ -29,9 +29,11 @@ class AdminGroupController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminGroups = AdminGroup::orderBy('name','asc')->paginate($perPage);
+        $adminGroups = AdminGroup::orderBy('name','asc')->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.system.admin-group.index', compact('adminGroups'))
+        $pageTitle = ($this->isRootAdmin && !empty($this->owner)) ? $this->owner->name . ' - Groups' : 'Groups';
+
+        return view('admin.system.admin-group.index', compact('adminGroups', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

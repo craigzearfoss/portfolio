@@ -161,7 +161,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 40,
+                'sequence'    => $database->sequence + 30,
             ];
 
             $data[] = [
@@ -185,7 +185,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 30,
+                'sequence'    => $database->sequence + 40,
             ];
 
             $data[] = [
@@ -398,7 +398,7 @@ return new class extends Migration
                 'menu'        => true,
                 'menu_level'  => 1,
                 'icon'        => 'fa-link',
-                'sequence'    => $database->sequence + 90,
+                'sequence'    => $database->sequence + 130,
                 'public'      => true,
                 'readonly'    => false,
                 'root'        => false,
@@ -426,7 +426,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 130,
+                'sequence'    => $database->sequence + 140,
             ];
 
             $data[] = [
@@ -450,7 +450,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 140,
+                'sequence'    => $database->sequence + 150,
             ];
 
             $data[] = [
@@ -474,7 +474,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 150,
+                'sequence'    => $database->sequence + 160,
             ];
 
             $data[] = [
@@ -498,7 +498,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 160,
+                'sequence'    => $database->sequence + 170,
             ];
 
             $data[] = [
@@ -522,7 +522,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 170,
+                'sequence'    => $database->sequence + 180,
             ];
 
             $data[] = [
@@ -546,7 +546,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 180,
+                'sequence'    => $database->sequence + 190,
             ];
 
             $data[] = [
@@ -570,7 +570,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 190,
+                'sequence'    => $database->sequence + 200,
             ];
 
             // add timestamps and owner_ids

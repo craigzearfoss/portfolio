@@ -40,7 +40,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.certificate.store') }}" method="POST">
+        <form action="{{ route('admin.portfolio.certificate.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

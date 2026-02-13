@@ -35,7 +35,9 @@ class CategoryController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $categories = Category::orderBy('name', 'asc')->paginate($perPage);
+        $categories = Category::searchQuery($request->all())
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.category.index', compact('categories'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -3,18 +3,15 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Resources' ],
     ];
-    if (isRootAdmin() && !empty($owner)) {
-        $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Databases',  'href' => route('admin.system.admin-database.index', [ 'owner_id'=>$owner ]) ];
-    }
-    $breadcrumbs[] = [ 'name' => 'Resources' ];
 
     // set navigation buttons
     $buttons = [];
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? (!empty($owner) ? 'Resources for ' . $owner->name : 'Resources'),
+    'title'            => $pageTitle ?? (!empty($owner) ? $owner->name . ' Resources' : 'Resources'),
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
@@ -28,6 +25,10 @@
 ])
 
 @section('content')
+
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-resource.index') ])
+    @endif
 
     <div class="card p-4">
 

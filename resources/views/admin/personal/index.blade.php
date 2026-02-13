@@ -1,11 +1,18 @@
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal' ],
+    ];
+
+    // set navigation buttons
+    $buttons = [];
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? (!empty($owner) ? $owner->name . ' Personal' : 'Personal'),
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
-        [ 'name' => 'Personal']
-    ],
-    'buttons'          => [],
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
@@ -18,34 +25,31 @@
 
 @section('content')
 
-    <div class="card m-4">
+    <div style="display: flex;">
 
-        <div class="card-body p-4">
+        <div class="card m-4">
+            <div class="card-body p-4">
+                <div class="list is-hoverable">
+                    <ul class="menu-list" style="max-width: 20em;">
 
-            <div class="list is-hoverable">
+                        @foreach ($personals as $personal)
 
-                <ul class="menu-list" style="max-width: 20em;">
+                            <li>
+                                @include('admin.components.link', [
+                                    'name'  => $personal->plural,
+                                    'href'  => route('admin.'.$personal->database_name.'.'.$personal->name.'.index',
+                                                     $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
+                                               ),
+                                    'class' => 'list-item',
+                                ])
+                            </li>
 
-                    @foreach ($personals as $personal)
+                        @endforeach
 
-                        <li>
-                            @include('admin.components.link', [
-                                'name'  => $personal->plural,
-                                'href'  => route('admin.'.$personal->database_name.'.'.$personal->name.'.index',
-                                                 $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
-                                           ),
-                                'class' => 'list-item',
-                            ])
-                        </li>
-
-                    @endforeach
-
-                </ul>
-
+                    </ul>
+                </div>
             </div>
-
         </div>
-
-</div>
+    </div>
 
 @endsection

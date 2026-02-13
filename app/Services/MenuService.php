@@ -73,21 +73,24 @@ class MenuService
         }
 
         // set the filters for the databases and resources
-        $filters = [];
+        // note that root admins have all resource type added to the menu
+        $filters = [
+            'menu'                => 1,
+            $this->envType->value => 1,
+        ];
         if ($this->envType !== EnvTypes::ADMIN) {
             $filters['public'] = 1;
         }
         if (empty($this->admin) || empty($this->admin->root)) {
-            // note that root admins have all resource type added to the menu
-            $filters['menu'] = 1;
+            $filters['root']     = 0;
             $filters['disabled'] = 0;
         }
 
         // get the databases and resources
         if (!empty($owner)) {
             if ($this->owner->root) {
-                $this->databases = Database::ownerDatabases(null, $this->envType, $filters);
-                $this->resources = Resource::ownerResources(null, $this->envType, null, $filters);
+                $this->databases = AdminDatabase::ownerDatabases($this->owner->id, $this->envType, $filters);
+                $this->resources = AdminResource::ownerResources($this->owner->id, $this->envType, null, $filters);
             } else {
                 $this->databases = AdminDatabase::ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
                 $this->resources = AdminResource::ownerResources($this->owner->id, $this->envType,null, $filters);
@@ -512,13 +515,10 @@ class MenuService
         }
 
         // get route and url
-        if ($this->envType == EnvTypes::ADMIN) {
-            $routeName = 'admin.career.resume.preview';
-            $url = !empty($this->owner) ? route($routeName, $this->owner) : '';
-        } else {
-            $routeName = 'guest.resume';
-            $url = !empty($this->owner) ? route($routeName, $this->owner) : '';
-        }
+        $routeName = ($this->envType == EnvTypes::ADMIN)
+            ? 'admin.career.resume.preview'
+            : 'guest.resume';
+        $url = route($routeName, $this->owner);
 
         $menuItem = new stdClass();
         $menuItem->owner_id       = $this->owner->id;
@@ -567,9 +567,25 @@ class MenuService
      */
     public function getResourceMenuItem(Resource|AdminResource $resource): Resource|AdminResource
     {
-        $route = $this->envType->value . '.' . $resource->database_name . '.' . $resource->name . '.index';
+        $routeName = $this->envType->value . '.' . $resource->database_name . '.' . $resource->name . '.index';
 
-        if (Route::has($route)) {
+        if (Route::has($routeName)) {
+
+            if ($this->envType == EnvTypes::ADMIN) {
+                $url = route($routeName);
+            } else{
+                $url = ($resource->has_owner && !empty($this->owner) )
+                    ? route($routeName, $this->owner)
+                    : route($routeName);
+            }
+/*
+                $url = ($resource->has_owner
+                && (!empty($this->admin) && !empty($this->admin->root))
+                && !$this->showAll
+            )
+                ? route($route, array_merge([$resource], !empty($this->owner) ? [ 'owner_id' => $this->owner->id ] : []))
+                : route($route);
+
             if ($this->envType == EnvTypes::ADMIN) {
                 $url = ($resource->has_owner
                         && (!empty($this->admin) && !empty($this->admin->root))
@@ -582,12 +598,13 @@ class MenuService
                     ? route($route, $this->owner)
                     : route($route);
             }
+            */
         } else {
-            $url = 'RESOURCE ROUTE: ' . $route;
+            $url = 'RESOURCE ROUTE: ' . $routeName;
         }
 
         $resource->label    = $resource->title;
-        $resource->route    = $route;
+        $resource->route    = $routeName;
         $resource->url      = $url;
         $resource->children = [];
         $resource->active = !empty($this->currentRouteName) && ($resource->route === $this->currentRouteName) ? 1 : 0;
@@ -649,19 +666,6 @@ class MenuService
      */
     private function includeResource($resource): bool
     {
-        // @TODO: Need to also check the database for duplicate resource names
-        // is users are not enabled then don't show associated resources
-        if (!$this->usersEnabled && in_array($resource->name, ['user', 'user-group', 'user-team']))
-        {
-            return false;
-        }
-
-        // @TODO: Need to also check the database for duplicate resource names
-        // is admins are not enabled then don't show associated resources
-        if (!$this->adminsEnabled && in_array($resource->name, ['admin', 'admin-group', 'admin-team']))
-        {
-            return false;
-        }
         return true;
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Requests\Personal\UpdateRecipeStepsRequest;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,22 +34,14 @@ class RecipeStepController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if ($recipeId = $request->recipe_id) {
-            $recipe = !empty($this->owner)
-                ? Recipe::where('owner_id', $this->owner->id)->where('id', $recipeId)->first()
-                : Recipe::find($recipeId);
-            if (empty($recipe)) {
-                abort(404, 'Recipe ' . $recipeId . ' not found'
-                    . (!empty($this->owner) ? ' for ' . $this->owner->username : '') . '.');
-            } else {
-                $recipeSteps = RecipeStep::where('recipe_id', $recipeId)->latest()->paginate($perPage);
-            }
-        } else {
-            $recipe = null;
-            $recipeSteps = RecipeStep::latest()->paginate($perPage);
+        $query = RecipeStep::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('recipe_id', 'asc');
+        if ($recipe = $request->recipe_id ? Recipe::findOrFail($request->recipe_id) : null) {
+            $query->where('recipe_id', $recipe->id);
         }
+        $recipeSteps = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Recipe Steps' : $this->owner->name . ' recipe steps';
+        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Recipe Steps' : 'Recipe Steps';
 
         return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

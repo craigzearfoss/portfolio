@@ -30,9 +30,12 @@ class ResourceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $resources = Resource::orderBy('database_id')->orderBy('name')->paginate($perPage);
+        $resources = Resource::orderBy('database_id')->orderBy('name')->paginate($perPage)
+            ->appends(request()->except('page'));
 
-        return view('admin.system.resource.index', compact('resources'))
+        $pageTitle = 'Resources';
+
+        return view('admin.system.resource.index', compact('resources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

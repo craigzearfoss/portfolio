@@ -3,7 +3,7 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) ],
         [ 'name' => 'Ingredients' ]
     ];
 
@@ -77,7 +77,7 @@
                             @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $ingredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.ingredient.show', $ingredient->id),
+                                    'href'  => route('admin.personal.ingredient.show', $ingredient),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -85,7 +85,7 @@
                             @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $ingredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.ingredient.edit', $ingredient->id),
+                                    'href'  => route('admin.personal.ingredient.edit', $ingredient),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

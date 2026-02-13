@@ -42,7 +42,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.audio.update', $audio->id) }}" method="POST">
+        <form action="{{ route('admin.portfolio.audio.update', array_merge([$audio], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

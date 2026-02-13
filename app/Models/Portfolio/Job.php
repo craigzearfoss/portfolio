@@ -3,6 +3,7 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Scopes\AdminPublicScope;
+use App\Models\System\Admin;
 use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\Database;
@@ -10,12 +11,14 @@ use App\Models\System\Resource;
 use App\Models\System\ResourceSetting;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
 class Job extends Model
 {
@@ -86,6 +89,72 @@ class Job extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
+            }
+            $filters['owner_id'] = $owner->id;
+        }
+
+        $query = self::when(isset($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(!empty($filters['company']), function ($query) use ($filters) {
+                $query->where('company', 'like', '%' . $filters['company'] . '%');
+            })
+            ->when(!empty($filters['role']), function ($query) use ($filters) {
+                $query->where('role', 'like', '%' . $filters['role'] . '%');
+            })
+            ->when(isset($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(isset($filters['start_month']), function ($query) use ($filters) {
+                $query->where('start_month', '=', intval($filters['start_month']));
+            })
+            ->when(isset($filters['start_year']), function ($query) use ($filters) {
+                $query->where('start_year', '=', intval($filters['start_year']));
+            })
+            ->when(isset($filters['end_month']), function ($query) use ($filters) {
+                $query->where('end_month', '=', intval($filters['end_month']));
+            })
+            ->when(isset($filters['end_year']), function ($query) use ($filters) {
+                $query->where('end_year', '=', intval($filters['end_year']));
+            })
+            ->when(isset($filters['job_employment_type_id']), function ($query) use ($filters) {
+                $query->where('job_employment_type_id', '=', intval($filters['job_employment_type_id']));
+            })
+            ->when(isset($filters['job_location_type_id']), function ($query) use ($filters) {
+                $query->where('job_location_type_id', '=', intval($filters['job_location_type_id']));
+            })
+            ->when(!empty($filters['city']), function ($query) use ($filters) {
+                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+            })
+            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
+                $query->where('state_id', '=', intval($filters['state_id']));
+            })
+            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
+                $query->where('country_id', '=', intval($filters['country_id']));
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
+            });
+
+        return $query;
     }
 
     /**

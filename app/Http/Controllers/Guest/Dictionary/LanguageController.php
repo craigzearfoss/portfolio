@@ -27,7 +27,7 @@ class LanguageController extends BaseGuestController
             ->where('public', 1)
             ->where('name', '!=', 'other')
             ->orderBy('name', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.dictionary.language.index'), compact('languages'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -1,15 +1,13 @@
 @php
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',               'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',             'href' => route('admin.system.index') ],
+        [ 'name' => 'Databases',          'href' => route('admin.system.admin-database.index') ],
+        [ 'name' => $adminDatabase->name, 'href' => route('admin.system.admin-database.show', $adminDatabase->id) ],
+        [ 'name' => 'Edit' ]
     ];
-    if (isRootAdmin() && !empty($owner)) {
-        $breadcrumbs[] = [ 'name' => $owner->name,                 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Databases',                  'href' => route('admin.system.admin-database.index', [ 'owner_id'=>$owner->id ]) ];
-        $breadcrumbs[] = [ 'name' => $adminDatabase->name . ' db', 'href' => route('admin.system.admin-database.show', [ $adminDatabase, 'owner_id'=>$owner->id ]) ];
-    }
-    $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
     $buttons = [];
@@ -20,7 +18,7 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Database: ' . $adminDatabase->name . ' db for ' . $adminDatabase->owner->name,
+    'title'            => $pageTitle ?? $adminDatabase->owner->name . ' Database',
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
@@ -39,7 +37,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin-database.update', (isRootAdmin() && !empty($owner)) ? [ $adminDatabase, 'owner_id'=>$owner->id ] : [ $adminDatabase ]) }}" method="POST">
+        <form action="{{ route('admin.system.admin-database.update', array_merge([$adminDatabase], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

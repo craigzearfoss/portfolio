@@ -35,6 +35,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.personal.recipe.index') ])
+    @endif
+
     <div class="card p-4">
 
         @if($pagination_top)
@@ -109,7 +113,7 @@
                             @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.recipe.show', [$owner, $recipe->id]),
+                                    'href'  => route('admin.personal.recipe.show', [$owner, $recipe]),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -117,7 +121,7 @@
                             @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.recipe.edit', [$owner, $recipe->id]),
+                                    'href'  => route('admin.personal.recipe.edit', [$owner, $recipe]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

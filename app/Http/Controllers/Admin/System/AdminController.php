@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Admin\System;
 
+use App\Enums\EnvTypes;
 use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminsRequest;
 use App\Http\Requests\System\UpdateAdminsRequest;
 use App\Models\System\Admin;
+use App\Models\System\AdminResource;
+use App\Models\System\Database;
+use App\Models\System\Owner;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +40,9 @@ class AdminController extends BaseAdminController
          if (empty($this->admin->root)) {
              return redirect()->route('admin.profile.show');
          } else {
-             $allAdmins = Admin::orderBy('username', 'asc')->paginate($perPage);
+             $allAdmins = Admin::searchQuery($request->all())
+                 ->orderBy('username', 'asc')
+                 ->paginate($perPage)->appends(request()->except('page'));
          }
 
         return view('admin.system.admin.index', compact('allAdmins'))
@@ -100,6 +107,42 @@ class AdminController extends BaseAdminController
             ['name', 'asc']);
 
         return view('admin.system.admin.show', compact('thisAdmin', 'prev', 'next'));
+    }
+
+    /**
+     * Display the specified admin.
+     *
+     * @param Admin $admin
+     * @return View
+     */
+    public function profile(Admin $admin): View
+    {
+        readGate(PermissionEntityTypes::RESOURCE, $admin, $this->admin);
+
+        $thisAdmin = $admin;
+
+        $dbColumns = [
+            'Portfolio' => AdminResource::ownerResources(
+                $this->owner->id ?? null,
+                EnvTypes::ADMIN,
+                Database::where('tag', 'portfolio_db')->first()->id ?? null
+            ),
+            'Personal' => AdminResource::ownerResources(
+                $this->owner->id,
+                EnvTypes::ADMIN,
+                Database::where('tag', 'personal_db')->first()->id ?? null
+            ),
+        ];
+
+
+        list($prev, $next) = Admin::prevAndNextPages($admin->id,
+            'admin.system.admin.show',
+            $this->owner->id ?? null,
+            ['name', 'asc']);
+
+        return view('admin.system.admin.profile',
+            compact('thisAdmin', 'dbColumns', 'prev', 'next')
+        );
     }
 
     /**

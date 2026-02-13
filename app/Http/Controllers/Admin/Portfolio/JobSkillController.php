@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\StoreJobSkillsRequest;
 use App\Http\Requests\Portfolio\UpdateJobSkillsRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobSkill;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,21 +33,40 @@ class JobSkillController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         if ($jobId = $request->job_id) {
-            $job = !empty($this->owner)
-                ? Job::where('owner_id', $this->owner->id)->where('id', $jobId)->first()
-                : Job::find($jobId);
-            if (empty($job)) {
-                abort(404, 'Job ' . $jobId . ' not found'
-                    . (!empty($this->owner) ? ' for ' . $this->owner->username : '') . '.');
-            } else {
-                $jobSkills = JobSkill::where('job_id', $jobId)->latest()->paginate($perPage);
+
+            $job = Job::findOrFail($jobId);
+
+            if ($this->isRootAdmin) {
+                $query = JobSkill::where('job_id', $jobId)->orderBy('name', 'asc');
+                if (($owner_id = $request->owner) && ($owner = Owner::findOrFail($owner_id))) {
+                    $query->where('owner_id', $owner_id);
+                }
+            } elseif (!empty($this->owner)) {
+                $query = JobSkill::where('job_id', $jobId)->where('owner_id', $this->owner->id)
+                    ->orderBy('name', 'asc');
+                $owner = $this->owner;
+                $owner_id = $owner->id;
             }
+
         } else {
+
             $job = null;
-            $jobSkills = JobSkill::latest()->paginate($perPage);
+
+            if ($this->isRootAdmin) {
+                $query = JobSkill::orderBy('name', 'asc');
+                if (($owner_id = $request->owner_id) && ($owner = Owner::findOrFail($owner_id))) {
+                    $query->where('owner_id', $owner_id);
+                }
+            } elseif (!empty($this->owner)) {
+                $query = JobSkill::where('owner_id', $this->owner->id)->orderBy('name', 'asc');
+                $owner = $this->owner;
+                $owner_id = $owner->id;
+            }
         }
 
-        $pageTitle = empty($this->owner) ? 'Job Skills' : $this->owner->name . ' job skills';
+        $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
+
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Job Skills' : 'Job Skills';
 
         return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -63,9 +83,7 @@ class JobSkillController extends BaseAdminController
         createGate(PermissionEntityTypes::RESOURCE, 'job-skill', $this->admin);
 
         $jobId = $request->job_id;
-        $job = !empty($jobId)
-            ? Job::find($jobId)
-            : null;
+        $job = !empty($jobId) ? Job::find($jobId) : null;
 
         return view('admin.portfolio.job-skill.create', compact('job'));
     }

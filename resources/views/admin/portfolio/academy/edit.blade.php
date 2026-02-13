@@ -5,7 +5,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Academies',       'href' => route('admin.portfolio.academy.index') ],
-        [ 'name' => $academy->name,    'href' => route('admin.portfolio.academy.show', $academy->id) ],
+        [ 'name' => $academy->name,    'href' => route('admin.portfolio.academy.show', $academy) ],
         [ 'name' => 'Edit' ],
 
     ],
@@ -28,7 +28,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.academy.update', $academy->id) }}" method="POST">
+        <form action="{{ route('admin.portfolio.academy.update', array_merge([$academy], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

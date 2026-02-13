@@ -38,6 +38,8 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.recipe-child', [ 'action' => route('admin.personal.recipe-step.index') ])
+
     <div class="card p-4">
 
         @if($pagination_top)

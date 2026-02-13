@@ -35,6 +35,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.skill.index') ])
+    @endif
+
     <div class="card p-4">
 
         @if($pagination_top)
@@ -102,7 +106,8 @@
                     <td data-field="level" style="white-space: nowrap;">
                         @include('admin.components.star-ratings', [
                             'rating' => $skill->level,
-                            'label'  => "({$skill->level})"
+                            'max'    => 10,
+                            'label'  => !empty($skill->level) ? "({$skill->level})" : '',
                         ])
                     </td>
                     <td data-field="years" class="has-text-centered">

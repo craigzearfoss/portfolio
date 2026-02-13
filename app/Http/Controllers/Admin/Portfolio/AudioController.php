@@ -7,8 +7,8 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Middleware\Admin;
 use App\Http\Requests\Portfolio\StoreAudiosRequest;
 use App\Http\Requests\Portfolio\UpdateAudiosRequest;
-use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,12 +21,10 @@ use Illuminate\View\View;
 class AudioController extends BaseAdminController
 {
     /**
-     * Display a listing of audios.
+     * Display a listing of audio.
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -34,13 +32,11 @@ class AudioController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $audios = Audio::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $audios = Audio::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $audios = Audio::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Audio' : $this->owner->name . ' audio';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Audio' : 'Audio';
 
         return view('admin.portfolio.audio.index', compact('audios','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

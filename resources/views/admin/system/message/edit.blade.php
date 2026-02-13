@@ -1,14 +1,22 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Edit Message',
-    'breadcrumbs'      => [
+@php
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],
-        [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
-        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.message.index') ])->render(),
-    ],
+        [ 'name' => 'Edit Message ' . $message->id ],
+    ];
+
+    // set navigation buttons
+    $buttons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.system.message.index')])->render(),
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'title'            => $pageTitle ?? 'Edit Message ' . $message->id,
+    'breadcrumbs'      => $breadcrumbs,
+    'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -25,7 +33,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.message.update', $message) }}" method="POST">
+        <form action="{{ route('admin.system.message.update', array_merge([$message], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

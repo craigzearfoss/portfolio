@@ -5,7 +5,7 @@
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
             [ 'name' => 'Event',            'href' => route('admin.career.event.index', ['application_id' => $application->id]) ],
             [ 'name' => 'Event' ]
         ];

@@ -1,21 +1,21 @@
 @php
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Resources',                       'href' => route('admin.system.resource.index') ],
-        [ 'name' => $resource->database->name . ' db', 'href' => route('admin.system.database.show', $resource->database) ],
-        [ 'name' => $resource->name,                   'href' => route('admin.system.resource.show', $resource) ],
+        [ 'name' => 'Home',                                        'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                             'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                      'href' => route('admin.system.index') ],
+        [ 'name' => 'Resources',                                   'href' => route('admin.system.resource.index') ],
+        [ 'name' => $resource->database->name.'.'.$resource->name, 'href' => route('admin.system.resource.show', $resource->id) ],
         [ 'name' => 'Edit' ]
     ];
 
     // set navigation buttons
     $buttons = [
-        view('admin.components.nav-button-back', [ 'href' => referer('admin.system.resource.index') ])->render(),
+        view('admin.components.nav-button-back', ['href' => referer('admin.system.resource.index')])->render(),
     ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Resource: ' . $resource->database->name . '.' . $resource->name,
+    'title'            => $pageTitle ?? $resource->database->name . '.' . $resource->name .  ' Resource',
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->any()
@@ -34,7 +34,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.resource.update', $resource) }}" method="POST">
+        <form action="{{ route('admin.system.resource.update', array_merge([$resource], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

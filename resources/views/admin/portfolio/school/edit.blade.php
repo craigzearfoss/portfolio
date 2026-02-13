@@ -34,7 +34,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.school.update', $school) }}" method="POST">
+        <form action="{{ route('admin.portfolio.school.update', array_merge([$school], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

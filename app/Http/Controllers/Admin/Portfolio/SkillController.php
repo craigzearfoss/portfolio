@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreSkillsRequest;
 use App\Http\Requests\Portfolio\UpdateSkillsRequest;
 use App\Models\Portfolio\Skill;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,6 @@ class SkillController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -32,15 +31,13 @@ class SkillController extends BaseAdminController
 
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $skills = Skill::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $skills = Skill::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $skills = Skill::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Skills' : $this->owner->name . ' skills';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Skills' : 'Skills';
 
-        return view('admin.portfolio.skill.index', compact('skills'))
+        return view('admin.portfolio.skill.index', compact('skills', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

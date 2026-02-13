@@ -5,7 +5,7 @@
             [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
             [ 'name' => 'Career',           'href' => route('admin.career.index') ],
             [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
             [ 'name' => 'Events',           'href' => route('admin.career.event.index', ['application_id' => $application->id]) ],
             [ 'name' => 'Event',            'href' => route('admin.career.event.show', $event, ['application_id' => $application->id]) ],
             [ 'name' => 'Edit' ]
@@ -43,7 +43,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.event.update', $event, $urlParams ?? []) }}" method="POST">
+        <form action="{{ route('admin.career.event.update', array_merge([$event], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

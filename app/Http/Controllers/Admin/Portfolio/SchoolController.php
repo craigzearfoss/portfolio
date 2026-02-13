@@ -30,8 +30,10 @@ class SchoolController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $schools = School::searchBuilder($request->all(), ['name', 'asc'])->paginate($perPage)
-            ->appends(request()->except('page'));
+        $schools = School::searchQuery($request->all())
+            ->where('name', '!=', 'other')->orderBy('name', 'asc')
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Schools';
 

@@ -9,11 +9,11 @@
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
         $breadcrumbs[] = [ 'name' => 'Videos',     'href' => route('admin.portfolio.video.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $video->name, 'href' => route('admin.portfolio.video.show', [$video->id, 'owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $video->name, 'href' => route('admin.portfolio.video.show', [$video, 'owner_id'=>$owner->id]) ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
         $breadcrumbs[] = [ 'name' => 'Videos',     'href' => route('admin.portfolio.video.index') ];
-        $breadcrumbs[] = [ 'name' => $video->name, 'href' => route('admin.portfolio.video.show', $video->id) ];
+        $breadcrumbs[] = [ 'name' => $video->name, 'href' => route('admin.portfolio.video.show', $video) ];
     }
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
@@ -42,7 +42,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.video.update', $video->id) }}" method="POST">
+        <form action="{{ route('admin.portfolio.video.update', array_merge([$video], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

@@ -77,7 +77,7 @@
                             @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $unit, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.personal.unit.show', $unit->id),
+                                    'href'  => route('admin.personal.unit.show', $unit),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
@@ -85,7 +85,7 @@
                             @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $unit, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.personal.unit.edit', $unit->id),
+                                    'href'  => route('admin.personal.unit.edit', $unit),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

@@ -1,28 +1,33 @@
 @php
-$buttons = [];
-if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'user', $admin)) {
-    $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User',
-                                                           'href' => route('admin.system.user.create')
-                                                         ])->render();
-}
-if (canRead(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-team', $admin)) {
-    $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'User Teams',
-                                                            'href' => route('admin.system.user-team.index')
-                                                          ])->render();
-}
-if (canRead(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
-    $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'User Groups',
-                                                            'href' => route('admin.system.user-group.index')
-                                                          ])->render();
-}
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Users' ],
+    ];
+
+    // set navigation buttons
+    $buttons = [];
+    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'user', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User',
+                                                               'href' => route('admin.system.user.create')
+                                                             ])->render();
+    }
+    if (canRead(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-team', $admin)) {
+        $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'User Teams',
+                                                                'href' => route('admin.system.user-team.index')
+                                                              ])->render();
+    }
+    if (canRead(\App\Enums\PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
+        $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'User Groups',
+                                                                'href' => route('admin.system.user-group.index')
+                                                              ])->render();
+    }
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Users',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Users' ]
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

@@ -9,11 +9,11 @@
         $breadcrumbs[] = [ 'name' => $owner->name,  'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Personal',    'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ];
         $breadcrumbs[] = [ 'name' => 'Recipes',     'href' => route('admin.personal.recipe.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $recipe->name, 'href' => route('admin.personal.recipe.show', [$recipe->id, 'owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $recipe->name, 'href' => route('admin.personal.recipe.show', [$recipe, 'owner_id'=>$owner->id]) ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Personal',    'href' => route('admin.personal.index') ];
         $breadcrumbs[] = [ 'name' => 'Recipes',     'href' => route('admin.personal.recipe.index') ];
-        $breadcrumbs[] = [ 'name' => $recipe->name, 'href' => route('admin.personal.recipe.show', $recipe->id) ];
+        $breadcrumbs[] = [ 'name' => $recipe->name, 'href' => route('admin.personal.recipe.show', $recipe) ];
     }
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
@@ -42,7 +42,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.personal.recipe.update', $recipe) }}" method="POST">
+        <form action="{{ route('admin.personal.recipe.update', array_merge([$recipe], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

@@ -35,7 +35,9 @@ class LanguageController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $languages = Language::orderBy('name', 'asc')->paginate($perPage);
+        $languages = Category::searchQuery($request->all())
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.language.index', compact('languages'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

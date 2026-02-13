@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreVideosRequest;
 use App\Http\Requests\Portfolio\UpdateVideosRequest;
 use App\Models\Portfolio\Video;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,6 @@ class VideoController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -32,15 +31,22 @@ class VideoController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $videos = Video::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $videos = Video::orderBy('name', 'asc')->paginate($perPage);
+        if ($this->isRootAdmin) {
+            $query = Video::orderBy('name', 'asc');
+            if (($owner_id = $request->owner_id) && ($owner = Owner::findOrFail($owner_id))) {
+                $query->where('owner_id', $owner_id);
+            }
+        } elseif (!empty($this->owner)) {
+            $query = Video::where('owner_id', $this->owner->id)->orderBy('name', 'asc');
+            $owner = $this->owner;
+            $owner_id = $owner->id;
         }
 
-        $pageTitle = empty($this->owner) ? 'Videos' : $this->owner->name . ' videos';
+        $videos = $query->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.portfolio.video.index', compact('videos'))
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Videos' : 'Videos';
+
+        return view('admin.portfolio.video.index', compact('videos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

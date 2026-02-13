@@ -6,6 +6,7 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreApplicationsRequest;
 use App\Http\Requests\Career\UpdateApplicationsRequest;
+use App\Listeners\LogLoginFail;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
@@ -13,6 +14,7 @@ use App\Models\Career\CoverLetter;
 use App\Models\Career\Event;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,24 +38,17 @@ class ApplicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $resumeId = $request->resume_id;
-        if (!empty($resumeId)) {
-
-            $resume = Resume::find($resumeId);
-            $applications = Application::where('resume_id', $resumeId)->latest()->paginate($perPage);
-
-        } else {
-
-            $resume = null;
-            if (!empty($this->owner)) {
-                $applications = Application::where('owner_id', $this->owner->id)->latest()->paginate($perPage);
-            } else {
-                $applications = Application::latest()->paginate($perPage);
-            }
+        $query = Application::searchQuery(request()->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('created_at', 'desc');
+        if ($resume = $request->resume_id ? Resume::findOrFail($request->resume_id) : null) {
+            $query->where('resume_id', $resume->id);
         }
 
+        $applications = $query->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.career.application.index', compact('applications', 'resume'))
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Applications' : 'Applications';
+
+        return view('admin.career.application.index', compact('applications', 'resume', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

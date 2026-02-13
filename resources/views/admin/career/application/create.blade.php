@@ -44,7 +44,7 @@
 
             <div class="content fa-width-auto has-text-centered">
 
-                <form id="selectCompanyForm" action="{{ route('admin.career.application.create') }}" method="GET">
+                <form id="selectCompanyForm" action="{{ route('admin.career.application.create', request()->all()) }}" method="GET">
 
                     @if($admin->root)
                         @include('admin.components.form-select-horizontal', [
@@ -87,7 +87,7 @@
 
                 <h4 class="subtitle has-text-centered pt-4">or</h4>
 
-                <a href="{{ route('admin.career.company.create', array_merge(['new_application' => 1], $urlParams)) }}" class="button is-primary my-0">
+                <a href="{{ route('admin.career.company.create', array_merge(['new_application' => 1], request()->all())) }}" class="button is-primary my-0">
                     Add a New Company
                 </a>
 

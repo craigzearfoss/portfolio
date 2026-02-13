@@ -28,7 +28,7 @@ class ProjectController extends BaseGuestController
 
         $projects = Project::where('owner_id', $this->owner->id)
             ->orderBy('sequence', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.project.index'), compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

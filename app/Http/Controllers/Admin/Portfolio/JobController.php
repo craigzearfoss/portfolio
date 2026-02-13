@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobsRequest;
 use App\Http\Requests\Portfolio\UpdateJobsRequest;
 use App\Models\Portfolio\Job;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,6 @@ class JobController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -32,14 +31,11 @@ class JobController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $jobs = Job::where('owner_id', $this->owner->id)
-                ->orderBy('start_year', 'desc')->orderBy('start_month', 'desc')->paginate($perPage);
-        } else {
-            $jobs = Job::orderBy('start_year', 'desc')->orderBy('start_month', 'desc')->paginate($perPage);
-        }
+        $jobs = Job::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Jobs' : $this->owner->name . ' jobs';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Jobs' : 'Jobs';
 
         return view('admin.portfolio.job.index', compact('jobs', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

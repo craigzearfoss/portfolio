@@ -3,13 +3,16 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Scopes\AdminPublicScope;
+use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
 class Audio extends Model
 {
@@ -80,6 +83,70 @@ class Audio extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
+            }
+            $filters['owner_id'] = $owner->id;
+        }
+
+        $query = self::getSearchQuery($filters)
+            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', $filters['owner_id']);
+            })
+            ->when(!empty($filters['artist']), function ($query) use ($filters) {
+                $query->where('artist', 'like', '%' . $filters['artist'] . '%');
+            })
+            ->when(isset($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval($filters['featured']));
+            })
+            ->when(isset($filters['full_episode']), function ($query) use ($filters) {
+                $query->where('full_episode', '=', boolval($filters['full_episode']));
+            })
+            ->when(isset($filters['clip']), function ($query) use ($filters) {
+                $query->where('clip', '=', boolval($filters['clip']));
+            })
+            ->when(isset($filters['podcast']), function ($query) use ($filters) {
+                $query->where('podcast', '=', boolval($filters['podcast']));
+            })
+            ->when(isset($filters['source_recording']), function ($query) use ($filters) {
+                $query->where('source_recording', '=', boolval(['source_recording']));
+            })
+            ->when(!empty($filters['date']), function ($query) use ($filters) {
+                $query->where('date', '=', $filters['date']);
+            })
+            ->when(!empty($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', $filters['year']);
+            })
+            ->when(!empty($filters['company']), function ($query) use ($filters) {
+                $query->where('company', 'like', '%' . $filters['company'] . '%');
+            })
+            ->when(!empty($filters['credit']), function ($query) use ($filters) {
+                $query->where('credit', 'like', '%' . $filters['credit'] . '%');
+            })
+            ->when(isset($filters['show']), function ($query) use ($filters) {
+                $query->where('show', '=', boolval($filters['show']));
+            })
+            ->when(!empty($filters['location']), function ($query) use ($filters) {
+                $query->where('location', 'like', '%' . $filters['location'] . '%');
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
+            });
+
+        return $query;
     }
 
     /**

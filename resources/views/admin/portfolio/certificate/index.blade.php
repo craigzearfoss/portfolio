@@ -35,6 +35,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.certificate.index') ])
+    @endif
+
     <div class="card p-4">
 
         @if($pagination_top)
@@ -132,7 +136,7 @@
                             @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
-                                    'href'  => route('admin.portfolio.certificate.edit', [$admin, $certificate->id]),
+                                    'href'  => route('admin.portfolio.certificate.edit', [$admin, $certificate]),
                                     'icon'  => 'fa-pen-to-square'
                                 ])
                             @endif

@@ -39,30 +39,33 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div style="display: flex;">
 
-        <ul>
+        <div class="card p-4">
+            <ul>
 
-            @forelse ($words as $word)
+                @forelse ($words as $word)
 
-                <li>
-                    @include('guest.components.dictionary-definition', [
-                        'word'  => $word,
-                        'route' => route('guest.dictionary.'.$word->table_slug.'.show', $word->slug)
-                    ])
-                </li>
+                    <li>
+                        @include('guest.components.dictionary-definition', [
+                            'word'  => $word,
+                            'route' => route('guest.dictionary.'.$word->table_slug.'.show', $word->slug)
+                        ])
+                    </li>
 
-            @empty
+                @empty
 
-                <tr>
-                    <li>There are no words in the dictionary.</li>
-                </tr>
+                    <tr>
+                        <li>There are no words in the dictionary.</li>
+                    </tr>
 
-            @endforelse
+                @endforelse
 
-        </ul>
+            </ul>
 
-        {!! $words->links('vendor.pagination.bulma') !!}
+            {!! $words->links('vendor.pagination.bulma') !!}
+
+        </div>
 
     </div>
 

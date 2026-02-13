@@ -27,7 +27,7 @@ class OperatingSystemController extends BaseGuestController
             ->where('public', 1)
             ->where('name', '!=', 'other')
             ->orderBy('name', 'asc')
-            ->paginate($perPage);
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.dictionary.operating-system.index'), compact('operatingSystems'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

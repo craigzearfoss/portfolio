@@ -32,10 +32,12 @@ class UserController extends BaseUserController
          if (empty($this->admin->root)) {
              abort(403, 'Unauthorized.');
          } else {
-             $allUsers = User::orderBy('username', 'asc')->paginate($perPage);
+             $allUsers = User::orderBy('username', 'asc')->paginate($perPage)->appends(request()->except('page'));
          }
 
-        return view('admin.system.user.index', compact('allUsers'))
+        $pageTitle = 'Users';
+
+        return view('admin.system.user.index', compact('allUsers', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

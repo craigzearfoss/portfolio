@@ -2,9 +2,12 @@
 
 namespace App\Models\Career;
 
+use App\Models\System\Admin;
 use App\Models\System\Country;
+use App\Models\System\Owner;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -73,6 +76,62 @@ class Recruiter extends Model
         'city', 'state_id', 'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly',
         'root', 'disabled'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        $query = self::getSearchQuery($filters, $owner)
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(isset($filters['local']), function ($query) use ($filters) {
+                $query->where('local', '=', boolval($filters['local']));
+            })
+            ->when(isset($filters['regional']), function ($query) use ($filters) {
+                $query->where('regional', '=', boolval($filters['regional']));
+            })
+            ->when(isset($filters['national']), function ($query) use ($filters) {
+                $query->where('national', '=', boolval($filters['national']));
+            })
+            ->when(isset($filters['international']), function ($query) use ($filters) {
+                $query->where('international', '=', boolval($filters['international']));
+            })
+            ->when(!empty($filters['city']), function ($query) use ($filters) {
+                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+            })
+            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
+                $query->where('state_id', '=', intval($filters['state_id']));
+            })
+            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
+                $query->where('country_id', '=', intval($filters['country_id']));
+            })
+            ->when(!empty($filters['email']), function ($query) use ($filters) {
+                $email = $filters['email'];
+                $query->orWhere(function ($query) use ($email) {
+                    $query->where('email', 'LIKE', '%' . $email . '%')
+                        ->orWhere('alt_email', 'LIKE', '%' . $email . '%');
+                });
+            })
+            ->when(!empty($filters['phone']), function ($query) use ($filters) {
+                $phone = $filters['phone'];
+                $query->orWhere(function ($query) use ($phone) {
+                    $query->where('phone', 'LIKE', '%' . $phone . '%')
+                        ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%');
+                });
+            })
+            ->when(!empty($filters['body']), function ($query) use ($filters) {
+                $query->where('body', 'like', '%' . $filters['body'] . '%');
+            });
+
+        return $query;
+    }
 
     /**
      * Get the system country that owns the recruiter.

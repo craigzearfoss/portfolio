@@ -220,3 +220,12 @@ div.action-button-panel {
 div.action-button-panel form.delete-resource {
     display: inline;
 }
+
+nav.navbar .navbar-item.has-dropdown .navbar-link {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+nav.pagination ul.pagination-list li {
+    margin-left: 0;
+}

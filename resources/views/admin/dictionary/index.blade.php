@@ -30,33 +30,36 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div style="display: flex;">
 
-        {!! $words->links('vendor.pagination.bulma') !!}
+        <div class="card p-4">
 
-        <ul>
+            {!! $words->links('vendor.pagination.bulma') !!}
 
-            @forelse ($words as $word)
+            <ul>
 
-                <li>
-                    @include('admin.components.dictionary-definition', [
-                        'word'  => $word,
-                        'route' => route('admin.dictionary.'.$word->table_slug.'.show', $word->id)
-                    ])
-                </li>
+                @forelse ($words as $word)
 
-            @empty
+                    <li>
+                        @include('admin.components.dictionary-definition', [
+                            'word'  => $word,
+                            'route' => route('admin.dictionary.'.$word->table_slug.'.show', $word->id)
+                        ])
+                    </li>
 
-                <tr>
-                    <li>There are no words in the dictionary.</li>
-                </tr>
+                @empty
 
-            @endforelse
+                    <tr>
+                        <li>There are no words in the dictionary.</li>
+                    </tr>
 
-        </ul>
+                @endforelse
 
-        {!! $words->links('vendor.pagination.bulma') !!}
+            </ul>
 
+            {!! $words->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

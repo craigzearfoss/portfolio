@@ -38,7 +38,7 @@ class AdminController extends BaseGuestController
 
         $owners = \App\Models\System\Admin::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('username', 'asc')->paginate($perPage);
+            ->orderBy('username', 'asc')->paginate($perPage)->appends(request()->except('page'));
 
         return view('guest.system.admin.index', compact('owners'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

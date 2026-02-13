@@ -5,7 +5,7 @@
         [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',           'href' => route('admin.career.index') ],
         [ 'name' => 'Cover Letters',    'href' => route('admin.career.cover-letter.index') ],
-        [ 'name' => $coverLetter->name, 'href' => route('admin.career.cover-letter.show', $coverLetter->id) ],
+        [ 'name' => $coverLetter->name, 'href' => route('admin.career.cover-letter.show', $coverLetter) ],
         [ 'name' => 'Edit' ],
     ],
     'buttons'          => [
@@ -27,7 +27,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.cover-letter.update', $coverLetter, $urlParams ?? []) }}" method="POST">
+        <form action="{{ route('admin.career.cover-letter.update', array_merge([$coverLetter], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 

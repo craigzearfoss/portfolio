@@ -4,7 +4,7 @@
         [ 'name' => 'Home',       'href' => route('guest.index') ],
         [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
         [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => $owner->name ?? 'Personal' ],
+        [ 'name' => 'Personal' ],
     ];
 
     // set navigation buttons
@@ -29,39 +29,37 @@
 
 @section('content')
 
-    <div class="card m-0">
+    <div style="display: flex;">
 
-        <div class="card-body p-4">
+        <div class="card m-0">
+            <div class="card-body p-4">
+                <div class="list is-hoverable">
+                    <ul class="menu-list" style="max-width: 20em;">
 
-            <div class="list is-hoverable">
+                        @foreach ($personals as $personal)
 
-                <ul class="menu-list" style="max-width: 20em;">
+                            <?php /* @TODO: This is a hack to filter out level 2 resources. Need to find the proper way to do this */ ?>
+                            @if(!in_array($personal->name, ['recipe-ingredient', 'recipe-step']))
 
-                    @foreach ($personals as $personal)
+                                <li>
+                                    @include('admin.components.link', [
+                                        'name'  => $personal->plural,
+                                        'href'  => Route::has('guest.personal.'.$personal->name.'.index')
+                                                        ? route('guest.personal.'.$personal->name.'.index', $owner)
+                                                        : '',
+                                        'class' => 'list-item',
+                                    ])
+                                </li>
 
-                        <?php /* @TODO: This is a hack to filter out level 2 resources. Need to find the proper way to do this */ ?>
-                        @if(!in_array($personal->name, ['recipe-ingredient', 'recipe-step']))
+                            @endif
 
-                            <li>
-                                @include('admin.components.link', [
-                                    'name'  => $personal->plural,
-                                    'href'  => Route::has('guest.personal.'.$personal->name.'.index')
-                                                    ? route('guest.personal.'.$personal->name.'.index', $owner)
-                                                    : '',
-                                    'class' => 'list-item',
-                                ])
-                            </li>
+                        @endforeach
 
-                        @endif
-
-                    @endforeach
-
-                </ul>
-
+                    </ul>
+                </div>
             </div>
-
         </div>
 
-</div>
+    </div>
 
 @endsection

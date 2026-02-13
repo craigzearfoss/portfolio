@@ -3,10 +3,12 @@
 namespace App\Models\Career;
 
 use App\Models\Scopes\AdminPublicScope;
+use App\Models\System\Admin;
 use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -80,6 +82,57 @@ class Contact extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
+            }
+            $filters['owner_id'] = $owner->id;
+        }
+
+        $query = self::getSearchQuery($filters)
+            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(!empty($filters['city']), function ($query) use ($filters) {
+                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+            })
+            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
+                $query->where('state_id', '=', intval($filters['state_id']));
+            })
+            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
+                $query->where('country_id', '=', intval($filters['country_id']));
+            })
+            ->when(!empty($filters['email']), function ($query) use ($filters) {
+                $email = $filters['email'];
+                $query->orWhere(function ($query) use ($email) {
+                    $query->where('email', 'LIKE', '%' . $email . '%')
+                        ->orWhere('alt_email', 'LIKE', '%' . $email . '%');
+                });
+            })
+            ->when(!empty($filters['phone']), function ($query) use ($filters) {
+                $phone = $filters['phone'];
+                $query->orWhere(function ($query) use ($phone) {
+                    $query->where('phone', 'LIKE', '%' . $phone . '%')
+                        ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%');
+                });
+            })
+            ->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', boolval($filters['demo']));
+            });
+
+        return $query;
     }
 
     /**

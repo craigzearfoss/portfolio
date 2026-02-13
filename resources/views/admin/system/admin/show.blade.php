@@ -1,10 +1,21 @@
 @php
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
+    ];
+    if (isRootAdmin()) {
+        $breadcrumbs[] = [ 'name' => $thisAdmin->name, 'href' => route('admin.system.admin.profile', $thisAdmin) ];
+        $breadcrumbs[] = [ 'name' => 'Profile' ];
+    } else {
+        $breadcrumbs[] = [ 'name' => $thisAdmin->name ];
+    }
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
-        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
-                                                           'icon'=>'fa-key',
-                                                           'href' => route('admin.system.admin.change-password', $thisAdmin)
-                                                         ])->render();
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
     }
     if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
@@ -14,16 +25,17 @@
                                                                               )
                                                              ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => route('admin.system.admin.index') ])->render();
+    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
+        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
+                                                           'icon'=>'fa-key',
+                                                           'href' => route('admin.system.admin.change-password', $thisAdmin)
+                                                         ])->render();
+    }
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => route('admin.system.admin.profile', $thisAdmin)])->render();
 @endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin: ' . $thisAdmin->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
-        [ 'name' => $thisAdmin->username ]
-    ],
+    'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,

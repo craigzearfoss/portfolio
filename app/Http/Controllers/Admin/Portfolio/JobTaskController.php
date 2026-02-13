@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\StoreJobTasksRequest;
 use App\Http\Requests\Portfolio\UpdateJobTasksRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobTask;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,21 +33,40 @@ class JobTaskController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         if ($jobId = $request->job_id) {
-            $job = !empty($this->owner)
-                ? Job::where('owner_id', $this->owner->id)->where('id', $jobId)->first()
-                : Job::find($jobId);
-            if (empty($job)) {
-                abort(404, 'Job ' . $jobId . ' not found'
-                    . (!empty($this->owner) ? ' for ' . $this->owner->username : '') . '.');
-            } else {
-                $jobTasks = JobTask::where('job_id', $jobId)->latest()->paginate($perPage);
+
+            $job = Job::findOrFail($jobId);
+
+            if ($this->isRootAdmin) {
+                $query = JobTask::where('job_id', $jobId)->orderBy('job_id', 'asc');
+                if (($owner_id = $request->owner) && ($owner = Owner::findOrFail($owner_id))) {
+                    $query->where('owner_id', $owner_id);
+                }
+            } elseif (!empty($this->owner)) {
+                $query = JobTask::where('job_id', $jobId)->where('owner_id', $this->owner->id)
+                    ->orderBy('job_id', 'asc');
+                $owner = $this->owner;
+                $owner_id = $owner->id;
             }
+
         } else {
+
             $job = null;
-            $jobTasks = JobTask::latest()->paginate($perPage);
+
+            if ($this->isRootAdmin) {
+                $query = JobTask::orderBy('job_id', 'desc');
+                if (($owner_id = $request->owner_id) && ($owner = Owner::findOrFail($owner_id))) {
+                    $query->where('owner_id', $owner_id);
+                }
+            } elseif (!empty($this->owner)) {
+                $query = JobTask::where('owner_id', $this->owner->id)->orderBy('job_id', 'desc');
+                $owner = $this->owner;
+                $owner_id = $owner->id;
+            }
         }
 
-        $pageTitle = empty($this->owner) ? 'Job Tasks' : $this->owner->name . ' job tasks';
+        $jobTasks = $query->paginate($perPage)->appends(request()->except('page'));
+
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Job Tasks' : 'Job Tasks';
 
         return view('admin.portfolio.job-task.index', compact('jobTasks', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -62,11 +82,8 @@ class JobTaskController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'job-task', $this->admin);
 
-        if ($jobId = $request->query('job_id')) {
-            $job = Job::find($jobId);
-        } else {
-            $job = null;
-        }
+        $jobId = $request->job_id;
+        $job = !empty($jobId) ? Job::find($jobId) : null;
 
         return view('admin.portfolio.job-task.create', compact('job'));
     }

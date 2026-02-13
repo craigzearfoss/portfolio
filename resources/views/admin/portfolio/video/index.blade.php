@@ -35,6 +35,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.video.index') ])
+    @endif
+
     <div class="card p-4">
 
         @if($pagination_top)
@@ -104,7 +108,7 @@
                             @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $video, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.portfolio.video.show', $admin),
+                                    'href'  => route('admin.portfolio.video.show', $video),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif

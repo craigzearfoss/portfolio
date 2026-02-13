@@ -137,8 +137,7 @@ class AdminResource extends Model
             ->orderBy($sortField, $sortDir);
 
         if (!empty($ownerId)) {
-            $query->where('admin_resources.has_owner', true)
-                ->where('admin_resources.owner_id', $ownerId);
+            $query->where('admin_resources.owner_id', $ownerId);
         }
 
         // apply env type filter
@@ -178,7 +177,7 @@ class AdminResource extends Model
                 }
             }
         }
-//$query->ddRawSql();
+
         return $query->get();
     }
 }

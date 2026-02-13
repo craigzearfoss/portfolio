@@ -23,7 +23,7 @@
 @section('content')
 
     <div class="show-container card p-4">
-
+PROFILE PAGE
         @include('admin.components.show-row', [
             'name'  => 'username',
             'value' => $admin->username

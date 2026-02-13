@@ -112,7 +112,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('profile/update/{admin}', [AdminProfileController::class, 'update'])->name('profile.update');
 
         Route::name('system.')->group(function () {
-            Route::resource('admin', AdminSystemAdminController::class);
+            //Route::resource('admin', AdminSystemAdminController::class);
+            Route::get('admin', [AdminSystemAdminController::class, 'index'])->name('admin.index');
+            Route::get('admin/create', [AdminSystemAdminController::class, 'create'])->name('admin.create');
+            Route::post('admin', [AdminSystemAdminController::class, 'store'])->name('admin.store');
+            Route::get('admin/{admin}', [AdminSystemAdminController::class, 'show'])->name('admin.show');
+            Route::get('admin/{admin}/edit', [AdminSystemAdminController::class, 'edit'])->name('admin.edit');
+            Route::get('admin/{admin}/profile', [AdminSystemAdminController::class, 'profile'])->name('admin.profile');
+            Route::put('admin/{admin}', [AdminSystemAdminController::class, 'update'])->name('admin.update');
+            Route::put('admin/{admin}/delete', [AdminSystemAdminController::class, 'destroy'])->name('admin.destroy');
             Route::get('admin/{admin}/change-password', [AdminSystemUserController::class, 'change_password'])->name('admin.change-password');
             Route::post('admin/{admin}/change-password', [AdminSystemUserController::class, 'change_password_submit'])->name('admin.change-password-submit');
             Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');

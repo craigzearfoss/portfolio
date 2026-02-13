@@ -38,6 +38,22 @@ if (! function_exists('getEnvType')) {
     }
 }
 
+if (! function_exists('dbName')) {
+    /**
+     * Returns the name of a database when give a database tag.
+     *
+     * @param string $dbTag
+     * @return string|null
+     */
+    function dbName(string $dbTag) {
+        if ($database = Database::where('tag', 'career_db')->first()) {
+            return $database->name;
+        } else {
+            return null;
+        }
+    }
+}
+
 if (! function_exists('refererRouteName')) {
     /**
      * Returns the route name of the refering page or null if there was no refering page.
@@ -1026,6 +1042,9 @@ if (! function_exists('calledFunction')) {
 }
 
 if (! function_exists('calledFunction')) {
+    /**
+     * @return void
+     */
     function callingFunction()
     {
         calledFunction();

@@ -6,8 +6,8 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreLinksRequest;
 use App\Http\Requests\Portfolio\UpdateLinksRequest;
-use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Link;
+use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +24,6 @@ class LinkController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index(Request $request): View
     {
@@ -33,13 +31,11 @@ class LinkController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!empty($this->owner)) {
-            $links = Link::where('owner_id', $this->owner->id)->orderBy('name', 'asc')->paginate($perPage);
-        } else {
-            $links = Link::orderBy('name', 'asc')->paginate($perPage);
-        }
+        $links = Link::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            ->orderBy('name', 'asc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = empty($this->owner) ? 'Links' : $this->owner->name . ' links';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Links' : 'Links';
 
         return view('admin.portfolio.link.index', compact('links', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

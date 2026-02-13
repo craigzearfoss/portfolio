@@ -35,6 +35,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.job.index') ])
+    @endif
+
     @if(!empty($resource->settings))
 
         <div class="card p-4" style="width: auto;">

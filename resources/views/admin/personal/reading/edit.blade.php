@@ -9,11 +9,11 @@
         $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Personal',     'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ];
         $breadcrumbs[] = [ 'name' => 'Readings',     'href' => route('admin.personal.reading.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $reading->name, 'href' => route('admin.personal.reading.show', [$reading->id, 'owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => $reading->name, 'href' => route('admin.personal.reading.show', [$reading, 'owner_id'=>$owner->id]) ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Personal',     'href' => route('admin.personal.index') ];
         $breadcrumbs[] = [ 'name' => 'Readings',     'href' => route('admin.personal.reading.index') ];
-        $breadcrumbs[] = [ 'name' => $reading->name, 'href' => route('admin.personal.reading.show', $reading->id) ];
+        $breadcrumbs[] = [ 'name' => $reading->name, 'href' => route('admin.personal.reading.show', $reading) ];
     }
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
@@ -42,7 +42,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.personal.reading.update', $reading) }}" method="POST">
+        <form action="{{ route('admin.personal.reading.update', array_merge([$reading], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 
