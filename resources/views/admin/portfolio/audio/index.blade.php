@@ -45,13 +45,13 @@
             {!! $audios->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured audio.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured audio">featured</span></th>
                 <th>name</th>
                 <th>type</th>
                 <th>year</th>
@@ -67,7 +67,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured audio">featured</span></th>
                     <th>name</th>
                     <th>type</th>
                     <th>year</th>
@@ -89,10 +88,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $audio->name !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $audio->featured ])
+                        {!! $audio->name !!}{!! !empty($audio->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="clip|podcast">
                         @php
@@ -166,7 +162,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '8' : '7' }}">There is no audio.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There is no audio.</td>
                 </tr>
 
             @endforelse

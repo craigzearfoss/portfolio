@@ -180,7 +180,7 @@ class Recipe extends Model
     public function ingredients(): HasMany
     {
         return $this->hasMany(RecipeIngredient::class, 'recipe_id')
-            ->orderBy('sequence', 'asc');
+            ->orderBy('sequence');
     }
 
     /**
@@ -189,7 +189,7 @@ class Recipe extends Model
     public function steps(): HasMany
     {
         return $this->hasMany(RecipeStep::class, 'recipe_id')
-            ->orderBy('step', 'asc');
+            ->orderBy('step');
     }
 
     /**

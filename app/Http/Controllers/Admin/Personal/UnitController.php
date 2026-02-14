@@ -29,7 +29,8 @@ class UnitController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $units = Unit::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage)
+        $units = Unit::where('name', '!=', 'other')
+            ->orderBy('name', 'asc')->paginate($perPage)
             ->appends(request()->except('page'));
 
         $pageTitle = 'Units';

@@ -26,7 +26,7 @@ class RecruiterController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recruiters = Recruiter::orderBy('name', 'asc')->paginate($perPage)->appends(request()->except('page'));
+        $recruiters = Recruiter::orderBy('name')->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Recruiters';
 

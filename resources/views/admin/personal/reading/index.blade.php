@@ -43,13 +43,13 @@
             {!! $readings->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured reading.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured reading">featured</span></th>
                 <th>title</th>
                 <th>author</th>
                 <th>type</th>
@@ -68,7 +68,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured reading">featured</span></th>
                     <th>name</th>
                     <th>author</th>
                     <th>type</th>
@@ -93,13 +92,10 @@
                         </td>
                     @endif
                     <td data-field="title">
-                        {!! $reading->title !!}
+                        {!! $reading->title !!}{!! !empty($reading->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="author">
                         {!! $reading->author !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
                     </td>
                     <td data-field="fiction|nonfiction">
                         {{
@@ -182,7 +178,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '11' : '10' }}">There are no readings.</td>
+                    <td colspan="{{ $admin->root ? '10' : '9' }}">There are no readings.</td>
                 </tr>
 
             @endforelse

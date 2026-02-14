@@ -68,7 +68,7 @@ class Country extends Model
     public function admins(): HasMany
     {
         return $this->hasMany(Admin::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -77,7 +77,7 @@ class Country extends Model
     public function companies(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Company::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -86,7 +86,7 @@ class Country extends Model
     public function contacts(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Contact::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -95,7 +95,7 @@ class Country extends Model
     public function jobs(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Job::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -104,7 +104,7 @@ class Country extends Model
     public function recruiters(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Recruiter::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -113,7 +113,7 @@ class Country extends Model
     public function references(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Reference::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -122,7 +122,7 @@ class Country extends Model
     public function schools(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(School::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -131,7 +131,7 @@ class Country extends Model
     public function users(): HasMany
     {
         return $this->setConnection('system_db')->hasMany(User::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**

@@ -24,7 +24,8 @@ class PhotographyController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $photos = Photography::where('owner_id', $this->owner->id)
-            ->orderBy('name', 'asc')->orderBy('name', 'asc')
+            ->orderBy('name', 'asc')
+            ->orderBy('name', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.photography.index'), compact('photos'))

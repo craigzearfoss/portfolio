@@ -71,7 +71,8 @@ class DictionarySection extends Model
         }
 
 
-        $query = DictionarySection::select('id', 'name', 'slug', 'table')->orderBy('name', 'asc');
+        $query = DictionarySection::select('id', 'name', 'slug', 'table')
+            ->orderBy('name', 'asc');
         foreach ($filters as $column => $value) {
             $query = $query->where($column, $value);
         }
@@ -118,7 +119,8 @@ class DictionarySection extends Model
             }
 
             $model = '\\App\\Models\\' . $dictionarySection->model;
-            $data = $model::orderBy('name', 'asc')->get()->pluck('name', 'id');
+            $data = $model::orderBy('name', 'asc')
+                ->get()->pluck('name', 'id');
 
         } else {
 
@@ -145,7 +147,7 @@ class DictionarySection extends Model
                         ->whereNot('name', 'other')
                     );
             }
-            $builder->orderBy('name', 'asc');
+            $builder->orderBy('name');
 
             return $perPage ? $builder->paginate($perPage) : $builder->get()->all();
         }

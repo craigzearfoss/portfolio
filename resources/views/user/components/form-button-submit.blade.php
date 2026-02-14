@@ -1,6 +1,6 @@
 @php
-    $propArray = [];
-    foreach ($props as $key=>$value) {
+    $propsArray = [];
+    foreach ($props ?? [] as $key=>$value) {
         $propsArray[] = "{$key}={$value}";
     }
 @endphp
@@ -18,6 +18,6 @@
     @if (!empty($onclick))onclick="{!! $onclick !!}" @endif
     {{ !empty($disabled) || !empty($readonly) ? 'disabled' : '' }}
 >
-    <i class="fa-solid fa-floppy-disk"></i> 
+    <i class="fa-solid fa-floppy-disk"></i>
     {!! $label ?? 'Submit' !!}
 </button>

@@ -101,6 +101,7 @@ class UserGroup extends Model
      */
     public function members(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->orderBy('name', 'asc');
+        return $this->belongsToMany(User::class)
+            ->orderBy('name');
     }
 }

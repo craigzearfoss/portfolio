@@ -82,13 +82,13 @@
             {!! $jobs->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured job.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured job">featured</span></th>
                 <th>company</th>
                 <th>logo</th>
                 <th>role</th>
@@ -106,7 +106,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured job">featured</span></th>
                     <th>company</th>
                     <th>logo</th>
                     <th>role</th>
@@ -130,7 +129,7 @@
                         </td>
                     @endif
                     <td data-field="company">
-                        {!! $job->company !!}
+                        {!! $job->company !!}{!! !empty($job->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="logo_small">
                         @include('admin.components.image', [
@@ -141,9 +140,6 @@
                     </td>
                     <td data-field="role">
                         {!! $job->role !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $job->featured ])
                     </td>
                     <td data-field="start_month|start_year">
                         @if(!empty($job->start_month)){!! date('M', mktime(0, 0, 0, $job->start_month, 10)) !!} @endif
@@ -214,7 +210,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '10' : '9' }}">There are no jobs.</td>
+                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no jobs.</td>
                 </tr>
 
             @endforelse

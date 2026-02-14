@@ -109,7 +109,7 @@ class Category extends Model
     public function jobSkills(): HasMany
     {
         return $this->hasMany(JobSkill::class, 'dictionary_category_id')
-            ->orderBy('id', 'asc');
+            ->orderBy('id');
     }
 
     /**
@@ -118,6 +118,6 @@ class Category extends Model
     public function skills(): HasMany
     {
         return $this->hasMany(Skill::class, 'dictionary_category_id')
-            ->orderBy('id', 'asc');
+            ->orderBy('id');
     }
 }

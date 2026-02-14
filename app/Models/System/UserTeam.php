@@ -87,7 +87,8 @@ class UserTeam extends Model
      */
     public function members(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->orderBy('name');
+        return $this->belongsToMany(User::class)
+            ->orderBy('name');
     }
 
     /**

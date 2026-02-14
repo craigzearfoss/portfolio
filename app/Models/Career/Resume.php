@@ -148,7 +148,8 @@ class Resume extends Model
         $sortColumn = $orderBy[0] ?? 'name';
         $sortDir = $orderBy[1] ?? 'asc';
 
-        $query = self::selectRaw('CONCAT(date, " - ", name) AS name, id')->orderBy($sortColumn, $sortDir);
+        $query = self::selectRaw('CONCAT(date, " - ", name) AS name, id')
+            ->orderBy($sortColumn, $sortDir);
 
         // Apply filters to the query.
         foreach ($filters as $col => $value) {

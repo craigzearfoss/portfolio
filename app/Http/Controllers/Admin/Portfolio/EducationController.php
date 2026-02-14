@@ -32,8 +32,9 @@ class EducationController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $educations = Education::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
-            ->orderBy('owner_id', 'asc')
-            ->orderBy('enrollment_year', 'desc')->orderBy('enrollment_month', 'desc')
+            ->orderBy('owner_id')
+            ->orderBy('enrollment_year', 'desc')
+            ->orderBy('enrollment_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Education' : 'Education';

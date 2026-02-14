@@ -37,13 +37,15 @@ class JobTaskController extends BaseAdminController
             $job = Job::findOrFail($jobId);
 
             if ($this->isRootAdmin) {
-                $query = JobTask::where('job_id', $jobId)->orderBy('job_id', 'asc');
+                $query = JobTask::where('job_id', $jobId)
+                    ->orderBy('job_id', 'asc');
                 if (($owner_id = $request->owner) && ($owner = Owner::findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
-                $query = JobTask::where('job_id', $jobId)->where('owner_id', $this->owner->id)
-                    ->orderBy('job_id', 'asc');
+                $query = JobTask::where('job_id', $jobId)
+                    ->where('owner_id', $this->owner->id)
+                    ->orderBy('job_id');
                 $owner = $this->owner;
                 $owner_id = $owner->id;
             }
@@ -58,7 +60,8 @@ class JobTaskController extends BaseAdminController
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
-                $query = JobTask::where('owner_id', $this->owner->id)->orderBy('job_id', 'desc');
+                $query = JobTask::where('owner_id', $this->owner->id)
+                    ->orderBy('job_id', 'desc');
                 $owner = $this->owner;
                 $owner_id = $owner->id;
             }

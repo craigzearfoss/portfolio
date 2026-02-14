@@ -45,13 +45,13 @@
             {!! $educations->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured education.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured education">featured</span></th>
                 <th class="has-text-centered">degree<br>type</th>
                 <th>major</th>
                 <th>minor</th>
@@ -70,7 +70,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured education">featured</span></th>
                     <th class="has-text-centered">degree<br>type</th>
                     <th>major</th>
                     <th>minor</th>
@@ -98,7 +97,7 @@
                         {!! $education->degreeType->name ?? '' !!}
                     </td>
                     <td data-field="major">
-                        {!! $education->major !!}
+                        {!! $education->major !!}{!! !empty($education->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="minor">
                         {!! $education->minor !!}
@@ -173,7 +172,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '11' : '10' }}">There is no education.</td>
+                    <td colspan="{{ $admin->root ? '10' : '9' }}">There is no education.</td>
                 </tr>
 
             @endforelse

@@ -23,8 +23,9 @@ class FrameworkController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $frameworks = Framework::where('disabled', 0)
-            ->where('public', 1)
+        $frameworks = Framework::where('name', '!=', 'other')
+            ->where('public', true)
+            ->where('disabled', false)
             ->where('name', '!=', 'other')
             ->orderBy('name', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));

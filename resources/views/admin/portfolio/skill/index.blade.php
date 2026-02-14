@@ -45,13 +45,13 @@
             {!! $skills->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured skill.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured skill">featured</span></th>
                 <th>name</th>
                 <th>category</th>
                 <th>level (out of 10)</th>
@@ -68,7 +68,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured skill">featured</span></th>
                     <th>name</th>
                     <th>category</th>
                     <th>level (out of 10)</th>
@@ -87,14 +86,11 @@
                 <tr data-id="{{ $skill->id }}">
                     @if($admin->root)
                         <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $skill->owner->username ?? '' }}
+                            {{ $skill->owner->username ?? '' }}{!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
                         {!! $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $skill->featured ])
                     </td>
                     <td data-field="dictionary_category_id">
                         <?php /* @TODO: fix this
@@ -174,7 +170,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no skills.</td>
+                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no skills.</td>
                 </tr>
 
             @endforelse

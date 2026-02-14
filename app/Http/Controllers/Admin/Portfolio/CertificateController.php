@@ -32,8 +32,8 @@ class CertificateController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $certificates = Certificate::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
-            ->orderBy('owner_id', 'asc')
-            ->orderBy('name', 'asc')
+            ->orderBy('owner_id')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Certificates' : 'Certificates';

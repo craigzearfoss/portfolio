@@ -131,7 +131,8 @@ class AdminDatabase extends Model
     public function resources(): HasMany
     {
         return $this->hasMany(AdminResource::class, 'database_id')
-            ->where('owner_id', $this->owner()->id)->orderBy('name', 'asc');
+            ->where('owner_id', $this->owner()->id)
+            ->orderBy('name');
     }
 
     /**
@@ -219,8 +220,8 @@ class AdminDatabase extends Model
         } else {
 
             $query = AdminDatabase::select('admin_resources.*', 'admin_databases.id as database_id',
-                'admin_databases.name as database_name', 'admin_databases.database as database_database'
-            )
+                    'admin_databases.name as database_name', 'admin_databases.database as database_database'
+                )
                 ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
                 ->orderBy('admin_resources.sequence', 'asc');
 
@@ -252,8 +253,8 @@ class AdminDatabase extends Model
                                             array       $orderBy = ['seq', 'asc']):  array
     {
         $query = Database::select( 'admin_resources.*', 'databases.id as database_id', 'databases.name as database_name'
-            , 'databases.database as database_database'
-        )
+                , 'databases.database as database_database'
+            )
             ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
             ->where('admin_databases.owner_id', $ownerId)
             ->where('admin_resources.owner_id', $ownerId)

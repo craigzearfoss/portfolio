@@ -43,6 +43,7 @@
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.photography.index') ])
     @endif
 
+    <p class="admin-table-caption">* An asterisk indicates a featured photo.</p>
     <div class="card p-4">
 
         @if($pagination_top)
@@ -55,7 +56,6 @@
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured photo">featured</span></th>
                 <th>name</th>
                 <th>credit</th>
                 <th>year</th>
@@ -71,7 +71,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured photo">featured</span></th>
                     <th>name</th>
                     <th>credit</th>
                     <th>year</th>
@@ -93,10 +92,7 @@
                         </td>
                     @endif
                     <td data-field="year">
-                        {!! $photo->name !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $photo->featured ])
+                        {!! $photo->name !!}{!! !empty($photo->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="year">
                         {!! $photo->name !!}
@@ -165,7 +161,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '8' : '7' }}">There is are no photos.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There is are no photos.</td>
                 </tr>
 
             @endforelse

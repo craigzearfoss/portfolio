@@ -161,7 +161,7 @@ class Company extends Model
     public function contacts(): BelongsToMany
     {
         return $this->belongsToMany(Contact::class)->withPivot('active')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -177,7 +177,8 @@ class Company extends Model
      */
     public function industry(): BelongsTo
     {
-        return $this->belongsTo(Industry::class, 'industry_id')->orderBy('name', 'asc');
+        return $this->belongsTo(Industry::class, 'industry_id')
+            ->orderBy('name', 'asc');
     }
 
     /**

@@ -45,13 +45,13 @@
             {!! $publications->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured publication.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured publication">featured</span></th>
                 <th>title</th>
                 <th>publication<br>name</th>
                 <th>publisher</th>
@@ -68,7 +68,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured publication">featured</span></th>
                     <th>title</th>
                     <th>publication<br>name</th>
                     <th>publisher</th>
@@ -91,10 +90,7 @@
                         </td>
                     @endif
                     <td data-field="title">
-                        {!! $publication->title !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $publication->featured ])
+                        {!! $publication->title !!}{!! !empty($publication->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="publication_name">
                         {!! $publication->publication !!}
@@ -166,7 +162,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no publications.</td>
+                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no publications.</td>
                 </tr>
 
             @endforelse

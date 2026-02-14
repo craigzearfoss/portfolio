@@ -210,7 +210,8 @@ class Admin extends Authenticatable
      */
     public function groups(): BelongsToMany
     {
-        return $this->belongsToMany(AdminGroup::class)->orderBy('name', 'asc');
+        return $this->belongsToMany(AdminGroup::class)
+            ->orderBy('name');
     }
 
     /**
@@ -218,7 +219,8 @@ class Admin extends Authenticatable
      */
     public function teams(): BelongsToMany
     {
-        return $this->belongsToMany(AdminTeam::class)->orderBy('name', 'asc');
+        return $this->belongsToMany(AdminTeam::class)
+            ->orderBy('name');
     }
 
     /**

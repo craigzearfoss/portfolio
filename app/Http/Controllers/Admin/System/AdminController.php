@@ -42,7 +42,7 @@ class AdminController extends BaseAdminController
              return redirect()->route('admin.profile.show');
          } else {
              $allAdmins = Admin::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
-                 ->orderBy('name', 'asc')
+                 ->orderBy('name')
                  ->paginate($perPage)->appends(request()->except('page'));
          }
 

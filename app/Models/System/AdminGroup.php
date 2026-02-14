@@ -106,6 +106,7 @@ class AdminGroup extends Model
      */
     public function members(): BelongsToMany
     {
-        return $this->belongsToMany(Admin::class)->orderBy('name', 'asc');
+        return $this->belongsToMany(Admin::class)
+            ->orderBy('name');
     }
 }

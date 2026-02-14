@@ -45,13 +45,13 @@
             {!! $awards->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured award.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured award">featured</span></th>
                 <th>name</th>
                 <th>year</th>
                 <th>organization</th>
@@ -67,7 +67,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured award">featured</span></th>
                     <th>name</th>
                     <th>year</th>
                     <th>organization</th>
@@ -89,16 +88,13 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $award->name !!}
+                        {!! $award->name !!}{!! !empty($award->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="year">
                         {!! $award->year !!}
                     </td>
                     <td data-field="organization">
                         {!! $award->organization !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $award->featured ])
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $award->public ])
@@ -161,7 +157,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no awards.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no awards.</td>
                 </tr>
 
             @endforelse

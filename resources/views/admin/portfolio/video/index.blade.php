@@ -45,13 +45,13 @@
             {!! $videos->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured award.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured video">featured</span></th>
                 <th>name</th>
                 <th>year</th>
                 <th class="has-text-centered">public</th>
@@ -66,7 +66,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured video">featured</span></th>
                     <th>name</th>
                     <th>year</th>
                     <th class="has-text-centered">public</th>
@@ -87,10 +86,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $video->name !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $video->featured ])
+                        {!! $video->name !!}{!! !empty($video->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="year">
                         {!! $video->year !!}
@@ -156,7 +152,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no videos.</td>
+                    <td colspan="{{ $admin->root ? '6' : '5' }}">There are no videos.</td>
                 </tr>
 
             @endforelse

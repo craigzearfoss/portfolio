@@ -31,7 +31,7 @@ class IndexController extends BaseGuestController
 
         $admin = null;
         $admins = \App\Models\System\Admin::where('public', 1)
-            ->where('disabled', 0)
+            ->where('disabled', false)
             ->orderBy('name', 'asc')->paginate($perPage)->appends(request()->except('page'));
 
         if ($featuredUsername = config('app.featured_admin')) {
@@ -56,7 +56,7 @@ class IndexController extends BaseGuestController
 
         $admin = null;
         $candidates = \App\Models\System\Admin::where('public', 1)
-            ->where('disabled', 0)
+            ->where('disabled', false)
             ->orderBy('name', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));
 

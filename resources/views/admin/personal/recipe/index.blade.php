@@ -45,13 +45,13 @@
             {!! $recipes->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured recipe.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured recipe">featured</span></th>
                 <th>name</th>
                 <th>type</th>
                 <th>meal</th>
@@ -67,7 +67,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured recipe">featured</span></th>
                     <th>name</th>
                     <th>type</th>
                     <th>meal</th>
@@ -89,10 +88,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $recipe->name !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->featured ])
+                        {!! $recipe->name !!}{!! !empty($recipe->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="types">
                         {!! implode(', ', $recipe->types()) !!}
@@ -161,7 +157,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no recipes.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no recipes.</td>
                 </tr>
 
             @endforelse

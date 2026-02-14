@@ -45,13 +45,13 @@
             {!! $courses->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured course.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured course">featured</span></th>
                 <th>name</th>
                 <th>academy</th>
                 <th class="has-text-centered">completion<br>date</th>
@@ -67,7 +67,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured course">featured</span></th>
                     <th>name</th>
                     <th>academy</th>
                     <th class="has-text-centered">completion<br>date</th>
@@ -89,10 +88,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $course->name !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $course->featured ])
+                        {!! $course->name !!}{!! !empty($course->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="academy.name">
                         @if (!empty($course->academy))
@@ -166,7 +162,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no courses.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no courses.</td>
                 </tr>
 
             @endforelse

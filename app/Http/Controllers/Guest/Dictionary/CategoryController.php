@@ -23,8 +23,9 @@ class CategoryController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $categories = Category::where('disabled', 0)
-            ->where('public', 1)
+        $categories = Category::where('name', '!=', 'other')
+            ->where('public', true)
+            ->where('disabled', false)
             ->where('name', '!=', 'other')
             ->orderBy('name', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));

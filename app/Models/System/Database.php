@@ -123,7 +123,8 @@ class Database extends Model
      */
     public function resources(): HasMany
     {
-        return $this->hasMany(Resource::class, 'database_id')->orderBy('name', 'asc');
+        return $this->hasMany(Resource::class, 'database_id')
+            ->orderBy('name');
     }
 
     /**
@@ -204,8 +205,8 @@ class Database extends Model
                                             array       $orderBy = ['seq', 'asc']):  array
     {
         $query = Database::select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
-            , 'databases.database as database_database'
-        )
+                , 'databases.database as database_database'
+            )
             ->join('resources', 'resources.database_id', '=', 'databases.id')
             ->orderBy('resources.sequence', 'asc');
 

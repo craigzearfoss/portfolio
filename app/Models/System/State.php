@@ -70,7 +70,7 @@ class State extends Model
     public function admins(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Admin::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -79,7 +79,7 @@ class State extends Model
     public function applications(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Application::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -88,7 +88,7 @@ class State extends Model
     public function companies(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Company::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -97,7 +97,7 @@ class State extends Model
     public function contacts(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Contact::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -106,7 +106,7 @@ class State extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'country_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -115,7 +115,7 @@ class State extends Model
     public function jobs(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Job::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -124,7 +124,7 @@ class State extends Model
     public function recruiters(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Recruiter::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -133,7 +133,7 @@ class State extends Model
     public function references(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Reference::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -142,7 +142,7 @@ class State extends Model
     public function schools(): HasMany
     {
         return $this->setConnection('portfolio_db')->hasMany(School::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**
@@ -151,7 +151,7 @@ class State extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class, 'state_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**

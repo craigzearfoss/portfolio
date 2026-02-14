@@ -49,13 +49,13 @@
             {!! $arts->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates featured art.</p>
         <table class="table admin-table">
                 <thead>
                 <tr>
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured art">featured</span></th>
                     <th>name</th>
                     <th>artist</th>
                     <th>year</th>
@@ -71,7 +71,6 @@
                         @if(!empty($admin->root))
                             <th>owner</th>
                         @endif
-                        <th class="has-text-centered"><span title="featured art">featured</span></th>
                         <th>name</th>
                         <th>artist</th>
                         <th>year</th>
@@ -93,13 +92,10 @@
                             </td>
                         @endif
                         <td data-field="name">
-                            {!! $art->name !!}
+                            {!! $art->name !!}{!! !empty($art->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="artist">
                             {!! $art->artist !!}
-                        </td>
-                        <td data-field="featured" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $art->featured ])
                         </td>
                         <td data-field="year">
                             {!! $art->year !!}
@@ -165,7 +161,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '8' : '7' }}">There is no art.</td>
+                        <td colspan="{{ $admin->root ? '7' : '6' }}">There is no art.</td>
                     </tr>
 
                 @endforelse

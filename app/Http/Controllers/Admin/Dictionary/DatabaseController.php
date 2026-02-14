@@ -37,7 +37,7 @@ class DatabaseController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $databases = Category::searchQuery($request->all())
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.database.index', compact('databases'))

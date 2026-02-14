@@ -1198,7 +1198,7 @@ EOD,
             ->selectRaw('applications.id as application_id, companies.slug as company_slug')
             ->where('applications.owner_id', $this->adminId)
             ->join(config('app.career_db').'.companies', 'companies.id', '=', 'company_id')
-            ->orderBy('companies.slug', 'asc');
+            ->orderBy('companies.slug');
         foreach ($query->get() as $row) {
             $this->applications[$row->company_slug] = $row->application_id;
         }

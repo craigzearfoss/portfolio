@@ -45,13 +45,13 @@
             {!! $certificates->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured certificate.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured certificate">featured</span></th>
                 <th>name</th>
                 <th>academy</th>
                 <th>year</th>
@@ -69,7 +69,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured certificate">featured</span></th>
                     <th>name</th>
                     <th>academy</th>
                     <th>year</th>
@@ -92,12 +91,9 @@
                             {{ $certificate->owner->username }}
                         </td>
                     @endif
-                    <td data-field="name">
-                        {!! $certificate->name !!}
-                    </td>
-                    <td data-field="feature" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $certificate->feature ])
-                    </td>
+                        <td data-field="name">
+                            {!! $certificate->name !!}{!! !empty($certificate->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                        </td>
                     <td data-field="academy.name">
                         @if (!empty($certificate->academy))
                             @include('admin.components.link', [
@@ -176,7 +172,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '10' : '9' }}">There are no certificates.</td>
+                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no certificates.</td>
                 </tr>
 
             @endforelse

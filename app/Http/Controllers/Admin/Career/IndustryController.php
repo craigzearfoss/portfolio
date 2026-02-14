@@ -31,7 +31,7 @@ class IndustryController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $industries = Industry::searchQuery($request->all())
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Industries';

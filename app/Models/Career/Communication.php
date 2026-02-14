@@ -132,7 +132,7 @@ class Communication extends Model
     public function communicationType(): BelongsTo
     {
         return $this->belongsTo(CommunicationType::class, 'communication_type_id')
-            ->orderBy('sequence', 'asc');
+            ->orderBy('sequence');
     }
 
 }

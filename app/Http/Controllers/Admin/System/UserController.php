@@ -32,7 +32,7 @@ class UserController extends BaseUserController
         $perPage = $request->query('per_page', $this->perPage());
 
         $allUsers = User::searchQuery($request->all())
-            ->orderBy('username', 'asc')
+            ->orderBy('username')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Users';

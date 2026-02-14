@@ -36,7 +36,7 @@ class LibraryController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $libraries = Category::searchQuery($request->all())
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.library.index', compact('libraries'))

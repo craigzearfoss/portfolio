@@ -42,13 +42,13 @@
             {!! $jobTasks->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured job task.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured task">featured</span></th>
                 <th>company</th>
                 <th>summary</th>
                 <th class="has-text-centered">public</th>
@@ -63,7 +63,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured task">featured</span></th>
                     <th>company</th>
                     <th>summary</th>
                     <th class="has-text-centered">public</th>
@@ -85,7 +84,7 @@
                     @endif
                     <td data-field="job.company">
                         @if($jobTask->job)
-                            {!! $jobTask->job->company ?? '' !!}
+                            {!! $jobTask->job->company ?? '' !!}{!! !empty($jobTask->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         @endif
                     </td>
                     <td data-field="summary">
@@ -152,7 +151,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no job tasks.</td>
+                    <td colspan="{{ $admin->root ? '6' : '5' }}">There are no job tasks.</td>
                 </tr>
 
             @endforelse

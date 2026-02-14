@@ -45,13 +45,13 @@
             {!! $links->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured link.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured link">featured</span></th>
                 <th>name</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -65,7 +65,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured link">featured</span></th>
                     <th>name</th>
                     <th class="has-text-centered">public</th>
                     <th class="has-text-centered">disabled</th>
@@ -85,10 +84,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $link->name !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $link->featured ])
+                        {!! $link->name !!}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->public ])
@@ -166,7 +162,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '6' : '5' }}">There are no links.</td>
+                    <td colspan="{{ $admin->root ? '5' : '4' }}">There are no links.</td>
                 </tr>
 
             @endforelse

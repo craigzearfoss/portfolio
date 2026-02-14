@@ -23,8 +23,9 @@ class LibraryController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $libraries = Library::where('disabled', 0)
-            ->where('public', 1)
+        $libraries = Library::where('name', '!=', 'other')
+            ->where('public', true)
+            ->where('disabled', false)
             ->where('name', '!=', 'other')
             ->orderBy('name', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));

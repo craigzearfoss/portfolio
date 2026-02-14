@@ -135,6 +135,7 @@ class CoverLetter extends Model
      */
     public function application(): BelongsTo
     {
-        return $this->belongsTo(Application::class, 'application_id')->orderBy('post_date', 'desc');
+        return $this->belongsTo(Application::class, 'application_id')
+            ->orderBy('post_date', 'desc');
     }
 }

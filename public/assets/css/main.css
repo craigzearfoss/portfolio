@@ -249,7 +249,14 @@ table.table.admin-table tbody th, table.admin-table tbody td {
 }
 table.table.admin-table tbody tr:not(.is-selected):hover{ background-color:#e0e0e0 }
 table.table.admin-table tbody tr:not(.is-selected):hover:nth-child(even) { background-color:#e0e0e0 }
-
+p.admin-table-caption {
+    font-size: 14px;
+    font-style: italic;
+    margin: 0 !important;
+}
+span.featured-splat {
+    font-weight: 800;
+}
 div.floating-div-container div.level > * {
     vertical-align: top;  // Align children to middle of line
 }

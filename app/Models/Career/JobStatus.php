@@ -2,18 +2,18 @@
 
 namespace App\Models\Career;
 
+use App\Models\System\Admin;
 use App\Traits\SearchableModelTrait;
-use App\Models\Career\Communication;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CommunicationType extends Model
+class JobStatus extends Model
 {
     use SearchableModelTrait;
 
     protected $connection = 'career_db';
 
-    protected $table = 'communication_types';
+    protected $table = 'job_statuses';
 
     /**
      * The attributes that are mass assignable.
@@ -22,21 +22,20 @@ class CommunicationType extends Model
      */
     protected $fillable = [
         'name',
-        'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name'];
-    const array SEARCH_ORDER_BY = ['sequence', 'asc'];
+    const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the career applications for the job communication type.
+     * Get the career applications for the job status.
      */
-    public function communications(): HasMany
+    public function applications(): HasMany
     {
-        return $this->hasMany(Communication::class, 'communication_type_id')
-            ->orderBy('sequence');
+        return $this->hasMany(Admin::class, 'job_status_id')
+            ->orderBy('username');
     }
 }

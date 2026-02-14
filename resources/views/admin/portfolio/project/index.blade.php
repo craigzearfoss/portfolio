@@ -45,13 +45,13 @@
             {!! $projects->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured project.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured project">featured</span></th>
                 <th>name</th>
                 <th>language</th>
                 <th>year</th>
@@ -68,7 +68,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured project">featured</span></th>
                     <th>name</th>
                     <th>language</th>
                     <th>year</th>
@@ -90,10 +89,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $project->name !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $project->featured ])
+                        {!! $project->name !!}{!! !empty($project->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="language">
                         {!! !empty($project->language)
@@ -174,7 +170,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no projects.</td>
+                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no projects.</td>
                 </tr>
 
             @endforelse

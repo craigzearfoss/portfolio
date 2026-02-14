@@ -203,7 +203,8 @@ class User extends Authenticatable
      */
     public function groups(): BelongsToMany
     {
-        return $this->belongsToMany(UserGroup::class)->orderBy('name', 'asc');
+        return $this->belongsToMany(UserGroup::class)
+            ->orderBy('name');
     }
 
     /**
@@ -211,7 +212,8 @@ class User extends Authenticatable
      */
     public function teams(): BelongsToMany
     {
-        return $this->belongsToMany(UserTeam::class)->orderBy('name', 'asc');
+        return $this->belongsToMany(UserTeam::class)
+            ->orderBy('name');
     }
 
     /**

@@ -30,7 +30,7 @@ class UserTeamController extends BaseUserController
         $perPage = $request->query('per_page', $this->perPage());
 
         $userTeams = UserTeam::searchQuery($request->all())
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'User Teams';

@@ -45,13 +45,13 @@
             {!! $musics->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured music.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured music">featured</span></th>
                 <th>name</th>
                 <th>artist</th>
                 <th>year</th>
@@ -69,7 +69,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured music">featured</span></th>
                     <th>name</th>
                     <th>artist</th>
                     <th>year</th>
@@ -93,13 +92,10 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $music->name !!}
+                        {!! $music->name !!}{!! !empty($music->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="artist">
                         {!! $music->artist !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $music->featured ])
                     </td>
                     <td data-field="year">
                         {!! $music->year !!}
@@ -171,7 +167,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '10' : '9' }}">There is no music.</td>
+                    <td colspan="{{ $admin->root ? '9' : '8' }}">There is no music.</td>
                 </tr>
 
             @endforelse

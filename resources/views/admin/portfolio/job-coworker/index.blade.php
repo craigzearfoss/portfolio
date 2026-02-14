@@ -42,13 +42,13 @@
             {!! $jobCoworkers->links('vendor.pagination.bulma') !!}
         @endif
 
+        <p class="admin-table-caption">* An asterisk indicates a featured coworker.</p>
         <table class="table admin-table">
             <thead>
             <tr>
                 @if(!empty($admin->root))
                     <th>owner</th>
                 @endif
-                <th class="has-text-centered"><span title="featured coworker">featured</span></th>
                 <th>name</th>
                 <th>level</th>
                 <th>company</th>
@@ -64,7 +64,6 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th class="has-text-centered"><span title="featured coworker">featured</span></th>
                     <th>name</th>
                     <th>level</th>
                     <th>company</th>
@@ -87,10 +86,7 @@
                         </td>
                     @endif
                     <td data-field="name">
-                        {!! $jobCoworker->name !!}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $jobCoworker->featured ])
+                        {!! $jobCoworker->name !!}{!! !empty($jobCoworker->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                     </td>
                     <td data-field="level">
                         {!! $jobCoworker->level !!}
@@ -161,7 +157,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '9' : '8' }}">There are no job coworkers.</td>
+                    <td colspan="{{ $admin->root ? '7' : '6' }}">There are no job coworkers.</td>
                 </tr>
 
             @endforelse

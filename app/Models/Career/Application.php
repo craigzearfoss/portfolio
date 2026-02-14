@@ -236,7 +236,8 @@ class Application extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class, 'company_id')->orderBy('name', 'asc');
+        return $this->belongsTo(Company::class, 'company_id')
+            ->orderBy('name');
     }
 
     /**
@@ -294,7 +295,8 @@ class Application extends Model
      */
     public function jobBoard(): BelongsTo
     {
-        return $this->belongsTo(JobBoard::class, 'job_board_id')->orderBy('name', 'asc');
+        return $this->belongsTo(JobBoard::class, 'job_board_id')
+            ->orderBy('name', 'asc');
     }
 
     /**
@@ -344,7 +346,7 @@ class Application extends Model
     public function resume(): BelongsTo
     {
         return $this->belongsTo(Resume::class)->orderBy('date', 'desc')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
 
