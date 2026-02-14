@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Database\Migrations\Migration;
@@ -7,11 +8,9 @@ use Illuminate\Database\Migrations\Migration;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the personal database.
-     *
      * @var string
      */
-    protected $database_tag = 'personal_db';
+    protected string $database_tag = 'personal_db';
 
     /**
      * The id of the admin who owns the personal database and resources.

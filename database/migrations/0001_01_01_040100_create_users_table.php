@@ -8,47 +8,50 @@ use function Laravel\Prompts\text;
 
 return new class extends Migration
 {
-    protected $database_tag = 'system_db';
+    /**
+     * @var string
+     */
+    protected string $database_tag = 'system_db';
 
     /**
      * @var string sample user username
      */
-    protected $sampleUsername = 'sample';
+    protected string $sampleUsername = 'sample';
 
     /**
-     * @var string sample user password
+     * @var string|null sample user password
      */
-    protected $samplePassword = null;
+    protected string|null $samplePassword = null;
 
     /**
      * @var string sample user name
      */
-    protected $sampleName = 'Default User';
+    protected string $sampleName = 'Default User';
 
     /**
      * @var string sample user label
      */
-    protected $sampleLabel = 'sample-user';
+    protected string $sampleLabel = 'sample-user';
 
     /**
      * @var string demo user username
      */
-    protected $demoUsername = 'demo';
+    protected string $demoUsername = 'demo';
 
     /**
-     * @var string demo user password
+     * @var string|null demo user password
      */
-    protected $demoPassword = 'Shpadoinkle!';
+    protected string|null $demoPassword = 'Shpadoinkle!';
 
     /**
      * @var string demo user name
      */
-    protected $demoName = 'Demo User';
+    protected string $demoName = 'Demo User';
 
     /**
      * @var string demo user label
      */
-    protected $demoLabel = 'demo-user';
+    protected string $demoLabel = 'demo-user';
 
     /**
      * Run the migrations.

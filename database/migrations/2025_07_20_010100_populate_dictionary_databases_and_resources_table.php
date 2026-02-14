@@ -7,11 +7,9 @@ use Illuminate\Database\Migrations\Migration;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the dictionary database.
-     *
      * @var string
      */
-    protected $database_tag = 'dictionary_db';
+    protected string $database_tag = 'dictionary_db';
 
     /**
      * The id of the admin who owns the portfolio database and resources.
@@ -19,7 +17,7 @@ return new class extends Migration
      *
      * @var int
      */
-    protected $rootAdminId = 1;
+    protected int $rootAdminId = 1;
 
     /**
      * Run the migrations.

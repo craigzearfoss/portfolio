@@ -10,11 +10,9 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the system database.
-     *
      * @var string
      */
-    protected $database_tag = 'system_db';
+    protected string $database_tag = 'system_db';
 
     /**
      * The id of the admin who owns the system resources.
@@ -22,7 +20,7 @@ return new class extends Migration
      *
      * @var int
      */
-    protected $rootAdminId = 1;
+    protected int $rootAdminId = 1;
 
     /**
      * Run the migrations.

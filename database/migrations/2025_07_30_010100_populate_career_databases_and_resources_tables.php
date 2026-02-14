@@ -8,11 +8,9 @@ use Illuminate\Database\Migrations\Migration;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the career database.
-     *
      * @var string
      */
-    protected $database_tag = 'career_db';
+    protected string $database_tag = 'career_db';
 
     /**
      * The id of the admin who owns the career database and resources.
@@ -20,7 +18,7 @@ return new class extends Migration
      *
      * @var int
      */
-    protected $rootAdminId = 1;
+    protected int $rootAdminId = 1;
 
     /**
      * Run the migrations.

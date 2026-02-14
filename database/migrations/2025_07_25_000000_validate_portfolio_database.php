@@ -4,7 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    protected $database_tag = 'portfolio_db';
+    /**
+     * @var string
+     */
+    protected string $database_tag = 'portfolio_db';
 
     /**
      * Run the migrations.

@@ -5,11 +5,13 @@ use App\Models\System\Database;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use PSpell\Dictionary;
 
 return new class extends Migration
 {
-    protected $database_tag = 'dictionary_db';
+    /**
+     * @var string
+     */
+    protected string $database_tag = 'dictionary_db';
 
     /**
      * Run the migrations.

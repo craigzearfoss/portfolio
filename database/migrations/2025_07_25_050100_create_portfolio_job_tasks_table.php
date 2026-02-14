@@ -10,18 +10,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the portfolio database.
-     *
      * @var string
      */
-    protected $database_tag = 'portfolio_db';
+    protected string $database_tag = 'portfolio_db';
 
     /**
      * The id of the admin who owns the portfolio job-task.
      *
      * @var int
      */
-    protected $ownerId = 2;
+    protected int $ownerId = 2;
 
     /**
      * Run the migrations.

@@ -8,11 +8,9 @@ use Illuminate\Database\Migrations\Migration;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the portfolio database.
-     *
      * @var string
      */
-    protected $database_tag = 'portfolio_db';
+    protected string $database_tag = 'portfolio_db';
 
     /**
      * Run the migrations.

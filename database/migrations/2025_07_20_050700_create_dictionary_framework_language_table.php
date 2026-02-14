@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    protected $database_tag = 'dictionary_db';
+    /**
+     * @var string
+     */
+    protected string $database_tag = 'dictionary_db';
 
     /**
      * Run the migrations.

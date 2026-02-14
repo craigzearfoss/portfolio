@@ -248,7 +248,7 @@ class AddCraigZearfoss extends Command
      * @param int $adminGroupId
      * @return void
      */
-    protected function insertSystemAdminAdminGroups($adminId, int $adminGroupId): void
+    protected function insertSystemAdminAdminGroups(int $adminId, int $adminGroupId): void
     {
         echo $this->username. ": Inserting into System\\AdminAdminGroup ...\n";
 

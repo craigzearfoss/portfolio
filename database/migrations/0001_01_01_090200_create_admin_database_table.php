@@ -10,11 +10,9 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the system database.
-     *
      * @var string
      */
-    protected $database_tag = 'system_db';
+    protected string $database_tag = 'system_db';
 
     /**
      * Run the migrations.

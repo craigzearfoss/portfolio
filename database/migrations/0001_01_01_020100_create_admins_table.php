@@ -12,67 +12,70 @@ use function Laravel\Prompts\text;
 
 return new class extends Migration
 {
-    protected $database_tag = 'system_db';
+    /**
+     * @var string
+     */
+    protected string $database_tag = 'system_db';
 
     /**
      * @var string root admin username
      */
-    protected $rootUsername = 'root';
+    protected string $rootUsername = 'root';
 
     /**
-     * @var string root admin password
+     * @var string|null root admin password
      */
-    protected $rootPassword = null;
+    protected string|null $rootPassword = null;
 
     /**
      * @var string root admin name
      */
-    protected $rootName = 'Root Admin';
+    protected string $rootName = 'Root Admin';
 
     /**
      * @var string root admin label
      */
-    protected $rootLabel = 'root-admin';
+    protected string $rootLabel = 'root-admin';
 
     /**
      * @var string default admin username
      */
-    protected $defaultUsername = 'default';
+    protected string $defaultUsername = 'default';
 
     /**
-     * @var string default admin password
+     * @var string|null default admin password
      */
-    protected $defaultPassword = null;
+    protected string|null $defaultPassword = null;
 
     /**
      * @var string default admin name
      */
-    protected $defaultName = 'Default Admin';
+    protected string $defaultName = 'Default Admin';
 
     /**
      * @var string default admin label
      */
-    protected $defaultLabel = 'default-admin';
+    protected string $defaultLabel = 'default-admin';
 
     /**
      * @var string demo admin username
      */
-    protected $demoUsername = 'demo';
+    protected string $demoUsername = 'demo';
 
     /**
      * @var string demo admin password
      */
-    protected $demoPassword = 'Shpadoinkle!';
+    protected string $demoPassword = 'Shpadoinkle!';
 
     /**
      * @var string demo admin name
      */
-    protected $demoName = 'Demo Admin';
+    protected string $demoName = 'Demo Admin';
 
     /**
      * @var string demo admin label
      */
-    protected $demoLabel = 'demo-admin';
+    protected string $demoLabel = 'demo-admin';
 
     /**
      * Run the migrations.

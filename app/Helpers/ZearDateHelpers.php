@@ -180,7 +180,7 @@ if (! function_exists('months')) {
      * @param bool $includeBlank
      * @return array
      */
-    function months($includeBlank = false): array
+    function months(bool $includeBlank = false): array
     {
         $m = [];
         if ($includeBlank) {

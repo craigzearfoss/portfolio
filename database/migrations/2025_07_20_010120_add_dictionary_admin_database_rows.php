@@ -8,11 +8,9 @@ use Illuminate\Database\Migrations\Migration;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the dictionary database.
-     *
      * @var string
      */
-    protected $database_tag = 'dictionary_db';
+    protected string $database_tag = 'dictionary_db';
 
     /**
      * Run the migrations.

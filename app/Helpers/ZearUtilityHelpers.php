@@ -551,11 +551,11 @@ if (! function_exists('getFileSlug')) {
      * @param string $ext
      * @return string
      */
-    function getFileSlug($name, $ext = 'png'): string
+    function getFileSlug(string $name, string $ext = 'png'): string
     {
         $fileSlug = \Illuminate\Support\Str::slug($name);
 
-        if (false !== strpos($ext,'.')) {
+        if (false !== str_contains($ext,'.')) {
             $ext = pathinfo($ext, PATHINFO_EXTENSION);
         } else {
             $ext = '';
