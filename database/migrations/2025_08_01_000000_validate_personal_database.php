@@ -41,9 +41,10 @@ use Illuminate\Database\Migrations\Migration;
  *
  *      3. Add the personal route file tp the bootstrap file bootstrap\app.php.
  *              web: [
- *                  ...
- *                  __DIR__.'/../routes/personal.php',
- *                  ...
+ *                      ...
+ *                      __DIR__.'/../routes/personal.php',
+ *                      ...
+ *                  ]
  *
  *      4. Create the `personal` database.
  *

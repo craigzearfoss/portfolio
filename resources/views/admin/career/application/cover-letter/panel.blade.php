@@ -94,7 +94,7 @@
                                 <iframe src="{{ route('view-document', ['file' => $coverLetter->url]) }}"
                                         style="width:100%; min-height:300px; border: 1px solid #ccc;">
                                 </iframe>
-                            <div>
+                            </div>
 
                     @endif
 

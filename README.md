@@ -17,7 +17,7 @@ portfolio
 
 ### Copy .env.sample to .env and edit settings
 - Set the APP_URL.
-- Add credentials for all of the databases.
+- Add credentials for all the databases.
 
 ### Set file and directory permissions
 ```

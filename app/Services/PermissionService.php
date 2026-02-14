@@ -76,7 +76,7 @@ class PermissionService
      * @throws \Exception
      */
     public function resourcePermissions(Admin|null    $owner = null,
-                                        EnvTypes|null $envType,
+                                        EnvTypes|null $envType = null,
                                         bool          $isRoot = false): array
     {
         if (empty($envType)) {

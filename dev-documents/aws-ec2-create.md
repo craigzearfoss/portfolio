@@ -12,7 +12,7 @@
         - Confirm the selected architecture.
   - **Instance Type**
     - Select an instance type. For example, t2.micro or t2.small.
-  - **Key pair (login))**
+  - **Key pair (login)**
     - Select a Key pair. If you don't already have one, click on "Create new key pair" and do the following.
     - Give it a meaningful name. Use only lowercase letters, numbers, and dashes to keep names in a nice, standard format.
     - Choose RAS or ED25519. You will also use this to access your git repos.

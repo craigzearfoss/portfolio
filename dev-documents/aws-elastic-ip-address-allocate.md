@@ -19,6 +19,6 @@
       - Select the EC2 instance.
     - **Private IP address**
       - Choose the private IP address of the instance's primary network interface.
-        - This is optional if the instance is currently associated with another Elastic IP, you can choose "Allow the Elastic IP address to be reassociated.
+        - This is optional if the instance is currently associated with another Elastic IP, you can choose "Allow the Elastic IP address to be reassociated".
     - Click on the orange "Associate" button in the bottom right.
     

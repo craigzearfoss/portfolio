@@ -2,7 +2,7 @@
 - [ ] Navigate to the AWS Certificate Manager (ACM)
 - **Certificate type**
     - Select "Request a public certificate".
-    - Click on the orange "Next" button in th4e bottom right.
+    - Click on the orange "Next" button in the bottom right.
   - **Domain names**
     - Enter the domain name and add subdomains.
   - **Allow export**

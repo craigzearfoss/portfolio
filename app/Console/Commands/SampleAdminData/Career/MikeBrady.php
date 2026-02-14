@@ -205,16 +205,16 @@ class MikeBrady extends Command
         echo self::USERNAME . ": Inserting into Career\\CompanyContact ...\n";
 
         $data = [];
+        /*
         for ($i=1; $i<=count($this->contactId); $i++) {
-            /*
             $data[] = [
                 'admin_id'   => $this->>adminId,
                 'contact_id' => $this->contactId[$i],
                 'company_id' => $this->companyId[random_int(1, count($this->companyId))],
                 'active'     => 1,
             ];
-            */
         }
+        */
 
         if (!empty($data)) {
             CompanyContact::insert($this->additionalColumns($data, true));
@@ -492,6 +492,7 @@ EOD,
      * Insert system database resource entries into the admin_resources table.
      *
      * @param int $ownerId
+     * @param string $tableName
      * @return void
      */
     protected function insertSystemAdminResource(int $ownerId, string $tableName): void

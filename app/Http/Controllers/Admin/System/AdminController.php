@@ -117,6 +117,7 @@ class AdminController extends BaseAdminController
      *
      * @param Admin $admin
      * @return View
+     * @throws \Exception
      */
     public function profile(Admin $admin): View
     {

@@ -13,7 +13,8 @@ class ProjectFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array|mixed[]
+     * @throws \Random\RandomException
      */
     public function definition(): array
     {

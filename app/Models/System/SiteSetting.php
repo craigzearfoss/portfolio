@@ -75,6 +75,7 @@ class SiteSetting extends Model
             switch ($setting->type['name']) {
                 case 'array':
                     $value = json_decode($setting['value'], true);
+                    break;
                 case 'bool':
                     $value = boolval($setting['value']);
                     break;

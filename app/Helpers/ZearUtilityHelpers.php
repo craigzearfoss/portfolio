@@ -73,46 +73,6 @@ if (! function_exists('refererRouteName')) {
     }
 }
 
-if (! function_exists('adminRoute')) {
-    /**
-     * Returns the route name of the refering page or null if there was no refering page.
-     *
-     * @param BackedEnum|string $name
-     * @param mixed $params
-     * @param \App\Models\System\Admin|null $admin
-     * @param \App\Models\System\Admin|null $owner
-     * @param $resource
-     * @param bool $absolute
-     * @return string|null
-     */
-    function adminRoute(BackedEnum|string $name,
-                        mixed $params = [],
-                        $resource = null,
-                        \App\Models\System\Admin|null $owner = null,
-                        bool $absolute = true): string|null
-    {
-        if (explode('.', $name)[0] === 'root') {
-die('ddd');
-            if (!empty($resource) && $resource->has_owner) {
-                $params = is_array($params)
-                    ? array_merge($params, [$owner])
-                    : array_merge([$params], [$owner]);
-                dd([$name, $params, $owner]);
-            }
-
-            $route = route($name, $params, $absolute);
-
-        } else {
-
-            $route = route($name, $params, $absolute);
-        }
-
-        return $route;
-
-        return route($name, $params, $absolute);
-    }
-}
-
 if (! function_exists('referer')) {
     /**
      * Returns the url of the refering page or the specified fallback route if there was no referer.
@@ -630,9 +590,6 @@ if (! function_exists('dateRangeDetails')) {
             'end'        => empty($endDate) ? 'Present' :  longDate($endDate, $shortFormat),
             'start_date' => $startDate,
             'end_date'   => $endDate,
-            'days'       => null,
-            'months'     => null,
-            'range'      => null,
         ];
 
         if (count(explode('-', $data['start_date'])) == 2) {
@@ -651,7 +608,6 @@ if (! function_exists('dateRangeDetails')) {
 
         $startDate = new DateTime($data['start_date']);
         $endDate = new DateTime($data['end_date']);
-
 
         $interval = $startDate->diff($endDate);
         $data['days'] = $interval->days;
@@ -710,7 +666,7 @@ if (! function_exists('imageUrl')) {
 
 if (! function_exists('reservedKeywords')) {
     /**
-     * Returns an array of reserved keywords that cannot be used for user names, team names, etc.
+     * Returns an array of reserved keywords that cannot be used for usernames, team names, etc.
      *
      * @return array
      */
@@ -844,149 +800,77 @@ if (! function_exists('themedTemplate')) {
             return $template;
         }
 
-        return View::exists('_themes.'.$theme.'.' . $template) ?
-            '_themes.'.$theme.'.' . $template
+        return View::exists('_themes.' . $theme . '.' . $template) ?
+            '_themes.' . $theme . '.' . $template
             : $template;
     }
+}
 
-    if (! function_exists('imageDir')) {
-        /**
-         * Returns the directory where images are stored.
-         * @TODO: Add the ability to use S3 or remote locations.
-         *
-         * @return string
-         */
-        function imageDir(): string
-        {
-            return config('app.imageDir') ?? '';
-        }
+if (! function_exists('imageDir')) {
+    /**
+     * Returns the directory where images are stored.
+     * @TODO: Add the ability to use S3 or remote locations.
+     *
+     * @return string
+     */
+    function imageDir(): string
+    {
+        return config('app.imageDir') ?? '';
     }
+}
 
-    if (! function_exists('coverLetterDir')) {
-        /**
-         * Returns the directory where cover letters are stored.
-         * @TODO: Add the ability to use S3 or remote locations.
-         *
-         * @return string
-         */
-        function coverLetterDir(): string
-        {
-            return config('app.coverLetterDir') ?? '';
-        }
+if (! function_exists('coverLetterDir')) {
+    /**
+     * Returns the directory where cover letters are stored.
+     * @TODO: Add the ability to use S3 or remote locations.
+     *
+     * @return string
+     */
+    function coverLetterDir(): string
+    {
+        return config('app.coverLetterDir') ?? '';
     }
+}
 
-    if (! function_exists('resumeDir')) {
-        /**
-         * Returns the directory where resumes are stored.
-         * @TODO: Add the ability to use S3 or remote locations.
-         *
-         * @return string
-         */
-        function resumeDir(): string
-        {
-            return config('app.resumeDir') ?? '';
-        }
+if (! function_exists('resumeDir')) {
+    /**
+     * Returns the directory where resumes are stored.
+     * @TODO: Add the ability to use S3 or remote locations.
+     *
+     * @return string
+     */
+    function resumeDir(): string
+    {
+        return config('app.resumeDir') ?? '';
     }
+}
 
-    if (! function_exists('generateEncodedFilename')) {
-        /**
-         * Generates a unique base64 encoded name for the file.
-         * For extra security the Laravel application key is included.
-         * @TODO: Add the ability to use S3 or remote locations.
-         *
-         * @param string $filename
-         * @param string $qualifier
-         * @param int $maxLength
-         * @return string
-         */
-        function generateEncodedFilename(string $filename, string $qualifier = '', int $maxLength = 20): string
-        {
-            $text = substr($filename, 0, ceil($maxLength / 3))
-                . substr($qualifier, 0, ceil($maxLength / 3))
-                . config('app.key');
+if (! function_exists('generateEncodedFilename')) {
+    /**
+     * Generates a unique base64 encoded name for the file.
+     * For extra security the Laravel application key is included.
+     * @TODO: Add the ability to use S3 or remote locations.
+     *
+     * @param string $filename
+     * @param string $qualifier
+     * @param int $maxLength
+     * @return string
+     */
+    function generateEncodedFilename(string $filename, string $qualifier = '', int $maxLength = 20): string
+    {
+        $text = substr($filename, 0, ceil($maxLength / 3))
+            . substr($qualifier, 0, ceil($maxLength / 3))
+            . config('app.key');
 
-            $filename = rtrim(
-                str_replace(
-                    ['+', '/'], ['-', '_'],
-                    base64_encode($text)
-                ),
-                '='
-            );
+        $filename = rtrim(
+            str_replace(
+                ['+', '/'], ['-', '_'],
+                base64_encode($text)
+            ),
+            '='
+        );
 
-            return substr($filename, 0, $maxLength);
-        }
-    }
-
-    if (! function_exists('resourceRoute')) {
-        /**
-         * Returns the route for a resource.
-         *
-         * @param EnvTypes $envType
-         * @param string $databaseName
-         * @param string|null $tableName
-         * @param Admin|null $admin
-         * @return string|null
-         */
-        function getResourceRouteName(EnvTypes                      $envType,
-                                      string                        $databaseName,
-                                      string|null                   $tableName = null,
-                                      \App\Models\System\Admin|null $admin = null): string|null
-        {
-            $routeParts   = [];
-            $routeParts[] = $envType->value;
-
-            $routeParts[] = $databaseName;
-            if (!empty($tableName)) $routeParts[] = $tableName;
-            $routeParts[] = 'index';
-
-            $route = implode('.', $routeParts);
-
-            if (!Route::has($route)) {
-                $route = null;
-            }
-
-            return $route;
-        }
-    }
-
-    if (! function_exists('adminResourceRouteName')) {
-        /**
-         * Returns an admin route by checking if it is for an admin with root privileges.
-         */
-        function adminResourceRouteName(string                 $databaseName,
-                                        Resource|AdminResource $resource,
-                                        string                 $action,
-                                        EnvTypes               $envType = EnvTypes::GUEST,
-                                                               $isRoot = false): string
-        {
-            //dd($resource);
-            //??????????$envType =  $isRoot ? 'root' : 'admin';
-
-            $parts = [$envType->value];
-            if ($databaseName != 'system') {
-                $parts[] = $databaseName;
-            }
-            $parts[] = $resource->name;
-            if (($envType == EnvTypes::ADMIN) && $isRoot) {
-
-            } else {
-                $parts[] = $databaseName;
-            }
-            $parts[] = ($envType == EnvTypes::ADMIN) && $isRoot
-                ? $resource->id
-                : (property_exists($resource, 'slug') ? $resource->slug : $resource->id);
-            $parts[] = $action;
-            dd($parts);
-            $route = implode('.', $parts);
-
-            //??????? if the "root" route doesn't exist fallback to the "admin" route
-            if (($envType == 'root') && !Route::has($route)) {
-                array_shift($parts);
-                $route = '.admin' . implode('.', $parts);
-            }
-
-            return $route;
-        }
+        return substr($filename, 0, $maxLength);
     }
 }
 
@@ -994,7 +878,9 @@ if (! function_exists('viewDocument')) {
     /**
      * Returns the route name of the refering page or null if there was no refering page.
      *
+     * @param $filename
      * @return string|null
+     * @throws \PhpOffice\PhpWord\Exception\Exception
      */
     function viewDocument($filename): string|null
     {

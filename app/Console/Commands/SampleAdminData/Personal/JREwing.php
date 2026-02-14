@@ -324,6 +324,7 @@ class JREwing extends Command
      * Insert system database resource entries into the admin_resources table.
      *
      * @param int $ownerId
+     * @param string $tableName
      * @return void
      */
     protected function insertSystemAdminResource(int $ownerId, string $tableName): void
