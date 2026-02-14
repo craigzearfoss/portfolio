@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CompanyCollection extends ResourceCollection
 {
-    const NUM_PER_PAGE = 20;
+    const int NUM_PER_PAGE = 20;
 
     /**
      * Transform the resource collection into an array.

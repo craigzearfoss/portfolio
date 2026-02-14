@@ -27,12 +27,27 @@ class InitSampleAdmin extends Command
 {
     const string DB_TAG = 'system_db';
 
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
+
+    /**
+     * @var int
+     */
     protected int $demo = 1;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
+
+    /**
+     * @var bool
+     */
     protected $processAll = false;
 
-    const USER_DATA = [
+    const array USER_DATA = [
         'demo'             => [ 'name' => 'Demo Admin',       'label' => 'demo-admin',       'email' => 'admin@gmail.com',             'role' => 'Site Administrator',       'employer' => null                            ],
         'alex-reiger'      => [ 'name' => 'Alex Reiger',      'label' => 'alex-reiger',      'email' => 'areiger29@taxinyc.com',       'role' => 'Taxi Driver',              'employer' => 'Sunshine Cab Company'          ],
         'dwight-schrute'   => [ 'name' => 'Dwight Schrute',   'label' => 'dwight-schrute',   'email' => 'dwight@dunder-mifflin.com',   'role' => 'Salesman',                 'employer' => 'Dunder-Mifflin Paper Company'  ],

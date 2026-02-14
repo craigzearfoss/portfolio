@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
-    const NUM_PER_PAGE = 20;
+    const int NUM_PER_PAGE = 20;
 
     /**
      * Transform the resource collection into an array.

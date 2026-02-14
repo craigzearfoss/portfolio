@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 
 class BaseAdminController extends BaseController
 {
-    const OWNER_ID_COOKIE = 'admin_owner_id';
-    const USER_ID_COOKIE = 'admin_user_id';
+    const string OWNER_ID_COOKIE = 'admin_owner_id';
+    const string USER_ID_COOKIE = 'admin_user_id';
 
     public function __construct(PermissionService $permissionService, Request $request)
     {

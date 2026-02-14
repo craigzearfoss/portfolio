@@ -10,8 +10,11 @@ class CaseInsensitiveNotIn implements ValidationRule
 {
     use ValidatesAttributes;
 
+    /**
+     * @var array
+     */
     protected $values = [];
-    private const FORMAT_FUNCTION = 'strtolower';
+    private const string FORMAT_FUNCTION = 'strtolower';
 
     public function __construct(array $values = [])
     {

@@ -63,7 +63,7 @@ class Resume extends Model
         'sequence',
     ];
 
-    const FILE_TYPES = [
+    const array FILE_TYPES = [
         '.csv'   => 'CSV comma delimited (*.csv)',
         '.docx'  => 'Document (*.docx)',
         '.doc'   => 'Word 97-2003 (*.doc)',

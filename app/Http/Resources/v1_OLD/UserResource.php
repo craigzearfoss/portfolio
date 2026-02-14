@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
-    const NUM_PER_PAGE = 20;
+    const int NUM_PER_PAGE = 20;
 
     /**
      * Display a listing of the user.

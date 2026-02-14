@@ -20,7 +20,7 @@ use function Laravel\Prompts\text;
 
 class CopySourceImages extends Command
 {
-    const DEFINED_FILE_NAMES = [
+    const array DEFINED_FILE_NAMES = [
         'certificate_url',
         'image',
         'logo',

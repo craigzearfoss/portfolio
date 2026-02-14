@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ApplicationFactory extends Factory
 {
-    const COMPENSATION = [
+    const array COMPENSATION = [
         /* [none]  */ 1 => [ 'min' => [40, 60],       'max' => [80, 120]       ],
         /* hour    */ 2 => [ 'min' => [40, 60],       'max' => [80, 120]       ],
         /* year    */ 3 => [ 'min' => [25000, 50000], 'max' => [60000, 200000] ],

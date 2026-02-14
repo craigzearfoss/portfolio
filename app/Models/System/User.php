@@ -86,12 +86,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    const STATUSES = [
+    const array STATUSES = [
         'pending',
         'active',
     ];
 
-    const SALUTATIONS = [
+    const array SALUTATIONS = [
         'Dr.',
         'Miss',
         'Mr.',

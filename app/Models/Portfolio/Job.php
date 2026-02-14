@@ -31,10 +31,16 @@ class Job extends Model
     /** @use HasFactory<JobFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
-    const DATABASE_TAG = 'portfolio_db';
+    const string DATABASE_TAG = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $connection = self::DATABASE_TAG;
 
+    /**
+     * @var string
+     */
     protected $table = 'jobs';
 
     /**

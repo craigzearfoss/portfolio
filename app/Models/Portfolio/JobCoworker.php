@@ -26,8 +26,14 @@ class JobCoworker extends Model
     /** @use HasFactory<JobCoworkerFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'job_coworkers';
 
     /**
@@ -63,7 +69,7 @@ class JobCoworker extends Model
         'sequence',
     ];
 
-    const LEVELS = [
+    const array LEVELS = [
         1 => 'coworker',
         2 => 'superior',
         3 => 'subordinate',
@@ -76,6 +82,9 @@ class JobCoworker extends Model
         'work_email', 'personal_email', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
+    /**
+     * @return void
+     */
     protected static function booted()
     {
         parent::booted();

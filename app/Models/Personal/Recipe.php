@@ -70,7 +70,7 @@ class Recipe extends Model
     /**
      *
      */
-    const TYPES = [
+    const array TYPES = [
         'main',
         'side',
         'dessert',
@@ -81,7 +81,7 @@ class Recipe extends Model
     /**
      *
      */
-    const MEALS = [
+    const array MEALS = [
         'breakfast',
         'lunch',
         'dinner',
@@ -96,6 +96,9 @@ class Recipe extends Model
         'disabled', 'demo'];
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
+    /**
+     * @return void
+     */
     protected static function booted()
     {
         parent::booted();

@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class PermissionService
 {
-    const ACTION_CREATE = 'CREATE';
-    const ACTION_READ = 'READ';
-    const ACTION_UPDATE = 'UPDATE';
-    const ACTION_DELETE = 'DELETE';
+    const string ACTION_CREATE = 'CREATE';
+    const string ACTION_READ = 'READ';
+    const string ACTION_UPDATE = 'UPDATE';
+    const string ACTION_DELETE = 'DELETE';
 
-    const VALID_ACTIONS = [
+    const array VALID_ACTIONS = [
         self::ACTION_CREATE,
         self::ACTION_READ,
         self::ACTION_UPDATE,
