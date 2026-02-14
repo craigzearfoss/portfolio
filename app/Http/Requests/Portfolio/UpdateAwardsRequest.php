@@ -3,12 +3,17 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateAwardsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $slug;
+    private mixed $award;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +30,7 @@ class UpdateAwardsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -41,7 +46,7 @@ class UpdateAwardsRequest extends FormRequest
                 Rule::unique('portfolio_db.awards', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->award->id);
+                        ->whereNot('id', $this->award->id);
                 })
             ],
             'featured'       => ['integer', 'between:0,1'],

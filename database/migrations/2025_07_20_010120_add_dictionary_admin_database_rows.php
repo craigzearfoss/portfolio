@@ -18,7 +18,7 @@ return new class extends Migration
     public function up(): void
     {
         $ownerIds = $this->getAdminIds();
-        $dictionaryDatabase = $this->getDatabase('dictionary');
+        $dictionaryDatabase = $this->getDatabase();
 
         if (!empty($ownerIds) && !empty($dictionaryDatabase)) {
 
@@ -66,7 +66,7 @@ return new class extends Migration
     public function down(): void
     {
         $ownerIds = $this->getAdminIds();
-        $dictionaryDatabase = $this->getDatabase('dictionary');
+        $dictionaryDatabase = $this->getDatabase();
 
         if (!empty($ownerIds) && !empty($dictionaryDatabase)) {
             new AdminDatabase()->whereIn('owner_id', $ownerIds)->where('database_id', $dictionaryDatabase->id)->delete();
@@ -78,8 +78,8 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
-    private function getDatabase(string $dbName)
+    private function getDatabase()
     {
-        return Database::where('name', $dbName)->first();
+        return Database::where('tag', $this->database_tag)->first();
     }
 };

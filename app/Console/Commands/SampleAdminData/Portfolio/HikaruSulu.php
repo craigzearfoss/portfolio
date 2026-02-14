@@ -523,12 +523,6 @@ class HikaruSulu extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Pressure Drop',             'artist' => 'The Clash',     'slug' => 'pressure-drop-by-the-clash',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/UL3WOxjubnA?si=xy1Ec8zc3FC6TV8T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/UL3WOxjubnA?si=xy1Ec8zc3FC6TV8T', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Do How Girls Like Chords?', 'artist' => 'KNOWER',        'slug' => 'do-how-girls-like-chords-by-knower', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'KNOWER MUSIC',    'catalog_number' => null, 'year' => 2023, 'release_date' => '2023-06-02', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ois3gfcwKSA?si=6LFqok8QSZXn_HZ_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Ois3gfcwKSA?si=NOYHfzRMhpaMcFB_', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

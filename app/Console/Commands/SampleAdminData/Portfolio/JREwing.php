@@ -490,12 +490,6 @@ class JREwing extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Hyper Enough',                'artist' => 'Superchunk',                    'slug' => 'hyper-enough-by-superchunk',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records',   'catalog_number' => null, 'year' => 1995, 'release_date' => '1995-09-19', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ba44JRAjpV4?si=y3fOFg1d7Vb-0RjG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ba44JRAjpV4?si=y3fOFg1d7Vb-0RjG', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Roadside Wreck',              'artist' => 'Southern Culture on the Skids', 'slug' => 'roadside-wreck-by-southern-culture-on-the-skids',     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/cTpmU8bZnXY?si=0V9JZfkLyRDE_dds" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/cTpmU8bZnXY?si=0V9JZfkLyRDE_dds', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

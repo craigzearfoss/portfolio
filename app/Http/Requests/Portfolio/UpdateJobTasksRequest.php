@@ -3,12 +3,18 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateJobTasksRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $job_id;
+    private mixed $summary;
+    private mixed $job_task;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +31,7 @@ class UpdateJobTasksRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -40,7 +46,7 @@ class UpdateJobTasksRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('job_id', $this->job_id)
                         ->where('summary', $this->summary)
-                        ->where('id', '!=', $this->job_task->id);
+                        ->whereNot('id', $this->job_task->id);
                 })
             ],
             'notes'           => ['nullable'],

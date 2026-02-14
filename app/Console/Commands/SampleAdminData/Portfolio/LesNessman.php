@@ -471,12 +471,6 @@ class LesNessman extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Revolution',                    'artist' => 'The Beatles',                                 'slug' => 'revolution-by-the-beatles',                                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                   'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/BGLGzRXY5Bw?si=Co8FIEmvwDYnRefF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/BGLGzRXY5Bw?si=Co8FIEmvwDYnRefF', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Sunset of My Tears',            'artist' => 'Shakin\' Pyramids',                           'slug' => 'sunset-of-my-tears-by-shakin-pyramids',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Cuba Libre',           'catalog_number' => null, 'year' => 1981, 'release_date' => '1981-03-27', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Yc_Lz7Daf4Y?si=z8EElC6gQPlGtule" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Yc_Lz7Daf4Y?si=z8EElC6gQPlGtule', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

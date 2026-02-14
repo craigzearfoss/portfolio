@@ -4,12 +4,18 @@ namespace App\Http\Requests\Career;
 
 use App\Models\Career\Company;
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateReferencesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $reference;
+    private mixed $slug;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +32,7 @@ class UpdateReferencesRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -40,7 +46,7 @@ class UpdateReferencesRequest extends FormRequest
                 Rule::unique('career_db.references', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->reference->id);
+                        ->whereNot('id', $this->reference->id);
                 })
             ],
             'slug'            => [
@@ -50,7 +56,7 @@ class UpdateReferencesRequest extends FormRequest
                 Rule::unique('career_db.references', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->slug)
-                        ->where('id', '!=', $this->reference->id);
+                        ->whereNot('id', $this->reference->id);
                 })
             ],
             'title'           => ['string', 'max:100', 'nullable'],
@@ -61,7 +67,7 @@ class UpdateReferencesRequest extends FormRequest
             'subordinate'     => ['integer', 'between:0,1'],
             'professional'    => ['integer', 'between:0,1'],
             'other'           => ['integer', 'between:0,1'],
-            'company_id'      => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray()), 'nullable'],
+            'company_id'      => ['integer', Rule::in(Company::all()->pluck('id')->toArray()), 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],

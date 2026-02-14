@@ -3,12 +3,18 @@
 namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateContactsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $contact;
+    private mixed $slug;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +31,7 @@ class UpdateContactsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -39,7 +45,7 @@ class UpdateContactsRequest extends FormRequest
                 Rule::unique('career_db.contacts', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->contact->id);
+                        ->whereNot('id', $this->contact->id);
                 })
             ],
             'slug'            => [
@@ -49,7 +55,7 @@ class UpdateContactsRequest extends FormRequest
                 Rule::unique('career_db.contacts', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->contact->id);
+                        ->whereNot('id', $this->contact->id);
                 })
             ],
             'title'           => ['string', 'max:100', 'nullable'],

@@ -475,12 +475,6 @@ class HermanMunster extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Temporary Secretary',             'artist' => 'Paul McCartney',                'slug' => 'temporary-secretary-by-paul-mccartney',               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,       'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Thing Called Love',               'artist' => 'John Hiatt',                    'slug' => 'thing-called-love-by-john-hiatt',                     'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M',             'catalog_number' => null,       'year' => 1987, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xHWUPiimFPE?si=MsZemA9Wxl99X4wn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xHWUPiimFPE?si=Aw9wzrnWejb1ZRvP', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

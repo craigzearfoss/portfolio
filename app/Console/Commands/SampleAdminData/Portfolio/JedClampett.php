@@ -545,12 +545,6 @@ class JedClampett extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Town Called Malice',                 'artist' => 'The Jam',                     'slug' => 'town-called-malice-by-the-jam',                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1982, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/YfpRm-p7qlY?si=xpjndR24oj4hOmSH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/YfpRm-p7qlY?si=JOv3Gjg-QNOLDBx3', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Perfect Day',                        'artist' => 'Lou Reed',                    'slug' => 'perfect-day-by-lou-reed',                                    'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Record',        'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

@@ -4,12 +4,18 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\JobSkill;
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateJobSkillsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $job_id;
+    private mixed $name;
+    private mixed $job_skill;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +32,7 @@ class UpdateJobSkillsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -41,7 +47,7 @@ class UpdateJobSkillsRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('job_id', $this->job_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->job_skill->id);
+                        ->whereNot('id', $this->job_skill->id);
                 })
             ],
             'type'                   => ['integer', 'between:0,1'],

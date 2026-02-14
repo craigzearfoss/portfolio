@@ -4,12 +4,19 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\Audio;
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateAudiosRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $audio;
+    private mixed $slug;
+    private mixed $id;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +33,7 @@ class UpdateAudiosRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -40,7 +47,7 @@ class UpdateAudiosRequest extends FormRequest
                 Rule::unique('portfolio_db.audios', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->audio->id);
+                        ->whereNot('id', $this->audio->id);
                 })
             ],
             'slug'              => [
@@ -50,7 +57,7 @@ class UpdateAudiosRequest extends FormRequest
                 Rule::unique('portfolio_db.audios', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->audio->id);
+                        ->whereNot('id', $this->audio->id);
                 })
             ],
             'parent_id'         => [

@@ -3,12 +3,18 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateCertificatesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $certificate;
+    private mixed $slug;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +31,7 @@ class UpdateCertificatesRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -39,7 +45,7 @@ class UpdateCertificatesRequest extends FormRequest
                 Rule::unique('portfolio_db.certificates', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->certificate->id);
+                        ->whereNot('id', $this->certificate->id);
                 })
             ],
             'slug'            => [
@@ -49,7 +55,7 @@ class UpdateCertificatesRequest extends FormRequest
                 Rule::unique('portfolio_db.certificates', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->certificate->id);
+                        ->whereNot('id', $this->certificate->id);
                 })
             ],
             'featured'        => ['integer', 'between:0,1'],

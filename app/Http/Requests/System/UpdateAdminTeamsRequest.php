@@ -3,12 +3,19 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateAdminTeamsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $slug;
+    private mixed $admin_team;
+    private mixed $abbreviation;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +32,7 @@ class UpdateAdminTeamsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -39,7 +46,7 @@ class UpdateAdminTeamsRequest extends FormRequest
                 Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->admin_team->id);
+                        ->whereNot('id', $this->admin_team->id);
                 })
             ],
             'slug'          => [
@@ -50,7 +57,7 @@ class UpdateAdminTeamsRequest extends FormRequest
                 Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->admin_team->id);
+                        ->whereNot('id', $this->admin_team->id);
                 })
             ],
             'abbreviation'  => [
@@ -60,7 +67,7 @@ class UpdateAdminTeamsRequest extends FormRequest
                 Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('abbreviation', $this->abbreviation)
-                        ->where('id', '!=', $this->admin_team->id);
+                        ->whereNot('id', $this->admin_team->id);
                 }),
                 'nullable',
             ],

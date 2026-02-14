@@ -3,12 +3,17 @@
 namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateCompaniesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $slug;
+    private mixed $company;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +30,7 @@ class UpdateCompaniesRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -49,7 +54,7 @@ class UpdateCompaniesRequest extends FormRequest
                 Rule::unique('career_db.companies', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->slug)
-                        ->where('id', '!=', $this->company->id);
+                        ->whereNot('id', $this->company->id);
                 })
             ],
             'industry_id'     => ['filled', 'integer', 'exists:career_db.industries,id'],

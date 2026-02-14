@@ -487,12 +487,6 @@ class BoDarville extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => '(What\'s So Funny \'Bout) Peace, Love And Understanding', 'artist' => 'Elvis Costello & The Attractions', 'slug' => '(whats-so-funny-bout)-peace-love-and-understanding-by-elvis-costello-and-the-attractions', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records', 'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-01-05', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ssd3U_zicAI?si=mwDtI85dUwvBkK0-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Ssd3U_zicAI?si=mwDtI85dUwvBkK0-', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'I Love the Sound of Breaking Glass',                      'artist' => 'Nick Lowe',                        'slug' => 'i-love-the-sound-of-breaking-glass-by-nick-lowe',                                          'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records', 'catalog_number' => null, 'year' => 1978, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

@@ -4,6 +4,7 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Resource;
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -13,6 +14,12 @@ use Illuminate\Validation\Rule;
 class UpdateResourcesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $database_id;
+    private mixed $name;
+    private mixed $resource;
+    private mixed $id;
+    private mixed $table;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +32,7 @@ class UpdateResourcesRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -47,7 +54,7 @@ class UpdateResourcesRequest extends FormRequest
                 Rule::unique('system_db.resources', 'name')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->resource->id);
+                        ->whereNot('id', $this->resource->id);
                 })
             ],
             'parent_id'      => ['integer', Rule::in(Resource::where('id', '!=', $this->id)->get()->pluck('id')->toArray()), 'nullable'],
@@ -58,7 +65,7 @@ class UpdateResourcesRequest extends FormRequest
                 Rule::unique('system_db.resources', 'table')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('table', $this->table)
-                        ->where('id', '!=', $this->resource->id);
+                        ->whereNot('id', $this->resource->id);
                 })
             ],
             'class'          => ['filled', 'string', 'max:255'],

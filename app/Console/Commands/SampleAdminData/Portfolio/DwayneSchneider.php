@@ -472,12 +472,6 @@ class DwayneSchneider extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Let\'s Have e Party',               'artist' => 'Wanda Jackson',             'slug' => 'lets-have-a-party-by-wanda-jackson',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/7ksBcV-qrgo?si=J3V8qUR657Ss1Ke0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/7ksBcV-qrgo?si=J3V8qUR657Ss1Ke0', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => '(White Man) in Hammersmith Palais', 'artist' => 'The Clash',                 'slug' => '(white-man)-in-hammersmith-palais-by-the-clash', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/96UtZPLiT90?si=E5YStah1ZdFkvCWT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/96UtZPLiT90?si=E5YStah1ZdFkvCWT', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

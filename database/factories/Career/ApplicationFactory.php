@@ -73,7 +73,7 @@ class ApplicationFactory extends Factory
             'description'            => fake()->text(200),
             'image'                  => fake()->imageUrl(),
             'image_credit'           => fake()->name(),
-            'image_source'           => fake()->company(0),
+            'image_source'           => fake()->company(),
             'thumbnail'              => fake()->imageUrl(),
             'sequence'               => 0,
             'public'                 => 0,

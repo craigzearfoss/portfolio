@@ -3,12 +3,17 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateTagsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $tag;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +30,7 @@ class UpdateTagsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -38,7 +43,7 @@ class UpdateTagsRequest extends FormRequest
                 Rule::unique('system_db.tags', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->tag->id);
+                        ->whereNot('id', $this->tag->id);
                 })
             ],
             'resource_id'            => ['integer', 'exists:system_db.resources,id', 'nullable'],

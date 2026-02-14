@@ -3,12 +3,18 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateAdminGroupsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $name;
+    private mixed $owner_id;
+    private mixed $admin_group;
+    private mixed $abbreviation;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +31,7 @@ class UpdateAdminGroupsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -40,7 +46,7 @@ class UpdateAdminGroupsRequest extends FormRequest
                 Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->admin_group->id);
+                        ->whereNot('id',  $this->admin_group->id);
                 })
             ],
             'slug'          => [
@@ -51,7 +57,7 @@ class UpdateAdminGroupsRequest extends FormRequest
                 Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->admin_group->id);
+                        ->whereNot('id', $this->admin_group->id);
                 })
             ],
             'abbreviation'  => [
@@ -61,7 +67,7 @@ class UpdateAdminGroupsRequest extends FormRequest
                 Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('abbreviation', $this->abbreviation)
-                        ->where('id', '!=', $this->admin_group->id);
+                        ->whereNot('id', $this->admin_group->id);
                 }),
                 'nullable',
             ],

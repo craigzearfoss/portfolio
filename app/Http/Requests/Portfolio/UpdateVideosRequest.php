@@ -4,12 +4,19 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\Video;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateVideosRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $video;
+    private mixed $id;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +33,8 @@ class UpdateVideosRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     * @throws \Exception
+     * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
@@ -40,7 +47,7 @@ class UpdateVideosRequest extends FormRequest
                 Rule::unique('portfolio_db.videos', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->video->id);
+                        ->whereNot('id', $this->video->id);
                 })
             ],
             'slug'              => [
@@ -50,7 +57,7 @@ class UpdateVideosRequest extends FormRequest
                 Rule::unique('portfolio_db.videos', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->video->id);
+                        ->whereNot('id', $this->video->id);
                 })
             ],
             'parent_id'         => [

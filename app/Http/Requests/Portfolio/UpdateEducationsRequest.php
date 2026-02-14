@@ -5,12 +5,17 @@ namespace App\Http\Requests\Portfolio;
 use App\Models\Portfolio\DegreeType;
 use App\Models\Portfolio\School;
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateEducationsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $slug;
+    private mixed $education;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +32,7 @@ class UpdateEducationsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -44,7 +49,7 @@ class UpdateEducationsRequest extends FormRequest
                 Rule::unique('portfolio_db.education', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->education->id);
+                        ->whereNot('id', $this->education->id);
                 })
             ],
             'enrollment_month'   => ['integer', 'between:1,12', 'nullable' ],

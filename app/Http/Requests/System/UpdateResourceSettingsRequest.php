@@ -3,12 +3,17 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateResourceSettingsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $resource_setting;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,7 +26,7 @@ class UpdateResourceSettingsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -36,7 +41,7 @@ class UpdateResourceSettingsRequest extends FormRequest
                 Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->resource_setting->id);
+                        ->whereNot('id', $this->resource_setting->id);
                 })
             ],
             'setting_type_id' => ['filled', 'integer', 'exists:system_db.setting_types,id'],

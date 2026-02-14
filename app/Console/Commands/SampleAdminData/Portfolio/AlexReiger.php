@@ -540,12 +540,6 @@ class AlexReiger extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Camel Walk',                    'artist' => 'Southern Culture on the Skids', 'slug' => 'camel-walk-by-southern-culture-on-the-skids',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Geffen Records',    'catalog_number' => null, 'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/T9NLgyEFzOo?si=uWiZcWOuHKLcHbN5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/T9NLgyEFzOo?si=uWiZcWOuHKLcHbN5', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Tennessee Plates',              'artist' => 'John Hiatt',                    'slug' => 'tennessee-plates-by-john-hiatt',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M',               'catalog_number' => null, 'year' => 1988, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

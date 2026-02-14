@@ -3,12 +3,19 @@
 namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateResumesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $slug;
+    private mixed $name;
+    private mixed $date;
+    private mixed $resumes;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +32,7 @@ class UpdateResumesRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -40,7 +47,7 @@ class UpdateResumesRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
                         ->where('date', $this->date)
-                        ->where('id', '!=', $this->resumes->id);
+                        ->whereNot('id', $this->resumes->id);
                 })
             ],
             'slug'         => [
@@ -51,7 +58,7 @@ class UpdateResumesRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
                         ->where('date', $this->date)
-                        ->where('id', '!=', $this->resumes->id);
+                        ->whereNot('id', $this->resumes->id);
                 })
             ],
             'date'  => ['date', 'nullable'],

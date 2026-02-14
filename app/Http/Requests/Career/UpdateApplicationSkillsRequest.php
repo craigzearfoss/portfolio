@@ -10,6 +10,10 @@ class UpdateApplicationSkillsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $id;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -39,7 +43,7 @@ class UpdateApplicationSkillsRequest extends FormRequest
                 Rule::unique('career_db.companies', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->id);
+                        ->whereNot('id', $this->id);
                 })
             ],
             'level'                  => ['integer', 'between:0,10'],

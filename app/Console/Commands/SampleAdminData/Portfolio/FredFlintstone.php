@@ -528,12 +528,6 @@ class FredFlintstone extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Killer-Tune',                       'artist' => 'Tokyo Jihen',       'slug' => 'killer-tune-by-tokyo-jihen',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,            'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Hoy Hoy',                           'artist' => 'The Collins Kids',  'slug' => 'hoy-hoy-by-the-collins-kids',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,            'catalog_number' => null, 'year' => 1956, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8bpXOx9aAo4?si=nOiIniQOStglRNtk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8bpXOx9aAo4?si=nOiIniQOStglRNtk', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

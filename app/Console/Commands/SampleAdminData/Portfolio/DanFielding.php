@@ -509,12 +509,6 @@ class DanFielding extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Just Got Luck',                 'artist' => 'Jo Boxers',                                   'slug' => 'just-got-lucky-by-jo-boxers',                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA',               'catalog_number' => null,       'year' => 1983, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/t2IUDF-p2Ug?si=KyuLHloEXsJpOXir" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/t2IUDF-p2Ug?si=KyuLHloEXsJpOXir', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Pressure Drop',                 'artist' => 'The Clash',                                   'slug' => 'pressure-drop-by-the-clash',                                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/UL3WOxjubnA?si=xy1Ec8zc3FC6TV8T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/UL3WOxjubnA?si=xy1Ec8zc3FC6TV8T', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

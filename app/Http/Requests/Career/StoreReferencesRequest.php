@@ -59,7 +59,7 @@ class StoreReferencesRequest extends FormRequest
             'subordinate'     => ['integer', 'between:0,1'],
             'professional'    => ['integer', 'between:0,1'],
             'other'           => ['integer', 'between:0,1'],
-            'company_id'      => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray()), 'nullable'],
+            'company_id'      => ['integer', Rule::in(Company::all()->pluck('id')->toArray()), 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],

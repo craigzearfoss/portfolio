@@ -3,12 +3,18 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateLinksRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $name;
+    private mixed $link;
+    private mixed $slug;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +31,7 @@ class UpdateLinksRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -39,7 +45,7 @@ class UpdateLinksRequest extends FormRequest
                 Rule::unique('portfolio_db.links', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->link->id);
+                        ->whereNot('id', $this->link->id);
                 })
             ],
             'slug'         => [
@@ -50,7 +56,7 @@ class UpdateLinksRequest extends FormRequest
                 Rule::unique('portfolio_db.links', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->link->id);
+                        ->whereNot('id', $this->link->id);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],

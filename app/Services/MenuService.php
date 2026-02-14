@@ -155,8 +155,8 @@ class MenuService
                 if ($this->isRootAdmin) {
                     foreach ($menu as $i => $menuItem) {
                         if (property_exists($menuItem, 'tag') && ($menuItem->tag === 'db')) {
-                            $menu[$i]->children[] = $this->menuItem([ 'title'=>'Databases', 'route'=>'admin.system.database.index', 'icon'=>'fa-database' ], 2);
-                            $menu[$i]->children[] = $this->menuItem([ 'title'=>'Resources', 'route'=>'admin.system.resource.index', 'icon'=>'fa-table' ], 2);
+                            $menuItem[$i]->children[] = $this->menuItem([ 'title'=>'Databases', 'route'=>'admin.system.database.index', 'icon'=>'fa-database' ], 2);
+                            $menuItem[$i]->children[] = $this->menuItem([ 'title'=>'Resources', 'route'=>'admin.system.resource.index', 'icon'=>'fa-table' ], 2);
                         }
                     }
                 }
@@ -277,7 +277,7 @@ class MenuService
                             ? route($route, [ 'owner_id' => $this->owner->id ])
                             : route($route);
                     } else {
-                        $url = (!empty($this->owner) && !in_array($database->name, ['dictionary']))
+                        $url = (!empty($this->owner) && ($database->name != 'dictionary'))
                             ? route($route, $this->owner)
                             : route($route);
                     }
@@ -432,9 +432,9 @@ class MenuService
                                     }
                                 }
 
-                                $children = $menu[$dbId]->children;
+                                $children = $menuItem[$dbId]->children;
                                 $children[] = $level1Resource;
-                                $menu[$dbId]->children = $children;
+                                $menuItem[$dbId]->children = $children;
                             }
                         }
                     }

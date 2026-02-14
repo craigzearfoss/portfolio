@@ -10,6 +10,7 @@ use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
+use JetBrains\PhpStorm\NoReturn;
 
 class BaseController extends Controller
 {
@@ -245,7 +246,7 @@ class BaseController extends Controller
         return $perPage;
     }
 
-    protected function ddDebug()
+    #[NoReturn] protected function ddDebug()
     {
         dd([
             'envType'              => $this->envType,

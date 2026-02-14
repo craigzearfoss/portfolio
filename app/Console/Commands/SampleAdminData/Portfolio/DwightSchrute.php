@@ -484,12 +484,6 @@ class DwightSchrute extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Bad Word For A Good Thing',     'artist' => 'The Friggs',      'slug' => 'bad-word-for-a-good-thing-by-the-friggs',      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'year' => 1997, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Let It Be',                     'artist' => 'The Beatles',     'slug' => 'let-it-be-by-the-beatles',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null,   'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/egCy1KoE1Ss?si=lz7-zITN539d48Z9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/egCy1KoE1Ss?si=lz7-zITN539d48Z9', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

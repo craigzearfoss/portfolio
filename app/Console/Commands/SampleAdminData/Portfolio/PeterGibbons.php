@@ -475,12 +475,6 @@ class PeterGibbons extends Command
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
-        $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
-        for ($i=1; $i<=36; $i++) {
-            $id[$i] = ++$maxId;
-        }
-
         $data = [
             [ 'name' => 'Tempted',                   'artist' => 'Squeeze',                                        'slug' => 'tempted-by-squeeze',                                                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 1981, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vZic9ZHU_40?si=T_Fis4rOHv6bruQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vZic9ZHU_40?si=T_Fis4rOHv6bruQI', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
             [ 'name' => 'Girls with Glasses',        'artist' => 'Terry Anderson and the Olympic Ass Kickin Team', 'slug' => 'girls-with-glasses-by-terry-anderson-and-the-olympic-ass-kickin-team', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,          'catalog_number' => null, 'year' => 2012, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/RBVL519dMfs?si=KD44HgrK5vSenUrC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/RBVL519dMfs?si=KD44HgrK5vSenUrC', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],

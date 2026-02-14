@@ -10,6 +10,10 @@ class UpdateArtRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
+    private mixed $owner_id;
+    private mixed $slug;
+    private mixed $art;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -41,7 +45,7 @@ class UpdateArtRequest extends FormRequest
                 Rule::unique('portfolio_db.art', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
-                        ->where('id', '!=', $this->art->id);
+                        ->whereNot('id', $this->art->id);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],

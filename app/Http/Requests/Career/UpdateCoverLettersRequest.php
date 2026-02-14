@@ -3,12 +3,19 @@
 namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateCoverLettersRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
+    private mixed $owner_id;
+    private mixed $slug;
+    private mixed $date;
+    private mixed $cover_letters;
+    private mixed $name;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +32,7 @@ class UpdateCoverLettersRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -41,7 +48,7 @@ class UpdateCoverLettersRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
                         ->where('date', $this->date)
-                        ->where('id', '!=', $this->cover_letters->id);
+                        ->whereNot('id', $this->cover_letters->id);
                 })
             ],
             'slug'              => [
@@ -52,7 +59,7 @@ class UpdateCoverLettersRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug)
                         ->where('date', $this->date)
-                        ->where('id', '!=', $this->cover_letters->id);
+                        ->whereNot('id', $this->cover_letters->id);
                 })
             ],
             'date'              => ['date', 'nullable'],
