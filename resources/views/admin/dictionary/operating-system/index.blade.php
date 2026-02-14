@@ -99,7 +99,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $operatingSystem), $admin)
+                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $operatingSystem, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.operating-system.edit', $operatingSystem),

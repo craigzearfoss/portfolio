@@ -111,7 +111,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => !empty($award->link_name) ? $award->link_name ?? 'link',
+            'name'   => !empty($award->link_name) ? $award->link_name : 'link',
             'href'   => $award->link,
             'target' => '_blank'
         ])

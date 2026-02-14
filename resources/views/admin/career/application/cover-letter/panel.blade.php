@@ -37,6 +37,7 @@
                     @include('admin.components.button-download', [ 'file' => $coverLetter->url,
                                                                    'name' =>$coverLetter->slug . '-cover-letter' ])
                 @endif
+
                 @include('admin.components.button-download', [ 'file' => '',
                                                                'name' =>$coverLetter->slug . '-cover-letter' ])
 
@@ -77,7 +78,7 @@
                             <iframe src="{{ str_replace('\\', '/', $coverLetter->url) }}"
                                     style="width:100%; min-height:300px; border: 1px solid #ccc;">
                             </iframe>
-                        <div>
+                        </div>
 
                     @else
 

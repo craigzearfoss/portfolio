@@ -122,7 +122,7 @@
 
         @include('admin.components.show-row-link', [
             'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
-            'href'   => $certificate->link
+            'href'   => $certificate->link,
             'target' => '_blank'
         ])
 

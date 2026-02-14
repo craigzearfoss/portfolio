@@ -104,7 +104,7 @@ class RecruiterController extends BaseAdminController
      */
     public function update(UpdateRecruitersRequest $request, Recruiter $recruiter): RedirectResponse
     {
-        $certificate->update($request->validated());
+        $recruiter->update($request->validated());
 
         updateGate(PermissionEntityTypes::RESOURCE, $$recruiter, $this->admin);
 

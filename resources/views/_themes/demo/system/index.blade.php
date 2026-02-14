@@ -39,9 +39,9 @@
                             You can log in as the demo admin to view to view all of the career and application tracking pages
                             by clicking the button below.
                             <br>
-                            <div class="has-text-centered">
+                            <span class="has-text-centered" style="display: block;">
                                 <a class="button is-success" href="/admin/login">Log in as the Demo Admin</a>
-                            </div>
+                            </span>
                             <br>
                             You will be able to view all of the admin pages but not update any of the site data.
                         </p>

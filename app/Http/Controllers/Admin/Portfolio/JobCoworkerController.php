@@ -154,7 +154,7 @@ class JobCoworkerController extends BaseAdminController
     {
         $jobCoworker->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $jobCoworkers, $this->admin);
+        updateGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
             ->with('success', $jobCoworker->name . ' successfully updated.');
