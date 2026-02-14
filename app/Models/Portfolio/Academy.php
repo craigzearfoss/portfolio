@@ -7,11 +7,16 @@ use App\Models\Portfolio\Course;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Academy extends Model
 {
     use SearchableModelTrait;

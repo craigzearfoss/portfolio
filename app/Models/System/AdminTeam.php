@@ -4,6 +4,7 @@ namespace App\Models\System;
 
 use App\Models\System\AdminAdminTeam;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class AdminTeam extends Model
 {
     use SearchableModelTrait, Notifiable, SoftDeletes;

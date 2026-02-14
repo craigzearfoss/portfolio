@@ -2,14 +2,16 @@
 
 namespace App\Models\System;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class AdminAdminTeam extends Model
 {
-    /** @use HasFactory<\Database\Factories\AdminAdminTeamFactory> */
-    use HasFactory;
-
     protected $connection = 'system_db';
 
     protected $table = 'admin_admin_team';

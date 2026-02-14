@@ -15,13 +15,12 @@ return new class extends Migration
         $dbName = config('app.' . $this->database_tag);
 
         if (empty($dbName)) {
-            throw new \Exception('app.'.$this->database_tag.' not defined in config\app.php file '
-                . ' or CAREER_DB_DATABASE not defined in .env file.'
-            );
+            abort(500, 'app.'.$this->database_tag.' not defined in config\app.php file '
+                . ' or CAREER_DB_DATABASE not defined in .env file.');
         }
 
         if (empty(DB::select("SHOW DATABASES LIKE '{$dbName}'"))) {
-            throw new \Exception("Database `{$dbName}` does not exist.");
+            abort("Database `{$dbName}` does not exist.");
         }
     }
 

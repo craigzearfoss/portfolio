@@ -29,13 +29,12 @@ return new class extends Migration
         $dbName = config('app.' . $this->database_tag);
 
         if (empty($dbName)) {
-            throw new \Exception('app.'.$this->database_tag.' not defined in config\app.php file '
-                . ' or DICTIONARY_DB_DATABASE not defined in .env file.'
-            );
+            abort(500, 'app.'.$this->database_tag.' not defined in config\app.php file '
+                . ' or DICTIONARY_DB_DATABASE not defined in .env file.');
         }
 
         if (empty(DB::select("SHOW DATABASES LIKE '{$dbName}'"))) {
-            throw new \Exception("Database `{$dbName}` does not exist.");
+            abort(500, "Database `{$dbName}` does not exist.");
         }
 
         //@TODO: Check if the database or and of the resources exist in the databases or resources tables.
@@ -65,6 +64,8 @@ return new class extends Migration
             ],
         ];
 
+        $databaseModel = new Database();
+
         // add timestamps and owner_ids
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
@@ -72,11 +73,11 @@ return new class extends Migration
             $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
-        Database::insert($data);
+        $databaseModel->insert($data);
 
-        if (!$database = Database::where('database', $dbName)->first()) {
+        if (!$database = $databaseModel->where('database', $dbName)->first()) {
 
-            throw new \Exception($dbName . 'database not found.');
+            abort(500, $dbName . 'database not found.');
 
         } else {
 
@@ -270,7 +271,7 @@ return new class extends Migration
             }
 
             for ($i=0; $i<count($data); $i++) {
-                Resource::insert($data[$i]);
+                new Resource()->insert($data[$i]);
             }
         }
     }
@@ -280,8 +281,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if ($dictionaryDatabase = Database::where('name', 'dictionary')->first()) {
-            Resource::where('database_id', $dictionaryDatabase->id)->delete();
+        if ($dictionaryDatabase = new Database()->where('name', 'dictionary')->first()) {
+            new Resource()->where('database_id', $dictionaryDatabase->id)->delete();
             $dictionaryDatabase->delete();
         }
     }

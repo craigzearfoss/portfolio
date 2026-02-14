@@ -3,8 +3,14 @@
 namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class LoginAttemptsUser extends Model
 {
     use SearchableModelTrait;

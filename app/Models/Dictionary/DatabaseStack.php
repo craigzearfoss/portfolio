@@ -4,8 +4,14 @@ namespace App\Models\Dictionary;
 
 use App\Models\Dictionary\Database;
 use App\Models\Dictionary\Stack;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class DatabaseStack extends Pivot
 {
     protected $connection = 'dictionary_db';

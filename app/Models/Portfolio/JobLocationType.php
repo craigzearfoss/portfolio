@@ -3,9 +3,15 @@
 namespace App\Models\Portfolio;
 
 use App\Traits\SearchableModelTrait;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class JobLocationType extends Model
 {
     use SearchableModelTrait;

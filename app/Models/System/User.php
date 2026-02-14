@@ -5,6 +5,8 @@ namespace App\Models\System;
 use App\Models\System\UserGroup;
 use App\Models\System\UserTeam;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\UserFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,9 +15,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'system_db';

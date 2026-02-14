@@ -6,6 +6,8 @@ use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Career\NoteFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,9 +15,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Event extends Model
 {
-    /** @use HasFactory<\Database\Factories\Career\NoteFactory> */
+    /** @use HasFactory<NoteFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';

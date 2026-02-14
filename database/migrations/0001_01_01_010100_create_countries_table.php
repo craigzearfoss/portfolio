@@ -15,9 +15,8 @@ return new class extends Migration
     public function up(): void
     {
         if (empty(config('app.' . $this->database_tag))) {
-            throw new \Exception('app.'.$this->database_tag.' not defined in config\app.php file '
-                . ' or system_db_DATABASE not defined in .env file.'
-            );
+            abort(500, 'app.'.$this->database_tag.' not defined in config\app.php file '
+                . ' or system_db_DATABASE not defined in .env file.');
         }
 
         Schema::connection($this->database_tag)->create('countries', function (Blueprint $table) {
@@ -278,7 +277,7 @@ return new class extends Migration
             [ 'id' => 248, 'name' => 'Zimbabwe',                           'm49' => '716', 'iso_alpha3' => 'ZWE' ],
         ];
 
-        Country::insert($data);
+        new Country()->insert($data);
     }
 
     /**

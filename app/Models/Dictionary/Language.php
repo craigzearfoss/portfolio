@@ -6,9 +6,14 @@ use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Language extends Model
 {
     use SearchableModelTrait;

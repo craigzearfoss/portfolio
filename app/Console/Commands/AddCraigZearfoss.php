@@ -364,7 +364,7 @@ class AddCraigZearfoss extends Command
 
                 $data[] = $dataRow;
 
-                AdminDatabase::insert($data);
+                new AdminDatabase()->insert($data);
             }
         }
     }
@@ -403,7 +403,7 @@ class AddCraigZearfoss extends Command
                 $data[] = $dataRow;
             }
 
-            AdminResource::insert($data);
+            new AdminResource()->insert($data);
         }
     }
 
@@ -450,7 +450,7 @@ class AddCraigZearfoss extends Command
      */
     protected function getDatabase()
     {
-        return Database::where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', self::DB_TAG)->first();
     }
 
     /**
@@ -463,7 +463,7 @@ class AddCraigZearfoss extends Command
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return Resource::where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', $database->id)->get();
         }
     }
 }

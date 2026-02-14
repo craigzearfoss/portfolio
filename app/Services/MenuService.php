@@ -88,14 +88,15 @@ class MenuService
 
         // get the databases and resources
         if (!empty($owner)) {
-            if ($this->owner->root) {
-                $this->databases = AdminDatabase::ownerDatabases($this->owner->id, $this->envType, $filters);
-                $this->resources = AdminResource::ownerResources($this->owner->id, $this->envType, null, $filters);
-            } else {
-                $this->databases = AdminDatabase::ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
-                $this->resources = AdminResource::ownerResources($this->owner->id, $this->envType,null, $filters);
-            }
+
+            $this->databases = $this->owner->root
+                ? AdminDatabase::ownerDatabases($this->owner->id, $this->envType, $filters)
+                : AdminDatabase::ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
+
+            $this->resources = AdminResource::ownerResources($this->owner->id, $this->envType, null, $filters);
+
         } else {
+
             if ($this->showAll) {
                 $this->databases = Database::ownerDatabases(null, $this->envType, $filters);
                 $this->resources = Resource::ownerResources(null, $this->envType, null, $filters);
@@ -538,7 +539,6 @@ class MenuService
         $menuItem->guest          = $this->envType == EnvTypes::GUEST ? 1 : 0;
         $menuItem->user           = $this->envType == EnvTypes::USER ? 1 : 0;
         $menuItem->admin          = $this->envType == EnvTypes::ADMIN ? 1 : 0;
-        $menuItem->global         = $this->envType == EnvTypes::GLOBAL ? 1 : 0;
         $menuItem->menu           = 1;
         $menuItem->menu_level     = $level;
         $menuItem->menu_collapsed = 1;

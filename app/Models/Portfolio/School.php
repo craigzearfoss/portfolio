@@ -6,12 +6,18 @@ use App\Models\Admin;
 use App\Models\Portfolio\Education;
 use App\Models\System\Country;
 use App\Models\System\State;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class School extends Model
 {
     use SearchableModelTrait, SoftDeletes;

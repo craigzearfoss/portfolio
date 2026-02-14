@@ -1942,7 +1942,6 @@ return new class extends Migration
             $data[$i]['public'] = 1;
             $data[$i]['root'] = 1;
             $data[$i]['created_at'] = now();
-            $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
         }
 

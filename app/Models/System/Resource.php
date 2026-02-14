@@ -6,6 +6,7 @@ use App\Enums\EnvTypes;
 use App\Models\System\ResourceSetting;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,6 +15,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Resource extends Model
 {
     use SearchableModelTrait, SoftDeletes;

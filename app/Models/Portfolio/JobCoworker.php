@@ -6,6 +6,8 @@ use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Portfolio\JobCoworkerFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,9 +17,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class JobCoworker extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\JobCoworkerFactory> */
+    /** @use HasFactory<JobCoworkerFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'portfolio_db';

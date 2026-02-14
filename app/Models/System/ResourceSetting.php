@@ -4,10 +4,15 @@ namespace App\Models\System;
 
 use App\Models\System\SettingType;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class ResourceSetting extends Model
 {
     use SearchableModelTrait;

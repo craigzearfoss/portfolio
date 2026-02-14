@@ -8,6 +8,8 @@ use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Career\ApplicationFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,9 +21,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Application extends Model
 {
-    /** @use HasFactory<\Database\Factories\Career\ApplicationFactory> */
+    /** @use HasFactory<ApplicationFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';

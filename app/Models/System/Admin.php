@@ -7,6 +7,7 @@ use App\Models\System\AdminTeam;
 use App\Models\System\Country;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Admin extends Authenticatable
 {
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;

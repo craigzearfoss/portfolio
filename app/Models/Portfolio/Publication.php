@@ -6,6 +6,8 @@ use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Portfolio\PublicationFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,9 +16,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Publication extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\PublicationFactory> */
+    /** @use HasFactory<PublicationFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';

@@ -54,7 +54,7 @@ class RickyRicardo extends Command
         $this->silent = $this->option('silent');
 
         // get the database id
-        if (!$database = Database::where('tag', self::DB_TAG)->first()) {
+        if (!$database = new Database()->wher('tag', self::DB_TAG)->first()) {
             echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -301,7 +301,7 @@ class RickyRicardo extends Command
     {
         echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = Database::where('tag', self::DB_TAG)->first()) {
+        if ($database = new Database()->wher('tag', self::DB_TAG)->first()) {
 
             $data = [];
 
@@ -322,7 +322,7 @@ class RickyRicardo extends Command
 
             $data[] = $dataRow;
 
-            AdminDatabase::insert($data);
+            new AdminDatabase()->insert($data);
         }
     }
 
@@ -358,7 +358,7 @@ class RickyRicardo extends Command
 
             $data[] = $dataRow;
 
-            AdminResource::insert($data);
+            new AdminResource()->insert($data);
         }
     }
 
@@ -369,7 +369,7 @@ class RickyRicardo extends Command
      */
     protected function getDatabase()
     {
-        return Database::where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', self::DB_TAG)->first();
     }
 
     /**
@@ -382,7 +382,7 @@ class RickyRicardo extends Command
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return Resource::where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', $database->id)->get();
         }
     }
 }

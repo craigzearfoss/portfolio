@@ -30,11 +30,16 @@ use App\Models\Portfolio\Video;
 use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Owner extends Model
 {
     use SearchableModelTrait;

@@ -5,10 +5,16 @@ namespace App\Models\Portfolio;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\CertificationType;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Certification extends Model
 {
     use SearchableModelTrait, SoftDeletes;

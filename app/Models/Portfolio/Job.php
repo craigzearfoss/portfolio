@@ -11,6 +11,8 @@ use App\Models\System\Resource;
 use App\Models\System\ResourceSetting;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Portfolio\JobFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,9 +22,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Job extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\JobFactory> */
+    /** @use HasFactory<JobFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
     const DATABASE_TAG = 'portfolio_db';

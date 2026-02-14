@@ -85,7 +85,7 @@
                     <iframe src="{{ str_replace('\\', '/', $resume->pdf_url) }}"
                             style="width:100%; min-height:300px; border: 1px solid #ccc;">
                     </iframe>
-                <div>
+                </div>
 
             @elseif(!empty($resume->doc_url))
 
@@ -93,7 +93,7 @@
                     <iframe src="{{ route('view-document', ['file' => $resume->pdf_url]) }}"
                             style="width:100%; min-height:300px; border: 1px solid #ccc;">
                     </iframe>
-                <div>
+                </div>
 
             @endif
 

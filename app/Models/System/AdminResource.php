@@ -8,6 +8,7 @@ use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use stdClass;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class AdminResource extends Model
 {
     use SearchableModelTrait, SoftDeletes;

@@ -6,6 +6,8 @@ use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Career\CoverLetterFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,9 +15,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class CoverLetter extends Model
 {
-    /** @use HasFactory<\Database\Factories\Career\CoverLetterFactory> */
+    /** @use HasFactory<CoverLetterFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';

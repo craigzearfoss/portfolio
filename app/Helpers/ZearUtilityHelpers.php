@@ -368,9 +368,7 @@ if (! function_exists('canDelete')) {
             return true;
         } else {
 
-            if (empty($entity)) {
-                abort(500, 'canDelete(): Argument #2 ($entity) cannot be empty');
-            } elseif (!$table = $entity->getTable()) {
+            if (!$table = $entity->getTable()) {
                 abort(500, 'canDelete(): Table not found in Argument #2 ($entity). ' . callingFunction());
             } elseif (!$adminResourceRow = AdminResource::where('table', $table)->first()) {
                 abort(500, 'canDelete(): Resource not found for table ' . $table . '. ' . callingFunction());
@@ -468,7 +466,7 @@ if (! function_exists('formatCompensation')) {
         $min    = !empty($params['min']) ? $params['min'] : null;
         $max    = !empty($params['max']) ? $params['max'] : null;
         $unit   = !empty($params['unit']) ? $params['unit'] : null;
-        $short  = isset($params['short']) && !is_null($params['short']) ? boolval($params['short']) : false;
+        $short  = isset($params['short']) && boolval($params['short']);
 
         if ($short) {
             if (!empty($min)) {

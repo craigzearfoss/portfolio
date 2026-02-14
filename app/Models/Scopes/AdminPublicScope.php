@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Schema;
 
 class AdminPublicScope implements Scope
 {
+    /**
+     *
+     * Apply model scope.
+     *
+     * @param Builder $builder
+     * @param Model $model
+     * @return false|Builder
+     */
     public function apply(Builder $builder, Model $model)
     {
         $routeName = Route::currentRouteName();
@@ -34,5 +42,7 @@ class AdminPublicScope implements Scope
             // this is a user or guest route
             $builder->where('public', 1)->where('disabled', 0);
         }
+
+        return $builder;
     }
 }

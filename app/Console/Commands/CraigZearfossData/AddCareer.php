@@ -66,14 +66,14 @@ class AddCareer extends Command
         $this->silent = $this->option('silent');
 
         // get the database id
-        if (!$database = Database::where('tag', self::DB_TAG)->first()) {
+        if (!$database = new Database()->where('tag', self::DB_TAG)->first()) {
             echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -105,7 +105,7 @@ class AddCareer extends Command
         echo self::USERNAME . ": Inserting into Career\\Application ...\n";
 
         // get companies
-        $companyQuery = Company::withoutGlobalScope(AdminPublicScope::class)
+        $companyQuery = new Company()->withoutGlobalScope(AdminPublicScope::class)
             ->select(['id', 'slug'])
             ->where('owner_id', $this->adminId);
 
@@ -1185,16 +1185,18 @@ EOD,
             */
         ];
 
+        $applicationModel = new Application();
+
         if (!empty($data)) {
             foreach ($data as $i => $dataArray) {
                 $dataArray = [$dataArray];
-                Application::insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo], false));
+                $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo], false));
             }
             $this->insertSystemAdminResource($this->adminId, 'applications');
         }
 
         $this->applications = [];
-        $query = Application::withoutGlobalScope(AdminPublicScope::class)
+        $query = $applicationModel->withoutGlobalScope(AdminPublicScope::class)
             ->selectRaw('applications.id as application_id, companies.slug as company_slug')
             ->where('applications.owner_id', $this->adminId)
             ->join(config('app.career_db').'.companies', 'companies.id', '=', 'company_id')
@@ -1224,7 +1226,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            ApplicationSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'application_skills');
         }
     }
@@ -1233,8 +1235,10 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into Career\\Company ...\n";
 
+        $companyModel = new Company();
+
         $this->companyId = [];
-        $maxId = Company::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $companyModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=112; $i++) {
             $this->companyId[$i] = ++$maxId;
         }
@@ -1356,7 +1360,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
@@ -1387,7 +1391,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            CompanyContact::insert($this->additionalColumns($data));
+            new CompanyContact()->insert($this->additionalColumns($data));
         }
     }
 
@@ -1395,8 +1399,10 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
 
+        $contactModel = new Contact();
+
         $this->contactId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $contactModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->contactId[$i] = ++$maxId;
         }
@@ -1429,7 +1435,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
@@ -1451,7 +1457,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Communication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'communications');
         }
     }
@@ -1696,7 +1702,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'cover_letters');
         }
     }
@@ -1719,7 +1725,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Event::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'events');
         }
     }
@@ -1741,7 +1747,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Note::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'notes');
         }
     }
@@ -1766,7 +1772,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'references');
         }
     }
@@ -1792,13 +1798,15 @@ EOD,
             //[ 'name' => '',                                         'slug' => '',                                                    'date' => null,         'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 1 ],
         ];
 
+        $resumeModel = new Resume();
+
         if (!empty($data)) {
-            Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $resumeModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'resumes');
         }
 
         $this->resumes = [];
-        foreach(Resume::withoutGlobalScope(AdminPublicScope::class)->select(['id', 'slug'])
+        foreach($resumeModel->withoutGlobalScope(AdminPublicScope::class)->select(['id', 'slug'])
                     ->where('owner_id', $this->adminId)->get() as $resume) {
             $this->resumes[$resume->slug] = $resume->id;
         }
@@ -1859,7 +1867,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = Database::where('tag', self::DB_TAG)->first()) {
+        if ($database = new Database()->wher('tag', self::DB_TAG)->first()) {
 
             $data = [];
 
@@ -1880,7 +1888,7 @@ EOD,
 
             $data[] = $dataRow;
 
-            AdminDatabase::insert($data);
+            new AdminDatabase()->insert($data);
         }
     }
 
@@ -1916,7 +1924,7 @@ EOD,
 
             $data[] = $dataRow;
 
-            AdminResource::insert($data);
+            new AdminResource()->insert($data);
         }
     }
 
@@ -1927,7 +1935,7 @@ EOD,
      */
     protected function getDatabase()
     {
-        return Database::where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', self::DB_TAG)->first();
     }
 
     /**
@@ -1940,7 +1948,7 @@ EOD,
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return Resource::where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', $database->id)->get();
         }
     }
 }

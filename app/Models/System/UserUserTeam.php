@@ -2,14 +2,16 @@
 
 namespace App\Models\System;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class UserUserTeam extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserUserTeamFactory> */
-    use HasFactory;
-
     protected $connection = 'system_db';
 
     protected $table = 'user_user_team';

@@ -3,10 +3,16 @@
 namespace App\Models\Dictionary;
 
 use App\Enums\EnvTypes;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class DictionarySection extends Model
 {
     protected $connection = 'dictionary_db';

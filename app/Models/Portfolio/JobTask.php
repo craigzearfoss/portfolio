@@ -6,6 +6,8 @@ use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Portfolio\JobTaskFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,9 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class JobTask extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\JobTaskFactory> */
+    /** @use HasFactory<JobTaskFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'portfolio_db';

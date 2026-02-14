@@ -4,9 +4,15 @@ namespace App\Models\Career;
 
 use App\Models\System\Admin;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class JobStatus extends Model
 {
     use SearchableModelTrait;

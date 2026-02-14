@@ -79,9 +79,7 @@ class CommunicationController extends BaseAdminController
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
             $previousUrl = url()->previous();
-            if ($applicationId) {
-                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
-            }
+            $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
                 ->withInput();
         }

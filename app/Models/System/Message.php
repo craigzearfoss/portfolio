@@ -3,10 +3,15 @@
 namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Message extends Model
 {
     use SearchableModelTrait, SoftDeletes;

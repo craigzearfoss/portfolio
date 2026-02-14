@@ -66,7 +66,7 @@ class Demo extends Command
         $this->silent = $this->option('silent');
 
         // get the database id
-        if (!$database = Database::where('tag', self::DB_TAG)->first()) {
+        if (!$database = new Database()->wher('tag', self::DB_TAG)->first()) {
             echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -1231,7 +1231,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            ApplicationSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'application_skills');
         }
     }
@@ -1430,7 +1430,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Communication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'communications');
         }
     }
@@ -1659,7 +1659,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'cover_letters');
         }
     }
@@ -1682,7 +1682,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Event::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'events');
         }
     }
@@ -1704,7 +1704,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Note::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'notes');
         }
     }
@@ -1729,7 +1729,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'references');
         }
     }
@@ -1822,7 +1822,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = Database::where('tag', self::DB_TAG)->first()) {
+        if ($database = new Database()->wher('tag', self::DB_TAG)->first()) {
 
             $data = [];
 
@@ -1843,7 +1843,7 @@ EOD,
 
             $data[] = $dataRow;
 
-            AdminDatabase::insert($data);
+            new AdminDatabase()->insert($data);
         }
     }
 
@@ -1879,7 +1879,7 @@ EOD,
 
             $data[] = $dataRow;
 
-            AdminResource::insert($data);
+            new AdminResource()->insert($data);
         }
     }
 
@@ -1890,7 +1890,7 @@ EOD,
      */
     protected function getDatabase()
     {
-        return Database::where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', self::DB_TAG)->first();
     }
 
     /**
@@ -1903,7 +1903,7 @@ EOD,
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return Resource::where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', $database->id)->get();
         }
     }
 }

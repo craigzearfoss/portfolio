@@ -4,9 +4,15 @@ namespace App\Models\Portfolio;
 
 use App\Models\Portfolio\Certification;
 use App\Traits\SearchableModelTrait;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class CertificationType extends Model
 {
     use SearchableModelTrait;

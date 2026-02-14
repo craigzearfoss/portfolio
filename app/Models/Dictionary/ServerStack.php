@@ -2,8 +2,14 @@
 
 namespace App\Models\Dictionary;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class ServerStack extends Pivot
 {
     protected $connection = 'dictionary_db';

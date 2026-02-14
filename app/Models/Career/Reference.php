@@ -8,15 +8,21 @@ use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Career\ReferenceFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Reference extends Model
 {
-    /** @use HasFactory<\Database\Factories\Career\ReferenceFactory> */
+    /** @use HasFactory<ReferenceFactory> */
     use SearchableModelTrait, HasFactory;
 
     protected $connection = 'career_db';

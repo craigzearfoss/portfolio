@@ -110,7 +110,7 @@ class CopySourceImages extends Command
 
                 echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $databasePath) . ' ...'. PHP_EOL;
 
-                if ($databaseDefinition = Database::where('name', $databaseSlug)->first()) {
+                if ($databaseDefinition = new Database()->wher('name', $databaseSlug)->first()) {
 
                     foreach (scandir($databasePath) as $resourceSlug) {
 

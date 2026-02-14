@@ -31,16 +31,12 @@ return new class extends Migration
     public function up(): void
     {
         if (!$database = Database::where('tag', $this->database_tag)->first()) {
-            throw new \Exception(
-                'Database with tag `' . $this->database_tag . '` not found in '
-                . config('app.system_db') . '.databases table.'
-            );
+            abort(500, 'Database with tag `' . $this->database_tag . '` not found in '
+                . config('app.system_db') . '.databases table.');
         }
 
         if (!$jobResource = Resource::where('database_id', $database->id)->where('table', 'jobs')->first()) {
-            throw new \Exception(
-                'Resource with name `job` not found in ' . config('system_db') . '.resources table.'
-            );
+            abort(500, 'Resource with name `job` not found in ' . config('system_db') . '.resources table.');
         }
 
         Schema::connection($this->database_tag)->create('jobs', function (Blueprint $table) {

@@ -7,6 +7,8 @@ use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Career\RecruiterFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,9 +17,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @mixin Eloquent
+ * @mixin Builder
+ */
 class Recruiter extends Model
 {
-    /** @use HasFactory<\Database\Factories\Career\RecruiterFactory> */
+    /** @use HasFactory<RecruiterFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'career_db';

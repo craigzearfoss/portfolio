@@ -95,9 +95,9 @@ class InitSampleAdmin extends Command
 
         // verify that there is a definition for the specified user
         $undefinedUsernames = [];
-        foreach ($usernames as $username) {
-            if (!array_key_exists($username, self::USER_DATA)) {
-                $undefinedUsernames[] = $username;
+        foreach ($usernames as $thisUsername) {
+            if (!array_key_exists($thisUsername, self::USER_DATA)) {
+                $undefinedUsernames[] = $thisUsername;
             }
         }
 
@@ -397,7 +397,7 @@ class InitSampleAdmin extends Command
 
                 $data[] = $dataRow;
 
-                AdminDatabase::insert($data);
+                new Reference()->insert($data);
             }
         }
     }
@@ -437,7 +437,7 @@ class InitSampleAdmin extends Command
                 $data[] = $dataRow;
             }
 
-            AdminResource::insert($data);
+            new AdminResource()->insert($data);
         }
     }
 
@@ -484,7 +484,7 @@ class InitSampleAdmin extends Command
      */
     protected function getDatabase()
     {
-        return Database::where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', self::DB_TAG)->first();
     }
 
     /**
@@ -497,7 +497,7 @@ class InitSampleAdmin extends Command
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return Resource::where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', $database->id)->get();
         }
     }
 }
