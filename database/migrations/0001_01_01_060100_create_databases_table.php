@@ -93,7 +93,7 @@ return new class extends Migration
             $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
-        Database::insert($data);
+        new Database()->insert($data);
     }
 
     /**

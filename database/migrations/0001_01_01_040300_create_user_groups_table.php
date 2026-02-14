@@ -69,7 +69,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        UserGroup::insert($data);
+        new UserGroup()->insert($data);
     }
 
     /**

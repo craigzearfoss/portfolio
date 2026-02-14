@@ -99,7 +99,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            AdminDatabase::insert($data);
+            new AdminDatabase()->insert($data);
         }
     }
 
@@ -118,6 +118,6 @@ return new class extends Migration
 
     private function getDatabase()
     {
-        return Database::where('tag', $this->database_tag)->first();
+        return new Database()->where('tag', $this->database_tag)->first();
     }
 };

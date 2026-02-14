@@ -25,11 +25,11 @@ use function Laravel\Prompts\text;
  */
 class InitSampleAdmin extends Command
 {
-    const DB_TAG = 'system_db';
+    const string DB_TAG = 'system_db';
 
-    protected $adminId = null;
-    protected $demo = 1;
-    protected $silent = 0;
+    protected int|null $adminId = null;
+    protected int $demo = 1;
+    protected int $silent = 0;
     protected $processAll = false;
 
     const USER_DATA = [
@@ -77,7 +77,7 @@ class InitSampleAdmin extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $username     = $this->argument('username');
         $password     = $this->option('password');

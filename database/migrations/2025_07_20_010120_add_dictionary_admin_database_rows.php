@@ -58,7 +58,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            AdminDatabase::insert($data);
+            new AdminDatabase()->insert($data);
         }
     }
 
@@ -71,7 +71,7 @@ return new class extends Migration
         $dictionaryDatabase = $this->getDatabase('dictionary');
 
         if (!empty($ownerIds) && !empty($dictionaryDatabase)) {
-            AdminDatabase::whereIn('owner_id', $ownerIds)->where('database_id', $dictionaryDatabase->id)->delete();
+            new AdminDatabase()->whereIn('owner_id', $ownerIds)->where('database_id', $dictionaryDatabase->id)->delete();
         }
     }
 

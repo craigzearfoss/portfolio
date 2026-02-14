@@ -250,7 +250,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Admin::insert($data);
+        new Admin()->insert($data);
     }
 
     /**

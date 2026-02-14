@@ -18,15 +18,15 @@ use function Laravel\Prompts\text;
 
 class AddPersonal extends Command
 {
-    const DB_TAG = 'personal_db';
+    const string DB_TAG = 'personal_db';
 
-    const USERNAME = 'czearfoss';
+    const string USERNAME = 'czearfoss';
 
-    protected $demo = 0;
-    protected $silent = 0;
+    protected int $demo = 0;
+    protected int $silent = 0;
 
-    protected $databaseId = null;
-    protected $adminId = null;
+    protected int|null $databaseId = null;
+    protected int|null $adminId = null;
 
     protected $recipeId = [];
 
@@ -48,7 +48,7 @@ class AddPersonal extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->demo   = $this->option('demo');
         $this->silent = $this->option('silent');

@@ -44,7 +44,7 @@ return new class extends Migration
             ],
         ];
 
-        AdminAdminTeam::insert($data);
+        new AdminAdminTeam()->insert($data);
     }
 
     /**

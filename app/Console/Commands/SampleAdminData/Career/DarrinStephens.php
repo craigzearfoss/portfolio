@@ -25,19 +25,19 @@ use function Laravel\Prompts\text;
 
 class DarrinStephens extends Command
 {
-    const DB_TAG = 'career_db';
+    const string DB_TAG = 'career_db';
 
-    const USERNAME = 'darrin-stephens';
+    const string USERNAME = 'darrin-stephens';
 
-    protected $demo = 1;
-    protected $silent = 0;
+    protected int $demo = 1;
+    protected int $silent = 0;
 
-    protected $databaseId = null;
-    protected $adminId = null;
+    protected int|null $databaseId = null;
+    protected int|null $adminId = null;
 
-    protected $applicationId = [];
-    protected $companyId = [];
-    protected $contactId = [];
+    protected array $applicationId = [];
+    protected array $companyId = [];
+    protected array $contactId = [];
 
     /**
      * The name and signature of the console command.
@@ -57,7 +57,7 @@ class DarrinStephens extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->demo   = $this->option('demo');
         $this->silent = $this->option('silent');

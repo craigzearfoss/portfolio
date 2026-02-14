@@ -4,6 +4,7 @@ use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\AdminResource;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -111,7 +112,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            AdminResource::insert($data);
+            new AdminResource()->insert($data);
         }
     }
 
@@ -123,22 +124,31 @@ return new class extends Migration
         Schema::connection($this->database_tag)->dropIfExists('admin_resources');
     }
 
+    /**
+     * @return mixed[]
+     */
     private function getAdminIds()
     {
         return Admin::all()->pluck('id')->toArray();
     }
 
+    /**
+     * @return null
+     */
     private function getDatabase()
     {
-        return Database::where('tag', $this->database_tag)->first();
+        return new Database()->where('tag', $this->database_tag)->first();
     }
 
+    /**
+     * @return array|Collection
+     */
     private function getDbResources()
     {
         if (!$database = $this->getDatabase()) {
             return [];
         }
 
-        return Resource::where('database_id', $database->id)->get();
+        return new Resource()->where('database_id', $database->id)->get();
     }
 };

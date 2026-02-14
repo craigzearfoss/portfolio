@@ -31,15 +31,15 @@ use function Laravel\Prompts\text;
 
 class JREwing extends Command
 {
-    const DB_TAG = 'portfolio_db';
+    const string DB_TAG = 'portfolio_db';
 
-    const USERNAME = 'j-r-ewing';
+    const string USERNAME = 'j-r-ewing';
 
-    protected $demo = 1;
-    protected $silent = 0;
+    protected int $demo = 1;
+    protected int $silent = 0;
 
-    protected $databaseId = null;
-    protected $adminId = null;
+    protected int|null $databaseId = null;
+    protected int|null $adminId = null;
 
     protected $jobId = [];
 
@@ -61,7 +61,7 @@ class JREwing extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->demo   = $this->option('demo');
         $this->silent = $this->option('silent');

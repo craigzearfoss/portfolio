@@ -92,7 +92,7 @@ return new class extends Migration
             [ 'id' => 64, 'code' => 'YT', 'name' => 'Yukon',                     'country_id' => 42 ],
         ];
 
-        State::insert($data);
+        new State()->insert($data);
     }
 
     /**

@@ -39,7 +39,7 @@ return new class extends Migration
             ],
         ];
 
-        UserUserGroup::insert($data);
+        new UserUserGroup()->insert($data);
     }
 
     /**

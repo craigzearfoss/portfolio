@@ -63,7 +63,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        UserTeam::insert($data);
+        new UserTeam()->insert($data);
 
         // add user_team_id column to the system.users table
         Schema::connection($this->database_tag)->table('users', function (Blueprint $table) {
@@ -74,9 +74,11 @@ return new class extends Migration
                 ->after('id');
         });
 
+        $userModel = new User();
+
         // add admin_team_id values admins
-        User::where('username', 'sample')->update(['user_team_id' => 2]);
-        User::where('username', 'demo')->update(['user_team_id' => 2]);
+        $userModel->where('username', 'sample')->update(['user_team_id' => 2]);
+        $userModel->where('username', 'demo')->update(['user_team_id' => 2]);
     }
 
     /**

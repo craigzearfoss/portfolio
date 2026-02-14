@@ -32,15 +32,15 @@ use function Laravel\Prompts\text;
 
 class AddPortfolio extends Command
 {
-    const DB_TAG = 'portfolio_db';
+    const string DB_TAG = 'portfolio_db';
 
-    const USERNAME = 'czearfoss';
+    const string USERNAME = 'czearfoss';
 
-    protected $demo = 0;
-    protected $silent = 0;
+    protected int $demo = 0;
+    protected int $silent = 0;
 
-    protected $databaseId = null;
-    protected $adminId = null;
+    protected int|null $databaseId = null;
+    protected int|null $adminId = null;
 
     protected $jobId = [];
 
@@ -62,7 +62,7 @@ class AddPortfolio extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->demo   = $this->option('demo');
         $this->silent = $this->option('silent');

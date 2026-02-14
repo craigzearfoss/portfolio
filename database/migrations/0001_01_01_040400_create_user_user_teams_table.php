@@ -39,7 +39,7 @@ return new class extends Migration
             ],
         ];
 
-        UserUserTeam::insert($data);
+        new UserUserTeam()->insert($data);
     }
 
     /**

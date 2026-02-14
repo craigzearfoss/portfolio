@@ -64,7 +64,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        AdminTeam::insert($data);
+        new AdminTeam()->insert($data);
 
         // add admin_team_id column to the system.admins table
         Schema::connection($this->database_tag)->table('admins', function (Blueprint $table) {
@@ -75,10 +75,12 @@ return new class extends Migration
                 ->after('id');
         });
 
+        $adminModel = new Admin();
+
         // add admin_team_id values admins
-        Admin::where('username', 'root')->update(['admin_team_id' => 1]);
-        Admin::where('username', 'default')->update(['admin_team_id' => 2]);
-        Admin::where('username', 'demo')->update(['admin_team_id' => 2]);
+        $adminModel->where('username', 'root')->update(['admin_team_id' => 1]);
+        $adminModel->where('username', 'default')->update(['admin_team_id' => 2]);
+        $adminModel->where('username', 'demo')->update(['admin_team_id' => 2]);
     }
 
     /**

@@ -41,7 +41,7 @@ return new class extends Migration
             [ 'id' => 5, 'name' => 'string' ],
         ];
 
-        SettingType::insert($data);
+        new SettingType()->insert($data);
     }
 
     /**

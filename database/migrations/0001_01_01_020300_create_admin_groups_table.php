@@ -69,7 +69,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        AdminGroup::insert($data);
+        new AdminGroup()->insert($data);
     }
 
     /**

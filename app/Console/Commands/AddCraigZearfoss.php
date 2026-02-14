@@ -24,53 +24,53 @@ use function Laravel\Prompts\text;
  */
 class AddCraigZearfoss extends Command
 {
-    const DB_TAG = 'system_db';
+    const string DB_TAG = 'system_db';
 
-    const DEFINED_FILE_NAMES = [
+    const array DEFINED_FILE_NAMES = [
         'image' => 'image', 'thumbnail', 'profile', 'logo', 'logo_small'];
 
     /**
      * @var string username
      */
-    protected $username = 'czearfoss';
+    protected string $username = 'czearfoss';
 
     /**
      * @var string password
      */
-    protected $password = null;
+    protected string|null $password = null;
 
     /**
      * @var string name
      */
-    protected $adminName = 'Craig Zearfoss';
+    protected string $adminName = 'Craig Zearfoss';
 
     /**
      * @var string label
      */
-    protected $label = 'craig-zearfoss';
+    protected string $label = 'craig-zearfoss';
 
     /**
      * @var string email
      */
-    protected $email = 'craigzearfoss@gmail.com';
+    protected string $email = 'craigzearfoss@gmail.com';
 
     /**
      * @var string role
      */
-    protected $role = 'Senior Software Developer';
+    protected string $role = 'Senior Software Developer';
 
     /**
      * @var string email
      */
-    protected $employer = 'Idaho National Laboratory';
+    protected string $employer = 'Idaho National Laboratory';
 
-    protected $adminId = null;
-    protected $demo = 1;
-    protected $silent = 0;
+    protected int|null $adminId = null;
+    protected int $demo = 1;
+    protected int $silent = 0;
 
-    protected $ids = [];
-    protected $companyIds = [];
-    protected $contactIds = [];
+    protected array $ids = [];
+    protected array $companyIds = [];
+    protected array $contactIds = [];
 
     /**
      * The name and signature of the console command.
@@ -93,7 +93,7 @@ class AddCraigZearfoss extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $adminTeamId  = $this->option('team_id');
         $adminGroupId = $this->option('group_id');

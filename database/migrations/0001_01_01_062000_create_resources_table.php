@@ -68,7 +68,7 @@ return new class extends Migration
             $table->unique(['database_id', 'table'], 'database_id_table_unique');
         });
 
-        if (!$database = Database::where('tag', $this->database_tag)->first()) {
+        if (!$database = new Database()->where('tag', $this->database_tag)->first()) {
 
             throw new \Exception('Database tag \'' . $this->database_tag . '\'not found.');
 
@@ -279,7 +279,7 @@ return new class extends Migration
                 $data[$i]['owner_id'] = $this->rootAdminId;
             }
 
-            Resource::insert($data);
+            new Resource()->insert($data);
         }
     }
 
