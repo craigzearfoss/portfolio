@@ -40,7 +40,7 @@ class AdminFactory extends Factory
             'email_verified_at' => fake()->date(),
             'link'              => fake()->url(),
             'link_name'         => fake()->text(20),
-            'description'       => fake()->text(200),
+            'description'       => fake()->text(),
             'image'             => fake()->imageUrl(),
             'image_credit'      => fake()->name(),
             'image_source'      => fake()->company(),

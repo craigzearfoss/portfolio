@@ -39,7 +39,7 @@ class AdminController extends BaseGuestController
 
         $owners = new Admin()->where('public', 1)
             ->where('disabled', false)
-            ->orderBy('username', 'asc')
+            ->orderBy('username')
             ->paginate($perPage)->appends(request()->except('page'));
 
         return view('guest.system.admin.index', compact('owners'))
@@ -64,11 +64,11 @@ class AdminController extends BaseGuestController
             $databases = new AdminDatabase()->where('owner_id', $this->owner->id)
                 ->where('name', '!=', 'dictionary')
                 ->where('guest', true)
-                ->orderBy('sequence', 'asc')->get();
+                ->orderBy('sequence')->get();
 
             $resources = [];
             if (!empty($databases)) {
-                foreach (AdminResource::ownerResources($this->owner->id, EnvTypes::GUEST) as $resource) {
+                foreach (AdminResource::ownerResources($this->owner->id) as $resource) {
                     $resources[$resource->database_id][] = $resource;
                 }
             }

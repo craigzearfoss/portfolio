@@ -39,7 +39,7 @@ class DictionarySection extends Model
     ];
 
     /*
-     *      * @param array $filters
+     * @param array $filters
      * @param string $valueColumn
      * @param string $labelColumn
      * @param bool $includeBlank
@@ -52,23 +52,29 @@ class DictionarySection extends Model
      * Returns an array of options for a dictionary section select list.
      *
      * @param array $filters
+     * @param string $valueColumn - id, name, slug, table, or route
+     * @param string $labelColumn
      * @param bool $includeBlank
-     * @param string $keyField - id, name, slug, table, or route
+     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param array $orderBy
      * @param EnvTypes|null $envType
      * @return array|string[]
      */
     public static function listOptions(array         $filters = [],
+                                       string        $valueColumn = 'id',
+                                       string        $labelColumn = 'name',
                                        bool          $includeBlank = false,
-                                       string        $keyField = 'id',
-                                       EnvTypes|null $envType = null): array
+                                       bool          $includeOther = false,
+                                       array         $orderBy = [ 'name'=>'asc' ],
+                                       EnvTypes|null $envType = EnvTypes::GUEST): array
     {
-        if (!in_array($keyField, ['id', 'name', 'slug', 'table', 'route'])) {
+        if (!in_array($valueColumn, ['id', 'name', 'slug', 'table', 'route'])) {
             return [];
         }
 
         $options = [];
         if ($includeBlank) {
-            $key = $keyField == 'route'
+            $key = $valueColumn == 'route'
                 ? route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.index')
                 : '';
             $options = [
@@ -76,28 +82,27 @@ class DictionarySection extends Model
             ];
         }
 
-
-        $query = DictionarySection::select('id', 'name', 'slug', 'table')
-            ->orderBy('name');
+        $query = new DictionarySection()->select('id', 'name', 'slug', 'table')
+            ->orderBy($orderBy[0], $orderBy[1]);
         foreach ($filters as $column => $value) {
             $query = $query->where($column, $value);
         }
 
         foreach ($query->get() as $dictionarySection) {
 
-            switch ($keyField) {
+            switch ($valueColumn) {
                 case 'id':
                 case 'name':
                 case 'slug':
                 case 'table':
-                    $key = $dictionarySection->{$keyField};
+                    $key = $dictionarySection->{$valueColumn};
                     break;
                 case 'route':
                     $key =route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.'.$dictionarySection->slug.'.index');
                     break;
             }
 
-            $options[$key] = $dictionarySection->name;
+            $options[$key] = $dictionarySection->{$labelColumn};
         }
 
         return $options;
@@ -117,10 +122,12 @@ class DictionarySection extends Model
     {
         $dictionaryDB = config('app.dictionary_db');
 
+        $dictionarySectionModel = new DictionarySection();
+
         if (!empty($slug)) {
 
             // Get the dictionary for a specific section.
-            if (!$dictionarySection = DictionarySection::where('slug', $slug)->first()) {
+            if (!$dictionarySection = $dictionarySectionModel->where('slug', $slug)->first()) {
                 return [];
             }
 
@@ -131,7 +138,7 @@ class DictionarySection extends Model
         } else {
 
             // Get dictionary of all sections.
-            if (!$dictionarySections = DictionarySection::all()->toArray()) {
+            if (!$dictionarySections = $dictionarySectionModel->all()->toArray()) {
                 return [];
             }
 

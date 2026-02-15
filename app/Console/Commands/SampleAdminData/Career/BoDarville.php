@@ -269,7 +269,7 @@ class BoDarville extends Command
         */
 
         if (!empty($data)) {
-            new CompanyContact()->insert($this->additionalColumns($data, true));
+            new CompanyContact()->insert($this->additionalColumns($data));
         }
     }
 

@@ -16,8 +16,7 @@
 
     @if (!empty($download))
         <a class="download-link text-xl"
-            title="download file"
-            @if(!empty($alt))alt="{!! $alt !!}" @endif
+            title="{!! $title ?? 'download file'!!}" @endif
             data-url="{!! $imageUrl !!}"
             data-filename="{!! $filename ?? '' !!}"
         >

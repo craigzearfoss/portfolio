@@ -40,13 +40,10 @@ if (! function_exists('getEnvType')) {
 
 if (! function_exists('dbName')) {
     /**
-     * Returns the name of a database when give a database tag.
-     *
      * @param string $dbTag
-     * @return string|null
      */
-    function dbName(string $dbTag) {
-        if ($database = Database::where('tag', 'career_db')->first()) {
+    function dbName(string $dbTag)  {
+        if ($database = new Database()->where('tag', $dbTag)->first()) {
             return $database->name;
         } else {
             return null;
@@ -223,13 +220,13 @@ if (! function_exists('canCreate')) {
      * Returns true if an admin can create an entity.
      * Parameter #2, $entity, must be the name of an entity (ex. database or resource).
      *
-     * @param \App\Enums\PermissionEntityTypes|string $entityType
+     * @param PermissionEntityTypes|string $entityType
      * @param string $entity
      * @param Admin|null $admin
      * @return bool
      */
-    function canCreate(\App\Enums\PermissionEntityTypes|string $entityType,
-                       string $entity,
+    function canCreate(PermissionEntityTypes|string  $entityType,
+                       string                        $entity,
                        \App\Models\System\Admin|null $admin = null): bool
     {
         if (empty($entity)) {
@@ -240,10 +237,10 @@ if (! function_exists('canCreate')) {
             return true;
         } else {
 
-            if ($entityType === \App\Enums\PermissionEntityTypes::DATABASE) {
-                $entity = \App\Models\System\AdminDatabase::where('name', $entity)->first();
+            if ($entityType === PermissionEntityTypes::DATABASE) {
+                $entity = new AdminDatabase()->where('name', $entity)->first();
             } else {
-                $entity = \App\Models\System\AdminResource::where('name', $entity)->first();
+                $entity = new AdminResource()->where('name', $entity)->first();
             }
 
             // non-root admins cannot create root entities
@@ -264,14 +261,14 @@ if (! function_exists('canRead')) {
      * @TODO: Note that we allow admins to read other admin's entities. We should probably implement a RBAC system.
      * @TODO: Note that this does not handle duplicate table names. Right now the only duplicates we have are "database".
      *
-     * @param \App\Enums\PermissionEntityTypes|string $entityType
+     * @param PermissionEntityTypes|string $entityType
      * @param $entity
      * @param Admin|null $admin
      * @return bool
      */
-    function canRead(\App\Enums\PermissionEntityTypes|string $entityType,
-                     $entity, \App\Models\System\Admin|null
-                     $admin = null): bool
+    function canRead(PermissionEntityTypes|string $entityType,
+                                                  $entity, \App\Models\System\Admin|null
+                                                  $admin = null): bool
     {
         if (empty($entity)) {
             abort(500, 'canRead(): Argument #2 ($entity) cannot be empty.');
@@ -282,11 +279,11 @@ if (! function_exists('canRead')) {
         } else {
 
             if (is_string($entity)) {
-                if ($entityType === \App\Enums\PermissionEntityTypes::DATABASE) {
-                    $entity = \App\Models\System\AdminDatabase::where('owner_id', $admin->id)
+                if ($entityType === PermissionEntityTypes::DATABASE) {
+                    $entity = new AdminDatabase()->where('owner_id', $admin->id)
                         ->where('name', $entity)->first();
                 } else {
-                    $entity = \App\Models\System\AdminResource::where('owner_id', $admin->id)
+                    $entity = new AdminResource()->where('owner_id', $admin->id)
                         ->where('name', $entity)->first();
                 }
             }
@@ -308,13 +305,13 @@ if (! function_exists('canUpdate')) {
      * Only root admins can update entities that belong to other admins.
      * * Parameter #2, $entity, must be an entity object.
      *
-     * @param \App\Enums\PermissionEntityTypes $entityType
+     * @param PermissionEntityTypes $entityType
      * @param $entity
      * @param Admin|null $admin
      * @return bool
      */
-    function canUpdate(\App\Enums\PermissionEntityTypes $entityType,
-                       $entity,
+    function canUpdate(PermissionEntityTypes         $entityType,
+                                                     $entity,
                        \App\Models\System\Admin|null $admin = null): bool
     {
         if (empty($entity)) {
@@ -328,7 +325,7 @@ if (! function_exists('canUpdate')) {
             if (!is_string($entity)) {
                 if (!$table = $entity->getTable()) {
                     abort(500, 'canUpdate(): Table not found in Argument #2 ($entity). ' . callingFunction());
-                } elseif (!$adminResourceRow = AdminResource::where('table', $table)->first()) {
+                } elseif (!$adminResourceRow = new AdminResource()->where('table', $table)->first()) {
                     abort(500, 'canUpdate(): Resource not found for table ' . $table . '. ' . callingFunction());
                 }
             }
@@ -351,13 +348,13 @@ if (! function_exists('canDelete')) {
      * Only root admins can delete entities that belong to other admins.
      * Parameter #2, $entity, must be an entity object.
      *
-     * @param \App\Enums\PermissionEntityTypes $entityType
+     * @param PermissionEntityTypes $entityType
      * @param $entity
      * @param Admin|null $admin
      * @return bool
      */
-    function canDelete(\App\Enums\PermissionEntityTypes $entityType,
-                       $entity,
+    function canDelete(PermissionEntityTypes         $entityType,
+                                                     $entity,
                        \App\Models\System\Admin|null $admin = null): bool
     {
         if (empty($entity)) {
@@ -370,7 +367,7 @@ if (! function_exists('canDelete')) {
 
             if (!$table = $entity->getTable()) {
                 abort(500, 'canDelete(): Table not found in Argument #2 ($entity). ' . callingFunction());
-            } elseif (!$adminResourceRow = AdminResource::where('table', $table)->first()) {
+            } elseif (!$adminResourceRow = new AdminResource()->where('table', $table)->first()) {
                 abort(500, 'canDelete(): Resource not found for table ' . $table . '. ' . callingFunction());
             }
 
@@ -387,14 +384,14 @@ if (! function_exists('canDelete')) {
 
 if (! function_exists('createGate')) {
     /**
-     * @param \App\Enums\PermissionEntityTypes|string $entityType
+     * @param PermissionEntityTypes|string $entityType
      * @param string $entity
      * @param Admin|null $admin
      * @return void
      */
-    function createGate(\App\Enums\PermissionEntityTypes|string $entityType,
-                        string                                  $entity,
-                        \App\Models\System\Admin|null           $admin = null)
+    function createGate(PermissionEntityTypes|string  $entityType,
+                        string                        $entity,
+                        \App\Models\System\Admin|null $admin = null)
     {
         if (!canCreate($entityType, $entity, $admin)) {
             abort(403, 'Read not authorized.');
@@ -404,13 +401,13 @@ if (! function_exists('createGate')) {
 
 if (! function_exists('readGate')) {
     /**
-     * @param \App\Enums\PermissionEntityTypes|string $entityType
+     * @param PermissionEntityTypes|string $entityType
      * @param $entity
      * @param Admin|null $admin
      * @return void
      */
-    function readGate(\App\Enums\PermissionEntityTypes|string $entityType,
-                      $entity,
+    function readGate(PermissionEntityTypes|string  $entityType,
+                                                    $entity,
                       \App\Models\System\Admin|null $admin = null)
     {
         if (!canRead($entityType, $entity, $admin)) {
@@ -421,13 +418,13 @@ if (! function_exists('readGate')) {
 
 if (! function_exists('updateGate')) {
     /**
-     * @param \App\Enums\PermissionEntityTypes $entityType
+     * @param PermissionEntityTypes $entityType
      * @param $entity
      * @param Admin|null $admin
      * @return void
      */
-    function updateGate(\App\Enums\PermissionEntityTypes $entityType,
-                        $entity,
+    function updateGate(PermissionEntityTypes         $entityType,
+                                                      $entity,
                         \App\Models\System\Admin|null $admin = null)
     {
         if (!canUpdate($entityType, $entity, $admin)) {
@@ -438,13 +435,13 @@ if (! function_exists('updateGate')) {
 
 if (! function_exists('deleteGate')) {
     /**
-     * @param \App\Enums\PermissionEntityTypes $entityType
+     * @param PermissionEntityTypes $entityType
      * @param $entity
      * @param Admin|null $admin
      * @return void
      */
-    function deleteGate(\App\Enums\PermissionEntityTypes $entityType,
-                        $entity,
+    function deleteGate(PermissionEntityTypes         $entityType,
+                                                      $entity,
                         \App\Models\System\Admin|null $admin = null)
     {
         if (!canDelete($entityType, $entity, $admin)) {
@@ -702,8 +699,8 @@ if (! function_exists('reservedKeywords')) {
                 'user',
                 'verify email', 'verify-email',
             ],
-            \App\Models\System\Database::select('name')->get()->pluck('name')->toArray(),
-            \App\Models\System\Resource::select('name')->get()->pluck('name')->toArray()
+            new Database()->select('name')->get()->pluck('name')->toArray(),
+            new Resource()->select('name')->get()->pluck('name')->toArray()
         ));
 
         sort($reservedKeywords);

@@ -64,7 +64,7 @@ class SkillController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'skill', $this->admin);
 
-        $skill = Skill::create($request->validated());
+        $skill = new Skill()->create($request->validated());
 
         return redirect()->route('admin.portfolio.skill.show', $skill)
             ->with('success', $skill->name . ' successfully added.');
@@ -96,7 +96,7 @@ class SkillController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $skill = Skill::findOrFail($id);
+        $skill = new Skill()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
 

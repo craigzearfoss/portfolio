@@ -23,7 +23,7 @@ class ServerController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $servers = Server::where('name', '!=', 'other')
+        $servers = new Server()->where('name', '!=', 'other')
             ->where('public', true)
             ->where('disabled', false)
             ->where('name', '!=', 'other')
@@ -42,7 +42,7 @@ class ServerController extends BaseGuestController
      */
     public function show(string $slug): View
     {
-        if (!$server = Server::where('slug', $slug)->first()) {
+        if (!$server = new Server()->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

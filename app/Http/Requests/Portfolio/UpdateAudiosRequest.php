@@ -62,7 +62,7 @@ class UpdateAudiosRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(Audio::whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
+                Rule::in(new Audio()->whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

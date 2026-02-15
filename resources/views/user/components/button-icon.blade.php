@@ -7,7 +7,6 @@
    @if (!empty($class))class="{!! $class !!}" @endif
    @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
    @if (!empty($disabled))style="cursor: default; opacity: 0.5;" @endif
-   @if (!empty($target))target="{!! $target !!}" @endif
    @if (!empty($href))href="{!! $href !!}" @endif
    @if (!empty($onclick))
        onclick="{!! $onclick !!}"

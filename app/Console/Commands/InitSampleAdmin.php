@@ -190,14 +190,14 @@ class InitSampleAdmin extends Command
 
         if ($username == 'demo') {
 
-            $adminId = Admin::withoutGlobalScope(AdminPublicScope::class)->where('username', $username)->first()->id;
-            $adminTeamId = AdminTeam::withoutGlobalScope(AdminPublicScope::class)->where('name', 'Demo Admin Team')->first()->id;
-            $adminGroupId = AdminGroup::withoutGlobalScope(AdminPublicScope::class)->where('name', 'Demo Admin Group')->first()->id;
+            $adminId = new Admin()->withoutGlobalScope(AdminPublicScope::class)->where('username', $username)->first()->id;
+            $adminTeamId = new AdminTeam()->withoutGlobalScope(AdminPublicScope::class)->where('name', 'Demo Admin Team')->first()->id;
+            $adminGroupId = new AdminGroup()->withoutGlobalScope(AdminPublicScope::class)->where('name', 'Demo Admin Group')->first()->id;
 
         } else {
 
             // get the next available admin id
-            $adminId = Admin::withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
+            $adminId = new Admin()->withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
 
             // get/validate the team id (Every admin must belong to a team.)
             if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);

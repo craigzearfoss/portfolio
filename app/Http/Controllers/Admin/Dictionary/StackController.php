@@ -69,7 +69,7 @@ class StackController extends BaseAdminController
             abort(403, 'Only admins with root access can add stacks.');
         }
 
-        $stack = Stack::create($request->validated());
+        $stack = new Stack()->create($request->validated());
 
         return redirect()->route('admin.dictionary.stack.show', $stack)
             ->with('success', $stack->name . ' successfully added.');
@@ -105,7 +105,7 @@ class StackController extends BaseAdminController
             abort(403, 'Only admins with root access can update stacks.');
         }
 
-        $stack = Stack::findOrFail($id);
+        $stack = new Stack()->findOrFail($id);
 
         return view('admin.dictionary.stack.edit', compact('stack'));
     }

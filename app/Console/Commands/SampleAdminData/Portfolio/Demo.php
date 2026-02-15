@@ -2018,7 +2018,7 @@ class Demo extends Command
         ];
 
         if (!empty($data)) {
-            Photography::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Photography()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'audio');
         }
     }

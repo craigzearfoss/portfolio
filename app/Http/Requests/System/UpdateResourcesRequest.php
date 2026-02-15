@@ -57,7 +57,7 @@ class UpdateResourcesRequest extends FormRequest
                         ->whereNot('id', $this->resource->id);
                 })
             ],
-            'parent_id'      => ['integer', Rule::in(Resource::where('id', '!=', $this->id)->get()->pluck('id')->toArray()), 'nullable'],
+            'parent_id'      => ['integer', Rule::in(new Resource()->where('id', '!=', $this->id)->get()->pluck('id')->toArray()), 'nullable'],
             'table'          => [
                 'filled',
                 'string',

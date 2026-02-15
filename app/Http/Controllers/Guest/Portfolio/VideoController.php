@@ -26,7 +26,7 @@ class VideoController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $videos = Video::where('owner_id', $this->owner->id)
+        $videos = new Video()->where('owner_id', $this->owner->id)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -44,7 +44,7 @@ class VideoController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$video = Video::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$video = new Video()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

@@ -2,32 +2,62 @@
 
 namespace Database\Seeders;
 
+use App\Models\Career\Application;
+use App\Models\Career\Communication;
+use App\Models\Career\Company;
+use App\Models\Career\CompanyContact;
+use App\Models\Career\Contact;
+use App\Models\Career\CoverLetter;
+use App\Models\Career\Event;
+use App\Models\Career\Note;
+use App\Models\Career\Reference;
+use App\Models\Career\Resume;
 use App\Models\Dictionary\DictionarySection;
+use App\Models\Personal\Reading;
+use App\Models\Personal\Recipe;
+use App\Models\Personal\RecipeIngredient;
+use App\Models\Personal\RecipeStep;
+use App\Models\Portfolio\Art;
+use App\Models\Portfolio\Certificate;
+use App\Models\Portfolio\Course;
+use App\Models\Portfolio\Job;
+use App\Models\Portfolio\JobCoworker;
+use App\Models\Portfolio\JobTask;
+use App\Models\Portfolio\Link;
+use App\Models\Portfolio\Music;
+use App\Models\Portfolio\Project;
+use App\Models\Portfolio\Skill;
+use App\Models\Portfolio\Video;
+use App\Models\System\Admin;
+use App\Models\System\Message;
+use App\Models\System\User;
 use Illuminate\Database\Seeder;
+use Random\RandomException;
 
 class TestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * @throws RandomException
      */
     public function run(): void
     {
         // populate tables
 
         echo 'User' . PHP_EOL;
-        \App\Models\System\User::factory()->count(10)->create();
+        User::factory()->count(10)->create();
 
         echo 'Admin' . PHP_EOL;
-        \App\Models\System\Admin::factory()->count(4)->create();
+        Admin::factory()->count(4)->create();
 
         echo 'Message' . PHP_EOL;
-        \App\Models\System\Message::factory()->count(100)->create();
+        Message::factory()->count(100)->create();
 
-        $adminIds = \App\Models\System\Admin::all()->where('root', '<>', 1)->pluck('id')->toArray();
+        $adminIds = Admin::all()->where('root', '<>', 1)->pluck('id')->toArray();
 
         echo 'Portfolio/Art' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Art::factory()
+            Art::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -38,7 +68,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Certificate' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Certificate::factory()
+            Certificate::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -49,7 +79,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Course' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Course::factory()
+            Course::factory()
                 ->count(random_int(0, 20))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -60,7 +90,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Link' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Link::factory()
+            Link::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -71,7 +101,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Music' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Music::factory()
+            Music::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -82,7 +112,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Project' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Project::factory()
+            Project::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -93,7 +123,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Reading' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Personal\Reading::factory()
+            Reading::factory()
                 ->count(random_int(0, 40))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -104,7 +134,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Recipe' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Personal\Recipe::factory()
+            Recipe::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -114,10 +144,10 @@ class TestSeeder extends Seeder
         }
 
         echo 'Portfolio/RecipeIngredient' . PHP_EOL;
-        foreach (\App\Models\Personal\Recipe::all(['id', 'admin_id']) as $recipe) {
+        foreach (Recipe::all(['id', 'admin_id']) as $recipe) {
             $numIngredients = mt_rand(4, 10);
             for ($i = 1; $i <= $numIngredients; $i++) {
-                \App\Models\Personal\RecipeIngredient::factory()
+                RecipeIngredient::factory()
                     ->set('sequence', $i - 1)
                     ->set('admin_id', $recipe->admin_id)
                     ->create();
@@ -125,10 +155,10 @@ class TestSeeder extends Seeder
         }
 
         echo 'Portfolio/RecipeStep' . PHP_EOL;
-        foreach (\App\Models\Personal\Recipe::all(['id', 'admin_id']) as $recipe) {
+        foreach (Recipe::all(['id', 'admin_id']) as $recipe) {
             $numSteps = mt_rand(3, 7);
             for ($step = 1; $step <= $numSteps; $step++) {
-                \App\Models\Personal\RecipeStep::factory()
+                RecipeStep::factory()
                     ->set('step', $step)
                     ->set('sequence', $step - 1)
                     ->set('admin_id', $recipe->admin_id)
@@ -138,7 +168,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Video' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Video::factory()
+            Video::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -149,7 +179,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/Company' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Career\Company::factory()
+            Company::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -160,7 +190,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/Contact' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Career\Contact::factory()
+            Contact::factory()
                 ->count(random_int(0, 20))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -171,10 +201,10 @@ class TestSeeder extends Seeder
 
         echo 'Career/CompanyContact' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            $companyIds = \App\Models\Career\Contact::where('admin_id', $adminId)->get()->pluck('id')->toArray();
-            $contactIds = \App\Models\Career\Contact::where('admin_id', $adminId)->get()->pluck('id')->toArray();
+            $companyIds = new Company()->where('admin_id', $adminId)->get()->pluck('id')->toArray();
+            $contactIds = new Contact()->where('admin_id', $adminId)->get()->pluck('id')->toArray();
             foreach ($contactIds as $contactId) {
-                \App\Models\Career\CompanyContact::factory()
+                CompanyContact::factory()
                     ->set('company_id', $companyIds[array_rand($companyIds)])
                     ->set('contact_id', $contactId)
                     ->create();
@@ -183,7 +213,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/Reference' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Career\Reference::factory()
+            Reference::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -194,7 +224,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/Resume' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Career\Resume::factory()
+            Resume::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -215,7 +245,7 @@ class TestSeeder extends Seeder
                 $skill = $allSkills[array_rand($allSkills)];
                 if (!in_array($skill, $skills)) {
 
-                    \App\Models\Portfolio\Skill::factory()
+                    Skill::factory()
                         ->set('admin_id', $adminId)
                         ->set('name', $skill)
                         ->sequence(fn($sequence) => [
@@ -230,7 +260,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/Job' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Job::factory()
+            Job::factory()
                 ->count(random_int(0, 5))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -241,8 +271,8 @@ class TestSeeder extends Seeder
 
         echo 'Career/JobCoworker' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            foreach (\App\Models\Portfolio\Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
-                \App\Models\Portfolio\JobCoworker::factory()
+            foreach (Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
+                JobCoworker::factory()
                     ->count(mt_rand(1, 5))
                     ->set('job_id', $jobId)
                     ->set('admin_id', $adminId)
@@ -255,9 +285,9 @@ class TestSeeder extends Seeder
 
         echo 'Career/JobTask' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            foreach (\App\Models\Portfolio\Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
+            foreach (Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
                 $numTasks = mt_rand(1, 5);
-                \App\Models\Portfolio\JobTask::factory()
+                JobTask::factory()
                     ->count(mt_rand(1, 5))
                     ->set('job_id', $jobId)
                     ->set('admin_id', $adminId)
@@ -270,8 +300,8 @@ class TestSeeder extends Seeder
 
         echo 'Career/Application' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            foreach (\App\Models\Career\Company::where('admin_id', $adminId)->get()->pluck('id') as $companyId) {
-                \App\Models\Career\Application::factory()
+            foreach (Company::where('admin_id', $adminId)->get()->pluck('id') as $companyId) {
+                Application::factory()
                     ->set('admin_id', $adminId)
                     ->set('company_id', $companyId)
                     ->create();
@@ -279,17 +309,17 @@ class TestSeeder extends Seeder
         }
 
         echo 'Career/CoverLetter' . PHP_EOL;
-        foreach (\App\Models\Career\Application::all() as $application) {
-            \App\Models\Career\CoverLetter::factory()
+        foreach (Application::all() as $application) {
+            CoverLetter::factory()
                 ->set('application_id', $application->id)
                 ->set('admin_id', $application->admin_id)
                 ->create();
         }
 
         echo 'Career/Communication' . PHP_EOL;
-        foreach (\App\Models\Career\Application::all() as $application) {
+        foreach (Application::all() as $application) {
             $numCommunications = mt_rand(0, 10);
-            \App\Models\Career\Communication::factory()
+            Communication::factory()
                 ->count($numCommunications)
                 ->set('application_id', $application->id)
                 ->set('admin_id', $application->admin_id)
@@ -297,9 +327,9 @@ class TestSeeder extends Seeder
         }
 
         echo 'Career/Event' . PHP_EOL;
-        foreach (\App\Models\Career\Application::all() as $application) {
+        foreach (Application::all() as $application) {
             $numEvents = mt_rand(0, 10);
-            \App\Models\Career\Event::factory()
+            Event::factory()
                 ->count($numEvents)
                 ->set('application_id', $application->id)
                 ->set('admin_id', $application->admin_id)
@@ -307,9 +337,9 @@ class TestSeeder extends Seeder
         }
 
         echo 'Career/Note' . PHP_EOL;
-        foreach (\App\Models\Career\Application::all() as $application) {
+        foreach (Application::all() as $application) {
             $numNotes = mt_rand(0, 10);
-            \App\Models\Career\Note::factory()
+            Note::factory()
                 ->count($numNotes)
                 ->set('application_id', $application->id)
                 ->set('admin_id', $application->admin_id)

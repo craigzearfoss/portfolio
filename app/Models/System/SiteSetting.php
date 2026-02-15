@@ -71,7 +71,7 @@ class SiteSetting extends Model
      */
     public static function getSetting(string $name):mixed
     {
-        if (!$setting = ResourceSetting::where('name', $name)->first()) {
+        if (!$setting = new ResourceSetting()->where('name', $name)->first()) {
 
             $value = null;
 

@@ -36,7 +36,7 @@ class StoreRecipeStepsRequest extends FormRequest
             'recipe_id'   => [
                 'required',
                 'integer',
-                Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray())
+                Rule::in(new Recipe()->where('owner_id', $this->owner_id)->get()->pluck('id')->toArray())
             ],
             'step'         => ['integer', 'min:1'],
             'description'  => ['nullable'],

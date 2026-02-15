@@ -2,6 +2,7 @@
 
 namespace App\Models\Career;
 
+use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Database;
@@ -9,6 +10,7 @@ use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\ResumeFactory;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -133,15 +135,17 @@ class Resume extends Model
      * @param bool $includeBlank
      * @param bool $includeOther
      * @param array $orderBy
+     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function listOptions(array  $filters = [],
-                                       string $valueColumn = 'id',
-                                       string $labelColumn = 'name',
-                                       bool   $includeBlank = false,
-                                       bool   $includeOther = false,
-                                       array  $orderBy = self::SEARCH_ORDER_BY): array
+    public static function listOptions(array               $filters = [],
+                                       string              $valueColumn = 'id',
+                                       string              $labelColumn = 'name',
+                                       bool                $includeBlank = false,
+                                       bool                $includeOther = false,
+                                       array               $orderBy = self::SEARCH_ORDER_BY,
+                                       EnvTypes $envType = EnvTypes::GUEST): array
     {
         $other = null;
 
@@ -171,7 +175,7 @@ class Resume extends Model
                     } elseif (strtolower($operation) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
+                        throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
                     $query = $query->where($col, $value);

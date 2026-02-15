@@ -59,7 +59,7 @@ class UserTeamController extends BaseUserController
      */
     public function store(StoreUserTeamsRequest $request): RedirectResponse
     {
-        $userTeam = UserTeam::create($request->validated());
+        $userTeam = new UserTeam()->create($request->validated());
 
         return redirect()->route('user.system.user-team.show', $userTeam)
             ->with('success', $userTeam->name . ' successfully added.');
@@ -91,7 +91,7 @@ class UserTeamController extends BaseUserController
      */
     public function edit(int $id): View
     {
-        $userTeam = UserTeam::findOrFail($id);
+        $userTeam = new UserTeam()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
 

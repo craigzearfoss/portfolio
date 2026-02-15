@@ -64,7 +64,7 @@ class VideoController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'video', $this->admin);
 
-        $video = Video::create($request->validated());
+        $video = new Video()->create($request->validated());
 
         return redirect()->route('admin.portfolio.video.show', $video)
             ->with('success', $video->name . ' successfully added.');
@@ -96,7 +96,7 @@ class VideoController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $video = Video::findOrFail($id);
+        $video = new Video()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
 

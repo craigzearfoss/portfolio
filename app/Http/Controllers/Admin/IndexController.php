@@ -55,7 +55,7 @@ class IndexController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $owners = new Admin()->where('disabled', 0)
-            ->orderBy('username', 'asc')->paginate($perPage)->appends(request()->except('page'));
+            ->orderBy('username')->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('admin.dashboard'), compact('owners'));
     }

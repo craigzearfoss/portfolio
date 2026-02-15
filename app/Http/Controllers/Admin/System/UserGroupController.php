@@ -59,7 +59,7 @@ class UserGroupController extends BaseUserController
      */
     public function store(StoreUserGroupsRequest $request): RedirectResponse
     {
-        $userGroup = UserGroup::create($request->validated());
+        $userGroup = new UserGroup()->create($request->validated());
 
         return redirect()->route('admin.system.user-group.show', $userGroup)
             ->with('success', $userGroup->name . ' successfully added.');
@@ -91,7 +91,7 @@ class UserGroupController extends BaseUserController
      */
     public function edit(int $id): View
     {
-        $userGroup = UserGroup::findOrFail($id);
+        $userGroup = new UserGroup()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
 

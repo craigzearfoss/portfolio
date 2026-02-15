@@ -123,7 +123,7 @@ trait SearchableModelTrait
         $tableName = $object->getTable();
 
         // determine the previous and next resumes
-        $query = self::select('id')->orderBy($orderByColumn, $orderByDirection);
+        $query = new self()->select('id')->orderBy($orderByColumn, $orderByDirection);
 
         if (!empty($ownerId)
             && Schema::hasColumn(config('app.'.$databaseTag) . '.' . $tableName, 'owner_id')
@@ -166,7 +166,7 @@ trait SearchableModelTrait
      */
     public static function getSearchQuery(array $filters = [], Owner|Admin|null $owner = null): mixed
     {
-        return self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {

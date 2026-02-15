@@ -62,7 +62,7 @@ class IndustryController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'industry', $this->admin);
 
-        $industry = Industry::create($request->validated());
+        $industry = new Industry()->create($request->validated());
 
         return redirect()->route('admin.career.industry.show', $industry)
             ->with('success', $industry->name . ' successfully added.');
@@ -94,7 +94,7 @@ class IndustryController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $industry = Industry::findOrFail($id);
+        $industry = new Industry()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
 

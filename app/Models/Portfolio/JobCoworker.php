@@ -2,6 +2,7 @@
 
 namespace App\Models\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -177,14 +178,16 @@ class JobCoworker extends Model
      * @param bool $includeBlank
      * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
      * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
-     * @return array|string[]
+     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
+     * @return array
      */
     public static function levelListOptions(array  $filters = [],
                                             string $valueColumn = 'id',
                                             string $labelColumn = 'name',
                                             bool   $includeBlank = false,
                                             bool   $includeOther = false,
-                                            array  $orderBy = ['name', 'asc']): array
+                                            array  $orderBy = ['name', 'asc'],
+                                            EnvTypes $envType = EnvTypes::GUEST): array
     {
         $options = [];
         if ($includeBlank) {

@@ -69,7 +69,7 @@ class ServerController extends BaseAdminController
             abort(403, 'Only admins with root access can add servers.');
         }
 
-        $server = Server::create($request->validated());
+        $server = new Server()->create($request->validated());
 
         return redirect()->route('admin.dictionary.server.show', $server)
             ->with('success', $server->name . ' successfully added.');
@@ -105,7 +105,7 @@ class ServerController extends BaseAdminController
             abort(403, 'Only admins with root access can update servers.');
         }
 
-        $server = Server::findOrFail($id);
+        $server = new Server()->findOrFail($id);
 
         return view('admin.dictionary.server.edit', compact('server'));
     }

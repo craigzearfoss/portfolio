@@ -37,7 +37,7 @@ class UpdateRecipeIngredientsRequest extends FormRequest
             'recipe_id'     => [
                 'filled',
                 'integer',
-                Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray()),
+                Rule::in(new Recipe()->where('owner_id', $this->owner_id)->get()->pluck('id')->toArray()),
             ],
             'ingredient_id' => ['filled', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],

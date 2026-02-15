@@ -239,7 +239,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients');
         }
     }
@@ -271,7 +271,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'recipe_steps');
         }
     }

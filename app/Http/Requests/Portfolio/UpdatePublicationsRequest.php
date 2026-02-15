@@ -62,7 +62,7 @@ class UpdatePublicationsRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(Publication::whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
+                Rule::in(new Publication()->whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

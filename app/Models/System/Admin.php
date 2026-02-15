@@ -2,12 +2,14 @@
 
 namespace App\Models\System;
 
+use App\Enums\EnvTypes;
 use App\Models\System\AdminGroup;
 use App\Models\System\AdminTeam;
 use App\Models\System\Country;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -267,13 +269,22 @@ class Admin extends Authenticatable
      * Returns an array of options for a select list for statuses.
      *
      * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param string $valueColumn
+     * @param string $labelColumn
      * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
+     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
+     * @return array
+     * @throws Exception
      */
     public static function statusListOptions(array $filters = [],
-                                             bool $includeBlank = false,
-                                             bool $nameAsKey = false): array
+                                             string $valueColumn = 'id',
+                                             string $labelColumn = 'name',
+                                             bool $includeBlank  = false,
+                                             bool $includeOther  = false,
+                                             array $orderBy      = [ 'name' => 'asc' ],
+                                             EnvTypes $envType   = EnvTypes::GUEST): array
     {
         $options = [];
         if ($includeBlank) {
@@ -281,7 +292,7 @@ class Admin extends Authenticatable
         }
 
         foreach (self::STATUSES as $i=>$status) {
-            $options[$nameAsKey ? $status : $i] = $status;
+            $options[$valueColumn == 'id' ? $i : $status] = $labelColumn = 'id' ? $i : $status;
         }
 
         return $options;

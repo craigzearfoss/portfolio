@@ -64,7 +64,7 @@ class SchoolController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'school', $this->admin);
 
-        $school = School::create($request->validated());
+        $school = new School()->create($request->validated());
 
         return redirect()->route('admin.portfolio.school.show', $school)
             ->with('success', $school->name . ' successfully added.');
@@ -96,7 +96,7 @@ class SchoolController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $school = School::findOrFail($id);
+        $school = new School()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
 

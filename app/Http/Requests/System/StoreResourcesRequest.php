@@ -5,6 +5,7 @@ namespace App\Http\Requests\System;
 use App\Models\System\Resource;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  *
@@ -48,7 +49,7 @@ class StoreResourcesRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'parent_id'      => ['integer', Rule::in(Resource::where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
+            'parent_id'      => ['integer', Rule::in(new Resource()->where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
             'table'          => [
                 'required',
                 'string',

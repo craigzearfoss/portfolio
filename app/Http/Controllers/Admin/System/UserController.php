@@ -107,7 +107,7 @@ class UserController extends BaseUserController
      */
     public function edit(int $id): View
     {
-        $user = User::findOrFail($id);
+        $user = new User()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $user, $this->admin);
 

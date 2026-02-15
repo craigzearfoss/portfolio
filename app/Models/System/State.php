@@ -55,7 +55,7 @@ class State extends Model
      */
     public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        return self::when(isset($filters['id']), function ($query) use ($filters) {
+        return new self()->when(isset($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
@@ -167,6 +167,6 @@ class State extends Model
      */
     public static function getName(string $code): string
     {
-        return State::where('code', $code)->first()->name ?? $code;
+        return new State()->where('code', $code)->first()->name ?? $code;
     }
 }

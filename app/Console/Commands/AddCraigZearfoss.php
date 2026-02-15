@@ -160,7 +160,7 @@ class AddCraigZearfoss extends Command
         $errors = [];
 
         // get the next available admin id
-        $adminId = Admin::withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
+        $adminId = new Admin()->withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
 
         // get/validate the team id (Every admin must belong to a team.)
         if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);

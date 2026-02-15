@@ -29,7 +29,7 @@ class UnitController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $units = Unit::where('name', '!=', 'other')
+        $units = new Unit()->where('name', '!=', 'other')
             ->orderBy('name')->paginate($perPage)
             ->appends(request()->except('page'));
 
@@ -61,7 +61,7 @@ class UnitController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'unit', $this->admin);
 
-        $unit = Unit::create($request->validated());
+        $unit = new Unit()->create($request->validated());
 
         return redirect()->route('admin.personal.unit.show', $unit->id)
             ->with('success', $unit->name . $unit->name . ' successfully added.');
@@ -93,7 +93,7 @@ class UnitController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $unit = Unit::findOrFail($id);
+        $unit = new Unit()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
 

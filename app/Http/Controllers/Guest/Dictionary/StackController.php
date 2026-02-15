@@ -23,7 +23,7 @@ class StackController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $stacks = Stack::where('name', '!=', 'other')
+        $stacks = new Stack()->where('name', '!=', 'other')
             ->where('public', true)
             ->where('disabled', false)
             ->where('name', '!=', 'other')
@@ -42,7 +42,7 @@ class StackController extends BaseGuestController
      */
     public function show(string $slug): View
     {
-        if (!$stack = Stack::where('slug', $slug)->first()) {
+        if (!$stack = new Stack()->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

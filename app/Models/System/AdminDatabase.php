@@ -229,7 +229,7 @@ class AdminDatabase extends Model
                     'admin_databases.name as database_name', 'admin_databases.database as database_database'
                 )
                 ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
-                ->orderBy('admin_resources.sequence', 'asc');
+                ->orderBy('admin_resources.sequence');
 
             if (!empty($dbName)) {
                 $query->where('admin_databases.name', $dbName);
@@ -264,7 +264,7 @@ class AdminDatabase extends Model
             ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
             ->where('admin_databases.owner_id', $ownerId)
             ->where('admin_resources.owner_id', $ownerId)
-            ->orderBy('admin_resources.sequence', 'asc');
+            ->orderBy('admin_resources.sequence');
 
         if(!empty($dbName)) {
             $query->where('admin_databases.name', $dbName);

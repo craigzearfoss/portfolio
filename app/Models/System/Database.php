@@ -214,7 +214,7 @@ class Database extends Model
                 , 'databases.database as database_database'
             )
             ->join('resources', 'resources.database_id', '=', 'databases.id')
-            ->orderBy('resources.sequence', 'asc');
+            ->orderBy('resources.sequence');
 
         if(!empty($dbName)) {
             $query->where('databases.name', $dbName);

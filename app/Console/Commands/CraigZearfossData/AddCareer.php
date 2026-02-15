@@ -1242,7 +1242,7 @@ EOD,
         if (!empty($data)) {
             foreach ($data as $i=>$dataArray) {
                 $dataArray = [$dataArray];
-                $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo], false));
+                $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo]));
             }
             $this->insertSystemAdminResource($this->adminId, 'applications');
         }
@@ -1281,7 +1281,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'application_skills');
         }
     }
@@ -1418,7 +1418,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
@@ -1499,7 +1499,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
@@ -1524,7 +1524,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'communications');
         }
     }
@@ -1772,7 +1772,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'cover_letters');
         }
     }
@@ -1798,7 +1798,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'events');
         }
     }
@@ -1823,7 +1823,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'notes');
         }
     }
