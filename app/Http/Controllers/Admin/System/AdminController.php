@@ -12,6 +12,7 @@ use App\Models\System\Admin;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Owner;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -117,7 +118,7 @@ class AdminController extends BaseAdminController
      *
      * @param Admin $admin
      * @return View
-     * @throws \Exception
+     * @throws Exception
      */
     public function profile(Admin $admin): View
     {

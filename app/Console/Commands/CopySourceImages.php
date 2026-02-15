@@ -16,6 +16,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
+use ReflectionClass;
+use ReflectionException;
+use Throwable;
 use function Laravel\Prompts\text;
 
 /**
@@ -122,7 +125,7 @@ class CopySourceImages extends Command
 
     /**
      * @return void
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     protected function copyResourcemages()
     {
@@ -138,7 +141,7 @@ class CopySourceImages extends Command
 
                 echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $databasePath) . ' ...'. PHP_EOL;
 
-                if ($databaseDefinition = new Database()->wher('name', $databaseSlug)->first()) {
+                if ($databaseDefinition = new Database()->where('name', $databaseSlug)->first()) {
 
                     foreach (scandir($databasePath) as $resourceSlug) {
 
@@ -154,8 +157,8 @@ class CopySourceImages extends Command
                             if ($resourceDefinition = new Resource()->where('name', $resourceSlug)->first()) {
 
                                 try {
-                                    $reflectionClass = new \ReflectionClass($resourceDefinition->class);
-                                } catch (\ReflectionException $e) {
+                                    $reflectionClass = new ReflectionClass($resourceDefinition->class);
+                                } catch (ReflectionException $e) {
                                     dd($e);
                                 }
                                 $instance = $reflectionClass->newInstance();
@@ -232,7 +235,7 @@ class CopySourceImages extends Command
                                                         $item->{$property} = $urlPath;
                                                         $item->save();
 
-                                                    } catch (\Throwable $e) {
+                                                    } catch (Throwable $e) {
                                                         $this->failedUpdates[] = $item->id
                                                             . ' [' . $property . '] => ' . $relativeDestPath;
                                                     }
@@ -350,7 +353,7 @@ class CopySourceImages extends Command
                             $coverLetter->filepath = $relativeDestPath;
                             $coverLetter->save();
 
-                        } catch (\Throwable $e) {
+                        } catch (Throwable $e) {
                             $this->failedUpdates[] = $coverLetterId . ' [filepath] => ' . $relativeDestPath;
                         }
                     }
@@ -463,7 +466,7 @@ class CopySourceImages extends Command
                             }
                             $resume->save();
 
-                        } catch (\Throwable $e) {
+                        } catch (Throwable $e) {
                             $this->failedUpdates[] = $resumeId . ' [filepath] => ' . $relativeDestPath;
                         }
                     }

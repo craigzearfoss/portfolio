@@ -2,11 +2,12 @@
 
 namespace Database\Factories\Career;
 
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\Contact>
+ * @extends Factory<\App\Models\Career\Contact>
  */
 class ContactFactory extends Factory
 {
@@ -21,7 +22,7 @@ class ContactFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'        => Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
             'title'           => fake()->jobTitle(),

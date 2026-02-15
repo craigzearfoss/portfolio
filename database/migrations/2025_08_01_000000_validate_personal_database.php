@@ -71,8 +71,8 @@ return new class extends Migration
             );
         }
 
-        if (empty(DB::select("SHOW DATABASES LIKE '{$dbName}'"))) {
-            throw new \Exception("Database `{$dbName}` does not exist.");
+        if (empty(DB::select("SHOW DATABASES LIKE '$dbName'"))) {
+            throw new \Exception("Database `$dbName` does not exist.");
         }
     }
 

@@ -3,11 +3,12 @@
 namespace Database\Factories\Portfolio;
 
 use App\Models\Portfolio\Academy;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Certificate>
+ * @extends Factory<\App\Models\Portfolio\Certificate>
  */
 class CertificateFactory extends Factory
 {
@@ -22,7 +23,7 @@ class CertificateFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'        => Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
             'featured'        => fake()->numberBetween(0, 1),

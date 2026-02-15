@@ -2,11 +2,12 @@
 
 namespace Database\Factories\Portfolio;
 
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Art>
+ * @extends Factory<\App\Models\Portfolio\Art>
  */
 class ArtFactory extends Factory
 {
@@ -23,7 +24,7 @@ class ArtFactory extends Factory
             . (!empty($artist) ? '-by-' . $artist : ''));
 
         return [
-            'owner_id'     => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'     => Owner::all()->random()->id,
             'name'         => $name,
             'artist'       => $artist,
             'slug'         => $slug,

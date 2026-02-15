@@ -2,10 +2,12 @@
 
 namespace Database\Factories\System;
 
+use App\Models\System\Admin;
+use App\Models\System\AdminGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\System\AdminAdminGroup>
+ * @extends Factory<\App\Models\System\AdminAdminGroup>
  */
 class AdminAdminGroupFactory extends Factory
 {
@@ -17,8 +19,8 @@ class AdminAdminGroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id'       => \App\Models\System\Admin::all()->random()->id,
-            'admin_group_id' => \App\Models\System\AdminGroup::all()->random()->id,
+            'admin_id'       => Admin::all()->random()->id,
+            'admin_group_id' => AdminGroup::all()->random()->id,
         ];
     }
 }

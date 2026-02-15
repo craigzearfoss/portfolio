@@ -32,8 +32,8 @@ return new class extends Migration
                 . ' or PORTFOLIO_DB_DATABASE not defined in .env file.');
         }
 
-        if (empty(DB::select("SHOW DATABASES LIKE '{$dbName}'"))) {
-            abort(500, "Database `{$dbName}` does not exist.");
+        if (empty(DB::select("SHOW DATABASES LIKE '$dbName'"))) {
+            abort(500, "Database `$dbName` does not exist.");
         }
 
         //@TODO: Check if the database or and of the resources exist in the databases or resources tables.

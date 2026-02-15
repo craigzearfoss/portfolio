@@ -19,6 +19,7 @@ use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
@@ -1834,7 +1835,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
-        $idahoNationLabId = new Company()->insert('name', 'Idaho National Laboratory')->first()->id ?? null;
+        $idahoNationLabId = new Company()->where('name', 'Idaho National Laboratory')->first()->id ?? null;
 
         $data = [
             [ 'name' => 'Kevin Hemsley',         'slug' => 'kevin-hemsley',         'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                      'street2' => null,  'city' => 'Rigby',         'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 526-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 317-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
@@ -1942,13 +1943,13 @@ EOD,
      *
      * @param int $ownerId
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function insertSystemAdminDatabase(int $ownerId): void
     {
         echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = new Database()->wher('tag', self::DB_TAG)->first()) {
+        if ($database = new Database()->where('tag', self::DB_TAG)->first()) {
 
             $data = [];
 
@@ -1982,7 +1983,7 @@ EOD,
      */
     protected function insertSystemAdminResource(int $ownerId, string $tableName): void
     {
-        echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
+        echo self::USERNAME . ": Inserting $tableName table into System\\AdminResource ...\n";
 
         if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 

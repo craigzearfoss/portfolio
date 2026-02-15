@@ -10,6 +10,7 @@ use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\ApplicationFactory;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -383,7 +384,7 @@ class Application extends Model
      * @param bool $includeBlank
      * @param array $orderBy
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function listOptions(array  $filters = [],
                                        string $valueColumn = 'id',
@@ -424,7 +425,7 @@ class Application extends Model
                     } elseif (strtolower($operation) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
+                        throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
                     $query = $query->where($col, $value);

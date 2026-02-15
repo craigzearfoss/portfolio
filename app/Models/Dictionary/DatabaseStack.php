@@ -6,6 +6,7 @@ use App\Models\Dictionary\Database;
 use App\Models\Dictionary\Stack;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
@@ -40,7 +41,7 @@ class DatabaseStack extends Pivot
     /**
      * Get the dictionary stack that owns the database stack.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function stack()
     {
@@ -50,7 +51,7 @@ class DatabaseStack extends Pivot
     /**
      * Get the dictionary database that owns the database stack.
      * *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function database()
     {

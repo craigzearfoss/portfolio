@@ -2,11 +2,12 @@
 
 namespace Database\Factories\Portfolio;
 
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Audio>
+ * @extends Factory<\App\Models\Portfolio\Audio>
  */
 class AudioFactory extends Factory
 {
@@ -22,7 +23,7 @@ class AudioFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'          => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'          => Owner::all()->random()->id,
             'name'              => $name,
             'slug'              => $slug,
             'parent_id'         => null,

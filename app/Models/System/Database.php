@@ -6,6 +6,7 @@ use App\Enums\EnvTypes;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -140,7 +141,7 @@ class Database extends Model
      * @param array $filters
      * @param array $orderBy
      * @return Collection
-     * @throws \Exception
+     * @throws Exception
      */
     public static function ownerDatabases(int|null      $ownerId,
                                           EnvTypes|null $envType = EnvTypes::GUEST,
@@ -149,7 +150,7 @@ class Database extends Model
     {
         //????????if ($envType == 'root') $envType = EnvTypes::ADMIN;
         if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
-            throw new \Exception('ENV type ' . $envType->value . ' not supported');
+            throw new Exception('ENV type ' . $envType->value . ' not supported');
         }
 
         $sortField = $orderBy[0] ?? 'sequence';
@@ -186,7 +187,7 @@ class Database extends Model
                     } elseif (strtolower($operator) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid databases filter column: ' . $col . ' ' . $operator);
+                        throw new Exception('Invalid databases filter column: ' . $col . ' ' . $operator);
                     }
                 } else {
                     $query = $query->where($col, $value);

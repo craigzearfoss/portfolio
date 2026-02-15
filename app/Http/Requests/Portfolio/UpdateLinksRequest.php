@@ -70,7 +70,7 @@ class UpdateLinksRequest extends FormRequest
                 Rule::unique('portfolio_db.links', 'url')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('url', $this->url)
-                        ->where('id', '!=', $this->link->id);
+                        ->whereNot('id', $this->link->id);
                 })
             ],
             'notes'        => ['nullable'],

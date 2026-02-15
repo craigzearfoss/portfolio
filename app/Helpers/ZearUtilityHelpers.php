@@ -746,7 +746,7 @@ if (! function_exists('uniqueSlug')) {
 
         if (!empty($table)) {
 
-            if (strpos($table, '.') !== false) {
+            if (str_contains($table, '.')) {
                 $database = explode('.', $table)[0];
                 $table = explode('.', $table)[1];
             } else {

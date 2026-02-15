@@ -7,6 +7,7 @@ use App\Models\System\Admin;
 use App\Models\System\User;
 use App\Services\MenuService;
 use App\Services\PermissionService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
@@ -55,7 +56,7 @@ class BaseController extends Controller
      *      admin         - The admin that is currently being viewed.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function initialize($envType = EnvTypes::GUEST)
     {

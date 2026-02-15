@@ -44,7 +44,7 @@ class UpdateCompaniesRequest extends FormRequest
                 Rule::unique('career_db.companies', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!=', $this->company->id);
+                        ->whereNot('id', $this->company->id);
                 })
             ],
             'slug'            => [

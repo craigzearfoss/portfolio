@@ -10,6 +10,7 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\User;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Route;
 use stdClass;
@@ -69,7 +70,7 @@ class MenuService
         $this->usersEnabled     = config('app.users_enabled');
 
         if (!in_array($this->envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
-            throw new \Exception('Invalid current ENV type');
+            throw new Exception('Invalid current ENV type');
         }
 
         // set the filters for the databases and resources
@@ -114,12 +115,12 @@ class MenuService
      * @param bool $hasUsers
      * @param array $properties
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function leftMenu(bool $hasAdmins = true, bool $hasUsers = true, array $properties = []): array
     {
-        $this->hasAdmins = boolval($hasAdmins);
-        $this->hasUsers = boolval($hasUsers);
+        $this->hasAdmins = $hasAdmins;
+        $this->hasUsers = $hasUsers;
 
         foreach ($properties as $property => $value) {
             $this->{$property} = $value;
@@ -175,12 +176,12 @@ class MenuService
      * @param bool $hasUsers
      * @param array $properties
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function topMenu(bool $hasAdmins = true, bool $hasUsers = true, array $properties = []): array
     {
-        $this->hasAdmins = boolval($hasAdmins);
-        $this->hasUsers = boolval($hasUsers);
+        $this->hasAdmins = $hasAdmins;
+        $this->hasUsers = $hasUsers;
 
         foreach ($properties as $property => $value) {
             $this->{$property} = $value;
@@ -257,7 +258,7 @@ class MenuService
      * Returns the array of menu items fpr databases.
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function getDatabaseMenuItems(): array
     {
@@ -346,7 +347,7 @@ class MenuService
      * Returns the array of menu items fpr resources.
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function getResourceMenu(): array
     {

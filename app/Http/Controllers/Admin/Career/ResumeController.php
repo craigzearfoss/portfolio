@@ -203,6 +203,6 @@ class ResumeController extends BaseAdminController
             ? $this->owner
             : new Admin()->find($adminId);
 
-        return (new ResumeService($owner, 'default'))->view();
+        return new ResumeService($owner, 'default')->view();
     }
 }

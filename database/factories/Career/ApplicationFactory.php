@@ -2,10 +2,16 @@
 
 namespace Database\Factories\Career;
 
+use App\Models\Career\Company;
+use App\Models\Career\JobBoard;
+use App\Models\Career\JobEmploymentType;
+use App\Models\Career\JobLocationType;
+use App\Models\Career\Resume;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\Application>
+ * @extends Factory<\App\Models\Career\Application>
  */
 class ApplicationFactory extends Factory
 {
@@ -31,10 +37,10 @@ class ApplicationFactory extends Factory
         $compensationMax = rand(self::COMPENSATION[$compensationUnitId]['max'][0], self::COMPENSATION[$compensationUnitId]['max'][1]);
 
         return [
-            'owner_id'               => \App\Models\System\Owner::all()->random()->id,
-            'company_id'             => \App\Models\Career\Company::all()->random()->id,
+            'owner_id'               => Owner::all()->random()->id,
+            'company_id'             => Company::all()->random()->id,
             'role'                   => fake()->jobTitle(),
-            'resume_id'              => \App\Models\Career\Resume::all()->random()->id,
+            'resume_id'              => Resume::all()->random()->id,
             'rating'                 => fake()->numberBetween(0, 4),
             'active'                 => 1,
             'post_date'              => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
@@ -43,8 +49,8 @@ class ApplicationFactory extends Factory
             'compensation_max'       => $compensationMax,
             'compensation_unit_id'   => $compensationUnitId,
             'duration'               => fake()->randomElement(['permanent', '3 months', '6 months', '1 year']),
-            'job_employment_type_id' => \App\Models\Career\JobEmploymentType::all()->random()->id,
-            'job_location_type_id'   => \App\Models\Career\JobLocationType::all()->random()->id,
+            'job_employment_type_id' => JobEmploymentType::all()->random()->id,
+            'job_location_type_id'   => JobLocationType::all()->random()->id,
             'street'                 => fake()->streetAddress(),
             'street2'                => null,
             'city'                   => fake()->city(),
@@ -59,7 +65,7 @@ class ApplicationFactory extends Factory
             'benefits'               => fake()->numberBetween(0, 1),
             'vacation'               => fake()->numberBetween(0, 1),
             'health'                 => fake()->numberBetween(0, 1),
-            'job_board_id'           => \App\Models\Career\JobBoard::all()->random()->id,
+            'job_board_id'           => JobBoard::all()->random()->id,
             'phone'                  => fake()->phoneNumber(),
             'phone_label'            => 'work',
             'alt_phone'              => fake()->phoneNumber(),

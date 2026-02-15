@@ -2,11 +2,13 @@
 
 namespace Database\Factories\Career;
 
+use App\Models\Career\Industry;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\Company>
+ * @extends Factory<\App\Models\Career\Company>
  */
 class CompanyFactory extends Factory
 {
@@ -21,10 +23,10 @@ class CompanyFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'        => Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
-            'industry_id'     => \App\Models\Career\Industry::all()->random()->id,
+            'industry_id'     => Industry::all()->random()->id,
             'street'          => fake()->streetAddress(),
             'street2'         => null,
             'city'            => fake()->city(),

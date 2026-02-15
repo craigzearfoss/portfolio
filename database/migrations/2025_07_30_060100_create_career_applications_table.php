@@ -143,7 +143,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        (new Application())->insert($data);
+        new Application()->insert($data);
     }
 
     /**

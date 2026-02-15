@@ -8,6 +8,7 @@ use App\Models\System\AdminResource;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -148,7 +149,7 @@ class AdminDatabase extends Model
      * @param array $filters
      * @param array $orderBy
      * @return Collection
-     * @throws \Exception
+     * @throws Exception
      */
     public static function ownerDatabases(int|null      $ownerId,
                                           EnvTypes|null $envType = EnvTypes::GUEST,
@@ -157,7 +158,7 @@ class AdminDatabase extends Model
     {
         //?????????if ($envType == 'root') $envType = EnvTypes::ADMIN;
         if (!empty($envType) && !in_array($envType,  [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
-            throw new \Exception('ENV type ' . $envType->value . ' not supported');
+            throw new Exception('ENV type ' . $envType->value . ' not supported');
         }
 
         $sortField = $orderBy[0] ?? 'sequence';
@@ -179,7 +180,7 @@ class AdminDatabase extends Model
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
 
-            if (substr($col, 0, 16) !== 'admin_databases.') $col = 'admin_databases.'.$col;
+            if (!str_starts_with($col, 'admin_databases.')) $col = 'admin_databases.'.$col;
 
             if (is_array($value)) {
                 $query = $query->whereIn($col, $value);
@@ -193,7 +194,7 @@ class AdminDatabase extends Model
                     } elseif (strtolower($operator) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid admin_databases filter column: ' . $col . ' ' . $operator);
+                        throw new Exception('Invalid admin_databases filter column: ' . $col . ' ' . $operator);
                     }
                 } else {
                     $query = $query->where($col, $value);
@@ -234,10 +235,10 @@ class AdminDatabase extends Model
                 $query->where('admin_databases.name', $dbName);
             }
 
-            if (isset($filters['public'])) $query->where('admin_resources.public', boolval($filters['public']) ? 1 : 0);
-            if (isset($filters['readonly'])) $query->where('admin_resources.readonly', boolval($filters['readonly']) ? 1 : 0);
-            if (isset($filters['root'])) $query->where('admin_resources.root', boolval($filters['root']) ? 1 : 0);
-            if (isset($filters['disabled'])) $query->where('admin_resources.disabled', boolval($filters['disabled']) ? 1 : 0);
+            if (isset($filters['public'])) $query->where('admin_resources.public', $filters['public'] ? 1 : 0);
+            if (isset($filters['readonly'])) $query->where('admin_resources.readonly', $filters['readonly'] ? 1 : 0);
+            if (isset($filters['root'])) $query->where('admin_resources.root', $filters['root'] ? 1 : 0);
+            if (isset($filters['disabled'])) $query->where('admin_resources.disabled', $filters['disabled'] ? 1 : 0);
 
             return $query->get()->toArray();
         }
@@ -269,10 +270,10 @@ class AdminDatabase extends Model
             $query->where('admin_databases.name', $dbName);
         }
 
-        if (isset($filters['public'])) $query->where('admin_resources.public', boolval($filters['public']) ? 1 : 0);
-        if (isset($filters['readonly'])) $query->where('admin_resources.readonly', boolval($filters['readonly']) ? 1 : 0);
-        if (isset($filters['root'])) $query->where('admin_resources.root', boolval($filters['root']) ? 1 : 0);
-        if (isset($filters['disabled'])) $query->where('admin_resources.disabled', boolval($filters['disabled']) ? 1 : 0);
+        if (isset($filters['public'])) $query->where('admin_resources.public', $filters['public'] ? 1 : 0);
+        if (isset($filters['readonly'])) $query->where('admin_resources.readonly', $filters['readonly'] ? 1 : 0);
+        if (isset($filters['root'])) $query->where('admin_resources.root', $filters['root'] ? 1 : 0);
+        if (isset($filters['disabled'])) $query->where('admin_resources.disabled', $filters['disabled'] ? 1 : 0);
 
         return $query->get()->toArray();
     }

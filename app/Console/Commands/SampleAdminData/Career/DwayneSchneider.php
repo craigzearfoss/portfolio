@@ -19,6 +19,7 @@ use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
@@ -98,7 +99,7 @@ class DwayneSchneider extends Command
         $this->silent = $this->option('silent');
 
         // get the database id
-        if (!$database = new Database()->wher('tag', self::DB_TAG)->first()) {
+        if (!$database = new Database()->where('tag', self::DB_TAG)->first()) {
             echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -531,13 +532,13 @@ EOD,
      *
      * @param int $ownerId
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function insertSystemAdminDatabase(int $ownerId): void
     {
         echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = new Database()->wher('tag', self::DB_TAG)->first()) {
+        if ($database = new Database()->where('tag', self::DB_TAG)->first()) {
 
             $data = [];
 

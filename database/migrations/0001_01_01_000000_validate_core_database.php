@@ -22,8 +22,8 @@ return new class extends Migration
                 . ' or system_db_DATABASE not defined in .env file.');
         }
 
-        if (empty(DB::select("SHOW DATABASES LIKE '{$dbName}'"))) {
-            abort(500, "Database `{$dbName}` does not exist.");
+        if (empty(DB::select("SHOW DATABASES LIKE '$dbName'"))) {
+            abort(500, "Database `$dbName` does not exist.");
         }
     }
 

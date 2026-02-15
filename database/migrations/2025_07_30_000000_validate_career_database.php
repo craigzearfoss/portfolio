@@ -19,8 +19,8 @@ return new class extends Migration
                 . ' or CAREER_DB_DATABASE not defined in .env file.');
         }
 
-        if (empty(DB::select("SHOW DATABASES LIKE '{$dbName}'"))) {
-            abort("Database `{$dbName}` does not exist.");
+        if (empty(DB::select("SHOW DATABASES LIKE '$dbName'"))) {
+            abort("Database `$dbName` does not exist.");
         }
     }
 

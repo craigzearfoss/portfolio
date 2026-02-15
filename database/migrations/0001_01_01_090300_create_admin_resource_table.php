@@ -123,7 +123,7 @@ return new class extends Migration
     }
 
     /**
-     * @return mixed[]
+     * @return array
      */
     private function getAdminIds()
     {
@@ -131,7 +131,6 @@ return new class extends Migration
     }
 
     /**
-     * @return null
      */
     private function getDatabase()
     {
@@ -141,7 +140,7 @@ return new class extends Migration
     /**
      * @return array|Collection
      */
-    private function getDbResources()
+    private function getDbResources(): array|Collection
     {
         if (!$database = $this->getDatabase()) {
             return [];

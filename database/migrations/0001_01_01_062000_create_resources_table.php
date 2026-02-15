@@ -68,7 +68,7 @@ return new class extends Migration
 
         if (!$database = new Database()->where('tag', $this->database_tag)->first()) {
 
-            throw new \Exception('Database tag \'' . $this->database_tag . '\'not found.');
+            throw new Exception('Database tag \'' . $this->database_tag . '\'not found.');
 
         } else {
 

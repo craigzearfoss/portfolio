@@ -71,7 +71,7 @@ class PeterGibbons extends Command
         $this->silent = $this->option('silent');
 
         // get the database id
-        if (!$database = new Database()->wher('tag', self::DB_TAG)->first()) {
+        if (!$database = new Database()->where('tag', self::DB_TAG)->first()) {
             echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -360,7 +360,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
-        $idahoNationLabId = new Company()->insert('name', 'Idaho National Laboratory')->first()->id ?? null;
+        $idahoNationLabId = new Company()->where('name', 'Idaho National Laboratory')->first()->id ?? null;
 
         $data = [
             [ 'name' => 'Joanna',              'slug' => 'joanna',              'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(208) 555-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 555-3644', 'alt_phone_label' => 'mobile', 'email' => 'jim.halpert@dunder-mifflin.com',     'email_label' => 'work', 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null ],
@@ -457,7 +457,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = new Database()->wher('tag', self::DB_TAG)->first()) {
+        if ($database = new Database()->where('tag', self::DB_TAG)->first()) {
 
             $data = [];
 

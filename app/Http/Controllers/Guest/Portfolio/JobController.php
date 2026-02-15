@@ -63,6 +63,6 @@ class JobController extends BaseGuestController
     {
         $owner = $admin;
 
-        return (new ResumeService($owner, 'default'))->view();
+        return new ResumeService($owner, 'default')->view();
     }
 }

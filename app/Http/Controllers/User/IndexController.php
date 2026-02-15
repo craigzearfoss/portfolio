@@ -246,7 +246,7 @@ class IndexController extends BaseUserController
     {
         if ($request->isMethod('post') && config('app.open_enrollment')) {
 
-            $request->validate((new StoreUsersRequest())->rules());
+            $request->validate(new StoreUsersRequest()->rules());
 
             $user = new User();
             $user->name     = $request->name;

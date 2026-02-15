@@ -198,7 +198,7 @@ class AdminResource extends Model
 
         $sortField = $orderBy[0] ?? 'sequence';
         $sortDir   = $orderBy[1] ?? 'asc';
-        if (substr($sortField, 0, 16) !== 'admin_resources.') $sortField = 'admin_resources.'.$sortField;
+        if (!str_starts_with($sortField, 'admin_resources.')) $sortField = 'admin_resources.'.$sortField;
 
         // create the query
         $query = new AdminResource()->select([DB::raw("databases.name AS 'database_name'"), 'admin_resources.*'])
@@ -222,7 +222,7 @@ class AdminResource extends Model
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
 
-            if (substr($col, 0, 16) !== 'admin_resources.') $col = 'admin_resources.'.$col;
+            if (!str_starts_with($col, 'admin_resources.')) $col = 'admin_resources.'.$col;
 
             if (is_array($value)) {
                 $query = $query->whereIn($col, $value);

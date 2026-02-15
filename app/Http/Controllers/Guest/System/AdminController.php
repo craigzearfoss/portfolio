@@ -17,6 +17,7 @@ use App\Models\System\Message;
 use App\Models\System\Resource;
 use App\Models\System\User;
 use App\Services\PermissionService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,7 @@ class AdminController extends BaseGuestController
      *
      * @param Admin $admin
      * @return View
-     * @throws \Exception
+     * @throws Exception
      */
     public function show(Admin $admin): View
     {
