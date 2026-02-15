@@ -9,6 +9,7 @@ use App\Models\System\AdminDatabase;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -182,7 +183,7 @@ class AdminResource extends Model
      * @param array $filters
      * @param array $orderBy
      * @return Collection
-     * @throws \Exception
+     * @throws Exception
      */
     public static function ownerResources(int|null      $ownerId,
                                           EnvTypes|null $envType = EnvTypes::GUEST,
@@ -192,7 +193,7 @@ class AdminResource extends Model
     {
         //?????if ($envType == 'root') $envType = EnvTypes::ADMIN;
         if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
-            throw new \Exception('ENV type ' . $envType->value . ' not supported');
+            throw new Exception('ENV type ' . $envType->value . ' not supported');
         }
 
         $sortField = $orderBy[0] ?? 'sequence';
@@ -200,7 +201,7 @@ class AdminResource extends Model
         if (substr($sortField, 0, 16) !== 'admin_resources.') $sortField = 'admin_resources.'.$sortField;
 
         // create the query
-        $query = AdminResource::select([DB::raw("databases.name AS 'database_name'"), 'admin_resources.*'])
+        $query = new AdminResource()->select([DB::raw("databases.name AS 'database_name'"), 'admin_resources.*'])
             ->join('databases', 'databases.id', 'admin_resources.database_id')
             ->orderBy($sortField, $sortDir);
 
@@ -237,7 +238,7 @@ class AdminResource extends Model
                     } elseif (strtolower($operator) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid admin_resources filter column: ' . $col . ' ' . $operator);
+                        throw new Exception('Invalid admin_resources filter column: ' . $col . ' ' . $operator);
                     }
                 } else {
 

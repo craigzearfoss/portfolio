@@ -65,7 +65,7 @@ class EducationController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'education', $this->admin);
 
-        $education = Education::create($request->validated());
+        $education = new Education()->create($request->validated());
 
         return redirect()->route('admin.portfolio.education.show', $education)
             ->with('success', $education->name . ' education successfully added.');
@@ -97,7 +97,7 @@ class EducationController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $education = Education::findOrFail($id);
+        $education = new Education()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $education, $this->admin);
 

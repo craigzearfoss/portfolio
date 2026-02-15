@@ -13,11 +13,11 @@ class AdminDataSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::insert([
+        new Admin()->insert([
             'username' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email'    => 'admin@gmail.com',
             'password' => Hash::make('changeme'),
-            'token' => ''
+            'token'    => ''
         ]);
     }
 }

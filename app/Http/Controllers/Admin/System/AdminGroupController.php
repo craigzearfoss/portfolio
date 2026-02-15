@@ -63,7 +63,7 @@ class AdminGroupController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
 
-        $adminGroup = AdminGroup::create($request->validated());
+        $adminGroup = new AdminGroup()->create($request->validated());
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
             ->with('success', $adminGroup->name . ' successfully added.');
@@ -95,7 +95,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $adminGroup = AdminGroup::findOrFail($id);
+        $adminGroup = new AdminGroup()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
 

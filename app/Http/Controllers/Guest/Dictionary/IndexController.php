@@ -17,7 +17,7 @@ class IndexController extends BaseGuestController
 
         $words = DictionarySection::words(null, $perPage);
 
-        $dictionaryTypes = Resource::select('resources.*')
+        $dictionaryTypes = new Resource()->select('resources.*')
             ->where('databases.name', 'dictionary')
             ->join('databases', 'databases.id', '=', 'resources.database_id')
             ->orderBy('resources.plural')

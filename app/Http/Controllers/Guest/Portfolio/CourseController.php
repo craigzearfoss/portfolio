@@ -26,7 +26,7 @@ class CourseController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $courses = Course::where('owner_id', $this->owner->id)
+        $courses = new Course()->where('owner_id', $this->owner->id)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -44,7 +44,7 @@ class CourseController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$course = Course::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$course = new Course()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

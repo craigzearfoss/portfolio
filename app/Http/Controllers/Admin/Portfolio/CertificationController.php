@@ -62,7 +62,7 @@ class CertificationController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'certification', $this->admin);
 
-        $certification = Certification::create($request->validated());
+        $certification = new Certification()->create($request->validated());
 
         return redirect()->route('admin.portfolio.certification.show', $certification)
             ->with('success', $certification->name . ' successfully added.');
@@ -94,7 +94,7 @@ class CertificationController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $certification = Certification::findOrFail($id);
+        $certification = new Certification()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
 

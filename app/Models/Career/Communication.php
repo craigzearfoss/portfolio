@@ -83,7 +83,7 @@ class Communication extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        return self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {

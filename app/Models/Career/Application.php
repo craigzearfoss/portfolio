@@ -129,7 +129,7 @@ class Application extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        return self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
@@ -403,7 +403,7 @@ class Application extends Model
         $sortColumn = $orderBy[0] ?? 'name';
         $sortDir = $orderBy[1] ?? 'asc';
 
-        $query = Application::select($selectColumns)
+        $query = new Application()->select($selectColumns)
             ->join('companies','companies.id', 'applications.company_id')
             ->orderBy($sortColumn, $sortDir);
 

@@ -65,7 +65,7 @@ class AudioController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'audio', $this->admin);
 
-        $audio = Audio::create($request->validated());
+        $audio = new Audio()->create($request->validated());
 
         return redirect()->route('admin.portfolio.audio.show', $audio)
             ->with('success', $audio->name . ' successfully added.');
@@ -97,7 +97,7 @@ class AudioController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $audio = Audio::findOrFail($id);
+        $audio = new Audio()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
 

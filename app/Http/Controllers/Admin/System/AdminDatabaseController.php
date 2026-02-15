@@ -90,7 +90,7 @@ class AdminDatabaseController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $adminDatabase = AdminDatabase::findOrFail($id);
+        $adminDatabase = new AdminDatabase()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $adminDatabase, $this->admin);
 

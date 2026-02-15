@@ -100,7 +100,7 @@ class DatabaseController extends BaseAdminController
             abort(403, 'Not authorized.');
         }
 
-        $database = Database::findOrFail($id);
+        $database = new Database()->findOrFail($id);
 
         return view('admin.system.database.edit', compact('database'));
     }

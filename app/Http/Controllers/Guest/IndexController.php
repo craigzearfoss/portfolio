@@ -29,13 +29,15 @@ class IndexController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
+        $adminModel = new Admin();
+
         $admin = null;
-        $admins = \App\Models\System\Admin::where('public', 1)
+        $admins = $adminModel->Admin::where('public', 1)
             ->where('disabled', false)
             ->orderBy('name')->paginate($perPage)->appends(request()->except('page'));
 
         if ($featuredUsername = config('app.featured_admin')) {
-            $featuredAdmin = \App\Models\System\Admin::where('username', $featuredUsername)->first();
+            $featuredAdmin = $adminModel->Admin::where('username', $featuredUsername)->first();
         } else {
             $featuredAdmin = null;
         }
@@ -55,7 +57,7 @@ class IndexController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $admin = null;
-        $candidates = \App\Models\System\Admin::where('public', 1)
+        $candidates = new Admin()->where('public', 1)
             ->where('disabled', false)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

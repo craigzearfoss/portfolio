@@ -68,7 +68,7 @@ class ContactController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'contact', $this->admin);
 
-        $contact = Contact::create($request->validated());
+        $contact = new Contact()->create($request->validated());
 
         return redirect()->route('admin.career.contact.show', $contact)
             ->with('success', $contact->name . ' successfully added.');
@@ -100,7 +100,7 @@ class ContactController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $contact = Contact::findOrFail($id);
+        $contact = new Contact()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
 
@@ -162,7 +162,7 @@ class ContactController extends BaseAdminController
      */
     public function attachCompany(int $contactId, StoreCompanyContactsRequest $request): RedirectResponse
     {
-        $contact = Contact::find($contactId);
+        $contact = new Contact()->find($contactId);
 
         updateGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
 
@@ -171,7 +171,7 @@ class ContactController extends BaseAdminController
         if (!empty($data['company_id'])) {
 
             // Attach an existing contact.
-            if (!$company = Company::find($data['company_id'])) {
+            if (!$company = new Company()->find($data['company_id'])) {
                 return redirect(route('admin.career.contact.company.add', $contactId))
                     ->with('error', 'Company ' . $data['company_id'] . ' not found.');
             }

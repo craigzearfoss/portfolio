@@ -26,7 +26,7 @@ class AudioController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $audios = Audio::where('owner_id', $this->owner->id)
+        $audios = new Audio()->where('owner_id', $this->owner->id)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -44,7 +44,7 @@ class AudioController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$audio = Audio::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$audio = new Audio()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

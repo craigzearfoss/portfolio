@@ -41,7 +41,7 @@ class CareerCompanyContactSeeder extends Seeder
         }
 
         if (!empty($pivots)) {
-            CompanyContact::insert($pivots);
+            new CompanyContact()->insert($pivots);
         }
     }
 }

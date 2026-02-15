@@ -80,7 +80,7 @@ class Category extends Model
      */
     public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        return self::when(!empty($filters['id']), function ($query) use ($filters) {
+        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {

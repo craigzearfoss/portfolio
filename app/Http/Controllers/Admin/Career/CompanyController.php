@@ -76,7 +76,7 @@ class CompanyController extends BaseAdminController
         if ($resumeId = $request->query('resume_id')) $urlParams['resume_id'] = $resumeId;
         if ($coverLetterId = $request->query('cover_letter_id')) $urlParams['cover_letter_id'] = $coverLetterId;
 
-        $company = Company::create($request->validated());
+        $company = new Company()->create($request->validated());
 
         createGate(PermissionEntityTypes::RESOURCE, 'company', $this->admin);
 
@@ -117,7 +117,7 @@ class CompanyController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $company = Company::findOrFail($id);
+        $company = new Company()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
 
@@ -179,7 +179,7 @@ class CompanyController extends BaseAdminController
      */
     public function attachContact(int $companyId, StoreCompanyContactsRequest $request): RedirectResponse
     {
-        $company = Company::find($companyId);
+        $company = new Company()->find($companyId);
 
         updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
 
@@ -188,7 +188,7 @@ class CompanyController extends BaseAdminController
         if (!empty($data['contact_id'])) {
 
             // Attach an existing contact.
-            if (!$contact = Contact::find($data['contact_id'])) {
+            if (!$contact = new Contact()->find($data['contact_id'])) {
                 return redirect(route('admin.career.company.contact.add', $companyId))
                     ->with('error', 'Contact ' . $data['contact_id'] . ' not found.');
             }

@@ -70,7 +70,7 @@ class DatabaseController extends BaseAdminController
             abort(403, 'Only admins with root access can add databases.');
         }
 
-        $database = Database::create($request->validated());
+        $database = new Database()->create($request->validated());
 
         return redirect()->route('admin.dictionary.database.show', $database)
             ->with('success', $database->name . ' successfully added.');
@@ -102,7 +102,7 @@ class DatabaseController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $database = Database::findOrFail($id);
+        $database = new Database()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
 

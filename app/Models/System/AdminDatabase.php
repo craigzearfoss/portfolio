@@ -162,10 +162,10 @@ class AdminDatabase extends Model
 
         $sortField = $orderBy[0] ?? 'sequence';
         $sortDir   = $orderBy[1] ?? 'asc';
-        if (substr($sortField, 0, 16) !== 'admin_databases.') $sortField = 'admin_databases.'.$sortField;
+        if (!str_starts_with($sortField, 'admin_databases.')) $sortField = 'admin_databases.'.$sortField;
 
         // create the query
-        $query = AdminDatabase::orderBy($sortField, $sortDir);
+        $query = new AdminDatabase()->orderBy($sortField, $sortDir);
 
         if (!empty($ownerId)) {
             $query->where('admin_databases.owner_id', $ownerId);
@@ -224,7 +224,7 @@ class AdminDatabase extends Model
 
         } else {
 
-            $query = AdminDatabase::select('admin_resources.*', 'admin_databases.id as database_id',
+            $query = new AdminDatabase()->select('admin_resources.*', 'admin_databases.id as database_id',
                     'admin_databases.name as database_name', 'admin_databases.database as database_database'
                 )
                 ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
@@ -257,7 +257,7 @@ class AdminDatabase extends Model
                                             array       $filters = [],
                                             array       $orderBy = ['seq', 'asc']):  array
     {
-        $query = Database::select( 'admin_resources.*', 'databases.id as database_id', 'databases.name as database_name'
+        $query = new Database()->select( 'admin_resources.*', 'databases.id as database_id', 'databases.name as database_name'
                 , 'databases.database as database_database'
             )
             ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')

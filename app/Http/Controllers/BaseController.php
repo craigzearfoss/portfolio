@@ -63,7 +63,7 @@ class BaseController extends Controller
 
         $this->admin       = loggedInAdmin();
         $this->isRootAdmin = !empty($this->admin->root);
-        $this->owner = null;
+        $this->owner       = null;
         $this->user        = loggedInUser();
 
         // get the url/route information
@@ -78,6 +78,8 @@ class BaseController extends Controller
         $parts                  = explode('.', $this->currentRouteName);
         $this->resource         = $parts[count($parts) - 2] ?? null;
 
+        $adminModel = new Admin();
+
         // get cookies
         $this->cookies = [
             'owner_id' => Cookie::get(self::OWNER_ID_COOKIE),
@@ -85,7 +87,7 @@ class BaseController extends Controller
         ];
 
         // get the "owner_id" url parameter, if there is one
-        $owner_id = isset($this->urlParams['owner_id']) ? $this->urlParams['owner_id'] : null;
+        $owner_id = $this->urlParams['owner_id'] ?? null;
         if (!is_null($owner_id) && (empty($owner_id) || ($owner_id == '*'))) {
             $owner_id = '*';
         } elseif (filter_var($owner_id, FILTER_VALIDATE_INT) !== false) {
@@ -110,7 +112,7 @@ class BaseController extends Controller
         } elseif (!empty($owner_id)) {
 
             // valid owner_id url parameter passed in
-            if ($this->owner = Admin::find($owner_id)) {
+            if ($this->owner = $adminModel->find($owner_id)) {
                 $owner_id = $this->owner->id;
             } else {
                 $owner_id = null;
@@ -118,7 +120,7 @@ class BaseController extends Controller
 
         } elseif (!empty($this->routeParams['admin']) && is_string($this->routeParams['admin'])) {
 
-            if ($this->owner = Admin::find($this->routeParams['admin']) ) {
+            if ($this->owner = $adminModel->find($this->routeParams['admin']) ) {
                 $owner_id = $this->owner->id;
             } else {
                 $owner_id = null;
@@ -148,7 +150,7 @@ class BaseController extends Controller
             if (empty($this->owner)) {
                 // get the owner_id from the cookie
                 if ($owner_id = $this->cookies['owner_id']) {
-                    $this->owner = Admin::find($owner_id);
+                    $this->owner = $adminModel->find($owner_id);
                     $owner_id = $this->owner->id;
                 } else {
                     $this->owner = null;
@@ -172,7 +174,7 @@ class BaseController extends Controller
         if (array_key_exists('user_id', $this->urlParams)) {
             // there is a "user_id" url parameter
             $user_id = (!empty($this->urlParams['user_id'])) ? $this->urlParams['user_id'] : null;
-            if (!$this->user = Admin::find($user_id)) {
+            if (!$this->user = $adminModel->find($user_id)) {
                 abort(404, 'User ' . $user_id . ' not found.');
             }
         } else {
@@ -192,7 +194,7 @@ class BaseController extends Controller
             } else {
                 // get the user_id from the cookie
                 if ($user_id = $this->cookies['user_id']) {
-                    $this->user = User::find($user_id);
+                    $this->user = new User()->find($user_id);
                 } else {
                     $this->user = null;
                 }

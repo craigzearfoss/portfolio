@@ -41,7 +41,7 @@ class ApplicationController extends BaseAdminController
         $query = Application::searchQuery(request()->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('created_at', 'desc');
-        if ($resume = $request->resume_id ? Resume::findOrFail($request->resume_id) : null) {
+        if ($resume = $request->resume_id ? new Resume()->findOrFail($request->resume_id) : null) {
             $query->where('resume_id', $resume->id);
         }
 
@@ -68,21 +68,21 @@ class ApplicationController extends BaseAdminController
 
         if ($companyId = $request->query('company_id')) {
             $urlParams['company_id'] = $companyId;
-            if (!Company::find($companyId)) {
+            if (!new Company()->find($companyId)) {
                 $errorMessages[] = "Company `$companyId` not found.";
             }
         }
 
         if ($resumeId = $request->query('resume_id')) {
             $urlParams['resume_id'] = $resumeId;
-            if (!Resume::find($resumeId)) {
+            if (!new Resume()->find($resumeId)) {
                 $errorMessages[] = "Resume `$resumeId` not found.";
             }
         }
 
         if ($coverLetterId = $request->query('cover_letter_id')) {
             $urlParams['cover_letter_id'] = $coverLetterId;
-            if (!CoverLetter::find($coverLetterId)) {
+            if (!new CoverLetter()->find($coverLetterId)) {
                 $errorMessages[] = "Cover letter `$coverLetterId` not found.";
             }
         }
@@ -108,10 +108,10 @@ class ApplicationController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'application', $this->admin);
 
-        $application = Application::create($request->validated());
+        $application = new Application()->create($request->validated());
 
         // Create a cover letter for the application.
-        CoverLetter::insert([
+        new CoverLetter()->insert([
             'owner_id'       => $application->owner_id,
             'application_id' => $application->id,
         ]);
@@ -150,7 +150,7 @@ class ApplicationController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $application = Application::findOrFail($id);
+        $application = new Application()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
 
@@ -202,11 +202,11 @@ class ApplicationController extends BaseAdminController
         updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
 
         if (empty($application->coverLetter)) {
-            CoverLetter::insert([
+            new CoverLetter()->insert([
                 'owner_id'       => $application->owner_id,
                 'application_id' => $application->id,
             ]);
-            $application = Application::find($application->id);
+            $application = new Application()->find($application->id);
         }
 
         return $application;

@@ -67,7 +67,7 @@ class CoverLetterController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'cover-letter', $this->admin);
 
-        $coverLetter = CoverLetter::create($request->validated());
+        $coverLetter = new CoverLetter()->create($request->validated());
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover Letter successfully added.');
@@ -99,7 +99,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $coverLetter = CoverLetter::findOrFail($id);
+        $coverLetter = new CoverLetter()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
 

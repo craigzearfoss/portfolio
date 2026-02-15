@@ -123,7 +123,7 @@ class IndexController extends BaseUserController
             ]);
 
             $email = $request->email ?? '';
-            if (!$user = User::where('email', $email)->where('status', 1)->first()) {
+            if (!$user = new User()->where('email', $email)->where('status', 1)->first()) {
                 return view(themedTemplate('user.forgot-password'))
                     ->withErrors('User with provided email does not exist.');
             }
@@ -168,7 +168,7 @@ class IndexController extends BaseUserController
             ]);
 
             $username = $request->username ?? '';
-            $user = User::where('username', $username)->where('status', 1)->first();
+            $user = new User()->where('username', $username)->where('status', 1)->first();
             if (!$user) {
                 return view(themedTemplate('user.forgot-username'))
                     ->withErrors('User with provided username does not exist.');
@@ -203,7 +203,7 @@ class IndexController extends BaseUserController
      */
     public function reset_password($token, $email): RedirectResponse |View
     {
-        if (!$user = User::where('email', $email)->where('token', $token)->first()) {
+        if (!$user = new User()->where('email', $email)->where('token', $token)->first()) {
             return redirect()->route('admin.login')
                 ->with('error', 'Your reset password token is expired. Please try again.');
         } else {
@@ -226,7 +226,7 @@ class IndexController extends BaseUserController
             'confirm_password' => ['required', 'same:password']
         ]);
 
-        if (!$user = User::where('email', $email)->where('token', $token)->first()) {
+        if (!$user = new User()->where('email', $email)->where('token', $token)->first()) {
             return redirect()->back()->with('error', 'Your reset password token is expired. Please try again.');
         }
 
@@ -282,7 +282,7 @@ class IndexController extends BaseUserController
 
     public function email_verification($token, $email): RedirectResponse
     {
-        $user = User::where('email', $email)->where('token', $token)->first();
+        $user = new User()->where('email', $email)->where('token', $token)->first();
         if (!$user) {
             return redirect()->route('admin.login');
         }

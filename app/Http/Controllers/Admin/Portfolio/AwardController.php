@@ -65,7 +65,7 @@ class AwardController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'award', $this->admin);
 
-        $award = Award::create($request->validated());
+        $award = new Award()->create($request->validated());
 
         return redirect()->route('admin.portfolio.award.show', $award)
             ->with('success', $award->name . ' successfully added.');
@@ -97,7 +97,7 @@ class AwardController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $award = Award::findOrFail($id);
+        $award = new Award()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
 

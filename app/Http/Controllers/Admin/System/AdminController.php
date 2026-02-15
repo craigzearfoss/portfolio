@@ -126,19 +126,19 @@ class AdminController extends BaseAdminController
         $thisAdmin = $admin;
 
         $dbColumns = [
-            'Portfolio' => AdminResource::ownerResources(
+            'Portfolio' => new AdminResource()->ownerResources(
                 $this->owner->id ?? null,
                 EnvTypes::ADMIN,
-                Database::where('tag', 'portfolio_db')->first()->id ?? null
+                new Database()->where('tag', 'portfolio_db')->first()->id ?? null
             ),
-            'Personal' => AdminResource::ownerResources(
+            'Personal' => new AdminResource()->ownerResources(
                 $this->owner->id,
                 EnvTypes::ADMIN,
-                Database::where('tag', 'personal_db')->first()->id ?? null
+                new Database()->where('tag', 'personal_db')->first()->id ?? null
             ),
         ];
 
-        list($prev, $next) = Admin::prevAndNextPages($admin->id,
+        list($prev, $next) = new Admin()->prevAndNextPages($admin->id,
             'admin.system.admin.profile',
             $this->owner->id ?? null,
             ['name', 'asc']);
@@ -156,7 +156,7 @@ class AdminController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $admin = Admin::findOrFail($id);
+        $admin = new Admin()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $admin, $this->admin);
 

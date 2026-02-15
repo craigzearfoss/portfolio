@@ -64,7 +64,7 @@ class CourseController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'course', $this->admin);
 
-        $course = Course::create($request->validated());
+        $course = new Course()->create($request->validated());
 
         return redirect()->route('admin.portfolio.course.show', $course)
             ->with('success', $course-> name . ' successfully added.');
@@ -96,7 +96,7 @@ class CourseController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $course = Course::findOrFail($id);
+        $course = new Course()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $course, $this->admin);
 

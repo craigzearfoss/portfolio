@@ -36,7 +36,7 @@ class CommunicationController extends BaseAdminController
         $query = Communication::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('date', 'desc');
-        if ($application = $request->application_id ? Application::findOrFail($request->application_id) : null) {
+        if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
             $query->where('application_id', $application->id);
         }
 
@@ -59,7 +59,7 @@ class CommunicationController extends BaseAdminController
         createGate(PermissionEntityTypes::RESOURCE, 'communication', $this->admin);
 
         $application = !empty($request->application_id)
-            ? Application::find($request->application_id)
+            ? new Application()->find($request->application_id)
             : null;
 
         return view('admin.career.communication.create', compact('application'));
@@ -77,14 +77,14 @@ class CommunicationController extends BaseAdminController
 
         $applicationId = $request->query('application_id');
 
-        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+        if (!empty($applicationId) && (!$application = new Application()->find($applicationId)))  {
             $previousUrl = url()->previous();
             $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
                 ->withInput();
         }
 
-        $communication = Communication::create($request->validated());
+        $communication = new Communication()->create($request->validated());
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
@@ -139,11 +139,9 @@ class CommunicationController extends BaseAdminController
     {
         $applicationId = $request->query('application_id');
 
-        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+        if (!empty($applicationId) && (!$application = new Application()->find($applicationId)))  {
             $previousUrl = url()->previous();
-            if ($applicationId) {
-                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
-            }
+            $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
                 ->withInput();
         }

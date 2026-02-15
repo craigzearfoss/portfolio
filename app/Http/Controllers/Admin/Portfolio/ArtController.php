@@ -66,7 +66,7 @@ class ArtController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
 
-        $art = Art::create($request->validated());
+        $art = new Art()->create($request->validated());
 
         return redirect()->route('admin.portfolio.art.show', $art)
             ->with('success', $art->name . ' successfully added.');

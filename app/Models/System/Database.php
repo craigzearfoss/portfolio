@@ -157,7 +157,7 @@ class Database extends Model
         if (substr($sortField, 0, 16) !== 'databases.') $sortField = 'databases.'.$sortField;
 
         // create the query
-        $query = Database::orderBy($sortField, $sortDir);
+        $query = new Database()->orderBy($sortField, $sortDir);
 
         if (!empty($ownerId)) {
             $query->where('databases.owner_id', $ownerId);
@@ -209,7 +209,7 @@ class Database extends Model
                                             array       $filters = [],
                                             array       $orderBy = ['seq', 'asc']):  array
     {
-        $query = Database::select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
+        $query = new Database()->select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
                 , 'databases.database as database_database'
             )
             ->join('resources', 'resources.database_id', '=', 'databases.id')

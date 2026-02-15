@@ -17,9 +17,9 @@ class IndexController extends BaseAdminController
 {
     public function index(): View
     {
-        $databaseId = Database::where('tag', 'system_db')->first()->id ?? null;
+        $databaseId = new Database()->where('tag', 'system_db')->first()->id ?? null;
 
-        $query = Resource::where('database_id', $databaseId)->orderBy('name');
+        $query = new Resource()->where('database_id', $databaseId)->orderBy('name');
 
         if (!$this->isRootAdmin) {
             $query->where('root', false);

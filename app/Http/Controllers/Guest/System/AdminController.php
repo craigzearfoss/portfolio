@@ -36,7 +36,7 @@ class AdminController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $owners = \App\Models\System\Admin::where('public', 1)
+        $owners = new Admin()->where('public', 1)
             ->where('disabled', false)
             ->orderBy('username', 'asc')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -60,7 +60,7 @@ class AdminController extends BaseGuestController
                 abort(404);
             }
 
-            $databases = AdminDatabase::where('owner_id', $this->owner->id)
+            $databases = new AdminDatabase()->where('owner_id', $this->owner->id)
                 ->where('name', '!=', 'dictionary')
                 ->where('guest', true)
                 ->orderBy('sequence', 'asc')->get();

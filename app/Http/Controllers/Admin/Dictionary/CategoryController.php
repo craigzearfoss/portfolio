@@ -69,7 +69,7 @@ class CategoryController extends BaseAdminController
             abort(403, 'Only admins with root access can add categories.');
         }
 
-        $category = Category::create($request->validated());
+        $category = new Category()->create($request->validated());
 
         return redirect()->route('admin.dictionary.category.show', $category)
             ->with('success', $category->name . ' successfully added.');
@@ -105,7 +105,7 @@ class CategoryController extends BaseAdminController
             abort(403, 'Only admins with root access can update categories.');
         }
 
-        $category = Category::findOrFail($id);
+        $category = new Category()->findOrFail($id);
 
         return view('admin.dictionary.category.edit', compact('category'));
     }

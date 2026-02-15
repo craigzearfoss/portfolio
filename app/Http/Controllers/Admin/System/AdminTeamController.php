@@ -62,7 +62,7 @@ class AdminTeamController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'admin-team', $this->admin);
 
-        $adminTeam = AdminTeam::create($request->validated());
+        $adminTeam = new AdminTeam()->create($request->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully added.');
@@ -94,7 +94,7 @@ class AdminTeamController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $adminTeam = AdminTeam::findOrFail($id);
+        $adminTeam = new AdminTeam()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
 

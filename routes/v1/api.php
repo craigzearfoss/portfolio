@@ -17,7 +17,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/states', function () { dd( StateResource::collection(State::all())); return StateResource::collection(State::all()); });
     Route::get('/state/{codeOrId}', function (string $codeOrId) {
         if (is_numeric($codeOrId)) {
-            return new StateResource(State::findOrFail($codeOrId));
+            return new StateResource(new State()->findOrFail($codeOrId));
         } else {
             return new StateResource(State::findStateByCode($codeOrId));
         }
@@ -27,7 +27,7 @@ Route::prefix('v1')->group(function () {
 
 Route::prefix('v1')->group(function () {
     Route::get('/user/{id}', function (string $id) {
-        return new UserResource(User::findOrFail($id));
+        return new UserResource(new User()->findOrFail($id));
         //return User::findOrFail($id)->toResource();
     });
     Route::get('/users', function () {

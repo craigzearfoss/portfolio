@@ -16,7 +16,7 @@ class IndexController extends BaseAdminController
 {
     public function index(): View
     {
-        $databaseId = Database::where('tag', 'personal_db')->first()->id ?? null;
+        $databaseId = new Database()->where('tag', 'personal_db')->first()->id ?? null;
 
         $personals = !empty($databaseId)
             ? AdminResource::ownerResources($this->owner->id, EnvTypes::ADMIN, $databaseId)

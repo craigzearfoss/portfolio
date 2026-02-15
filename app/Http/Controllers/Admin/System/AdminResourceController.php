@@ -89,7 +89,7 @@ class AdminResourceController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $adminResource = AdminResource::findOrFail($id);
+        $adminResource = new AdminResource()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $adminResource, $this->admin);
 

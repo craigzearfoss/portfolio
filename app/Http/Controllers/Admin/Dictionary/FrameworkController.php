@@ -69,7 +69,7 @@ class FrameworkController extends BaseAdminController
             abort(403, 'Only admins with root access can add frameworks.');
         }
 
-        $framework = Framework::create($request->validated());
+        $framework = new Framework()->create($request->validated());
 
         return redirect()->route('admin.dictionary.framework.show', $framework)
             ->with('success', $framework->name . ' successfully added.');
@@ -105,7 +105,7 @@ class FrameworkController extends BaseAdminController
             abort(403, 'Only admins with root access can update frameworks.');
         }
 
-        $framework = Framework::findOrFail($id);
+        $framework = new Framework()->findOrFail($id);
 
         return view('admin.dictionary.framework.edit', compact('framework'));
     }
