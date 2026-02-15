@@ -39,7 +39,7 @@ return new class extends Migration
             ['language_id' => 78, 'stack_id' => 8],
         ];
 
-        LanguageStack::insert($data);
+        new LanguageStack()->insert($data);
     }
 
     /**

@@ -123,7 +123,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Academy::insert($data);
+        new Academy()->insert($data);
     }
 
     /**

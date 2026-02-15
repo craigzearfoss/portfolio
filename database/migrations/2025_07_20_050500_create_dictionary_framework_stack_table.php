@@ -44,7 +44,7 @@ return new class extends Migration
             ['framework_id' => 54, 'stack_id' => 8],
         ];
 
-        FrameworkStack::insert($data);
+        new FrameworkStack()->insert($data);
     }
 
     /**

@@ -1943,7 +1943,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        School::insert($data);
+        new School()->insert($data);
     }
 
     /**

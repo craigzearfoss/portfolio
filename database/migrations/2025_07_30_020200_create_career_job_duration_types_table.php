@@ -41,7 +41,7 @@ return new class extends Migration
             ],
         ];
 
-        JobDurationType::insert($data);
+        new JobDurationType()->insert($data);
     }
 
     /**

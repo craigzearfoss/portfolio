@@ -71,9 +71,11 @@ return new class extends Migration
             $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
-        Database::insert($data);
+        $databaseModel = new Database();
 
-        if (!$database = Database::where('database', $dbName)->first()) {
+        $databaseModel->insert($data);
+
+        if (!$database = $databaseModel->where('database', $dbName)->first()) {
 
             throw new \Exception($dbName . 'database not found.');
 
@@ -83,8 +85,10 @@ return new class extends Migration
              * Add personal resources.
              ** ----------------------------------------------------- */
 
+            $resourceModel = new Resource();
+
             // Note that the parent id refers to the id from the resource table, of the resource_id frm the admin_resources table.
-            $resourceId = Resource::withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
+            $resourceId = $resourceModel->withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
 
             $recipeResourceId = null;
 
@@ -243,7 +247,7 @@ return new class extends Migration
             }
 
             for ($i=0; $i<count($data); $i++) {
-                Resource::insert($data[$i]);
+                $resourceModel->insert($data[$i]);
             }
         }
     }

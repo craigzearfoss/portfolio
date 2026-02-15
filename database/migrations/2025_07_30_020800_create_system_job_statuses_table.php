@@ -53,7 +53,7 @@ return new class extends Migration
             ],
         ];
 
-        JobStatus::insert($data);
+        new JobStatus()->insert($data);
     }
 
     /**

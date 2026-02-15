@@ -80,7 +80,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        JobBoard::insert($data);
+        new JobBoard()->insert($data);
     }
 
     /**

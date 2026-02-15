@@ -112,7 +112,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Framework::insert($data);
+        new Framework()->insert($data);
     }
 
     /**

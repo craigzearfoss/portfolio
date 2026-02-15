@@ -132,7 +132,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Language::insert($data);
+        new Language()->insert($data);
     }
 
     /**

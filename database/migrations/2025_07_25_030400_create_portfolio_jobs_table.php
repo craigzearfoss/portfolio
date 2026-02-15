@@ -28,12 +28,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!$database = Database::where('tag', $this->database_tag)->first()) {
+        if (!$database = new Database()->where('tag', $this->database_tag)->first()) {
             abort(500, 'Database with tag `' . $this->database_tag . '` not found in '
                 . config('app.system_db') . '.databases table.');
         }
 
-        if (!$jobResource = Resource::where('database_id', $database->id)->where('table', 'jobs')->first()) {
+        if (!$jobResource = new Resource()->where('database_id', $database->id)->where('table', 'jobs')->first()) {
             abort(500, 'Resource with name `job` not found in ' . config('system_db') . '.resources table.');
         }
 

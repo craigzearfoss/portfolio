@@ -61,7 +61,7 @@ return new class extends Migration
             ],
         ];
 
-        CommunicationType::insert($data);
+        new CommunicationType()->insert($data);
     }
 
     /**

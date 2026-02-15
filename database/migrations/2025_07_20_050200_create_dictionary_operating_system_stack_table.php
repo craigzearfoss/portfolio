@@ -42,7 +42,7 @@ return new class extends Migration
             ['operating_system_id' => 13, 'stack_id' => 8],
         ];
 
-        OperatingSystemStack::insert($data);
+        new OperatingSystemStack()->insert($data);
     }
 
     /**

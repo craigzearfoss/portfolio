@@ -39,6 +39,8 @@ return new class extends Migration
             $table->softDeletes();
         });
 
+        $ingredientModel = new Ingredient();
+
         $data = [
             ['id'=> 1,   'full_name' => 'acai-berries',                        'name' => 'acai-berries',                     'slug' => 'acai-berries'],
             ['id'=> 2,   'full_name' => 'agave nectar',                        'name' => 'agave nectar',                     'slug' => 'agave-nectar'],
@@ -148,7 +150,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Ingredient::insert($data);
+        new Ingredient()->insert($data);
 
         $data = [
             ['id'=> 101, 'full_name' => 'breadcrumbs',                         'name' => 'breadcrumbs',                      'slug' => 'breadcrumbs'],
@@ -259,7 +261,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Ingredient::insert($data);
+        new Ingredient()->insert($data);
 
         $data = [
             ['id'=> 201, 'full_name' => 'corn starch',                         'name' => 'corn starch',                      'slug' => 'corn-starch'],
@@ -370,7 +372,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Ingredient::insert($data);
+        new Ingredient()->insert($data);
 
         $data = [
             ['id'=> 301, 'full_name' => 'ham',                                 'name' => 'ham',                              'slug' => 'ham'],
@@ -481,7 +483,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Ingredient::insert($data);
+        new Ingredient()->insert($data);
 
         $data = [
             ['id'=> 401, 'full_name' => 'oil (peanut)',                        'name' => 'peanut oil',                       'slug' => 'peanut-oil'],
@@ -592,7 +594,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Ingredient::insert($data);
+        new Ingredient()->insert($data);
 
         $data = [
             ['id'=> 501, 'full_name' => 'pepperoni',                           'name' => 'pepperoni',                        'slug' => 'pepperoni'],
@@ -703,7 +705,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Ingredient::insert($data);
+        new Ingredient()->insert($data);
 
         $data = [
             ['id'=> 601, 'full_name' => 'sugar (brown)',                       'name' => 'brown sugar',                      'slug' => 'brown-sugar'],
@@ -814,7 +816,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Ingredient::insert($data);
+        new Ingredient()->insert($data);
 
         $data = [
             ['id'=> 701, 'full_name' => 'durian fruit',                        'name' => 'durian fruit',                     'slug' => 'durian-fruit'],
@@ -870,7 +872,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Ingredient::insert($data);
+        new Ingredient()->insert($data);
     }
 
     /**

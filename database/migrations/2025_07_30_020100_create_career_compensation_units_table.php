@@ -56,7 +56,7 @@ return new class extends Migration
             ],
         ];
 
-        CompensationUnit::insert($data);
+        new CompensationUnit()->insert($data);
     }
 
     /**

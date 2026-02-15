@@ -243,7 +243,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Recruiter::insert($data);
+        new Recruiter()->insert($data);
     }
 
     /**

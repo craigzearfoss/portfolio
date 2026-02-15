@@ -56,7 +56,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            AdminDatabase::insert($data);
+            new AdminDatabase()->insert($data);
         }
     }
 
@@ -69,7 +69,7 @@ return new class extends Migration
         $portfolioDatabase = $this->getDatabase();
 
         if (!empty($ownerIds) && !empty($portfolioDatabase)) {
-            AdminDatabase::whereIn('owner_id', $ownerIds)->where('database_id', $portfolioDatabase->id)->delete();
+            new AdminDatabase()->whereIn('owner_id', $ownerIds)->where('database_id', $portfolioDatabase->id)->delete();
         }
     }
 
@@ -83,6 +83,6 @@ return new class extends Migration
 
     private function getDatabase()
     {
-        return Database::where('tag', $this->database_tag)->first();
+        return new Database()->where('tag', $this->database_tag)->first();
     }
 };

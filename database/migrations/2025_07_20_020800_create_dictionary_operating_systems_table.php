@@ -72,7 +72,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        OperatingSystem::insert($data);
+        new OperatingSystem()->insert($data);
     }
 
     /**

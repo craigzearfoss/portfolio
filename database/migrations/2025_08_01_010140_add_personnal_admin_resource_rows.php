@@ -62,7 +62,7 @@ return new class extends Migration
                 $data[$i]['updated_at'] = now();
             }
 
-            AdminResource::insert($data);
+            new AdminResource()->insert($data);
         }
     }
 
@@ -75,7 +75,7 @@ return new class extends Migration
 
         if ($personalResources = $this->getDbResources()) {
             if (!empty($ownerIds) && !empty($personalResources)) {
-                AdminResource::whereIn('owner_id', $ownerIds)
+                new AdminResource()->whereIn('owner_id', $ownerIds)
                     ->whereIn('resource_id', $personalResources->pluck('id'))
                     ->delete();
             }
@@ -87,12 +87,12 @@ return new class extends Migration
      */
     private function getAdminIds(): array
     {
-        return Admin::all()->pluck('id')->toArray();
+        return new Admin()->all()->pluck('id')->toArray();
     }
 
     private function getDatabase()
     {
-        return Database::where('tag', $this->database_tag)->first();
+        return new Database()->where('tag', $this->database_tag)->first();
     }
 
     private function getDbResources()
@@ -101,6 +101,6 @@ return new class extends Migration
             return [];
         }
 
-        return Resource::where('database_id', $database->id)->get();
+        return new Resource()->where('database_id', $database->id)->get();
     }
 };

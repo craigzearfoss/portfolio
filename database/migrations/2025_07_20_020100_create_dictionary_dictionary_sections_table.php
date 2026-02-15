@@ -115,7 +115,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        DictionarySection::insert($data);
+        new DictionarySection()->insert($data);
     }
 
     /**

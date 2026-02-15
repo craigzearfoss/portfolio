@@ -96,7 +96,7 @@ return new class extends Migration
             [ 'framework_id' => 54, 'language_id' => 46 ],
         ];
 
-        FrameworkLanguage::insert($data);
+        new FrameworkLanguage()->insert($data);
     }
 
     /**

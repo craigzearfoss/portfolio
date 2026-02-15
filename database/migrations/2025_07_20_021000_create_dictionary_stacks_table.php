@@ -94,7 +94,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Stack::insert($data);
+        new Stack()->insert($data);
     }
 
     /**

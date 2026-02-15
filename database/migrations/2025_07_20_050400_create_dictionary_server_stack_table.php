@@ -37,7 +37,7 @@ return new class extends Migration
             ['server_id' => 1, 'stack_id' => 8],
         ];
 
-        ServerStack::insert($data);
+        new ServerStack()->insert($data);
     }
 
     /**

@@ -48,7 +48,7 @@ return new class extends Migration
             [ 'id' => 21, 'name' => 'Wholesale & Distribution',           'slug' => 'wholesale-and-distribution',           'abbreviation' => 'WD'   ],
         ];
 
-        Industry::insert($data);
+        new Industry()->insert($data);
     }
 
     /**

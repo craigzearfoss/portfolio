@@ -46,7 +46,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        if ($systemDB = Database::where('tag', 'system_db')->first()) {
+        if ($systemDB = new Database()->where('tag', 'system_db')->first()) {
 
             // add dictionary_category_id column to the system.tags table
             Schema::connection($systemDB->tag)->table('tags', function (Blueprint $table) {
@@ -106,7 +106,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Category::insert($data);
+        new Category()->insert($data);
     }
 
     /**

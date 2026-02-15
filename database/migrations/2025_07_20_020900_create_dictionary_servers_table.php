@@ -71,7 +71,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Server::insert($data);
+        new Server()->insert($data);
     }
 
     /**

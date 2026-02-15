@@ -89,7 +89,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Library::insert($data);
+        new Library()->insert($data);
     }
 
     /**

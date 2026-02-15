@@ -32,7 +32,7 @@ return new class extends Migration
             [ 'id' => 7, 'name' => 'Doctorate / PhD'   ],
         ];
 
-        DegreeType::insert($data);
+        new DegreeType()->insert($data);
     }
 
     /**

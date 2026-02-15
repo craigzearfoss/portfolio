@@ -38,7 +38,7 @@ return new class extends Migration
             ['database_id' => 22, 'stack_id' => 8],
         ];
 
-        DatabaseStack::insert($data);
+        new DatabaseStack()->insert($data);
     }
 
     /**

@@ -70,9 +70,11 @@ return new class extends Migration
             $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
-        Database::insert($data);
+        $databaseModel = new Database();
 
-        if (!$database = Database::where('database', $dbName)->first()) {
+        $databaseModel->insert($data);
+
+        if (!$database = $databaseModel->where('database', $dbName)->first()) {
 
             abort(500, $dbName . 'database not found.');
 
@@ -81,9 +83,10 @@ return new class extends Migration
             /** -----------------------------------------------------
              * Add portfolio resources.
              ** ----------------------------------------------------- */
+            $resourceModel = new Resource();
 
             // Note that the parent id refers to the id from the resource table, of the resource_id frm the admin_resources table.
-            $resourceId = Resource::withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
+            $resourceId = $resourceModel->withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
 
             $jobResourceId = null;
 
@@ -578,7 +581,7 @@ return new class extends Migration
             }
 
             for ($i=0; $i<count($data); $i++) {
-                Resource::insert($data[$i]);
+                $resourceModel->insert($data[$i]);
             }
         }
     }
@@ -588,8 +591,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if ($portfolioDatabase = Database::where('name', 'portfolio')->first()) {
-            Resource::where('database_id', $portfolioDatabase->id)->delete();
+        if ($portfolioDatabase = new Database()->where('name', 'portfolio')->first()) {
+            new Resource()->where('database_id', $portfolioDatabase->id)->delete();
             $portfolioDatabase->delete();
         }
     }

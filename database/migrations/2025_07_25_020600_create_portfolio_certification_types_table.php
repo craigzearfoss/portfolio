@@ -36,7 +36,7 @@ return new class extends Migration
             [ 'id' => 11, 'name' => 'Supply Chain'           ],
         ];
 
-        CertificationType::insert($data);
+        new CertificationType()->insert($data);
     }
 
     /**

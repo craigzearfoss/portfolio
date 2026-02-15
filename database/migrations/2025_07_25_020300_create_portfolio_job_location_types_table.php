@@ -41,7 +41,7 @@ return new class extends Migration
             ],
         ];
 
-        JobLocationType::insert($data);
+        new JobLocationType()->insert($data);
     }
 
     /**
