@@ -42,31 +42,31 @@ class ResumeService {
     {
         $this->admin = $admin;
 
-        $this->awards = Award::where('owner_id', $this->admin->id)
+        $this->awards = new Award()->where('owner_id', $this->admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('year')
             ->get();
 
-        $this->certificates = Certificate::where('owner_id', $this->admin->id)
+        $this->certificates = new Certificate()->where('owner_id', $this->admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('received', 'desc')
             ->get();
 
-        $this->educations = Education::where('owner_id', $this->admin->id)
+        $this->educations = new Education()->where('owner_id', $this->admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('graduation_year', 'desc')->orderBy('graduation_month', 'desc')
             ->orderBy('enrollment_year', 'desc')->orderBy('enrollment_month', 'desc')
             ->get();
 
-        $this->jobs = Job::where('owner_id', $this->admin->id)
+        $this->jobs = new Job()->where('owner_id', $this->admin->id)
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->get();
 
-        $this->skills = Skill::where('owner_id', $this->admin->id)
+        $this->skills = new Skill()->where('owner_id', $this->admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence')

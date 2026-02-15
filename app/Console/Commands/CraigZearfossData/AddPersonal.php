@@ -436,7 +436,7 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            Reading::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Reading()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'readings');
         }
     }
@@ -461,7 +461,7 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            Recipe::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Recipe()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'recipes');
         }
     }
@@ -521,7 +521,7 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients');
         }
     }
@@ -551,7 +551,7 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'recipe_steps');
         }
     }

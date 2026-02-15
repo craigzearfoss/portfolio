@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Random\RandomException;
 use function Laravel\Prompts\text;
 
 /**
@@ -165,7 +166,15 @@ class InitSampleAdmin extends Command
         }
     }
 
-    protected function insertAdmin($username, $password, $adminTeamId = null, $adminGroupId = null)
+    /**
+     * @param $username
+     * @param $password
+     * @param $adminTeamId
+     * @param $adminGroupId
+     * @return void
+     * @throws RandomException
+     */
+    protected function insertAdmin($username, $password, $adminTeamId = null, $adminGroupId = null): void
     {
         $DS = DIRECTORY_SEPARATOR;
         $sampleAdminDataDirectory = base_path() . $DS . 'app' . $DS . 'Console' . $DS . 'Commands' . $DS . 'SampleAdminData';
@@ -332,7 +341,7 @@ class InitSampleAdmin extends Command
      * @param int $adminId
      * @param int $adminTeamId
      * @return void
-     * @throws \Random\RandomException
+     * @throws RandomException
      */
     protected function insertSystemAdmin(string $username, string|null $password, int $adminId, int $adminTeamId): void
     {

@@ -99,7 +99,7 @@ class ResourceController extends BaseAdminController
             abort(403, 'Not authorized.');
         }
 
-        $resource = Resource::findOrFail($id);
+        $resource = new Resource()->findOrFail($id);
 
         return view('admin.system.resource.edit', compact('resource'));
     }

@@ -41,7 +41,7 @@ class DanFielding extends Command
     protected int|null $databaseId = null;
     protected int|null $adminId = null;
 
-    protected $jobId = [];
+    protected array $jobId = [];
 
     /**
      * The name and signature of the console command.
@@ -138,7 +138,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -174,7 +174,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -205,7 +205,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Award::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -233,7 +233,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -277,7 +277,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -343,7 +343,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -384,7 +384,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -402,7 +402,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -424,7 +424,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -445,7 +445,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -500,7 +500,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -574,7 +574,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -602,7 +602,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -648,7 +648,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -680,7 +680,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -715,7 +715,7 @@ class DanFielding extends Command
         ];
 
         if (!empty($data)) {
-            Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

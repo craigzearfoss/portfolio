@@ -41,7 +41,7 @@ class ResumeController extends BaseAdminController
         $query = Resume::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name', 'desc');
-        if ($application = $request->application_id ? Application::findOrFail($request->application_id) : null) {
+        if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
             $query->leftJoin(config('app.career_db').'.applications', 'applications.resume_id', '=', 'resumes.id')
                 ->where('applications.id', $application->id);
         }
@@ -65,7 +65,7 @@ class ResumeController extends BaseAdminController
         createGate(PermissionEntityTypes::RESOURCE, 'resume', $this->admin);
 
         $application = !empty($request->application_id)
-            ? Application::find($request->application_id)
+            ? new Application()->find($request->application_id)
             : null;
 
         return view('admin.career.resume.create', compact('application'));
@@ -83,14 +83,14 @@ class ResumeController extends BaseAdminController
 
         $applicationId = $request->query('application_id');
 
-        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+        if (!empty($applicationId) && (!$application = new Application()->find($applicationId)))  {
             $previousUrl = url()->previous();
             $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
                 ->withInput();
         }
 
-        $resume = Resume::create($request->validated());
+        $resume = new Resume()->create($request->validated());
 
         $application->update(['resume_id' => $resume->id]);
 
@@ -132,7 +132,7 @@ class ResumeController extends BaseAdminController
      */
     public function edit(int $id, Request $request): View
     {
-        $resume = Resume::findOrFail($id);
+        $resume = new Resume()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
 
@@ -155,7 +155,7 @@ class ResumeController extends BaseAdminController
     {
         $applicationId = $request->query('application_id');
 
-        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+        if (!empty($applicationId) && (!$application = new Application()->find($applicationId)))  {
             $previousUrl = url()->previous();
             $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
@@ -201,7 +201,7 @@ class ResumeController extends BaseAdminController
     {
         $owner = empty($adminId)
             ? $this->owner
-            : Admin::find($adminId);
+            : new Admin()->find($adminId);
 
         return (new ResumeService($owner, 'default'))->view();
     }

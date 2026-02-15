@@ -96,7 +96,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Reading::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Reading()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'readings');
         }
     }
@@ -120,7 +120,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Recipe::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Recipe()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'recipes');
         }
     }
@@ -179,7 +179,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients');
         }
     }
@@ -208,7 +208,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'recipe_steps');
         }
     }

@@ -41,7 +41,7 @@ class DwightSchrute extends Command
     protected int|null $databaseId = null;
     protected int|null $adminId = null;
 
-    protected $jobId = [];
+    protected array $jobId = [];
 
     /**
      * The name and signature of the console command.
@@ -131,7 +131,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -167,7 +167,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -196,7 +196,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Award::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -224,7 +224,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -259,7 +259,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -308,7 +308,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -349,7 +349,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -377,7 +377,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -399,7 +399,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -420,7 +420,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -475,7 +475,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -515,7 +515,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -543,7 +543,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -590,7 +590,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -620,7 +620,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -655,7 +655,7 @@ class DwightSchrute extends Command
         ];
 
         if (!empty($data)) {
-            Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

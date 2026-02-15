@@ -20,23 +20,55 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class SamMalone extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'career_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'sam-malone';
 
+    /**
+     * @var int
+     */
     protected int $demo = 1;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
+    /**
+     * @var array
+     */
     protected array $applicationId = [];
+
+    /**
+     * @var array
+     */
     protected array $companyId = [];
+
+    /**
+     * @var array
+     */
     protected array $contactId = [];
 
     /**
@@ -97,6 +129,9 @@ class SamMalone extends Command
         $this->insertCareerCompanyContacts();
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerApplications(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Application ...\n";
@@ -138,11 +173,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Application()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'applications');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerApplicationSkill(): void
     {
         echo self::USERNAME . ": Inserting into Career\\ApplicationSkill ...\n";
@@ -168,6 +206,9 @@ class SamMalone extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCompanies(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Company ...\n";
@@ -195,11 +236,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Company()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCompanyContacts(): void
     {
         echo self::USERNAME . ": Inserting into Career\\CompanyContact ...\n";
@@ -217,10 +261,13 @@ class SamMalone extends Command
         */
 
         if (!empty($data)) {
-            CompanyContact::insert($this->additionalColumns($data));
+            new CompanyContact()->insert($this->additionalColumns($data));
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerContacts(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
@@ -246,11 +293,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Contact()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCommunications(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Communication ...\n";
@@ -273,6 +323,9 @@ class SamMalone extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCoverLetters(): void
     {
         echo self::USERNAME . ": Inserting into Career\\CoverLetter ...\n";
@@ -297,6 +350,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerEvents(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Event ...\n";
@@ -320,6 +376,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerNotes(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Note ...\n";
@@ -342,6 +401,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerReferences(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
@@ -384,6 +446,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerResumes(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
@@ -403,7 +468,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Resume()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'resumes');
         }
     }
@@ -525,9 +590,7 @@ EOD,
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -535,11 +598,11 @@ EOD,
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): array|Collection
     {
         if (!$database = $this->getDatabase()) {
             return [];

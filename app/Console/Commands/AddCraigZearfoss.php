@@ -10,6 +10,7 @@ use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -121,14 +122,12 @@ class AddCraigZearfoss extends Command
     }
 
     /**
-     * Create the damin.
-     *
      * @param $adminTeamId
      * @param $adminGroupId
      * @return void
-     * @throws \Random\RandomException
+     * @throws Exception
      */
-    protected function insertAdmin($adminTeamId = null, $adminGroupId = null)
+    protected function insertAdmin($adminTeamId = null, $adminGroupId = null): void
     {
         $DS = DIRECTORY_SEPARATOR;
         $adminDataDirectory = base_path().$DS.'app'.$DS.'Console'.$DS.'Commands'.$DS.'CraigZearfossData';
@@ -335,7 +334,7 @@ class AddCraigZearfoss extends Command
      *
      * @param int $ownerId
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function insertSystemAdminDatabaseRows(int $ownerId): void
     {

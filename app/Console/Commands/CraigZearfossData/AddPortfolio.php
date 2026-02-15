@@ -42,7 +42,7 @@ class AddPortfolio extends Command
     protected int|null $databaseId = null;
     protected int|null $adminId = null;
 
-    protected $jobId = [];
+    protected array $jobId = [];
 
     /**
      * The name and signature of the console command.
@@ -215,7 +215,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -251,7 +251,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -282,7 +282,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Award::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -309,7 +309,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -1476,7 +1476,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -1542,7 +1542,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -1722,7 +1722,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -1760,7 +1760,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -1832,7 +1832,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -1857,7 +1857,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -1874,7 +1874,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -2685,7 +2685,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -2808,7 +2808,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -2855,7 +2855,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -2907,7 +2907,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -3621,7 +3621,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

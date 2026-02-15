@@ -26,22 +26,49 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class SamMalone extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'portfolio_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'sam-malone';
 
+    /**
+     * @var int
+     */
+
     protected int $demo = 1;
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
-    protected $jobId = [];
+    /**
+     * @var array
+     */
+    protected array $jobId = [];
 
     /**
      * The name and signature of the console command.
@@ -106,6 +133,9 @@ class SamMalone extends Command
         $this->insertPortfolioVideos();
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioArt(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
@@ -125,7 +155,7 @@ class SamMalone extends Command
                 'year'        => 2025,
                 'featured'    => 0,
                 'public'      => 1,
-                'image'   => null,
+                'image'       => null,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -135,11 +165,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioAudios(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Audio ...\n";
@@ -171,11 +204,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioAwards(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
@@ -205,11 +241,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Award::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioCertificates(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Certificate ...\n";
@@ -233,11 +272,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioCourses(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
@@ -270,11 +312,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioEducations(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
@@ -302,11 +347,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobs(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Job ...\n";
@@ -365,11 +413,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobCoworkers(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
@@ -446,11 +497,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobSkills(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobSkills ...\n";
@@ -468,11 +522,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobTasks(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobTask ...\n";
@@ -489,11 +546,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioLinks(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
@@ -534,11 +594,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioMusic(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
@@ -575,11 +638,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioProjects(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Project ...\n";
@@ -603,11 +669,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioPublications(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Publication ...\n";
@@ -650,11 +719,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioSkills(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
@@ -681,11 +753,14 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioVideos(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Video ...\n";
@@ -716,7 +791,7 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }
@@ -838,9 +913,7 @@ class SamMalone extends Command
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -848,11 +921,11 @@ class SamMalone extends Command
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

@@ -66,7 +66,7 @@ class ReferenceController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'reference', $this->admin);
 
-        $reference = Reference::create($request->validated());
+        $reference = new Reference()->create($request->validated());
 
         return redirect()->route('admin.career.reference.show', $reference)
             ->with('success', $reference->name . ' successfully added.');
@@ -98,7 +98,7 @@ class ReferenceController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $reference = Reference::findOrFail($id);
+        $reference = new Reference()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
 

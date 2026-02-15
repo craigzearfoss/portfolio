@@ -26,7 +26,8 @@ class RecruiterController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recruiters = Recruiter::orderBy('name')->paginate($perPage)->appends(request()->except('page'));
+        $recruiters = new Recruiter()->orderBy('name')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Recruiters';
 
@@ -56,7 +57,7 @@ class RecruiterController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
 
-        $recruiter = Recruiter::create($request->validated());
+        $recruiter = new Recruiter()->create($request->validated());
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
             ->with('success', $recruiter->name . ' successfully added.');
@@ -88,7 +89,7 @@ class RecruiterController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $recruiter = Recruiter::findOrFail($id);
+        $recruiter = new Recruiter()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
 

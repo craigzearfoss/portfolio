@@ -188,10 +188,10 @@ class Resource extends Model
 
         $sortField = $orderBy[0] ?? 'sequence';
         $sortDir   = $orderBy[1] ?? 'asc';
-        if (substr($sortField, 0, 10) !== 'resources.') $sortField = 'resources.'.$sortField;
+        if (!str_starts_with($sortField, 'resources.')) $sortField = 'resources.'.$sortField;
 
         // create the query
-        $query = Resource::select([DB::raw("databases.name AS 'database_name'"), 'resources.*'])
+        $query = new Resource()->select([DB::raw("databases.name AS 'database_name'"), 'resources.*'])
             ->join('databases', 'databases.id', 'resources.database_id')
             ->orderBy($sortField, $sortDir);
 

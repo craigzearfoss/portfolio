@@ -138,7 +138,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Application()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'applications');
         }
     }
@@ -195,7 +195,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Company()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
@@ -217,7 +217,7 @@ class PeterGibbons extends Command
         */
 
         if (!empty($data)) {
-            CompanyContact::insert($this->additionalColumns($data));
+            new CompanyContact()->insert($this->additionalColumns($data));
         }
     }
 
@@ -246,7 +246,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Contact()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
@@ -383,7 +383,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Resume()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'resumes');
         }
     }
