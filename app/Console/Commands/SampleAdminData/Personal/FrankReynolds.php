@@ -393,7 +393,7 @@ class FrankReynolds extends Command
     }
 
     /**
-     * @return null
+     * Get the database.
      */
     protected function getDatabase()
     {

@@ -13,6 +13,7 @@ use App\Models\System\AdminTeam;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -26,6 +27,9 @@ use function Laravel\Prompts\text;
  */
 class InitSampleAdmin extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'system_db';
 
     /**
@@ -48,6 +52,9 @@ class InitSampleAdmin extends Command
      */
     protected $processAll = false;
 
+    /**
+     *
+     */
     const array USER_DATA = [
         'demo'             => [ 'name' => 'Demo Admin',       'label' => 'demo-admin',       'email' => 'admin@gmail.com',             'role' => 'Site Administrator',       'employer' => null                            ],
         'alex-reiger'      => [ 'name' => 'Alex Reiger',      'label' => 'alex-reiger',      'email' => 'areiger29@taxinyc.com',       'role' => 'Taxi Driver',              'employer' => 'Sunshine Cab Company'          ],
@@ -421,7 +428,7 @@ class InitSampleAdmin extends Command
 
                 $data[] = $dataRow;
 
-                new Reference()->insert($data);
+                new AdminDatabase()->insert($data);
             }
         }
     }
@@ -502,9 +509,7 @@ class InitSampleAdmin extends Command
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -512,11 +517,11 @@ class InitSampleAdmin extends Command
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

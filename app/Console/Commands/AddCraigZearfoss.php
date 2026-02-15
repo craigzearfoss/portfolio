@@ -12,6 +12,7 @@ use App\Models\System\Database;
 use App\Models\System\Resource;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -25,8 +26,14 @@ use function Laravel\Prompts\text;
  */
 class AddCraigZearfoss extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'system_db';
 
+    /**
+     *
+     */
     const array DEFINED_FILE_NAMES = [
         'image' => 'image', 'thumbnail', 'profile', 'logo', 'logo_small'];
 
@@ -65,12 +72,30 @@ class AddCraigZearfoss extends Command
      */
     protected string $employer = 'Idaho National Laboratory';
 
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
+    /**
+     * @var int
+     */
     protected int $demo = 1;
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var array
+     */
     protected array $ids = [];
+    /**
+     * @var array
+     */
     protected array $companyIds = [];
+    /**
+     * @var array
+     */
     protected array $contactIds = [];
 
     /**
@@ -442,9 +467,7 @@ class AddCraigZearfoss extends Command
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -452,11 +475,11 @@ class AddCraigZearfoss extends Command
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

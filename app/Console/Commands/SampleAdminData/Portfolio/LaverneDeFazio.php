@@ -26,21 +26,48 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class LaverneDeFazio extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'portfolio_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'laverne-de-fazio';
 
+    /**
+     * @var int
+     */
     protected int $demo = 1;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
+    /**
+     * @var array
+     */
     protected array $jobId = [];
 
     /**
@@ -106,6 +133,9 @@ class LaverneDeFazio extends Command
         $this->insertPortfolioVideos();
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioArt(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
@@ -141,6 +171,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioAudios(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Audio ...\n";
@@ -177,6 +210,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioAwards(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
@@ -209,6 +245,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioCertificates(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Certificate ...\n";
@@ -237,6 +276,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioCourses(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
@@ -276,6 +318,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioEducations(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
@@ -308,6 +353,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobs(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Job ...\n";
@@ -349,6 +397,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobCoworkers(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
@@ -377,6 +428,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobSkills(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobSkills ...\n";
@@ -399,6 +453,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobTasks(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobTask ...\n";
@@ -420,6 +477,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioLinks(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
@@ -475,6 +535,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioMusic(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
@@ -549,6 +612,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioProjects(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Project ...\n";
@@ -577,6 +643,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioPublications(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Publication ...\n";
@@ -624,6 +693,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioSkills(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
@@ -654,6 +726,9 @@ class LaverneDeFazio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioVideos(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Video ...\n";
@@ -780,7 +855,7 @@ class LaverneDeFazio extends Command
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = new Resource()->insert('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -806,9 +881,7 @@ class LaverneDeFazio extends Command
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -816,11 +889,11 @@ class LaverneDeFazio extends Command
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

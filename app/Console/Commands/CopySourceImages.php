@@ -18,8 +18,14 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class CopySourceImages extends Command
 {
+    /**
+     *
+     */
     const array DEFINED_FILE_NAMES = [
         'certificate_url',
         'image',
@@ -29,16 +35,34 @@ class CopySourceImages extends Command
         'thumbnail',
     ];
 
+    /**
+     * @var string
+     */
     protected $source = 'source_files' . DIRECTORY_SEPARATOR . 'images';
 
+    /**
+     * @var string
+     */
     protected $destination = 'public' . DIRECTORY_SEPARATOR . 'images';
 
+    /**
+     * @var null
+     */
     protected $imagesSrcPath = null;
 
+    /**
+     * @var null
+     */
     protected $imagesDestPath = null;
 
+    /**
+     * @var bool
+     */
     protected $overwrite = false;
 
+    /**
+     * @var array
+     */
     protected $failedUpdates = [];
 
     /**
@@ -96,6 +120,10 @@ class CopySourceImages extends Command
         echo PHP_EOL . 'Processing complete.' . PHP_EOL;
     }
 
+    /**
+     * @return void
+     * @throws \ReflectionException
+     */
     protected function copyResourcemages()
     {
         $DS = DIRECTORY_SEPARATOR;
@@ -221,6 +249,9 @@ class CopySourceImages extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function copyCoverLetters(): void
     {
         $DS = DIRECTORY_SEPARATOR;
@@ -328,6 +359,9 @@ class CopySourceImages extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function copyResumes(): void
     {
         $DS = DIRECTORY_SEPARATOR;

@@ -368,7 +368,7 @@ class BoDarville extends Command
     }
 
     /**
-     * @return null
+     * Get the database.
      */
     protected function getDatabase()
     {
