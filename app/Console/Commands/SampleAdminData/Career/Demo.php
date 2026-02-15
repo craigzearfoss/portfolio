@@ -20,27 +20,69 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class Demo extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'career_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'demo';
 
+    /**
+     * @var int
+     */
     protected int $demo = 1;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
+    /**
+     * @var array
+     */
     protected array $applicationId = [];
+
+    /**
+     * @var array
+     */
     protected array $companyId = [];
+
+    /**
+     * @var array
+     */
     protected array $contactId = [];
 
-    protected $applications = [];
-    protected $resumes = [];
+    /**
+     * @var array
+     */
+    protected array $applications = [];
+
+    /**
+     * @var array
+     */
+    protected array $resumes = [];
 
     /**
      * The name and signature of the console command.
@@ -73,7 +115,7 @@ class Demo extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -101,12 +143,15 @@ class Demo extends Command
         $this->insertCareerCompanyContacts();
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerApplications(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Application ...\n";
 
         // get companies
-        $companyQuery = Company::withoutGlobalScope(AdminPublicScope::class)
+        $companyQuery = new Company()->withoutGlobalScope(AdminPublicScope::class)
             ->select(['id', 'slug'])
             ->where('owner_id', $this->adminId);
 
@@ -116,7 +161,7 @@ class Demo extends Command
         }
 
         $this->applicationId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = new Contact()->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->applicationId[$i] = ++$maxId;
         }
@@ -1192,16 +1237,18 @@ EOD,
             */
         ];
 
+        $applicationModel = new Application();
+
         if (!empty($data)) {
-            foreach ($data as $i => $dataArray) {
+            foreach ($data as $i=>$dataArray) {
                 $dataArray = [$dataArray];
-                new Application()->insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo]));
+                $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo]));
             }
             //$this->insertSystemAdminResource($this->adminId, 'applications');
         }
 
         $this->applications = [];
-        $query = Application::withoutGlobalScope(AdminPublicScope::class)
+        $query = $applicationModel->withoutGlobalScope(AdminPublicScope::class)
             ->selectRaw('applications.id as application_id, companies.slug as company_slug')
             ->where('applications.owner_id', $this->adminId)
             ->join(config('app.career_db').'.companies', 'companies.id', '=', 'company_id')
@@ -1211,6 +1258,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerApplicationSkill(): void
     {
         echo self::USERNAME . ": Inserting into Career\\ApplicationSkill ...\n";
@@ -1236,12 +1286,17 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCompanies(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Company ...\n";
 
+        $companyModel = new Company();
+
         $this->companyId = [];
-        $maxId = Company::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $companyModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=84; $i++) {
             $this->companyId[$i] = ++$maxId;
         }
@@ -1335,11 +1390,14 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Company()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCompanyContacts(): void
     {
         echo self::USERNAME . ": Inserting into Career\\CompanyContact ...\n";
@@ -1370,49 +1428,57 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerContacts(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
 
+        $contactModel = new Contact();
+
         $this->contactId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $contactModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->contactId[$i] = ++$maxId;
         }
 
         $data = [
-            [ 'id' => $this->contactId[1],   'name' => 'Ted Lasso',               'slug' => 'ted-lasso',     'phone' => null,	            'phone_label' => null,   'email' => 'Chad.Vasquez@CyberCoders.com',         'email_label' => 'work' ],
-            [ 'id' => $this->contactId[2],   'name' => 'Moira Rose',              'slug' => 'moira-rose',    'phone' => null,	            'phone_label' => null,   'email' => 'lyman.ambrose@mondo.com',              'email_label' => 'work' ],
-            [ 'id' => $this->contactId[3],   'name' => 'Joey Tribbiani',          'slug' => 'joey-tribbiani',    'phone' => null,               'phone_label' => null,   'email' => 'milesb@infinity-cs.com',               'email_label' => 'work' ],
-            [ 'id' => $this->contactId[4],   'name' => 'Stewie Griffin',          'slug' => 'stewie-griffin',       'phone' => null,	            'phone_label' => null,   'email' => 'jolly.nibu@artech.com',                'email_label' => 'work' ],
-            [ 'id' => $this->contactId[5],   'name' => 'Edmund Blackadder',       'slug' => 'edmund-blackadder',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[6],   'name' => 'David Brent',             'slug' => 'david-brent',  'phone' => null,	            'phone_label' => null,   'email' => 'jluehmann@horizontal.com',             'email_label' => 'work' ],
-            [ 'id' => $this->contactId[7],   'name' => 'Troy Barnes',             'slug' => 'troy-barnes',      'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[8],   'name' => 'Selina Meyer',            'slug' => 'selina-meyer',      'phone' => null,               'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[9],   'name' => 'Blanche Devereaux',       'slug' => 'blanche-devereaux', 'phone' => null,               'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[10],  'name' => 'Patsy Stone',             'slug' => 'patsy-stone',     'phone' => null,               'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[11],  'name' => 'Tracy Jordan',            'slug' => 'tracy-jordan',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[12],  'name' => 'Father Dougal Mcguire',   'slug' => 'father-dougal-mcguire',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[13],  'name' => 'Malcolm Tucker',          'slug' => 'malcolm-tucker',     'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[14],  'name' => 'Del Boy Trotter',         'slug' => 'del-boy-trotter',  'phone' => null,	            'phone_label' => null,   'email' => 'dylan.rogelstad@mail.cybercoders.com', 'email_label' => 'work' ],
-            [ 'id' => $this->contactId[15],  'name' => 'Arnold J Rimmer',         'slug' => 'arnold-j-rimmer',    'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[16],  'name' => 'Bob Belcher',             'slug' => 'bob-belcher',      'phone' => null,               'phone_label' => null,   'email' => 'tlesnick@trovasearch.com',             'email_label' => 'work' ],
-            [ 'id' => $this->contactId[17],  'name' => 'Tahani Al-Jamil',         'slug' => 'tahani-al-jamil',         'phone' => null,               'phone_label' => null,   'email' => 'Ciara.Monahan@insightglobal.com',      'email_label' => 'work' ],
+            [ 'id' => $this->contactId[1],   'name' => 'Ted Lasso',               'slug' => 'ted-lasso',               'phone' => null,	            'phone_label' => null,   'email' => 'Chad.Vasquez@CyberCoders.com',         'email_label' => 'work' ],
+            [ 'id' => $this->contactId[2],   'name' => 'Moira Rose',              'slug' => 'moira-rose',              'phone' => null,	            'phone_label' => null,   'email' => 'lyman.ambrose@mondo.com',              'email_label' => 'work' ],
+            [ 'id' => $this->contactId[3],   'name' => 'Joey Tribbiani',          'slug' => 'joey-tribbiani',          'phone' => null,             'phone_label' => null,   'email' => 'milesb@infinity-cs.com',               'email_label' => 'work' ],
+            [ 'id' => $this->contactId[4],   'name' => 'Stewie Griffin',          'slug' => 'stewie-griffin',          'phone' => null,	            'phone_label' => null,   'email' => 'jolly.nibu@artech.com',                'email_label' => 'work' ],
+            [ 'id' => $this->contactId[5],   'name' => 'Edmund Blackadder',       'slug' => 'edmund-blackadder',       'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[6],   'name' => 'David Brent',             'slug' => 'david-brent',             'phone' => null,	            'phone_label' => null,   'email' => 'jluehmann@horizontal.com',             'email_label' => 'work' ],
+            [ 'id' => $this->contactId[7],   'name' => 'Troy Barnes',             'slug' => 'troy-barnes',             'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[8],   'name' => 'Selina Meyer',            'slug' => 'selina-meyer',            'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[9],   'name' => 'Blanche Devereaux',       'slug' => 'blanche-devereaux',       'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[10],  'name' => 'Patsy Stone',             'slug' => 'patsy-stone',             'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[11],  'name' => 'Tracy Jordan',            'slug' => 'tracy-jordan',            'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[12],  'name' => 'Father Dougal Mcguire',   'slug' => 'father-dougal-mcguire',   'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[13],  'name' => 'Malcolm Tucker',          'slug' => 'malcolm-tucker',          'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[14],  'name' => 'Del Boy Trotter',         'slug' => 'del-boy-trotter',         'phone' => null,	            'phone_label' => null,   'email' => 'dylan.rogelstad@mail.cybercoders.com', 'email_label' => 'work' ],
+            [ 'id' => $this->contactId[15],  'name' => 'Arnold J Rimmer',         'slug' => 'arnold-j-rimmer',         'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[16],  'name' => 'Bob Belcher',             'slug' => 'bob-belcher',             'phone' => null,             'phone_label' => null,   'email' => 'tlesnick@trovasearch.com',             'email_label' => 'work' ],
+            [ 'id' => $this->contactId[17],  'name' => 'Tahani Al-Jamil',         'slug' => 'tahani-al-jamil',         'phone' => null,             'phone_label' => null,   'email' => 'Ciara.Monahan@insightglobal.com',      'email_label' => 'work' ],
             [ 'id' => $this->contactId[18],  'name' => 'Norman Stanley Fletcher', 'slug' => 'norman-stanley-fletcher', 'phone' => null,	            'phone_label' => null,   'email' => 'rob@yscouts.com',                      'email_label' => 'work' ],
             [ 'id' => $this->contactId[19],  'name' => 'Richard Richard',         'slug' => 'richard-richard',         'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[20],  'name' => 'Jim Royle',               'slug' => 'jim-royle',               'phone' => '(774) 555-1614',   'phone_label' => 'work', 'email' => 'kelsey.higgins@klaviyo.com',           'email_label' => 'work' ],
+            [ 'id' => $this->contactId[20],  'name' => 'Jim Royle',               'slug' => 'jim-royle',               'phone' => '(774) 555-1614', 'phone_label' => 'work', 'email' => 'kelsey.higgins@klaviyo.com',           'email_label' => 'work' ],
             [ 'id' => $this->contactId[21],  'name' => 'Jill Tyrell',             'slug' => 'jill-tyrell',             'phone' => null,	            'phone_label' => null,   'email' => 'coleman@lendflow.io',                  'email_label' => 'work' ],
-            [ 'id' => $this->contactId[22],  'name' => 'Archie Bunker',           'slug' => 'archie-bunker',      'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[23],  'name' => 'Willy Gilligan',          'slug' => 'willy-gilligan',    'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            //[ 'id' => 1,                     'name' => '',                        'slug' => '',                 'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[22],  'name' => 'Archie Bunker',           'slug' => 'archie-bunker',           'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[23],  'name' => 'Willy Gilligan',          'slug' => 'willy-gilligan',          'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            //[ 'id' => 1,   'name' => '',     'slug' => '',                 'phone' => null,	           'phone_label' => null,   'email' => null,                                   'email_label' => null ],
         ];
 
         if (!empty($data)) {
-            new Contact()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCommunications(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Communication ...\n";
@@ -1435,6 +1501,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCoverLetters(): void
     {
         echo self::USERNAME . ": Inserting into Career\\CoverLetter ...\n";
@@ -1664,6 +1733,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerEvents(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Event ...\n";
@@ -1687,6 +1759,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerNotes(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Note ...\n";
@@ -1709,11 +1784,14 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerReferences(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
-        $idahoNationLabId = Company::where('name', 'Idaho National Laboratory')->first()->id ?? null;
+        $idahoNationLabId = new Company()->insert('name', 'Idaho National Laboratory')->first()->id ?? null;
 
         $data = [
             [ 'name' => 'George Costanza', 'slug' => 'george-costanza', 'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                    'street2' => null,  'city' => 'New York',    'state_id' => 33,   'zip' => null,    'country_id' => 237, 'phone' => '(208) 555-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 555-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
@@ -1734,6 +1812,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerResumes(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
@@ -1755,13 +1836,15 @@ EOD,
             //[ 'name' => '',                                         'slug' => '',                                                    'date' => null,         'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 1 ],
         ];
 
+        $resumeModel = new Resume();
+
         if (!empty($data)) {
-            new Resume()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $resumeModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'resumes');
         }
 
         $this->resumes = [];
-        foreach(Resume::withoutGlobalScope(AdminPublicScope::class)->select(['id', 'slug'])
+        foreach($resumeModel->withoutGlobalScope(AdminPublicScope::class)->select(['id', 'slug'])
                     ->where('owner_id', $this->adminId)->get() as $resume) {
             $this->resumes[$resume->slug] = $resume->id;
         }
@@ -1858,7 +1941,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -1884,9 +1967,7 @@ EOD,
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -1894,11 +1975,11 @@ EOD,
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

@@ -27,21 +27,48 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class AddPortfolio extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'portfolio_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'czearfoss';
 
+    /**
+     * @var int
+     */
     protected int $demo = 0;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
+    /**
+     * @var array
+     */
     protected array $jobId = [];
 
     /**
@@ -75,7 +102,7 @@ class AddPortfolio extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -107,6 +134,9 @@ class AddPortfolio extends Command
         $this->insertPortfolioVideos();
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioArt(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
@@ -220,6 +250,9 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioAudios(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Audio ...\n";
@@ -256,6 +289,9 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioAwards(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
@@ -287,6 +323,9 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioCertificates(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Certificate ...\n";
@@ -314,6 +353,9 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioCourses(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
@@ -1481,6 +1523,9 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioEducations(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
@@ -1547,12 +1592,17 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobs(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Job ...\n";
 
+        $jobModel = new Job();
+
         $this->jobId = [];
-        $maxId = Job::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $jobModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->jobId[$i] = ++$maxId;
         }
@@ -1722,11 +1772,14 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $jobModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobCoworkers(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
@@ -1765,6 +1818,9 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobSkills(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobSkills ...\n";
@@ -1837,6 +1893,9 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioJobTasks(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\JobTask ...\n";
@@ -1862,6 +1921,9 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioLinks(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
@@ -1879,12 +1941,17 @@ class AddPortfolio extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioMusic(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
+        $musicModel = new Music();
+
         $id = [];
-        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $musicModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=36; $i++) {
             $id[$i] = ++$maxId;
         }
@@ -2685,11 +2752,14 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $musicModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioProjects(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Project ...\n";
@@ -2813,6 +2883,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioPublications(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Publication ...\n";
@@ -2860,6 +2933,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioSkills(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
@@ -2912,6 +2988,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPortfolioVideos(): void
     {
         echo self::USERNAME . ": Inserting into Portfolio\\Video ...\n";
@@ -3717,7 +3796,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -3743,9 +3822,7 @@ EOD,
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -3753,11 +3830,11 @@ EOD,
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

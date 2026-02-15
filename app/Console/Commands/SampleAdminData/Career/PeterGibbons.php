@@ -20,9 +20,13 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class PeterGibbons extends Command
 {
     const string DB_TAG = 'career_db';
@@ -30,13 +34,17 @@ class PeterGibbons extends Command
     const string USERNAME = 'peter-gibbons';
 
     protected int $demo = 1;
+
     protected int $silent = 0;
 
     protected int|null $databaseId = null;
+
     protected int|null $adminId = null;
 
     protected array $applicationId = [];
+
     protected array $companyId = [];
+
     protected array $contactId = [];
 
     /**
@@ -70,7 +78,7 @@ class PeterGibbons extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -101,8 +109,10 @@ class PeterGibbons extends Command
     {
         echo self::USERNAME . ": Inserting into Career\\Application ...\n";
 
+        $applicationModel = new Application();
+
         $this->applicationId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $applicationModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->applicationId[$i] = ++$maxId;
         }
@@ -138,7 +148,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            new Application()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new $applicationModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'applications');
         }
     }
@@ -172,8 +182,10 @@ class PeterGibbons extends Command
     {
         echo self::USERNAME . ": Inserting into Career\\Company ...\n";
 
+        $companyModel = new Company();
+
         $this->companyId = [];
-        $maxId = Company::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $companyModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=84; $i++) {
             $this->companyId[$i] = ++$maxId;
         }
@@ -195,7 +207,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            new Company()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
@@ -225,8 +237,10 @@ class PeterGibbons extends Command
     {
         echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
 
+        $contactModel = new Contact();
+
         $this->contactId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $contactModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->contactId[$i] = ++$maxId;
         }
@@ -246,7 +260,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            new Contact()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
@@ -346,7 +360,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
-        $idahoNationLabId = Company::where('name', 'Idaho National Laboratory')->first()->id ?? null;
+        $idahoNationLabId = new Company()->insert('name', 'Idaho National Laboratory')->first()->id ?? null;
 
         $data = [
             [ 'name' => 'Joanna',              'slug' => 'joanna',              'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(208) 555-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 555-3644', 'alt_phone_label' => 'mobile', 'email' => 'jim.halpert@dunder-mifflin.com',     'email_label' => 'work', 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null ],
@@ -479,7 +493,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -504,22 +518,17 @@ EOD,
         }
     }
 
-    /**
-     * Get a database.
-     *
-     * @return mixed
-     */
     protected function getDatabase()
     {
         return new Database()->where('tag', self::DB_TAG)->first();
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

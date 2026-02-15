@@ -251,7 +251,7 @@ class CopySourceImages extends Command
 
                 echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $usernamePath) . ' ...' . PHP_EOL;
 
-                $coverLetterQuery = $coverLetterModel->withoutGlobalScope(AdminPublicScope::class)
+                $coverLetterQuery = CoverLetter::withoutGlobalScope(AdminPublicScope::class)
                     ->select(['id', 'slug'])
                     ->where('cover_letters.owner_id', $admin->id);
 
@@ -314,7 +314,7 @@ class CopySourceImages extends Command
                             );
                             $urlPath = str_replace(DIRECTORY_SEPARATOR, '/',  $relativeDestPath);
 
-                            $coverLetter = $coverLetterModel->withoutGlobalScope(AdminPublicScope::class)
+                            $coverLetter = CoverLetter::withoutGlobalScope(AdminPublicScope::class)
                                 ->find($coverLetterId);
                             $coverLetter->filepath = $relativeDestPath;
                             $coverLetter->save();
@@ -358,7 +358,7 @@ class CopySourceImages extends Command
 
                 echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $usernamePath) . ' ...' . PHP_EOL;
 
-                $resumeQuery = $resumeModel->withoutGlobalScope(AdminPublicScope::class)
+                $resumeQuery = Resume::withoutGlobalScope(AdminPublicScope::class)
                     ->select(['id', 'slug'])
                     ->where('resumes.owner_id', $admin->id);
 
@@ -419,7 +419,7 @@ class CopySourceImages extends Command
                                 '',
                                 $destFile
                             );
-                            $resume = $resumeModel->withoutGlobalScope(AdminPublicScope::class)
+                            $resume = Resume::withoutGlobalScope(AdminPublicScope::class)
                                 ->find($resumeId);
 //dd([$resume, $fileExt, $relativeDestPath]);
                             if ($fileExt == 'pdf') {

@@ -49,10 +49,10 @@ trait SearchableModelTrait
         $sortDir = $orderBy[1] ?? 'asc';
 
         if ($envType == EnvTypes::ADMIN) {
-            $query = self::withoutGlobalScope(\App\Models\Scopes\AdminPublicScope::class)
+            $query = new self()->withoutGlobalScope(\App\Models\Scopes\AdminPublicScope::class)
                 ->select($selectColumns)->orderBy($sortColumn, $sortDir);
         } else {
-            $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
+            $query = new self()->select($selectColumns)->orderBy($sortColumn, $sortDir);
         }
 
         // Apply filters to the query.

@@ -259,7 +259,7 @@ class AddCraigZearfoss extends Command
         ];
 
         if (!empty($data)) {
-            AdminAdminGroup::insert($data);
+            new AdminAdminGroup()->insert($data);
         }
     }
 
@@ -282,7 +282,7 @@ class AddCraigZearfoss extends Command
         ];
 
         if (!empty($data)) {
-            AdminAdminTeam::insert($data);
+            new AdminAdminTeam()->insert($data);
         }
     }
 
@@ -325,7 +325,7 @@ class AddCraigZearfoss extends Command
         ];
 
         if (!empty($data)) {
-            Admin::insert($this->additionalColumns($data, true, null, ['demo' => $this->demo], boolval($this->demo)));
+            new Admin()->insert($this->additionalColumns($data, true, null, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -340,7 +340,7 @@ class AddCraigZearfoss extends Command
     {
         echo $this->username . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($databases = Database::whereIn('tag', [self::DB_TAG, 'dictionary_db'])->get()) {
+        if ($databases = new Database()->whereIn('tag', [self::DB_TAG, 'dictionary_db'])->get()) {
 
             foreach ($databases as $database) {
 

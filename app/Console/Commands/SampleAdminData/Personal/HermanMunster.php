@@ -61,7 +61,7 @@ class HermanMunster extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -130,7 +130,7 @@ class HermanMunster extends Command
         echo self::USERNAME . ": Inserting into Personal\\Recipe ...\n";
 
         $this->recipeId = [];
-        $maxId = Recipe::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = new Recipe()->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->recipeId[$i] = ++$maxId;
         }
@@ -328,7 +328,7 @@ class HermanMunster extends Command
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->insert('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 

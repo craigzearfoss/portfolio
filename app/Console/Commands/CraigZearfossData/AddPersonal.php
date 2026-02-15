@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\CraigZearfossData;
 
+use App\Models\Career\Application;
 use App\Models\Personal\Reading;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeIngredient;
@@ -13,21 +14,48 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class AddPersonal extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'personal_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'czearfoss';
 
+    /**
+     * @var int
+     */
     protected int $demo = 0;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
+    /**
+     * @var array
+     */
     protected $recipeId = [];
 
     /**
@@ -61,7 +89,7 @@ class AddPersonal extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -81,6 +109,9 @@ class AddPersonal extends Command
         $this->insertPersonalRecipeSteps();
     }
 
+    /**
+     * @return void
+     */
     protected function insertPersonalReadings(): void
     {
         echo self::USERNAME . ": Inserting into Personal\\Reading ...\n";
@@ -441,12 +472,17 @@ class AddPersonal extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPersonalRecipes(): void
     {
         echo self::USERNAME . ": Inserting into Personal\\Recipe ...\n";
 
+        $recipeModel = new Recipe();
+
         $this->recipeId = [];
-        $maxId = Recipe::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $recipeModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->recipeId[$i] = ++$maxId;
         }
@@ -461,11 +497,14 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            new Recipe()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $recipeModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
             $this->insertSystemAdminResource($this->adminId, 'recipes');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPersonalRecipeIngredients(): void
     {
         echo self::USERNAME . ": Inserting into Personal\\RecipeIngredient ...\n";
@@ -526,6 +565,9 @@ class AddPersonal extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPersonalRecipeSteps(): void
     {
         echo self::USERNAME . ": Inserting into Personal\\RecipeStep ...\n";
@@ -647,7 +689,7 @@ class AddPersonal extends Command
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -673,9 +715,7 @@ class AddPersonal extends Command
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -683,11 +723,11 @@ class AddPersonal extends Command
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

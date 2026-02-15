@@ -20,26 +20,68 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class AddCareer extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'career_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'czearfoss';
 
+    /**
+     * @var int
+     */
     protected int $demo = 0;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
+    /**
+     * @var array
+     */
     protected array $applicationId = [];
+
+    /**
+     * @var array
+     */
     protected array $companyId = [];
+
+    /**
+     * @var array
+     */
     protected array $contactId = [];
 
+    /**
+     * @var array
+     */
     protected array $applications = [];
+
+    /**
+     * @var array
+     */
     protected array $resumes = [];
 
     /**
@@ -100,6 +142,9 @@ class AddCareer extends Command
         $this->insertCareerCompanyContacts();
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerApplications(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Application ...\n";
@@ -112,6 +157,12 @@ class AddCareer extends Command
         $companies = [];
         foreach ($companyQuery->get() as $company) {
             $companies[$company->slug] = $company->id;
+        }
+
+        $this->applicationId = [];
+        $maxId = new Contact()->withoutGlobalScope(AdminPublicScope::class)->max('id');
+        for ($i=1; $i<=23; $i++) {
+            $this->applicationId[$i] = ++$maxId;
         }
 
         $data = [
@@ -1188,7 +1239,7 @@ EOD,
         $applicationModel = new Application();
 
         if (!empty($data)) {
-            foreach ($data as $i => $dataArray) {
+            foreach ($data as $i=>$dataArray) {
                 $dataArray = [$dataArray];
                 $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo], false));
             }
@@ -1206,6 +1257,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerApplicationSkill(): void
     {
         echo self::USERNAME . ": Inserting into Career\\ApplicationSkill ...\n";
@@ -1231,6 +1285,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCompanies(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Company ...\n";
@@ -1365,6 +1422,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCompanyContacts(): void
     {
         echo self::USERNAME . ": Inserting into Career\\CompanyContact ...\n";
@@ -1395,6 +1455,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerContacts(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
@@ -1408,30 +1471,30 @@ EOD,
         }
 
         $data = [
-            [ 'id' => $this->contactId[1],   'name' => 'Chad Vasquez',     'slug' => 'chad-vasquez',     'phone' => null,	            'phone_label' => null,   'email' => 'Chad.Vasquez@CyberCoders.com',         'email_label' => 'work' ],
-            [ 'id' => $this->contactId[2],   'name' => 'Lyman Ambrose',    'slug' => 'lyman-ambrose',    'phone' => null,	            'phone_label' => null,   'email' => 'lyman.ambrose@mondo.com',              'email_label' => 'work' ],
-            [ 'id' => $this->contactId[3],   'name' => 'Miles Biegert',    'slug' => 'miles-biegert',    'phone' => null,               'phone_label' => null,   'email' => 'milesb@infinity-cs.com',               'email_label' => 'work' ],
-            [ 'id' => $this->contactId[4],   'name' => 'Jolly Nibu',       'slug' => 'jolly-nibu',       'phone' => null,	            'phone_label' => null,   'email' => 'jolly.nibu@artech.com',                'email_label' => 'work' ],
-            [ 'id' => $this->contactId[5],   'name' => 'Connor Sullivan',  'slug' => 'connor-sullivan',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[6],   'name' => 'Jordan Luehmann',  'slug' => 'jordan-luehmann',  'phone' => null,	            'phone_label' => null,   'email' => 'jluehmann@horizontal.com',             'email_label' => 'work' ],
-            [ 'id' => $this->contactId[7],   'name' => 'Steve Allen',      'slug' => 'steve-allen',      'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[8],   'name' => 'Victor Fung',      'slug' => 'victor-fung',      'phone' => null,               'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[9],   'name' => 'Jessica Chandler', 'slug' => 'jessica-chandler', 'phone' => null,               'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[10],  'name' => 'Donna Morgan',     'slug' => 'donna-morgan',     'phone' => null,               'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[11],  'name' => 'Kirsten Carlson',  'slug' => 'kirsten-carlson',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[12],  'name' => 'Kyle Nussberger',  'slug' => 'kyle-nussberger',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[13],  'name' => 'Andrew Jones',     'slug' => 'andrew-jones',     'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[14],  'name' => 'Dylan Rogelstad',  'slug' => 'dylan-rogelstad',  'phone' => null,	            'phone_label' => null,   'email' => 'dylan.rogelstad@mail.cybercoders.com', 'email_label' => 'work' ],
-            [ 'id' => $this->contactId[15],  'name' => 'Larry Kraynak',    'slug' => 'larry-kraynak',    'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[16],  'name' => 'Tim Lesnick',      'slug' => 'tim-lesnick',      'phone' => null,               'phone_label' => null,   'email' => 'tlesnick@trovasearch.com',             'email_label' => 'work' ],
-            [ 'id' => $this->contactId[17],  'name' => 'Ciara Monahan',    'slug' => 'ciara-monahan',    'phone' => null,               'phone_label' => null,   'email' => 'Ciara.Monahan@insightglobal.com',      'email_label' => 'work' ],
-            [ 'id' => $this->contactId[18],  'name' => 'Rob Neylon',       'slug' => 'rob-neylon',       'phone' => null,	            'phone_label' => null,   'email' => 'rob@yscouts.com',                      'email_label' => 'work' ],
-            [ 'id' => $this->contactId[19],  'name' => 'Billy Bisson',     'slug' => 'billy-bisson',     'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[20],  'name' => 'Kelsey Higgins',   'slug' => 'kelsey-higgins',   'phone' => '(774) 283-1614',   'phone_label' => 'work', 'email' => 'kelsey.higgins@klaviyo.com',           'email_label' => 'work' ],
-            [ 'id' => $this->contactId[21],  'name' => 'Britney Coleman',  'slug' => 'britney-coleman',  'phone' => null,	            'phone_label' => null,   'email' => 'coleman@lendflow.io',                  'email_label' => 'work' ],
-            [ 'id' => $this->contactId[22],  'name' => 'Dan Chaffee',      'slug' => 'dan-chaffee',      'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[23],  'name' => 'Kara Caldwell',    'slug' => 'kara-caldwell',    'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            //[ 'id' => 1,   'name' => '',                 'slug' => '',                 'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[1],   'name' => 'Chad Vasquez',     'slug' => 'chad-vasquez',     'phone' => null,	      'phone_label' => null,   'email' => 'Chad.Vasquez@CyberCoders.com',         'email_label' => 'work' ],
+            [ 'id' => $this->contactId[2],   'name' => 'Lyman Ambrose',    'slug' => 'lyman-ambrose',    'phone' => null,	      'phone_label' => null,   'email' => 'lyman.ambrose@mondo.com',              'email_label' => 'work' ],
+            [ 'id' => $this->contactId[3],   'name' => 'Miles Biegert',    'slug' => 'miles-biegert',    'phone' => null,             'phone_label' => null,   'email' => 'milesb@infinity-cs.com',               'email_label' => 'work' ],
+            [ 'id' => $this->contactId[4],   'name' => 'Jolly Nibu',       'slug' => 'jolly-nibu',       'phone' => null,	      'phone_label' => null,   'email' => 'jolly.nibu@artech.com',                'email_label' => 'work' ],
+            [ 'id' => $this->contactId[5],   'name' => 'Connor Sullivan',  'slug' => 'connor-sullivan',  'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[6],   'name' => 'Jordan Luehmann',  'slug' => 'jordan-luehmann',  'phone' => null,	      'phone_label' => null,   'email' => 'jluehmann@horizontal.com',             'email_label' => 'work' ],
+            [ 'id' => $this->contactId[7],   'name' => 'Steve Allen',      'slug' => 'steve-allen',      'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[8],   'name' => 'Victor Fung',      'slug' => 'victor-fung',      'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[9],   'name' => 'Jessica Chandler', 'slug' => 'jessica-chandler', 'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[10],  'name' => 'Donna Morgan',     'slug' => 'donna-morgan',     'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[11],  'name' => 'Kirsten Carlson',  'slug' => 'kirsten-carlson',  'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[12],  'name' => 'Kyle Nussberger',  'slug' => 'kyle-nussberger',  'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[13],  'name' => 'Andrew Jones',     'slug' => 'andrew-jones',     'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[14],  'name' => 'Dylan Rogelstad',  'slug' => 'dylan-rogelstad',  'phone' => null,	      'phone_label' => null,   'email' => 'dylan.rogelstad@mail.cybercoders.com', 'email_label' => 'work' ],
+            [ 'id' => $this->contactId[15],  'name' => 'Larry Kraynak',    'slug' => 'larry-kraynak',    'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[16],  'name' => 'Tim Lesnick',      'slug' => 'tim-lesnick',      'phone' => null,             'phone_label' => null,   'email' => 'tlesnick@trovasearch.com',             'email_label' => 'work' ],
+            [ 'id' => $this->contactId[17],  'name' => 'Ciara Monahan',    'slug' => 'ciara-monahan',    'phone' => null,             'phone_label' => null,   'email' => 'Ciara.Monahan@insightglobal.com',      'email_label' => 'work' ],
+            [ 'id' => $this->contactId[18],  'name' => 'Rob Neylon',       'slug' => 'rob-neylon',       'phone' => null,	      'phone_label' => null,   'email' => 'rob@yscouts.com',                      'email_label' => 'work' ],
+            [ 'id' => $this->contactId[19],  'name' => 'Billy Bisson',     'slug' => 'billy-bisson',     'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[20],  'name' => 'Kelsey Higgins',   'slug' => 'kelsey-higgins',   'phone' => '(774) 283-1614', 'phone_label' => 'work', 'email' => 'kelsey.higgins@klaviyo.com',           'email_label' => 'work' ],
+            [ 'id' => $this->contactId[21],  'name' => 'Britney Coleman',  'slug' => 'britney-coleman',  'phone' => null,	      'phone_label' => null,   'email' => 'coleman@lendflow.io',                  'email_label' => 'work' ],
+            [ 'id' => $this->contactId[22],  'name' => 'Dan Chaffee',      'slug' => 'dan-chaffee',      'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[23],  'name' => 'Kara Caldwell',    'slug' => 'kara-caldwell',    'phone' => null,	      'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            //[ 'id' => 1,   'name' => '',     'slug' => '',                 'phone' => null,	           'phone_label' => null,   'email' => null,                                   'email_label' => null ],
         ];
 
         if (!empty($data)) {
@@ -1440,6 +1503,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCommunications(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Communication ...\n";
@@ -1462,6 +1528,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCoverLetters(): void
     {
         echo self::USERNAME . ": Inserting into Career\\CoverLetter ...\n";
@@ -1707,6 +1776,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerEvents(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Event ...\n";
@@ -1730,6 +1802,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerNotes(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Note ...\n";
@@ -1752,11 +1827,14 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerReferences(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
-        $idahoNationLabId = Company::where('name', 'Idaho National Laboratory')->first()->id ?? null;
+        $idahoNationLabId = new Company()->insert('name', 'Idaho National Laboratory')->first()->id ?? null;
 
         $data = [
             [ 'name' => 'Kevin Hemsley',         'slug' => 'kevin-hemsley',         'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                      'street2' => null,  'city' => 'Rigby',         'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 526-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 317-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
@@ -1772,36 +1850,39 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'references');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerResumes(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
 
         $data = [
-            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 1 ],
-            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 1 ],
-            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'date' => '2025-12-08', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 1 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 1 ],
+            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 1 ],
+            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'date' => '2025-12-08', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 1 ],
             //[ 'name' => '',                                         'slug' => '',                                                    'date' => null,         'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 1 ],
         ];
 
         $resumeModel = new Resume();
 
         if (!empty($data)) {
-            $resumeModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            $resumeModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'resumes');
         }
 
@@ -1903,7 +1984,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -1929,9 +2010,7 @@ EOD,
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -1939,11 +2018,11 @@ EOD,
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

@@ -101,7 +101,7 @@ class SamMalone extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -360,7 +360,7 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Job ...\n";
 
         $this->jobId = [];
-        $maxId = Job::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = new Job()->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->jobId[$i] = ++$maxId;
         }
@@ -887,7 +887,7 @@ class SamMalone extends Command
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 

@@ -20,23 +20,58 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class GabeKotter extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'career_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'gabe-kotter';
 
+    /**
+     * @var int
+     */
     protected int $demo = 1;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
+    /**
+     * @var array
+     */
     protected array $applicationId = [];
+
+    /**
+     * @var array
+     */
     protected array $companyId = [];
+
+    /**
+     * @var array
+     */
     protected array $contactId = [];
 
     /**
@@ -70,7 +105,7 @@ class GabeKotter extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -97,12 +132,16 @@ class GabeKotter extends Command
         $this->insertCareerCompanyContacts();
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerApplications(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Application ...\n";
 
         $this->applicationId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $applicationModel = new Application();
+        $maxId = $applicationModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->applicationId[$i] = ++$maxId;
         }
@@ -138,11 +177,14 @@ class GabeKotter extends Command
         ];
 
         if (!empty($data)) {
-            new Application()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $applicationModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'applications');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerApplicationSkill(): void
     {
         echo self::USERNAME . ": Inserting into Career\\ApplicationSkill ...\n";
@@ -168,12 +210,17 @@ class GabeKotter extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCompanies(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Company ...\n";
 
+        $companyModel = new Company();
+
         $this->companyId = [];
-        $maxId = Company::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $companyModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=84; $i++) {
             $this->companyId[$i] = ++$maxId;
         }
@@ -195,11 +242,14 @@ class GabeKotter extends Command
         ];
 
         if (!empty($data)) {
-            new Company()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCompanyContacts(): void
     {
         echo self::USERNAME . ": Inserting into Career\\CompanyContact ...\n";
@@ -221,12 +271,17 @@ class GabeKotter extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerContacts(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
 
+        $contactModel = new Contact();
+
         $this->contactId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $contactModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->contactId[$i] = ++$maxId;
         }
@@ -246,11 +301,14 @@ class GabeKotter extends Command
         ];
 
         if (!empty($data)) {
-            new Contact()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCommunications(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Communication ...\n";
@@ -273,6 +331,9 @@ class GabeKotter extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerCoverLetters(): void
     {
         echo self::USERNAME . ": Inserting into Career\\CoverLetter ...\n";
@@ -297,6 +358,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerEvents(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Event ...\n";
@@ -320,6 +384,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerNotes(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Note ...\n";
@@ -342,6 +409,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerReferences(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
@@ -384,6 +454,9 @@ EOD,
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertCareerResumes(): void
     {
         echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
@@ -499,7 +572,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -525,9 +598,7 @@ EOD,
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * Get the database.
      */
     protected function getDatabase()
     {
@@ -535,11 +606,11 @@ EOD,
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

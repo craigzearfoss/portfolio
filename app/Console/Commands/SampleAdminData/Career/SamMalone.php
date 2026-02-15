@@ -102,7 +102,7 @@ class SamMalone extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -136,8 +136,10 @@ class SamMalone extends Command
     {
         echo self::USERNAME . ": Inserting into Career\\Application ...\n";
 
+        $applicationModel = new Application();
+
         $this->applicationId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $applicationModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->applicationId[$i] = ++$maxId;
         }
@@ -173,7 +175,7 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            new Application()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new $applicationModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'applications');
         }
     }
@@ -213,8 +215,10 @@ class SamMalone extends Command
     {
         echo self::USERNAME . ": Inserting into Career\\Company ...\n";
 
+        $companyModel = new Company();
+
         $this->companyId = [];
-        $maxId = Company::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $companyModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=84; $i++) {
             $this->companyId[$i] = ++$maxId;
         }
@@ -236,7 +240,7 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            new Company()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
@@ -272,8 +276,10 @@ class SamMalone extends Command
     {
         echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
 
+        $contactModel = new Contact();
+
         $this->contactId = [];
-        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = $contactModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->contactId[$i] = ++$maxId;
         }
@@ -293,7 +299,7 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            new Contact()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
@@ -456,13 +462,13 @@ EOD,
         $data = [
             /*
             [
-                'name'        => '',
-                'slug'        => '',
-                'date'        => '0000-00-00',
-                'primary'     => 0,
-                'doc_filepath'     => null,
-                'pdf_filepath'     => null,
-                'public'      => 0,
+                'name'         => '',
+                'slug'         => '',
+                'date'         => '0000-00-00',
+                'primary'      => 0,
+                'doc_filepath' => null,
+                'pdf_filepath' => null,
+                'public'       => 0,
             ]
             */
         ];
@@ -564,7 +570,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = Resource::where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -589,9 +595,6 @@ EOD,
         }
     }
 
-    /**
-     * Get the database.
-     */
     protected function getDatabase()
     {
         return new Database()->where('tag', self::DB_TAG)->first();
@@ -602,7 +605,7 @@ EOD,
      *
      * @return array|Collection
      */
-    protected function getDbResources(): array|Collection
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];
