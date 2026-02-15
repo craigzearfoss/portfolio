@@ -19,7 +19,7 @@ return new class extends Migration
      *
      * @var int
      */
-    protected $ownerId = 2;
+    protected int $ownerId = 2;
 
     /**
      * Run the migrations.

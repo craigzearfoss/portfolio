@@ -43,8 +43,6 @@ class UserGroupController extends BaseUserController
      * Show the form for creating a new user group.
      *
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function create(): View
     {

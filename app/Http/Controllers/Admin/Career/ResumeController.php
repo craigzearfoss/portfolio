@@ -194,6 +194,7 @@ class ResumeController extends BaseAdminController
     /**
      * Display the current resume.
      *
+     * @param $adminId
      * @return View
      */
     public function preview($adminId = null): View

@@ -22,8 +22,10 @@ class BaseAdminController extends BaseController
 
         $this->initialize(EnvTypes::ADMIN);
 
+        /*
         if (isset($_GET['debug'])) {
-            //$this->ddDebug();
+            $this->ddDebug();
         }
+        */
     }
 }

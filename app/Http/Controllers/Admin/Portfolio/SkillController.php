@@ -44,6 +44,7 @@ class SkillController extends BaseAdminController
     /**
      * Show the form for creating a new skill.
      *
+     * @param Request $request
      * @return View
      */
     public function create(Request $request): View

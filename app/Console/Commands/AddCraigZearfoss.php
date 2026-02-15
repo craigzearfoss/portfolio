@@ -35,7 +35,7 @@ class AddCraigZearfoss extends Command
     protected string $username = 'czearfoss';
 
     /**
-     * @var string password
+     * @var string|null password
      */
     protected string|null $password = null;
 
@@ -293,7 +293,6 @@ class AddCraigZearfoss extends Command
      * @param int $adminId
      * @param int $adminTeamId
      * @return void
-     * @throws \Random\RandomException
      */
     protected function insertSystemAdmin(int $adminId, int $adminTeamId): void
     {

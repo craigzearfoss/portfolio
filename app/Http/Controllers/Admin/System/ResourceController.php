@@ -21,7 +21,7 @@ class ResourceController extends BaseAdminController
      * Display a listing of resources.
      *
      * @param Request $request
-     * @return View
+     * @return View|RedirectResponse
      */
     public function index(Request $request): View|RedirectResponse
     {
@@ -50,8 +50,6 @@ class ResourceController extends BaseAdminController
      * Show the form for creating a new resource.
      *
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function create(): View
     {

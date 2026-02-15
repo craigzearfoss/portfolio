@@ -18,7 +18,7 @@ return new class extends Migration
      *
      * @var int
      */
-    protected $rootAdminId = 1;
+    protected int $rootAdminId = 1;
 
     /**
      * Run the migrations.

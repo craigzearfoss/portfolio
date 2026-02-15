@@ -82,7 +82,10 @@ return new class extends Migration
         }
     }
 
-    private function getAdminIds()
+    /**
+     * @return array
+     */
+    private function getAdminIds():array
     {
         return Admin::all()->pluck('id')->toArray();
     }

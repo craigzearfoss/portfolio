@@ -45,8 +45,6 @@ class AdminGroupController extends BaseAdminController
      * Show the form for creating a new admin group.
      *
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function create(): View
     {

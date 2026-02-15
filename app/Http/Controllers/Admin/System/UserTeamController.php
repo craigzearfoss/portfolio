@@ -43,8 +43,6 @@ class UserTeamController extends BaseUserController
      * Show the form for creating a new user team.
      *
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function create(): View
     {

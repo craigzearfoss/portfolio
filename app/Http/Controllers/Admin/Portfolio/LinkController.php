@@ -45,6 +45,7 @@ class LinkController extends BaseAdminController
     /**
      * Show the form for creating a new link.
      *
+     * @param Request $request
      * @return View
      */
     public function create(Request $request): View

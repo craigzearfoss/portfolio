@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    protected $database_tag = 'career_db';
+    protected string $database_tag = 'career_db';
 
     /**
      * Run the migrations.

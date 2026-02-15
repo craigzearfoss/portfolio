@@ -44,8 +44,6 @@ class AdminTeamController extends BaseAdminController
      * Show the form for creating a new admin team.
      *
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function create(): View
     {

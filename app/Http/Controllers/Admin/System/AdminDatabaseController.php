@@ -45,8 +45,6 @@ class AdminDatabaseController extends BaseAdminController
      * Show the form for creating a new admin databases.
      *
      * @return View
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function create(): View
     {

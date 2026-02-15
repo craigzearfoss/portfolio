@@ -55,7 +55,7 @@ use Illuminate\Database\Migrations\Migration;
  */
 return new class extends Migration
 {
-    protected $database_tag = 'personal_db';
+    protected string $database_tag = 'personal_db';
 
     /**
      * Run the migrations.

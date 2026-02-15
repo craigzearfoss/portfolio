@@ -112,7 +112,7 @@ class PhotographyController extends BaseAdminController
      * Update the specified photo in storage.
      *
      * @param UpdatePhotographyRequest $request
-     * @param Photography $photo
+     * @param Photography $photography
      * @return RedirectResponse
      */
     public function update(UpdatePhotographyRequest $request, Photography $photography): RedirectResponse
