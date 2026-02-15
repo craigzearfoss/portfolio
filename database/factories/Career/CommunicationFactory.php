@@ -22,7 +22,7 @@ class CommunicationFactory extends Factory
             'subject'        => fake()->text(20),
             'date'           => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
             'time'           => fake()->time(),
-            'body'           => fake()->text(200),
+            'body'           => fake()->text(),
             'sequence'       => 0,
             'public'         => 0,
             'readonly'       => 0,

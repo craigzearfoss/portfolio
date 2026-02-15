@@ -23,7 +23,7 @@ class EventFactory extends Factory
             'date'           => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
             'time'           => fake()->time(),
             'location'       => fake()->city(),
-            'description'    => fake()->text(200),
+            'description'    => fake()->text(),
             'sequence'       => 0,
             'public'         => 0,
             'readonly'       => 0,

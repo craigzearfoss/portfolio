@@ -893,7 +893,7 @@ if (! function_exists('viewDocument')) {
             . DIRECTORY_SEPARATOR . 'NjIwMjUtMDdiYXNlNjQ6.docx';
 
         // Load the Word document
-        $phpWord = IOFactory::createReader('Word2007')->load($filePath);
+        $phpWord = IOFactory::createReader()->load($filePath);
 
         // Convert to HTML
         $objWriter = IOFactory::createWriter($phpWord, 'HTML');

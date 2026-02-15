@@ -203,7 +203,7 @@ class TestSeeder extends Seeder
                 ->create();
         }
 
-        $allSkills = array_column(DictionarySection::words(null, null), 'name');
+        $allSkills = array_column(DictionarySection::words(), 'name');
 
         echo 'Career/Skill' . PHP_EOL;
         foreach ($adminIds as $adminId) {

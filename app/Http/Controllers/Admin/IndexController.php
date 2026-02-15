@@ -33,7 +33,7 @@ class IndexController extends BaseAdminController
         if (Auth::guard('admin')->check()) {
 
             $owners = \App\Models\System\Admin::where('disabled', 0)
-                ->orderBy('username', 'asc')
+                ->orderBy('username')
                 ->paginate($perPage)->appends(request()->except('page'));
 
             return view(themedTemplate('admin.dashboard'), compact('owners'));

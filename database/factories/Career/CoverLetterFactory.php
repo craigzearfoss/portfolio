@@ -23,7 +23,7 @@ class CoverLetterFactory extends Factory
             'url' => fake()->url(),
             'link'             => fake()->url(),
             'link_name'        => fake()->text(20),
-            'description'      => fake()->text(200),
+            'description'      => fake()->text(),
             'image'            => fake()->imageUrl(),
             'image_credit'     => fake()->name(),
             'image_source'     => fake()->company(),

@@ -302,7 +302,7 @@ class Application extends Model
     public function jobBoard(): BelongsTo
     {
         return $this->belongsTo(JobBoard::class, 'job_board_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**

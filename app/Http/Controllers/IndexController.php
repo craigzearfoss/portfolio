@@ -22,7 +22,7 @@ class IndexController extends BaseController
     {
         parent::__construct($permissionService);
 
-        $this->initialize(EnvTypes::GUEST);
+        $this->initialize();
     }
 
     public function about(): View
@@ -115,7 +115,7 @@ class IndexController extends BaseController
         $filePath = base_path() . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $file;
 
         // Load the Word document
-        $phpWord = IOFactory::createReader('Word2007')->load($filePath);
+        $phpWord = IOFactory::createReader()->load($filePath);
 
         // Convert to HTML
         $objWriter = IOFactory::createWriter($phpWord, 'HTML');

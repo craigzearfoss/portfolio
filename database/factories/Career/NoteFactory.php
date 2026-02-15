@@ -19,8 +19,8 @@ class NoteFactory extends Factory
         return [
             'owner_id'       => \App\Models\System\Owner::all()->random()->id,
             'application_id' => \App\Models\Career\Application::all()->random()->id,
-            'subject'        => fake()->sentence(6),
-            'body'           => fake()->text(200),
+            'subject'        => fake()->sentence(),
+            'body'           => fake()->text(),
             'sequence'       => 0,
             'public'         => 0,
             'readonly'       => 0,

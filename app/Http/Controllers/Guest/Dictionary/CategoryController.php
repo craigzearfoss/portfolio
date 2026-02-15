@@ -27,7 +27,7 @@ class CategoryController extends BaseGuestController
             ->where('public', true)
             ->where('disabled', false)
             ->where('name', '!=', 'other')
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.dictionary.category.index'), compact('categories'))

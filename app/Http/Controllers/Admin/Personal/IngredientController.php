@@ -31,7 +31,7 @@ class IngredientController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $ingredients = Ingredient::where('name', '!=', 'other')
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Ingredients';

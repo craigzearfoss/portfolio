@@ -255,9 +255,7 @@ class Job extends Model
             }
         }
 
-        $template = '_templates.resume.' . $name;
-
-        return $template;
+        return '_templates.resume.' . $name;
     }
 
     /**

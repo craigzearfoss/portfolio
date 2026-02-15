@@ -44,7 +44,7 @@ class ContactFactory extends Factory
             'birthday'        => fake()->dateTimeBetween('-60 years', '-20 years')->format('Y-m-d'),
             'link'            => fake()->url(),
             'link_name'       => fake()->text(20),
-            'description'     => fake()->text(200),
+            'description'     => fake()->text(),
             'image'           => fake()->imageUrl(),
             'image_credit'    => fake()->name(),
             'image_source'    => fake()->company(),

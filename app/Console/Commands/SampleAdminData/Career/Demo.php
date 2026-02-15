@@ -1195,7 +1195,7 @@ EOD,
         if (!empty($data)) {
             foreach ($data as $i => $dataArray) {
                 $dataArray = [$dataArray];
-                Application::insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo], false));
+                Application::insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo]));
             }
             //$this->insertSystemAdminResource($this->adminId, 'applications');
         }

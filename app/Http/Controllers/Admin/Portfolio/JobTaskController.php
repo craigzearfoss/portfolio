@@ -38,7 +38,7 @@ class JobTaskController extends BaseAdminController
 
             if ($this->isRootAdmin) {
                 $query = JobTask::where('job_id', $jobId)
-                    ->orderBy('job_id', 'asc');
+                    ->orderBy('job_id');
                 if (($owner_id = $request->owner) && ($owner = Owner::findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }

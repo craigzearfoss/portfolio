@@ -22,7 +22,7 @@ class IndexController extends BaseAdminController
         $dictionaryTypes = Resource::select('resources.*')
             ->where('databases.name', 'dictionary')
             ->join('databases', 'databases.id', '=', 'resources.database_id')
-            ->orderBy('resources.plural', 'asc')
+            ->orderBy('resources.plural')
             ->get();
 
         return view('admin.dictionary.index', compact('words'))

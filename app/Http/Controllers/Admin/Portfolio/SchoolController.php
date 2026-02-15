@@ -33,7 +33,7 @@ class SchoolController extends BaseAdminController
         $schools = School::searchQuery($request->all())
             ->where('name', '!=', 'other')
             ->orderBy('name')
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Schools';

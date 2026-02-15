@@ -27,8 +27,8 @@ class ReadingController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $readings = Reading::searchQuery($request->all(), $this->owner)
-            ->orderBy('title', 'asc')
-            ->paginate($perPage)->appends(request()->except('page'));;
+            ->orderBy('title')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.personal.reading.index'), compact('readings'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

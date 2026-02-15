@@ -78,7 +78,7 @@ class DictionarySection extends Model
 
 
         $query = DictionarySection::select('id', 'name', 'slug', 'table')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
         foreach ($filters as $column => $value) {
             $query = $query->where($column, $value);
         }

@@ -217,7 +217,7 @@ class HermanMunster extends Command
         */
 
         if (!empty($data)) {
-            CompanyContact::insert($this->additionalColumns($data, true));
+            CompanyContact::insert($this->additionalColumns($data));
         }
     }
 

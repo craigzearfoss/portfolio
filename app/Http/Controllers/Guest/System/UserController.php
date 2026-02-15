@@ -20,7 +20,7 @@ class UserController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $users = User::orderBy('username', 'asc')
+        $users = User::orderBy('username')
             ->paginate($perPage)->appends(request()->except('page'));
 
         return view('guest.system.user.index', compact('users'))

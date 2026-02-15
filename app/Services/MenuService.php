@@ -128,18 +128,18 @@ class MenuService
         $menu = $this->getResourceMenu();
 
         if (($this->hasAdmins) && ($this->isRootAdmin)) {
-            $menu[] = $this->menuItem([ 'title'=>'Settings', 'route'=>'admin.system.settings.show' ], 1);
+            $menu[] = $this->menuItem([ 'title'=>'Settings', 'route'=>'admin.system.settings.show' ]);
         }
 
         // add user menu items
         if ($this->hasUsers && config('app.users_enabled')) {
             if (!empty($this->user)) {
-                $menu[] = $this->menuItem([ 'title'=>'User Dashboard',       'route'=>'user.dashboard' ], 1);
-                $menu[] = $this->menuItem([ 'title'=>'My User Profile',      'route'=>'user.profile.show' ],  1);
-                //$menu[] = $this->menuItem([ 'title'=>'Change User Password', 'route'=>'admin.profile.change-password' ], 1);
-                $menu[] = $this->menuItem([ 'title'=>'User Logout',          'route'=>'user.logout', 'icon' => 'fa-sign-out' ], 1);
+                $menu[] = $this->menuItem([ 'title'=>'User Dashboard',       'route'=>'user.dashboard' ]);
+                $menu[] = $this->menuItem([ 'title'=>'My User Profile',      'route'=>'user.profile.show' ]);
+                //$menu[] = $this->menuItem([ 'title'=>'Change User Password', 'route'=>'admin.profile.change-password' ]);
+                $menu[] = $this->menuItem([ 'title'=>'User Logout',          'route'=>'user.logout', 'icon' => 'fa-sign-out' ]);
             } else {
-                $menu[] = $this->menuItem([ 'title'=>'User Login',           'route' => 'user.login', 'icon'=>'fa-sign-in', 'name'=>'user-login' ], 1);
+                $menu[] = $this->menuItem([ 'title'=>'User Login',           'route' => 'user.login', 'icon'=>'fa-sign-in', 'name'=>'user-login' ]);
             }
         }
 
@@ -147,10 +147,10 @@ class MenuService
         if ($this->hasAdmins) {
 
             if (!empty($this->admin)) {
-                $menu[] = $this->menuItem([ 'title'=>'Admin Dashboard',  'route'=>'admin.dashboard' ], 1);
-                $menu[] = $this->menuItem([ 'title'=>'My Admin Profile', 'route'=>'admin.profile.show' ], 1);
-                //$menu[] = $this->menuItem([ 'title'=>'Change Password',  'route'=>'admin.profile.change-password' ], 1);
-                $menu[] = $this->menuItem([ 'title'=>'Admin Logout',     'route'=>'admin.logout', 'icon'=>'fa-sign-out' ], 1);
+                $menu[] = $this->menuItem([ 'title'=>'Admin Dashboard',  'route'=>'admin.dashboard' ]);
+                $menu[] = $this->menuItem([ 'title'=>'My Admin Profile', 'route'=>'admin.profile.show' ]);
+                //$menu[] = $this->menuItem([ 'title'=>'Change Password',  'route'=>'admin.profile.change-password' ]);
+                $menu[] = $this->menuItem([ 'title'=>'Admin Logout',     'route'=>'admin.logout', 'icon'=>'fa-sign-out' ]);
 
                 if ($this->isRootAdmin) {
                     foreach ($menu as $i => $menuItem) {
@@ -161,7 +161,7 @@ class MenuService
                     }
                 }
             } else {
-                $menu[] = $this->menuItem( [ 'name'=>'admin-login', 'title'=>'Admin Login', 'route'=>'admin.login', 'icon'=>'fa-sign-in' ], 1);
+                $menu[] = $this->menuItem( [ 'name'=>'admin-login', 'title'=>'Admin Login', 'route'=>'admin.login', 'icon'=>'fa-sign-in' ]);
             }
         }
 
@@ -198,7 +198,7 @@ class MenuService
                 $menu[] = $this->menuItem([ 'title'=>'My Profile',      'route'=>'user.profile.show' ]);
             } else {
                 if (config('app.users_enabled')) {
-                    $menu[] = $this->menuItem(['title' => 'User Login', 'route' => 'user.login', 'icon' => 'fa-sign-in', 'name' => 'user-login'], 1);
+                    $menu[] = $this->menuItem(['title' => 'User Login', 'route' => 'user.login', 'icon' => 'fa-sign-in', 'name' => 'user-login']);
                 }
             }
         }
@@ -246,7 +246,7 @@ class MenuService
                 $menu[] = $adminDropdownMenu;
 
             } else {
-                $menu[] = $this->menuItem([ 'title'=>'Admin Login', 'route'=>'admin.login', 'icon'=>'fa-sign-in', 'name'=>'admin-login' ], 1);
+                $menu[] = $this->menuItem([ 'title'=>'Admin Login', 'route'=>'admin.login', 'icon'=>'fa-sign-in', 'name'=>'admin-login' ]);
             }
         }
 
@@ -444,7 +444,7 @@ class MenuService
 
         // should we have a resume link at the top of the menu?
         if ($this->hasResume) {
-            if ($resumeMenuItem = $this->getResumeMenuItem(1)) {
+            if ($resumeMenuItem = $this->getResumeMenuItem()) {
                 $menu = array_merge([$resumeMenuItem], $menu);
             }
         }

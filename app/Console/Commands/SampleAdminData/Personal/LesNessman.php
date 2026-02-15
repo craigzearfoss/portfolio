@@ -181,7 +181,7 @@ class LesNessman extends Command
         ];
 
         if (!empty($data)) {
-            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients');
         }
     }
@@ -210,7 +210,7 @@ class LesNessman extends Command
         ];
 
         if (!empty($data)) {
-            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
             $this->insertSystemAdminResource($this->adminId, 'recipe_steps');
         }
     }

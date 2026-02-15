@@ -80,8 +80,8 @@ class BaseController extends Controller
 
         // get cookies
         $this->cookies = [
-            'owner_id' => Cookie::get(self::OWNER_ID_COOKIE, null),
-            'user_id'  => Cookie::get(self::USER_ID_COOKIE, null),
+            'owner_id' => Cookie::get(self::OWNER_ID_COOKIE),
+            'user_id'  => Cookie::get(self::USER_ID_COOKIE),
         ];
 
         // get the "owner_id" url parameter, if there is one

@@ -41,14 +41,14 @@ class JobCoworkerController extends BaseAdminController
 
             if ($this->isRootAdmin) {
                 $query = JobCoworker::where('job_id', $jobId)
-                    ->orderBy('name', 'asc');
+                    ->orderBy('name');
                 if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = Owner::findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
                 $query = JobCoworker::where('job_id', $jobId)
                     ->where('owner_id', $this->owner->id)
-                    ->orderBy('name', 'asc');
+                    ->orderBy('name');
                 $owner = $this->owner;
                 $owner_id = $owner->id;
             }
@@ -58,13 +58,13 @@ class JobCoworkerController extends BaseAdminController
             $job = null;
 
             if ($this->isRootAdmin) {
-                $query = JobCoworker::orderBy('name', 'asc');
+                $query = JobCoworker::orderBy('name');
                 if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = Owner::findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
                 $query = JobCoworker::where('owner_id', $this->owner->id)
-                    ->orderBy('name', 'asc');
+                    ->orderBy('name');
                 $owner = $this->owner;
                 $owner_id = $owner->id;
             }

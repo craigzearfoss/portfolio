@@ -25,7 +25,7 @@ class SkillController extends BaseGuestController
 
         $skills = Skill::where('owner_id', $this->owner->id)
             ->orderBy('level', 'desc')
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.skill.index'), compact('skills'))

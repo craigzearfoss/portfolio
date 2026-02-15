@@ -88,8 +88,7 @@ class RecipeStepController extends BaseAdminController
 
         list($prev, $next) = RecipeStep::prevAndNextPages($recipeStep->id,
             'admin.personal.recipe-step.show',
-            $this->owner->id ?? null,
-            ['id', 'asc']);
+            $this->owner->id ?? null);
 
         return view('admin.personal.recipe-step.show', compact('recipeStep', 'prev', 'next'));
     }

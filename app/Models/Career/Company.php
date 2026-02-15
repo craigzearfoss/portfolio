@@ -184,7 +184,7 @@ class Company extends Model
     public function industry(): BelongsTo
     {
         return $this->belongsTo(Industry::class, 'industry_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
 
     /**

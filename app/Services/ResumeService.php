@@ -45,7 +45,7 @@ class ResumeService {
         $this->awards = Award::where('owner_id', $this->admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('year', 'asc')
+            ->orderBy('year')
             ->get();
 
         $this->certificates = Certificate::where('owner_id', $this->admin->id)
@@ -69,7 +69,7 @@ class ResumeService {
         $this->skills = Skill::where('owner_id', $this->admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('sequence', 'asc')
+            ->orderBy('sequence')
             ->get();
     }
 

@@ -27,7 +27,7 @@ class CourseController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $courses = Course::where('owner_id', $this->owner->id)
-            ->orderBy('name', 'asc')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.course.index'), compact('courses'))

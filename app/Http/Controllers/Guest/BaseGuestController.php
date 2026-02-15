@@ -16,7 +16,7 @@ class BaseGuestController extends BaseController
     {
         parent::__construct($permissionService);
 
-        $this->initialize(EnvTypes::GUEST);
+        $this->initialize();
 
         if (isset($_GET['debug'])) {
             $this->ddDebug();

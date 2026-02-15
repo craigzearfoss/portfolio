@@ -47,7 +47,7 @@ class RecruiterFactory extends Factory
             'alt_email_label' => fake()->randomElement(['alternate', 'support', 'personnel', 'manager']),
             'link'            => fake()->url(),
             'link_name'       => fake()->text(20),
-            'description'     => fake()->text(200),
+            'description'     => fake()->text(),
             'image'           => fake()->imageUrl(),
             'image_credit'    => fake()->name(),
             'image_source'    => fake()->company(),

@@ -20,7 +20,7 @@ class RecipeStepFactory extends Factory
             'owner_id'    => \App\Models\System\Owner::all()->random()->id,
             'recipe_id'   => \App\Models\Personal\Recipe::all()->random()->id,
             'step'        => fake()->numberBetween(1, 8),
-            'description' => fake()->text(200),
+            'description' => fake()->text(),
             'created_at'  => now(),
             'deleted_at'  => now(),
         ];
