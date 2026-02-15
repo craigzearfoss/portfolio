@@ -65,7 +65,7 @@ class JobController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'job', $this->admin);
 
-        $job = Job::create($request->validated());
+        $job = new Job()->create($request->validated());
 
         return redirect()->route('admin.portfolio.job.show', $job)
             ->with('success', $job->company . ' job successfully added.');
@@ -97,7 +97,7 @@ class JobController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $job = Job::findOrFail($id);
+        $job = new Job()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $job, $this->admin);
 

@@ -68,7 +68,7 @@ class ReadingController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'reading', $this->admin);
 
-        $reading = Reading::create($request->validated());
+        $reading = new Reading()->create($request->validated());
 
         return redirect()->route('admin.personal.reading.show', $reading)
             ->with('success', $reading->title . ' successfully added.');
@@ -100,7 +100,7 @@ class ReadingController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $reading = Reading::findOrFail($id);
+        $reading = new Reading()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
 

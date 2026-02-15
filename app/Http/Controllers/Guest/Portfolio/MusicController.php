@@ -26,7 +26,7 @@ class MusicController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = Music::where('owner_id', $this->owner->id)
+        $musics = new Music()->where('owner_id', $this->owner->id)
             ->orderBy('name')
             ->orderBy('artist')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -45,7 +45,7 @@ class MusicController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$music = Music::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$music = new Music()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

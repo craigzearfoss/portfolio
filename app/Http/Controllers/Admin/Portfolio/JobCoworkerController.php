@@ -33,20 +33,22 @@ class JobCoworkerController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        $jobCoworkerModel = new JobCoworker();
+
         $urlParams = $request->query();
 
         if ($jobId = $request->job_id) {
 
-            $job = Job::findOrFail($jobId);
+            $job = new Job()->findOrFail($jobId);
 
             if ($this->isRootAdmin) {
-                $query = JobCoworker::where('job_id', $jobId)
+                $query = $jobCoworkerModel->where('job_id', $jobId)
                     ->orderBy('name');
-                if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = Owner::findOrFail($owner_id))) {
+                if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
-                $query = JobCoworker::where('job_id', $jobId)
+                $query = $jobCoworkerModel->where('job_id', $jobId)
                     ->where('owner_id', $this->owner->id)
                     ->orderBy('name');
                 $owner = $this->owner;
@@ -58,12 +60,12 @@ class JobCoworkerController extends BaseAdminController
             $job = null;
 
             if ($this->isRootAdmin) {
-                $query = JobCoworker::orderBy('name');
-                if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = Owner::findOrFail($owner_id))) {
+                $query = $jobCoworkerModel->orderBy('name');
+                if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
-                $query = JobCoworker::where('owner_id', $this->owner->id)
+                $query = $jobCoworkerModel->where('owner_id', $this->owner->id)
                     ->orderBy('name');
                 $owner = $this->owner;
                 $owner_id = $owner->id;
@@ -89,7 +91,7 @@ class JobCoworkerController extends BaseAdminController
         createGate(PermissionEntityTypes::RESOURCE, 'job-cowroker', $this->admin);
 
         if ($jobId = $request->query('job_id')) {
-            $job = Job::find($jobId);
+            $job = new Job()->find($jobId);
         } else {
             $job = null;
         }
@@ -107,7 +109,7 @@ class JobCoworkerController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'jobCoworker', $this->admin);
 
-        $jobCoworker = JobCoworker::create($request->validated());
+        $jobCoworker = new JobCoworker()->create($request->validated());
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
             ->with('success', $jobCoworker->name . ' successfully added.');
@@ -123,7 +125,7 @@ class JobCoworkerController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
 
-        list($prev, $next) = JobCoworker::prevAndNextPages($jobCoworker->id,
+        list($prev, $next) = new JobCoworker()->prevAndNextPages($jobCoworker->id,
             'admin.portfolio.job-coworker.show',
             $this->owner->id ?? null,
             ['name', 'asc']);
@@ -139,7 +141,7 @@ class JobCoworkerController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $jobCoworker = JobCoworker::findOrFail($id);
+        $jobCoworker = new JobCoworker()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
 

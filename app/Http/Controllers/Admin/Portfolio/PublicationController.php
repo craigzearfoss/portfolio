@@ -64,7 +64,7 @@ class PublicationController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'publication', $this->admin);
 
-        $publication = Publication::create($request->validated());
+        $publication = new Publication()->create($request->validated());
 
         return redirect()->route('admin.portfolio.publication.show', $publication)
             ->with('success', $publication->title . ' successfully added.');
@@ -96,7 +96,7 @@ class PublicationController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $publication = Publication::findOrFail($id);
+        $publication = new Publication()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $publication, $this->admin);
 

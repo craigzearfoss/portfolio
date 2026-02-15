@@ -23,7 +23,7 @@ class PhotographyController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $photos = Photography::where('owner_id', $this->owner->id)
+        $photos = new Photography()->where('owner_id', $this->owner->id)
             ->orderBy('name')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -42,7 +42,7 @@ class PhotographyController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$photo = Photography::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$photo = new Photography()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

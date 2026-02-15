@@ -32,18 +32,20 @@ class JobTaskController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        $jobTaskModel = new JobTask();
+
         if ($jobId = $request->job_id) {
 
-            $job = Job::findOrFail($jobId);
+            $job = new Job()->findOrFail($jobId);
 
             if ($this->isRootAdmin) {
-                $query = JobTask::where('job_id', $jobId)
+                $query = $jobTaskModel->where('job_id', $jobId)
                     ->orderBy('job_id');
-                if (($owner_id = $request->owner) && ($owner = Owner::findOrFail($owner_id))) {
+                if (($owner_id = $request->owner) && ($owner = new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
-                $query = JobTask::where('job_id', $jobId)
+                $query = $jobTaskModel->where('job_id', $jobId)
                     ->where('owner_id', $this->owner->id)
                     ->orderBy('job_id');
                 $owner = $this->owner;
@@ -55,12 +57,12 @@ class JobTaskController extends BaseAdminController
             $job = null;
 
             if ($this->isRootAdmin) {
-                $query = JobTask::orderBy('job_id', 'desc');
-                if (($owner_id = $request->owner_id) && ($owner = Owner::findOrFail($owner_id))) {
+                $query = $jobTaskModel->orderBy('job_id', 'desc');
+                if (($owner_id = $request->owner_id) && ($owner = new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
-                $query = JobTask::where('owner_id', $this->owner->id)
+                $query = $jobTaskModel->where('owner_id', $this->owner->id)
                     ->orderBy('job_id', 'desc');
                 $owner = $this->owner;
                 $owner_id = $owner->id;
@@ -86,7 +88,7 @@ class JobTaskController extends BaseAdminController
         createGate(PermissionEntityTypes::RESOURCE, 'job-task', $this->admin);
 
         $jobId = $request->job_id;
-        $job = !empty($jobId) ? Job::find($jobId) : null;
+        $job = !empty($jobId) ? new Job()->find($jobId) : null;
 
         return view('admin.portfolio.job-task.create', compact('job'));
     }
@@ -101,7 +103,7 @@ class JobTaskController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'jobTask', $this->admin);
 
-        $jobTask = JobTask::create($request->validated());
+        $jobTask = new JobTask()->create($request->validated());
 
         return redirect()->route('admin.portfolio.job-task.show', $jobTask)
             ->with('success', 'Job task successfully added.');
@@ -117,7 +119,7 @@ class JobTaskController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
 
-        list($prev, $next) = JobTask::prevAndNextPages($jobTask->id,
+        list($prev, $next) = new JobTask()->prevAndNextPages($jobTask->id,
             'admin.portfolio.job-task.show',
             $this->owner->id ?? null,
             ['name', 'asc']);
@@ -133,7 +135,7 @@ class JobTaskController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $jobTask = JobTask::findOrFail($id);
+        $jobTask = new JobTask()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
 

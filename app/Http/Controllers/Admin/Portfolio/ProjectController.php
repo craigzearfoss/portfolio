@@ -64,7 +64,7 @@ class ProjectController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'project', $this->admin);
 
-        $project = Project::create($request->validated());
+        $project = new Project()->create($request->validated());
 
         return redirect()->route('admin.portfolio.project.show', $project)
             ->with('success', $project->name . ' project successfully added.');
@@ -96,7 +96,7 @@ class ProjectController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $project = Project::findOrFail($id);
+        $project = new Project()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
 

@@ -69,7 +69,7 @@ class OperatingSystemController extends BaseAdminController
             abort(403, 'Only admins with root access can add operating systems.');
         }
 
-        $operatingSystem = OperatingSystem::create($request->validated());
+        $operatingSystem = new OperatingSystem()->create($request->validated());
 
         return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
             ->with('success', $operatingSystem->name . ' successfully added.');
@@ -105,7 +105,7 @@ class OperatingSystemController extends BaseAdminController
             abort(403, 'Only admins with root access can update operating systems.');
         }
 
-        $operatingSystem = OperatingSystem::findOrFail($id);
+        $operatingSystem = new OperatingSystem()->findOrFail($id);
 
         return view('admin.dictionary.operating-system.edit', compact('operatingSystem'));
     }

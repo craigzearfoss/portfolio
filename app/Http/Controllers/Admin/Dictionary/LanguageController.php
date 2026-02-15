@@ -69,7 +69,7 @@ class LanguageController extends BaseAdminController
             abort(403, 'Only admins with root access can add languages.');
         }
 
-        $language = Language::create($request->validated());
+        $language = new Language()->create($request->validated());
 
         return redirect()->route('admin.dictionary.language.show', $language)
             ->with('success', $language->name . ' successfully added.');
@@ -105,7 +105,7 @@ class LanguageController extends BaseAdminController
             abort(403, 'Only admins with root access can update languages.');
         }
 
-        $language = Language::findOrFail($id);
+        $language = new Language()->findOrFail($id);
 
         return view('admin.dictionary.language.edit', compact('language'));
     }

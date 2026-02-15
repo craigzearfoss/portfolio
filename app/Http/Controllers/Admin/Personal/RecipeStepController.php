@@ -37,7 +37,7 @@ class RecipeStepController extends BaseAdminController
         $query = RecipeStep::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('recipe_id');
-        if ($recipe = $request->recipe_id ? Recipe::findOrFail($request->recipe_id) : null) {
+        if ($recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null) {
             $query->where('recipe_id', $recipe->id);
         }
         $recipeSteps = $query->paginate($perPage)->appends(request()->except('page'));
@@ -70,7 +70,7 @@ class RecipeStepController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'recipe-step', $this->admin);
 
-        $recipeStep = RecipeStep::create($request->validated());
+        $recipeStep = new RecipeStep()->create($request->validated());
 
         return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
             ->with('success', 'Recipe step successfully added.');
@@ -101,7 +101,7 @@ class RecipeStepController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $recipeStep = RecipeStep::findOrFail($id);
+        $recipeStep = new RecipeStep()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $recipeStep, $this->admin);
 

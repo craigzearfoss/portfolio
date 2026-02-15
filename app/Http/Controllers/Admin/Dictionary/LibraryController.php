@@ -69,7 +69,7 @@ class LibraryController extends BaseAdminController
             abort(403, 'Only admins with root access can add libraries.');
         }
 
-        $library = Library::create($request->validated());
+        $library = new Library()->create($request->validated());
 
         return redirect()->route('admin.dictionary.library.show', $library)
             ->with('success', $library->name . ' successfully added.');
@@ -105,7 +105,7 @@ class LibraryController extends BaseAdminController
             abort(403, 'Only admins with root access can update libraries.');
         }
 
-        $library = Library::findOrFail($id);
+        $library = new Library()->findOrFail($id);
 
         return view('admin.dictionary.library.edit', compact('library'));
     }

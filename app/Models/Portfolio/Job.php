@@ -120,7 +120,7 @@ class Job extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        return self::when(isset($filters['id']), function ($query) use ($filters) {
+        return new self()->when(isset($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
@@ -245,8 +245,8 @@ class Job extends Model
 
             $name = 'default';
 
-            if ($database = Database::where('tag', self::DATABASE_TAG)->first()) {
-                if ($resource = Resource::where('database_id', $database->id)->where('table', 'jobs')->first()) {
+            if ($database = new Database()->where('tag', self::DATABASE_TAG)->first()) {
+                if ($resource = new Resource()->where('database_id', $database->id)->where('table', 'jobs')->first()) {
                     $value = ResourceSetting::getSetting($resource->id, 'template');
                     if (!empty($value)) {
                         $name = $value;

@@ -32,18 +32,20 @@ class JobSkillController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        $jobSkillModel = new JobSkill();
+
         if ($jobId = $request->job_id) {
 
-            $job = Job::findOrFail($jobId);
+            $job = new Job()->findOrFail($jobId);
 
             if ($this->isRootAdmin) {
-                $query = JobSkill::where('job_id', $jobId)
+                $query = $jobSkillModel->where('job_id', $jobId)
                     ->orderBy('name');
-                if (($owner_id = $request->owner) && ($owner = Owner::findOrFail($owner_id))) {
+                if (($owner_id = $request->owner) && ($owner = new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
-                $query = JobSkill::where('job_id', $jobId)
+                $query = $jobSkillModel->where('job_id', $jobId)
                     ->where('owner_id', $this->owner->id)
                     ->orderBy('name');
                 $owner = $this->owner;
@@ -55,12 +57,12 @@ class JobSkillController extends BaseAdminController
             $job = null;
 
             if ($this->isRootAdmin) {
-                $query = JobSkill::orderBy('name');
-                if (($owner_id = $request->owner_id) && ($owner = Owner::findOrFail($owner_id))) {
+                $query = $jobSkillModel->orderBy('name');
+                if (($owner_id = $request->owner_id) && ($owner = new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
             } elseif (!empty($this->owner)) {
-                $query = JobSkill::where('owner_id', $this->owner->id)
+                $query = $jobSkillModel->where('owner_id', $this->owner->id)
                     ->orderBy('name');
                 $owner = $this->owner;
                 $owner_id = $owner->id;
@@ -86,7 +88,7 @@ class JobSkillController extends BaseAdminController
         createGate(PermissionEntityTypes::RESOURCE, 'job-skill', $this->admin);
 
         $jobId = $request->job_id;
-        $job = !empty($jobId) ? Job::find($jobId) : null;
+        $job = !empty($jobId) ? new Job()->find($jobId) : null;
 
         return view('admin.portfolio.job-skill.create', compact('job'));
     }
@@ -101,7 +103,7 @@ class JobSkillController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'jobSkill', $this->admin);
 
-        $jobSkill = JobSkill::create($request->validated());
+        $jobSkill = new JobSkill()->create($request->validated());
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
             ->with('success', $jobSkill->name . ' successfully added.');
@@ -117,7 +119,7 @@ class JobSkillController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
 
-        list($prev, $next) = JobSkill::prevAndNextPages($jobSkill->id,
+        list($prev, $next) = new JobSkill()->prevAndNextPages($jobSkill->id,
             'admin.portfolio.job-skill.show',
             $this->owner->id ?? null,
             ['name', 'asc']);
@@ -133,7 +135,7 @@ class JobSkillController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $jobSkill = JobSkill::findOrFail($id);
+        $jobSkill = new JobSkill()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
 

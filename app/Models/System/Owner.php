@@ -74,7 +74,7 @@ class Owner extends Model
             $filters['id'] = $owner->id;
         }
 
-        return self::when(isset($filters['id']), function ($query) use ($filters) {
+        return new self()->when(isset($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['username']), function ($query) use ($filters) {

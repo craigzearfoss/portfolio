@@ -37,7 +37,7 @@ class RecipeIngredientController extends BaseAdminController
         $query = RecipeIngredient::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('recipe_id');
-        if ($recipe = $request->recipe_id ? Recipe::findOrFail($request->recipe_id) : null) {
+        if ($recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null) {
             $query->where('recipe_id', $recipe->id);
         }
         $recipeIngredients = $query->paginate($perPage)->appends(request()->except('page'));
@@ -70,7 +70,7 @@ class RecipeIngredientController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $this->admin);
 
-        $recipeIngredient = RecipeIngredient::create($request->validated());
+        $recipeIngredient = new RecipeIngredient()->create($request->validated());
 
         return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
             ->with('success', 'Recipe ingredient successfully added.');
@@ -101,7 +101,7 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $recipeIngredient = RecipeIngredient::findOrFail($id);
+        $recipeIngredient = new RecipeIngredient()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $this->admin);
 

@@ -64,7 +64,7 @@ class JobBoardController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'job-board', $this->admin);
 
-        $jobBoard =JobBoard::create($request->validated());
+        $jobBoard = new JobBoard()->create($request->validated());
 
         return redirect()->route('admin.career.job-board.show', $jobBoard)
             ->with('success', $jobBoard->name . ' successfully added.');
@@ -96,7 +96,7 @@ class JobBoardController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $jobBoard = JobBoard::findOrFail($id);
+        $jobBoard = new JobBoard()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
 

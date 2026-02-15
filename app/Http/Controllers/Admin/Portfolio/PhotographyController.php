@@ -64,7 +64,7 @@ class PhotographyController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'photography', $this->admin);
 
-        $photo = Photography::create($request->validated());
+        $photo = new Photography()->create($request->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully added.');
@@ -86,7 +86,7 @@ class PhotographyController extends BaseAdminController
             $this->owner->id ?? null,
             ['name', 'asc']);
 
-        $owner = Owner::findOrFail($photo->owner_id);
+        $owner = new Owner()->findOrFail($photo->owner_id);
 
         return view('admin.portfolio.photography.show', compact('photo', 'owner', 'prev', 'next'));
     }
@@ -99,11 +99,11 @@ class PhotographyController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $photo = Photography::findOrFail($id);
+        $photo = new Photography()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
 
-        $owner = Owner::findOrFail($photo->owner_id);
+        $owner = new Owner()->findOrFail($photo->owner_id);
 
         return view('admin.portfolio.photography.edit', compact('photo', 'owner'));
     }

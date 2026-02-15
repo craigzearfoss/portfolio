@@ -37,7 +37,7 @@ class LogLoginSuccess
 
                 Log::info('Admin ' . $admin->username . ' (' . $admin->id . ') logged in from ' . $ipAddress);
 
-                LoginAttemptsAdmin::insert([
+                new LoginAttemptsAdmin()->insert([
                     'admin_id'   => $admin->id,
                     'username'   => $admin->username,
                     'ip_address' => $ipAddress,
@@ -53,7 +53,7 @@ class LogLoginSuccess
 
                 Log::info('User ' . $user->username . ' (' . $user->id . ') logged in from ' . $ipAddress);
 
-                LoginAttemptsUser::insert([
+                new LoginAttemptsUser()->insert([
                     'user_id'    => $user->id,
                     'username'   => $user->username,
                     'ip_address' => $ipAddress,

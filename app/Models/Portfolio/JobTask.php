@@ -85,7 +85,7 @@ class JobTask extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        return self::when(isset($filters['id']), function ($query) use ($filters) {
+        return new self()->when(isset($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {

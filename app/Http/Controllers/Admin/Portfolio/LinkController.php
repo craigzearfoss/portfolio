@@ -65,7 +65,7 @@ class LinkController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'link', $this->admin);
 
-        $link = Link::create($request->validated());
+        $link = new Link()->create($request->validated());
 
         return redirect()->route('admin.portfolio.link.show', $link)
             ->with('success', $link->name . ' link successfully added.');
@@ -97,7 +97,7 @@ class LinkController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $link = Link::findOrFail($id);
+        $link = new Link()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
 

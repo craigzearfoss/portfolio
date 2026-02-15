@@ -509,7 +509,7 @@ class MenuService
         }
 
         // if there are no jobs for this owner then return null
-        if (Resource::withoutGlobalScope(AdminPublicScope::class)
+        if (new Resource()->withoutGlobalScope(AdminPublicScope::class)
                 ->where('name', 'job')->where($this->envType->value, 1)->where('public', 1)->count() == 0
         ) {
             return null;

@@ -37,7 +37,7 @@ class LogLogout
 
                 Log::info('Admin ' . ($admin->username ?? '?') . ' (' . ($admin->id ?? '??') . ') logged out from ' . $ipAddress);
 
-                LoginAttemptsAdmin::insert([
+                new LoginAttemptsAdmin()->insert([
                     'admin_id'   => $admin->id ?? null,
                     'username'   => $admin->username ?? '?',
                     'ip_address' => $ipAddress,
@@ -53,7 +53,7 @@ class LogLogout
 
                 Log::info('User ' . ($user->username ?? '?') . ' (' . ($user->id ?? '?') . ') logged out from ' . $ipAddress);
 
-                LoginAttemptsUser::insert([
+                new LoginAttemptsUser()->insert([
                     'user_id'    => $user->id->id ?? null,
                     'username'   => $user->username->id ?? '?',
                     'ip_address' => $ipAddress,

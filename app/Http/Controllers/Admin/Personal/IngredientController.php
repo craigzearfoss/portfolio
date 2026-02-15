@@ -30,7 +30,7 @@ class IngredientController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $ingredients = Ingredient::where('name', '!=', 'other')
+        $ingredients = new Ingredient()->where('name', '!=', 'other')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -62,7 +62,7 @@ class IngredientController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'ingredient', $this->admin);
 
-        $ingredient = Ingredient::create($request->validated());
+        $ingredient = new Ingredient()->create($request->validated());
 
         return redirect()->route('admin.personal.ingredient.show', $ingredient)
             ->with('success', $ingredient->name . ' successfully added.');
@@ -94,7 +94,7 @@ class IngredientController extends BaseAdminController
      */
     public function edit(int $id): View
     {
-        $ingredient = Ingredient::findOrFail($id);
+        $ingredient = new Ingredient()->findOrFail($id);
 
         updateGate(PermissionEntityTypes::RESOURCE, $ingredient, $this->admin);
 

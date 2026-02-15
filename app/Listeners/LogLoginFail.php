@@ -36,7 +36,7 @@ class LogLoginFail
 
                 Log::info('Admin login attempt failed for ' . $username . ' from ' . $ipAddress);
 
-                LoginAttemptsAdmin::insert([
+                new LoginAttemptsAdmin()->insert([
                     'admin_id'   => null,
                     'username'   => $username,
                     'ip_address' => $ipAddress,
@@ -50,7 +50,7 @@ class LogLoginFail
 
                 Log::info('User login attempt failed for ' . $username . ' from ' . $ipAddress);
 
-                LoginAttemptsUser::insert([
+                new LoginAttemptsUser()->insert([
                     'user_id' => null,
                     'username' => $username,
                     'ip_address' => $ipAddress,

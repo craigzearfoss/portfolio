@@ -23,7 +23,7 @@ class LanguageController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $languages = Language::where('name', '!=', 'other')
+        $languages = new Language()->where('name', '!=', 'other')
             ->where('public', true)
             ->where('disabled', false)
             ->where('name', '!=', 'other')
@@ -42,7 +42,7 @@ class LanguageController extends BaseGuestController
      */
     public function show(string $slug): View
     {
-        if (!$language = Language::where('slug', $slug)->first()) {
+        if (!$language = new Language()->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

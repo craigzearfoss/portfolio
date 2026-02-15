@@ -44,7 +44,7 @@ class ReadingController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$reading = Reading::where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$reading = new Reading()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
