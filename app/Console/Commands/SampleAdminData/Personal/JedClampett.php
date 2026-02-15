@@ -13,21 +13,48 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
+/**
+ *
+ */
 class JedClampett extends Command
 {
+    /**
+     *
+     */
     const string DB_TAG = 'personal_db';
 
+    /**
+     *
+     */
     const string USERNAME = 'jed-clampett';
 
+    /**
+     * @var int
+     */
     protected int $demo = 1;
+
+    /**
+     * @var int
+     */
     protected int $silent = 0;
 
+    /**
+     * @var int|null
+     */
     protected int|null $databaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
+    /**
+     * @var array
+     */
     protected $recipeId = [];
 
     /**
@@ -81,6 +108,9 @@ class JedClampett extends Command
         $this->insertPersonalRecipeSteps();
     }
 
+    /**
+     * @return void
+     */
     protected function insertPersonalReadings(): void
     {
         echo self::USERNAME . ": Inserting into Personal\\Reading ...\n";
@@ -127,6 +157,9 @@ class JedClampett extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPersonalRecipes(): void
     {
         echo self::USERNAME . ": Inserting into Personal\\Recipe ...\n";
@@ -151,6 +184,9 @@ class JedClampett extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPersonalRecipeIngredients(): void
     {
         echo self::USERNAME . ": Inserting into Personal\\RecipeIngredient ...\n";
@@ -210,6 +246,9 @@ class JedClampett extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     protected function insertPersonalRecipeSteps(): void
     {
         echo self::USERNAME . ": Inserting into Personal\\RecipeStep ...\n";
@@ -330,7 +369,7 @@ class JedClampett extends Command
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = new Resource()->insert('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -356,9 +395,7 @@ class JedClampett extends Command
     }
 
     /**
-     * Get a database.
-     *
-     * @return mixed
+     * @return null
      */
     protected function getDatabase()
     {
@@ -366,11 +403,11 @@ class JedClampett extends Command
     }
 
     /**
-     * Get a database's resources.
+     * Get the database's resources.
      *
-     * @return mixed
+     * @return array|Collection
      */
-    protected function getDbResources()
+    protected function getDbResources(): Collection|array
     {
         if (!$database = $this->getDatabase()) {
             return [];

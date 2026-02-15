@@ -356,7 +356,7 @@ class SamMalone extends Command
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = new Resource()->insert('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
 
             $data = [];
 
@@ -381,9 +381,6 @@ class SamMalone extends Command
         }
     }
 
-    /**
-     * Get the database.
-     */
     protected function getDatabase()
     {
         return new Database()->where('tag', self::DB_TAG)->first();
