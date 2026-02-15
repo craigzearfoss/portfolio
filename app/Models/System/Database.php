@@ -220,10 +220,10 @@ class Database extends Model
             $query->where('databases.name', $dbName);
         }
 
-        if (isset($filters['public'])) $query->where('resources.public', boolval($filters['public']) ? 1 : 0);
-        if (isset($filters['readonly'])) $query->where('resources.readonly', boolval($filters['readonly']) ? 1 : 0);
-        if (isset($filters['root'])) $query->where('resources.root', boolval($filters['root']) ? 1 : 0);
-        if (isset($filters['disabled'])) $query->where('resources.disabled', boolval($filters['disabled']) ? 1 : 0);
+        if (isset($filters['public'])) $query->where('resources.public', $filters['public'] ? 1 : 0);
+        if (isset($filters['readonly'])) $query->where('resources.readonly', $filters['readonly'] ? 1 : 0);
+        if (isset($filters['root'])) $query->where('resources.root', $filters['root'] ? 1 : 0);
+        if (isset($filters['disabled'])) $query->where('resources.disabled', $filters['disabled'] ? 1 : 0);
 
         return $query->get()->toArray();
     }

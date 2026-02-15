@@ -210,7 +210,7 @@ if (! function_exists('isRootAdmin')) {
     function isRootAdmin(): bool
     {
         try {
-            return Auth::guard('admin')->check() && (bool)Auth::guard('admin')->user()->root;
+            return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
         } catch (\Throwable $th) {
             return false;
         }
@@ -466,7 +466,7 @@ if (! function_exists('formatCompensation')) {
         $min    = !empty($params['min']) ? $params['min'] : null;
         $max    = !empty($params['max']) ? $params['max'] : null;
         $unit   = !empty($params['unit']) ? $params['unit'] : null;
-        $short  = isset($params['short']) && boolval($params['short']);
+        $short  = isset($params['short']) && $params['short'];
 
         if ($short) {
             if (!empty($min)) {
