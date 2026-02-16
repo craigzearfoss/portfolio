@@ -1,10 +1,12 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     $buttons = [];
         $buttons[] = view('admin.components.nav-button', [ 'name' => 'Preview Current Resume',
                                                            'href' => route('admin.career.resume.preview', $owner),
                                                            'style' => 'background-color: #3e8ed0 !important;'
                                                          ])->render();
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
 @endphp
@@ -113,7 +115,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $resume, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $resume, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.resume.show', $resume),
@@ -121,7 +123,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $resume, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $resume, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.resume.edit', $resume),
@@ -144,7 +146,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $resume, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $resume, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.resume.destroy', $resume) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

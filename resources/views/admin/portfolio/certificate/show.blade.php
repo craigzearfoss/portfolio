@@ -1,6 +1,8 @@
 @php
     // set breadcrumbs
-    $breadcrumbs = [
+        use App\Enums\PermissionEntityTypes;
+
+$breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
@@ -17,10 +19,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $certificate, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.certificate.edit', $certificate)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'certificate', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'certificate', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certificate', 'href' => route('admin.portfolio.certificate.create', $owner ?? $admin)])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.certificate.index')])->render();

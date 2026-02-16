@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -16,7 +18,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'art', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'art', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Art',
                                                                'href' => route('admin.portfolio.art.create',
                                                                                !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
@@ -110,7 +112,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $art, $admin))
+                                @if(canRead(PermissionEntityTypes::RESOURCE, $art, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.art.show', $art),
@@ -141,7 +143,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $art, $admin))
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $art, $admin))
                                     <form class="delete-resource" action="{!! route('admin.portfolio.art.destroy', $art) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')

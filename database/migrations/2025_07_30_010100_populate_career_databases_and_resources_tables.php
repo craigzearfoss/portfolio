@@ -315,6 +315,30 @@ return new class extends Migration
                 'id'          => $resourceId++,
                 'parent_id'   => null,
                 'database_id' => $database->id,
+                'name'        => 'job-search-log',
+                'table'       => 'job_search-log',
+                'class'       => 'App\Models\Career\JobSearchLog',
+                'title'       => 'Job Search Log',
+                'plural'      => 'Job Search Log',
+                'has_owner'   => false,
+                'guest'       => false,
+                'user'        => false,
+                'admin'       => true,
+                'global'      => false,
+                'menu'        => true,
+                'menu_level'  => 1,
+                'icon'        => 'fa-clipboard',
+                'public'      => false,
+                'readonly'    => false,
+                'root'        => false,
+                'disabled'    => false,
+                'sequence'    => $database->sequence + 100,
+            ];
+
+            $data[] = [
+                'id'          => $resourceId++,
+                'parent_id'   => null,
+                'database_id' => $database->id,
                 'name'        => 'recruiter',
                 'table'       => 'recruiters',
                 'class'       => 'App\Models\Career\Recruiter',
@@ -332,7 +356,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 100,
+                'sequence'    => $database->sequence + 110,
             ];
 
             $data[] = [
@@ -356,7 +380,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 110,
+                'sequence'    => $database->sequence + 120,
             ];
 
             $data[] = [
@@ -380,7 +404,7 @@ return new class extends Migration
                 'readonly'    => false,
                 'root'        => false,
                 'disabled'    => false,
-                'sequence'    => $database->sequence + 120,
+                'sequence'    => $database->sequence + 130,
             ];
 
             // add timestamps and owner_ids

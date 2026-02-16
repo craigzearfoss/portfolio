@@ -9,6 +9,7 @@ use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @mixin Eloquent
@@ -124,9 +125,9 @@ class OperatingSystem extends Model
     /**
      * Return the stacks for the operating system.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function stacks()
+    public function stacks(): BelongsToMany
     {
         return $this->belongsToMany(Stack::class);
     }

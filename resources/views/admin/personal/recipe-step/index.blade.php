@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -18,7 +20,7 @@
     }
 
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'recipe-step', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe-step', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create', $owner)])->render();
     }
 @endphp
@@ -107,7 +109,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.personal.recipe-step.show', $recipeStep->id),
@@ -115,7 +117,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.personal.recipe-step.edit', $recipeStep->id),
@@ -123,7 +125,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
                                 <form class="delete-resource" action="{!! route('admin.personal.recipe-step.destroy', $recipeStep) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

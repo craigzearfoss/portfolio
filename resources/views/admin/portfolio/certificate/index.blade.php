@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -15,7 +17,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'certificate', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'certificate', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certificate', 'href' => route('admin.portfolio.certificate.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -121,7 +123,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $certificate, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.certificate.show', $certificate),
@@ -129,7 +131,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $certificate, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.certificate.edit', [$admin, $certificate]),
@@ -152,7 +154,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $certificate, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $certificate, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.certificate.destroy', $certificate) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

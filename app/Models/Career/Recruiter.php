@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -175,8 +176,10 @@ class Recruiter extends Model
 
     /**
      * Return an array of coverage areas for the recruiter (international, national, regional, local).
+     *
+     * @return array
      */
-    protected function getCoverageAreas()
+    protected function getCoverageAreas(): array
     {
         $coverageAreas = [];
         if (!empty($this->international)) $coverageAreas[] = 'international';
@@ -185,5 +188,14 @@ class Recruiter extends Model
         if (!empty($this->local)) $coverageAreas[] = 'local';
 
         return $coverageAreas;
+    }
+
+    /**
+     * Get the career job search log entries for the cover letter.
+     */
+    public function jobSearchLogEntries(): HasMany
+    {
+        return $this->hasMany(JobSearchLog::class, 'application_id')
+            ->orderBy('time_logged', 'desc');
     }
 }

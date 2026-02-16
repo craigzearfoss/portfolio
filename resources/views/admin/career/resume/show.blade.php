@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -18,10 +20,10 @@
     }
 
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $resume, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $resume, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.resume.edit', $resume)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.resume.index')])->render();

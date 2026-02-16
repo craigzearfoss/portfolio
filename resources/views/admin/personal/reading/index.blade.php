@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -15,7 +17,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'reading', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'reading', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reading', 'href' => route('admin.personal.reading.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -127,7 +129,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $reading, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $reading, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.personal.reading.show', [$owner, $reading->id]),
@@ -135,7 +137,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $reading, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $reading, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.personal.reading.edit', [$owner, $reading->id]),
@@ -158,7 +160,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $reading, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $reading, $admin))
                                 <form class="delete-resource" action="{!! route('admin.personal.reading.destroy', $reading) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

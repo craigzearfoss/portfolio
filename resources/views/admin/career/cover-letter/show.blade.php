@@ -1,9 +1,11 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $coverLetter, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $coverLetter, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.cover-letter.edit', $coverLetter)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'cover-letter', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'cover-letter', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.cover-letter.index')])->render();

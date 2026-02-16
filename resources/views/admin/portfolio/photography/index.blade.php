@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -16,7 +18,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'photo', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'photo', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Photo',
                                                                'href' => route('admin.portfolio.photography.create',
                                                                                !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
@@ -110,7 +112,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $photo, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $photo, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.photography.show', $photo),
@@ -118,7 +120,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $photo, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $photo, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.photography.edit', $photo),
@@ -141,7 +143,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $photo, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $photo, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.photography.destroy', $photo) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

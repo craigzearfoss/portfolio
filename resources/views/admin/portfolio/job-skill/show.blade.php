@@ -1,9 +1,11 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $jobSkill, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $jobSkill, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.job-skill.edit', $jobSkill)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'job-skill', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'job-skill', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-skill.index')])->render();

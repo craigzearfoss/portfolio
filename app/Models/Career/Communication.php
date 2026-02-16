@@ -2,7 +2,6 @@
 
 namespace App\Models\Career;
 
-use App\Models\Career\CommunicationType;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -13,8 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 /**
  * @mixin Eloquent
@@ -154,4 +153,12 @@ class Communication extends Model
             ->orderBy('sequence');
     }
 
+    /**
+     * Get the career job search log entries for the cover letter.
+     */
+    public function jobSearchLogEntries(): HasMany
+    {
+        return $this->hasMany(JobSearchLog::class, 'application_id')
+            ->orderBy('time_logged', 'desc');
+    }
 }

@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -15,7 +17,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'audio', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'audio', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Audio', 'href' => route('admin.portfolio.audio.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -111,7 +113,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $audio, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $audio, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.audio.show', [$admin, $audio->id]),
@@ -119,7 +121,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $audio, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $audio, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.audio.edit', [$admin, $audio->id]),
@@ -142,7 +144,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $audio, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $audio, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.audio.destroy', $audio) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

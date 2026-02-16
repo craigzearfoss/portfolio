@@ -1,9 +1,11 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $message, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.message.edit', $message) ])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'message', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'message', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Message',
                                                                'href' => route('admin.system.message.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []

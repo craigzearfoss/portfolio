@@ -17,12 +17,12 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'company', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create', $owner ?? $admin)])->render();
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'job-search-log', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Log Entry', 'href' => route('admin.career.job-search-log.create', $owner ?? $admin)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Companies',
+    'title'            => $pageTitle ?? 'Job Search Log',
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
@@ -38,13 +38,13 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.company.index') ])
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.job-search-log.index') ])
     @endif
 
     <div class="card p-4">
 
         @if($pagination_top)
-            {!! $companies->links('vendor.pagination.bulma') !!}
+            {!! $jobSearchLogs->links('vendor.pagination.bulma') !!}
         @endif
 
         <table class="table admin-table">
@@ -76,65 +76,36 @@
 
             <tbody>
 
-            @forelse ($companies as $company)
+            @forelse ($jobSearchLogs as $jobSearchLog)
 
-                <tr data-id="{{ $company->id }}">
+                <tr data-id="{{ $jobSearchLog->id }}">
                     @if(!empty($admin->root))
                         <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $company->owner->username }}
+                            {{ $jobSearchLog->owner->username }}
                         </td>
                     @endif
-                    <td data-field="name">
-                        {!! $company->name !!}
+                    <td data-field="time_logged">
+                        {!! $jobSearchLog->time_logged !!}
                     </td>
-                        <td data-field="industry.name">
-                            {!! $company->industry->name ?? '' !!}
-                        </td>
-                    <td data-field="location" style="white-space: nowrap;">
-                        {!!
-                            formatLocation([
-                                'city'    => $company->city,
-                                'state'   => $company->state->code ?? '',
-                            ])
-                        !!}
+                    <td data-field="message">
+                        {!! $jobSearchLog->message !!}
                     </td>
                     <td class="is-1">
 
                         <div class="action-button-panel">
 
-                            @if(canRead(PermissionEntityTypes::RESOURCE, $company, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $jobSearchLog, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => route('admin.career.company.show', $company),
+                                    'href'  => route('admin.career.job-search-log.show', $jobSearchLog),
                                     'icon'  => 'fa-list'
                                 ])
                             @endif
 
-                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $company, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'edit',
-                                    'href'  => route('admin.career.company.edit', $company),
-                                    'icon'  => 'fa-pen-to-square'
-                                ])
-                            @endif
-
-                            @if (!empty($company->link))
-                                @include('admin.components.link-icon', [
-                                    'title'  => !empty($company->link_name) ? $company->link_name : 'link',
-                                    'href'   => $company->link,
-                                    'icon'   => 'fa-external-link',
-                                    'target' => '_blank'
-                                ])
-                            @else
-                                @include('admin.components.link-icon', [
-                                    'title'    => 'link',
-                                    'icon'     => 'fa-external-link',
-                                    'disabled' => true
-                                ])
-                            @endif
-
-                            @if(canDelete(PermissionEntityTypes::RESOURCE, $company, $admin))
-                                <form class="delete-resource" action="{!! route('admin.career.company.destroy', $company) !!}" method="POST">
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $jobSearchLog, $admin))
+                                <form class="delete-resource"
+                                      action="{!! route('admin.career.job-search-log.destroy', $jobSearchLog) !!}"
+                                      method="POST">
                                     @csrf
                                     @method('DELETE')
                                     @include('admin.components.button-icon', [
@@ -153,7 +124,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '5' : '4' }}">There are no companies.</td>
+                    <td colspan="{{ $admin->root ? '5' : '4' }}">There are no log entries.</td>
                 </tr>
 
             @endforelse
@@ -162,7 +133,7 @@
         </table>
 
         @if($pagination_bottom)
-            {!! $companies->links('vendor.pagination.bulma') !!}
+            {!! $jobSearchLogs->links('vendor.pagination.bulma') !!}
         @endif
 
     </div>

@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -10,10 +12,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $library, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $library, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.library.edit', $library)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'library', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'library', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Library', 'href' => route('admin.dictionary.library.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

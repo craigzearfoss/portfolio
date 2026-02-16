@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -198,6 +197,15 @@ class Company extends Model
     {
         return $this->belongsTo(Industry::class, 'industry_id')
             ->orderBy('name');
+    }
+
+    /**
+     * Get the career job search log entries for the cover letter.
+     */
+    public function jobSearchLogEntries(): HasMany
+    {
+        return $this->hasMany(JobSearchLog::class, 'application_id')
+            ->orderBy('time_logged', 'desc');
     }
 
     /**

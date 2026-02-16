@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -9,7 +11,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'message', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'message', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
     }
 @endphp
@@ -79,7 +81,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $message, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.system.message.show', $message),
@@ -87,7 +89,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $message, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.system.message.edit', $message),
@@ -95,7 +97,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
                                 @csrf
                                 @method('DELETE')
                                 @include('admin.components.button-icon', [
@@ -105,7 +107,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $message, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
                                 <form class="delete-resource" action="{!! route('admin.system.message.destroy', $message) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

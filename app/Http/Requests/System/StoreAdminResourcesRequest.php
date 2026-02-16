@@ -3,6 +3,7 @@
 namespace App\Http\Requests\System;
 
 use App\Models\System\AdminResource;
+use App\Models\System\Resource;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;

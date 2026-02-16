@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -9,7 +11,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'language', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'language', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Language', 'href' => route('admin.dictionary.language.create')])->render();
     }
 @endphp
@@ -91,7 +93,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $language, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $language, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.dictionary.language.show', $language),
@@ -99,7 +101,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $language, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $language, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.language.edit', $language),
@@ -137,7 +139,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $language, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $language, $admin))
                                 <form class="delete-resource" action="{!! route('admin.dictionary.language.destroy', $language) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

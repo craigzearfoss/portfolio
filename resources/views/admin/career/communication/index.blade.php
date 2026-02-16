@@ -1,6 +1,8 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
     }
 @endphp
@@ -120,7 +122,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $communication, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $communication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.communication.show', $communication),
@@ -128,7 +130,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $communication, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.communication.edit', $communication),
@@ -151,21 +153,21 @@
                                 ])
                             @endif
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $communication, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $communication, $admin))
                                 <a title="show" class="button is-small px-1 py-0"
                                    href="{!! route('admin.career.communication.show', $communication->id) !!}">
                                     <i class="fa-solid fa-list"></i>
                                 </a>
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $communication, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin))
                                 <a title="edit" class="button is-small px-1 py-0"
                                    href="{!! route('admin.career.communication.edit', $communication) !!}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $communication, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $communication, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.communication.destroy', $communication) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

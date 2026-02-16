@@ -1,9 +1,11 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $communication, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.communication.edit', $communication)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.communication.index')])->render();

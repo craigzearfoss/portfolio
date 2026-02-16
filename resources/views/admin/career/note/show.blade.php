@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -20,10 +22,10 @@
     }
 
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $note, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $note, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.note.edit', $note)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'note', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'note', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.note.index')])->render();

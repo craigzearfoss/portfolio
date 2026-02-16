@@ -5,20 +5,17 @@ namespace App\Models\Career;
 use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
-use App\Models\System\Database;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\ResumeFactory;
 use Eloquent;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 /**
  * @mixin Eloquent
@@ -110,36 +107,6 @@ class Resume extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
-    }
-
-    /**
-     * Get the system owner of the resume.
-     */
-    public function owner(): BelongsTo
-    {
-        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
-    }
-
-    /**
-     * Get the career applications for the resume.
-     */
-    public function applications(): HasMany
-    {
-        return $this->hasMany(Application::class, 'resume_id')->orderBy('post_date', 'desc');
-    }
-
-
-    /**
-     * Returns an array of file types.
-     *
-     * @param $includeBlank bool
-     * @return array
-     */
-    protected static function fileTypes(bool $includeBlank = false): array
-    {
-        return $includeBlank
-            ? array_merge([ '' => ''], self::FILE_TYPES)
-            : self::FILE_TYPES;
     }
 
     /**
@@ -252,5 +219,43 @@ class Resume extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
+    }
+
+    /**
+     * Get the system owner of the resume.
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
+    }
+
+    /**
+     * Get the career applications for the resume.
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class, 'resume_id')->orderBy('post_date', 'desc');
+    }
+
+    /**
+     * Returns an array of file types.
+     *
+     * @param $includeBlank bool
+     * @return array
+     */
+    protected static function fileTypes(bool $includeBlank = false): array
+    {
+        return $includeBlank
+            ? array_merge([ '' => ''], self::FILE_TYPES)
+            : self::FILE_TYPES;
+    }
+
+    /**
+     * Get the career job search log entries for the cover letter.
+     */
+    public function jobSearchLogEntries(): HasMany
+    {
+        return $this->hasMany(JobSearchLog::class, 'application_id')
+            ->orderBy('time_logged', 'desc');
     }
 }

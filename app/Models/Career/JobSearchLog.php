@@ -9,7 +9,7 @@ use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin Eloquent
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class JobSearchLog extends Model
 {
-    use SearchableModelTrait, SoftDeletes;
+    use SearchableModelTrait;
 
     /**
      * @var string
@@ -27,7 +27,7 @@ class JobSearchLog extends Model
     /**
      * @var string
      */
-    protected $table = 'applications';
+    protected $table = 'job_search_log';
 
     /**
      * The attributes that are mass assignable.
@@ -37,9 +37,8 @@ class JobSearchLog extends Model
     protected $fillable = [
         'owner_id',
         'message',
-        'recruiter_id',
+        'time_logged',
         'application_id',
-        'job_id',
         'cover_letter_id',
         'resume_id',
         'company_id',
@@ -48,14 +47,14 @@ class JobSearchLog extends Model
         'event_id',
         'note_id',
         'reference_id',
-    ];
+        'recruiter_id',
+s    ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'recruiter_id', 'message', 'application_id', 'job_id',
-        'cover_letter_id', 'resume_id', 'company_id', 'contact_id', 'communication_id', 'event_id', 'note_id',
-        'reference_id' ];
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'message', 'application_id', 'cover_letter_id', 'resume_id',
+        'company_id', 'contact_id', 'communication_id', 'event_id', 'note_id', 'reference_id', 'recruiter_id' ];
 
     /**
      *
@@ -97,9 +96,6 @@ class JobSearchLog extends Model
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where('application_id', '=', intval($filters['application_id']));
             })
-            ->when(!empty($filters['job_id']), function ($query) use ($filters) {
-                $query->where('job_id', '=', intval($filters['job_id']));
-            })
             ->when(!empty($filters['cover_letter_id']), function ($query) use ($filters) {
                 $query->where('cover_letter_id', '=', intval($filters['cover_letter_id']));
             })
@@ -123,6 +119,83 @@ class JobSearchLog extends Model
             })
             ->when(!empty($filters['reference_id']), function ($query) use ($filters) {
                 $query->where('reference_id', '=', intval($filters['reference_id']));
+            })
+            ->when(!empty($filters['recruiter_id']), function ($query) use ($filters) {
+                $query->where('recruiter_id', '=', intval($filters['recruiter_id']));
             });
+    }
+
+
+    /**
+     * Get the career application that owns the job search log entry.
+     */
+    public function application(): BelongsTo
+    {
+        return $this->belongsTo(Application::class, 'application_id')
+            ->orderBy('post_date', 'desc');
+    }
+
+    /**
+     * Get the career communication that owns the job search log entry.
+     */
+    public function communication(): BelongsTo
+    {
+        return $this->belongsTo(Communication::class, 'communication_id')->orderBy('name');
+    }
+
+    /**
+     * Get the career company that owns the job search log entry.
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id')->orderBy('name');
+    }
+
+    /**
+     * Get the career contact that owns the job search log entry.
+     */
+    public function contact(): BelongsTo
+    {
+        return $this->belongsTo(Contact::class, 'contact_id')->orderBy('name');
+    }
+
+    /**
+     * Get the career cover letter that owns the job search log entry.
+     */
+    public function coverLetter(): BelongsTo
+    {
+        return $this->belongsTo(CoverLetter::class, 'cover_letter_id')->orderBy('name');
+    }
+
+    /**
+     * Get the career event that owns the job search log entry.
+     */
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class, 'event_id')->orderBy('name');
+    }
+
+    /**
+     * Get the career note that owns the job search log entry.
+     */
+    public function note(): BelongsTo
+    {
+        return $this->belongsTo(Note::class, 'note_id')->orderBy('name');
+    }
+
+    /**
+     * Get the career recruiter that owns the job search log entry.
+     */
+    public function recruiter(): BelongsTo
+    {
+        return $this->belongsTo(Recruiter::class, 'recruiter_id')->orderBy('name');
+    }
+
+    /**
+     * Get the career resume that owns the job search log entry.
+     */
+    public function resume(): BelongsTo
+    {
+        return $this->belongsTo(Recruiter::class, 'resume_id')->orderBy('name');
     }
 }

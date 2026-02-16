@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -9,7 +11,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'operating-system', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'operating-system', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Operating System', 'href' => route('admin.dictionary.operating-system.create')])->render();
     }
 @endphp
@@ -91,7 +93,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $operatingSystem, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $operatingSystem, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.dictionary.operating-system.show', $operatingSystem),
@@ -99,7 +101,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $operatingSystem, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $operatingSystem, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.operating-system.edit', $operatingSystem),
@@ -137,7 +139,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $operatingSystem, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $operatingSystem, $admin))
                                 <form class="delete-resource" action="{!! route('admin.dictionary.operating-system.destroy', $operatingSystem) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

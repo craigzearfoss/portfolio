@@ -10,7 +10,7 @@ return new class extends Migration
     /**
      * @var string
      */
-    protected string $database_tag = 'system_db';
+    protected string $database_tag = 'career_db';
 
     /**
      * Run the migrations.

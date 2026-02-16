@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -15,7 +17,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'recipe', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe', 'href' => route('admin.personal.recipe.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -106,7 +108,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $recipe, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.personal.recipe.show', [$owner, $recipe]),
@@ -114,7 +116,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $recipe, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.personal.recipe.edit', [$owner, $recipe]),
@@ -137,7 +139,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $recipe, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $recipe, $admin))
                                 <form class="delete-resource" action="{!! route('admin.personal.recipe.destroy', $recipe) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

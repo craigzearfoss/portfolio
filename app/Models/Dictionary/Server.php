@@ -76,7 +76,7 @@ class Server extends Model
     /**
      * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         parent::booted();
 

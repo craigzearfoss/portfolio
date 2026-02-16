@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -126,19 +127,20 @@ class CoverLetter extends Model
     }
 
     /**
-     * Get the name of the application.
+     * Get the career application that owns the career over letter.
      */
-    protected function name(): Attribute
+    public function application(): BelongsTo
     {
-        return new Attribute(
-            get: fn () => $this->calculateName()
-        );
+        return $this->belongsTo(Application::class, 'application_id')
+            ->orderBy('post_date', 'desc');
     }
 
     /**
      * Calculate the name of the application.
+     *
+     * @return string
      */
-    protected function calculateName()
+    protected function calculateName():string
     {
         $company = $this->application->company['name'];
         $role = $this->application['role'] ?? '?role?';
@@ -150,11 +152,21 @@ class CoverLetter extends Model
     }
 
     /**
-     * Get the career application that owns the career over letter.
+     * Get the name of the application.
      */
-    public function application(): BelongsTo
+    protected function name(): Attribute
     {
-        return $this->belongsTo(Application::class, 'application_id')
-            ->orderBy('post_date', 'desc');
+        return new Attribute(
+            get: fn () => $this->calculateName()
+        );
+    }
+
+    /**
+     * Get the career job search log entries for the cover letter.
+     */
+    public function jobSearchLogEntries(): HasMany
+    {
+        return $this->hasMany(JobSearchLog::class, 'application_id')
+            ->orderBy('time_logged', 'desc');
     }
 }

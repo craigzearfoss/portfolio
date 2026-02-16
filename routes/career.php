@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Career\EventController as AdminCareerEventControl
 use App\Http\Controllers\Admin\Career\IndexController as AdminCareerIndexController;
 use App\Http\Controllers\Admin\Career\IndustryController as AdminCareerIndustryController;
 use App\Http\Controllers\Admin\Career\JobBoardController as AdminCareerJobBoardController;
+use App\Http\Controllers\Admin\Career\JobSearchLogController as AdminCareerJobSearchLogController;
 use App\Http\Controllers\Admin\Career\NoteController as AdminCareerNoteController;
 use App\Http\Controllers\Admin\Career\RecruiterController as AdminCareerRecruiterController;
 use App\Http\Controllers\Admin\Career\ReferenceController as AdminCareerReferenceController;
@@ -38,6 +39,7 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::delete('contact/{contact}/company/detach/{company}', [AdminCareerContactController::class, 'detachCompany'])->name('contact.company.detach');
     Route::resource('cover-letter', AdminCareerCoverLetterController::class)->parameter('cover-letter', 'cover_letter');
     Route::resource('event', AdminCareerEventController::class);
+    Route::resource('job-search-log', AdminCareerJobSearchLogController::class);
     Route::resource('note', AdminCareerNoteController::class);
     Route::resource('reference', AdminCareerReferenceController::class);
     Route::resource('resume', AdminCareerResumeController::class);

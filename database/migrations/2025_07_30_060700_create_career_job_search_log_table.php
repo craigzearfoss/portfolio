@@ -25,17 +25,12 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('message', 500);
-            $table->foreignId('recruiter_id')->nullable()
-                ->constrained('recruiters', 'id')
-                ->onDelete('cascade');
+            $table->timestamp('time_logged');
             $table->foreignId('application_id')->nullable()
                 ->constrained('applications', 'id')
                 ->onDelete('cascade');
-            $table->foreignId('job_id')->nullable()
-                ->constrained('jobs', 'id')
-                ->onDelete('cascade');
             $table->foreignId('cover_letter_id')->nullable()
-                ->constrained('coverLetters', 'id')
+                ->constrained('cover_letters', 'id')
                 ->onDelete('cascade');
             $table->foreignId('resume_id')->nullable()
                 ->constrained('resumes', 'id')
@@ -58,6 +53,10 @@ return new class extends Migration
             $table->foreignId('reference_id')->nullable()
                 ->constrained('references', 'id')
                 ->onDelete('cascade');
+            $table->foreignId('recruiter_id')->nullable()
+                ->constrained('recruiters', 'id')
+                ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

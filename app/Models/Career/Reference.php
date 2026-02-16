@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @mixin Eloquent
@@ -205,24 +206,6 @@ class Reference extends Model
     }
 
     /**
-     * Get the system state that owns the reference.
-     */
-    public function state(): BelongsTo
-    {
-        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
-    }
-
-    /**
-     * Get the relation of the reference (family, friend, coworker, supervisor, subordinate, professional, other).
-     */
-    protected function relation(): Attribute
-    {
-        return new Attribute(
-            get: fn () => $this->getReferenceRelation()
-        );
-    }
-
-    /**
      * Return the relation of the reference (family, friend, coworker, supervisor, subordinate, professional, other).
      *
      * @return string|null
@@ -238,4 +221,32 @@ class Reference extends Model
 
         return !empty($relations) ? implode(', ', $relations) : null;
     }
+
+    /**
+     * Get the career job search log entries for the cover letter.
+     */
+    public function jobSearchLogEntries(): HasMany
+    {
+        return $this->hasMany(JobSearchLog::class, 'application_id')
+            ->orderBy('time_logged', 'desc');
+    }
+
+    /**
+     * Get the relation of the reference (family, friend, coworker, supervisor, subordinate, professional, other).
+     */
+    protected function relation(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->getReferenceRelation()
+        );
+    }
+
+    /**
+     * Get the system state that owns the reference.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
+    }
+
 }

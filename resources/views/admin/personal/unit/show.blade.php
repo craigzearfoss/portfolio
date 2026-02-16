@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -10,10 +12,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $unit, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $unit, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.unit.edit', $unit)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'unit', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'unit', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Unit', 'href' => route('admin.personal.unit.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.unit.index')])->render();

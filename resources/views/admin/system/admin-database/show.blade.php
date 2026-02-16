@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -15,11 +17,11 @@
     // set navigation buttons
     $buttons = [];
     if (isRootAdmin() && !empty($owner)) {
-        if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $adminDatabase, $admin)) {
+        if (canUpdate(PermissionEntityTypes::RESOURCE, $adminDatabase, $admin)) {
             $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', [ $adminDatabase, 'owner_id'=>$owner->id ]) ])->render();
         }
     } else {
-        if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $adminDatabase, $admin)) {
+        if (canUpdate(PermissionEntityTypes::RESOURCE, $adminDatabase, $admin)) {
             $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', $adminDatabase) ])->render();
         }
     }

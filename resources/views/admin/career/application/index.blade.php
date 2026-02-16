@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -15,7 +17,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'application', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'application', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -213,7 +215,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $application, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $application, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.application.show', $application),
@@ -221,7 +223,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $application, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $application, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.application.edit', $application),
@@ -244,7 +246,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $application, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $application, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.application.destroy', $application) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

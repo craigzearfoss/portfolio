@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -15,7 +17,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'reference', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'reference', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -110,7 +112,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $reference, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $reference, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.reference.show', $reference),
@@ -118,7 +120,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $reference, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $reference, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.reference.edit', $reference),
@@ -141,7 +143,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $reference, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $reference, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.reference.destroy', $reference) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

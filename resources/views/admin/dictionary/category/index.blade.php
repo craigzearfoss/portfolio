@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -9,7 +11,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'category', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'category', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Category', 'href' => route('admin.dictionary.category.create')])->render();
     }
 @endphp
@@ -91,7 +93,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $category, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $category, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.dictionary.category.show', $category),
@@ -99,7 +101,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $category, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $category, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.dictionary.category.edit', $category),
@@ -137,7 +139,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $category, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $category, $admin))
                                 <form class="delete-resource" action="{!! route('admin.dictionary.category.destroy', $category) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

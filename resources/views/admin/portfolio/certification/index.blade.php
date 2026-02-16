@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -9,7 +11,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'certification', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'certification', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certification', 'href' => route('admin.portfolio.certification.create')])->render();
     }
 @endphp
@@ -84,7 +86,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $certification, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $certification, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.certification.show', $certification),
@@ -92,7 +94,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $certification, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $certification, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.certification.edit', $certification),
@@ -115,7 +117,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $certification, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $certification, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.certification.destroy', $certification) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

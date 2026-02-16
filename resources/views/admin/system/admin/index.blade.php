@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -9,17 +11,17 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin',
                                                                'href' => route('admin.system.admin.create')
                                                              ])->render();
     }
-    if (canRead(\App\Enums\PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
+    if (canRead(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
         $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Teams',
                                                                 'href' => route('admin.system.admin-team.index')
                                                               ])->render();
     }
-    if (canRead(\App\Enums\PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
+    if (canRead(PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
         $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Groups',
                                                                 'href' => route('admin.system.admin-group.index')
                                                               ])->render();
@@ -123,7 +125,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => $isRootAdmin
@@ -133,7 +135,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.system.admin.edit', $thisAdmin),
@@ -156,7 +158,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
                                 <form class="delete-resource" action="{!! route('admin.system.admin.destroy', $thisAdmin) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

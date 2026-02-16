@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -9,7 +11,7 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'ingredient', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'ingredient', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Ingredient', 'href' => route('admin.personal.ingredient.create')])->render();
     }
 @endphp
@@ -74,7 +76,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $ingredient, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $ingredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.personal.ingredient.show', $ingredient),
@@ -82,7 +84,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $ingredient, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $ingredient, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.personal.ingredient.edit', $ingredient),
@@ -105,7 +107,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $ingredient, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $ingredient, $admin))
                                 <form class="delete-resource" action="{!! route('admin.personal.ingredient.destroy', $ingredient) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

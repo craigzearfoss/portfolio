@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -124,6 +123,83 @@ class Application extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns an array of options for an application select list.
+     *
+     * @param array $filters
+     * @param string $valueColumn
+     * @param string $labelColumn
+     * @param bool $includeOther
+     * @param bool $includeBlank
+     * @param array $orderBy
+     * @return array
+     * @throws Exception
+     */
+    public static function listOptions(array  $filters = [],
+                                       string $valueColumn = 'id',
+                                       string $labelColumn = 'name',
+                                       bool   $includeOther = false,
+                                       bool   $includeBlank = false,
+                                       array  $orderBy = ['company_name', 'asc']): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[''] = '';
+        }
+
+        $selectColumns = ['applications.id', 'applications.owner_id', 'role', 'apply_date', 'post_date',
+            DB::raw('`companies`.`id` AS company_id'), DB::raw('`companies`.`name` AS company_name')
+        ];
+        $sortColumn = $orderBy[0] ?? 'name';
+        $sortDir = $orderBy[1] ?? 'asc';
+
+        $query = new Application()->select($selectColumns)
+            ->join('companies','companies.id', 'applications.company_id')
+            ->orderBy($sortColumn, $sortDir);
+
+        // Apply filters to the query.
+        foreach ($filters as $col => $value) {
+            if (in_array($col, ['id', 'owner_id'])) {
+                $col = 'applications.' . $col;
+            }
+            if (is_array($value)) {
+                $query = $query->whereIn($col, $value);
+            } else {
+                $parts = explode(' ', $col);
+                $col = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->whereNot($col, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($col, $value);
+                    } else {
+                        throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($col, $value);
+                }
+            }
+        }
+
+        foreach ($query->get() as $row) {
+            if ($labelColumn == 'name') {
+                $label = (!empty($row->company_name) ? $row->company_name : '?company?') . ' - '
+                    . ($row->role ?? '?role?')
+                    . (!empty($row->apply_date)
+                        ? ' [applied: ' . $row->apply_date . ']'
+                        : (!empty($row->post_date) ? ' [applied: ' . $row->post_date . ']' : '')
+                    );
+            } else {
+                $label = $row->{$labelColumn};
+            }
+
+            $options[$row->{$valueColumn}] = $label;
+        }
+
+        return $options;
     }
 
     /**
@@ -242,6 +318,31 @@ class Application extends Model
     }
 
     /**
+     * Get the career notes for the application.
+     */
+    public function application_notes(): HasMany
+    {
+        return $this->hasMany(Note::class, 'application_id')
+            ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Calculate the name of the application.
+     *
+     * @return string
+     */
+    protected function calculateName(): string
+    {
+        $company = $this->company['name'] ?? '?company?';
+        $role = $this->role ?? '?role?';
+        $date = !empty($this->apply_date)
+            ? ' [applied: ' . $this->apply_date . ']'
+            : (!empty($this->post_date) ? ' [applied: ' . $this->apply_date . ']' : '');
+
+        return $company . ' - ' . $role /* . $date */;
+    }
+
+    /**
      * Get the career communications for the application.
      */
     public function communications(): HasMany
@@ -320,6 +421,15 @@ class Application extends Model
     }
 
     /**
+     * Get the career job search log entries for the application.
+     */
+    public function jobSearchLogEntries(): HasMany
+    {
+        return $this->hasMany(JobSearchLog::class, 'application_id')
+            ->orderBy('time_logged', 'desc');
+    }
+
+    /**
      * Get the career job location type that owns the application.
      */
     public function locationType(): BelongsTo
@@ -338,29 +448,6 @@ class Application extends Model
     }
 
     /**
-     * Calculate the name of the application.
-     */
-    protected function calculateName()
-    {
-        $company = $this->company['name'] ?? '?company?';
-        $role = $this->role ?? '?role?';
-        $date = !empty($this->apply_date)
-            ? ' [applied: ' . $this->apply_date . ']'
-            : (!empty($this->post_date) ? ' [applied: ' . $this->apply_date . ']' : '');
-
-        return $company . ' - ' . $role /* . $date */;
-    }
-
-    /**
-     * Get the career notes for the application.
-     */
-    public function application_notes(): HasMany
-    {
-        return $this->hasMany(Note::class, 'application_id')
-            ->orderBy('created_at', 'desc');
-    }
-
-    /**
      * Get the career resume that owns the application.
      */
     public function resume(): BelongsTo
@@ -368,7 +455,6 @@ class Application extends Model
         return $this->belongsTo(Resume::class)->orderBy('date', 'desc')
             ->orderBy('name');
     }
-
 
     /**
      * Get the career skills for the application.
@@ -380,87 +466,10 @@ class Application extends Model
             ->orderBy('time', 'desc');
     }
     /**
-     * Get the systm state that owns the application.
+     * Get the system state that owns the application.
      */
     public function state(): BelongsTo
     {
         return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
-    }
-
-    /**
-     * Returns an array of options for an application select list.
-     *
-     * @param array $filters
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool $includeOther
-     * @param bool $includeBlank
-     * @param array $orderBy
-     * @return array
-     * @throws Exception
-     */
-    public static function listOptions(array  $filters = [],
-                                       string $valueColumn = 'id',
-                                       string $labelColumn = 'name',
-                                       bool   $includeOther = false,
-                                       bool   $includeBlank = false,
-                                       array  $orderBy = ['company_name', 'asc']): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $selectColumns = ['applications.id', 'applications.owner_id', 'role', 'apply_date', 'post_date',
-            DB::raw('`companies`.`id` AS company_id'), DB::raw('`companies`.`name` AS company_name')
-        ];
-        $sortColumn = $orderBy[0] ?? 'name';
-        $sortDir = $orderBy[1] ?? 'asc';
-
-        $query = new Application()->select($selectColumns)
-            ->join('companies','companies.id', 'applications.company_id')
-            ->orderBy($sortColumn, $sortDir);
-
-        // Apply filters to the query.
-        foreach ($filters as $col => $value) {
-            if (in_array($col, ['id', 'owner_id'])) {
-                $col = 'applications.' . $col;
-            }
-            if (is_array($value)) {
-                $query = $query->whereIn($col, $value);
-            } else {
-                $parts = explode(' ', $col);
-                $col = $parts[0];
-                if (!empty($parts[1])) {
-                    $operation = trim($parts[1]);
-                    if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->whereNot($col, $value);
-                    } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($col, $value);
-                    } else {
-                        throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
-                    }
-                } else {
-                    $query = $query->where($col, $value);
-                }
-            }
-        }
-
-        foreach ($query->get() as $row) {
-            if ($labelColumn == 'name') {
-                $label = (!empty($row->company_name) ? $row->company_name : '?company?') . ' - '
-                    . ($row->role ?? '?role?')
-                    . (!empty($row->apply_date)
-                        ? ' [applied: ' . $row->apply_date . ']'
-                        : (!empty($row->post_date) ? ' [applied: ' . $row->post_date . ']' : '')
-                    );
-            } else {
-                $label = $row->{$labelColumn};
-            }
-
-            $options[$row->{$valueColumn}] = $label;
-        }
-
-        return $options;
     }
 }

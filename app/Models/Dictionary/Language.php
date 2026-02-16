@@ -9,6 +9,7 @@ use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @mixin Eloquent
@@ -124,9 +125,9 @@ class Language extends Model
     /**
      * Return the frameworks for the language.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function frameworks()
+    public function frameworks(): BelongsToMany
     {
         return $this->belongsToMany(Framework::class);
     }
@@ -134,9 +135,9 @@ class Language extends Model
     /**
      * Return the libraries for the language.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function libraries()
+    public function libraries(): BelongsToMany
     {
         return $this->belongsToMany(Library::class);
     }
@@ -144,9 +145,9 @@ class Language extends Model
     /**
      * Return the stacks for the language.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function stacks()
+    public function stacks(): BelongsToMany
     {
         return $this->belongsToMany(Stack::class);
     }

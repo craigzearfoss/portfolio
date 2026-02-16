@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',              'href' => route('guest.index') ],
@@ -10,10 +12,10 @@
 
     // set navigation buttons
     $buttons = [];
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $operatingSystem, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $operatingSystem, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.operating-system.edit', $operatingSystem)])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'operating-system', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'operating-system', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Operating-System', 'href' => route('admin.dictionary.operating-system.create')])->render();
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

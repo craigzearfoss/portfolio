@@ -3,7 +3,6 @@
 namespace App\Models\Career;
 
 use App\Traits\SearchableModelTrait;
-use App\Models\Career\Communication;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

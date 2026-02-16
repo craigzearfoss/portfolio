@@ -2,7 +2,6 @@
 
 namespace App\Models\Career;
 
-use App\Models\Career\Company;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

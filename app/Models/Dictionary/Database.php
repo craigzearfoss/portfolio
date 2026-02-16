@@ -127,7 +127,7 @@ class Database extends Model
      *
      * @return BelongsToMany
      */
-    public function stacks()
+    public function stacks(): BelongsToMany
     {
         return $this->belongsToMany(Stack::class);
     }

@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -13,17 +15,17 @@
     $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'View Profile',
                                                             'href' => route('admin.system.admin.show', $thisAdmin)
                                                           ])->render();
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
     }
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
                                                                'href' => route('admin.system.admin.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
-    if (canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
         $buttons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
                                                            'icon'=>'fa-key',
                                                            'href' => route('admin.system.admin.change-password', $thisAdmin)

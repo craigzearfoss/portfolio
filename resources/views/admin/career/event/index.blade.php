@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -18,7 +20,7 @@
     }
 
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'event', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'event', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
     }
 @endphp
@@ -129,7 +131,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $event, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $event, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.career.event.show', $event),
@@ -137,7 +139,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $event, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $event, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.career.event.edit', $event),
@@ -160,7 +162,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $event, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $event, $admin))
                                 <form class="delete-resource" action="{!! route('admin.career.event.destroy', $event) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

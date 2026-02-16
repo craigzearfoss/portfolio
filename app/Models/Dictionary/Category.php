@@ -126,6 +126,8 @@ class Category extends Model
 
     /**
      * Get the career job skills for the dictionary category.
+     *
+     * @return HasMany
      */
     public function jobSkills(): HasMany
     {
@@ -135,6 +137,8 @@ class Category extends Model
 
     /**
      * Get the career skills for the dictionary category.
+     *
+     * @return HasMany
      */
     public function skills(): HasMany
     {

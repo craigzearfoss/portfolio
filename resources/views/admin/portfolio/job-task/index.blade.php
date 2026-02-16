@@ -1,4 +1,6 @@
 @php
+    use App\Enums\PermissionEntityTypes;
+
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -14,7 +16,7 @@
     }
 
     $buttons = [];
-    if (canCreate(\App\Enums\PermissionEntityTypes::RESOURCE, 'job-task', $admin)) {
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'job-task', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Task', 'href' => route('admin.portfolio.job-task.create')])->render();
     }
 @endphp
@@ -100,7 +102,7 @@
 
                         <div class="action-button-panel">
 
-                            @if(canRead(\App\Enums\PermissionEntityTypes::RESOURCE, $jobTask, $admin))
+                            @if(canRead(PermissionEntityTypes::RESOURCE, $jobTask, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
                                     'href'  => route('admin.portfolio.job-task.show', $jobTask),
@@ -108,7 +110,7 @@
                                 ])
                             @endif
 
-                            @if(canUpdate(\App\Enums\PermissionEntityTypes::RESOURCE, $jobTask, $admin))
+                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $jobTask, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'edit',
                                     'href'  => route('admin.portfolio.job-task.edit', $jobTask),
@@ -131,7 +133,7 @@
                                 ])
                             @endif
 
-                            @if(canDelete(\App\Enums\PermissionEntityTypes::RESOURCE, $jobTask, $admin))
+                            @if(canDelete(PermissionEntityTypes::RESOURCE, $jobTask, $admin))
                                 <form class="delete-resource" action="{!! route('admin.portfolio.job-task.destroy', $jobTask) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')

@@ -9,6 +9,7 @@ use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @mixin Eloquent
@@ -74,76 +75,6 @@ class Stack extends Model
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * @return void
-     */
-    protected static function booted(): void
-    {
-        parent::booted();
-
-        static::addGlobalScope(new AdminPublicScope());
-    }
-
-    /**
-     * Return the databases for the stack.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function databases()
-    {
-        return $this->belongsToMany(Database::class);
-    }
-
-    /**
-     * Return the frameworks for the stack.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function frameworks()
-    {
-        return $this->belongsToMany(Framework::class);
-    }
-
-    /**
-     * Return the frameworks for the stack.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function operating_systems()
-    {
-        return $this->belongsToMany(OperatingSystem::class);
-    }
-
-    /**
-     * Return the libraries for the stack.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function libraries()
-    {
-        return $this->belongsToMany(Library::class);
-    }
-
-    /**
-     * Return the servers for the stack.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function servers()
-    {
-        return $this->belongsToMany(Server::class);
-    }
-
-    /**
-     * Return the languages for the stack.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function languages()
-    {
-        return $this->belongsToMany(Language::class);
-    }
-
-    /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
      *
@@ -179,5 +110,75 @@ class Stack extends Model
             ->when(!empty($filters['owner']), function ($query) use ($filters) {
                 $query->where('owner', 'like', '%' . $filters['owner'] . '%');
             });
+    }
+
+    /**
+     * @return void
+     */
+    protected static function booted(): void
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Return the databases for the stack.
+     *
+     * @return BelongsToMany
+     */
+    public function databases(): BelongsToMany
+    {
+        return $this->belongsToMany(Database::class);
+    }
+
+    /**
+     * Return the frameworks for the stack.
+     *
+     * @return BelongsToMany
+     */
+    public function frameworks(): BelongsToMany
+    {
+        return $this->belongsToMany(Framework::class);
+    }
+
+    /**
+     * Return the languages for the stack.
+     *
+     * @return BelongsToMany
+     */
+    public function languages(): BelongsToMany
+    {
+        return $this->belongsToMany(Language::class);
+    }
+
+    /**
+     * Return the libraries for the stack.
+     *
+     * @return BelongsToMany
+     */
+    public function libraries(): BelongsToMany
+    {
+        return $this->belongsToMany(Library::class);
+    }
+
+    /**
+     * Return the frameworks for the stack.
+     *
+     * @return BelongsToMany
+     */
+    public function operating_systems(): BelongsToMany
+    {
+        return $this->belongsToMany(OperatingSystem::class);
+    }
+
+    /**
+     * Return the servers for the stack.
+     *
+     * @return BelongsToMany
+     */
+    public function servers(): BelongsToMany
+    {
+        return $this->belongsToMany(Server::class);
     }
 }
