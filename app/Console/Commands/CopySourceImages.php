@@ -49,12 +49,12 @@ class CopySourceImages extends Command
     protected string $destination = 'public' . DIRECTORY_SEPARATOR . 'images';
 
     /**
-     * @var null
+     * @var string|null
      */
     protected string|null $imagesSrcPath = null;
 
     /**
-     * @var null
+     * @var string|null
      */
     protected  string|null $imagesDestPath = null;
 

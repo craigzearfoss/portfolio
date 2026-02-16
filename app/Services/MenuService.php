@@ -29,12 +29,12 @@ class MenuService
     /**
      * @var array|Collection
      */
-    protected array $databases = [];
+    protected array|Collection $databases = [];
 
     /**
-     * @var array|Collection|\Illuminate\Support\Collection
+     * @var array|Collection
      */
-    protected array $resources = [];
+    protected array|Collection $resources = [];
 
     /**
      * @var bool
@@ -62,7 +62,7 @@ class MenuService
     protected Admin|Owner|null $admin = null;
 
     /**
-     * @var User|Admin|null
+     * @var User|null
      */
     protected User|null $user = null;
 

@@ -145,7 +145,7 @@ class ApplicationController extends BaseAdminController
     /**
      * Show the form for editing the specified application.
      *
-     * @param int Application $application
+     * @param Application $application
      * @return View
      */
     public function edit(Application $application): View
