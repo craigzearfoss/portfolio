@@ -25,8 +25,14 @@ class JobTask extends Model
     /** @use HasFactory<JobTaskFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'job_tasks';
 
     /**
@@ -59,9 +65,16 @@ class JobTask extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['owner_id', 'job_id', 'title', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

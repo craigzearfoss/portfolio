@@ -16,8 +16,14 @@ class Message extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'messages';
 
     /**
@@ -42,6 +48,10 @@ class Message extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'email', 'subject', 'body','public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['subject', 'asc'];
 
     /**

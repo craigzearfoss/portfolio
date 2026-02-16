@@ -17,6 +17,9 @@ class DegreeType extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
     protected $table = 'degree_types';
@@ -34,6 +37,7 @@ class DegreeType extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name'];
+
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

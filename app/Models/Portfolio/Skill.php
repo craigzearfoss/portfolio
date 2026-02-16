@@ -25,8 +25,14 @@ class Skill extends Model
     /** @use HasFactory<SkillFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'skills';
 
     /**
@@ -69,9 +75,16 @@ class Skill extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'type', 'featured', 'level', 'dictionary_category_id',
         'start_year', 'end_year', 'years', 'public', 'readonly', 'root', 'disabled','demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

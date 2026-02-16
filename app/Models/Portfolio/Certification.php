@@ -19,8 +19,14 @@ class Certification extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'certifications';
 
     /**
@@ -56,6 +62,10 @@ class Certification extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation', 'certification_type_id', 'organization',
         'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

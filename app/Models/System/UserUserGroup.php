@@ -12,8 +12,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserUserGroup extends Model
 {
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'user_user_group';
 
     /**

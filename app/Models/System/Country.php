@@ -22,8 +22,14 @@ class Country extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'countries';
 
     /**
@@ -41,6 +47,10 @@ class Country extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'm49', 'iso_alpha3'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

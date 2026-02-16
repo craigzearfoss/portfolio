@@ -31,6 +31,9 @@ class Job extends Model
     /** @use HasFactory<JobFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     *
+     */
     const string DATABASE_TAG = 'portfolio_db';
 
     /**
@@ -94,9 +97,16 @@ class Job extends Model
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'company', 'role', 'featured', 'start_month', 'start_year', 'end_month',
         'job_employment_type_id', 'job_location_type_id', 'end_year', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['company', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

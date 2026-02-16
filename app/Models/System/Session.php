@@ -15,8 +15,14 @@ class Session extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'sessions';
 
     /**
@@ -31,6 +37,10 @@ class Session extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'user_id', 'admin_id', 'ip_address', 'user_agent', 'payload', 'last_activity'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['last_activity', 'desc'];
 
     /**

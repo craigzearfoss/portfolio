@@ -24,8 +24,14 @@ class Certificate extends Model
     /** @use HasFactory<CertificateFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'certificates';
 
     /**
@@ -67,9 +73,16 @@ class Certificate extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'organization', 'academy_id', 'year', 'received',
         'expiration', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

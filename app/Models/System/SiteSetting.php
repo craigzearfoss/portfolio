@@ -15,8 +15,14 @@ class SiteSetting extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'site_settings';
 
     /**
@@ -35,6 +41,10 @@ class SiteSetting extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'setting_type_id', 'value'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

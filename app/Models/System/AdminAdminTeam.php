@@ -12,8 +12,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AdminAdminTeam extends Model
 {
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'admin_admin_team';
 
     /**

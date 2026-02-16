@@ -21,8 +21,14 @@ class Academy extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'academies';
 
     /**
@@ -54,6 +60,10 @@ class Academy extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'slug'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

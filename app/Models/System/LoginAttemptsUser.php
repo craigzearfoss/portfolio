@@ -15,8 +15,14 @@ class LoginAttemptsUser extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'login_attempts_user';
 
     /**
@@ -38,5 +44,9 @@ class LoginAttemptsUser extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'user_id', 'username', 'action', 'ip_address', 'success', 'created_at'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['created_at', 'desc'];
 }

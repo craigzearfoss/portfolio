@@ -44,8 +44,14 @@ class Owner extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'admins';
 
     /**
@@ -54,6 +60,10 @@ class Owner extends Model
     const array SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'name', 'title', 'street', 'street2', 'city',
         'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled',
         'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**

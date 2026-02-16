@@ -24,8 +24,14 @@ class Project extends Model
     /** @use HasFactory<ProjectFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'projects';
 
     /**
@@ -66,9 +72,16 @@ class Project extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'year', 'language', 'language_version',
         'repository_name', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

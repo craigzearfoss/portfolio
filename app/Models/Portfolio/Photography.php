@@ -21,8 +21,14 @@ class Photography extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'photography';
 
     /**
@@ -63,9 +69,16 @@ class Photography extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'credit', 'year', 'model', 'location', 'copyright',
         'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

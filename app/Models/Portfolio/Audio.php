@@ -25,8 +25,14 @@ class Audio extends Model
     /** @use HasFactory<AudioFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'audios';
 
     /**
@@ -82,9 +88,16 @@ class Audio extends Model
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'parent_id', 'featured', 'full_episode', 'clip', 'podcast',
         'source_recording', 'date', 'year', 'company', 'credit', 'show', 'location', 'public', 'readonly', 'root',
         'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

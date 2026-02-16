@@ -22,8 +22,14 @@ class School extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'schools';
 
     /**
@@ -67,6 +73,10 @@ class School extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'slug', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
         'zip', 'country_id'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

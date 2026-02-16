@@ -21,8 +21,14 @@ class AdminGroup extends Model
 {
     use SearchableModelTrait, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'admin_groups';
 
     /**
@@ -56,6 +62,10 @@ class AdminGroup extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'admin_team_id', 'name', 'abbreviation', 'public', 'readonly', 'root',
         'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

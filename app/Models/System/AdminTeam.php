@@ -22,8 +22,14 @@ class AdminTeam extends Model
 {
     use SearchableModelTrait, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'admin_teams';
 
     /**
@@ -55,6 +61,10 @@ class AdminTeam extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation', 'public', 'readonly', 'root', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

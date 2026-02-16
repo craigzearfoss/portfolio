@@ -70,6 +70,9 @@ class JobCoworker extends Model
         'sequence',
     ];
 
+    /**
+     *
+     */
     const array LEVELS = [
         1 => 'coworker',
         2 => 'superior',
@@ -81,12 +84,16 @@ class JobCoworker extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'job_id', 'name', 'title', 'level_id', 'work_phone', 'personal_phone',
         'work_email', 'personal_email', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         parent::booted();
 

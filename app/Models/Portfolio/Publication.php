@@ -25,8 +25,14 @@ class Publication extends Model
     /** @use HasFactory<PublicationFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'publications';
 
     /**
@@ -91,9 +97,16 @@ class Publication extends Model
         'date', 'year', 'credit', 'freelance', 'fiction', 'nonfiction', 'technical', 'research', 'poetry', 'online',
         'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet', 'public', 'readonly', 'root', 'disabled',
         'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['title', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

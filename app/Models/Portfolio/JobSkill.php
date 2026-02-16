@@ -23,8 +23,14 @@ class JobSkill extends Model
 {
     use SearchableModelTrait, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'job_skills';
 
     /**
@@ -65,9 +71,16 @@ class JobSkill extends Model
      */
     const array SEARCH_COLUMNS = ['owner_id', 'job_id', 'name', 'type', 'dictionary_category_id', 'dictionary_term_id',
         'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

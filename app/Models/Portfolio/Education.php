@@ -22,8 +22,14 @@ class Education extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'education';
 
     /**
@@ -69,6 +75,10 @@ class Education extends Model
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id', 'currently_enrolled',
         'completed', 'start_month', 'start_year', 'end_month', 'end_year', 'public', 'readonly', 'root', 'disabled',
         'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['major', 'asc'];
 
     /**
@@ -132,6 +142,9 @@ class Education extends Model
             });
     }
 
+    /**
+     * @return void
+     */
     protected static function booted()
     {
         parent::booted();

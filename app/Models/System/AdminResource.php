@@ -28,8 +28,14 @@ class AdminResource extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'admin_resources';
 
     /**
@@ -70,6 +76,10 @@ class AdminResource extends Model
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'resource_id', 'database_id', 'name', 'parent_id', 'table', 'title',
         'plural', 'guest', 'user', 'admin', 'global', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'public',
         'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

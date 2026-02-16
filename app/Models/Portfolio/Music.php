@@ -25,8 +25,14 @@ class Music extends Model
     /** @use HasFactory<MusicFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'portfolio_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'music';
 
     /**
@@ -72,9 +78,16 @@ class Music extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'parent_id', 'name', 'artist', 'featured', 'collection', 'track', 'label',
         'catalog_number', 'year', 'release_date', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

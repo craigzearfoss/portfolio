@@ -15,6 +15,9 @@ class SettingType extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
     protected $table = 'setting_types';
@@ -33,5 +36,6 @@ class SettingType extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name'];
+
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 }

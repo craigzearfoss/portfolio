@@ -23,8 +23,14 @@ class UserGroup extends Model
 {
     use SearchableModelTrait, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'user_groups';
 
     /**
@@ -58,6 +64,10 @@ class UserGroup extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'user_id', 'user_team_id', 'name', 'abbreviation', 'public', 'readonly', 'root',
         'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

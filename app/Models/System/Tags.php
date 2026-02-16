@@ -15,10 +15,19 @@ class Tags extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'dictionary_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'stacks';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -41,6 +50,10 @@ class Tags extends Model
      */
     const array SEARCH_COLUMNS = ['owner_id', 'name', 'resource_id', 'model_class', 'model_item_id', 'dictionary_category_id',
         'dictionary_term_id'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

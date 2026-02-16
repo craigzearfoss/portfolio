@@ -24,8 +24,14 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'users';
 
     /**
@@ -86,11 +92,17 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    /**
+     *
+     */
     const array STATUSES = [
         'pending',
         'active',
     ];
 
+    /**
+     *
+     */
     const array SALUTATIONS = [
         'Dr.',
         'Miss',
@@ -108,6 +120,10 @@ class User extends Authenticatable
     const array SEARCH_COLUMNS = ['id', 'user_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role', 'street',
         'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root',
         'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
