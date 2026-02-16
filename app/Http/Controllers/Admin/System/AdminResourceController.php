@@ -84,13 +84,11 @@ class AdminResourceController extends BaseAdminController
     /**
      * Show the form for editing the specified admin resource.
      *
-     * @param int $id
+     * @param AdminResource $adminResource
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(AdminResource $adminResource): View
     {
-        $adminResource = new AdminResource()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $adminResource, $this->admin);
 
         return view('admin.system.admin-resource.edit', compact('adminResource'));

@@ -94,18 +94,14 @@ class PhotographyController extends BaseAdminController
     /**
      * Show the form for editing the specified photo.
      *
-     * @param int $id
+     * @param Photography $photo
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Photography $photo): View
     {
-        $photo = new Photography()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
 
-        $owner = new Owner()->findOrFail($photo->owner_id);
-
-        return view('admin.portfolio.photography.edit', compact('photo', 'owner'));
+        return view('admin.portfolio.photography.edit', compact('photo'));
     }
 
     /**

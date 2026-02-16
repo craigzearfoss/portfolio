@@ -112,13 +112,11 @@ class CompanyController extends BaseAdminController
     /**
      * Show the form for editing the specified company.
      *
-     * @param int $id
+     * @param Company $company
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Company $company): View
     {
-        $company = new Company()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
 
         return view('admin.career.company.edit', compact('company'));

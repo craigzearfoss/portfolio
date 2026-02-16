@@ -130,13 +130,11 @@ class JobTaskController extends BaseAdminController
     /**
      * Show the form for editing the specified job task.
      *
-     * @param int $id
+     * @param JobTask $jobTask
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(JobTask $jobTask): View
     {
-        $jobTask = new JobTask()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
 
         return view('admin.portfolio.job-task.edit', compact('jobTask'));

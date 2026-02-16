@@ -102,13 +102,11 @@ class UserController extends BaseUserController
     /**
      * Show the form for editing the specified user.
      *
-     * @param int $id
+     * @param User $user
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(User $user): View
     {
-        $user = new User()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $user, $this->admin);
 
         return view('admin.system.user.edit', compact('user'));

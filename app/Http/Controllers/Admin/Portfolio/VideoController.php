@@ -91,13 +91,11 @@ class VideoController extends BaseAdminController
     /**
      * Show the form for editing the specified video.
      *
-     * @param int $id
+     * @param Video $video
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Video $video): View
     {
-        $video = new Video()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
 
         return view('admin.portfolio.video.edit', compact('video'));

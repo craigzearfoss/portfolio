@@ -88,13 +88,11 @@ class UnitController extends BaseAdminController
     /**
      * Show the form for editing the specified unit.
      *
-     * @param int $id
+     * @param Unit $unit
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Unit $unit): View
     {
-        $unit = new Unit()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
 
         return view('admin.personal.unit.edit', compact('unit'));

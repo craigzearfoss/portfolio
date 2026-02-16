@@ -92,13 +92,11 @@ class JobController extends BaseAdminController
     /**
      * Show the form for editing the specified job.
      *
-     * @param int $id
+     * @param Job $job
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Job $job): View
     {
-        $job = new Job()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $job, $this->admin);
 
         return view('admin.portfolio.job.edit', compact('job'));

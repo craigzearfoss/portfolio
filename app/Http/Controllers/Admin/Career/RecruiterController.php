@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
+use Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer;
 
 class RecruiterController extends BaseAdminController
 {
@@ -84,13 +85,11 @@ class RecruiterController extends BaseAdminController
     /**
      * Show the form for editing the specified recruiter.
      *
-     * @param int $id
+     * @param Recruiter $recruiter
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Recruiter $recruiter): View
     {
-        $recruiter = new Recruiter()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
 
         return view('admin.career.recruiter.edit', compact('recruiter'));

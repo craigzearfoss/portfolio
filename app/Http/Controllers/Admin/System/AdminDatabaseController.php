@@ -85,10 +85,10 @@ class AdminDatabaseController extends BaseAdminController
     /**
      * Show the form for editing the specified admin databases.
      *
-     * @param int $id
+     * @param AdminDatabase $adminDatabase
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(AdminDatabase $adminDatabase): View
     {
         $adminDatabase = new AdminDatabase()->findOrFail($id);
 

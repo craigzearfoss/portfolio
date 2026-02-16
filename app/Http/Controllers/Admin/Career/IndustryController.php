@@ -89,13 +89,11 @@ class IndustryController extends BaseAdminController
     /**
      * Show the form for editing the specified industry.
      *
-     * @param int $id
+     * @param Industry $industry
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Industry $industry): View
     {
-        $industry = new Industry()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
 
         return view('admin.career.industry.edit', compact('industry'));

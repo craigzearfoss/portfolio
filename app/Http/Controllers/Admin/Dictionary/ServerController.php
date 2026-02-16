@@ -96,16 +96,14 @@ class ServerController extends BaseAdminController
     /**
      * Show the form for editing the specified server.
      *
-     * @param int $id
+     * @param Server $server
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Server $server): View
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update servers.');
+            abort(403, 'Only admins with root access can update dictionary entries.');
         }
-
-        $server = new Server()->findOrFail($id);
 
         return view('admin.dictionary.server.edit', compact('server'));
     }

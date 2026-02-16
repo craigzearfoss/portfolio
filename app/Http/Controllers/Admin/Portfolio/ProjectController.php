@@ -91,13 +91,11 @@ class ProjectController extends BaseAdminController
     /**
      * Show the form for editing the specified project.
      *
-     * @param int $id
+     * @param Project $project
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Project $project): View
     {
-        $project = new Project()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
 
         return view('admin.portfolio.project.edit', compact('project'));

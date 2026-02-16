@@ -152,13 +152,11 @@ class AdminController extends BaseAdminController
     /**
      * Show the form for editing the specified admin.
      *
-     * @param int $id
+     * @param Admin $admin
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Admin $admin): View
     {
-        $admin = new Admin()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $admin, $this->admin);
 
         return view('admin.system.admin.edit', compact('admin'));

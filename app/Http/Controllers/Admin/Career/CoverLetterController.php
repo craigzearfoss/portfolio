@@ -94,13 +94,11 @@ class CoverLetterController extends BaseAdminController
     /**
      * Show the form for editing the specified cover letter.
      *
-     * @param int $id
+     * @param CoverLetter $coverLetter
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(CoverLetter $coverLetter): View
     {
-        $coverLetter = new CoverLetter()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
 
         return view('admin.career.cover-letter.edit', compact('coverLetter'));

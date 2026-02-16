@@ -90,13 +90,11 @@ class AdminGroupController extends BaseAdminController
     /**
      * Show the form for editing the specified admin group.
      *
-     * @param int $id
+     * @param AdminGroup $adminGroup
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(AdminGroup $adminGroup): View
     {
-        $adminGroup = new AdminGroup()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
 
         return view('admin.system.admin-group.edit', compact('adminGroup'));

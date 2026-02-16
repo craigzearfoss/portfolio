@@ -96,16 +96,14 @@ class StackController extends BaseAdminController
     /**
      * Show the form for editing the specified stack.
      *
-     * @param int $id
+     * @param Stack $stack
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Stack $stack): View
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update stacks.');
+            abort(403, 'Only admins with root access can update dictionary entries.');
         }
-
-        $stack = new Stack()->findOrFail($id);
 
         return view('admin.dictionary.stack.edit', compact('stack'));
     }

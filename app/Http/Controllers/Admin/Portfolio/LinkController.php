@@ -92,13 +92,11 @@ class LinkController extends BaseAdminController
     /**
      * Show the form for editing the specified link.
      *
-     * @param int $id
+     * @param Link $link
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Link $link): View
     {
-        $link = new Link()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
 
         return view('admin.portfolio.link.edit', compact('link'));

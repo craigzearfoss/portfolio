@@ -91,10 +91,10 @@ class DatabaseController extends BaseAdminController
     /**
      * Show the form for editing the specified database.
      *
-     * @param int $id
+     * @param Database $database
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Database $database): View
     {
         if (!isRootAdmin()) {
             abort(403, 'Not authorized.');

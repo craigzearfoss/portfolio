@@ -136,13 +136,11 @@ class JobCoworkerController extends BaseAdminController
     /**
      * Show the form for editing the specified job coworker.
      *
-     * @param int $id
+     * @param JobCoworker $jobCoworker
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(JobCoworker $jobCoworker): View
     {
-        $jobCoworker = new JobCoworker()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
 
         return view('admin.portfolio.job-coworker.edit', compact('jobCoworker'));

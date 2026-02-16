@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Whoops\Exception\Frame;
 
 /**
  *
@@ -96,16 +97,14 @@ class FrameworkController extends BaseAdminController
     /**
      * Show the form for editing the specified framework.
      *
-     * @param int $id
+     * @param Framework $framework
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Framework $framework): View
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update frameworks.');
+            abort(403, 'Only admins with root access can update dictionary entries.');
         }
-
-        $framework = new Framework()->findOrFail($id);
 
         return view('admin.dictionary.framework.edit', compact('framework'));
     }

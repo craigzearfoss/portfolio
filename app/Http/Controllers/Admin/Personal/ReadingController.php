@@ -95,13 +95,11 @@ class ReadingController extends BaseAdminController
     /**
      * Show the form for editing the specified reading.
      *
-     * @param int $id
+     * @param Reading $reading
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Reading $reading): View
     {
-        $reading = new Reading()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
 
         return view('admin.personal.reading.edit', compact('reading'));

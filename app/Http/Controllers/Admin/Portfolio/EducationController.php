@@ -92,13 +92,11 @@ class EducationController extends BaseAdminController
     /**
      * Show the form for editing the specified education.
      *
-     * @param int $id
+     * @param Education $education
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Education $education): View
     {
-        $education = new Education()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $education, $this->admin);
 
         return view('admin.portfolio.education.edit', compact('education'));

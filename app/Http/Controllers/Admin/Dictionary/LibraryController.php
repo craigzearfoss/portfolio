@@ -96,16 +96,14 @@ class LibraryController extends BaseAdminController
     /**
      * Show the form for editing the specified library.
      *
-     * @param int $id
+     * @param Library $library
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Library $library): View
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update libraries.');
+            abort(403, 'Only admins with root access can update dictionary entries.');
         }
-
-        $library = new Library()->findOrFail($id);
 
         return view('admin.dictionary.library.edit', compact('library'));
     }

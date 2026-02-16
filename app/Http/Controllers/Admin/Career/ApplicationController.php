@@ -145,13 +145,11 @@ class ApplicationController extends BaseAdminController
     /**
      * Show the form for editing the specified application.
      *
-     * @param int $id $application
+     * @param int Application $application
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Application $application): View
     {
-        $application = new Application()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
 
         return view('admin.career.application.edit', compact('application'));

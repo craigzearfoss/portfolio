@@ -91,13 +91,11 @@ class CertificateController extends BaseAdminController
     /**
      * Show the form for editing the specified certificate.
      *
-     * @param int $id
+     * @param Certificate $certificate
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Certificate $certificate): View
     {
-        $certificate = new Certificate()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $certificate, $this->admin);
 
         return view('admin.portfolio.certificate.edit', compact('certificate'));

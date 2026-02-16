@@ -93,13 +93,11 @@ class ReferenceController extends BaseAdminController
     /**
      * Show the form for editing the specified reference.
      *
-     * @param int $id
+     * @param Reference $reference
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Reference $reference): View
     {
-        $reference = new Reference()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
 
         return view('admin.career.reference.edit', compact('reference'));

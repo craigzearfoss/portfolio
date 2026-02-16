@@ -130,13 +130,11 @@ class JobSkillController extends BaseAdminController
     /**
      * Show the form for editing the specified job skill.
      *
-     * @param int $id
+     * @param JobSkill $jobSkill
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(JobSkill $jobSkill): View
     {
-        $jobSkill = new JobSkill()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
 
         return view('admin.portfolio.job-skill.edit', compact('jobSkill'));

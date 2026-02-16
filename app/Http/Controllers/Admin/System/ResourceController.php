@@ -90,16 +90,14 @@ class ResourceController extends BaseAdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param Resource $resource
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Resource $resource): View
     {
         if (!isRootAdmin()) {
             abort(403, 'Not authorized.');
         }
-
-        $resource = new Resource()->findOrFail($id);
 
         return view('admin.system.resource.edit', compact('resource'));
     }

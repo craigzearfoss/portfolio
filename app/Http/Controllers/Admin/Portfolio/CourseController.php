@@ -91,13 +91,11 @@ class CourseController extends BaseAdminController
     /**
      * Show the form for editing the specified course.
      *
-     * @param int $id
+     * @param Course $course
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Course $course): View
     {
-        $course = new Course()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $course, $this->admin);
 
         return view('admin.portfolio.course.edit', compact('course'));

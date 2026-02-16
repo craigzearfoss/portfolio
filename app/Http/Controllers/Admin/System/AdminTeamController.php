@@ -89,13 +89,11 @@ class AdminTeamController extends BaseAdminController
     /**
      * Show the form for editing the specified admin team.
      *
-     * @param int $id
+     * @param AdminTeam $adminTeam
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(AdminTeam $adminTeam): View
     {
-        $adminTeam = new AdminTeam()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
 
         return view('admin.system.admin-team.edit', compact('adminTeam'));

@@ -91,13 +91,11 @@ class SchoolController extends BaseAdminController
     /**
      * Show the form for editing the specified school.
      *
-     * @param int $id
+     * @param School $school
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(School $school): View
     {
-        $school = new School()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
 
         return view('admin.portfolio.school.edit', compact('school'));

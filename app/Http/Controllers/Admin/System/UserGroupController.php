@@ -86,13 +86,11 @@ class UserGroupController extends BaseUserController
     /**
      * Show the form for editing the specified user group.
      *
-     * @param int $id
+     * @param UserGroup $userGroup
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(UserGroup $userGroup): View
     {
-        $userGroup = new UserGroup()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
 
         return view('admin.system.user-group.edit', compact('userGroup'));

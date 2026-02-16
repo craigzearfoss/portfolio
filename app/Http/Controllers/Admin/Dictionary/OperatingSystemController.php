@@ -96,16 +96,14 @@ class OperatingSystemController extends BaseAdminController
     /**
      * Show the form for editing the specified operating system.
      *
-     * @param int $id
+     * @param OperatingSystem $operatingSystem
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(OperatingSystem $operatingSystem): View
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update operating systems.');
+            abort(403, 'Only admins with root access can update dictionary entries.');
         }
-
-        $operatingSystem = new OperatingSystem()->findOrFail($id);
 
         return view('admin.dictionary.operating-system.edit', compact('operatingSystem'));
     }

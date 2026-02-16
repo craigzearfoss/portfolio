@@ -96,13 +96,11 @@ class RecipeIngredientController extends BaseAdminController
     /**
      * Show the form for editing the specified recipe ingredient.
      *
-     * @param int $id
+     * @param RecipeIngredient $recipeIngredient
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(RecipeIngredient $recipeIngredient): View
     {
-        $recipeIngredient = new RecipeIngredient()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $this->admin);
 
         return view('admin.personal.recipe-ingredient.edit', compact('recipeIngredient'));

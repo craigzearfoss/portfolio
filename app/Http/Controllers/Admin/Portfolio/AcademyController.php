@@ -90,13 +90,11 @@ class AcademyController extends BaseAdminController
     /**
      * Show the form for editing the specified academy.
      *
-     * @param int $id
+     * @param Academy $academy
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Academy $academy): View
     {
-        $academy = new Academy()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $academy, $this->admin);
 
         return view('admin.portfolio.academy.edit', compact('academy'));

@@ -92,13 +92,11 @@ class AudioController extends BaseAdminController
     /**
      * Show the form for editing the specified audio.
      *
-     * @param int $id
+     * @param Audio $audio
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Audio $audio): View
     {
-        $audio = new Audio()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
 
         return view('admin.portfolio.audio.edit', compact('audio'));

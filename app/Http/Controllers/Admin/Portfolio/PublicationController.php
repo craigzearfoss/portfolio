@@ -91,13 +91,11 @@ class PublicationController extends BaseAdminController
     /**
      * Show the form for editing the specified publication.
      *
-     * @param int $id
+     * @param Publication $publication
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Publication $publication): View
     {
-        $publication = new Publication()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $publication, $this->admin);
 
         return view('admin.portfolio.publication.edit', compact('publication'));

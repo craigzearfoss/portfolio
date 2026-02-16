@@ -91,13 +91,11 @@ class SkillController extends BaseAdminController
     /**
      * Show the form for editing the specified skill.
      *
-     * @param int $id
+     * @param Skill $skill
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Skill $skill): View
     {
-        $skill = new Skill()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
 
         return view('admin.portfolio.skill.edit', compact('skill'));

@@ -92,13 +92,11 @@ class AwardController extends BaseAdminController
     /**
      * Show the form for editing the specified award.
      *
-     * @param int $id
+     * @param Award $award
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Award $award): View
     {
-        $award = new Award()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
 
         return view('admin.portfolio.award.edit', compact('award'));

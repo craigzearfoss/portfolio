@@ -97,14 +97,14 @@ class DatabaseController extends BaseAdminController
     /**
      * Show the form for editing the specified database.
      *
-     * @param int $id
+     * @param Database $database
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Database $database): View
     {
-        $database = new Database()->findOrFail($id);
-
-        updateGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can update dictionary entries.');
+        }
 
         return view('admin.dictionary.database.edit', compact('database'));
     }

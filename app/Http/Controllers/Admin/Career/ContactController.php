@@ -95,10 +95,10 @@ class ContactController extends BaseAdminController
     /**
      * Show the form for editing the specified contact.
      *
-     * @param int $id
+     * @param Contact $contact
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Contact $contact): View
     {
         $contact = new Contact()->findOrFail($id);
 

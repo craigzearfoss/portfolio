@@ -91,13 +91,11 @@ class JobBoardController extends BaseAdminController
     /**
      * Show the form for editing the specified job board.
      *
-     * @param int $id
+     * @param JobBoard $jobBoard
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(JobBoard $jobBoard): View
     {
-        $jobBoard = new JobBoard()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
 
         return view('admin.career.job-board.edit', compact('jobBoard'));

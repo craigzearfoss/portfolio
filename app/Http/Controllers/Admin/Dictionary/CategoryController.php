@@ -96,16 +96,14 @@ class CategoryController extends BaseAdminController
     /**
      * Show the form for editing the specified category.
      *
-     * @param int $id
+     * @param Category $category
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Category $category): View
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update categories.');
+            abort(403, 'Only admins with root access can update dictionary entries.');
         }
-
-        $category = new Category()->findOrFail($id);
 
         return view('admin.dictionary.category.edit', compact('category'));
     }

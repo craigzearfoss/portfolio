@@ -96,16 +96,14 @@ class LanguageController extends BaseAdminController
     /**
      * Show the form for editing the specified language.
      *
-     * @param int $id
+     * @param Language $language
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Language $language): View
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update languages.');
+            abort(403, 'Only admins with root access can update dictionary entries.');
         }
-
-        $language = new Language()->findOrFail($id);
 
         return view('admin.dictionary.language.edit', compact('language'));
     }

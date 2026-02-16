@@ -90,13 +90,11 @@ class MusicController extends BaseAdminController
     /**
      * Show the form for editing the specified music.
      *
-     * @param int $id
+     * @param Music $music
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(Music $music): View
     {
-        $music = new Music()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
 
         return view('admin.portfolio.music.edit', compact('music'));

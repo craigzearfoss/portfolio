@@ -86,13 +86,11 @@ class UserTeamController extends BaseUserController
     /**
      * Show the form for editing the specified user team.
      *
-     * @param int $id
+     * @param UserTeam $userTeam
      * @return View
      */
-    public function edit(int $id): View
+    public function edit(UserTeam $userTeam): View
     {
-        $userTeam = new UserTeam()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
 
         return view('admin.system.user-team.edit', compact('userTeam'));
