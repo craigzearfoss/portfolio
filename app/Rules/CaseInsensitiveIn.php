@@ -14,7 +14,7 @@ class CaseInsensitiveIn implements ValidationRule
     /**
      * @var array
      */
-    protected $values = [];
+    protected array $values = [];
     private const string FORMAT_FUNCTION = 'strtolower';
 
     public function __construct(array $values = [])

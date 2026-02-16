@@ -8,20 +8,25 @@ use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\Skill;
 use App\Models\System\Admin;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 
 class ResumeService {
 
-    public $admin = null;
+    public Admin|Owner|null $admin = null;
 
-    public $awards = null;
-    public $certificates = null;
-    public $educations = null;
-    public $jobs = null;
-    public $skills = null;
+    public array|Collection $awards = [];
 
-    protected $template = null;
+    public array|Collection $certificates = [];
+
+    public array|Collection $educations = [];
+
+    public array|Collection $jobs = [];
+
+    public array|Collection $skills = [];
+
+    protected string|null $template = null;
 
     /**
      * @param Admin $admin
@@ -87,13 +92,13 @@ class ResumeService {
      * Sets the resume template.
      *
      * @param string $templateName
-     * @return $this
+     * @return bool
      */
-    public function setTemplate(string $templateName)
+    public function setTemplate(string $templateName): bool
     {
         $this->template = Job::resumeTemplate($templateName);
 
-        return $this;
+        return true;
     }
 
     /**

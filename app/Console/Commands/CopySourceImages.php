@@ -41,32 +41,32 @@ class CopySourceImages extends Command
     /**
      * @var string
      */
-    protected $source = 'source_files' . DIRECTORY_SEPARATOR . 'images';
+    protected string $source = 'source_files' . DIRECTORY_SEPARATOR . 'images';
 
     /**
      * @var string
      */
-    protected $destination = 'public' . DIRECTORY_SEPARATOR . 'images';
+    protected string $destination = 'public' . DIRECTORY_SEPARATOR . 'images';
 
     /**
      * @var null
      */
-    protected $imagesSrcPath = null;
+    protected string|null $imagesSrcPath = null;
 
     /**
      * @var null
      */
-    protected $imagesDestPath = null;
+    protected  string|null $imagesDestPath = null;
 
     /**
      * @var bool
      */
-    protected $overwrite = false;
+    protected bool $overwrite = false;
 
     /**
      * @var array
      */
-    protected $failedUpdates = [];
+    protected array $failedUpdates = [];
 
     /**
      * The name and signature of the console command.

@@ -16,7 +16,7 @@ use stdClass;
 
 class ImageService
 {
-    protected $validators = [
+    protected array $validators = [
         'default' => [
             'image',
             'mimes:jpg,png,jpeg,gif,svg',

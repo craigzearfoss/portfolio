@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\EnvTypes;
 use App\Models\System\Admin;
+use App\Models\System\Owner;
 use App\Models\System\User;
 use App\Services\MenuService;
 use App\Services\PermissionService;
@@ -13,9 +14,18 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use JetBrains\PhpStorm\NoReturn;
 
+/**
+ *
+ */
 class BaseController extends Controller
 {
+    /**
+     *
+     */
     const OWNER_ID_COOKIE = 'owner_id';
+    /**
+     *
+     */
     const USER_ID_COOKIE = 'user_id';
 
     /**
@@ -26,25 +36,76 @@ class BaseController extends Controller
     /**
      * The logged in admin, logged-in user, and current owner that is being viewed.
      */
-    protected $admin = null;
-    protected $owner = null;
-    protected $owner_id = null;
-    protected $isRootAdmin = false;
-    protected $user  = null;
+    protected Admin|Owner|null $admin = null;
 
-    protected $action            = null;
-    protected $currentRouteName  = null;
-    protected $routeParams       = [];
-    protected $urlParams         = [];
-    protected $resource          = null;
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|Owner|null $owner = null;
 
-    protected $cookies           = [];
+    /**
+     * @var int|null
+     */
+    protected int|null $owner_id = null;
 
-    protected $permissionService = null;
-    protected $menuService       = null;
+    /**
+     * @var bool
+     */
+    protected bool $isRootAdmin = false;
 
-    protected $PAGINATION_PER_PAGE = 20;
+    /**
+     * @var User|null
+     */
+    protected User|null $user = null;
 
+    /**
+     * @var string|null
+     */
+    protected string|null $action = null;
+
+    /**
+     * @var string|null
+     */
+    protected string|null $currentRouteName = null;
+
+    /**
+     * @var array
+     */
+    protected array $routeParams = [];
+
+    /**
+     * @var array
+     */
+    protected array $urlParams = [];
+
+    /**
+     * @var null
+     */
+    protected  $resource = null;
+
+    /**
+     * @var array
+     */
+    protected array $cookies = [];
+
+    /**
+     * @var PermissionService|null
+     */
+    protected PermissionService|null $permissionService = null;
+
+    /**
+     * @var MenuService|null
+     */
+    protected MenuService|null $menuService = null;
+
+    /**
+     * @var int
+     */
+    protected int $PAGINATION_PER_PAGE = 20;
+
+    /**
+     * @param PermissionService $permissionService
+     */
     public function __construct(PermissionService $permissionService)
     {
         $this->permissionService = $permissionService;
@@ -249,6 +310,9 @@ class BaseController extends Controller
         return $perPage;
     }
 
+    /**
+     * @return void
+     */
     #[NoReturn] protected function ddDebug()
     {
         dd([

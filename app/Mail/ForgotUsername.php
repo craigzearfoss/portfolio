@@ -13,7 +13,9 @@ class ForgotUsername extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject, $info;
+    public string $subject;
+
+    public string $info;
 
     /**
      * Create a new message instance.

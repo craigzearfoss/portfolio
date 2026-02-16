@@ -53,7 +53,7 @@ class StoreVideosRequest extends FormRequest
             ],
             'parent_id'      => [
                 'integer',
-                Rule::in(Video::whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
+                Rule::in(new Video()->whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

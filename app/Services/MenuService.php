@@ -8,6 +8,7 @@ use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
+use App\Models\System\Owner;
 use App\Models\System\Resource;
 use App\Models\System\User;
 use Exception;
@@ -15,39 +16,101 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Route;
 use stdClass;
 
+/**
+ *
+ */
 class MenuService
 {
-    protected $envType = null;
+    /**
+     * @var EnvTypes|null
+     */
+    protected EnvTypes|null $envType = null;
 
-    protected $databases = [];
-    protected $resources = [];
+    /**
+     * @var array|Collection
+     */
+    protected array $databases = [];
 
-    protected $hasAdmins = true;
-    protected $hasResume = true;
-    protected $hasUsers = true;
+    /**
+     * @var array|Collection|\Illuminate\Support\Collection
+     */
+    protected array $resources = [];
 
-    protected $isRootAdmin = false;
+    /**
+     * @var bool
+     */
+    protected bool $hasAdmins = true;
 
-    protected $admin = null;
-    protected $user = null;
-    protected $owner = null;
+    /**
+     * @var bool
+     */
+    protected bool $hasResume = true;
 
-    protected $adminsEnabled = true;
+    /**
+     * @var bool
+     */
+    protected bool $hasUsers = true;
+
+    /**
+     * @var bool
+     */
+    protected bool $isRootAdmin = false;
+
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|Owner|null $admin = null;
+
+    /**
+     * @var User|Admin|null
+     */
+    protected User|null $user = null;
+
+    /**
+     * @var Admin|Owner|null
+     */
+    protected Admin|Owner|null $owner = null;
+
+    /**
+     * @var bool|\Illuminate\Config\Repository|\Illuminate\Foundation\Application|mixed|object|null
+     */
+    protected bool $adminsEnabled = true;
+
+    /**
+     * @var bool|\Illuminate\Config\Repository|\Illuminate\Foundation\Application|mixed|object|null
+     */
     protected $usersEnabled = true;
 
-    protected $globalDatabases = [
+    /**
+     * @var array|string[]
+     */
+    protected array $globalDatabases = [
         'dictionary',
     ];
 
-    protected $showAll = false;
+    /**
+     * @var bool
+     */
+    protected bool $showAll = false;
 
-    protected $currentRouteName = null;
+    /**
+     * @var string|null
+     */
+    protected string|null $currentRouteName = null;
 
+    /**
+     * @param EnvTypes|null $envType
+     * @param Admin|null $owner
+     * @param Admin|null $admin
+     * @param User|null $user
+     * @param string|null $currentRouteName
+     * @throws Exception
+     */
     public function __construct(EnvTypes|null $envType = null,
-                                Admin|null  $owner = null,
-                                Admin|null  $admin = null,
-                                User|null   $user = null,
-                                string|null $currentRouteName = null)
+                                Admin|null    $owner = null,
+                                Admin|null    $admin = null,
+                                User|null     $user = null,
+                                string|null   $currentRouteName = null)
     {
         $this->envType          = $envType ?? getEnvType();
         $this->owner            = $owner;

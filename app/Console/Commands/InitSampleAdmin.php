@@ -50,7 +50,7 @@ class InitSampleAdmin extends Command
     /**
      * @var bool
      */
-    protected $processAll = false;
+    protected bool $processAll = false;
 
     /**
      *

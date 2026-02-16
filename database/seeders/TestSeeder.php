@@ -271,7 +271,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/JobCoworker' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            foreach (Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
+            foreach (new Job()->where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
                 JobCoworker::factory()
                     ->count(mt_rand(1, 5))
                     ->set('job_id', $jobId)
@@ -285,7 +285,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/JobTask' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            foreach (Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
+            foreach (new Job()->where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
                 $numTasks = mt_rand(1, 5);
                 JobTask::factory()
                     ->count(mt_rand(1, 5))

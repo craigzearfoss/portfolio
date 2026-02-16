@@ -55,7 +55,7 @@ class HermanMunster extends Command
     /**
      * @var array
      */
-    protected $recipeId = [];
+    protected array $recipeId = [];
 
     /**
      * The name and signature of the console command.
