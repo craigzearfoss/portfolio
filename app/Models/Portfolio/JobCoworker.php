@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -101,6 +100,38 @@ class JobCoworker extends Model
     }
 
     /**
+     * Returns an array of options for a level select.
+     *
+     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param string $valueColumn
+     * @param string $labelColumn
+     * @param bool $includeBlank
+     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
+     * @return array
+     */
+    public static function levelListOptions(array  $filters = [],
+                                            string $valueColumn = 'id',
+                                            string $labelColumn = 'name',
+                                            bool   $includeBlank = false,
+                                            bool   $includeOther = false,
+                                            array  $orderBy = ['name', 'asc'],
+                                            EnvTypes $envType = EnvTypes::GUEST): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[''] = '';
+        }
+
+        foreach (self::LEVELS as $i => $level) {
+            $options[$valueColumn == 'id' ? $i : $level] = $labelColumn == 'id' ? $i : $level;
+        }
+
+        return $options;
+    }
+
+    /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
      *
@@ -174,37 +205,5 @@ class JobCoworker extends Model
         return new Attribute(
             get: fn () => self::LEVELS[$this->level_id] ?? ''
         );
-    }
-
-    /**
-     * Returns an array of options for a level select.
-     *
-     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool $includeBlank
-     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
-     * @return array
-     */
-    public static function levelListOptions(array  $filters = [],
-                                            string $valueColumn = 'id',
-                                            string $labelColumn = 'name',
-                                            bool   $includeBlank = false,
-                                            bool   $includeOther = false,
-                                            array  $orderBy = ['name', 'asc'],
-                                            EnvTypes $envType = EnvTypes::GUEST): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        foreach (self::LEVELS as $i => $level) {
-            $options[$valueColumn == 'id' ? $i : $level] = $labelColumn == 'id' ? $i : $level;
-        }
-
-        return $options;
     }
 }

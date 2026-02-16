@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 /**
  * @mixin Eloquent
@@ -120,19 +119,19 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Get the personal recipe that owns the recipe ingredient.
-     */
-    public function recipe(): BelongsTo
-    {
-        return $this->belongsTo(Recipe::class, 'recipe_id');
-    }
-
-    /**
      * Get the personal ingredient that owns the recipe ingredient.
      */
     public function ingredient(): BelongsTo
     {
         return $this->belongsTo(Ingredient::class, 'ingredient_id');
+    }
+
+    /**
+     * Get the personal recipe that owns the recipe ingredient.
+     */
+    public function recipe(): BelongsTo
+    {
+        return $this->belongsTo(Recipe::class, 'recipe_id');
     }
 
     /**

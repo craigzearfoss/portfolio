@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Ingredient extends Model
 {
-    use SearchableModelTrait;
+    use SearchableModelTrait, SoftDeletes;
 
     /**
      * @var string

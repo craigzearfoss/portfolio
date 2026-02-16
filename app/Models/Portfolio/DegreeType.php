@@ -2,7 +2,6 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Portfolio\Education;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

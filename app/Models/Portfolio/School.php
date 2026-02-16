@@ -3,7 +3,6 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Admin;
-use App\Models\Portfolio\Education;
 use App\Models\System\Country;
 use App\Models\System\State;
 use Eloquent;
@@ -96,18 +95,18 @@ class School extends Model
     }
 
     /**
-     * Get the portfolio students for the school.
-     */
-    public function students(): HasMany
-    {
-        return $this->hasMany(Admin::class, 'school_id');
-    }
-
-    /**
      * Get the system state that owns the school.
      */
     public function state(): BelongsTo
     {
         return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
+    }
+
+    /**
+     * Get the portfolio students for the school.
+     */
+    public function students(): HasMany
+    {
+        return $this->hasMany(Admin::class, 'school_id');
     }
 }

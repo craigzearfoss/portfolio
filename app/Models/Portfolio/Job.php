@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 /**
  * @mixin Eloquent
@@ -186,6 +185,16 @@ class Job extends Model
     }
 
     /**
+     * Calculate the name of the application.
+     * *
+     * @return string
+     */
+    protected function calculateName(): string
+    {
+        return $this->company . (!empty($this->role) ? ' (' . $this->role . ')' : '');
+    }
+
+    /**
      * Get the system country that owns the job.
      */
     public function country(): BelongsTo
@@ -233,14 +242,6 @@ class Job extends Model
     public function skills(): HasMany
     {
         return $this->hasMany(JobSkill::class, 'job_id');
-    }
-
-    /**
-     * Calculate the name of the application.
-     */
-    protected function calculateName()
-    {
-        return $this->company . (!empty($this->role) ? ' (' . $this->role . ')' : '');
     }
 
     /**

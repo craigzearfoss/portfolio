@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 /**
  * @mixin Eloquent
@@ -193,24 +192,6 @@ class Recipe extends Model
     }
 
     /**
-     * Get the personal recipe ingredients for the recipe.
-     */
-    public function ingredients(): HasMany
-    {
-        return $this->hasMany(RecipeIngredient::class, 'recipe_id')
-            ->orderBy('sequence');
-    }
-
-    /**
-     * Get the personal recipe steps for the recipe.
-     */
-    public function steps(): HasMany
-    {
-        return $this->hasMany(RecipeStep::class, 'recipe_id')
-            ->orderBy('step');
-    }
-
-    /**
      * Returns an array of all types available for recipes.
      *
      * @return string[]
@@ -221,30 +202,12 @@ class Recipe extends Model
     }
 
     /**
-     * Returns an array of all meals available for recipes.
-     *
-     * @return string[]
+     * Get the personal recipe ingredients for the recipe.
      */
-    public static function allMeals(): array
+    public function ingredients(): HasMany
     {
-        return self::MEALS;
-    }
-
-    /**
-     * Returns an array of types for the current recipe.
-     *
-     * @return array
-     */
-    public function types(): array
-    {
-        $recipeTypes = [];
-        foreach(self::TYPES as $type) {
-            if (!empty($this->{$type})) {
-                $recipeTypes[] = $type;
-            }
-        }
-
-        return $recipeTypes;
+        return $this->hasMany(RecipeIngredient::class, 'recipe_id')
+            ->orderBy('sequence');
     }
 
     /**
@@ -262,5 +225,31 @@ class Recipe extends Model
         }
 
         return $recipeMeals;
+    }
+
+    /**
+     * Get the personal recipe steps for the recipe.
+     */
+    public function steps(): HasMany
+    {
+        return $this->hasMany(RecipeStep::class, 'recipe_id')
+            ->orderBy('step');
+    }
+
+    /**
+     * Returns an array of types for the current recipe.
+     *
+     * @return array
+     */
+    public function types(): array
+    {
+        $recipeTypes = [];
+        foreach(self::TYPES as $type) {
+            if (!empty($this->{$type})) {
+                $recipeTypes[] = $type;
+            }
+        }
+
+        return $recipeTypes;
     }
 }

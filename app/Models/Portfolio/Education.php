@@ -2,7 +2,6 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Portfolio\School;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
@@ -12,7 +11,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 /**
  * @mixin Eloquent
@@ -153,19 +151,19 @@ class Education extends Model
     }
 
     /**
-     * Get the portfolio degree type that owne the education.
-     */
-    public function degreeType(): BelongsTo
-    {
-        return $this->belongsTo(DegreeType::class, 'degree_type_id');
-    }
-
-    /**
      * Get the system owner of the education.
      */
     public function owner(): BelongsTo
     {
         return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
+    }
+
+    /**
+     * Get the portfolio degree type that owne the education.
+     */
+    public function degreeType(): BelongsTo
+    {
+        return $this->belongsTo(DegreeType::class, 'degree_type_id');
     }
 
     /**
