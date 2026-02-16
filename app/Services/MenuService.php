@@ -12,7 +12,9 @@ use App\Models\System\Owner;
 use App\Models\System\Resource;
 use App\Models\System\User;
 use Exception;
+use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use stdClass;
 
@@ -72,14 +74,14 @@ class MenuService
     protected Admin|Owner|null $owner = null;
 
     /**
-     * @var bool|\Illuminate\Config\Repository|\Illuminate\Foundation\Application|mixed|object|null
+     * @var bool|Repository|Application|mixed|object|null
      */
     protected bool $adminsEnabled = true;
 
     /**
-     * @var bool|\Illuminate\Config\Repository|\Illuminate\Foundation\Application|mixed|object|null
+     * @var bool|Repository|Application|mixed|object|null
      */
-    protected $usersEnabled = true;
+    protected bool $usersEnabled = true;
 
     /**
      * @var array|string[]

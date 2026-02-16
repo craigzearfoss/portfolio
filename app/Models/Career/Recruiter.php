@@ -26,8 +26,14 @@ class Recruiter extends Model
     /** @use HasFactory<RecruiterFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'recruiters';
 
     /**
@@ -81,6 +87,10 @@ class Recruiter extends Model
     const array SEARCH_COLUMNS = ['id', 'name', 'local', 'regional', 'national', 'international', 'street', 'street2',
         'city', 'state_id', 'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly',
         'root', 'disabled'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

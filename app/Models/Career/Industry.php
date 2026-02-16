@@ -17,10 +17,19 @@ class Industry extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'industries';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -38,6 +47,10 @@ class Industry extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'abbreviation'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

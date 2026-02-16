@@ -29,8 +29,14 @@ class Company extends Model
     /** @use HasFactory<CompanyFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'companies';
 
     /**
@@ -83,9 +89,16 @@ class Company extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'industry_id', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

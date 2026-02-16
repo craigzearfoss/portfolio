@@ -29,8 +29,14 @@ class Resume extends Model
     /** @use HasFactory<ResumeFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'resumes';
 
     /**
@@ -65,6 +71,9 @@ class Resume extends Model
         'sequence',
     ];
 
+    /**
+     *
+     */
     const array FILE_TYPES = [
         '.csv'   => 'CSV comma delimited (*.csv)',
         '.docx'  => 'Document (*.docx)',
@@ -87,9 +96,16 @@ class Resume extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'doc_filepath', 'pdf_filepath',
         'content', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['date', 'desc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

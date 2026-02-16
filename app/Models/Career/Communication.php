@@ -25,8 +25,14 @@ class Communication extends Model
     /** @use HasFactory<CommunicationFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'communications';
 
     /**
@@ -57,9 +63,16 @@ class Communication extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'subject', 'to', 'from', 'date', 'time', 'body',
         'public', 'readonly', 'root', 'disabled', 'demo',];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['subject', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

@@ -27,8 +27,14 @@ class Contact extends Model
     /** @use HasFactory<ContactFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'contacts';
 
     /**
@@ -81,9 +87,16 @@ class Contact extends Model
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'title', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'link', 'link_name', 'public',
         'readonly', 'root','disabled','demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

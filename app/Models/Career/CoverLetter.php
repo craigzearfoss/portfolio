@@ -24,8 +24,14 @@ class CoverLetter extends Model
     /** @use HasFactory<CoverLetterFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'cover_letters';
 
     /**
@@ -63,9 +69,16 @@ class CoverLetter extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'filepath', 'content', 'link',
         'link_name', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

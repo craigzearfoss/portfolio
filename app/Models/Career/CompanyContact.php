@@ -17,10 +17,19 @@ class CompanyContact extends Model
     /** @use HasFactory<CompanyContactFactory> */
     use HasFactory;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'company_contact';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**

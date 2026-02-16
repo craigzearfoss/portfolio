@@ -21,8 +21,14 @@ class RecipeIngredient extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'personal_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'recipe_ingredients';
 
     /**
@@ -55,9 +61,16 @@ class RecipeIngredient extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'recipe_id', 'ingredient_id', 'amount', 'unit_id', 'qualifier',
         'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['recipe_id', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

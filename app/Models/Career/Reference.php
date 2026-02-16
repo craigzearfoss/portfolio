@@ -25,8 +25,14 @@ class Reference extends Model
     /** @use HasFactory<ReferenceFactory> */
     use SearchableModelTrait, HasFactory;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'references';
 
     /**
@@ -88,9 +94,16 @@ class Reference extends Model
         'subordinate', 'professional', 'other', 'company_id', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'public', 'readonly', 'root',
         'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

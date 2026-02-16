@@ -16,10 +16,19 @@ class Unit extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'personal_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'units';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -46,6 +55,10 @@ class Unit extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'abbreviation', 'system'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

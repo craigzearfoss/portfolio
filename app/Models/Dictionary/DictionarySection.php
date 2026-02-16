@@ -15,8 +15,14 @@ use Illuminate\Support\Facades\DB;
  */
 class DictionarySection extends Model
 {
+    /**
+     * @var string
+     */
     protected $connection = 'dictionary_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'dictionary_sections';
 
     /**
@@ -38,16 +44,6 @@ class DictionarySection extends Model
         'sequence',
     ];
 
-    /*
-     * @param array $filters
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool $includeBlank
-     * @param bool $includeOther
-     * @param array $orderBy
-     * @return array
-
-     */
     /**
      * Returns an array of options for a dictionary section select list.
      *

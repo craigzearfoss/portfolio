@@ -20,10 +20,19 @@ class JobBoard extends Model
 
     use SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'job_boards';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -59,6 +68,10 @@ class JobBoard extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'primary', 'local', 'regional', 'national', 'international', 'public',
         'link', 'link_name', 'readonly', 'root', 'disabled'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

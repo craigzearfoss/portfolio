@@ -24,8 +24,14 @@ class Note extends Model
     /** @use HasFactory<NoteFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'notes';
 
     /**
@@ -51,9 +57,16 @@ class Note extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'subject', 'body', 'public',
         'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['subject', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

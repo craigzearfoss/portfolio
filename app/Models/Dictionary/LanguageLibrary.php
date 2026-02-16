@@ -12,10 +12,19 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class LanguageLibrary extends Pivot
 {
+    /**
+     * @var string
+     */
     protected $connection = 'dictionary_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'language_library';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**

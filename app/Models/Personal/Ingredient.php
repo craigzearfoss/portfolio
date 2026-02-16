@@ -19,6 +19,9 @@ class Ingredient extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'personal_db';
 
     protected $table = 'ingredients';
@@ -51,6 +54,7 @@ class Ingredient extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'full_name', 'name', 'public', 'readonly', 'root', 'disabled'];
+
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

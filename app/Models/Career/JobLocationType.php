@@ -16,8 +16,14 @@ class JobLocationType extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'job_location_types';
 
     /**
@@ -34,6 +40,10 @@ class JobLocationType extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'abbreviation'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

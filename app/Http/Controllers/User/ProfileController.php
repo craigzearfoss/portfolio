@@ -77,7 +77,7 @@ class ProfileController extends BaseUserController
 
         $user->update($request->validated());
 
-        return redirect()->route('admin.user.show', $user)
+        return redirect()->route('user.show', $user)
             ->with('success', 'User password successfully updated.');
     }
 }

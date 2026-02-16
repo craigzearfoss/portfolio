@@ -31,8 +31,14 @@ class Application extends Model
     /** @use HasFactory<ApplicationFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'applications';
 
     /**
@@ -104,9 +110,16 @@ class Application extends Model
         'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation', 'health', 'phone',
         'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label',
         'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['role', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

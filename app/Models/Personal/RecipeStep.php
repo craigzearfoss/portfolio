@@ -21,8 +21,14 @@ class RecipeStep extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'personal_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'recipe_steps';
 
     /**
@@ -51,9 +57,16 @@ class RecipeStep extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'recipe_id', 'step','public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['recipe_id', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

@@ -17,8 +17,14 @@ class CommunicationType extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'career_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'communication_types';
 
     /**
@@ -35,6 +41,10 @@ class CommunicationType extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['sequence', 'asc'];
 
     /**

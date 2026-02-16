@@ -12,10 +12,19 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class OperatingSystemStack extends Pivot
 {
+    /**
+     * @var string
+     */
     protected $connection = 'dictionary_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'operating_system_stack';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**

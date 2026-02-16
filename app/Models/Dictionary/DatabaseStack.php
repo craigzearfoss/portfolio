@@ -15,10 +15,19 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class DatabaseStack extends Pivot
 {
+    /**
+     * @var string
+     */
     protected $connection = 'dictionary_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'database_stack';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**

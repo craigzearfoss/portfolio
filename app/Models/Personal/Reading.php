@@ -21,8 +21,14 @@ class Reading extends Model
 {
     use SearchableModelTrait, SoftDeletes;
 
+    /**
+     * @var string
+     */
     protected $connection = 'personal_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'readings';
 
     /**
@@ -65,9 +71,16 @@ class Reading extends Model
      */
     const array SEARCH_COLUMNS = ['id', 'owner_id', 'title', 'author', 'featured', 'publication_year', 'fiction',
         'nonfiction', 'paper', 'audio', 'wishlist', 'public', 'readonly', 'root', 'disabled', 'demo'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['title', 'asc'];
 
-    protected static function booted()
+    /**
+     * @return void
+     */
+    protected static function booted(): void
     {
         parent::booted();
 

@@ -144,7 +144,7 @@ class TestSeeder extends Seeder
         }
 
         echo 'Portfolio/RecipeIngredient' . PHP_EOL;
-        foreach (Recipe::all(['id', 'admin_id']) as $recipe) {
+        foreach (new Recipe()->all(['id', 'admin_id']) as $recipe) {
             $numIngredients = mt_rand(4, 10);
             for ($i = 1; $i <= $numIngredients; $i++) {
                 RecipeIngredient::factory()
@@ -155,7 +155,7 @@ class TestSeeder extends Seeder
         }
 
         echo 'Portfolio/RecipeStep' . PHP_EOL;
-        foreach (Recipe::all(['id', 'admin_id']) as $recipe) {
+        foreach (new Recipe()->all(['id', 'admin_id']) as $recipe) {
             $numSteps = mt_rand(3, 7);
             for ($step = 1; $step <= $numSteps; $step++) {
                 RecipeStep::factory()
@@ -300,7 +300,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/Application' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            foreach (Company::where('admin_id', $adminId)->get()->pluck('id') as $companyId) {
+            foreach (new Company()->where('admin_id', $adminId)->get()->pluck('id') as $companyId) {
                 Application::factory()
                     ->set('admin_id', $adminId)
                     ->set('company_id', $companyId)
@@ -309,7 +309,7 @@ class TestSeeder extends Seeder
         }
 
         echo 'Career/CoverLetter' . PHP_EOL;
-        foreach (Application::all() as $application) {
+        foreach (new Application()->all() as $application) {
             CoverLetter::factory()
                 ->set('application_id', $application->id)
                 ->set('admin_id', $application->admin_id)
@@ -327,7 +327,7 @@ class TestSeeder extends Seeder
         }
 
         echo 'Career/Event' . PHP_EOL;
-        foreach (Application::all() as $application) {
+        foreach (new Application()->all() as $application) {
             $numEvents = mt_rand(0, 10);
             Event::factory()
                 ->count($numEvents)
@@ -337,7 +337,7 @@ class TestSeeder extends Seeder
         }
 
         echo 'Career/Note' . PHP_EOL;
-        foreach (Application::all() as $application) {
+        foreach (new Application()->all() as $application) {
             $numNotes = mt_rand(0, 10);
             Note::factory()
                 ->count($numNotes)

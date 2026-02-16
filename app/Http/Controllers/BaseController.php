@@ -31,7 +31,7 @@ class BaseController extends Controller
     /**
      * The environment type of the current page. (guest / user /admin)
      */
-    protected $envType = null;
+    protected EnvTypes|null $envType = null;
 
     /**
      * The logged in admin, logged-in user, and current owner that is being viewed.
@@ -79,9 +79,9 @@ class BaseController extends Controller
     protected array $urlParams = [];
 
     /**
-     * @var null
+     * @var mixed|null
      */
-    protected  $resource = null;
+    protected mixed $resource = null;
 
     /**
      * @var array

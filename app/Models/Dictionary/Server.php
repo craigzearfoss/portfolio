@@ -18,10 +18,19 @@ class Server extends Model
 {
     use SearchableModelTrait;
 
+    /**
+     * @var string
+     */
     protected $connection = 'dictionary_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'servers';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -58,8 +67,15 @@ class Server extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = ['id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled', 'owner'];
+
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
+    /**
+     * @return void
+     */
     protected static function booted()
     {
         parent::booted();
