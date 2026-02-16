@@ -24,11 +24,11 @@
         </a>
     @endif
     @if (!empty($external))
-        <a title="open file in a new window"
-           class="certificate text-xl"
+        <a class="certificate text-xl"
 	   href="{!! $imageUrl !!}"
-           @if(!empty($alt))alt="{{ $alt }}" @endif
-           target="_blank">
+           title="{{ $title ?? 'open file in a new window' }}"
+           target="_blank"
+        >
             <i class="fa-solid fa-external-link"></i>
         </a>
     @endif

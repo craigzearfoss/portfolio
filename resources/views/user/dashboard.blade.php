@@ -21,7 +21,7 @@
                                 <div id="welcome-page-0" class="welcome-page-section h-full flex flex-col items-center justify-center">
                                     <div class="has-text-centered">
                                     <span class="avatar avatar-circle avatat-lg border-2 border-white dark:border-gray-800 shadow-lg" data-avatar-size="60" style="width: 150px; height: 150px; min-width: 60px; line-height: 60px;">
-                                        <img class="avatar-img avatar-circle" src="{{ asset('images/users/avatars/0-thumb.png') }}" loading="lazy">
+                                        <img class="avatar-img avatar-circle" src="{{ asset('images/users/avatars/0-thumb.png') }}" alt="avatar" loading="lazy">
                                     </span>
                                     <!-- <img src="{{ asset('images/others/Laravel.png') }}" alt="Laravel Logo" class="mx-auto mb-8" style="width: 200px;"> -->
                                     <h3 class="mb-2">Welcome on board, {{ Auth::guard('user')->user()->name }}!</h3>
