@@ -55,6 +55,8 @@ class JobCoworkerController extends BaseAdminController
                 $owner_id = $owner->id;
             }
 
+            $jobCoworkers = $query->paginate($perPage)->appends(request()->except('page'));
+
         } else {
 
             $job = null;
@@ -70,11 +72,11 @@ class JobCoworkerController extends BaseAdminController
                 $owner = $this->owner;
                 $owner_id = $owner->id;
             }
+
+            $jobCoworkers = $query->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $jobCoworkers = $query->paginate($perPage)->appends(request()->except('page'));
-
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Job Coworkers' : 'Job Coworkers';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Job Coworkers' : 'Job Coworkers';
 
         return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

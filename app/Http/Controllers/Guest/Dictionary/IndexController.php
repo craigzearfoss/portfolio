@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 
 class IndexController extends BaseGuestController
 {
-    protected $PAGINATION_PER_PAGE = 30;
-
     public function index(Request $request)
     {
         $perPage = $request->query('per_page', $this->perPage());

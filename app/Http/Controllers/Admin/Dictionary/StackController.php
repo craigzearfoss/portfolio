@@ -21,8 +21,6 @@ use Illuminate\Support\Str;
  */
 class StackController extends BaseAdminController
 {
-    protected $PAGINATION_PER_PAGE = 30;
-
     /**
      * Display a listing of stacks.
      *

@@ -237,7 +237,7 @@ class CopySourceImages extends Command
 
                                                     } catch (Throwable $e) {
                                                         $this->failedUpdates[] = $item->id
-                                                            . ' [' . $property . '] => ' . $relativeDestPath;
+                                                            . ' [' . $property . '] => ' . $destFile;
                                                     }
                                                 }
                                             }
@@ -348,13 +348,13 @@ class CopySourceImages extends Command
                             );
                             $urlPath = str_replace(DIRECTORY_SEPARATOR, '/',  $relativeDestPath);
 
-                            $coverLetter = $coverLetter->withoutGlobalScope(AdminPublicScope::class)
+                            $coverLetter = $coverLetterModel->withoutGlobalScope(AdminPublicScope::class)
                                 ->find($coverLetterId);
                             $coverLetter->filepath = $relativeDestPath;
                             $coverLetter->save();
 
                         } catch (Throwable $e) {
-                            $this->failedUpdates[] = $coverLetterId . ' [filepath] => ' . $relativeDestPath;
+                            $this->failedUpdates[] = $coverLetterId . ' [filepath] => ' . $destFile;
                         }
                     }
                 }
@@ -458,7 +458,7 @@ class CopySourceImages extends Command
                             );
                             $resume = $resumeModel->withoutGlobalScope(AdminPublicScope::class)
                                 ->find($resumeId);
-//dd([$resume, $fileExt, $relativeDestPath]);
+
                             if ($fileExt == 'pdf') {
                                 $resume->pdf_filepath = $relativeDestPath;
                             } else {
@@ -467,7 +467,7 @@ class CopySourceImages extends Command
                             $resume->save();
 
                         } catch (Throwable $e) {
-                            $this->failedUpdates[] = $resumeId . ' [filepath] => ' . $relativeDestPath;
+                            $this->failedUpdates[] = $resumeId . ' [filepath] => ' . $destFile;
                         }
                     }
                 }

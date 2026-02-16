@@ -92,7 +92,7 @@ class ResumeController extends BaseAdminController
 
         $resume = new Resume()->create($request->validated());
 
-        $application->update(['resume_id' => $resume->id]);
+        new Application()->update(['resume_id' => $resume->id]);
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

@@ -22,8 +22,6 @@ use Whoops\Exception\Frame;
  */
 class FrameworkController extends BaseAdminController
 {
-    protected $PAGINATION_PER_PAGE = 30;
-
     /**
      * Display a listing of frameworks.
      *

@@ -52,6 +52,8 @@ class JobTaskController extends BaseAdminController
                 $owner_id = $owner->id;
             }
 
+            $jobTasks = $query->paginate($perPage)->appends(request()->except('page'));
+
         } else {
 
             $job = null;
@@ -67,11 +69,11 @@ class JobTaskController extends BaseAdminController
                 $owner = $this->owner;
                 $owner_id = $owner->id;
             }
+
+            $jobTasks = $query->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $jobTasks = $query->paginate($perPage)->appends(request()->except('page'));
-
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Job Tasks' : 'Job Tasks';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Job Tasks' : 'Job Tasks';
 
         return view('admin.portfolio.job-task.index', compact('jobTasks', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

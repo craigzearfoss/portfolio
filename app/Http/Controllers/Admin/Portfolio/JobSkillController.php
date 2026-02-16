@@ -52,6 +52,8 @@ class JobSkillController extends BaseAdminController
                 $owner_id = $owner->id;
             }
 
+            $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
+
         } else {
 
             $job = null;
@@ -67,11 +69,11 @@ class JobSkillController extends BaseAdminController
                 $owner = $this->owner;
                 $owner_id = $owner->id;
             }
+
+            $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
-
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $owner->name . ' Job Skills' : 'Job Skills';
+        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Job Skills' : 'Job Skills';
 
         return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

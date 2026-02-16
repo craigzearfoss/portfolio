@@ -98,11 +98,13 @@ class DictionarySection extends Model
                     $key = $dictionarySection->{$valueColumn};
                     break;
                 case 'route':
-                    $key =route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.'.$dictionarySection->slug.'.index');
+                    $key = route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.'.$dictionarySection->slug.'.index');
                     break;
             }
 
-            $options[$key] = $dictionarySection->{$labelColumn};
+            if (!empty($key)) {
+                $options[$key] = $dictionarySection->{$labelColumn};
+            }
         }
 
         return $options;

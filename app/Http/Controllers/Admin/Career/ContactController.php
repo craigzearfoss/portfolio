@@ -100,8 +100,6 @@ class ContactController extends BaseAdminController
      */
     public function edit(Contact $contact): View
     {
-        $contact = new Contact()->findOrFail($id);
-
         updateGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
 
         return view('admin.career.contact.edit', compact('contact'));
