@@ -56,8 +56,7 @@ return new class extends Migration
                 $table->foreignId('dictionary_category_id')
                     ->nullable()
                     ->constrained($dictionaryDbName . '.categories', 'id')
-                    ->onDelete('cascade')
-                    ->after('model_item_id');
+                    ->onDelete('cascade');
             });
         }
 

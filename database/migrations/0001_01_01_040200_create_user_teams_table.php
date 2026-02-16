@@ -73,8 +73,7 @@ return new class extends Migration
             $table->foreignId('user_team_id')
                 ->nullable()
                 ->constrained('user_teams', 'id')
-                ->onDelete('cascade')
-                ->after('id');
+                ->onDelete('cascade');
         });
 
         $userModel = new User();

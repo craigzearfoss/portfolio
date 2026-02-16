@@ -3,8 +3,10 @@
 namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
+use Database\Factories\Career\ApplicationFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,7 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Message extends Model
 {
-    use SearchableModelTrait, SoftDeletes;
+    /** @use HasFactory<ApplicationFactory> */
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     /**
      * @var string

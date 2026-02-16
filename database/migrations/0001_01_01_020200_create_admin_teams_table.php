@@ -74,8 +74,7 @@ return new class extends Migration
             $table->foreignId('admin_team_id')
                 ->nullable()
                 ->constrained('admin_teams', 'id')
-                ->onDelete('cascade')
-                ->after('id');
+                ->onDelete('cascade');
         });
 
         $adminModel = new Admin();

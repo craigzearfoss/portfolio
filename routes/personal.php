@@ -7,13 +7,6 @@ use App\Http\Controllers\Admin\Personal\RecipeController as AdminPersonalRecipeC
 use App\Http\Controllers\Admin\Personal\RecipeIngredientController as AdminPersonalRecipeIngredientController;
 use App\Http\Controllers\Admin\Personal\RecipeStepController as AdminPersonalRecipeStepController;
 use App\Http\Controllers\Admin\Personal\UnitController as AdminPersonalUnitController;
-use App\Http\Controllers\Root\Personal\IndexController as RootPersonalIndexController;
-use App\Http\Controllers\Root\Personal\IngredientController as RootPersonalIngredientController;
-use App\Http\Controllers\Root\Personal\ReadingController as RootPersonalReadingController;
-use App\Http\Controllers\Root\Personal\RecipeController as RootPersonalRecipeController;
-use App\Http\Controllers\Root\Personal\RecipeIngredientController as RootPersonalRecipeIngredientController;
-use App\Http\Controllers\Root\Personal\RecipeStepController as RootPersonalRecipeStepController;
-use App\Http\Controllers\Root\Personal\UnitController as RootPersonalUnitController;
 use App\Http\Controllers\Guest\Personal\IndexController as GuestPersonalIndexController;
 use App\Http\Controllers\Guest\Personal\ReadingController as GuestPersonalReadingController;
 use App\Http\Controllers\Guest\Personal\RecipeController as GuestPersonalRecipeController;
