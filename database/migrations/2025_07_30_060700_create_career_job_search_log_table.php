@@ -25,6 +25,9 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('message', 500);
+            $table->foreignId('recruiter_id')->nullable()
+                ->constrained('recruiters', 'id')
+                ->onDelete('cascade');
             $table->foreignId('application_id')->nullable()
                 ->constrained('applications', 'id')
                 ->onDelete('cascade');

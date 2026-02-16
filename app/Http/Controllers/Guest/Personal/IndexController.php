@@ -10,6 +10,7 @@ use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Services\PermissionService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -22,7 +23,7 @@ class IndexController extends BaseGuestController
      * @param Admin|null $admin
      * @param Request $request
      * @return View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Admin|null $admin, Request $request): View
     {

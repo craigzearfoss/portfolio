@@ -12,6 +12,7 @@ use App\Models\System\AdminResource;
 use App\Models\System\AdminTeam;
 use App\Models\System\Database;
 use App\Models\System\Resource;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Artisan;
@@ -399,7 +400,7 @@ class InitSampleAdmin extends Command
      * @param int $ownerId
      * @param string $username
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function insertSystemAdminDatabaseRows(int $ownerId, string $username): void
     {

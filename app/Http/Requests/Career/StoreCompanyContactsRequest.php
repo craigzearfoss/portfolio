@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -27,7 +28,7 @@ class StoreCompanyContactsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function rules(): array
     {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreSchoolsRequest;
 use App\Http\Requests\Portfolio\UpdateSchoolsRequest;
 use App\Models\Portfolio\School;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -22,7 +23,7 @@ class SchoolController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): View
     {

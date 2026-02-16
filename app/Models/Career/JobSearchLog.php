@@ -37,6 +37,7 @@ class JobSearchLog extends Model
     protected $fillable = [
         'owner_id',
         'message',
+        'recruiter_id',
         'application_id',
         'job_id',
         'cover_letter_id',
@@ -52,8 +53,9 @@ class JobSearchLog extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'message', 'application_id', 'job_id', 'cover_letter_id',
-        'resume_id', 'company_id', 'contact_id', 'communication_id', 'event_id', 'note_id', 'reference_id' ];
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'recruiter_id', 'message', 'application_id', 'job_id',
+        'cover_letter_id', 'resume_id', 'company_id', 'contact_id', 'communication_id', 'event_id', 'note_id',
+        'reference_id' ];
 
     /**
      *

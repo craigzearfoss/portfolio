@@ -9,6 +9,7 @@ use App\Http\Requests\Personal\UpdateReadingsRequest;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\Reading;
 use App\Models\System\Owner;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class ReadingController extends BaseAdminController
      *
      * @param Request $request
      * @return View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): View
     {

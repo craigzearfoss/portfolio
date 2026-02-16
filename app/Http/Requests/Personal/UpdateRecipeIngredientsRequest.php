@@ -5,6 +5,8 @@ namespace App\Http\Requests\Personal;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\Recipe;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -27,8 +29,8 @@ class UpdateRecipeIngredientsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     * @throws \Exception
+     * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {

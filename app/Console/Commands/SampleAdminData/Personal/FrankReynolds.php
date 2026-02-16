@@ -12,6 +12,7 @@ use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
 use App\Models\System\Database;
 use App\Models\System\Resource;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
@@ -325,7 +326,7 @@ class FrankReynolds extends Command
      *
      * @param int $ownerId
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function insertSystemAdminDatabase(int $ownerId): void
     {

@@ -6,6 +6,7 @@ use App\Enums\EnvTypes;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
 use App\Models\System\Resource;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class PermissionService
@@ -73,7 +74,7 @@ class PermissionService
      * @param EnvTypes|null $envType - If not specified, this defaults to the type for the current user.
      * @param bool $isRoot
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function resourcePermissions(Admin|null    $owner = null,
                                         EnvTypes|null $envType = null,

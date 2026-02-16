@@ -6,6 +6,7 @@ use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ trait SearchableModelTrait
      * @param array $orderBy
      * @param EnvTypes $envType
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function listOptions(array    $filters = [],
                                        string   $valueColumn = 'id',
@@ -69,7 +70,7 @@ trait SearchableModelTrait
                     } elseif (strtolower($operation) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
+                        throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
                     $query = $query->where($col, $value);
