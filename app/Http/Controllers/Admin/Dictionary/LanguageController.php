@@ -10,11 +10,7 @@ use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Language;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Support\Str;
 
 /**
  *

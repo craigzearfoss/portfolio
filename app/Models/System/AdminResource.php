@@ -3,10 +3,6 @@
 namespace App\Models\System;
 
 use App\Enums\EnvTypes;
-use App\Models\Scopes\AdminPublicScope;
-use App\Models\System\Admin;
-use App\Models\System\AdminDatabase;
-use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Exception;
@@ -17,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
-use stdClass;
 
 /**
  * @mixin Eloquent
@@ -146,6 +140,8 @@ class AdminResource extends Model
 
     /**
      * Get the system owner of the resource.
+     *
+     * @return BelongsTo
      */
     public function owner(): BelongsTo
     {
@@ -154,6 +150,8 @@ class AdminResource extends Model
 
     /**
      * Get the system database that owns the resource.
+     *
+     * @return BelongsTo
      */
     public function database(): BelongsTo
     {
@@ -162,6 +160,8 @@ class AdminResource extends Model
 
     /**
      * Get the parent of the resource.
+     *
+     * @return BelongsTo
      */
     public function parent(): BelongsTo
     {
@@ -170,18 +170,12 @@ class AdminResource extends Model
 
     /**
      * Get the children of the system resource.
+     *
+     * @return HasMany
      */
     public function children(): HasMany
     {
         return $this->hasMany(Resource::class, 'parent_id');
-    }
-
-    /**
-     * Get the system settings of the resource.
-     */
-    public function settings(): HasMany
-    {
-        return $this->hasMany(ResourceSetting::class, 'resource_id');
     }
 
     /**
@@ -258,5 +252,15 @@ class AdminResource extends Model
         }
 
         return $query->get();
+    }
+
+    /**
+     * Get the system settings of the resource.
+     *
+     * @return HasMany
+     */
+    public function settings(): HasMany
+    {
+        return $this->hasMany(ResourceSetting::class, 'resource_id');
     }
 }

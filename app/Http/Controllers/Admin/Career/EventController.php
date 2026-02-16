@@ -8,11 +8,8 @@ use App\Http\Requests\Career\StoreEventsRequest;
 use App\Http\Requests\Career\UpdateEventsRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Event;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

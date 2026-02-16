@@ -2,6 +2,7 @@
 
 namespace App\Models\System;
 
+use App\Enums\EnvTypes;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
@@ -27,14 +28,16 @@ use App\Models\Portfolio\Music;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
-use App\Models\System\AdminDatabase;
-use App\Models\System\AdminResource;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @mixin Eloquent
@@ -42,7 +45,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Owner extends Model
 {
-    use SearchableModelTrait;
+    use SearchableModelTrait, SoftDeletes;
 
     /**
      * @var string
@@ -55,16 +58,154 @@ class Owner extends Model
     protected $table = 'admins';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'admin_team_id',
+        'username',
+        'label',
+        'name',
+        'salutation',
+        'title',
+        'role',
+        'employer',
+        'job_status_id',
+        'street',
+        'street2',
+        'city',
+        'state_id',
+        'zip',
+        'country_id',
+        'latitude',
+        'longitude',
+        'phone',
+        'email',
+        'birthday',
+        'link',
+        'link_name',
+        'bio',
+        'description',
+        'image',
+        'image_credit',
+        'image_source',
+        'thumbnail',
+        'logo',
+        'logo_small',
+        'password',
+        'remember_token',
+        'token',
+        'requires_relogin',
+        'status',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
+        'demo',
+        'sequence',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     *
+     */
+    const array STATUSES = [
+        'pending',
+        'active',
+    ];
+
+    /**
+     *
+     */
+    const array SALUTATIONS = [
+        'Dr.',
+        'Miss',
+        'Mr.',
+        'Mrs.',
+        'Ms',
+        'Prof.',
+        'Rev.',
+        'Sir',
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'name', 'title', 'street', 'street2', 'city',
-        'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled',
-        'demo'];
+    const array SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role', 'street',
+        'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root',
+        'disabled', 'demo'];
 
     /**
      *
      */
     const array SEARCH_ORDER_BY = ['username', 'asc'];
+
+    /**
+     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
+     *
+     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function salutationListOptions(array $filters = [],
+                                                 bool $includeBlank = false,
+                                                 bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        foreach (self::SALUTATIONS as $i=>$title) {
+            $options[$nameAsKey ? $title : $i] = $title;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns an array of options for a select list for statuses.
+     *
+     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param string $valueColumn
+     * @param string $labelColumn
+     * @param bool $includeBlank
+     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
+     * @return array
+     * @throws Exception
+     */
+    public static function statusListOptions(array $filters = [],
+                                             string $valueColumn = 'id',
+                                             string $labelColumn = 'name',
+                                             bool $includeBlank  = false,
+                                             bool $includeOther  = false,
+                                             array $orderBy      = [ 'name' => 'asc' ],
+                                             EnvTypes $envType   = EnvTypes::GUEST): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[''] = '';
+        }
+
+        foreach (self::STATUSES as $i=>$status) {
+            $options[$valueColumn == 'id' ? $i : $status] = $labelColumn = 'id' ? $i : $status;
+        }
+
+        return $options;
+    }
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -108,6 +249,9 @@ class Owner extends Model
             ->when(!empty($filters['employer']), function ($query) use ($filters) {
                 $query->where('employer', 'like', '%' . $filters['employer'] . '%');
             })
+            ->when(isset($filters['job_status_id']), function ($query) use ($filters) {
+                $query->where('job_status_id', '=', intval($filters['job_status_id']));
+            })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
             })
@@ -139,6 +283,8 @@ class Owner extends Model
 
     /**
      * Get the system admin_databases for the owner.
+     *
+     * @return HasOne
      */
     public function adminDatabases(): HasOne
     {
@@ -147,30 +293,18 @@ class Owner extends Model
 
     /**
      * Get the system admin_resources for the owner.
+     *
+     * @return HasMany
      */
-    public function adminResources(): HasOne
+    public function adminResources(): HasMany
     {
-        return $this->hasOne(AdminResource::class, 'owner_id');
-    }
-
-    /**
-     * Get the system admin groups for the owner.
-     */
-    public function adminGroups(): HasMany
-    {
-        return $this->hasMany(AdminGroup::class, 'owner_id');
-    }
-
-    /**
-     * Get the system admin teams for the owner.
-     */
-    public function adminTeams(): HasMany
-    {
-        return $this->hasMany(AdminTeam::class, 'owner_id');
+        return $this->hasMany(AdminResource::class, 'owner_id');
     }
 
     /**
      * Get the career applications for the owner.
+     *
+     * @return HasMany
      */
     public function applications(): HasMany
     {
@@ -179,6 +313,8 @@ class Owner extends Model
 
     /**
      * Get the portfolio art for the owner.
+     *
+     * @return HasMany
      */
     public function art(): HasMany
     {
@@ -186,7 +322,22 @@ class Owner extends Model
     }
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    /**
      * Get the portfolio certificates for the owner.
+     *
+     * @return HasMany
      */
     public function certificates(): HasMany
     {
@@ -195,6 +346,8 @@ class Owner extends Model
 
     /**
      * Get the career communications for the owner.
+     *
+     * @return HasMany
      */
     public function communications(): HasMany
     {
@@ -203,6 +356,8 @@ class Owner extends Model
 
     /**
      * Get the career companies for the owner.
+     *
+     * @return HasMany
      */
     public function companies(): HasMany
     {
@@ -211,6 +366,8 @@ class Owner extends Model
 
     /**
      * Get the career contacts for the owner.
+     *
+     * @return HasMany
      */
     public function contacts(): HasMany
     {
@@ -218,7 +375,19 @@ class Owner extends Model
     }
 
     /**
+     * Get the system country that owns the admin.
+     *
+     * @return HasMany
+     */
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
      * Get the portfolio courses for the owner.
+     *
+     * @return HasMany
      */
     public function courses(): HasMany
     {
@@ -227,6 +396,8 @@ class Owner extends Model
 
     /**
      * Get the career cover letters for the owner.
+     *
+     * @return HasMany
      */
     public function coverLetters(): HasMany
     {
@@ -235,6 +406,8 @@ class Owner extends Model
 
     /**
      * Get the system databases for the owner.
+     *
+     * @return HasMany
      */
     public function databases(): HasMany
     {
@@ -243,6 +416,8 @@ class Owner extends Model
 
     /**
      * Get the career educations for the owner.
+     *
+     * @return HasMany
      */
     public function educations(): HasMany
     {
@@ -251,6 +426,8 @@ class Owner extends Model
 
     /**
      * Get the career events for the owner.
+     *
+     * @return HasMany
      */
     public function events(): HasMany
     {
@@ -258,7 +435,20 @@ class Owner extends Model
     }
 
     /**
+     * Get all the system groups for the admin.
+     *
+     * @return HasMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(AdminGroup::class)
+            ->orderBy('name');
+    }
+
+    /**
      * Get the portfolio jobs for the owner.
+     *
+     * @return HasMany
      */
     public function jobs(): HasMany
     {
@@ -267,6 +457,8 @@ class Owner extends Model
 
     /**
      * Get the portfolio job coworkers for the owner.
+     *
+     * @return HasMany
      */
     public function jobCoworkers(): HasMany
     {
@@ -275,6 +467,8 @@ class Owner extends Model
 
     /**
      * Get the portfolio job tasks for the owner.
+     *
+     * @return HasMany
      */
     public function jobTasks(): HasMany
     {
@@ -283,6 +477,8 @@ class Owner extends Model
 
     /**
      * Get the portfolio links for the owner.
+     *
+     * @return HasMany
      */
     public function links(): HasMany
     {
@@ -291,6 +487,8 @@ class Owner extends Model
 
     /**
      * Get the portfolio music for the owner.
+     *
+     * @return HasMany
      */
     public function music(): HasMany
     {
@@ -299,6 +497,8 @@ class Owner extends Model
 
     /**
      * Get the career notes for the owner.
+     *
+     * @return HasMany
      */
     public function notes(): HasMany
     {
@@ -307,6 +507,8 @@ class Owner extends Model
 
     /**
      * Get the portfolio projects for the owner.
+     *
+     * @return HasMany
      */
     public function projects(): HasMany
     {
@@ -315,6 +517,8 @@ class Owner extends Model
 
     /**
      * Get the personal readings for the owner.
+     *
+     * @return HasMany
      */
     public function readings(): HasMany
     {
@@ -323,6 +527,8 @@ class Owner extends Model
 
     /**
      * Get the personal recipes for the owner.
+     *
+     * @return HasMany
      */
     public function recipes(): HasMany
     {
@@ -331,6 +537,8 @@ class Owner extends Model
 
     /**
      * Get the personal recipe ingredients for the owner.
+     *
+     * @return HasMany
      */
     public function recipeIngredients(): HasMany
     {
@@ -339,6 +547,8 @@ class Owner extends Model
 
     /**
      * Get the personal recipe steps for the owner.
+     *
+     * @return HasMany
      */
     public function recipeSteps(): HasMany
     {
@@ -347,6 +557,8 @@ class Owner extends Model
 
     /**
      * Get the career references for the owner.
+     *
+     * @return HasMany
      */
     public function references(): HasMany
     {
@@ -355,6 +567,8 @@ class Owner extends Model
 
     /**
      * Get the system resources for the owner.
+     *
+     * @return HasMany
      */
     public function resources(): HasMany
     {
@@ -363,6 +577,8 @@ class Owner extends Model
 
     /**
      * Get the career resumes for the owner.
+     *
+     * @return HasMany
      */
     public function resumes(): HasMany
     {
@@ -370,7 +586,31 @@ class Owner extends Model
     }
 
     /**
+     * Returns the id for the given salutation or false if not found.
+     *
+     * @param string $name
+     * @return int|bool
+     */
+    public static function salutationIndex(string $name): int|bool
+    {
+        return array_search($name, self::SALUTATIONS);
+    }
+
+    /**
+     * Returns the salutation name for the given id or null if not found.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    public static function salutationName(int $id): string|null
+    {
+        return self::SALUTATIONS[$id] ?? null;
+    }
+
+    /**
      * Get the portfolio skills for the owner.
+     *
+     * @return HasMany
      */
     public function skills(): HasMany
     {
@@ -378,23 +618,62 @@ class Owner extends Model
     }
 
     /**
-     * Get the system user groups for the owner.
+     * Get the system state that owns the admin.
+     *
+     * @return BelongsTo
      */
-    public function userGroups(): HasMany
+    public function state(): BelongsTo
     {
-        return $this->hasMany(UserGroup::class, 'owner_id');
+        return $this->belongsTo(State::class, 'state_id');
     }
 
     /**
-     * Get the system user teams for the owner.
+     * Returns the id for the given status or false if not found.
+     *
+     * @param string $name
+     * @return int|bool
      */
-    public function userTeams(): HasMany
+    public static function statusIndex(string $name): int|bool
     {
-        return $this->hasMany(UserTeam::class, 'owner_id');
+        return array_search($name, self::STATUSES);
+    }
+
+    /**
+     * Returns the status name for the given id or null if not found.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    public static function statusName(int $id): string|null
+    {
+        return self::STATUSES[$id] ?? null;
+    }
+
+    /**
+     * Get the current system admin_team of the admin.
+     *
+     * @return BelongsTo
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(AdminTeam::class, 'admin_team_id');
+    }
+
+    /**
+     * Get all the system admin_teams for the admin.
+     *
+     * @return BelongsToMany
+     */
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(AdminTeam::class)
+            ->orderBy('name');
     }
 
     /**
      * Get the portfolio videos for the owner.
+     *
+     * @return HasMany
      */
     public function videos(): HasMany
     {

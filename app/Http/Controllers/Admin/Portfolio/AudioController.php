@@ -4,15 +4,11 @@ namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Middleware\Admin;
 use App\Http\Requests\Portfolio\StoreAudiosRequest;
 use App\Http\Requests\Portfolio\UpdateAudiosRequest;
 use App\Models\Portfolio\Audio;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

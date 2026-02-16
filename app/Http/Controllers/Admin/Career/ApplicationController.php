@@ -6,19 +6,12 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreApplicationsRequest;
 use App\Http\Requests\Career\UpdateApplicationsRequest;
-use App\Listeners\LogLoginFail;
 use App\Models\Career\Application;
-use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
-use App\Models\Career\Event;
-use App\Models\Career\Note;
 use App\Models\Career\Resume;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

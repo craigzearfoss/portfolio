@@ -3,7 +3,6 @@
 namespace App\Models\System;
 
 use App\Enums\EnvTypes;
-use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Exception;
@@ -13,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @mixin Eloquent
@@ -128,6 +126,8 @@ class Database extends Model
 
     /**
      * Get the system owner who owns the database.
+     *
+     * @return BelongsTo
      */
     public function owner(): BelongsTo
     {
@@ -135,12 +135,33 @@ class Database extends Model
     }
 
     /**
-     * Get the system resources of the database.
+     * Returns the resource types.
+     *
+     * @param string|null $dbName
+     * @param array $filters
+     * @param array $orderBy
+     * @return array
      */
-    public function resources(): HasMany
+    public static function getResourceTypes(string|null $dbName = null,
+                                            array       $filters = [],
+                                            array       $orderBy = ['seq', 'asc']):  array
     {
-        return $this->hasMany(Resource::class, 'database_id')
-            ->orderBy('name');
+        $query = new Database()->select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
+            , 'databases.database as database_database'
+        )
+            ->join('resources', 'resources.database_id', '=', 'databases.id')
+            ->orderBy('resources.sequence');
+
+        if(!empty($dbName)) {
+            $query->where('databases.name', $dbName);
+        }
+
+        if (isset($filters['public'])) $query->where('resources.public', $filters['public'] ? 1 : 0);
+        if (isset($filters['readonly'])) $query->where('resources.readonly', $filters['readonly'] ? 1 : 0);
+        if (isset($filters['root'])) $query->where('resources.root', $filters['root'] ? 1 : 0);
+        if (isset($filters['disabled'])) $query->where('resources.disabled', $filters['disabled'] ? 1 : 0);
+
+        return $query->get()->toArray();
     }
 
     /**
@@ -209,32 +230,13 @@ class Database extends Model
     }
 
     /**
-     * Returns the resource types.
+     * Get the system resources of the database.
      *
-     * @param string|null $dbName
-     * @param array $filters
-     * @param array $orderBy
-     * @return array
+     * @return HasMany
      */
-    public static function getResourceTypes(string|null $dbName = null,
-                                            array       $filters = [],
-                                            array       $orderBy = ['seq', 'asc']):  array
+    public function resources(): HasMany
     {
-        $query = new Database()->select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
-                , 'databases.database as database_database'
-            )
-            ->join('resources', 'resources.database_id', '=', 'databases.id')
-            ->orderBy('resources.sequence');
-
-        if(!empty($dbName)) {
-            $query->where('databases.name', $dbName);
-        }
-
-        if (isset($filters['public'])) $query->where('resources.public', $filters['public'] ? 1 : 0);
-        if (isset($filters['readonly'])) $query->where('resources.readonly', $filters['readonly'] ? 1 : 0);
-        if (isset($filters['root'])) $query->where('resources.root', $filters['root'] ? 1 : 0);
-        if (isset($filters['disabled'])) $query->where('resources.disabled', $filters['disabled'] ? 1 : 0);
-
-        return $query->get()->toArray();
+        return $this->hasMany(Resource::class, 'database_id')
+            ->orderBy('name');
     }
 }

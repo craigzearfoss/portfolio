@@ -7,11 +7,8 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobsRequest;
 use App\Http\Requests\Portfolio\UpdateJobsRequest;
 use App\Models\Portfolio\Job;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

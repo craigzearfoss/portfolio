@@ -2,7 +2,6 @@
 
 namespace App\Models\System;
 
-use App\Models\System\SettingType;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -77,22 +76,6 @@ class ResourceSetting extends Model
     }
 
     /**
-     * Get the system resource of the resource setting.
-     */
-    public function resource(): BelongsTo
-    {
-        return $this->belongsTo(Resource::class, 'resource_id');
-    }
-
-    /**
-     * Get the system setting type that owns the resource setting.
-     */
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(SettingType::class, 'setting_type_id');
-    }
-
-    /**
      * Returns the value of the setting for the specified setting or null if not found.
      *
      * @param int $resource_id
@@ -130,5 +113,25 @@ class ResourceSetting extends Model
         }
 
         return $value;
+    }
+
+    /**
+     * Get the system resource of the resource setting.
+     *
+     * @return BelongsTo
+     */
+    public function resource(): BelongsTo
+    {
+        return $this->belongsTo(Resource::class, 'resource_id');
+    }
+
+    /**
+     * Get the system setting type that owns the resource setting.
+     *
+     * @return BelongsTo
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(SettingType::class, 'setting_type_id');
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Models\System;
 
 use App\Enums\EnvTypes;
-use App\Models\System\ResourceSetting;
-use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Exception;
@@ -144,14 +142,6 @@ class Resource extends Model
     }
 
     /**
-     * Get the system database that owns the resource.
-     */
-    public function database(): BelongsTo
-    {
-        return $this->belongsTo(Database::class, 'database_id');
-    }
-
-    /**
      * Get the parent of the resource.
      */
     public function parent(): BelongsTo
@@ -168,11 +158,11 @@ class Resource extends Model
     }
 
     /**
-     * Get the system settings of the resource.
+     * Get the system database that owns the resource.
      */
-    public function settings(): HasMany
+    public function database(): BelongsTo
     {
-        return $this->hasMany(ResourceSetting::class, 'resource_id');
+        return $this->belongsTo(Database::class, 'database_id');
     }
 
     /**
@@ -246,5 +236,15 @@ class Resource extends Model
         }
 
         return $query->get();
+    }
+
+    /**
+     * Get the system settings of the resource.
+     *
+     * @return HasMany
+     */
+    public function settings(): HasMany
+    {
+        return $this->hasMany(ResourceSetting::class, 'resource_id');
     }
 }

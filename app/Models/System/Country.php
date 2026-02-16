@@ -79,6 +79,8 @@ class Country extends Model
 
     /**
      * Get the system admins for the country.
+     *
+     * @return HasMany
      */
     public function admins(): HasMany
     {
@@ -88,6 +90,8 @@ class Country extends Model
 
     /**
      * Get the career companies for the country.
+     *
+     * @return HasMany
      */
     public function companies(): HasMany
     {
@@ -97,55 +101,12 @@ class Country extends Model
 
     /**
      * Get the career contacts for the country.
+     *
+     * @return HasMany
      */
     public function contacts(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Contact::class, 'country_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the career jobs for the country.
-     */
-    public function jobs(): HasMany
-    {
-        return $this->setConnection('career_db')->hasMany(Job::class, 'country_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the career recruiters for the country.
-     */
-    public function recruiters(): HasMany
-    {
-        return $this->setConnection('career_db')->hasMany(Recruiter::class, 'country_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the career references for the country.
-     */
-    public function references(): HasMany
-    {
-        return $this->setConnection('career_db')->hasMany(Reference::class, 'country_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the career schools for the country.
-     */
-    public function schools(): HasMany
-    {
-        return $this->setConnection('career_db')->hasMany(School::class, 'country_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the system users for the country.
-     */
-    public function users(): HasMany
-    {
-        return $this->setConnection('system_db')->hasMany(User::class, 'country_id')
             ->orderBy('name');
     }
 
@@ -158,5 +119,60 @@ class Country extends Model
     public static function getName(string $abbreviation): string
     {
         return new Country()->where(ctype_digit($abbreviation) ? 'm49' : 'iso_alpha3', $abbreviation)->first()->name ?? $abbreviation;
+    }
+
+    /**
+     * Get the career jobs for the country.
+     *
+     * @return HasMany
+     */
+    public function jobs(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Job::class, 'country_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the career recruiters for the country.
+     *
+     * @return HasMany
+     */
+    public function recruiters(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Recruiter::class, 'country_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the career references for the country.
+     *
+     * @return HasMany
+     */
+    public function references(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Reference::class, 'country_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the career schools for the country.
+     *
+     * @return HasMany
+     */
+    public function schools(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(School::class, 'country_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the system users for the country.
+     *
+     * @return HasMany
+     */
+    public function users(): HasMany
+    {
+        return $this->setConnection('system_db')->hasMany(User::class, 'country_id')
+            ->orderBy('name');
     }
 }

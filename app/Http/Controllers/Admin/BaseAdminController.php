@@ -4,12 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\EnvTypes;
 use App\Http\Controllers\BaseController;
-use App\Models\System\Admin;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Route;
 
 class BaseAdminController extends BaseController
 {

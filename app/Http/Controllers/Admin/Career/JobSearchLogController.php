@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin\Career;
 
 use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Career\StoreJobSearchLogsRequest;
 use App\Http\Requests\Career\UpdateJobSearchLogsRequest;
-use App\Models\Career\JobSearchLog;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

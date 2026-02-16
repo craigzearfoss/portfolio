@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Dictionary\DictionarySection;
 use App\Models\System\Resource;
-use App\Services\PermissionService;
 use Illuminate\Http\Request;
 
 /**

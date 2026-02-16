@@ -6,11 +6,9 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminGroupsRequest;
 use App\Http\Requests\System\UpdateAdminGroupsRequest;
-use App\Models\System\AdminDatabase;
 use App\Models\System\AdminGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

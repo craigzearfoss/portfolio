@@ -81,6 +81,8 @@ class State extends Model
 
     /**
      * Get the system admins for the state.
+     *
+     * @return HasMany
      */
     public function admins(): HasMany
     {
@@ -90,6 +92,8 @@ class State extends Model
 
     /**
      * Get the career applications for the state.
+     *
+     * @return HasMany
      */
     public function applications(): HasMany
     {
@@ -99,6 +103,8 @@ class State extends Model
 
     /**
      * Get the career companies for the state.
+     *
+     * @return HasMany
      */
     public function companies(): HasMany
     {
@@ -108,6 +114,8 @@ class State extends Model
 
     /**
      * Get the career contacts for the state.
+     *
+     * @return HasMany
      */
     public function contacts(): HasMany
     {
@@ -117,55 +125,12 @@ class State extends Model
 
     /**
      * Get the system country that owns the state.
+     *
+     * @return HasMany
      */
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'country_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the portfolio jobs for the state.
-     */
-    public function jobs(): HasMany
-    {
-        return $this->setConnection('career_db')->hasMany(Job::class, 'state_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the career recruiters for the state.
-     */
-    public function recruiters(): HasMany
-    {
-        return $this->setConnection('career_db')->hasMany(Recruiter::class, 'state_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the career references for the state.
-     */
-    public function references(): HasMany
-    {
-        return $this->setConnection('career_db')->hasMany(Reference::class, 'state_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the portfolio schools for the state.
-     */
-    public function schools(): HasMany
-    {
-        return $this->setConnection('portfolio_db')->hasMany(School::class, 'state_id')
-            ->orderBy('name');
-    }
-
-    /**
-     * Get the system users for the state.
-     */
-    public function users(): HasMany
-    {
-        return $this->hasMany(User::class, 'state_id')
             ->orderBy('name');
     }
 
@@ -178,5 +143,60 @@ class State extends Model
     public static function getName(string $code): string
     {
         return new State()->where('code', $code)->first()->name ?? $code;
+    }
+
+    /**
+     * Get the portfolio jobs for the state.
+     *
+     * @return HasMany
+     */
+    public function jobs(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Job::class, 'state_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the career recruiters for the state.
+     *
+     * @return HasMany
+     */
+    public function recruiters(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Recruiter::class, 'state_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the career references for the state.
+     *
+     * @return HasMany
+     */
+    public function references(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Reference::class, 'state_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the portfolio schools for the state.
+     *
+     * @return HasMany
+     */
+    public function schools(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(School::class, 'state_id')
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the system users for the state.
+     *
+     * @return HasMany
+     */
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'state_id')
+            ->orderBy('name');
     }
 }

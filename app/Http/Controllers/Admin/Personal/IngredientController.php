@@ -9,8 +9,6 @@ use App\Http\Requests\Personal\UpdateIngredientsRequest;
 use App\Models\Personal\Ingredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rules\In;
 use Illuminate\View\View;
 
 /**

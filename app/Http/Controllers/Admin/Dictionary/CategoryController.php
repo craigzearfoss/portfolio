@@ -7,14 +7,9 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreCategoriesRequest;
 use App\Http\Requests\Dictionary\UpdateCategoriesRequest;
 use App\Models\Dictionary\Category;
-use App\Models\Personal\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Support\Str;
 
 /**
  *

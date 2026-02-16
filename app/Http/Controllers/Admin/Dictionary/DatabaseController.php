@@ -8,14 +8,9 @@ use App\Http\Requests\Dictionary\StoreDatabasesRequest;
 use App\Http\Requests\Dictionary\UpdateDatabasesRequest;
 use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Database;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Support\Str;
 
 /**
  *

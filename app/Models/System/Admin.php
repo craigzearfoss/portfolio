@@ -3,10 +3,31 @@
 namespace App\Models\System;
 
 use App\Enums\EnvTypes;
-use App\Models\System\AdminGroup;
-use App\Models\System\AdminTeam;
-use App\Models\System\Country;
-use App\Models\System\State;
+use App\Models\Career\Application;
+use App\Models\Career\Communication;
+use App\Models\Career\Company;
+use App\Models\Career\Contact;
+use App\Models\Career\CoverLetter;
+use App\Models\Career\Event;
+use App\Models\Career\Note;
+use App\Models\Career\Reference;
+use App\Models\Career\Resume;
+use App\Models\Personal\Reading;
+use App\Models\Personal\Recipe;
+use App\Models\Personal\RecipeIngredient;
+use App\Models\Personal\RecipeStep;
+use App\Models\Portfolio\Art;
+use App\Models\Portfolio\Certificate;
+use App\Models\Portfolio\Course;
+use App\Models\Portfolio\Education;
+use App\Models\Portfolio\Job;
+use App\Models\Portfolio\JobCoworker;
+use App\Models\Portfolio\JobTask;
+use App\Models\Portfolio\Link;
+use App\Models\Portfolio\Music;
+use App\Models\Portfolio\Project;
+use App\Models\Portfolio\Skill;
+use App\Models\Portfolio\Video;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Exception;
@@ -14,9 +35,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -121,7 +143,7 @@ class Admin extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role', 'street',
+    const array SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role', 'street',
         'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root',
         'disabled', 'demo'];
 
@@ -129,6 +151,63 @@ class Admin extends Authenticatable
      *
      */
     const array SEARCH_ORDER_BY = ['username', 'asc'];
+
+    /**
+     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
+     *
+     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function salutationListOptions(array $filters = [],
+                                                 bool $includeBlank = false,
+                                                 bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        foreach (self::SALUTATIONS as $i=>$title) {
+            $options[$nameAsKey ? $title : $i] = $title;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns an array of options for a select list for statuses.
+     *
+     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param string $valueColumn
+     * @param string $labelColumn
+     * @param bool $includeBlank
+     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
+     * @return array
+     * @throws Exception
+     */
+    public static function statusListOptions(array $filters = [],
+                                             string $valueColumn = 'id',
+                                             string $labelColumn = 'name',
+                                             bool $includeBlank  = false,
+                                             bool $includeOther  = false,
+                                             array $orderBy      = [ 'name' => 'asc' ],
+                                             EnvTypes $envType   = EnvTypes::GUEST): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[''] = '';
+        }
+
+        foreach (self::STATUSES as $i=>$status) {
+            $options[$valueColumn == 'id' ? $i : $status] = $labelColumn = 'id' ? $i : $status;
+        }
+
+        return $options;
+    }
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -205,45 +284,43 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the system country that owns the admin.
+     * Get the system admin_databases for the owner.
+     *
+     * @return HasOne
      */
-    public function country(): BelongsTo
+    public function adminDatabases(): HasOne
     {
-        return $this->belongsTo(Country::class, 'country_id');
+        return $this->hasOne(AdminDatabase::class, 'owner_id');
     }
 
     /**
-     * Get the system state that owns the admin.
+     * Get the system admin_resources for the owner.
+     *
+     * @return HasMany
      */
-    public function state(): BelongsTo
+    public function adminResources(): HasMany
     {
-        return $this->belongsTo(State::class, 'state_id');
+        return $this->hasMany(AdminResource::class, 'owner_id');
     }
 
     /**
-     * Get the current system admin_team of the admin.
+     * Get the career applications for the owner.
+     *
+     * @return HasMany
      */
-    public function team(): BelongsTo
+    public function applications(): HasMany
     {
-        return $this->belongsTo(AdminTeam::class, 'admin_team_id');
+        return $this->setConnection('career_db')->hasMany(Application::class, 'owner_id');
     }
 
     /**
-     * Get all the system admin_groups for the admin.
+     * Get the portfolio art for the owner.
+     *
+     * @return HasMany
      */
-    public function groups(): BelongsToMany
+    public function art(): HasMany
     {
-        return $this->belongsToMany(AdminGroup::class)
-            ->orderBy('name');
-    }
-
-    /**
-     * Get all the system admin_teams for the admin.
-     */
-    public function teams(): BelongsToMany
-    {
-        return $this->belongsToMany(AdminTeam::class)
-            ->orderBy('name');
+        return $this->setConnection('portfolio_db')->hasMany(Art::class, 'owner_id');
     }
 
     /**
@@ -260,58 +337,265 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Returns the status name for the given id or null if not found.
+     * Get the portfolio certificates for the owner.
      *
-     * @param int $id
-     * @return string|null
+     * @return HasMany
      */
-    public static function statusName(int $id): string|null
+    public function certificates(): HasMany
     {
-        return self::STATUSES[$id] ?? null;
+        return $this->setConnection('portfolio_db')->hasMany(Certificate::class, 'owner_id');
     }
 
     /**
-     * Returns the status id for the giving name or false if not found.
+     * Get the career communications for the owner.
+     *
+     * @return HasMany
+     */
+    public function communications(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Communication::class, 'owner_id');
+    }
+
+    /**
+     * Get the career companies for the owner.
+     *
+     * @return HasMany
+     */
+    public function companies(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Company::class, 'owner_id');
+    }
+
+    /**
+     * Get the career contacts for the owner.
+     *
+     * @return HasMany
+     */
+    public function contacts(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Contact::class, 'owner_id');
+    }
+
+    /**
+     * Get the system country that owns the admin.
+     *
+     * @return HasMany
+     */
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
+     * Get the portfolio courses for the owner.
+     *
+     * @return HasMany
+     */
+    public function courses(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(Course::class, 'owner_id');
+    }
+
+    /**
+     * Get the career cover letters for the owner.
+     *
+     * @return HasMany
+     */
+    public function coverLetters(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(CoverLetter::class, 'owner_id');
+    }
+
+    /**
+     * Get the system databases for the owner.
+     *
+     * @return HasMany
+     */
+    public function databases(): HasMany
+    {
+        return $this->hasMany(Database::class, 'owner_id');
+    }
+
+    /**
+     * Get the career educations for the owner.
+     *
+     * @return HasMany
+     */
+    public function educations(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Education::class, 'owner_id');
+    }
+
+    /**
+     * Get the career events for the owner.
+     *
+     * @return HasMany
+     */
+    public function events(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Event::class, 'owner_id');
+    }
+
+    /**
+     * Get all the system groups for the admin.
+     *
+     * @return HasMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(AdminGroup::class)
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the portfolio jobs for the owner.
+     *
+     * @return HasMany
+     */
+    public function jobs(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(Job::class, 'owner_id');
+    }
+
+    /**
+     * Get the portfolio job coworkers for the owner.
+     *
+     * @return HasMany
+     */
+    public function jobCoworkers(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(JobCoworker::class, 'owner_id');
+    }
+
+    /**
+     * Get the portfolio job tasks for the owner.
+     *
+     * @return HasMany
+     */
+    public function jobTasks(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(JobTask::class, 'owner_id');
+    }
+
+    /**
+     * Get the portfolio links for the owner.
+     *
+     * @return HasMany
+     */
+    public function links(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(Link::class, 'owner_id');
+    }
+
+    /**
+     * Get the portfolio music for the owner.
+     *
+     * @return HasMany
+     */
+    public function music(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(Music::class, 'owner_id');
+    }
+
+    /**
+     * Get the career notes for the owner.
+     *
+     * @return HasMany
+     */
+    public function notes(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Note::class, 'owner_id');
+    }
+
+    /**
+     * Get the portfolio projects for the owner.
+     *
+     * @return HasMany
+     */
+    public function projects(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(Project::class, 'owner_id');
+    }
+
+    /**
+     * Get the personal readings for the owner.
+     *
+     * @return HasMany
+     */
+    public function readings(): HasMany
+    {
+        return $this->setConnection('personal_db')->hasMany(Reading::class, 'owner_id');
+    }
+
+    /**
+     * Get the personal recipes for the owner.
+     *
+     * @return HasMany
+     */
+    public function recipes(): HasMany
+    {
+        return $this->setConnection('personal_db')->hasMany(Recipe::class, 'owner_id');
+    }
+
+    /**
+     * Get the personal recipe ingredients for the owner.
+     *
+     * @return HasMany
+     */
+    public function recipeIngredients(): HasMany
+    {
+        return $this->setConnection('personal_db')->hasMany(RecipeIngredient::class, 'owner_id');
+    }
+
+    /**
+     * Get the personal recipe steps for the owner.
+     *
+     * @return HasMany
+     */
+    public function recipeSteps(): HasMany
+    {
+        return $this->setConnection('personal_db')->hasMany(RecipeStep::class, 'owner_id');
+    }
+
+    /**
+     * Get the career references for the owner.
+     *
+     * @return HasMany
+     */
+    public function references(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Reference::class, 'owner_id');
+    }
+
+    /**
+     * Get the system resources for the owner.
+     *
+     * @return HasMany
+     */
+    public function resources(): HasMany
+    {
+        return $this->hasMany(Resource::class, 'owner_id');
+    }
+
+    /**
+     * Get the career resumes for the owner.
+     *
+     * @return HasMany
+     */
+    public function resumes(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Resume::class, 'owner_id');
+    }
+
+    /**
+     * Returns the id for the given salutation or false if not found.
      *
      * @param string $name
      * @return int|bool
      */
-    public static function statusIndex(string $name): string |bool
+    public static function salutationIndex(string $name): int|bool
     {
-        return array_search($name, self::STATUSES);
-    }
-
-    /**
-     * Returns an array of options for a select list for statuses.
-     *
-     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool $includeBlank
-     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
-     * @return array
-     * @throws Exception
-     */
-    public static function statusListOptions(array $filters = [],
-                                             string $valueColumn = 'id',
-                                             string $labelColumn = 'name',
-                                             bool $includeBlank  = false,
-                                             bool $includeOther  = false,
-                                             array $orderBy      = [ 'name' => 'asc' ],
-                                             EnvTypes $envType   = EnvTypes::GUEST): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        foreach (self::STATUSES as $i=>$status) {
-            $options[$valueColumn == 'id' ? $i : $status] = $labelColumn = 'id' ? $i : $status;
-        }
-
-        return $options;
+        return array_search($name, self::SALUTATIONS);
     }
 
     /**
@@ -326,37 +610,75 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Returns the salutation id for the giving name or false if not found.
+     * Get the portfolio skills for the owner.
+     *
+     * @return HasMany
+     */
+    public function skills(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(Skill::class, 'owner_id');
+    }
+
+    /**
+     * Get the system state that owns the admin.
+     *
+     * @return BelongsTo
+     */
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class, 'state_id');
+    }
+
+    /**
+     * Returns the id for the given status or false if not found.
      *
      * @param string $name
      * @return int|bool
      */
-    public static function salutationIndex(string $name): string |bool
+    public static function statusIndex(string $name): int|bool
     {
-        return array_search($name, self::SALUTATIONS);
+        return array_search($name, self::STATUSES);
     }
 
     /**
-     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
+     * Returns the status name for the given id or null if not found.
      *
-     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
+     * @param int $id
+     * @return string|null
      */
-    public static function salutationListOptions(array $filters = [],
-                                                 bool $includeBlank = false,
-                                                 bool $nameAsKey = false): array
+    public static function statusName(int $id): string|null
     {
-        $options = [];
-        if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
-        }
+        return self::STATUSES[$id] ?? null;
+    }
 
-        foreach (self::SALUTATIONS as $i=>$title) {
-            $options[$nameAsKey ? $title : $i] = $title;
-        }
+    /**
+     * Get the current system admin_team of the admin.
+     *
+     * @return BelongsTo
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(AdminTeam::class, 'admin_team_id');
+    }
 
-        return $options;
+    /**
+     * Get all the system admin_teams for the admin.
+     *
+     * @return BelongsToMany
+     */
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(AdminTeam::class)
+            ->orderBy('name');
+    }
+
+    /**
+     * Get the portfolio videos for the owner.
+     *
+     * @return HasMany
+     */
+    public function videos(): HasMany
+    {
+        return $this->setConnection('portfolio_db')->hasMany(Video::class, 'owner_id');
     }
 }

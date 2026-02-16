@@ -9,7 +9,6 @@ use App\Http\Requests\Portfolio\UpdateAcademiesRequest;
 use App\Models\Portfolio\Academy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

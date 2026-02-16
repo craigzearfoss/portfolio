@@ -2,8 +2,6 @@
 
 namespace App\Models\System;
 
-use App\Models\System\UserGroup;
-use App\Models\System\UserTeam;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\UserFactory;
 use Eloquent;
@@ -197,27 +195,24 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    /**
      * Get the system country that owns the user.
      */
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'country_id');
-    }
-
-    /**
-     * Get the system state that owns the user.
-     */
-    public function state(): BelongsTo
-    {
-        return $this->belongsTo(State::class, 'state_id');
-    }
-
-    /**
-     * Get the current system user_team of the user.
-     */
-    public function team(): BelongsTo
-    {
-        return $this->belongsTo(UserTeam::class, 'user_team_id');
     }
 
     /**
@@ -230,25 +225,22 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all the system user_teams for the user.
+     * Get the system state that owns the user.
      */
-    public function teams(): BelongsToMany
+    public function state(): BelongsTo
     {
-        return $this->belongsToMany(UserTeam::class)
-            ->orderBy('name');
+        return $this->belongsTo(State::class, 'state_id');
     }
 
     /**
-     * Get the attributes that should be cast.
+     * Returns the id for the given status or false if not found.
      *
-     * @return array<string, string>
+     * @param string $name
+     * @return string|int|bool
      */
-    protected function casts(): array
+    public static function statusIndex(string $name): string|int|bool
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return array_search($name, self::STATUSES);
     }
 
     /**
@@ -263,14 +255,20 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns the status id for the giving name or false if not found.
-     *
-     * @param string $name
-     * @return int|bool
+     * Get the current system user_team of the user.
      */
-    public static function statusIndex(string $name): string |bool
+    public function team(): BelongsTo
     {
-        return array_search($name, self::STATUSES);
+        return $this->belongsTo(UserTeam::class, 'user_team_id');
+    }
+
+    /**
+     * Get all the system user_teams for the user.
+     */
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(UserTeam::class)
+            ->orderBy('name');
     }
 
     /**
@@ -309,12 +307,12 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns the salutation id for the giving name or false if not found.
+     * Returns the id for the given salutation or false if not found.
      *
      * @param string $name
      * @return int|bool
      */
-    public static function salutationIndex(string $name): string |bool
+    public static function salutationIndex(string $name): int|bool
     {
         return array_search($name, self::SALUTATIONS);
     }

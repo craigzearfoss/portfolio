@@ -8,12 +8,8 @@ use App\Http\Requests\Career\StoreNotesRequest;
 use App\Http\Requests\Career\UpdateNotesRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Note;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

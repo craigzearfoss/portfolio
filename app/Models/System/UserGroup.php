@@ -3,12 +3,9 @@
 namespace App\Models\System;
 
 use App\Models\System;
-use App\Models\System\User;
-use App\Models\System\UserUserTeam;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -96,15 +93,20 @@ class UserGroup extends Model
     }
 
     /**
-     * Get the system user of the user group.
+     * Get the members for the user group.
+     *
+     * @return BelongsToMany
      */
-    public function user(): BelongsTo
+    public function members(): BelongsToMany
     {
-        return $this->belongsTo(System\User::class, 'owner_id');
+        return $this->belongsToMany(User::class)
+            ->orderBy('name');
     }
 
     /**
      * Get the system user team that owns the user group.
+     *
+     * @return BelongsTo
      */
     public function team(): BelongsTo
     {
@@ -112,11 +114,12 @@ class UserGroup extends Model
     }
 
     /**
-     * Get the members for the user group.
+     * Get the system user (owner) of the user group.
+     *
+     * @return BelongsTo
      */
-    public function members(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(User::class)
-            ->orderBy('name');
+        return $this->belongsTo(System\User::class, 'owner_id');
     }
 }

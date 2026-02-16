@@ -4,23 +4,14 @@ namespace App\Http\Controllers\Admin\Career;
 
 use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreAdminsRequest;
 use App\Http\Requests\Career\StoreCompanyContactsRequest;
 use App\Http\Requests\Career\StoreCompaniesRequest;
 use App\Http\Requests\Career\UpdateCompaniesRequest;
-use App\Http\Requests\Career\StoreContactsRequest;
 use App\Models\Career\Company;
-use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use function PHPUnit\Framework\throwException;
 
 /**
  *

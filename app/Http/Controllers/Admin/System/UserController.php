@@ -9,8 +9,6 @@ use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 

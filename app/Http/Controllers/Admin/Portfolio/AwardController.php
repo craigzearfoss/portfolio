@@ -7,11 +7,8 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreAwardsRequest;
 use App\Http\Requests\Portfolio\UpdateAwardsRequest;
 use App\Models\Portfolio\Award;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

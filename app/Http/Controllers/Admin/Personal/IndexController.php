@@ -6,7 +6,6 @@ use App\Enums\EnvTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\System\Database;
 use App\Models\System\AdminResource;
-use App\Services\PermissionService;
 use Illuminate\View\View;
 
 /**

@@ -7,18 +7,11 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreResumesRequest;
 use App\Http\Requests\Career\UpdateResumesRequest;
 use App\Models\Career\Application;
-use App\Models\Career\Communication;
 use App\Models\Career\Resume;
-use App\Models\Portfolio\Job;
 use App\Models\System\Admin;
-use App\Models\System\Owner;
 use App\Services\ResumeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**

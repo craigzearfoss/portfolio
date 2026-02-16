@@ -2,11 +2,9 @@
 
 namespace App\Models\System;
 
-use App\Models\System\AdminAdminTeam;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -102,6 +100,8 @@ class AdminGroup extends Model
 
     /**
      * Get the system owner of the admin group.
+     *
+     * @return BelongsTo
      */
     public function owner(): BelongsTo
     {
@@ -109,19 +109,23 @@ class AdminGroup extends Model
     }
 
     /**
-     * Get the system admin team that owns the admin group.
-     */
-    public function team(): BelongsTo
-    {
-        return $this->belongsTo(AdminTeam::class, 'admin_team_id');
-    }
-
-    /**
      * Get the members for the admin group.
+     *
+     * @return BelongsToMany
      */
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(Admin::class)
             ->orderBy('name');
+    }
+
+    /**
+     * Get the system admin team that owns the admin group.
+     *
+     * @return BelongsTo
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(AdminTeam::class, 'admin_team_id');
     }
 }

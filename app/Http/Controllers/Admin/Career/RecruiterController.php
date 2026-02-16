@@ -9,9 +9,7 @@ use App\Http\Requests\Career\UpdateRecruitersRequest;
 use App\Models\Career\Recruiter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
-use Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer;
 
 class RecruiterController extends BaseAdminController
 {

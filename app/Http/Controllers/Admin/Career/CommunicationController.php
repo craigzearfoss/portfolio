@@ -8,12 +8,8 @@ use App\Http\Requests\Career\StoreCommunicationsRequest;
 use App\Http\Requests\Career\UpdateCommunicationsRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
-use App\Models\Career\Resume;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

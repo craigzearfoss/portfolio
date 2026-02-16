@@ -3,9 +3,6 @@
 namespace App\Models\System;
 
 use App\Enums\EnvTypes;
-use App\Models\System\Admin;
-use App\Models\System\AdminResource;
-use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Exception;
@@ -15,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Route;
 
 /**
  * @mixin Eloquent
@@ -135,6 +131,8 @@ class AdminDatabase extends Model
 
     /**
      * Get the system owner who owns the admin_databases.
+     *
+     * @returns BelongsTo
      */
     public function owner(): BelongsTo
     {
@@ -142,13 +140,42 @@ class AdminDatabase extends Model
     }
 
     /**
-     * Get the system admin_resources of the admin_databases.
+     * Returns the admin_resource types.
+     *
+     * @param int|null $ownerId
+     * @param string|null $dbName
+     * @param array $filters
+     * @param array $orderBy
+     * @return array
      */
-    public function resources(): HasMany
+    public static function getResourceTypes(int|null    $ownerId,
+                                            string|null $dbName = null,
+                                            array       $filters = [],
+                                            array       $orderBy = ['sequence', 'asc']):  array
     {
-        return $this->hasMany(AdminResource::class, 'database_id')
-            ->where('owner_id', $this->owner()->id)
-            ->orderBy('name');
+        if (empty($ownerId)) {
+
+            return Database::getResourceTypes($dbName, $filters);
+
+        } else {
+
+            $query = new AdminDatabase()->select('admin_resources.*', 'admin_databases.id as database_id',
+                'admin_databases.name as database_name', 'admin_databases.database as database_database'
+            )
+                ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
+                ->orderBy('admin_resources.sequence');
+
+            if (!empty($dbName)) {
+                $query->where('admin_databases.name', $dbName);
+            }
+
+            if (isset($filters['public'])) $query->where('admin_resources.public', $filters['public'] ? 1 : 0);
+            if (isset($filters['readonly'])) $query->where('admin_resources.readonly', $filters['readonly'] ? 1 : 0);
+            if (isset($filters['root'])) $query->where('admin_resources.root', $filters['root'] ? 1 : 0);
+            if (isset($filters['disabled'])) $query->where('admin_resources.disabled', $filters['disabled'] ? 1 : 0);
+
+            return $query->get()->toArray();
+        }
     }
 
     /**
@@ -216,75 +243,14 @@ class AdminDatabase extends Model
     }
 
     /**
-     * Returns the admin_resource types.
+     * Get the system admin_resources of the admin_databases.
      *
-     * @param int|null $ownerId
-     * @param string|null $dbName
-     * @param array $filters
-     * @param array $orderBy
-     * @return array
+     * @return HasMany
      */
-    public static function getResourceTypes(int|null    $ownerId,
-                                            string|null $dbName = null,
-                                            array       $filters = [],
-                                            array       $orderBy = ['sequence', 'asc']):  array
+    public function resources(): HasMany
     {
-        if (empty($ownerId)) {
-
-            return Database::getResourceTypes($dbName, $filters);
-
-        } else {
-
-            $query = new AdminDatabase()->select('admin_resources.*', 'admin_databases.id as database_id',
-                    'admin_databases.name as database_name', 'admin_databases.database as database_database'
-                )
-                ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
-                ->orderBy('admin_resources.sequence');
-
-            if (!empty($dbName)) {
-                $query->where('admin_databases.name', $dbName);
-            }
-
-            if (isset($filters['public'])) $query->where('admin_resources.public', $filters['public'] ? 1 : 0);
-            if (isset($filters['readonly'])) $query->where('admin_resources.readonly', $filters['readonly'] ? 1 : 0);
-            if (isset($filters['root'])) $query->where('admin_resources.root', $filters['root'] ? 1 : 0);
-            if (isset($filters['disabled'])) $query->where('admin_resources.disabled', $filters['disabled'] ? 1 : 0);
-
-            return $query->get()->toArray();
-        }
-    }
-
-    /**
-     * Returns the admin_resource types.
-     *
-     * @param int $ownerId
-     * @param string|null $dbName
-     * @param array $filters
-     * @param array $orderBy
-     * @return array
-     */
-    public static function getResourceTypes_OLD(int         $ownerId,
-                                            string|null $dbName = null,
-                                            array       $filters = [],
-                                            array       $orderBy = ['seq', 'asc']):  array
-    {
-        $query = new Database()->select( 'admin_resources.*', 'databases.id as database_id', 'databases.name as database_name'
-                , 'databases.database as database_database'
-            )
-            ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
-            ->where('admin_databases.owner_id', $ownerId)
-            ->where('admin_resources.owner_id', $ownerId)
-            ->orderBy('admin_resources.sequence');
-
-        if(!empty($dbName)) {
-            $query->where('admin_databases.name', $dbName);
-        }
-
-        if (isset($filters['public'])) $query->where('admin_resources.public', $filters['public'] ? 1 : 0);
-        if (isset($filters['readonly'])) $query->where('admin_resources.readonly', $filters['readonly'] ? 1 : 0);
-        if (isset($filters['root'])) $query->where('admin_resources.root', $filters['root'] ? 1 : 0);
-        if (isset($filters['disabled'])) $query->where('admin_resources.disabled', $filters['disabled'] ? 1 : 0);
-
-        return $query->get()->toArray();
+        return $this->hasMany(AdminResource::class, 'database_id')
+            ->where('owner_id', $this->owner()->id)
+            ->orderBy('name');
     }
 }

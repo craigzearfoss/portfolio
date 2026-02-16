@@ -9,8 +9,6 @@ use App\Http\Requests\Career\UpdateIndustriesRequest;
 use App\Models\Career\Industry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

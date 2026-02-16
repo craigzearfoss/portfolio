@@ -9,7 +9,6 @@ use App\Http\Requests\Portfolio\UpdateCertificationsRequest;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

@@ -10,10 +10,7 @@ use App\Models\Portfolio\Photography;
 use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
-use PHPUnit\TextUI\Configuration\Php;
 
 /**
  *

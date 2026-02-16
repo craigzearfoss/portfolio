@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Guest\BaseGuestController;
-use App\Models\Portfolio\Award;
-use App\Models\Portfolio\Certificate;
-use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
-use App\Models\Portfolio\Skill;
 use App\Models\System\Admin;
 use App\Services\ResumeService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

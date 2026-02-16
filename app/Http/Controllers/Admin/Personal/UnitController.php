@@ -9,7 +9,6 @@ use App\Http\Requests\Personal\UpdateUnitsRequest;
 use App\Models\Personal\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

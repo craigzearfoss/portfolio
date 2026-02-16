@@ -90,15 +90,19 @@ class UserTeam extends Model
     }
 
     /**
-     * Get the system owner of the user team.
+     * Get the system user groups for the user team.
+     *
+     * @return HasMany
      */
-    public function owner(): BelongsTo
+    public function groups(): hasMany
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->hasMany(UserGroup::class, 'user_team_id');
     }
 
     /**
      * Get the members for the user team.
+     *
+     * @return BelongsToMany
      */
     public function members(): BelongsToMany
     {
@@ -107,10 +111,12 @@ class UserTeam extends Model
     }
 
     /**
-     * Get the system user groups for the user team.
+     * Get the system user (owner) of the user team.
+     *
+     * @return BelongsTo
      */
-    public function groups(): hasMany
+    public function owner(): BelongsTo
     {
-        return $this->hasMany(UserGroup::class, 'user_team_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

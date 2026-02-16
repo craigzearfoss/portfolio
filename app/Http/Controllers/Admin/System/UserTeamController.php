@@ -9,7 +9,6 @@ use App\Http\Requests\System\UpdateUserTeamsRequest;
 use App\Models\System\UserTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
