@@ -1,4 +1,5 @@
 @php
+    use App\Models\Portfolio\Academy;
     use App\Models\System\Owner;
 
     // set breadcrumbs
@@ -123,7 +124,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'      => 'academy',
                 'value'     => old('academy_id') ?? 0,
-                'list'      => \App\Models\Portfolio\Academy::listOptions([], 'id', 'name', true),
+                'list'      => new Academy()->listOptions([], 'id', 'name', true),
                 'required'  => true,
                 'message'   => $message ?? '',
             ])

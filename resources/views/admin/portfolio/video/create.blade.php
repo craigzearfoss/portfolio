@@ -1,5 +1,6 @@
 @php
     use App\Models\System\Owner;
+    use App\Models\Portfolio\Video;
 
     // set breadcrumbs
     $breadcrumbs = [
@@ -77,7 +78,7 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? '',
-                'list'    => \App\Models\Portfolio\Video::listOptions([], 'id', 'name', true),
+                'list'    => new Video()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

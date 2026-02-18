@@ -128,20 +128,20 @@ class Application extends Model
     /**
      * Returns an array of options for an application select list.
      *
-     * @param array $filters
+     * @param array  $filters
      * @param string $valueColumn
      * @param string $labelColumn
-     * @param bool $includeOther
-     * @param bool $includeBlank
-     * @param array $orderBy
+     * @param bool   $includeBlank
+     * @param bool   $includeOther
+     * @param array  $orderBy
      * @return array
      * @throws Exception
      */
-    public static function listOptions(array  $filters = [],
+    public function listOptions(array  $filters = [],
                                        string $valueColumn = 'id',
                                        string $labelColumn = 'name',
-                                       bool   $includeOther = false,
                                        bool   $includeBlank = false,
+                                       bool   $includeOther = false,
                                        array  $orderBy = ['company_name', 'asc']): array
     {
         $options = [];

@@ -1,4 +1,5 @@
 @php
+    use App\Models\System\AdminTeam;
     use App\Models\System\Owner;
 
     // set breadcrumbs
@@ -70,7 +71,7 @@
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
                 'value'   => old('admin_team_id') ?? $adminGroup->team['id'] ?? '',
-                'list'    => \App\Models\System\AdminTeam::listOptions(),
+                'list'    => new AdminTeam()->listOptions(),
                 'message' => $message ?? '',
             ])
 

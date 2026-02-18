@@ -1,4 +1,6 @@
 @php
+    use App\Models\Personal\Reading;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
@@ -41,7 +43,7 @@
                 @include('guest.components.form-select', [
                     'name'     => 'author',
                     'value'    => Request::get('author'),
-                    'list'     => \App\Models\Personal\Reading::listOptions([], 'author', 'author', true, false, ['author', 'asc']),
+                    'list'     => new Reading()->listOptions([], 'author', 'author', true, false, ['author', 'asc']),
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])
             </div>

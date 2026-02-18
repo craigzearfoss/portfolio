@@ -76,6 +76,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'salutation',
+            'value' => $contact->salutation
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'title',
             'value' => $contact->title
         ])

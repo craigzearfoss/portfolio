@@ -56,7 +56,7 @@
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
                 'value'   => old('admin_team_id') ?? $owner->team['id'] ?? $owner->team_id,
-                'list'    => AdminTeam::listOptions(),
+                'list'    => new AdminTeam()->listOptions(),
                 'message' => $message ?? '',
             ])
 
@@ -121,7 +121,7 @@
                 'name'    => 'employment_status_id',
                 'label'   => 'employment status',
                 'value'   => old('employment_status_id') ?? $owner->employment_status_id,
-                'list'    => EmploymentStatus::listOptions(),
+                'list'    => new EmploymentStatus()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

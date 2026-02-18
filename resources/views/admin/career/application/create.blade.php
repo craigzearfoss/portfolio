@@ -1,4 +1,10 @@
 @php
+    use App\Models\Career\Company;
+    use App\Models\Career\CompensationUnit;
+    use App\Models\Career\JobBoard;
+    use App\Models\Career\JobDurationType;
+    use App\Models\Career\JobEmploymentType;
+    use App\Models\Career\JobLocationType;
     use App\Models\System\Country;
     use App\Models\System\Owner;
     use App\Models\System\State;
@@ -68,7 +74,7 @@
                         'label'    => 'Select a company',
                         'value'    => old('company_id') ?? '',
                         'required' => true,
-                        'list'     => \App\Models\Career\Company::listOptions([], 'id', 'name', true),
+                        'list'     => new Company()->listOptions([], 'id', 'name', true),
                         'onchange' => "document.getElementById('selectCompanyForm').submit();",
                         'message'  => $message ?? '',
                     ])
@@ -129,7 +135,7 @@
                     'label'    => 'company',
                     'value'    => old('company_id') ?? $companyId,
                     'required' => true,
-                    'list'     => \App\Models\Career\Company::listOptions([], 'id', 'name', true),
+                    'list'     => new Company()->listOptions([], 'id', 'name', true),
                     'message'  => $message ?? '',
                 ])
 
@@ -155,7 +161,7 @@
                     'name'    => 'job_board_id',
                     'label'   => 'job board',
                     'value'   => old('job_board_id') ?? '',
-                    'list'    => \App\Models\Career\JobBoard::listOptions([], 'id', 'name', true),
+                    'list'    => new JobBoard()->listOptions([], 'id', 'name', true),
                     'message' => $message ?? '',
                 ])
 
@@ -223,17 +229,17 @@
                     'name'    => 'compensation_unit_id',
                     'label'   => 'compensation unit',
                     'value'   => old('compensation_unit_id') ?? '',
-                    'list'    => \App\Models\Career\CompensationUnit::listOptions([], 'id', 'name', true),
+                    'list'    => new CompensationUnit()->listOptions([], 'id', 'name', true),
                     'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'job_duration_type_id',
-                    'label'   => 'duration type',
-                    'value'   => old('job_duration_type_id') ?? '',
-                    'required'  => true,
-                    'list'    => \App\Models\Career\JobDurationType::listOptions([], 'id', 'name', true),
-                    'message' => $message ?? '',
+                    'name'     => 'job_duration_type_id',
+                    'label'    => 'duration type',
+                    'value'    => old('job_duration_type_id') ?? '',
+                    'required' => true,
+                    'list'     => new JobDurationType()->listOptions([], 'id', 'name', true),
+                    'message'  => $message ?? '',
                 ])
 
                 @include('admin.components.form-select-horizontal', [
@@ -241,7 +247,7 @@
                     'label'    => 'employment type',
                     'value'    => old('job_employment_type_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\Career\JobEmploymentType::listOptions([], 'id', 'name', true),
+                    'list'     => new JobEmploymentType()->listOptions([], 'id', 'name', true),
                     'message'  => $message ?? '',
                 ])
 
@@ -250,7 +256,7 @@
                     'label'    => 'location type',
                     'value'    => old('job_location_type_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\Career\JobLocationType::listOptions([], 'id', 'name', true),
+                    'list'     => new JobLocationType()->listOptions([], 'id', 'name', true),
                     'message'  => $message ?? '',
                 ])
 

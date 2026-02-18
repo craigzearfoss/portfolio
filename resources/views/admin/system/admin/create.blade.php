@@ -1,5 +1,6 @@
 @php
     use App\Models\System\Admin;
+    use App\Models\System\AdminTeam;
     use App\Models\System\Country;
     use App\Models\System\State;
 
@@ -50,7 +51,7 @@
                     'name'    => 'admin_team_id',
                     'label'   => 'team',
                     'value'   => old('admin_team_id') ?? '',
-                    'list'    => \App\Models\System\AdminTeam::listOptions([], true),
+                    'list'    => new AdminTeam()->listOptions(),
                     'message' => $message ?? '',
                 ])
 
@@ -109,6 +110,14 @@
                     'value'     => old('employer') ?? '',
                     'maxlength' => 100,
                     'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'employment_status_id',
+                    'label'   => 'employment status',
+                    'value'   => old('employment_status_id') ?? '',
+                    'list'    => new EmploymentStatus()->listOptions([], 'id', 'name', true),
+                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-location-horizontal', [

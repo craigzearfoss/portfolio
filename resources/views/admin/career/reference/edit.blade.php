@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\Company;
     use App\Models\System\Country;
     use App\Models\System\State;
     use App\Models\System\Owner;
@@ -165,7 +166,7 @@
                 'name'    => 'company_id',
                 'label'   => 'company',
                 'value'   => old('company_id') ?? $reference->company_id,
-                'list'    => \App\Models\Career\Company::listOptions([], 'id', 'name', true),
+                'list'    => new Company()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

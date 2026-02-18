@@ -84,11 +84,18 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'    => 'title',
-                'label'   => 'title',
-                'value'   => old('title') ?? $contact->title,
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'salutation',
+                'value'   => old('salutation') ?? $contact->salutation,
+                'list'    => new Admin()->salutationListOptions(true),
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'title',
+                'value'     => old('role') ?? $contact->title,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-location-horizontal', [

@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\Application;
     use App\Models\System\Owner;
 @endphp
 @extends('admin.layouts.default', [
@@ -56,7 +57,7 @@
                 'name'    => 'application_id',
                 'label'   => 'application',
                 'value'   => old('application_id') ?? '',
-                'list'    => \App\Models\Career\Application::listOptions([], 'id', 'name', true),
+                'list'    => new Application()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

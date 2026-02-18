@@ -96,7 +96,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'salutation',
                 'value'   => old('salutation') ?? $user->salutation,
-                'list'    => $userModel->salutationListOptions([], true, true),
+                'list'    => $userModel->salutationListOptions(true),
                 'message' => $message ?? '',
             ])
 

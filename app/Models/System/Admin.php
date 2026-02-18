@@ -152,7 +152,6 @@ class Admin extends Authenticatable
      */
     const array SEARCH_ORDER_BY = [ 'username', 'asc' ];
 
-
     /**
      * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
      *

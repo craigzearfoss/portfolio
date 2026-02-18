@@ -1,4 +1,6 @@
 @php
+    use App\Models\Portfolio\JobEmploymentType;
+    use App\Models\Portfolio\JobLocationType;
     use App\Models\System\Country;
     use App\Models\System\Owner;
     use App\Models\System\State;
@@ -171,7 +173,7 @@
                 'label'    => 'employment type',
                 'value'    => old('job_employment_type_id') ?? $job->job_employment_type_id,
                 'required' => true,
-                'list'     => \App\Models\Portfolio\JobEmploymentType::listOptions([], 'id', 'name', true),
+                'list'     => new JobEmploymentType()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 
@@ -180,7 +182,7 @@
                 'label'    => 'location type',
                 'value'    => old('job_location_type_id') ?? $job->job_location_type_id,
                 'required' => true,
-                'list'     => \App\Models\Portfolio\JobLocationType::listOptions([], 'id', 'name', true),
+                'list'     => new JobLocationType()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 

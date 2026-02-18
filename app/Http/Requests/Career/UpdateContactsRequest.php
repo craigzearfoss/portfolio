@@ -59,6 +59,7 @@ class UpdateContactsRequest extends FormRequest
                         ->whereNot('id', $this->contact->id);
                 })
             ],
+            'salutation'      => ['string', 'max:20', 'nullable'],
             'title'           => ['string', 'max:100', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],

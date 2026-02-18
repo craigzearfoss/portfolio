@@ -1,5 +1,7 @@
 @php
+    use App\Models\Career\Company;
     use App\Models\System\Country;
+    use App\Models\Career\Industry;
     use App\Models\System\State;
 @endphp
 @extends('admin.layouts.default', [
@@ -42,7 +44,7 @@
                 'name'     => 'company_id',
                 'label'    => 'company',
                 'value'    => old('company_id') ?? '',
-                'list'     => \App\Models\Career\Company::listOptions([], 'id', 'name', true),
+                'list'     => new Company()->listOptions([], 'id', 'name', true),
                 'onchange' => "if (this.value) { document.getElementById('new-company').style.display='none'; } else { document.getElementById('new-company').style.display='block'; }",
                 'message'  => $message ?? '',
             ])
@@ -70,7 +72,7 @@
                     'name'    => 'industry_id',
                     'label'   => 'industry',
                     'value'   => old('industry_id') ?? 0,
-                    'list'    => \App\Models\Career\Industry::listOptions([], true, false, true),
+                    'list'    => new Industry()->listOptions([], 'id', 'name', true, true),
                     'message' => $message ?? '',
                 ])
 

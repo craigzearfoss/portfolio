@@ -1,6 +1,8 @@
 @php
+    use App\Models\Career\Contact;
     use App\Models\System\Country;
-    use App\Models\System\Owner;use App\Models\System\State;
+    use App\Models\System\Owner;
+    use App\Models\System\State;
 
     // set breadcrumbs
     $breadcrumbs = [
@@ -75,9 +77,16 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
+                'name'    => 'salutation',
+                'value'   => old('salutation') ?? $contact->salutation,
+                'list'    => new Contact()->salutationListOptions(true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'title',
-                'value'     => old('title') ?? '',
-                'list'      => \App\Models\System\User::titleListOptions([], true, true),
+                'value'     => old('role') ?? $contact->title,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 

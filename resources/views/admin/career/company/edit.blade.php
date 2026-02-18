@@ -1,5 +1,6 @@
 @php
     use App\Models\System\Country;
+    use App\Models\Career\Industry;
     use App\Models\System\Owner;
     use App\Models\System\State;
 
@@ -94,7 +95,7 @@
                 'label'    => 'industry',
                 'value'    => old('industry_id') ?? $company->industry_id,
                 'required' => true,
-                'list'     => \App\Models\Career\Industry::listOptions([], 'id', 'name', true, true),
+                'list'     => new Industry()->listOptions([], 'id', 'name', true, true),
                 'message'  => $message ?? '',
             ])
 

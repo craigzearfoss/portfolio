@@ -47,6 +47,7 @@ class Contact extends Model
         'owner_id',
         'name',
         'slug',
+        'salutation',
         'title',
         'street',
         'street2',
@@ -83,11 +84,25 @@ class Contact extends Model
     ];
 
     /**
+     *
+     */
+    const array SALUTATIONS = [
+        'Dr.',
+        'Miss',
+        'Mr.',
+        'Mrs.',
+        'Ms',
+        'Prof.',
+        'Rev.',
+        'Sir',
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'title', 'street', 'street2', 'city', 'state_id', 'zip',
-        'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'link', 'link_name', 'public',
-        'readonly', 'root','disabled','demo'];
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'salutation', 'title', 'street', 'street2', 'city',
+        'state_id', 'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'link', 'link_name',
+        'public', 'readonly', 'root','disabled','demo'];
 
     /**
      *
@@ -102,6 +117,23 @@ class Contact extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public function salutationListOptions(bool $includeBlank = false): array
+    {
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        foreach (self::SALUTATIONS as $title) {
+            $options[$title] = $title;
+        }
+
+        return $options;
     }
 
     /**

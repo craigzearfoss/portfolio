@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\Application;
     use App\Models\System\Owner;
 
     if (!empty($application)) {
@@ -70,7 +71,7 @@
                 'name'    => 'application_id',
                 'label'   => 'application',
                 'value'   => old('application_id') ?? $application->id ?? '',
-                'list'    => \App\Models\Career\Application::listOptions([], 'id', 'name', true),
+                'list'    => new Application()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

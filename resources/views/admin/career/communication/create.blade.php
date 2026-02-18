@@ -1,4 +1,6 @@
 @php
+    use App\Models\Career\Application;
+    use App\Models\Career\CommunicationType;
     use App\Models\System\Owner;
 
     if (!empty($application)) {
@@ -70,7 +72,7 @@
                 'name'    => 'application_id',
                 'label'   => 'application',
                 'value'   => old('application_id') ?? $application->id ?? '',
-                'list'    => \App\Models\Career\Application::listOptions([], 'id', 'name', true),
+                'list'    => new Application()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -78,7 +80,7 @@
                 'name'    => 'communication_type_id',
                 'label'   => 'type',
                 'value'   => old('communication_type_id') ?? '',
-                'list'    => \App\Models\Career\CommunicationType::listOptions([], 'id', 'name', true),
+                'list'    => new CommunicationType()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

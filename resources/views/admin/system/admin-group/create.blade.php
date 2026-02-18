@@ -1,4 +1,5 @@
 @php
+    use App\Models\System\AdminTeam;
     use App\Models\System\Owner;
 @endphp
 @extends('admin.layouts.default', [
@@ -55,7 +56,7 @@
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
                 'value'   => old('admin_team_id') ?? '',
-                'list'    => \App\Models\System\AdminTeam::listOptions([], true),
+                'list'    => new AdminTeam()->listOptions([], true),
                 'message' => $message ?? '',
             ])
 
