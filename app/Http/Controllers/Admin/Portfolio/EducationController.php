@@ -28,13 +28,13 @@ class EducationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $educations = Education::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $educations = new Education()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('enrollment_year', 'desc')
             ->orderBy('enrollment_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Education' : 'Education';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Education' : 'Education';
 
         return view('admin.portfolio.education.index', compact('educations', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -78,10 +78,12 @@ class EducationController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $education, $this->admin);
 
-        list($prev, $next) = Education::prevAndNextPages($education->id,
+        list($prev, $next) = $education->prevAndNextPages(
+            $education['id'],
             'admin.portfolio.education.show',
-            $this->owner->id ?? null,
-            ['graduation_year', 'desc']);
+            $this->owner ?? null,
+            [ 'graduation_year', 'desc' ]
+        );
 
         return view('admin.portfolio.education.show', compact('education', 'prev', 'next'));
     }

@@ -29,7 +29,7 @@ class DatabaseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $databases = Category::searchQuery($request->all())
+        $databases = new Category()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -79,10 +79,12 @@ class DatabaseController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
 
-        list($prev, $next) = Database::prevAndNextPages($database->id,
+        list($prev, $next) = $database->prevAndNextPages(
+            $database['id'],
             'admin.dictionary.database.show',
             null,
-            ['full_name', 'asc']);
+            [ 'full_name', 'asc' ]
+        );
 
         return view('admin.dictionary.database.show', compact('database', 'prev', 'next'));
     }

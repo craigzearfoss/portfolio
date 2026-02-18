@@ -101,6 +101,21 @@ class MenuService
     protected string|null $currentRouteName = null;
 
     /**
+     * @var array
+     */
+    protected array $childResources = [
+        'personal.recipes' => [
+            'personal.recipe_ingredients',
+            'personal.recipe_steps',
+        ],
+        'portfolio.jobs' => [
+            'portfolio.job_coworkers',
+            'portfolio.job_skills',
+            'portfolio.job_tasks',
+        ]
+    ];
+
+    /**
      * @param EnvTypes|null $envType
      * @param Admin|null $owner
      * @param Admin|null $admin
@@ -120,15 +135,13 @@ class MenuService
         $this->user             = !empty($user) ? $user : loggedInUser();
         $this->currentRouteName = !empty($currentRouteName) ? $currentRouteName : Route::currentRouteName();
         $this->showAll          = false;
+//dd([$this->envType->value, $this->owner, $this->admin, $this->user, $this->currentRouteName, $this->showAll]);
 
-        if (($this->envType == EnvTypes::ADMIN) && empty($this->owner) && !empty($this->admin->root)) {
+        // in the admin area root admins get to see all menu items
+        if (($this->envType == EnvTypes::ADMIN) && !empty($this->admin->root)) {
+            $this->isRootAdmin = true;
             $this->showAll = true;
-            $this->owner = $this->admin;
-        }
-
-        $this->isRootAdmin      = ($this->envType == EnvTypes::ADMIN) && !empty($this->admin) && $this->admin->root;
-        if ($this->isRootAdmin) {
-            $this->owner = $this->admin;
+            $this->owner = null;
         }
 
         $this->adminsEnabled    = config('app.admins_enabled');
@@ -139,37 +152,36 @@ class MenuService
         }
 
         // set the filters for the databases and resources
-        // note that root admins have all resource type added to the menu
-        $filters = [
-            'menu'                => 1,
-            $this->envType->value => 1,
-        ];
-        if ($this->envType !== EnvTypes::ADMIN) {
-            $filters['public'] = 1;
-        }
-        if (empty($this->admin) || empty($this->admin->root)) {
-            $filters['root']     = 0;
-            $filters['disabled'] = 0;
+        // note that root admins have all resource types added to the menu
+        if ($this->envType == EnvTypes::ADMIN) {
+            $filters = $this->showAll
+                ? []
+                : [
+                    'menu'                => 1,
+                    $this->envType->value => true,
+                    'disabled'            => false
+                  ];
+        } else {
+            $filters = [
+                'menu'                => 1,
+                $this->envType->value => true,
+                'public'              => true,
+                'disabled'            => false
+            ];
         }
 
         // get the databases and resources
-        if (!empty($owner)) {
+        if ($this->isRootAdmin) {
 
-            $this->databases = $this->owner->root
-                ? AdminDatabase::ownerDatabases($this->owner->id, $this->envType, $filters)
-                : AdminDatabase::ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
-
-            $this->resources = AdminResource::ownerResources($this->owner->id, $this->envType, null, $filters);
+            // note that for root admins we pull menu items from the admins and resources
+            // tables instead of the admin_databases and admin_resources tables
+            $this->databases = new Database()->ownerDatabases(null, $this->envType, $filters);
+            $this->resources = new Resource()->ownerResources(null, $this->envType, null, $filters);
 
         } else {
 
-            if ($this->showAll) {
-                $this->databases = Database::ownerDatabases(null, $this->envType, $filters);
-                $this->resources = Resource::ownerResources(null, $this->envType, null, $filters);
-            } else {
-                $this->databases = Database::ownerDatabases(null, $this->envType, [ 'name' => $this->globalDatabases ]);
-                $this->resources = [];
-            }
+            $this->databases = new AdminDatabase()->ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
+            $this->resources = new AdminResource()->ownerResources($this->owner->id ?? null, $this->envType, null, $filters);
         }
     }
 
@@ -357,8 +369,8 @@ class MenuService
                 $database->url      = $url;
                 $database->children = [];
                 $database->active   = !empty($this->currentRouteName) && ($database->route === $this->currentRouteName) ? 1 : 0;
-                $menu[$database->database_id ?? $database->id] = $database;
-                }
+                $menu[$database->name ?? $database->id] = $database;
+            }
         }
 
         return $menu;
@@ -409,6 +421,38 @@ class MenuService
     }
 
     /**
+     * Returns the parent resource or null.
+     *
+     * @param string $resource
+     * @return string|null
+     */
+    public function getParentResource(string $resource): string|null
+    {
+        foreach ($this->childResources as $parentResource=>$childResources) {
+            if (in_array($resource, $childResources)) {
+                return $parentResource;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the child resources or null.
+     *
+     * @param string $resource
+     * @return string|null
+     */
+    public function getChildResources(string $resource): string|null
+    {
+        if (array_key_exists($resource, $this->childResources)) {
+            return $this->childResources[$resource];
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Returns the array of menu items fpr resources.
      *
      * @return array
@@ -428,88 +472,40 @@ class MenuService
             // add resources by level
             $levelResources = $this->sortResourcesByLevel();
 
-            foreach ($menu as $dbId => $menuItem) {
+            for ($level=4; $level>1; $level--) {
 
-                if ($this->includeItem($menuItem)) {
+                if (array_key_exists($level, $levelResources)) {
 
-                    // insert level 1 items
-                    if (array_key_exists(1, $levelResources)) {
+                    foreach ($levelResources[$level] as $resourceTable=>$resource) {
 
-                        foreach ($levelResources[1] as $level1Resource) {
+                        if ($this->includeItem($resource)) {
 
-                            if (($level1Resource->database_id == $dbId) && $this->includeResource($level1Resource)) {
+                            if ($parentResource = $this->getParentResource($resource->database_name . '.' . $resource->table)) {
 
-                                $level1Resource = $this->getResourceMenuItem($level1Resource);
-
-                                // insert level 2 items
-                                if (array_key_exists(2, $levelResources)) {
-
-                                    foreach ($levelResources[2] as $level2Resource) {
-                                        if (!empty($level2Resource['parent_id'])) {
-
-                                            if (($level2Resource->parent_id == ($level1Resource->resource_id ?? $level1Resource['id'] ?? null))
-                                                && $this->includeResource($level2Resource)
-                                            ) {
-                                                $level2Resource = $this->getResourceMenuItem($level2Resource);
-
-                                                // insert level 3 items
-                                                if (array_key_exists(3, $levelResources)) {
-
-                                                    foreach ($levelResources[3] as $level3Resource) {
-                                                        if (!empty($level2Resource->parent_id)) {
-
-                                                            if (($level3Resource->parent_id == ($level2Resource->resource_id ?? $level2Resource['id'] ?? null))
-                                                                && $this->includeResource($level3Resource)
-                                                            ) {
-                                                                $level3Resource = $this->getResourceMenuItem($level3Resource);
-
-                                                                // insert level 4 items
-                                                                if (array_key_exists(4, $levelResources)) {
-
-                                                                    foreach ($levelResources[4] as $level4Resource) {
-                                                                        if (!empty($level3Resource->parent_id)) {
-
-                                                                            if (($level4Resource->parent_id == ($level3Resource->resource_id ?? $level3Resource['id'] ?? null))
-                                                                                && $this->includeResource($level4Resource)
-                                                                            ) {
-                                                                                $level4Resource = $this->getResourceMenuItem($level4Resource);
-
-                                                                                $children = $level3Resource->children;
-                                                                                $children[] = $level4Resource;
-                                                                                $level3Resource->children = $children;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                                $children = $level2Resource->children;
-                                                                $children[] = $level3Resource;
-                                                                $level2Resource->children = $children;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                $children = $level1Resource->children;
-                                                $children[] = $level2Resource;
-                                                $level1Resource->children = $children;
-                                            }
-                                        }
-                                    }
+                                if (array_key_exists($parentResource, $levelResources[$level - 1])) {
+                                    $children = array_merge($levelResources[$level - 1][$parentResource]->children, [ $resource ]);
+                                    $levelResources[$level - 1][$parentResource]->children = $children;
                                 }
-
-                                $children = $menuItem[$dbId]->children;
-                                $children[] = $level1Resource;
-                                $menuItem[$dbId]->children = $children;
                             }
                         }
                     }
                 }
             }
+
+            if (!empty($levelResources[1])) {
+                foreach ($levelResources[1] as $resourceTable => $resource) {
+                    if (array_key_exists($resource->database_name, $menu)) {
+                        $children = array_merge($menu[$resource->database_name]->children, [$resource]);
+                        $menu[$resource->database_name]->children = $children;
+                    }
+                }
+            }
+
+            return array_values($menu);
         }
 
         // should we have a resume link at the top of the menu?
-        if ($this->hasResume) {
+        if (!$this->isRootAdmin && $this->hasResume) {
             if ($resumeMenuItem = $this->getResumeMenuItem()) {
                 $menu = array_merge([$resumeMenuItem], $menu);
             }
@@ -529,14 +525,14 @@ class MenuService
     {
         $levelResources = [];
 
-        for ($i=0; $i<count($resources); $i++) {
+        for ($i=1; $i<count($resources); $i++) {
             if ($resources[$i]['menu_level'] === $level) {
 
                 // add additional fields
                 $resources[$i]->label = $resources[$i]->title;
                 $resources[$i]->children = [];
 
-                $levelResources[] = $resources[$i];
+                $levelResources[$resources[$i]->database_name . '.' . $resources[$i]->table] = $resources[$i];
             }
         }
 

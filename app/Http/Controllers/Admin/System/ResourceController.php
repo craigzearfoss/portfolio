@@ -33,13 +33,13 @@ class ResourceController extends BaseAdminController
         if (empty($this->admin->root)) {
             return redirect()->route('admin.system.admin-resource.show', $this->admin);
         } else {
-            $resources = AdminResource::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            $resources = new AdminResource()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
                 ->orderBy('owner_id')
                 ->orderBy('name')
                 ->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Resources' : 'Resources';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Resources' : 'Resources';
 
         return view('admin.system.resource.index', compact('resources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -78,10 +78,12 @@ class ResourceController extends BaseAdminController
             abort(403, 'Not authorized.');
         }
 
-        list($prev, $next) = Resource::prevAndNextPages($resource->id,
+        list($prev, $next) = $resource->prevAndNextPages(
+            $resource['id'],
             'admin.system.resource.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.resource.show', compact('resource', 'prev', 'next'));
     }

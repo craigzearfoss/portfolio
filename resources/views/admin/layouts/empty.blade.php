@@ -1,5 +1,4 @@
 @php
-    $currentRouteName = $currentRouteName ?? null;
     $admin            = $admin ?? null;
     $user             = $user ?? null;
     $owner            = $owner ?? null;

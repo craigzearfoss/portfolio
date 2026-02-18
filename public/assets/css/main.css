@@ -257,8 +257,31 @@ p.admin-table-caption {
 span.featured-splat {
     font-weight: 800;
 }
-div.floating-div-container div.level > * {
-    vertical-align: top;  // Align children to middle of line
+
+div.floating-div-container div.floating-div {
+    display: inline-block;
+    vertical-align: top;
+    width: auto;
+}
+.top-left-span {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.top-right-span {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.bottom-left-span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.bottom-right-span {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 /* title bar */

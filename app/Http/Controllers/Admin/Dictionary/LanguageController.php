@@ -29,7 +29,7 @@ class LanguageController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $languages = Category::searchQuery($request->all())
+        $languages = new Category()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -79,10 +79,12 @@ class LanguageController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $language, $this->admin);
 
-        list($prev, $next) = Language::prevAndNextPages($language->id,
+        list($prev, $next) = $language->prevAndNextPages(
+            $language['id'],
             'admin.dictionary.language.show',
             null,
-            ['full_name', 'asc']);
+            [ 'full_name', 'asc' ]
+        );
 
         return view('admin.dictionary.language.show', compact('language', 'prev', 'next'));
     }

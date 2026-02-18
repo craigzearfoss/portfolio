@@ -28,12 +28,12 @@ class LinkController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $links = Link::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $links = new Link()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Links' : 'Links';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Links' : 'Links';
 
         return view('admin.portfolio.link.index', compact('links', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -78,10 +78,12 @@ class LinkController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
 
-        list($prev, $next) = Link::prevAndNextPages($link->id,
+        list($prev, $next) = $link->prevAndNextPages(
+            $link['id'],
             'admin.portfolio.link.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.link.show', compact('link', 'prev', 'next'));
     }

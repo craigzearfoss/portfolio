@@ -43,7 +43,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -53,7 +52,7 @@
 
     <div class="show-container card p-4">
 
-        <div style="display: inline-block; position: absolute; top: 0; right: 0;">
+        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
             @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
         </div>
 
@@ -118,6 +117,22 @@
         @include('admin.components.show-row', [
             'name'  => 'employer',
             'value' => $thisAdmin->employer
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'employment status',
+            'value' => $thisAdmin->employmnentStatus->name ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => '',
+            'value' => view('admin.components.link', [
+                           'name'   => '<i class="fa fa-file-text" aria-hidden="true"></i>Resume',
+                           'href'   => route('admin.career.resume.preview', $thisAdmin),
+                           'class'  => 'button is-primary is-small px-1 py-0',
+                           'style'  => 'font-size: 1rem;',
+                           'title'  => 'Resume',
+                       ])
         ])
 
         @include('admin.components.show-row', [

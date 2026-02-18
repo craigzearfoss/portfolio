@@ -32,7 +32,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -42,7 +41,7 @@
 
     <div class="show-container card p-4">
 
-        <div style="display: inline-block; position: absolute; top: 0; right: 0;">
+        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
             @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
         </div>
 

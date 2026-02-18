@@ -358,7 +358,7 @@ class MikeBrady extends Command
         $data = [
             [
                 'id'                     => $this->jobId[1],
-                'company'                => 'Genric Architecture Firm',
+                'company'                => 'Generic Architecture Firm',
                 'slug'                   => 'generic-architecture-firm-(architect)',
                 'role'                   => 'Architect',
                 'featured'               => 0,

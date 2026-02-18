@@ -30,7 +30,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,

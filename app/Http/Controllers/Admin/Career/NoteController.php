@@ -29,7 +29,7 @@ class NoteController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = Note::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $query = new Note()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('created_at', 'desc');
         if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
@@ -38,7 +38,7 @@ class NoteController extends BaseAdminController
 
         $notes = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Notes' : 'Notes';
+        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Notes' : 'Notes';
 
         return view('admin.career.note.index', compact('notes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -102,10 +102,12 @@ class NoteController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
 
-        list($prev, $next) = Note::prevAndNextPages($note->id,
+        list($prev, $next) = $note->prevAndNextPages(
+            $note['id'],
             'admin.career.note.show',
-            $this->owner->id ?? null,
-            ['created_at', 'asc']);
+            $this->owner ?? null,
+            [ 'created_at', 'asc' ]
+        );
 
         return view('admin.career.note.show', compact('note', 'prev', 'next'));
     }

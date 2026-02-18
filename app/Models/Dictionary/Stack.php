@@ -82,11 +82,11 @@ class Stack extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-            $query->where('id', '=', intval($filters['id']));
-        })
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', intval($filters['id']));
+            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $name = $filters['name'];
                 $query->orWhere(function ($query) use ($name) {
@@ -110,6 +110,8 @@ class Stack extends Model
             ->when(!empty($filters['owner']), function ($query) use ($filters) {
                 $query->where('owner', 'like', '%' . $filters['owner'] . '%');
             });
+
+        return $this->appendStandardFilters($query, $filters, false);
     }
 
     /**

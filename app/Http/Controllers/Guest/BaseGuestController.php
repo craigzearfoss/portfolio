@@ -5,21 +5,11 @@ namespace App\Http\Controllers\Guest;
 use App\Enums\EnvTypes;
 use App\Http\Controllers\BaseController;
 use App\Services\PermissionService;
-use Illuminate\Http\Request;
 
 class BaseGuestController extends BaseController
 {
-    const string OWNER_ID_COOKIE = 'guest_owner_id';
-    const string USER_ID_COOKIE = 'guest_user_id';
-
-    public function __construct(PermissionService $permissionService, Request $request)
+    public function __construct(PermissionService $permissionService)
     {
-        parent::__construct($permissionService);
-
-        $this->initialize();
-
-        if (isset($_GET['debug'])) {
-            $this->ddDebug();
-        }
+        parent::__construct($permissionService, EnvTypes::GUEST);
     }
 }

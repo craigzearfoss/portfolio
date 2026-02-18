@@ -28,7 +28,7 @@ class AcademyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $academies = Academy::searchQuery($request->all())
+        $academies = new Academy()->searchQuery($request->all())
             ->where('name', '!=', 'other')
             ->orderBy('name')
             ->orderBy('name')
@@ -78,10 +78,12 @@ class AcademyController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $academy, $this->admin);
 
-        list($prev, $next) = Academy::prevAndNextPages($academy->id,
+        list($prev, $next) = $academy->prevAndNextPages(
+            $academy['id'],
             'admin.portfolio.academy.show',
             null,
-            ['name', 'asc']);
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.academy.show', compact('academy', 'prev', 'next'));
     }

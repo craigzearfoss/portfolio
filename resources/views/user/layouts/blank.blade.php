@@ -1,8 +1,7 @@
 @php
-    $currentRouteName = $currentRouteName ?? null;
-    $admin            = $admin ?? null;
-    $user             = $user ?? null;
-    $owner            = $owner ?? null;
+    $admin = $admin ?? null;
+    $user  = $user ?? null;
+    $owner = $owner ?? null;
 @endphp
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
@@ -14,19 +13,17 @@
     <div id="app">
 
         @include('user.components.nav-top', [
-            'menuService'      => $menuService ?? null,
-            'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
-            'admin'            => $admin ?? null,
-            'user'             => $user ?? null,
-            'owner'            => $owner ?? null,
+            'menuService' => $menuService ?? null,
+            'admin'       => $admin ?? null,
+            'user'        => $user ?? null,
+            'owner'       => $owner ?? null,
         ])
 
         @include('user.components.nav-left', [
-            'menuService'      => $menuService ?? null,
-            'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
-            'admin'            => $admin ?? null,
-            'user'             => $user ?? null,
-            'owner'            => $owner ?? null,
+            'menuService' => $menuService ?? null,
+            'admin'       => $admin ?? null,
+            'user'        => $user ?? null,
+            'owner'       => $owner ?? null,
         ])
 
         @include('user.components.title-bar', [

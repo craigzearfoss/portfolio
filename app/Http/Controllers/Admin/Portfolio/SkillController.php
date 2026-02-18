@@ -28,11 +28,11 @@ class SkillController extends BaseAdminController
 
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
-        $skills = Skill::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $skills = new Skill()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Skills' : 'Skills';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Skills' : 'Skills';
 
         return view('admin.portfolio.skill.index', compact('skills', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class SkillController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
 
-        list($prev, $next) = Skill::prevAndNextPages($skill->id,
+        list($prev, $next) = $skill->prevAndNextPages(
+            $skill['id'],
             'admin.portfolio.skill.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.skill.show', compact('skill', 'prev', 'next'));
     }

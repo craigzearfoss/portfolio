@@ -1,12 +1,9 @@
+@php
+    $admin = $admin ?? null;
+    $user  = $user ?? null;
+    $owner = $owner ?? null;
+@endphp
 @if($menuItems = $menuService->leftMenu())
-
-    @php
-        $menuService      = $menuService ?? null;
-        $currentRouteName = $currentRouteName ??  Route::currentRouteName();
-        $admin            = $admin ?? null;
-        $user             = $user ?? null;
-        $owner            = $owner ?? null;
-    @endphp
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
@@ -29,58 +26,64 @@
             </div>
         </div>
 
-        @if (!in_array($currentRouteName, ['admin.login', 'admin.login-submit']))
+        @if (!in_array(Route::currentRouteName(), ['admin.login', 'admin.login-submit']))
 
-            @for ($i = 0; $i < count($menuItems); $i++)
+            @for ($i0 = 0; $i0 < count($menuItems); $i0++)
 
                 <ul class="menu is-menu-main" style="font-size: 1rem;">
 
                     <p class="menu-label menu-label-left">
                         @include('admin.components.nav-link-left', [
                             'level'  => 1,
-                            'name'   => $menuItems[$i]->title,
-                            'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
-                            'active' => $menuItems[$i]->active,
+                            'name'   => $menuItems[$i0]->title,
+                            'href'   => !empty($menuItems[$i0]->url) ? $menuItems[$i0]->url: false,
+                            'active' => $menuItems[$i0]->active,
                             'class'  => 'has-text-white'
                         ])
                     </p>
 
-                    @if(!empty($menuItems[$i]->children))
+                    @if($menu1Items = $menuItems[$i0]->children ?? [])
 
                         <ul class="menu-list pl-2" style="margin-left: 1em;">
 
-                            @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
+                            @for ($i1 = 0; $i1 < count($menu1Items); $i1++)
+
                                 <li>
                                     @include('admin.components.nav-link-left', [
                                         'level'  => 2,
-                                        'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
-                                        'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
-                                        'active' => $menu2Item->active,
-                                        'icon'   => !empty($menu2Item->icon) ? $menu2Item->icon : 'fa-circle'
+                                        'name'   => !empty($menu1Items[$i1]->plural) ? $menu1Items[$i1]->plural : $menu1Items[$i1]->title,
+                                        'href'   => !empty($menu1Items[$i1]->url) ? $menu1Items[$i1]->url: false,
+                                        'active' => $menu1Items[$i1]->active,
+                                        'active' => $menu1Items[$i1]->active,
+                                        'icon'   => !empty($menu1Items[$i1]->icon) ? $menu1Items[$i1]->icon : 'fa-circle'
                                     ])
 
-                                    @if(!empty($menu2Item->children))
-        @php //@TODO: This isn't working @endphp
+                                    @if($menu2Items = $menu1Items[$i1]->children ?? [])
+
                                         <ul class="menu-list pl-2" style="margin-left: 1em;">
 
-                                            @foreach ($menu2Item->children as $menu3Item)
-                                            <li>
-                                                @include('admin.components.nav-link-left', [
-                                                    'level'  => 3,
-                                                    'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
-                                                    'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
-                                                    'active' => $menu3Item->active,
-                                                    'icon'   => !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle'
-                                                ])
-                                            </li>
-                                            @endforeach
+                                            @for ($i2 = 0; $i2 < count($menu2Items); $i2++)
+{{ $menu2Items[$i2]->name }}
+                                                <li>
+                                                    @include('admin.components.nav-link-left', [
+                                                        'level'  => 3,
+                                                        'name'   => !empty($menu2Items[$i2]->plural) ? $menu2Items[$i2]->plural : $menu2Items[$i2]->title,
+                                                        'href'   => !empty($menu2Items[$i2]->url) ? $menu2Items[$i2]->url: false,
+                                                        'active' => $menu2Items[$i2]->active,
+                                                        'active' => $menu2Items[$i2]->active,
+                                                        'icon'   => !empty($menu2Items[$i2]->icon) ? $menu2Items[$i2]->icon : 'fa-circle'
+                                                    ])
+                                                </li>
+
+                                            @endfor
 
                                         </ul>
 
                                     @endif
 
                                 </li>
-                            @endforeach
+
+                            @endfor
 
                         </ul>
 

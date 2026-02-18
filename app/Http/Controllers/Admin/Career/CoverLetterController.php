@@ -28,12 +28,12 @@ class CoverLetterController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $coverLetters = CoverLetter::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $coverLetters = new CoverLetter()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Cover Letters' : 'Cover Letters';
+        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Cover Letters' : 'Cover Letters';
 
         return view('admin.career.cover-letter.index', compact('coverLetters', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class CoverLetterController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
 
-        list($prev, $next) = CoverLetter::prevAndNextPages($coverLetter->id,
+        list($prev, $next) = $coverLetter->prevAndNextPages(
+            $coverLetter['id'],
             'admin.career.cover-letter.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.career.cover-letter.show', compact('coverLetter', 'prev', 'next'));
     }

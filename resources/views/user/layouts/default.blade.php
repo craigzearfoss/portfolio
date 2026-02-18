@@ -1,5 +1,4 @@
 @php
-    $currentRouteName = $currentRouteName ?? null;
     $admin            = $admin ?? null;
     $user             = $user ?? null;
     $owner            = $owner ?? null;
@@ -15,7 +14,6 @@
 
         @include('user.components.nav-top', [
             'menuService'      => $menuService ?? null,
-            'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
             'admin'            => $admin ?? null,
             'user'             => $user ?? null,
             'owner'            => $owner ?? null,
@@ -23,7 +21,6 @@
 
         @include('guest.components.nav-left', [
             'menuService'      => $menuService ?? null,
-            'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
             'admin'            => $admin ?? null,
             'user'             => $user ?? null,
             'owner'            => $owner ?? null,

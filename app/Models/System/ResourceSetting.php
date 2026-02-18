@@ -58,9 +58,9 @@ class ResourceSetting extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        return self::getSearchQuery($filters)
+        return new self()->getSearchQuery($filters)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })

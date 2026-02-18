@@ -6,7 +6,6 @@
     $success          = $success ?? null;
     $error            = $error ?? null;
     $menuService      = $menuService ?? null;
-    $currentRouteName = $currentRouteName ?? Route::currentRouteName();
     $admin            = $admin ?? null;
     $user             = $user ?? null;
     $owner            = $owner ?? null;
@@ -22,7 +21,6 @@
 
         @include('admin.components.nav-top', [
             'menuService'      => $menuService,
-            'currentRouteName' => $currentRouteName,
             'admin'            => $admin,
             'user'             => $user,
             'owner'            => $owner,
@@ -31,7 +29,6 @@
 
         @include('admin.components.nav-left', [
             'menuService'      => $menuService,
-            'currentRouteName' => $currentRouteName,
             'admin'            => $admin,
             'user'             => $user,
             'owner'            => $owner,

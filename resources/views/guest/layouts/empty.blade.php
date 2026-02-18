@@ -1,8 +1,7 @@
 @php
-    $currentRouteName = $currentRouteName ?? null;
-    $admin            = $admin ?? null;
-    $user             = $user ?? null;
-    $owner            = $owner ?? null;
+    $admin = $admin ?? null;
+    $user  = $user ?? null;
+    $owner = $owner ?? null;
 @endphp
 <!DOCTYPE html>
 <html lang="en">

@@ -10,14 +10,13 @@
     $buttons = [];
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'System',
+    'title'            => $pageTitle ?? (!empty($owner) ? $owner->name . ' System' : 'System'),
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
     'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -30,21 +29,12 @@
         <div class="card m-4">
             <div class="card-body p-4">
                 <div class="list is-hoverable">
-                    <ul class="menu-list" style="max-width: 20em;">
 
-                        @foreach ($systems as $system)
+                    @include('admin.components.resource-list', [
+                        'resourceType' => dbName('system_db'),
+                        'resources'    => $systems
+                    ])
 
-                            <li>
-                                @include('admin.components.link', [
-                                    'name'  => $system->plural,
-                                    'href'  => route('admin.system.'.$system->name.'.index'),
-                                    'class' => 'list-item',
-                                ])
-                            </li>
-
-                        @endforeach
-
-                    </ul>
                 </div>
             </div>
         </div>

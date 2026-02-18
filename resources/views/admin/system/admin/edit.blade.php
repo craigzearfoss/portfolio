@@ -1,6 +1,6 @@
 @php
     // set breadcrumbs
-    $breadcrumbs = [
+    use App\Models\System\AdminTeam;$breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
@@ -23,7 +23,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -51,7 +50,7 @@
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
                 'value'   => old('admin_team_id') ?? $owner->team['id'] ?? $owner->team_id,
-                'list'    => \App\Models\System\AdminTeam::listOptions(),
+                'list'    => AdminTeam::listOptions(),
                 'message' => $message ?? '',
             ])
 
@@ -110,6 +109,14 @@
                 'value'     => old('employer') ?? $owner->employer,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'employment_status_id',
+                'label'   => 'employment status',
+                'value'   => old('employment_status_id') ?? $owner->employment_status_id,
+                'list'    => \App\Models\System\EmploymentStatus::listOptions(),
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-location-horizontal', [
@@ -200,7 +207,6 @@
                 'demo'        => old('demo')     ?? $owner->demo,
                 'sequence'    => old('sequence') ?? $owner->sequence,
                 'message'     => $message ?? '',
-                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-checkbox-horizontal', [

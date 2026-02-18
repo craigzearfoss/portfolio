@@ -1,14 +1,11 @@
+@php
+    $admin = $admin ?? null;
+    $user  = $user ?? null;
+    $owner = $owner ?? null;
+@endphp
 @if($menuItems = $menuService->topMenu())
 
-    @php
-        $menuService      = $menuService ?? null;
-        $currentRouteName = $currentRouteName ??  Route::currentRouteName();
-        $admin            = $admin ?? null;
-        $user             = $user ?? null;
-        $owner            = $owner ?? null;
-    @endphp
-
-    <nav id="navbar-main" class="navbar is-fixed-top has-background-success">
+    <nav id="navbar-main" class="navbar is-fixed-top">
         <div class="navbar-brand">
 
             @include('admin.components.nav-link-top', [
@@ -20,7 +17,7 @@
 
             <div class="navbar-item has-control">
 
-                <span class="mr-4 has-text-dark" style=" font-size: 1.5em; font-weight: 800;">
+                <span class="mr-4 has-text-primary" style=" font-size: 1.5em; font-weight: 800;">
                     {{ config('app.name') }} Admin Area
                 </span>
 
@@ -48,7 +45,7 @@
 
         </div>
 
-        @if (!in_array($currentRouteName, ['admin.login', 'admin.login-submit']))
+        @if (!in_array(Route::currentRouteName(), ['admin.login', 'admin.login-submit']))
 
             <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
                 <div class="navbar-end">

@@ -28,12 +28,12 @@ class VideoController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $videos = Video::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $videos = new Video()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Videos' : 'Videos';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Videos' : 'Videos';
 
         return view('admin.portfolio.video.index', compact('videos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class VideoController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
 
-        list($prev, $next) = Video::prevAndNextPages($video->id,
+        list($prev, $next) = $video->prevAndNextPages(
+            $video['id'],
             'admin.portfolio.video.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.video.show', compact('video', 'prev', 'next'));
     }

@@ -1,10 +1,10 @@
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
-    
+
         <form id="searchForm" action="{!! $action ?? route('admin.personal.reading.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) !!}" method="get">
 
-            @if($isRootAdmin)
+            @if(isRootAdmin())
                 <div class="control" style="max-width: 28rem;">
                     @include('admin.components.form-select', [
                         'name'     => 'owner_id',

@@ -28,7 +28,7 @@ class IndexController extends BaseGuestController
             $databaseId = new Database()->where('tag', 'portfolio_db')->first()->id ?? null;
 
             $portfolios = !empty($databaseId)
-                ? AdminResource::ownerResources($this->owner->id, EnvTypes::GUEST, $databaseId)
+                ? new AdminResource()->ownerResources($this->owner->id, EnvTypes::GUEST, $databaseId)
                 : [];
 
         } else {

@@ -29,7 +29,7 @@ class FrameworkController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $frameworks = Category::searchQuery($request->all())
+        $frameworks = new Category()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -79,10 +79,12 @@ class FrameworkController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $framework, $this->admin);
 
-        list($prev, $next) = Framework::prevAndNextPages($framework->id,
+        list($prev, $next) = $framework->prevAndNextPages(
+            $framework['id'],
             'admin.dictionary.framework.show',
             null,
-            ['full_name', 'asc']);
+            [ 'full_name', 'asc' ]
+        );
 
         return view('admin.dictionary.framework.show', compact('framework', 'prev', 'next'));
     }

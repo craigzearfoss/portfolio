@@ -28,11 +28,11 @@ class ProjectController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $projects = Project::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $projects = new Project()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Projects' : 'Projects';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Projects' : 'Projects';
 
         return view('admin.portfolio.project.index', compact('projects', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -76,10 +76,12 @@ class ProjectController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
 
-        list($prev, $next) = Project::prevAndNextPages($project->id,
+        list($prev, $next) = $project->prevAndNextPages(
+            $project['id'],
             'admin.portfolio.project.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.project.show', compact('project', 'prev', 'next'));
     }

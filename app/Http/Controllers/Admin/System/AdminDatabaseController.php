@@ -28,12 +28,12 @@ class AdminDatabaseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminDatabases = AdminDatabase::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $adminDatabases = new AdminDatabase()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Databases' : 'Databases';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Databases' : 'Databases';
 
         return view('admin.system.admin-database.index', compact('adminDatabases', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -72,10 +72,12 @@ class AdminDatabaseController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $adminDatabase, $this->admin);
 
-        list($prev, $next) = AdminDatabase::prevAndNextPages($adminDatabase->id,
+        list($prev, $next) = $adminDatabase->prevAndNextPages(
+            $adminDatabase['id'],
             'admin.system.admin-database.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.admin-database.show', compact('adminDatabase', 'prev', 'next'));
     }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Guest\System;
 
+use App\Enums\EnvTypes;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\System\Admin;
-use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
+use App\Models\System\Database;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -40,32 +41,32 @@ class AdminController extends BaseGuestController
      */
     public function show(Admin $admin): View
     {
-        if (!empty($this->owner)) {
-
-            if (!$this->owner->public || $this->owner->disabled) {
-                abort(404);
-            }
-
-            $databases = new AdminDatabase()->where('owner_id', $this->owner->id)
-                ->where('name', '!=', 'dictionary')
-                ->where('guest', true)
-                ->orderBy('sequence')->get();
-
-            $resources = [];
-            if (!empty($databases)) {
-                foreach (AdminResource::ownerResources($this->owner->id) as $resource) {
-                    $resources[$resource->database_id][] = $resource;
-                }
-            }
-
-        } else {
-            $databases = [];
-            $resources = [];
+        if (!empty($this->owner) && (!$this->owner['public'] || $this->owner['disabled'])) {
+            abort(404);
         }
 
-        return view(themedTemplate(
-            'guest.system.admin.show'),
-            compact('databases', 'resources')
+        $thisAdmin = $admin;
+
+        $dbColumns = [
+            'Portfolio' => new AdminResource()->ownerResources(
+                $this->owner->id ?? null,
+                EnvTypes::ADMIN,
+                new Database()->where('tag', 'portfolio_db')->first()->id ?? null
+            ),
+            'Personal' => new AdminResource()->ownerResources(
+                $this->owner->id,
+                EnvTypes::ADMIN,
+                new Database()->where('tag', 'personal_db')->first()->id ?? null
+            ),
+        ];
+
+        list($prev, $next) = new Admin()->prevAndNextPages($admin->id,
+            'guest.admin.show',
+            $this->owner ?? null,
+            ['name', 'asc']);
+
+        return view('guest.system.admin.show',
+            compact('thisAdmin', 'dbColumns', 'prev', 'next')
         );
     }
 }

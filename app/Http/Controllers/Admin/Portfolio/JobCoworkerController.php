@@ -41,7 +41,7 @@ class JobCoworkerController extends BaseAdminController
 
             $job = new Job()->findOrFail($jobId);
 
-            if ($this->isRootAdmin) {
+            if (isRootAdmin()) {
 
                 $query = $jobCoworkerModel->where('job_id', $jobId)
                     ->orderBy('name');
@@ -62,7 +62,7 @@ class JobCoworkerController extends BaseAdminController
 
         } else {
 
-            if ($this->isRootAdmin) {
+            if (isRootAdmin()) {
 
                 $query = $jobCoworkerModel->orderBy('name');
                 if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = new Owner()->findOrFail($owner_id))) {
@@ -80,7 +80,7 @@ class JobCoworkerController extends BaseAdminController
             $jobCoworkers = $query->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Job Coworkers' : 'Job Coworkers';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Job Coworkers' : 'Job Coworkers';
 
         return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

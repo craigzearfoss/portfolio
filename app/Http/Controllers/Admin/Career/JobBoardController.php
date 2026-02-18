@@ -28,7 +28,7 @@ class JobBoardController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobBoards = JobBoard::searchQuery($request->all())
+        $jobBoards = new JobBoard()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -76,10 +76,12 @@ class JobBoardController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
 
-        list($prev, $next) = JobBoard::prevAndNextPages($jobBoard->id,
+        list($prev, $next) = $jobBoard->prevAndNextPages(
+            $jobBoard['id'],
             'admin.career.job-board.show',
             null,
-            ['name', 'asc']);
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.career.job-board.show', compact('jobBoard', 'prev', 'next'));
     }

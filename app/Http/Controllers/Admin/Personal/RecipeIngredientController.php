@@ -30,7 +30,7 @@ class RecipeIngredientController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = RecipeIngredient::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $query = new RecipeIngredient()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('recipe_id');
         if ($recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null) {
@@ -38,7 +38,7 @@ class RecipeIngredientController extends BaseAdminController
         }
         $recipeIngredients = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Recipe Ingredients' : 'Recipe Ingredients';
+        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Recipe Ingredients' : 'Recipe Ingredients';
 
         return view('admin.personal.recipe-ingredient.index', compact('recipeIngredients', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -82,9 +82,11 @@ class RecipeIngredientController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $this->admin);
 
-        list($prev, $next) = Ingredient::prevAndNextPages($recipeIngredient->id,
+        list($prev, $next) = $recipeIngredient->prevAndNextPages(
+            $recipeIngredient['id'],
             'admin.personal.recipe-ingredient.show',
-            $this->owner->id ?? null);
+            $this->owner ?? null
+        );
 
         return view('admin.personal.recipe-ingredient.show', compact('recipeIngredient', 'prev', 'next'));
     }

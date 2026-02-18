@@ -3,7 +3,7 @@
     <div class="search-container card p-2">
         <form id="searchForm" action="{!! $action !!}" method="get">
 
-            @if($isRootAdmin)
+            @if(isRootAdmin())
 
                 <div class="control">
                     @include('admin.components.form-select', [

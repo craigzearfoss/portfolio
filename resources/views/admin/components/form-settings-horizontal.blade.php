@@ -31,7 +31,7 @@ if (!empty($style)) {
                     'message'         => $message ?? '',
                 ])
 
-                @if(!empty($isRootAdmin))
+                @if(isRootAdmin())
                     @include('admin.components.form-checkbox', [
                         'name'            => 'root',
                         'value'           => 1,

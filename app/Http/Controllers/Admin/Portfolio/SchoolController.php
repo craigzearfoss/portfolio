@@ -30,7 +30,7 @@ class SchoolController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $schools = School::searchQuery($request->all())
+        $schools = new School()->searchQuery($request->all())
             ->where('name', '!=', 'other')
             ->orderBy('name')
             ->orderBy('name')
@@ -80,10 +80,12 @@ class SchoolController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
 
-        list($prev, $next) = School::prevAndNextPages($school->id,
+        list($prev, $next) = $school->prevAndNextPages(
+            $school['id'],
             'admin.portfolio.school.show',
             null,
-            ['name', 'asc']);
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.school.show', compact('school', 'prev', 'next'));
     }

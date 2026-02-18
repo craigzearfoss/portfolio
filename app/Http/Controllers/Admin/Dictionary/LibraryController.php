@@ -29,7 +29,7 @@ class LibraryController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $libraries = Category::searchQuery($request->all())
+        $libraries = new Category()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -79,10 +79,12 @@ class LibraryController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $library, $this->admin);
 
-        list($prev, $next) = Library::prevAndNextPages($library->id,
+        list($prev, $next) = $library->prevAndNextPages(
+            $library['id'],
             'admin.dictionary.library.show',
             null,
-            ['full_name', 'asc']);
+            [ 'full_name', 'asc' ]
+        );
 
         return view('admin.dictionary.library.show', compact('library', 'prev', 'next'));
     }

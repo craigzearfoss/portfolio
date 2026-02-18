@@ -75,9 +75,9 @@ class UserTeam extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        return self::getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters)
             ->when(isset($filters['user_id']), function ($query) use ($filters) {
                 $query->where('user_id', '=', intval($filters['user_id']));
             })
@@ -87,6 +87,8 @@ class UserTeam extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
+
+        return $this->appendStandardFilters($query, $filters);
     }
 
     /**

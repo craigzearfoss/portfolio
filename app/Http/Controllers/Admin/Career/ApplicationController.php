@@ -31,7 +31,7 @@ class ApplicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = Application::searchQuery(request()->all(), !empty($this->owner->root) ? null : $this->owner)
+        $query = new Application()->searchQuery(request()->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('created_at', 'desc');
         if ($resume = $request->resume_id ? new Resume()->findOrFail($request->resume_id) : null) {
@@ -40,7 +40,7 @@ class ApplicationController extends BaseAdminController
 
         $applications = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Applications' : 'Applications';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Applications' : 'Applications';
 
         return view('admin.career.application.index', compact('applications', 'resume', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -127,10 +127,12 @@ class ApplicationController extends BaseAdminController
             $application = $this->createCoverLetter($application);
         }
 
-        list($prev, $next) = Application::prevAndNextPages($application->id,
+        list($prev, $next) = $application->prevAndNextPages(
+            $application['id'],
             'admin.career.application.show',
-            $this->owner->id ?? null,
-            ['post_date', 'asc']);
+            $this->owner ?? null,
+            [ 'post_date', 'asc' ]
+        );
 
         return view('admin.career.application.show', compact('application', 'prev', 'next'));
     }

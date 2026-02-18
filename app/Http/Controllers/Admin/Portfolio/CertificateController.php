@@ -28,12 +28,12 @@ class CertificateController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $certificates = Certificate::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $certificates = new Certificate()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Certificates' : 'Certificates';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Certificates' : 'Certificates';
 
         return view('admin.portfolio.certificate.index', compact('certificates', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class CertificateController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $certificate, $this->admin);
 
-        list($prev, $next) = Certificate::prevAndNextPages($certificate->id,
+        list($prev, $next) = $certificate->prevAndNextPages(
+            $certificate['id'],
             'admin.portfolio.certificate.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.certificate.show', compact('certificate', 'prev', 'next'));
     }

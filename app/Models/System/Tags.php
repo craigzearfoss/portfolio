@@ -64,7 +64,7 @@ class Tags extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
@@ -73,7 +73,7 @@ class Tags extends Model
             $filters['admin_id'] = $owner->id;
         }
 
-        return self::getSearchQuery($filters, $owner)
+        return new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
                 $query->where('resource_id', '=', intval($filters['resource_id']));
             })

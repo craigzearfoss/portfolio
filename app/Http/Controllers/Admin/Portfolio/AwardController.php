@@ -28,12 +28,12 @@ class AwardController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $awards = Award::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $awards = new Award()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Awards' : 'Awards';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Awards' : 'Awards';
 
         return view('admin.portfolio.award.index', compact('awards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -78,10 +78,12 @@ class AwardController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
 
-        list($prev, $next) = Award::prevAndNextPages($award->id,
+        list($prev, $next) = $award->prevAndNextPages(
+            $award['id'],
             'admin.portfolio.award.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.award.show', compact('award', 'prev', 'next'));
     }

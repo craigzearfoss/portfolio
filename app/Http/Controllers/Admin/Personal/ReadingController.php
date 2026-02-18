@@ -30,12 +30,12 @@ class ReadingController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $readings = Reading::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $readings = new Reading()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Readings' : 'Readings';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Readings' : 'Readings';
 
         return view('admin.personal.reading.index', compact('readings', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -79,10 +79,12 @@ class ReadingController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
 
-        list($prev, $next) = Reading::prevAndNextPages($reading->id,
+        list($prev, $next) = $reading->prevAndNextPages(
+            $reading['id'],
             'admin.personal.reading.show',
-            $this->owner->id ?? null,
-            ['title', 'asc']);
+            $this->owner ?? null,
+            [ 'title', 'asc' ]
+        );
 
         return view('admin.personal.reading.show', compact('reading', 'prev', 'next'));
     }

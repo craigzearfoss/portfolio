@@ -30,12 +30,12 @@ class CompanyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $companies = Company::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $companies = new Company()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Companies' : 'Companies';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Companies' : 'Companies';
 
         return view('admin.career.company.index', compact('companies', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -92,10 +92,12 @@ class CompanyController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
 
-        list($prev, $next) = Company::prevAndNextPages($company->id,
+        list($prev, $next) = $company->prevAndNextPages(
+            $company['id'],
             'admin.career.company.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.career.company.show', compact('company', 'prev', 'next'));
     }

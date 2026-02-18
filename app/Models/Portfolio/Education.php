@@ -87,7 +87,7 @@ class Education extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
@@ -96,7 +96,7 @@ class Education extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
@@ -138,6 +138,8 @@ class Education extends Model
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
+
+        return $this->appendStandardFilters($query, $filters);
     }
 
     /**

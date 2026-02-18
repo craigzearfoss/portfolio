@@ -29,11 +29,11 @@ class PhotographyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $photos = Photography::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $photos = new Photography()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Photography' : 'Photography';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Photography' : 'Photography';
 
         return view('admin.portfolio.photography.index', compact('photos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,15 +77,14 @@ class PhotographyController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $photo = $photography, $this->admin);
 
-        list($prev, $next) = Photography::prevAndNextPages(
-            $photo->id,
+        list($prev, $next) = $photography->prevAndNextPages(
+            $photo['id'],
             'admin.portfolio.photography.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
-        $owner = new Owner()->findOrFail($photo->owner_id);
-
-        return view('admin.portfolio.photography.show', compact('photo', 'owner', 'prev', 'next'));
+        return view('admin.portfolio.photography.show', compact('photo', 'prev', 'next'));
     }
 
     /**

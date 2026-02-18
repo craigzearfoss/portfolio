@@ -82,7 +82,7 @@ class Resource extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
@@ -91,7 +91,7 @@ class Resource extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        return self::getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -116,21 +116,16 @@ class Resource extends Model
             ->when(isset($filters['has_owner']), function ($query) use ($filters) {
                 $query->where('has_owner', '=', boolval(['has_owner']));
             })
-            ->when(isset($filters['menu']), function ($query) use ($filters) {
-                $query->where('menu', '=', boolval(['menu']));
-            })
-            ->when(isset($filters['menu_level']), function ($query) use ($filters) {
-                $query->where('menu_level', '=', intval(['menu_level']));
-            })
-            ->when(isset($filters['menu_collapsed']), function ($query) use ($filters) {
-                $query->where('menu_collapsed', '=', boolval(['menu_collapsed']));
-            })
             ->when(isset($filters['icon']), function ($query) use ($filters) {
                 $query->where('icon', '=', ['icon']);
             })
             ->when(isset($filters['demo']), function ($query) use ($filters) {
                 $query->where('demo', '=', boolval($filters['demo']));
             });
+
+        $query = $this->appendEnvironmentFilters($query, $filters);
+
+        return $this->appendStandardFilters($query, $filters);
     }
 
     /**
@@ -176,11 +171,11 @@ class Resource extends Model
      * @return Collection
      * @throws Exception
      */
-    public static function ownerResources(int|null      $ownerId,
-                                          EnvTypes|null $envType = EnvTypes::GUEST,
-                                          int|null      $databaseId = null,
-                                          array         $filters = [],
-                                          array         $orderBy = [ 'sequence' => 'asc' ]): Collection
+    public function ownerResources(int|null      $ownerId,
+                                   EnvTypes|null $envType = EnvTypes::GUEST,
+                                   int|null      $databaseId = null,
+                                   array         $filters = [],
+                                   array         $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
         //?????????if ($envType == 'root') $envType = EnvTypes::ADMIN;
         if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
@@ -246,5 +241,27 @@ class Resource extends Model
     public function settings(): HasMany
     {
         return $this->hasMany(ResourceSetting::class, 'resource_id');
+    }
+
+    /**
+     * Returns a resource from the database name and resource name.
+     *
+     * @param string $databaseName
+     * @param string $resourceName
+     * @return Resource|null
+     */
+    public function getResourceByName(string $databaseName, string $resourceName): ?Resource
+    {
+        return new self()->join('databases', 'databases.id', '=', 'resources.database_id')
+            ->where('databases.name', $databaseName)
+            ->where('resources.name', $resourceName)
+            ->first(DB::Raw(implode(', ', [
+                'databases.name as database_name',
+                'databases.tag as database_tag',
+                'databases.database as database_database',
+                'databases.title as database_title',
+                'databases.plural as database_plural',
+                'resources.*'
+            ])));
     }
 }

@@ -13,117 +13,125 @@
     'title'            => $pageTitle ??  !empty($owner->name) ? $owner->name : $owner->username,
     'breadcrumbs'      => $breadcrumbs,
     'buttons'          => $buttons,
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
+    'errorMessages'    => $errors->messages() ?? [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'menuService'      => $menuService,
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
+    'prev'             => $prev,
+    'next'             => $next,
 ])
 
 @section('content')
 
     @include('guest.components.disclaimer', [ 'value' => $owner->disclaimer ])
 
-    <div class="card column p-4">
+    <div class="floating-div-container">
 
-        <div class="columns">
+        <div class="show-container floating-div card p-4 mb-2">
 
-            <div class="column is-one-third pt-0">
+            <div>
 
-                @include('guest.components.image', [
-                    'name'     => 'image',
-                    'src'      => $owner->image,
-                    'alt'      => $owner->name,
-                    'width'    => '300px',
-                    'filename' => getFileSlug($owner->name, $owner->image)
-                ])
+                <div class="container">
 
-                <div class="show-container p-4">
+                    @include('guest.components.image', [
+                        'src'      => $thisAdmin->image,
+                        'width'    => '300px',
+                        'download' => false,
+                        'external' => false,
+                    ])
 
-                    <div class="columns">
-                        <span class="column is-12 has-text-centered">
-                            @include('guest.components.link', [
-                                'name'   => 'Resume',
-                                'href'   => route('guest.resume', $owner),
-                                'class'  => 'button is-primary is-small px-1 py-0',
-                                'title'  => 'Resume',
-                            ])
-                        </span>
-                    </div>
-
-                    @if(!empty($owner->role))
-                        @include('guest.components.show-row', [
-                            'name'  => 'role',
-                            'value' => $owner->role
+                    <span class="bottom-right-span m-4 pb-2 pr-4">
+                        @include('guest.components.link', [
+                            'name'   => '<i class="fa fa-file-text" aria-hidden="true"></i>Resume',
+                            'href'   => route('guest.resume', $owner),
+                            'class'  => 'button is-primary is-small px-1 py-0',
+                            'style'  => 'font-size: 1rem;',
+                            'title'  => 'Resume',
                         ])
-                    @endif
-
-                    @if(!empty($owner->employer))
-                        @include('guest.components.show-row', [
-                            'name'  => 'employer',
-                            'value' => '<br>' . $owner->employer
-                        ])
-                    @endif
-
-                    @if(!empty($owner->bio))
-                        @include('guest.components.show-row', [
-                            'name'  => 'bio',
-                            'value' => $owner->bio
-                        ])
-                    @endif
+                    </span>
 
                 </div>
 
             </div>
+            <div class="m-2">
 
-            <div class="column is-two-thirds pt-0">
+                @include('guest.components.show-row', [
+                    'name'  => 'name',
+                    'value' => $thisAdmin->name
+                ])
 
-                @foreach($databases as $database)
+                @include('guest.components.show-row', [
+                    'name'  => 'role',
+                    'value' => $thisAdmin->role
+                ])
 
-                    @if (array_key_exists($database->database_id, $resources))
+                @include('guest.components.show-row', [
+                    'name'  => 'employer',
+                    'value' => $thisAdmin->employer
+                ])
 
-                        <div>
+                @if(!empty($thisAdmin->employmentStatus))
+                    @include('guest.components.show-row', [
+                        'name'  => 'status',
+                        'value' => $thisAdmin->employmentStatus->name ?? ''
+                    ])
+                @endif
 
-                            <h1 class="title is-size-5 mt-2 mb-0">{!! $database->title !!}</h1>
+                @if(!empty($thisAdmin->phone))
+                    @include('guest.components.show-row', [
+                        'name'  => 'phone',
+                        'value' => $thisAdmin->phone
+                    ])
+                @endif
 
-                            <ul class="menu-list ml-4 mb-2">
-
-                                @foreach ($resources[$database->database_id] as $resource)
-
-                                    <?php /* @TODO: We probably need to create a job Controller and templates. */ ?>
-                                    @if($resource->has_owner && ($resource->guest || $resource->global) && ($resource->name != 'job'))
-                                        <li style="padding-left: {{ $resource->menu_level - 2 }}em;">
-                                            @if(Route::has('guest.'.$resource->database_name.'.'.$resource->name.'.index'))
-                                                @include('guest.components.link', [
-                                                    'name'  => $resource->plural,
-                                                    'href'  => route('guest.'.$resource->database_name.'.'.$resource->name.'.index', $owner),
-                                                    'class' => 'pt-1 pb-1',
-                                                ])
-                                            @else
-                                                <?php /* {!! $resource->plural !!} */ ?>
-                                            @endif
-                                        </li>
-                                    @endif
-
-                                @endforeach
-
-                            </ul>
-
-                        </div>
-
-                    @endif
-
-                @endforeach
+                @include('guest.components.show-row', [
+                    'name'  => 'email',
+                    'value' => $thisAdmin->email
+                ])
 
             </div>
 
         </div>
+
+        @foreach($dbColumns as $title=>$resources)
+
+            <div class="card floating-div m-2 p-4">
+
+                <div class="card-head" style="border-bottom: #5c636a 2px outset;">
+                    <strong>{{ $title }}</strong>
+                </div>
+                <div class="card-body">
+                    <div class="list is-hoverable">
+                        <ul class="menu-list" style="max-width: 20em;">
+
+                            @foreach ($resources as $resource)
+<?php /*
+                                <li>
+                                    @include('guest.components.link', [
+                                        'name'  => $resource->plural,
+                                        'href'  => route('guest.'.$resource->database_name.'.'.$resource->name.'.index',
+                                                         $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
+                                                   ),
+                                        'class' => 'list-item',
+                                        'style' => [
+                                            'padding: 0.2rem',
+                                            'white-space: nowrap',
+                                            'margin-left: ' . (12 * ($resource->menu_level - 1)) . 'px',
+                                        ],
+                                    ])
+                                </li>
+*/ ?>
+                            @endforeach
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        @endforeach
 
     </div>
 

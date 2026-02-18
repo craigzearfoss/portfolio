@@ -29,7 +29,7 @@ class CommunicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = Communication::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $query = new Communication()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('date', 'desc');
         if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
@@ -38,7 +38,7 @@ class CommunicationController extends BaseAdminController
 
         $communications = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Communications' : 'Communications';
+        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Communications' : 'Communications';
 
         return view('admin.career.communication.index', compact('communications', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -102,10 +102,12 @@ class CommunicationController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
 
-        list($prev, $next) = Communication::prevAndNextPages($communication->id,
+        list($prev, $next) = $communication->prevAndNextPages(
+            $communication['id'],
             'admin.career.communication.show',
-            $this->owner->id ?? null,
-            ['date', 'asc']);
+            $this->owner ?? null,
+            [ 'date', 'asc' ]
+        );
 
         return view('admin.career.communication.show', compact('communication', 'prev', 'next'));
     }

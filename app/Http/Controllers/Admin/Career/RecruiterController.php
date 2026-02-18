@@ -72,10 +72,12 @@ class RecruiterController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
 
-        list($prev, $next) = Recruiter::prevAndNextPages($recruiter->id,
+        list($prev, $next) = $recruiter->prevAndNextPages(
+            $recruiter['id'],
             'admin.career.recruiter.show',
             null,
-            ['name', 'asc']);
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.career.recruiter.show', compact('recruiter', 'prev', 'next'));
     }

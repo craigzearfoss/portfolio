@@ -28,12 +28,12 @@ class AdminGroupController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminGroups = AdminGroup::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $adminGroups = new AdminGroup()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Groups' : 'Groups';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Groups' : 'Groups';
 
         return view('admin.system.admin-group.index', compact('adminGroups', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class AdminGroupController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
 
-        list($prev, $next) = AdminGroup::prevAndNextPages($adminGroup->id,
+        list($prev, $next) = $adminGroup->prevAndNextPages(
+            $adminGroup['id'],
             'admin.system.admin-group.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.admin-group.show', compact('adminGroup', 'prev', 'next'));
     }

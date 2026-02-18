@@ -81,7 +81,7 @@ class Note extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
             if (isset($filters['owner_id'])) {
@@ -90,7 +90,7 @@ class Note extends Model
             $filters[] = ['owner_id' => $owner->id];
         }
 
-        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
@@ -103,10 +103,9 @@ class Note extends Model
             })
             ->when(!empty($filters['body']), function ($query) use ($filters) {
                 $query->where('body', 'like', '%' . $filters['body'] . '%');
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
             });
+
+        return $this->appendStandardFilters($query, $filters);
     }
 
     /**

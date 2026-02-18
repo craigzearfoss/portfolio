@@ -28,7 +28,7 @@ class UserTeamController extends BaseUserController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $userTeams = UserTeam::searchQuery($request->all())
+        $userTeams = new UserTeam()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -74,10 +74,12 @@ class UserTeamController extends BaseUserController
     {
         readGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
 
-        list($prev, $next) = UserTeam::prevAndNextPages($userTeam->id,
+        list($prev, $next) = $userTeam->prevAndNextPages(
+            $userTeam['id'],
             'admin.system.user-team.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.user-team.show', compact('userTeam', 'prev', 'next'));
     }

@@ -39,7 +39,7 @@ class JobSkillController extends BaseAdminController
 
             $job = new Job()->findOrFail($jobId);
 
-            if ($this->isRootAdmin) {
+            if (isRootAdmin()) {
 
                 $query = $jobSkillModel->where('job_id', $jobId)
                     ->orderBy('name');
@@ -60,7 +60,7 @@ class JobSkillController extends BaseAdminController
 
         } else {
 
-            if ($this->isRootAdmin) {
+            if (isRootAdmin()) {
 
                 $query = $jobSkillModel->orderBy('name');
                 if (($owner_id = $request->owner_id) && ($owner = new Owner()->findOrFail($owner_id))) {
@@ -78,7 +78,7 @@ class JobSkillController extends BaseAdminController
             $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Job Skills' : 'Job Skills';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Job Skills' : 'Job Skills';
 
         return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

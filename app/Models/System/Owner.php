@@ -71,7 +71,7 @@ class Owner extends Model
         'title',
         'role',
         'employer',
-        'job_status_id',
+        'employment_status_id',
         'street',
         'street2',
         'city',
@@ -215,7 +215,7 @@ class Owner extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
@@ -249,8 +249,8 @@ class Owner extends Model
             ->when(!empty($filters['employer']), function ($query) use ($filters) {
                 $query->where('employer', 'like', '%' . $filters['employer'] . '%');
             })
-            ->when(isset($filters['job_status_id']), function ($query) use ($filters) {
-                $query->where('job_status_id', '=', intval($filters['job_status_id']));
+            ->when(isset($filters['employment_status_id']), function ($query) use ($filters) {
+                $query->where('employment_status_id', '=', intval($filters['employment_status_id']));
             })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where('city', 'LIKE', '%' . $filters['city'] . '%');

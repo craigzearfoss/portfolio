@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models\Career;
+namespace App\Models\System;
 
-use App\Models\System\Admin;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin Eloquent
  * @mixin Builder
  */
-class JobStatus extends Model
+class EmploymentStatus extends Model
 {
     use SearchableModelTrait;
 
@@ -25,7 +24,7 @@ class JobStatus extends Model
     /**
      * @var string
      */
-    protected $table = 'job_statuses';
+    protected $table = 'employment_statuses';
 
     /**
      * The attributes that are mass assignable.
@@ -47,11 +46,11 @@ class JobStatus extends Model
     const array SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the career applications for the job status.
+     * Get the system admins for the employment status.
      */
-    public function applications(): HasMany
+    public function admins(): HasMany
     {
-        return $this->hasMany(Admin::class, 'job_status_id')
-            ->orderBy('username');
+        return $this->hasMany(Admin::class, 'employment_status_id')
+            ->orderBy('name');
     }
 }

@@ -28,7 +28,7 @@ class CertificationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $certifications = Certification::searchQuery($request->all())
+        $certifications = new Certification()->searchQuery($request->all())
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -77,10 +77,12 @@ class CertificationController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
 
-        list($prev, $next) = Certification::prevAndNextPages($certification->id,
+        list($prev, $next) = $certification->prevAndNextPages(
+            $certification['id'],
             'admin.portfolio.certification.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.certification.show', compact('certification', 'prev', 'next'));
     }

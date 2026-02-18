@@ -29,7 +29,7 @@ class OperatingSystemController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $operatingSystems = Category::searchQuery($request->all())
+        $operatingSystems = new Category()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -79,10 +79,12 @@ class OperatingSystemController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $operatingSystem, $this->admin);
 
-        list($prev, $next) = OperatingSystem::prevAndNextPages($operatingSystem->id,
+        list($prev, $next) = $operatingSystem->prevAndNextPages(
+            $operatingSystem['id'],
             'admin.dictionary.operating-system.show',
             null,
-            ['full_name', 'asc']);
+            [ 'full_name', 'asc' ]
+        );
 
         return view('admin.dictionary.operating-system.show', compact('operatingSystem', 'prev', 'next'));
     }

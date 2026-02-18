@@ -14,14 +14,13 @@ class Admin
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         $admin = Auth::guard('admin')->user();
-        $currentRouteName = Route::currentRouteName();
 
-        if (!$admin && !in_array($currentRouteName, ['admin.login', 'admin.login-submit'])) {
+        if (!$admin && !in_array(Route::currentRouteName(), ['admin.login', 'admin.login-submit'])) {
             return redirect()->route('admin.login');
         }
 

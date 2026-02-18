@@ -1,11 +1,9 @@
+@php
+    $admin            = $admin ?? null;
+    $user             = $user ?? null;
+    $owner            = $owner ?? null;
+@endphp
 @if($menuItems = $menuService->topMenu())
-
-    @php
-        $menuService      = $menuService ?? null;
-        $currentRouteName = $currentRouteName ??  Route::currentRouteName();
-        $admin            = $admin ?? null;
-        $user             = $user ?? null;
-    @endphp
 
     <nav id="navbar-main" class="navbar is-fixed-top">
         <div class="navbar-brand">
@@ -47,7 +45,7 @@
 
         </div>
 
-        @if (!in_array($currentRouteName, ['user.login', 'user.login-submit']))
+        @if (!in_array(Route::currentRouteName(), ['user.login', 'user.login-submit']))
 
             <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
                 <div class="navbar-end">

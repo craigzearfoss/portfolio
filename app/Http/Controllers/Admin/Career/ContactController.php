@@ -30,12 +30,12 @@ class ContactController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $contacts = Contact::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $contacts = new Contact()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Contacts' : 'Contacts';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Contacts' : 'Contacts';
 
         return view('admin.career.contact.index', compact('contacts', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -79,10 +79,12 @@ class ContactController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
 
-        list($prev, $next) = Contact::prevAndNextPages($contact->id,
+        list($prev, $next) = $contact->prevAndNextPages(
+            $contact['id'],
             'admin.career.contact.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.career.contact.show', compact('contact', 'prev', 'next'));
     }

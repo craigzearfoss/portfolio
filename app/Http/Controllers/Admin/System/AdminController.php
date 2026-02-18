@@ -13,7 +13,6 @@ use App\Models\System\Database;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -37,7 +36,7 @@ class AdminController extends BaseAdminController
          if (empty($this->admin->root)) {
              return redirect()->route('admin.profile.show');
          } else {
-             $allAdmins = Admin::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+             $allAdmins = new Admin()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
                  ->orderBy('name')
                  ->paginate($perPage)->appends(request()->except('page'));
          }
@@ -100,10 +99,12 @@ class AdminController extends BaseAdminController
 
         $thisAdmin = $admin;
 
-        list($prev, $next) = Admin::prevAndNextPages($admin->id,
+        list($prev, $next) = $admin->prevAndNextPages(
+            $admin['id'],
             'admin.system.admin.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.admin.show', compact('thisAdmin', 'prev', 'next'));
     }
@@ -134,10 +135,12 @@ class AdminController extends BaseAdminController
             ),
         ];
 
-        list($prev, $next) = new Admin()->prevAndNextPages($admin->id,
+        list($prev, $next) = $admin->prevAndNextPages(
+            $admin['id'],
             'admin.system.admin.profile',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.admin.profile',
             compact('thisAdmin', 'dbColumns', 'prev', 'next')
@@ -170,9 +173,10 @@ class AdminController extends BaseAdminController
 
         updateGate(PermissionEntityTypes::RESOURCE, $request, $this->admin);
 
+        // update the owner_id cookie
         if (!empty($this->owner) && ($this->owner->id == $admin->id)) {
-            // @TODO: fix
-            Cookie::queue(self::OWNER_ID_COOKIE, null, 60);
+            $this->cookieManager->setOwnerId(EnvTypes::ADMIN, $admin->id)
+                ->queueOwnerId(EnvTypes::ADMIN);
         }
 
         return redirect()->route('admin.system.admin.show', $admin)

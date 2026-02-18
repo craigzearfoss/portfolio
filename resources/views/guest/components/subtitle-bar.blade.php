@@ -1,6 +1,6 @@
 <section class="hero is-hero-bar">
 
-    <div class="subtitle-bar hero-body p-3">
+    <div class="subtitle-bar hero-body pt-0 pb-0">
         <div class="level">
 
             <div class="level-left" style="display: inline-block;">
@@ -17,7 +17,11 @@
             </div>
 
             <div class="level-right" style="display: inline-block;">
-                @if (!empty($buttons))
+                @if(!empty($prev) || !empty($next))
+                    <div style="display: inline-block; float: right;">
+                        @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+                    </div>
+                @elseif (!empty($buttons))
                     <div class="level-item">
                         <div class="buttons is-right">
 

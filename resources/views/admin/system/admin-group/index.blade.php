@@ -30,7 +30,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -38,7 +37,7 @@
 
 @section('content')
 
-    @if($isRootAdmin)
+    @if(isRootAdmin())
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-group.index') ])
     @endif
 
@@ -154,7 +153,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '6' : '5' }}">There are no admin groups.</td>
+                    <td colspan="{{ $admin->root ? '6' : '5' }}">There are no groups.</td>
                 </tr>
 
             @endforelse

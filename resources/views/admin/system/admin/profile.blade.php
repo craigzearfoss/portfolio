@@ -41,7 +41,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -51,9 +50,9 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container card p-4 mb-2 mr-2" style="display: inline-block; width: auto;">
+        <div class="show-container floating-div card p-4 mb-2 mr-2">
 
-            <div style="display: inline-block; position: absolute; top: 0; right: 0;">
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
                 @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
             </div>
 
@@ -111,6 +110,11 @@
             ])
 
             @include('admin.components.show-row', [
+                'name'  => 'employment status',
+                'value' => $thisAdmin->employmnentStatus->name ?? ''
+            ])
+
+            @include('admin.components.show-row', [
                 'name'  => 'phone',
                 'value' => $thisAdmin->phone
             ])
@@ -120,9 +124,20 @@
                 'value' => $thisAdmin->email
             ])
 
+            @include('admin.components.show-row', [
+                'name'  => '',
+                'value' => view('admin.components.link', [
+                               'name'   => '<i class="fa fa-file-text" aria-hidden="true"></i>Resume',
+                               'href'   => route('admin.career.resume.preview', $thisAdmin),
+                               'class'  => 'button is-primary is-small px-1 py-0',
+                               'style'  => 'font-size: 1rem;',
+                               'title'  => 'Resume',
+                           ])
+            ])
+
         </div>
 
-        <div class="show-container card p-4 mb-2" style="display: inline-block; width: auto;">
+        <div class="show-container floating-div card p-4 mb-2">
 
             @include('admin.components.image', [
                 'src'      => $thisAdmin->image,
@@ -135,7 +150,7 @@
 
         @foreach($dbColumns as $title=>$resources)
 
-            <div class="card m-2 p-4" style="display: inline-block; width: auto;">
+            <div class="card floating-div m-2 p-4">
 
                 <div class="card-head" style="border-bottom: #5c636a 2px outset;">
                     <strong>{{ $title }}</strong>

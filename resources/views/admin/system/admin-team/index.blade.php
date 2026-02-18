@@ -32,7 +32,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -40,7 +39,7 @@
 
 @section('content')
 
-    @if($isRootAdmin)
+    @if(isRootAdmin())
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-team.index') ])
     @endif
 
@@ -143,7 +142,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ $admin->root ? '5' : '4' }}">There are no admin teams.</td>
+                    <td colspan="{{ $admin->root ? '5' : '4' }}">There are no teams.</td>
                 </tr>
 
             @endforelse

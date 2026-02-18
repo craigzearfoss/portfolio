@@ -3,12 +3,24 @@
 @endphp
 @if (!empty($imageUrl))
     <img
-        @if (!empty($src))src="{!! $imageUrl !!}" @endif
-        @if (!empty($alt))alt="{!! $alt !!}" @endif
-        @if (!empty($class))class="{!! $class !!}" @endif
-        @if (!empty($style))style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}" @endif
-        @if (!empty($width))width="{!! $width !!}" @endif
-        @if (!empty($height))height="{!! $height !!}" @endif
+        @if (!empty($src))
+            src="{!! $imageUrl !!}"
+        @endif
+        @if (!empty($alt))
+            alt="{!! $alt !!}"
+        @endif
+        @if (!empty($class))
+            class="{!! is_array($class) ? implode(' ', $class) : $class !!}"
+        @endif
+        @if (!empty($style))
+            style="{!! is_array($style) ? implode('; ', $style) . ';' : $style !!}"
+        @endif
+        @if (!empty($width))
+            width="{!! $width !!}"
+        @endif
+        @if (!empty($height))
+            height="{!! $height !!}"
+        @endif
         @if (!empty($onclick))
             onclick="{!! $onclick !!}"
         @endif
@@ -16,7 +28,7 @@
 
     @if (!empty($download))
         <a class="download-link text-xl"
-            title="{!! $title ?? 'download file'!!}" @endif
+            title="{!! $title ?? 'download file'!!}"
             data-url="{!! $imageUrl !!}"
             data-filename="{!! $filename ?? '' !!}"
         >

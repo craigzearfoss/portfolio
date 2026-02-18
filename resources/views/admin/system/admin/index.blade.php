@@ -35,7 +35,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -128,7 +127,7 @@
                             @if(canRead(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
                                 @include('admin.components.link-icon', [
                                     'title' => 'show',
-                                    'href'  => $isRootAdmin
+                                    'href'  => isRootAdmin()
                                         ? route('admin.system.admin.profile', $thisAdmin->id)
                                         : route('admin.system.admin.show', $thisAdmin->id),
                                     'icon'  => 'fa-list'

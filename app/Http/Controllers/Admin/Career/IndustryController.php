@@ -28,7 +28,7 @@ class IndustryController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $industries = Industry::searchQuery($request->all())
+        $industries = new Industry()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -76,10 +76,12 @@ class IndustryController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
 
-        list($prev, $next) = Industry::prevAndNextPages($industry->id,
+        list($prev, $next) = $industry->prevAndNextPages(
+            $industry['id'],
             'admin.career.industry.show',
             null,
-            ['name', 'asc']);
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.career.industry.show', compact('industry', 'prev', 'next'));
     }

@@ -28,11 +28,11 @@ class MusicController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = Music::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $musics = new Music()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Music' : 'Music';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Music' : 'Music';
 
         return view('admin.portfolio.music.index', compact('musics', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -76,10 +76,12 @@ class MusicController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
 
-        list($prev, $next) = Music::prevAndNextPages($music->id,
+        list($prev, $next) = $music->prevAndNextPages(
+            $music['id'],
             'admin.portfolio.music.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.music.show', compact('music', 'prev', 'next'));
     }

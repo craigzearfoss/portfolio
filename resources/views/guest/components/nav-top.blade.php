@@ -1,13 +1,11 @@
+@php
+    $admin       = $admin ?? null;
+    $user        = $user ?? null;
+    $owner       = $owner ?? null;
+@endphp
 @if($menuItems = $menuService->topMenu())
 
-    @php
-        $menuService      = $menuService ?? null;
-        $currentRouteName = $currentRouteName ??  Route::currentRouteName();
-        $admin            = $admin ?? null;
-        $user             = $user ?? null;
-    @endphp
-
-    <nav id="navbar-main" class="navbar is-fixed-top">
+    <nav id="navbar-main" class="navbar is-fixed-top has-background-success">
         <div class="navbar-brand">
 
             @include('guest.components.nav-link-top', [
@@ -19,7 +17,7 @@
 
             <div class="navbar-item has-control">
 
-                <span class="mr-4 has-text-primary" style=" font-size: 1.5em; font-weight: 800;">
+                <span class="mr-4 has-text-dark" style=" font-size: 1.5em; font-weight: 800;">
                     {{ config('app.name') }}
                 </span>
 

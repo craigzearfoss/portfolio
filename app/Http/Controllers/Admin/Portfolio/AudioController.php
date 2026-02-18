@@ -28,12 +28,12 @@ class AudioController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $audios = Audio::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $audios = new Audio()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Audio' : 'Audio';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Audio' : 'Audio';
 
         return view('admin.portfolio.audio.index', compact('audios','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class AudioController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
 
-        list($prev, $next) = Audio::prevAndNextPages($audio->id,
+        list($prev, $next) = $audio->prevAndNextPages(
+            $audio['id'],
             'admin.portfolio.audio.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.audio.show', compact('audio', 'prev', 'next'));
     }

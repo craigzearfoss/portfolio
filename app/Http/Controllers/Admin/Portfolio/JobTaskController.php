@@ -39,7 +39,7 @@ class JobTaskController extends BaseAdminController
 
             $job = new Job()->findOrFail($jobId);
 
-            if ($this->isRootAdmin) {
+            if (isRootAdmin()) {
 
                 $query = $jobTaskModel->where('job_id', $jobId)
                     ->orderBy('job_id');
@@ -60,7 +60,7 @@ class JobTaskController extends BaseAdminController
 
         } else {
 
-            if ($this->isRootAdmin) {
+            if (isRootAdmin()) {
 
                 $query = $jobTaskModel->orderBy('job_id', 'desc');
                 if (($owner_id = $request->owner_id) && ($owner = new Owner()->findOrFail($owner_id))) {
@@ -78,7 +78,7 @@ class JobTaskController extends BaseAdminController
             $jobTasks = $query->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Job Tasks' : 'Job Tasks';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Job Tasks' : 'Job Tasks';
 
         return view('admin.portfolio.job-task.index', compact('jobTasks', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

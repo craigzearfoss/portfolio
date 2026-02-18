@@ -28,7 +28,7 @@ class UserGroupController extends BaseUserController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $userGroups = UserGroup::searchQuery($request->all())
+        $userGroups = new UserGroup()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -74,10 +74,12 @@ class UserGroupController extends BaseUserController
     {
         readGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
 
-        list($prev, $next) = UserGroup::prevAndNextPages($userGroup->id,
+        list($prev, $next) = $userGroup->prevAndNextPages(
+            $userGroup['id'],
             'admin.system.user-group.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.user-group.show', compact('userGroup', 'prev', 'next'));
     }

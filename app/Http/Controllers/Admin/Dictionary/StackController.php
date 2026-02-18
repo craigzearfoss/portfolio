@@ -29,7 +29,7 @@ class StackController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $stacks = Category::searchQuery($request->all())
+        $stacks = new Category()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -79,10 +79,12 @@ class StackController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $stack, $this->admin);
 
-        list($prev, $next) = Stack::prevAndNextPages($stack->id,
+        list($prev, $next) = $stack->prevAndNextPages(
+            $stack['id'],
             'admin.dictionary.stack.show',
             null,
-            ['full_name', 'asc']);
+            [ 'full_name', 'asc' ]
+        );
 
         return view('admin.dictionary.stack.show', compact('stack', 'prev', 'next'));
     }

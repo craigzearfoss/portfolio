@@ -28,7 +28,7 @@ class CategoryController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $categories = Category::searchQuery($request->all())
+        $categories = new Category()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -78,10 +78,12 @@ class CategoryController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $category, $this->admin);
 
-        list($prev, $next) = Category::prevAndNextPages($category->id,
+        list($prev, $next) = $category->prevAndNextPages(
+            $category['id'],
             'admin.dictionary.category.show',
             null,
-            ['full_name', 'asc']);
+            [ 'full_name', 'asc' ]
+        );
 
         return view('admin.dictionary.category.show', compact('category', 'prev', 'next'));
     }

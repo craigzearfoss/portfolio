@@ -28,13 +28,13 @@ class JobController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = Job::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $jobs = new Job()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Jobs' : 'Jobs';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Jobs' : 'Jobs';
 
         return view('admin.portfolio.job.index', compact('jobs', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -78,10 +78,12 @@ class JobController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $job, $this->admin);
 
-        list($prev, $next) = Job::prevAndNextPages($job->id,
+        list($prev, $next) = $job->prevAndNextPages(
+            $job['id'],
             'admin.portfolio.job.show',
-            $this->owner->id ?? null,
-            ['company', 'asc']);
+            $this->owner ?? null,
+            [ 'company', 'asc' ]
+        );
 
         return view('admin.portfolio.job.show', compact('job', 'prev', 'next'));
     }

@@ -2,6 +2,8 @@
 
 namespace App\Models\Career;
 
+use App\Models\System\Admin;
+use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -73,6 +75,39 @@ class JobBoard extends Model
      *
      */
     const array SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(isset($filters['primary']), function ($query) use ($filters) {
+                $query->where('primary', '=', boolval($filters['primary']));
+            })
+            ->when(isset($filters['local']), function ($query) use ($filters) {
+                $query->where('local', '=', boolval($filters['local']));
+            })
+            ->when(isset($filters['regional']), function ($query) use ($filters) {
+                $query->where('regional', '=', boolval($filters['regional']));
+            })
+            ->when(isset($filters['national']), function ($query) use ($filters) {
+                $query->where('national', '=', boolval($filters['national']));
+            })
+            ->when(isset($filters['international']), function ($query) use ($filters) {
+                $query->where('international', '=', boolval($filters['international']));
+            });
+
+        return $this->appendStandardFilters($query, $filters);
+    }
 
     /**
      * Get the career applications for the job board.

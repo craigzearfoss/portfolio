@@ -48,7 +48,7 @@ class JobSearchLog extends Model
         'note_id',
         'reference_id',
         'recruiter_id',
-s    ];
+    ];
 
     /**
      * SearchableModelTrait variables.
@@ -79,7 +79,7 @@ s    ];
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {

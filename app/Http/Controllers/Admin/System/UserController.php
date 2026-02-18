@@ -29,7 +29,7 @@ class UserController extends BaseUserController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $allUsers = User::searchQuery($request->all())
+        $allUsers = new User()->searchQuery($request->all())
             ->orderBy('username')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -59,7 +59,7 @@ class UserController extends BaseUserController
      */
     public function store(StoreUsersRequest $request): RedirectResponse
     {
-        if (!$this->isRootAdmin) {
+        if (!isRootAdmin()) {
             abort(403, 'Only root users can create new users.');
         }
 
@@ -89,10 +89,12 @@ class UserController extends BaseUserController
 
         $thisUser = $user;
 
-        list($prev, $next) = User::prevAndNextPages($user->id,
+        list($prev, $next) = $user->prevAndNextPages(
+            $user['id'],
             'admin.system.user.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.user.show', compact('thisUser', 'next', 'prev'));
     }

@@ -73,7 +73,7 @@ class Admin extends Authenticatable
         'title',
         'role',
         'employer',
-        'job_status_id',
+        'employment_status_id',
         'street',
         'street2',
         'city',
@@ -217,7 +217,7 @@ class Admin extends Authenticatable
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
@@ -227,7 +227,7 @@ class Admin extends Authenticatable
             $filters['id'] = $owner->id;
         }
 
-        return new self()->when(isset($filters['id']), function ($query) use ($filters) {
+        $query = new self()->when(isset($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['username']), function ($query) use ($filters) {
@@ -251,8 +251,8 @@ class Admin extends Authenticatable
             ->when(!empty($filters['employer']), function ($query) use ($filters) {
                 $query->where('employer', 'like', '%' . $filters['employer'] . '%');
             })
-            ->when(isset($filters['job_status_id']), function ($query) use ($filters) {
-                $query->where('job_status_id', '=', intval($filters['job_status_id']));
+            ->when(isset($filters['employment_status_id']), function ($query) use ($filters) {
+                $query->where('employment_status_id', '=', intval($filters['employment_status_id']));
             })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
@@ -277,10 +277,9 @@ class Admin extends Authenticatable
             })
             ->when(isset($filters['status']), function ($query) use ($filters) {
                 $query->where('status', '=', boolval($filters['status']));
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
             });
+
+        return $this->appendStandardFilters($query, $filters);
     }
 
     /**
@@ -427,6 +426,16 @@ class Admin extends Authenticatable
     }
 
     /**
+     * Get the system employment status that owns the admin.
+     *
+     * @return BelongsTo
+     */
+    public function employmentStatus(): BelongsTo
+    {
+        return $this->belongsTo(EmploymentStatus::class, 'employment_status_id');
+    }
+
+    /**
      * Get the career events for the owner.
      *
      * @return HasMany
@@ -437,9 +446,9 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get all the system groups for the admin.
+     * Get all the system admingroups for the admin.
      *
-     * @return HasMany
+     * @return BelongsToMany
      */
     public function groups(): BelongsToMany
     {
@@ -652,7 +661,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the current system admin_team of the admin.
+     * Get the current system admin team of the admin.
      *
      * @return BelongsTo
      */
@@ -662,7 +671,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get all the system admin_teams for the admin.
+     * Get all the system admin teams for the admin.
      *
      * @return BelongsToMany
      */

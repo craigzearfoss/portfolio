@@ -13,88 +13,88 @@ $resource = $resource ?? null;
     <div class="column is-2" style="min-width: 6rem;"><strong>{{ $name ?? 'images' }}</strong>:</div>
     <div class="column is-10 pl-0">
 
-        @if(!empty($resource))
+        <div class="floating-div-container">
 
-            <div class="container" style="display: flex; gap: 1em;">
+            @if(!empty($resource))
 
-            @foreach([
-                'certificate_url',
-                'image',
-                'thumbnail',
-                'logo',
-                'logo_small',
-            ] as $imageName)
+                @foreach([
+                    'certificate_url',
+                    'image',
+                    'thumbnail',
+                    'logo',
+                    'logo_small',
+                ] as $imageName)
 
-                @if($resource->hasAttribute($imageName))
+                    @if($resource->hasAttribute($imageName))
 
-                    <div class="item" style="padding: 0.3em; border: 1px solid #ccc; flex: 1;">
+                        <div class="floating-div p-2 mb-2 mr-2" style="border: 1px solid #ccc;">
 
-                        <strong>{{ str_replace('_', ' ', $imageName) }}</strong>
-                        <br>
+                            <strong>{{ str_replace('_', ' ', $imageName) }}</strong>
+                            <br>
 
-                        @if(!empty($resource->{$imageName}))
+                            @if(!empty($resource->{$imageName}))
 
-                            @php
-                                switch ($imageName) {
-                                    case 'certificate_url':
-                                        $imageName = 'certificate url';
-                                        $src   = $resource->certificate_url;
-                                        $width = '300px';
-                                        break;
-                                    case 'image':
-                                        $src   = $resource->image;
-                                        $width = '300px';
-                                        break;
-                                    case 'logo':
-                                        $src   = $resource->logo;
-                                        $width = '100px';
-                                        break;
-                                    case 'logo_small':
-                                        $imageName = 'logo small';
-                                        $src   = $resource->logo_small;
-                                        $width = '100px';
-                                        break;
-                                    case 'thumbnail':
-                                        $src   = $resource->thumbnail;
-                                        $width = '100px';
-                                        break;
-                                    default:
-                                        $width = null;
-                                        break;
-                                }
-                            @endphp
+                                @php
+                                    switch ($imageName) {
+                                        case 'certificate_url':
+                                            $imageName = 'certificate url';
+                                            $src   = $resource->certificate_url;
+                                            $width = '300px';
+                                            break;
+                                        case 'image':
+                                            $src   = $resource->image;
+                                            $width = '300px';
+                                            break;
+                                        case 'logo':
+                                            $src   = $resource->logo;
+                                            $width = '100px';
+                                            break;
+                                        case 'logo_small':
+                                            $imageName = 'logo small';
+                                            $src   = $resource->logo_small;
+                                            $width = '100px';
+                                            break;
+                                        case 'thumbnail':
+                                            $src   = $resource->thumbnail;
+                                            $width = '100px';
+                                            break;
+                                        default:
+                                            $width = null;
+                                            break;
+                                    }
+                                @endphp
 
-                            @include('user.components.image', [
-                                'name'     => 'image',
-                                'src'      => $src,
-                                'alt'      => htmlspecialchars($imageName ?? ''),
-                                'width'    => $width,
-                                'download' => $download ?? false,
-                                'external' => $external ?? false,
-                            ])
+                                @include('user.components.image', [
+                                    'name'     => 'image',
+                                    'src'      => $src,
+                                    'alt'      => htmlspecialchars($imageName ?? ''),
+                                    'width'    => $width,
+                                    'download' => $download ?? false,
+                                    'external' => $external ?? false,
+                                ])
 
-                            @if($imageName === 'image')
-                                <div class=flex">
-                                    <strong>image credit:</strong>
-                                    <span>{{ $resource->image_credit }}</span>
-                                </div>
-                                <div class=flex">
-                                    <strong>image source:</strong>
-                                    <span>{{ $resource->image_source ?? '' }}</span>
-                                </div>
+                                @if($imageName === 'image')
+                                    <div class=flex">
+                                        <strong>image credit:</strong>
+                                        <span>{{ $resource->image_credit }}</span>
+                                    </div>
+                                    <div class=flex">
+                                        <strong>image source:</strong>
+                                        <span>{{ $resource->image_source ?? '' }}</span>
+                                    </div>
+                                @endif
+
                             @endif
 
-                        @endif
+                        </div>
 
-                    </div>
+                    @endif
 
-                @endif
+                @endforeach
 
-            @endforeach
+            @endif
 
-            </div>
-
-        @endif
+        </div>
 
     </div>
 </div>

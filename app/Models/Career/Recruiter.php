@@ -102,9 +102,9 @@ class Recruiter extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        return self::getSearchQuery($filters, $owner)
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', 'like', '%' . $filters['name'] . '%');
             })
@@ -142,10 +142,9 @@ class Recruiter extends Model
                     $query->where('phone', 'LIKE', '%' . $phone . '%')
                         ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%');
                 });
-            })
-            ->when(!empty($filters['body']), function ($query) use ($filters) {
-                $query->where('body', 'like', '%' . $filters['body'] . '%');
             });
+
+        return $this->appendStandardFilters($query, $filters);
     }
 
     /**

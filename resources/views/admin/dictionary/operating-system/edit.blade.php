@@ -5,7 +5,7 @@
         [ 'name' => 'Admin Dashboard',      'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',           'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Operating-Systems',    'href' => route('admin.dictionary.operating-system.index') ],
-        [ 'name' => $operatingSystem->name, 'href' => route('admin.dictionary.operating-system.show', $operating-system) ],
+        [ 'name' => $operatingSystem->name, 'href' => route('admin.dictionary.operating-system.show', $operatingSystem) ],
         [ 'name' => 'Edit' ]
     ];
 
@@ -24,7 +24,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -170,7 +169,6 @@
                 'demo'        => old('demo')     ?? $operatingSystem->demo,
                 'sequence'    => old('sequence') ?? $operatingSystem->sequence,
                 'message'     => $message ?? '',
-                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

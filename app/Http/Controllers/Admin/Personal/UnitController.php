@@ -76,10 +76,12 @@ class UnitController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
 
-        list($prev, $next) = Unit::prevAndNextPages($unit->id,
+        list($prev, $next) = $unit->prevAndNextPages(
+            $unit['id'],
             'admin.personal.unit.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.personal.unit.show', compact('unit', 'prev', 'next'));
     }

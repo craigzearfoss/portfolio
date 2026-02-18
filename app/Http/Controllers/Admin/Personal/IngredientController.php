@@ -76,10 +76,12 @@ class IngredientController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $ingredient, $this->admin);
 
-        list($prev, $next) = Ingredient::prevAndNextPages($ingredient->id,
+        list($prev, $next) = $ingredient->prevAndNextPages(
+            $ingredient['id'],
             'admin.personal.ingredient.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.personal.ingredient.show', compact('ingredient', 'prev', 'next'));
     }

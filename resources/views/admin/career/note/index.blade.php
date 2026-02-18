@@ -32,7 +32,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -40,7 +39,7 @@
 
 @section('content')
 
-    @if($isRootAdmin)
+    @if(isRootAdmin())
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.note.index') ])
     @endif
 

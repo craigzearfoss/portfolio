@@ -32,7 +32,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'admin'            => $admin,
     'user'             => $user,
     'owner'            => $owner,
@@ -283,7 +282,6 @@
                 'demo'        => old('demo')     ?? $recipe->demo,
                 'sequence'    => old('sequence') ?? $recipe->sequence,
                 'message'     => $message ?? '',
-                'isRootAdmin' => isRootAdmin(),
             ])
 
             <div class="card p-4">

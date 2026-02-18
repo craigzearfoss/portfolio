@@ -79,7 +79,7 @@ class Database extends Model
      * @param Admin|Owner|null $owner
      * @return Builder
      */
-    public static function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
@@ -88,7 +88,7 @@ class Database extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        return self::getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -118,10 +118,11 @@ class Database extends Model
             })
             ->when(isset($filters['icon']), function ($query) use ($filters) {
                 $query->where('icon', '=', ['icon']);
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
             });
+
+        $query = $this->appendEnvironmentFilters($query, $filters);
+
+        return $this->appendStandardFilters($query, $filters);
     }
 
     /**

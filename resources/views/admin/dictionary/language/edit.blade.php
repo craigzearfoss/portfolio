@@ -24,7 +24,6 @@
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
     'menuService'      => $menuService,
-    'currentRouteName' => Route::currentRouteName(),
     'user'             => $user,
     'owner'            => $owner,
 ])
@@ -169,7 +168,6 @@
                 'demo'        => old('demo')     ?? $language->demo,
                 'sequence'    => old('sequence') ?? $language->sequence,
                 'message'     => $message ?? '',
-                'isRootAdmin' => isRootAdmin(),
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

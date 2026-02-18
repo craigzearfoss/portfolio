@@ -32,7 +32,7 @@ class DatabaseController extends BaseAdminController
         if (empty($this->admin->root)) {
             return redirect()->route('admin.system.admin-database.show', $this->admin);
         } else {
-            $databases = Database::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            $databases = new Database()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
                 ->orderBy('owner_id')
                 ->orderBy('name')
                 ->paginate($perPage)->appends(request()->except('page'));
@@ -77,10 +77,12 @@ class DatabaseController extends BaseAdminController
             abort(403, 'Not authorized.');
         }
 
-        list($prev, $next) = Database::prevAndNextPages($database->id,
+        list($prev, $next) = $database->prevAndNextPages(
+            $database['id'],
             'admin.system.database.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.database.show', compact('database', 'prev', 'next'));
     }

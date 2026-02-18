@@ -28,12 +28,12 @@ class RecipeController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipes = Recipe::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $recipes = new Recipe()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Recipes' : 'Recipes';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Recipes' : 'Recipes';
 
         return view('admin.personal.recipe.index', compact('recipes', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class RecipeController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $recipe, $this->admin);
 
-        list($prev, $next) = Recipe::prevAndNextPages($recipe->id,
+        list($prev, $next) = $recipe->prevAndNextPages(
+            $recipe['i'],
             'admin.personal.recipe.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+    );
 
         return view('admin.personal.recipe.show', compact('recipe', 'prev', 'next'));
     }

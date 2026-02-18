@@ -103,42 +103,57 @@ trait SearchableModelTrait
      *
      * @param int $id
      * @param string $route
-     * @param string|null $ownerId
+     * @param Admin|Owner|null $owner
      * @param array $orderBy
      * @return null[]
      */
-    public static function prevAndNextPages(int         $id,
-                                            string      $route,
-                                            string|null $ownerId = null,
-                                            array       $orderBy = ['id', 'asc']): array
+    public function prevAndNextPages(int              $id,
+                                     string           $route,
+                                     Admin|Owner|null $owner = null,
+                                     array            $orderBy = ['id', 'asc']): array
     {
         $prev = null;
         $next = null;
 
+        $envType = match (explode('.', $route)[0]) {
+            'admin' => EnvTypes::ADMIN,
+            'guest' => EnvTypes::GUEST,
+            'user' => EnvTypes::USER,
+            default => null,
+        };
+
+        $ownerId = !empty($owner)
+            ? $owner->id ?? null
+            : null;
+
         $orderByColumn = is_array($orderBy) ? $orderBy[0] : $orderBy;
         $orderByDirection = is_array($orderBy) ? $orderBy[1] : 'asc';
 
-        $className = self::class;
-        $object = new $className();
-        $databaseTag = $object->getConnectionName();
-        $tableName = $object->getTable();
+        $className           = self::class;
+        $object              = new $className();
+        $databaseTag         = $object->getConnectionName();
+        $tableName           = $object->getTable();
+        $tableNameWithPrefix = config('app.'.$databaseTag) . '.' . $tableName;
+        $tableModel          = new self();
 
-        // determine the previous and next resumes
-        $query = new self()->select('id')->orderBy($orderByColumn, $orderByDirection);
+        // determine the previous and next resources
+        $query = $tableModel->select('id')->orderBy($orderByColumn, $orderByDirection);
 
-        if (!empty($ownerId)
-            && Schema::hasColumn(config('app.'.$databaseTag) . '.' . $tableName, 'owner_id')
-        ) {
+        if (!empty($ownerId) && Schema::hasColumn($tableNameWithPrefix, 'owner_id')) {
             $query->where('owner_id', $ownerId);
         }
 
         $ids = $query->get()->pluck('id')->toArray();
-        if ($key = array_search($id, $ids)) {
+        if (false !== $key = array_search($id, $ids)) {
             if ($prevId = array_key_exists($key - 1, $ids) ? $ids[$key - 1] : null) {
-                $prev = route($route, $prevId);
+                $prev = $envType == EnvTypes::GUEST
+                    ? route($route, $tableModel->find($prevId))
+                    : route($route, $prevId);
             }
             if ($nextId = array_key_exists($key + 1, $ids) ? $ids[$key + 1] : null) {
-                $next = route($route, $nextId);
+                $next = $envType == EnvTypes::GUEST
+                    ? route($route, $tableModel->find($nextId))
+                    : route($route, $nextId);
             }
         }
 
@@ -154,7 +169,7 @@ trait SearchableModelTrait
      */
     public static function searchQuery(array $filters = []): Builder
     {
-        return self::getSearchQuery($filters);
+        return new self()->getSearchQuery($filters);
     }
 
     /**
@@ -165,7 +180,7 @@ trait SearchableModelTrait
      * @param Owner|Admin|null $owner
      * @return mixed
      */
-    public static function getSearchQuery(array $filters = [], Owner|Admin|null $owner = null): mixed
+    public function getSearchQuery(array $filters = [], Owner|Admin|null $owner = null): mixed
     {
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
@@ -173,5 +188,74 @@ trait SearchableModelTrait
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', 'like', '%' . $filters['name'] . '%');
             });
+    }
+
+    /**
+     * Append environment column filters to a database query.
+     *
+     * @param Builder $query
+     * @param array $filters
+     * @return Builder
+     */
+    public function appendEnvironmentFilters(Builder $query, array $filters = []): Builder
+    {
+        $query->when(isset($filters['guest']), function ($query) use ($filters) {
+            $query->where('guest', '=', boolval(['guest']));
+        })
+            ->when(isset($filters['user']), function ($query) use ($filters) {
+                $query->where('user', '=', boolval(['user']));
+            })
+            ->when(isset($filters['admin']), function ($query) use ($filters) {
+                $query->where('admin', '=', boolval(['admin']));
+            })
+            ->when(isset($filters['global']), function ($query) use ($filters) {
+                $query->where('global', '=', boolval(['global']));
+            })
+            ->when(isset($filters['menu']), function ($query) use ($filters) {
+                $query->where('menu', '=', boolval(['menu']));
+            })
+            ->when(isset($filters['menu_level']), function ($query) use ($filters) {
+                $query->where('menu_level', '=', intval(['menu_level']));
+            })
+            ->when(isset($filters['menu_collapsed']), function ($query) use ($filters) {
+                $query->where('menu_collapsed', '=', boolval(['menu_collapsed']));
+            });
+
+        return $query;
+    }
+
+    /**
+     * Append standard column filters to a database query.
+     *
+     * @param Builder $query
+     * @param array $filters
+     * @param bool $includeDemo
+     * @return Builder
+     */
+    public function appendStandardFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    {
+        $query->when(isset($filters['public']), function ($query) use ($filters) {
+            $query->where('public', '=', boolval(['public']));
+        })
+        ->when(isset($filters['readonly']), function ($query) use ($filters) {
+            $query->where('readonly', '=', boolval(['readonly']));
+        })
+        ->when(isset($filters['root']), function ($query) use ($filters) {
+            $query->where('root', '=', boolval(['root']));
+        })
+        ->when(isset($filters['disabled']), function ($query) use ($filters) {
+            $query->where('disabled', '=', boolval(['disabled']));
+        })
+        ->when(isset($filters['sequence']), function ($query) use ($filters) {
+            $query->where('sequence', '=', intval(['sequence']));
+        });
+
+        if ($includeDemo) {
+           $query->when(isset($filters['demo']), function ($query) use ($filters) {
+                $query->where('demo', '=', intval(['demo']));
+            });
+        }
+
+        return $query;
     }
 }

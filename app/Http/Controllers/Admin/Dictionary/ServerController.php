@@ -29,7 +29,7 @@ class ServerController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $servers = Category::searchQuery($request->all())
+        $servers = new Category()->searchQuery($request->all())
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -79,10 +79,12 @@ class ServerController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $server, $this->admin);
 
-        list($prev, $next) = Server::prevAndNextPages($server->id,
+        list($prev, $next) = $server->prevAndNextPages(
+            $server['id'],
             'admin.dictionary.server.show',
             null,
-            ['full_name', 'asc']);
+            [ 'full_name', 'asc' ]
+        );
 
         return view('admin.dictionary.server.show', compact('server', 'prev', 'next'));
     }

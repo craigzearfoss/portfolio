@@ -6,6 +6,7 @@ use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreJobSearchLogsRequest;
 use App\Http\Requests\Career\UpdateJobSearchLogsRequest;
+use App\Models\Career\JobSearchLog;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -24,12 +25,12 @@ class JobSearchLogController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobSearchLogs = JobSearchLogController::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $jobSearchLogs = new JobSearchLog()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Job Search Log' : 'Job Search Log';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Job Search Log' : 'Job Search Log';
 
         return view('admin.career.job-search-log.index', compact('jobSearchLogs', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -57,7 +58,7 @@ class JobSearchLogController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'job-search-log', $this->admin);
 
-        $logEntry = new JobSearchLogController()->create($request->validated());
+        $logEntry = new JobSearchLog()->create($request->validated());
 
         return redirect()->route('admin.career.job-search-log.show', $logEntry)
             ->with('success', 'Log entry successfully added.');
@@ -66,58 +67,30 @@ class JobSearchLogController extends BaseAdminController
     /**
      * Display the specified job search log entry.
      *
-     * @param JobSearchLogController $jobSearchLog
+     * @param JobSearchLog $jobSearchLog
      * @return View
      */
-    public function show(JobSearchLogController $jobSearchLog): View
+    public function show(JobSearchLog $jobSearchLog): View
     {
         readGate(PermissionEntityTypes::RESOURCE, $jobSearchLog, $this->admin);
 
-        list($prev, $next) = JobSearchLogController::prevAndNextPages($jobSearchLog->id,
+        list($prev, $next) = $jobSearchLog->prevAndNextPages(
+            $jobSearchLog['id'],
             'admin.career.job-search-log.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.career.job-search-log.show', compact('jobSearchLog', 'prev', 'next'));
     }
 
     /**
-     * Show the form for editing the specified job search log entry.
-     *
-     * @param JobSearchLogController $jobSearchLog
-     * @return View
-     */
-    public function edit(JobSearchLogController $jobSearchLog): View
-    {
-        updateGate(PermissionEntityTypes::RESOURCE, $jobSearchLog, $this->admin);
-
-        return view('admin.career.job-search-log.edit', compact('jobSearchLog'));
-    }
-
-    /**
-     * Update the specified job search log entry in storage.
-     *
-     * @param UpdateJobSearchLogsRequest $request
-     * @param JobSearchLogController $jobSearchLog
-     * @return RedirectResponse
-     */
-    public function update(UpdateJobSearchLogsRequest $request, JobSearchLogController $jobSearchLog): RedirectResponse
-    {
-        $jobSearchLog->update($request->validated());
-
-        updateGate(PermissionEntityTypes::RESOURCE, $jobSearchLog, $this->admin);
-
-        return redirect()->route('admin.career.job-search-log.show', $jobSearchLog)
-            ->with('success', 'Log entry successfully updated.');
-    }
-
-    /**
      * Remove the specified job search log entry from storage.
      *
-     * @param JobSearchLogController $jobSearchLog
+     * @param JobSearchLog $jobSearchLog
      * @return RedirectResponse
      */
-    public function destroy(JobSearchLogController $jobSearchLog): RedirectResponse
+    public function destroy(JobSearchLog $jobSearchLog): RedirectResponse
     {
         deleteGate(PermissionEntityTypes::RESOURCE, $jobSearchLog, $this->admin);
 

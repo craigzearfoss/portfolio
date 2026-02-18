@@ -13,13 +13,11 @@ class User
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         die('@TODO ???? User->handle()');
-        $currentRouteName = Route::currentRouteName();
-
         if (!isUser() && !in_array(Route::currentRouteName(), ['user.login', 'user.login-submit'])) {
             return redirect()->route('user.login');
         }

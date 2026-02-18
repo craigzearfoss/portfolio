@@ -29,7 +29,7 @@ class EventController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = Event::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $query = new Event()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('created_at', 'desc');
         if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
@@ -38,7 +38,7 @@ class EventController extends BaseAdminController
 
         $events = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Events' : 'Events';
+        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Events' : 'Events';
 
         return view('admin.career.event.index', compact('events', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -102,10 +102,12 @@ class EventController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
 
-        list($prev, $next) = Event::prevAndNextPages($event->id,
+        list($prev, $next) = $event->prevAndNextPages(
+            $event['id'],
             'admin.career.event.show',
-            $this->owner->id ?? null,
-            ['post_date', 'asc']);
+            $this->owner ?? null,
+            [ 'post_date', 'asc' ]
+        );
 
         return view('admin.career.event.show', compact('event', 'prev', 'next'));
     }

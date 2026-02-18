@@ -31,7 +31,7 @@ class ResumeController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = Resume::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $query = new Resume()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name', 'desc');
         if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
@@ -41,7 +41,7 @@ class ResumeController extends BaseAdminController
 
         $resumes = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($this->owner_id)) ? $this->owner->name . ' Resumes' : 'Resumes';
+        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Resumes' : 'Resumes';
 
         return view('admin.career.resume.index', compact('resumes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -106,10 +106,12 @@ class ResumeController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
 
-        list($prev, $next) = Resume::prevAndNextPages($resume->id,
+        list($prev, $next) = $resume->prevAndNextPages(
+            $resume['id'],
             'admin.career.resume.show',
-            $this->owner->id ?? null,
-            ['date', 'asc']);
+            $this->owner ?? null,
+            [ 'date', 'asc' ]
+        );
 
         return view('admin.career.resume.show', compact('resume', 'prev', 'next'));
     }

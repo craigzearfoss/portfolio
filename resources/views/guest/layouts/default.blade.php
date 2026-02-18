@@ -1,8 +1,7 @@
 @php
-    $currentRouteName = $currentRouteName ?? null;
-    $admin            = $admin ?? null;
-    $user             = $user ?? null;
-    $owner            = $owner ?? null;
+    $admin = $admin ?? null;
+    $user  = $user ?? null;
+    $owner = $owner ?? null;
 @endphp
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
@@ -14,19 +13,17 @@
     <div id="app">
 
         @include('guest.components.nav-top', [
-            'menuService'      => $menuService ?? null,
-            'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
-            'admin'            => $admin ?? null,
-            'user'             => $user ?? null,
-            'owner'            => $owner ?? null,
+            'menuService' => $menuService ?? null,
+            'admin'       => $admin ?? null,
+            'user'        => $user ?? null,
+            'owner'       => $owner ?? null,
         ])
 
         @include('guest.components.nav-left', [
-            'menuService'      => $menuService ?? null,
-            'currentRouteName' => $currentRouteName ??  Route::currentRouteName(),
-            'admin'            => $admin ?? null,
-            'user'             => $user ?? null,
-            'owner'            => $owner ?? null,
+            'menuService' => $menuService ?? null,
+            'admin'       => $admin ?? null,
+            'user'        => $user ?? null,
+            'owner'       => $owner ?? null,
         ])
 
         @include('guest.components.title-bar', [
@@ -38,6 +35,8 @@
             'title'      => $title ?? '',
             'selectList' => $selectList ?? '',
             'buttons'    => $buttons ?? [],
+            'prev'       => $prev ?? null,
+            'next'       => $next ?? null,
         ])
 
         <section class="is-main-section px-4 py-3">

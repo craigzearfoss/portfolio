@@ -28,12 +28,12 @@ class AdminResourceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminResources = AdminResource::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $adminResources = new AdminResource()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Resources' : 'Resources';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Resources' : 'Resources';
 
         return view('admin.system.admin-resource.index', compact('adminResources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -72,10 +72,12 @@ class AdminResourceController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $adminResource, $this->admin);
 
-        list($prev, $next) = AdminResource::prevAndNextPages($adminResource->id,
+        list($prev, $next) = $adminResource->prevAndNextPages(
+            $adminResource['id'],
             'admin.system.admin-resource.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.admin-resource.show', compact('adminResource', 'prev', 'next'));
     }

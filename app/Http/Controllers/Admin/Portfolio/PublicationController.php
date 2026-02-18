@@ -28,12 +28,12 @@ class PublicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $publications = Publication::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $publications = new Publication()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Publications' : 'Publications';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Publications' : 'Publications';
 
         return view('admin.portfolio.publication.index', compact('publications', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class PublicationController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $publication, $this->admin);
 
-        list($prev, $next) = Publication::prevAndNextPages($publication->id,
+        list($prev, $next) = $publication->prevAndNextPages(
+            $publication['id'],
             'admin.portfolio.publication.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.publication.show', compact('publication', 'prev', 'next'));
     }

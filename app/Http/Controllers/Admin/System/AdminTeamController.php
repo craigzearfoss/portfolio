@@ -28,12 +28,12 @@ class AdminTeamController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminTeams = AdminTeam::searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $adminTeams = new AdminTeam()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->isRootAdmin && !empty($owner_id)) ? $this->owner->name . ' Teams' : 'Teams';
+        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Teams' : 'Teams';
 
         return view('admin.system.admin-team.index', compact('adminTeams', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -77,10 +77,12 @@ class AdminTeamController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
 
-        list($prev, $next) = AdminTeam::prevAndNextPages($adminTeam->id,
+        list($prev, $next) = $adminTeam->prevAndNextPages(
+            $adminTeam['id'],
             'admin.system.admin-team.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.system.admin-team.show', compact('adminTeam', 'prev', 'next'));
     }

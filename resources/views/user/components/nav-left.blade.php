@@ -1,12 +1,9 @@
+@php
+    $admin            = $admin ?? null;
+    $user             = $user ?? null;
+    $owner            = $owner ?? null;
+@endphp
 @if($menuItems = $menuService->leftMenu())
-
-    @php
-        $menuService      = $menuService ?? null;
-        $currentRouteName = $currentRouteName ??  Route::currentRouteName();
-        $admin            = $admin ?? null;
-        $user             = $user ?? null;
-        $owner            = $owner ?? null;
-    @endphp
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
@@ -53,7 +50,7 @@
 
         </div>
 
-        @if (!in_array($currentRouteName, ['user.login', 'user.login-submit']))
+        @if (!in_array(Route::currentRouteName(), ['user.login', 'user.login-submit']))
 
             @for ($i = 0; $i < count($menuItems); $i++)
 
