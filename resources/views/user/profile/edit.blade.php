@@ -1,3 +1,10 @@
+@php
+    use App\Models\System\Country;
+    use App\Models\System\State;
+    use App\Models\System\User;
+
+    $userModel = new User();
+@endphp
 @extends('user.layouts.default')
 
 @section('content')
@@ -61,11 +68,18 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
-                                                @include('user.components.form-select', [
-                                                    'name'    => 'title',
-                                                    'value'   => old('title') ?? $user->title,
-                                                    'list'    => \App\Models\System\User::titleListOptions([], true, true),
+                                                @include('admin.components.form-select-horizontal', [
+                                                    'name'    => 'salutation',
+                                                    'value'   => old('salutation') ?? $user->salutation,
+                                                    'list'    => $userModel->salutationListOptions(true),
                                                     'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input-horizontal', [
+                                                    'name'      => 'title',
+                                                    'value'     => old('role') ?? $owner->title,
+                                                    'maxlength' => 100,
+                                                    'message'   => $message ?? '',
                                                 ])
 
                                                 @include('user.components.form-location-horizontal', [
@@ -73,10 +87,10 @@
                                                     'street2'    => old('street2') ?? $user->street2,
                                                     'city'       => old('city') ?? $user->city,
                                                     'state_id'   => old('state_id') ?? $user->state_id,
-                                                    'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                                                    'states'     => new State()->listOptions([], 'id', 'name', true),
                                                     'zip'        => old('zip') ?? $user->zip,
                                                     'country_id' => old('country_id') ?? $user->country_id,
-                                                    'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                                                    'countries'  => new Country()->listOptions([], 'id', 'name', true),
                                                     'message'    => $message ?? '',
                                                 ])
 
@@ -106,10 +120,10 @@
                                                 ])
 
                                                 <?php /*
-                                                @include('user.components.form-select', [
+                                                @include('admin.components.form-select-horizontal', [
                                                     'name'    => 'status',
                                                     'value'   => old('status') ?? $user->status,
-                                                    'list'    => \App\Models\User::statusListOptions(),
+                                                    'list'    => $userModel->statusListOptions(),
                                                     'message' => $message ?? '',
                                                 ])
 

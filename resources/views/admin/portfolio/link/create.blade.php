@@ -1,4 +1,6 @@
 @php
+    use App\Models\System\Owner;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -53,13 +55,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $link->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([],
-                                                                        'id',
-                                                                        'username',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'username', 'asc' ]
-                                                                       ),
+                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
                 ])
             @else

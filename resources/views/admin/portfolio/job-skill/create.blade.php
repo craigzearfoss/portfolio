@@ -1,4 +1,6 @@
 @php
+    use App\Models\System\Owner;
+
     $breadcrumbs = [
        [ 'name' => 'Home',                    'href' => route('admin.index') ],
        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
@@ -48,13 +50,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $job->owner_id ?? '',
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([],
-                                                                        'id',
-                                                                        'username',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'username', 'asc' ]
-                                                                       ),
+                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
                 ])
             @else

@@ -1,3 +1,11 @@
+@php
+    use App\Models\System\Country;
+    use App\Models\System\State;
+    use App\Models\System\User;
+    use App\Models\System\UserTeam;
+
+    $userModel = new User();
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New User',
     'breadcrumbs'      => [
@@ -70,7 +78,7 @@
                         'name'    => 'user_team_id',
                         'label'   => 'team',
                         'value'   => old('user_team_id') ?? '',
-                        'list'    => \App\Models\System\UserTeam::listOptions(),
+                        'list'    => new UserTeam()->listOptions([], 'id', 'name', true),
                         'message' => $message ?? '',
                     ])
 
@@ -113,7 +121,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'salutation',
                 'value'   => old('salutation') ?? '',
-                'list'    => \App\Models\System\User::salutationListOptions([], true, true),
+                'list'    => $userModel->salutationListOptions(true),
                 'message' => $message ?? '',
             ])
 
@@ -143,10 +151,10 @@
                 'street2'    => old('street2') ?? $owner->street2,
                 'city'       => old('city') ?? $owner->city,
                 'state_id'   => old('state_id') ?? $owner->state_id,
-                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'states'     => new State()->listOptions([], 'id', 'name', true),
                 'zip'        => old('zip') ?? $owner->zip,
                 'country_id' => old('country_id') ?? $owner->country_id,
-                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'countries'  => new Country()->listOptions([], 'id', 'name', true),
                 'message'    => $message ?? '',
             ])
 
@@ -180,7 +188,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'status',
                 'value'   => old('status') ?? 0,
-                'list'    => \App\Models\System\User::statusListOptions(),
+                'list'    => $userModel->statusListOptions(),
                 'message' => $message ?? '',
             ])
 

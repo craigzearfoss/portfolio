@@ -1,4 +1,6 @@
 @php
+    use App\Models\Dictionary\DictionarySection;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
@@ -17,11 +19,12 @@
                             'name'     => '',
                             'label'    => '',
                             'value'    => route('guest.dictionary.database.index'),
-                            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([],
-                                                                                                'route',
-                                                                                                'name',
-                                                                                                true
-                                                                                               ),
+                            'list'     => new DictionarySection()->listOptions(
+                                [],
+                                'route',
+                                'name',
+                                true
+                            ),
                             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
                             'message'  => $message ?? '',
                         ]),

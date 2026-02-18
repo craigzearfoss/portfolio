@@ -1,4 +1,8 @@
 @php
+    use App\Models\System\Country;
+    use App\Models\System\Owner;
+    use App\Models\System\State;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -53,13 +57,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([],
-                                                                        'id',
-                                                                        'username',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'username', 'asc ']
-                                                                       ),
+                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc ']),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -97,10 +95,10 @@
                 'street2'    => old('street2') ?? '',
                 'city'       => old('city') ?? '',
                 'state_id'   => old('state_id') ?? '',
-                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'states'     => new State()->listOptions([], 'id', 'name', true),
                 'zip'        => old('zip') ?? '',
                 'country_id' => old('country_id') ?? '',
-                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'countries'  => new Country()->listOptions([], 'id', 'name', true),
                 'message'    => $message ?? '',
             ])
 

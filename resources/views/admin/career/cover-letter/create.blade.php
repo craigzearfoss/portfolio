@@ -1,3 +1,6 @@
+@php
+    use App\Models\System\Owner;
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New Cover Letter',
     'breadcrumbs'      => [
@@ -39,13 +42,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([],
-                                                                        'id',
-                                                                        'username',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'username', 'asc' ]
-                                                                       ),
+                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
                 ])
             @else

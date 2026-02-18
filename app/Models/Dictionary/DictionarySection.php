@@ -56,13 +56,13 @@ class DictionarySection extends Model
      * @param EnvTypes|null $envType
      * @return array|string[]
      */
-    public static function listOptions(array         $filters = [],
-                                       string        $valueColumn = 'id',
-                                       string        $labelColumn = 'name',
-                                       bool          $includeBlank = false,
-                                       bool          $includeOther = false,
-                                       array         $orderBy = [ 'name'=>'asc' ],
-                                       EnvTypes|null $envType = EnvTypes::GUEST): array
+    public function listOptions(array         $filters = [],
+                                string        $valueColumn = 'id',
+                                string        $labelColumn = 'name',
+                                bool          $includeBlank = false,
+                                bool          $includeOther = false,
+                                array         $orderBy = [ 'name'=>'asc' ],
+                                EnvTypes|null $envType = EnvTypes::GUEST): array
     {
         if (!in_array($valueColumn, ['id', 'name', 'slug', 'table', 'route'])) {
             return [];

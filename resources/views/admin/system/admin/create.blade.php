@@ -1,4 +1,8 @@
 @php
+    use App\Models\System\Admin;
+    use App\Models\System\Country;
+    use App\Models\System\State;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -82,7 +86,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'    => 'salutation',
                     'value'   => old('salutation') ?? '',
-                    'list'    => \App\Models\System\Admin::salutationListOptions([], true, true),
+                    'list'    => new Admin()->salutationListOptions(true),
                     'message' => $message ?? '',
                 ])
 
@@ -112,10 +116,10 @@
                     'street2'    => old('street2') ?? '',
                     'city'       => old('city') ?? '',
                     'state_id'   => old('state_id') ?? '',
-                    'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                    'states'     => new State()->listOptions([], 'id', 'name', true),
                     'zip'        => old('zip') ?? '',
                     'country_id' => old('country_id') ?? '',
-                    'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                    'countries'  => new Country()->listOptions([], 'id', 'name', true),
                     'message'    => $message ?? '',
                 ])
 

@@ -2,12 +2,13 @@
 
 namespace Database\Factories\System;
 
+use App\Models\System\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\System\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<User>
  */
 class UserFactory extends Factory
 {
@@ -26,7 +27,7 @@ class UserFactory extends Factory
         return [
             'username'          => fake()->unique()->userName(),
             'name'              => fake()->name(),
-            'title'             => fake()->randomElement(\App\Models\System\User::salutationListOptions([], false, true)),
+            'title'             => fake()->randomElement(new User()->salutationListOptions()),
             'street'            => fake()->streetAddress(),
             'street2'           => null,
             'city'              => fake()->city(),

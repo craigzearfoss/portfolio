@@ -1,4 +1,10 @@
 @php
+    use App\Models\System\Country;
+    use App\Models\System\Owner;
+    use App\Models\System\State;
+
+    $ownerModel = new Owner();
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -43,7 +49,8 @@
 
             <div class="content fa-width-auto has-text-centered">
 
-                <form id="selectCompanyForm" action="{{ route('admin.career.application.create', request()->all()) }}" method="GET">
+                <form id="selectCompanyForm" action="{{ route('admin.career.application.create', request()->all()) }}"
+                      method="GET">
 
                     @if($admin->root)
                         @include('admin.components.form-select-horizontal', [
@@ -51,13 +58,7 @@
                             'label'    => 'owner',
                             'value'    => old('owner_id') ?? '',
                             'required' => true,
-                            'list'     => \App\Models\System\Owner::listOptions([],
-                                                                                'id',
-                                                                                'username',
-                                                                                true,
-                                                                                false,
-                                                                                [ 'username', 'asc' ]
-                                                                               ),
+                            'list'     => $ownerModel->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                             'message'  => $message ?? '',
                         ])
                     @endif
@@ -86,7 +87,8 @@
 
                 <h4 class="subtitle has-text-centered pt-4">or</h4>
 
-                <a href="{{ route('admin.career.company.create', array_merge(['new_application' => 1], request()->all())) }}" class="button is-primary my-0">
+                <a href="{{ route('admin.career.company.create', array_merge(['new_application' => 1], request()->all())) }}"
+                   class="button is-primary my-0">
                     Add a New Company
                 </a>
 
@@ -112,13 +114,7 @@
                         'label'    => 'owner',
                         'value'    => old('owner_id') ?? '',
                         'required' => true,
-                        'list'     => \App\Models\System\Owner::listOptions([],
-                                                                            'id',
-                                                                            'username',
-                                                                            true,
-                                                                            false,
-                                                                            [ 'username', 'asc' ]
-                                                                           ),
+                        'list'     => $ownerModel->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                         'message'  => $message ?? '',
                     ])
                 @else
@@ -263,10 +259,10 @@
                     'street2'    => old('street2') ?? '',
                     'city'       => old('city') ?? '',
                     'state_id'   => old('state_id') ?? '',
-                    'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                    'states'     => new State()->listOptions([], 'id', 'name', true),
                     'zip'        => old('zip') ?? '',
                     'country_id' => old('country_id') ?? '',
-                    'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                    'countries'  => new Country()->listOptions([], 'id', 'name', true),
                     'message'    => $message ?? '',
                 ])
 

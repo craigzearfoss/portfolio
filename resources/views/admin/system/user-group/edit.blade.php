@@ -1,4 +1,7 @@
 @php
+    use App\Models\System\Owner;
+    use App\Models\System\UserTeam;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -33,7 +36,8 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.user-group.update', array_merge([$userGroup], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.system.user-group.update', array_merge([$userGroup], request()->all())) }}"
+              method="POST">
             @csrf
             @method('PUT')
 
@@ -53,13 +57,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $userGroup->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([],
-                                                                        'id',
-                                                                        'username',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'username', 'asc' ]
-                                                                       ),
+                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -73,7 +71,7 @@
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
                 'value'   => old('admin_team_id') ?? $userGroup->team['id'] ?? '',
-                'list'    => \App\Models\System\UserTeam::listOptions(),
+                'list'    => new UserTeam()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

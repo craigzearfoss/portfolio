@@ -18,10 +18,10 @@
     // get icon
     $icon = ($icon === false)
         ? ''
-        : (false === strpos($icon, '<') ? '<i class="fa ' . $icon . '"></i>' : $icon);
+        : (!str_contains($icon, '<') ? '<i class="fa ' . $icon . '"></i>' : $icon);
 @endphp
 <a @if(isset($href) && ($href !== false))href="{!! $href !!}" @endif
-   @if (!empty($target ?? ''))target="{!! $target !!}" @endif
+@if (!empty($target ?? ''))target="{!! $target !!}" @endif
    @if (!empty($class))class="{!! $class !!}" @endif
    @if (!empty($style))style="{!! $style !!}" @endif
    @if(!empty($dataTarget))data-target="{{ $dataTarget }}" @endif

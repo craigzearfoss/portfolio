@@ -1,6 +1,12 @@
 @php
+    use App\Models\System\Admin;
+    use App\Models\System\AdminTeam;
+    use App\Models\System\Country;
+    use App\Models\System\EmploymentStatus;
+    use App\Models\System\State;
+
     // set breadcrumbs
-    use App\Models\System\AdminTeam;$breadcrumbs = [
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
@@ -86,7 +92,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'salutation',
                 'value'   => old('salutation') ?? $owner->salutation,
-                'list'    => \App\Models\System\Admin::salutationListOptions([], true, true),
+                'list'    => new Admin()->salutationListOptions(true),
                 'message' => $message ?? '',
             ])
 
@@ -115,7 +121,7 @@
                 'name'    => 'employment_status_id',
                 'label'   => 'employment status',
                 'value'   => old('employment_status_id') ?? $owner->employment_status_id,
-                'list'    => \App\Models\System\EmploymentStatus::listOptions(),
+                'list'    => EmploymentStatus::listOptions(),
                 'message' => $message ?? '',
             ])
 
@@ -124,10 +130,10 @@
                 'street2'    => old('street2') ?? $owner->street2,
                 'city'       => old('city') ?? $owner->city,
                 'state_id'   => old('state_id') ?? $owner->state_id,
-                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'states'     => new State()->listOptions([], 'id', 'name', true),
                 'zip'        => old('zip') ?? $owner->zip,
                 'country_id' => old('country_id') ?? $owner->country_id,
-                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'countries'  => new Country()->listOptions([], 'id', 'name', true),
                 'message'    => $message ?? '',
             ])
 

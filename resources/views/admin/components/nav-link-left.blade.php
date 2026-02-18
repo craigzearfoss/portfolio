@@ -3,7 +3,8 @@
     $classes = !empty($class)
         ? is_array($class) ? $class : explode(';', $class)
         : [];
-    if ($active ?? false) $classes[] = 'has-text-white';
+
+    if ($active ?? false) $classes[] = 'has-text-gray';
 
     // get styles
     $styles = !empty($style)
@@ -18,13 +19,26 @@
             $styles[] = 'padding: 0.3rem';
             break;
     }
-
-    $htmlString = view('admin.components.nav-link', [
-            'name'   => $name ?? false,
-            'href'   => $href ?? false,
-            'class'  => $classes,
-            'style'  => $styles,
-            'icon'   => $icon ?? false
-        ]);
-    @endphp
-{!! $htmlString !!}
+@endphp
+@if(empty($href))
+    <span
+        @if(!empty($classes))
+            class="{!! implode(' ', $classes)  !!}"
+        @endif
+        @if(!empty($styles))
+            style="{!! implode('; ', $styles) !!}"
+        @endif
+    >
+        {!! !empty($icon) ? '<i class="fa ' . $icon . '"></i>' : '' !!}
+        {!! $name ?? '' !!}
+    </span>
+@else
+    @include('admin.components.nav-button', [
+        'name'       => $name ?? '',
+        'href'       => $href,
+        'class'      => $classes,
+        'style'      => $styles,
+        'icon'       => $icon ?? false,
+        'dataTarget' => $dataTarget ?? null,
+    ]);
+@endif

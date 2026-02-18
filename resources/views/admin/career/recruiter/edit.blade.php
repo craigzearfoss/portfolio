@@ -1,4 +1,7 @@
 @php
+    use App\Models\System\Country;
+    use App\Models\System\State;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -33,7 +36,8 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.recruiter.update', array_merge([$recruiter], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.career.recruiter.update', array_merge([$recruiter], request()->all())) }}"
+              method="POST">
             @csrf
             @method('PUT')
 
@@ -114,10 +118,10 @@
                 'street2'    => old('street2') ?? $recruiter->street2,
                 'city'       => old('city') ?? $recruiter->city,
                 'state_id'   => old('state_id') ?? $recruiter->state_id,
-                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'states'     => new State()->listOptions([], 'id', 'name', true),
                 'zip'        => old('zip') ?? $recruiter->zip,
                 'country_id' => old('country_id') ?? $recruiter->country_id,
-                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'countries'  => new Country()->listOptions([], 'id', 'name', true),
                 'message'    => $message ?? '',
             ])
 

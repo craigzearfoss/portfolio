@@ -1,3 +1,6 @@
+@php
+    use App\Models\System\Owner;
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Job Task Edit',
     'breadcrumbs'      => [
@@ -27,7 +30,8 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.job-task.update', array_merge([$jobTask], request()->all())) }}" method="POST">
+        <form action="{{ route('admin.portfolio.job-task.update', array_merge([$jobTask], request()->all())) }}"
+              method="POST">
             @csrf
             @method('PUT')
 
@@ -47,13 +51,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $jobTask->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([],
-                                                                        'id',
-                                                                        'username',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'username', 'asc' ]
-                                                                       ),
+                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
                 ])
             @else

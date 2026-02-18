@@ -20,23 +20,21 @@ trait SearchableModelTrait
     /**
      * Returns an array of options for an industry select list.
      *
-     * @param array $filters
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool $includeBlank
-     * @param bool $includeOther
-     * @param array $orderBy
-     * @param EnvTypes $envType
+     * @param array    $filters
+     * @param string   $valueColumn
+     * @param string   $labelColumn
+     * @param bool     $includeBlank
+     * @param bool     $includeOther
+     * @param array    $orderBy
      * @return array
      * @throws Exception
      */
-    public static function listOptions(array    $filters = [],
-                                       string   $valueColumn = 'id',
-                                       string   $labelColumn = 'name',
-                                       bool     $includeBlank = false,
-                                       bool     $includeOther = false,
-                                       array    $orderBy = self::SEARCH_ORDER_BY,
-                                       EnvTypes $envType = EnvTypes::GUEST): array
+    public function listOptions(array  $filters = [],
+                                string $valueColumn = 'id',
+                                string $labelColumn = 'name',
+                                bool   $includeBlank = false,
+                                bool   $includeOther = false,
+                                array  $orderBy = self::SEARCH_ORDER_BY): array
     {
         $other = null;
 

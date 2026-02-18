@@ -70,6 +70,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
 });
 
 Route::name('guest.')->middleware('guest')->group(function () {
+    Route::get('portfolio', [GuestPortfolioIndexController::class, 'index'])->name('portfolio.base');
     Route::get('/{admin:label}/resume', [GuestPortfolioJobController::class, 'resume'])->name('resume');
     Route::get('/{admin:label}/portfolio', [GuestPortfolioIndexController::class, 'index'])->name('portfolio.index');
     Route::get('/{admin:label}/portfolio/art', [GuestPortfolioArtController::class, 'index'])->name('portfolio.art.index');

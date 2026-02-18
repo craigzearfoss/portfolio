@@ -214,13 +214,21 @@ class BaseController extends Controller
                 }
             }
 
-        } elseif ($owner_id = $this->cookieManager->getOwnerId($this->envType)) {
+        } elseif (!in_array(Route::currentRouteName(), [
+            'guest.index',
+            'guest.admin.index',
+            'admin.index',
+            'admin.dashboard'
+        ])) {
 
-            $owner = new Admin()->find($owner_id);
+            if ($owner_id = $this->cookieManager->getOwnerId($this->envType)) {
 
-        } elseif (!empty($currentAdmin)) {
+                $owner = new Admin()->find($owner_id);
 
-            $owner = $currentAdmin;
+            } elseif (!empty($currentAdmin)) {
+
+                $owner = $currentAdmin;
+            }
         }
 
         return $owner;

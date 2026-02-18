@@ -1,3 +1,7 @@
+@php
+    use App\Models\System\Country;
+    use App\Models\System\State;
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add a Company to ' . $contact->name,
     'breadcrumbs'      => [
@@ -75,10 +79,10 @@
                     'street2'    => old('street2') ?? '',
                     'city'       => old('city') ?? '',
                     'state_id'   => old('state_id') ?? '',
-                    'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                    'states'     => new State()->listOptions([], 'id', 'name', true),
                     'zip'        => old('zip') ?? '',
                     'country_id' => old('country_id') ?? '',
-                    'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                    'countries'  => new Country()->listOptions([], 'id', 'name', true),
                     'message'    => $message ?? '',
                 ])
 

@@ -1,7 +1,7 @@
 @php
-    $admin       = $admin ?? null;
-    $user        = $user ?? null;
-    $owner       = $owner ?? null;
+    $admin = $admin ?? null;
+    $user  = $user ?? null;
+    $owner = $owner ?? null;
 @endphp
 @if($menuItems = $menuService->topMenu())
 

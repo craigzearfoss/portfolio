@@ -1,24 +1,4 @@
 @php
-    $icon       = $icon ?? false;
-    $dataTarget = $dataTarget ?? false;
-
-    $name = $name ?? false;
-    if ($name === false) {
-        $label = '';
-    } else {
-        if (empty($name)) {
-            $label = 'NONE'; $name ?? '#NAME#';
-        } else {
-            if ($icon === false) {
-                $label = (strpos($name, '<') !== false) ? $name : '<span>' . $name . '</span>';
-            } else {
-                $label = !empty($icon)
-                    ? '<span class="icon"><i class="fa-solid ' . $icon . '"></i></span><span>' .  $name . '</span>'
-                    : '<span>' . $name . '</span>';
-            }
-        }
-    }
-
     // get classes
     $classes = !empty($class)
         ? is_array($class) ? $class : explode(';', $class)
@@ -36,15 +16,33 @@
         case 2:
         case 1:
         default:
+            $styles[] = 'padding: 0.3rem';
             break;
     }
-
-    $htmlString = view('admin.components.nav-button', [
-            'name'       => $label,
-            'href'       => isset($href) ? $href : false,
-            'class'      => $classes,
-            'style'      => $styles,
-            'dataTarget' => $dataTarget
-        ]);
 @endphp
-{!! $htmlString !!}
+@if(empty($href))
+    <span
+        @if(!empty($classes))
+            class="{!! implode(' ', $classes)  !!}"
+        @endif
+        @if(!empty($styles))
+            style="{!! implode('; ', $styles) !!}"
+        @endif
+    >
+        <span class="icon">
+            {!! !empty($icon) ? '<i class="fa ' . $icon . '"></i>' : '' !!}
+        </span>
+        <span>
+            {!! $name ?? '' !!}
+        </span>
+    </span>
+@else
+    @include('admin.components.nav-button', [
+        'name'       => $name,
+        'href'       => $href,
+        'class'      => $classes,
+        'style'      => $styles,
+        'icon'       => $icon ?? false,
+        'dataTarget' => $dataTarget ?? null,
+    ]);
+@endif

@@ -143,67 +143,45 @@ class Admin extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role', 'street',
-        'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root',
-        'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'admin_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role',
+        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly',
+        'root', 'disabled', 'demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['username', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'username', 'asc' ];
+
 
     /**
      * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
      *
-     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
      * @param bool $includeBlank
-     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function salutationListOptions(array $filters = [],
-                                                 bool $includeBlank = false,
-                                                 bool $nameAsKey = false): array
+    public function salutationListOptions(bool $includeBlank = false): array
     {
-        $options = [];
-        if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
-        }
+        $options = $includeBlank ? [ '' => '' ] : [];
 
-        foreach (self::SALUTATIONS as $i=>$title) {
-            $options[$nameAsKey ? $title : $i] = $title;
+        foreach (self::SALUTATIONS as $title) {
+            $options[$title] = $title;
         }
 
         return $options;
     }
 
     /**
-     * Returns an array of options for a select list for statuses.
+     * Returns an array of options for a select list for statuses, i.e. active or pending.
      *
-     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool $includeBlank
-     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
-     * @return array
-     * @throws Exception
+     * @param string $valueColumn - id or name
+     * @return array|string[]
      */
-    public static function statusListOptions(array $filters = [],
-                                             string $valueColumn = 'id',
-                                             string $labelColumn = 'name',
-                                             bool $includeBlank  = false,
-                                             bool $includeOther  = false,
-                                             array $orderBy      = [ 'name' => 'asc' ],
-                                             EnvTypes $envType   = EnvTypes::GUEST): array
+    public function statusListOptions(string $valueColumn = 'id'): array
     {
         $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
 
-        foreach (self::STATUSES as $i=>$status) {
-            $options[$valueColumn == 'id' ? $i : $status] = $labelColumn = 'id' ? $i : $status;
+        foreach (self::STATUSES as $id=>$name) {
+            $options[$valueColumn == 'id' ? $id : $name] = $name;
         }
 
         return $options;

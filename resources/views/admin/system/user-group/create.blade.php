@@ -1,3 +1,7 @@
+@php
+    use App\Models\System\Owner;
+    use App\Models\System\UserTeam;
+@endphp
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Add New User Group',
     'breadcrumbs'      => [
@@ -38,13 +42,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id')  ?? $owner_id ?? null,
                     'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([],
-                                                                        'id',
-                                                                        'username',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'username', 'asc' ]
-                                                                       ),
+                    'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -58,7 +56,7 @@
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
                 'value'   => old('admin_team_id') ?? '',
-                'list'    => \App\Models\System\UserTeam::listOptions([], true),
+                'list'    => new UserTeam()->listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

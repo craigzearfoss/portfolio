@@ -271,30 +271,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns an array of options for a select list for statuses.
-     *
-     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function statusListOptions(array $filters = [],
-                                             bool $includeBlank = false,
-                                             bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        foreach (self::STATUSES as $i=>$status) {
-            $options[$nameAsKey ? $status : $i] = $status;
-        }
-
-        return $options;
-    }
-
-    /**
      * Returns the salutation name for the given id or null if not found.
      *
      * @param int $id
@@ -319,22 +295,32 @@ class User extends Authenticatable
     /**
      * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
      *
-     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
      * @param bool $includeBlank
-     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function salutationListOptions(array $filters = [],
-                                                 bool $includeBlank = false,
-                                                 bool $nameAsKey = false): array
+    public function salutationListOptions(bool $includeBlank = false): array
     {
-        $options = [];
-        if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        foreach (self::SALUTATIONS as $title) {
+            $options[$title] = $title;
         }
 
-        foreach (self::SALUTATIONS as $i=>$title) {
-            $options[$nameAsKey ? $title : $i] = $title;
+        return $options;
+    }
+
+    /**
+     * Returns an array of options for a select list for statuses, i.e. active or pending.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public function statusListOptions(bool $includeBlank = false): array
+    {
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        foreach (self::STATUSES as $name) {
+            $options[$name] = $name;
         }
 
         return $options;

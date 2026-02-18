@@ -150,58 +150,36 @@ class Owner extends Model
      */
     const array SEARCH_ORDER_BY = ['username', 'asc'];
 
+
     /**
      * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
      *
-     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
      * @param bool $includeBlank
-     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function salutationListOptions(array $filters = [],
-                                                 bool $includeBlank = false,
-                                                 bool $nameAsKey = false): array
+    public function salutationListOptions(bool $includeBlank = false): array
     {
-        $options = [];
-        if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
-        }
+        $options = $includeBlank ? [ '' => '' ] : [];
 
-        foreach (self::SALUTATIONS as $i=>$title) {
-            $options[$nameAsKey ? $title : $i] = $title;
+        foreach (self::SALUTATIONS as $title) {
+            $options[$title] = $title;
         }
 
         return $options;
     }
 
     /**
-     * Returns an array of options for a select list for statuses.
+     * Returns an array of options for a select list for statuses, i.e. active or pending.
      *
-     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param string $valueColumn
-     * @param string $labelColumn
      * @param bool $includeBlank
-     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
-     * @return array
-     * @throws Exception
+     * @return array|string[]
      */
-    public static function statusListOptions(array $filters = [],
-                                             string $valueColumn = 'id',
-                                             string $labelColumn = 'name',
-                                             bool $includeBlank  = false,
-                                             bool $includeOther  = false,
-                                             array $orderBy      = [ 'name' => 'asc' ],
-                                             EnvTypes $envType   = EnvTypes::GUEST): array
+    public function statusListOptions(bool $includeBlank = false): array
     {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
+        $options = $includeBlank ? [ '' => '' ] : [];
 
-        foreach (self::STATUSES as $i=>$status) {
-            $options[$valueColumn == 'id' ? $i : $status] = $labelColumn = 'id' ? $i : $status;
+        foreach (self::STATUSES as $name) {
+            $options[$name] = $name;
         }
 
         return $options;

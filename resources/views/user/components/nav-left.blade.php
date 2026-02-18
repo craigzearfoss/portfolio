@@ -1,4 +1,8 @@
 @php
+    use App\Models\System\Admin;
+
+    $adminModel = new Admin();
+
     $admin            = $admin ?? null;
     $user             = $user ?? null;
     $owner            = $owner ?? null;
@@ -28,20 +32,20 @@
 
         <div class="control ml-2 mt-2">
 
-            @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
+            @if($adminModel->where('public', 1)->count() > 1)
 
                 <div class="has-text-light">candidates</div>
 
                 @include('user.components.form-select-nolabel', [
                     'value'    => !empty($admin->label) ? $admin->label : '',
-                    'list'     => \App\Models\System\Admin::listOptions(
-                                      [ 'public' => 1 ],
-                                      'label',
-                                      'name',
-                                      true,
-                                      false,
-                                      ['name', 'asc']
-                                  ),
+                    'list'     => $adminModel->listOptions(
+                        [ 'public' => 1 ],
+                        'label',
+                        'name',
+                        true,
+                        false,
+                        [ 'name', 'asc' ]
+                    ),
                     'style'    => 'font-size: 1.1rem; font-weight: 700',
                     'onchange' => "document.location.href='/'+this.value;"
                 ])
@@ -82,19 +86,19 @@
 
 
                                     @if(!empty($menu2Item->children))
-        @php //@TODO: This isn't working @endphp
+                                        @php //@TODO: This isn't working @endphp
                                         <ul class="menu-list pl-2" style="margin-left: 1em;">
 
                                             @foreach ($menu2Item->children as $menu3Item)
-                                            <li>
-                                                @include('guest.components.nav-link-left', [
-                                                    'level'  => 3,
-                                                    'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
-                                                    'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
-                                                    'active' => $menu3Item->active,
-                                                    'icon'   => !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle'
-                                                ])
-                                            </li>
+                                                <li>
+                                                    @include('guest.components.nav-link-left', [
+                                                        'level'  => 3,
+                                                        'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
+                                                        'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,
+                                                        'active' => $menu3Item->active,
+                                                        'icon'   => !empty($menu3Item->icon) ? $menu3Item->icon : 'fa-circle'
+                                                    ])
+                                                </li>
                                             @endforeach
 
                                         </ul>

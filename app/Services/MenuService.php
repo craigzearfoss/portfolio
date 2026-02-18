@@ -267,7 +267,7 @@ class MenuService
         $menu = $this->getResourceMenu();
 
         if ($this->envType == EnvTypes::GUEST) {
-            $menu[] = $this->menuItem(['title'=>'Candidates', 'route'=>'guest.admin.index', 'icon'=>'fa-dashboard' ]);
+            $menu[] = $this->menuItem(['title'=>'Candidates', 'route' => 'guest.admin.index', 'icon' => 'fa-dashboard' ]);
         }
 
         if ($this->hasUsers && empty($this->admin)) {
@@ -349,15 +349,17 @@ class MenuService
 
                 if (Route::has($route)) {
                     if ($this->envType == EnvTypes::ADMIN) {
-                        $url = ((!empty($this->admin) && !empty($this->admin->root))
-                                && !$this->showAll
-                               )
+                        $url = (!empty($this->admin->root) && !$this->showAll)
                             ? route($route, [ 'owner_id' => $this->owner->id ])
                             : route($route);
                     } else {
-                        $url = (!empty($this->owner) && ($database->name != 'dictionary'))
-                            ? route($route, $this->owner)
-                            : route($route);
+                        try {
+                            $url = (!empty($this->owner) && ($database->name != 'dictionary'))
+                                ? route($route, $this->owner)
+                                : route($route);
+                        } catch (\Exception $e) {
+                            $url = null;
+                        }
                     }
                 } else {
                     $url = 'DATABASE ROUTE: ' . $route;
@@ -462,6 +464,11 @@ class MenuService
     {
         // Create the array of menu items.
         $menu = [];
+
+        if (in_array($this->currentRouteName, [ 'guest.index', 'guest.admin.index' ])) {
+            // on home page and dashboard do not display resource menu item
+            return $menu;
+        }
 
         // get level 1 admin/user/guest-specific items
         if (in_array($this->envType, [EnvTypes::ADMIN, EnvTypes::GUEST])) {
@@ -629,14 +636,14 @@ class MenuService
      */
     public function getResourceMenuItem(Resource|AdminResource $resource): Resource|AdminResource
     {
-        $routeName = $this->envType->value . '.' . $resource->database_name . '.' . $resource->name . '.index';
+        $routeName = $this->envType->value . '.' . $resource['database_name'] . '.' . $resource['name'] . '.index';
 
         if (Route::has($routeName)) {
 
             if ($this->envType == EnvTypes::ADMIN) {
                 $url = route($routeName);
             } else{
-                $url = ($resource->has_owner && !empty($this->owner) )
+                $url = ($resource['has_owner'] && !empty($this->owner) )
                     ? route($routeName, $this->owner)
                     : route($routeName);
             }

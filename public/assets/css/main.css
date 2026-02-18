@@ -189,7 +189,8 @@ ul.menu p.menu-label.menu-label-left {
     margin-top: 6px;
     margin-bottom: 2px !important;
 }
-ul.menu p.menu-label a {
+ul.menu p.menu-label a,
+ul.menu p.menu-label span {
     font-size: 15px;
 }
 
