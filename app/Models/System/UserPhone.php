@@ -5,6 +5,7 @@ namespace App\Models\System;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserPhone extends Model
@@ -72,5 +73,15 @@ class UserPhone extends Model
             });
 
         return $this->appendStandardFilters($query, $filters);
+    }
+
+    /**
+     * Get the system user (owner) of the user email.
+     *
+     * @return BelongsTo
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

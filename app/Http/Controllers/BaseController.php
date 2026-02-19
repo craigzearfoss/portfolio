@@ -218,7 +218,8 @@ class BaseController extends Controller
             'guest.index',
             'guest.admin.index',
             'admin.index',
-            'admin.dashboard'
+            'admin.dashboard',
+            'admin.system.admin.index',
         ])) {
 
             if ($owner_id = $this->cookieManager->getOwnerId($this->envType)) {

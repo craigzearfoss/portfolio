@@ -1,4 +1,6 @@
 @php
+    use App\Models\Personal\Unit;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -58,7 +60,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'system',
                 'value'   => old('system') ?? '',
-                'list'    => \App\Models\Personal\Unit::listOptions([], 'system', 'system', true),
+                'list'    => new Unit()->listOptions([], 'system', 'system', true),
                 'message' => $message ?? '',
             ])
 

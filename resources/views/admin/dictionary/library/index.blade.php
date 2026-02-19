@@ -1,5 +1,7 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Dictionary\DictionarySection;
 
     // set breadcrumbs
     $breadcrumbs = [
@@ -22,11 +24,7 @@
         'name'     => '',
         'label'    => '',
         'value'    => route('admin.dictionary.library.index'),
-        'list'     => \App\Models\Dictionary\DictionarySection::listOptions([],
-                                                                            true,
-                                                                            'route',
-                                                                            \App\Enums\EnvTypes::ADMIN
-                                                                           ),
+        'list'     => new DictionarySection()->listOptions([], 'route', 'name', true, false, [ 'name'=>'asc' ], EnvTypes::ADMIN),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]),
@@ -139,7 +137,9 @@
                             @endif
 
                             @if(canDelete(PermissionEntityTypes::RESOURCE, $library, $admin))
-                                <form class="delete-resource" action="{!! route('admin.dictionary.library.destroy', $library) !!}" method="POST">
+                                <form class="delete-resource"
+                                      action="{!! route('admin.dictionary.library.destroy', $library) !!}"
+                                      method="POST">
                                     @csrf
                                     @method('DELETE')
                                     @include('admin.components.button-icon', [

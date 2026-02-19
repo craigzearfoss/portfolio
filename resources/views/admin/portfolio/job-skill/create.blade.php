@@ -1,4 +1,6 @@
 @php
+    use App\Models\Dictionary\Category;
+    use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
 
     $breadcrumbs = [
@@ -65,7 +67,7 @@
                 'label'     => 'job',
                 'value'     => old('job_id') ?? $job->id ?? '',
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
+                'list'      => new Job()->listOptions([], 'id', 'name', true),
                 'message'   => $message ?? '',
             ])
 
@@ -82,7 +84,7 @@
                 'label'     => 'category',
                 'value'     => old('dictionary_category_id') ?? '',
                 'required'  => true,
-                'list'      => \App\Models\Dictionary\Category::listOptions([], 'id', 'name', true),
+                'list'      => new Category()->listOptions([], 'id', 'name', true),
                 'message'   => $message ?? '',
             ])
 

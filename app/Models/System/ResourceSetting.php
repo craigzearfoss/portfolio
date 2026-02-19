@@ -93,23 +93,13 @@ class ResourceSetting extends Model
 
         } else {
 
-            switch ($setting->type['name']) {
-                case 'array':
-                    $value = json_decode($setting['value'], true);
-                    break;
-                case 'bool':
-                    $value = boolval($setting['value']);
-                    break;
-                case 'float':
-                    $value = floatval($setting['value']);
-                    break;
-                case 'int':
-                    $value = intval($setting['value']);
-                    break;
-                default:
-                    $value = $setting['value'];
-                    break;
-            }
+            $value = match ($setting->type['name']) {
+                'array' => json_decode($setting['value'], true),
+                'bool'  => boolval($setting['value']),
+                'float' => floatval($setting['value']),
+                'int'   => intval($setting['value']),
+                default => $setting['value'],
+            };
         }
 
         return $value;

@@ -194,8 +194,10 @@ ul.menu p.menu-label span {
     font-size: 15px;
 }
 
-div.content ul.menu-list li {
+ul.menu-list li {
     list-style: none;
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem;
 }
 
 .tabs-content li {
@@ -209,10 +211,6 @@ div.content ul.menu-list li {
 
 table tbody tr td p {
     margin-bottom: 0 !important;
-}
-
-div.content ul.menu-list li {
-    list-style: none;
 }
 
 div.action-button-panel {

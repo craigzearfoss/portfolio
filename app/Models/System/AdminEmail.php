@@ -5,6 +5,7 @@ namespace App\Models\System;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AdminEmail extends Model
@@ -72,5 +73,13 @@ class AdminEmail extends Model
             });
 
         return $this->appendStandardFilters($query, $filters);
+    }
+
+    /**
+     * Get the system owner of the email.
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 }

@@ -21,18 +21,11 @@ if (! function_exists('getEnvType')) {
     function getEnvType()
     {
         $currentRoute = Route::currentRouteName();
-        switch (!empty($currentRoute) ? explode('.', $currentRoute)[0] : '') {
-            case 'admin':
-                $envType = EnvTypes::ADMIN;
-                break;
-            case 'user':
-                $envType = EnvTypes::USER;
-                break;
-            case 'guest':
-            default:
-                $envType = EnvTypes::GUEST;
-                break;
-        }
+        $envType = match (!empty($currentRoute) ? explode('.', $currentRoute)[0] : '') {
+            'admin' => EnvTypes::ADMIN,
+            'user'  => EnvTypes::USER,
+            default => EnvTypes::GUEST,
+        };
 
         return $envType;
     }

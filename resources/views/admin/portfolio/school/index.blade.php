@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\System\State;
 
     // set breadcrumbs
     $breadcrumbs = [
@@ -37,13 +38,7 @@
                     'name'     => 'state_id',
                     'label'    => 'state',
                     'value'    => Request::get('state_id'),
-                    'list'     => \App\Models\System\State::listOptions([],
-                                                                        'id',
-                                                                        'name',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'name', 'asc' ]
-                                                                       ),
+                    'list'     => new State()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])
             </div>
@@ -131,7 +126,8 @@
                             @endif
 
                             @if(canDelete(PermissionEntityTypes::RESOURCE, $school, $admin))
-                                <form class="delete-resource" action="{!! route('admin.portfolio.school.destroy', $school) !!}" method="POST">
+                                <form class="delete-resource"
+                                      action="{!! route('admin.portfolio.school.destroy', $school) !!}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     @include('admin.components.button-icon', [

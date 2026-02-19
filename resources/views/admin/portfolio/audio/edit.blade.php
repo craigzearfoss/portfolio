@@ -1,4 +1,5 @@
 @php
+    use App\Models\Portfolio\Audio;
     use App\Models\System\Owner;
 
     // set breadcrumbs
@@ -87,7 +88,7 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? $audio->parent_id,
-                'list'    => \App\Models\Portfolio\Audio::listOptions([ 'id <>' => $audio->id ], 'id', 'name', true),
+                'list'    => new Audio()->listOptions([ 'id <>' => $audio->id ], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

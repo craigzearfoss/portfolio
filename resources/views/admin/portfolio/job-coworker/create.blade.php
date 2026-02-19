@@ -1,4 +1,5 @@
 @php
+    use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
 
     $breadcrumbs = [
@@ -65,7 +66,7 @@
                 'label'     => 'job',
                 'value'     => old('job_id') ?? $job->id ?? '',
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
+                'list'      => new Job()->listOptions([], 'id', 'name', true),
                 'message'   => $message ?? '',
             ])
 

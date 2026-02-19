@@ -1,4 +1,5 @@
 @php
+    use App\Models\System\Database;
     use App\Models\System\Owner;
 
     // set breadcrumbs
@@ -83,7 +84,7 @@
                 'label'    => 'database',
                 'value'    => old('resource_db_id') ?? $adminResource->database_id,
                 'required' => true,
-                'list'     => \App\Models\System\Database::listOptions([]),
+                'list'     => new Database()->listOptions([]),
                 'message'  => $message ?? '',
             ])
 

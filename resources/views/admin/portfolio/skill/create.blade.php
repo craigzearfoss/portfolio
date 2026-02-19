@@ -1,4 +1,5 @@
 @php
+    use App\Models\Dictionary\Category;
     use App\Models\System\Owner;
 
     // set breadcrumbs
@@ -100,7 +101,7 @@
                 'label'    => 'category',
                 'value'    => old('dictionary_category_id') ?? '',
                 'required' => true,
-                'list'     => \App\Models\Dictionary\Category::listOptions([], 'id', 'name', true),
+                'list'     => new Category()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 

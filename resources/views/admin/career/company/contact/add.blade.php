@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\Contact;
     use App\Models\System\Country;
     use App\Models\System\State;
 @endphp
@@ -42,7 +43,7 @@
                 'name'     => 'contact_id',
                 'label'    => 'contact',
                 'value'    => old('contact_id') ?? '',
-                'list'     => \App\Models\Career\Contact::listOptions([], 'id', 'name', true),
+                'list'     => new Contact()->listOptions([], 'id', 'name', true),
                 'onchange' => "if (this.value) { document.getElementById('new-contact').style.display='none'; } else { document.getElementById('new-contact').style.display='block'; }",
                 'message'  => $message ?? '',
             ])

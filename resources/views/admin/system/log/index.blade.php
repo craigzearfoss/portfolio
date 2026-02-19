@@ -1,4 +1,6 @@
 @php
+    use App\Models\System\Admin;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -43,13 +45,7 @@
                 @include('admin.components.form-select', [
                     'name'     => 'username',
                     'value'    => Request::get('username'),
-                    'list'     => \App\Models\System\Admin::listOptions([],
-                                                                        'username',
-                                                                        'username',
-                                                                        true,
-                                                                        false,
-                                                                        [ 'username', 'asc' ]
-                                                                       ),
+                    'list'     => new Admin()->listOptions([], 'username', 'username', true, false, [ 'username', 'asc' ]),
                     'style'    => 'width: 10rem;',
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])
@@ -131,7 +127,7 @@
 
             @forelse ($loginAttempts as $loginAttempt)
 
-                <tr data-id="{{ $loginAttempt->id }}" style="line-height: 1;" >
+                <tr data-id="{{ $loginAttempt->id }}" style="line-height: 1;">
                     <td data-field="type">
                         {!! $type !!}
                     </td>
@@ -158,7 +154,9 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no entries in the {{ $type == 'admin' ? 'login_attempts_admin' : 'login_attempts_user' }} log.</td>
+                    <td colspan="7">There are no entries in
+                        the {{ $type == 'admin' ? 'login_attempts_admin' : 'login_attempts_user' }} log.
+                    </td>
                 </tr>
 
             @endforelse

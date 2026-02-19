@@ -1,4 +1,7 @@
 @php
+    use App\Models\Personal\Ingredient;
+    use App\Models\Personal\Recipe;
+    use App\Models\Personal\Unit;
     use App\Models\System\Owner;
 @endphp
 @extends('admin.layouts.default', [
@@ -58,7 +61,7 @@
                 'label'    => 'recipe',
                 'value'    => old('recipe_id') ?? '',
                 'required' => true,
-                'list'     => \App\Models\Personal\Recipe::listOptions([], 'id', 'name', true),
+                'list'     => new Recipe()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 
@@ -67,7 +70,7 @@
                 'label'    => 'ingredient',
                 'value'    => old('ingredient_id') ?? '',
                 'required' => true,
-                'list'     => \App\Models\Personal\Ingredient::listOptions([], 'id', 'name', true),
+                'list'     => new Ingredient()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 
@@ -82,7 +85,7 @@
                 'name'    => 'unit_id',
                 'label'   => 'unit',
                 'value'   => old('unit_id') ?? '',
-                'list'    => \App\Models\Personal\Unit::listOptions([], 'id', 'name', false),
+                'list'    => new Unit()->listOptions([], 'id', 'name', false),
                 'message' => $message ?? '',
             ])
 

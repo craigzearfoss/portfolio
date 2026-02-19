@@ -1,3 +1,6 @@
+@php
+    use App\Models\System\Admin;
+@endphp
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
@@ -9,14 +12,7 @@
                     'name'     => 'owner_id',
                     'label'    => 'owner',
                     'value'    => !empty($owner->root) ? null : ($owner->id ?? null),
-                    'list'     => \App\Models\System\Admin::listOptions(
-                        [],
-                        'id',
-                        'username',
-                        true,
-                        false,
-                        [ 'username', 'asc' ]
-                    ),
+                    'list'     => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])
             </div>

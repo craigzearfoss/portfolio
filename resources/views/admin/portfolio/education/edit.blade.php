@@ -1,4 +1,6 @@
 @php
+    use App\Models\Portfolio\DegreeType;
+    use App\Models\Portfolio\School;
     use App\Models\System\Owner;
 
     // set breadcrumbs
@@ -79,13 +81,7 @@
                 'label'    => 'degree type',
                 'value'    => old('degree_type_id') ?? $education->degree_type_id,
                 'required' => true,
-                'list'     => \App\Models\Portfolio\DegreeType::listOptions([],
-                                                                            'id',
-                                                                            'name',
-                                                                            true,
-                                                                            false,
-                                                                            [ 'name', 'asc' ]
-                                                                           ),
+                'list'     => new DegreeType()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
                 'message'  => $message ?? '',
             ])
 
@@ -109,7 +105,7 @@
                 'name'      => 'school_id',
                 'label'     => 'school',
                 'value'     => old('school_id') ?? $education->school_id,
-                'list'      => \App\Models\Portfolio\School::listOptions([], 'id', 'name', true),
+                'list'      => new School()->listOptions([], 'id', 'name', true),
                 'required'  => true,
                 'message'   => $message ?? '',
             ])

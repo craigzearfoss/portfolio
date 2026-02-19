@@ -1,4 +1,6 @@
 @php
+    use App\Models\Dictionary\Category;
+    use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
 @endphp
 @extends('admin.layouts.default', [
@@ -66,7 +68,7 @@
                 'label'     => 'job',
                 'value'     => old('job_id') ?? $jobSkill->job_id,
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
+                'list'      => new Job()->listOptions([], 'id', 'name', true),
                 'message'   => $message ?? '',
             ])
 
@@ -83,7 +85,7 @@
                 'label'     => 'category',
                 'value'     => old('job_id') ?? $jobSkill->dictionary_category_id,
                 'required'  => true,
-                'list'      => \App\Models\Dictionary\Category::listOptions([], 'id', 'name', true),
+                'list'      => new Category()->listOptions([], 'id', 'name', true),
                 'message'   => $message ?? '',
             ])
 

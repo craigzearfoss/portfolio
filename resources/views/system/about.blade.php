@@ -1,4 +1,7 @@
-@extends($envType == \App\Enums\EnvTypes::ADMIN ? 'admin.layouts.default' : 'guest.layouts.default', [
+@php
+    use App\Enums\EnvTypes
+@endphp
+@extends($envType == EnvTypes::ADMIN ? 'admin.layouts.default' : 'guest.layouts.default', [
     'title'            => $pagTitle ?? 'About Us',
     'subtitle'         => null,
     'breadcrumbs'      => [
@@ -30,14 +33,17 @@
                     This project originally started as an application to manage a job search because I have found almost
                     all job websites are sorely lacking these type of features. I can't believe it's 2025 and we still
                     have to resort to Excel spreadsheets to manage a job search. This site allows you to track your
-                    applications by not only recording information about the company and job description, but by attaching
+                    applications by not only recording information about the company and job description, but by
+                    attaching
                     notes, communications, and events to the application.
                 </p>
 
                 @if($demoUrl = config('app.demo_url'))
                     <p>
-                        The features to manage and track your applications are in the admin area. Since this site is still in
-                        development we are not allowing new admins, but the demo site allows you to view the admin area. The
+                        The features to manage and track your applications are in the admin area. Since this site is
+                        still in
+                        development we are not allowing new admins, but the demo site allows you to view the admin area.
+                        The
                         demo site is at <a href="{{$demoUrl}}"><strong>{{$demoUrl}}</strong></a>.
                     </p>
                 @endif
@@ -106,8 +112,11 @@
                         <li>Add type-ahead to select lists.</li>
                         <li>Create downloadable Excel reports.</li>
                         <li>Completely implement responsive design for mobile.</li>
-                        <li>Work of the site styles to make it look pretty. Possibly implement light and dark themes.</li>
-                        <li>Create a one-click method to bookmark job application webpages and import and parse the job description content.</li>
+                        <li>Work of the site styles to make it look pretty. Possibly implement light and dark themes.
+                        </li>
+                        <li>Create a one-click method to bookmark job application webpages and import and parse the job
+                            description content.
+                        </li>
                         <li>Stress test the site to verify it's performance.</li>
                         <li>Add billing. (Only if I feel the site is marketable.)</li>
                     </ul>

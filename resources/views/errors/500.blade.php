@@ -1,18 +1,14 @@
 @php
+    use App\Enums\EnvTypes;
+
     $envType = getEnvType();
-    switch ($envType) {
-        case \App\Enums\EnvTypes::ADMIN:
-            $backRoute = 'admin.dashboard';
-            break;
-        case \App\Enums\EnvTypes::USER:
-            $backRoute = 'user.dashboard';
-            break;
-        case \App\Enums\EnvTypes::GUEST:
-        case \App\Enums\EnvTypes::GLOBAL:
-        default:
-            $backRoute = 'guest.index';
-            break;
-    }
+
+    $backRoute = match ($envType) {
+        EnvTypes::ADMIN => 'admin.dashboard',
+        EnvTypes::USER => 'user.dashboard',
+        default => 'guest.index',
+    };
+
     $message = $exception->getMessage();
 @endphp
 @extends($envType->value.'.layouts.empty', [

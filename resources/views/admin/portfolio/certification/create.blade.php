@@ -1,4 +1,6 @@
 @php
+    use App\Models\Portfolio\CertificationType;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -61,7 +63,7 @@
                 'label'    => 'certification type',
                 'value'    => old('certification_type_id') ?? '',
                 'required' => true,
-                'list'     => \App\Models\Portfolio\CertificationType::listOptions([], 'id', 'name', true),
+                'list'     => new CertificationType()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 

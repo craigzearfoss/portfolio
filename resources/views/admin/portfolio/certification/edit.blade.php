@@ -1,4 +1,6 @@
 @php
+    use App\Models\Portfolio\CertificationType;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',                'href' => route('guest.index') ],
@@ -33,7 +35,9 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.certification.update', array_merge([$certification], request()->all())) }}" method="POST">
+        <form
+            action="{{ route('admin.portfolio.certification.update', array_merge([$certification], request()->all())) }}"
+            method="POST">
             @csrf
             @method('PUT')
 
@@ -68,7 +72,7 @@
                 'label'    => 'certification type',
                 'value'    => old('certification_type_id') ?? $certification->certification_type_id,
                 'required' => true,
-                'list'     => \App\Models\Portfolio\CertificationType::listOptions([], 'id', 'name', true),
+                'list'     => new CertificationType()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 

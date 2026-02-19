@@ -1,4 +1,5 @@
 @php
+    use App\Models\Portfolio\Publication;
     use App\Models\System\Owner;
 
     // set breadcrumbs
@@ -77,7 +78,7 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? '',
-                'list'    => \App\Models\Portfolio\Publication::listOptions([], 'id', 'title', true),
+                'list'    => new Publication()->listOptions([], 'id', 'title', true),
                 'message' => $message ?? '',
             ])
 

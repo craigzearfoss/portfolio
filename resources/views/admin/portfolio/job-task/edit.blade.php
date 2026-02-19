@@ -1,4 +1,5 @@
 @php
+    use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
 @endphp
 @extends('admin.layouts.default', [
@@ -66,7 +67,7 @@
                 'label'     => 'job',
                 'value'     => old('job_id') ?? $jobTask->job_id,
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
+                'list'      => new Job()->listOptions([], 'id', 'name', true),
                 'message'   => $message ?? '',
             ])
 

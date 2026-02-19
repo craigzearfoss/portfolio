@@ -26,6 +26,7 @@ trait SearchableModelTrait
      * @param bool     $includeBlank
      * @param bool     $includeOther
      * @param array    $orderBy
+     * @param EnvTypes $envType
      * @return array
      * @throws Exception
      */
@@ -34,7 +35,8 @@ trait SearchableModelTrait
                                 string $labelColumn = 'name',
                                 bool   $includeBlank = false,
                                 bool   $includeOther = false,
-                                array  $orderBy = self::SEARCH_ORDER_BY): array
+                                array  $orderBy = self::SEARCH_ORDER_BY,
+                                EnvTypes $envType = EnvTypes::GUEST): array
     {
         $other = null;
 

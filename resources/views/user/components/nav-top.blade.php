@@ -10,15 +10,7 @@
     $styles = !empty($style)
         ? is_array($style) ? $style : explode(';', $style)
         : [];
-    switch ($level ?? 0) {
-        case 4:
-        case 3:
-        case 2:
-        case 1:
-        default:
-            $styles[] = 'padding: 0.3rem';
-            break;
-    }
+    if (!empty($level)) $styles[] = 'padding: 0.3rem';
 @endphp
 @if(empty($href))
     <span

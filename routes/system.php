@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\System\AdminController as AdminSystemAdminController;
 use App\Http\Controllers\Admin\System\AdminDatabaseController as AdminSystemAdminDatabaseController;
+use App\Http\Controllers\Admin\System\AdminEmailController as AdminSystemAdminEmailController;
 use App\Http\Controllers\Admin\System\AdminGroupController as AdminSystemAdminGroupController;
+use App\Http\Controllers\Admin\System\AdminPhoneController as AdminSystemAdminPhoneController;
 use App\Http\Controllers\Admin\System\AdminResourceController as AdminSystemAdminResourceController;
 use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTeamController;
 use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
@@ -15,7 +17,9 @@ use App\Http\Controllers\Admin\System\ResourceController as AdminSystemResourceC
 use App\Http\Controllers\Admin\System\SessionController as AdminSystemSessionController;
 use App\Http\Controllers\Admin\System\SettingController as AdminSystemSettingController;
 use App\Http\Controllers\Admin\System\UserController as AdminSystemUserController;
+use App\Http\Controllers\Admin\System\UserEmailController as AdminSystemUserEmailController;
 use App\Http\Controllers\Admin\System\UserGroupController as AdminSystemUserGroupController;
+use App\Http\Controllers\Admin\System\UserPhoneController as AdminSystemUserPhoneController;
 use App\Http\Controllers\Admin\System\UserTeamController as AdminSystemUserTeamController;
 
 use App\Http\Controllers\Guest\IndexController as GuestIndexController;
@@ -123,7 +127,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::put('admin/{admin}/delete', [AdminSystemAdminController::class, 'destroy'])->name('admin.destroy');
             Route::get('admin/{admin}/change-password', [AdminSystemUserController::class, 'change_password'])->name('admin.change-password');
             Route::post('admin/{admin}/change-password', [AdminSystemUserController::class, 'change_password_submit'])->name('admin.change-password-submit');
+            Route::resource('admin-email', AdminSystemAdminEmailController::class)->parameter('admin-email', 'admin_email');
             Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
+            Route::resource('admin-phone', AdminSystemAdminPhoneController::class)->parameter('admin-phone', 'admin_phone');
             Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
             Route::resource('database', AdminSystemDatabaseController::class);
             Route::resource('admin-database', AdminSystemAdminDatabaseController::class)->parameter('admin-database', 'admin_database');
@@ -137,7 +143,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('user', AdminSystemUserController::class);
             Route::get('user/{user}/change-password', [AdminSystemUserController::class, 'change_password'])->name('user.change-password');
             Route::post('user/{user}/change-password', [AdminSystemUserController::class, 'change_password_submit'])->name('user.change-password-submit');
+            Route::resource('user-email', AdminSystemUserEmailController::class)->parameter('user-email', 'user_email');
             Route::resource('user-group', AdminSystemUserGroupController::class)->parameter('user-group', 'user_group');
+            Route::resource('user-phone', AdminSystemUserPhoneController::class)->parameter('user-phone', 'user_phone');
             Route::resource('user-team', AdminSystemUserTeamController::class)->parameter('user-team', 'user_team');
         });
     });

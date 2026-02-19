@@ -1,4 +1,5 @@
 @php
+    use App\Models\Personal\Recipe;
     use App\Models\System\Owner;
 @endphp
 @extends('admin.layouts.default', [
@@ -65,7 +66,7 @@
                 'label'    => 'recipe',
                 'value'    => old('recipe_id') ?? $recipeStep->recipe_id,
                 'required' => true,
-                'list'     => \App\Models\Personal\Recipe::listOptions([], 'id', 'name', true),
+                'list'     => new Recipe()->listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 

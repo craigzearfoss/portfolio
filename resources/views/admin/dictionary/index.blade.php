@@ -1,3 +1,7 @@
+@php
+    use App\Enums\EnvTypes;
+    use App\Models\Dictionary\DictionarySection;
+@endphp
 @extends('admin.layouts.default', [
     'title'            => 'Dictionary',
     'breadcrumbs'      => [
@@ -9,11 +13,7 @@
             'name'     => '',
             'label'    => '',
             'value'    => route('admin.dictionary.index'),
-            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([],
-                                                                                true,
-                                                                                'route',
-                                                                                \App\Enums\EnvTypes::ADMIN
-                                                                               ),
+            'list'     => new DictionarySection()->listOptions([], 'route', 'name', true, false, [ 'name'=>'asc' ], EnvTypes::ADMIN),
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),

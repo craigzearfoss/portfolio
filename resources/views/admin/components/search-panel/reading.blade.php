@@ -1,8 +1,14 @@
+@php
+    use App\Models\Personal\Reading;
+    use App\Models\System\Admin;
+@endphp
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
 
-        <form id="searchForm" action="{!! $action ?? route('admin.personal.reading.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) !!}" method="get">
+        <form id="searchForm"
+              action="{!! $action ?? route('admin.personal.reading.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) !!}"
+              method="get">
 
             @if(isRootAdmin())
                 <div class="control" style="max-width: 28rem;">
@@ -10,14 +16,7 @@
                         'name'     => 'owner_id',
                         'label'    => 'owner',
                         'value'    => !empty($owner->root) ? null : ($owner->id ?? null),
-                        'list'     => \App\Models\System\Admin::listOptions(
-                            [],
-                            'id',
-                            'username',
-                            true,
-                            false,
-                            [ 'username', 'asc' ]
-                        ),
+                        'list'     => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                         'onchange' => "document.getElementById('searchForm').submit()"
                     ])
                 </div>
@@ -27,7 +26,7 @@
                 @include('admin.components.form-select', [
                     'name'     => 'title',
                     'value'    => Request::get('title'),
-                    'list'     => \App\Models\Personal\Reading::listOptions(
+                    'list'     => new Reading()->listOptions(
                         !empty($owner->root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []),
                         'title',
                         'title',
@@ -43,14 +42,7 @@
                 @include('admin.components.form-select', [
                     'name'     => 'author',
                     'value'    => Request::get('author'),
-                    'list'     => \App\Models\Personal\Reading::listOptions(
-                        !empty($owner->root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []),
-                        'author',
-                        'author',
-                        true,
-                        false,
-                        [ 'author', 'asc' ]
-                    ),
+                    'list'     => new Reading()->listOptions(!empty($owner->root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []), 'author', 'author', true, false, [ 'author', 'asc' ]),
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])
             </div>
