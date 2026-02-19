@@ -126,7 +126,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'phone',
                 'value'     => old('phone') ?? '',
-                'maxlength' => 50,
+                'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
 
@@ -134,7 +134,7 @@
                 'name'      => 'phone_label',
                 'label'     => 'phone label',
                 'value'     => old('phone_label') ?? '',
-                'maxlength' => 255,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
@@ -142,7 +142,7 @@
                 'name'      => 'alt_phone',
                 'label'     => 'alt phone',
                 'value'     => old('alt_phone') ?? '',
-                'maxlength' => 50,
+                'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
 
@@ -150,14 +150,14 @@
                 'name'      => 'alt_phone_label',
                 'label'     => 'alt phone label',
                 'value'     => old('alt_phone_label') ?? '',
-                'maxlength' => 255,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'email',
                 'value'     => old('email') ?? '',
-                'maxlength' => 20,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -165,7 +165,7 @@
                 'name'      => 'email_label',
                 'label'     => 'email label',
                 'value'     => old('email_label') ?? '',
-                'maxlength' => 255,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
@@ -173,7 +173,7 @@
                 'name'      => 'alt_email',
                 'label'     => 'alt email',
                 'value'     => old('alt_email') ?? '',
-                'maxlength' => 20,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -181,7 +181,7 @@
                 'name'      => 'alt_email_label',
                 'label'     => 'alt email label',
                 'value'     => old('alt_email_label') ?? '',
-                'maxlength' => 255,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 

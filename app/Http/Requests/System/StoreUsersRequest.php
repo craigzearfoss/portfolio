@@ -66,7 +66,7 @@ class StoreUsersRequest extends FormRequest
             'country_id'        => ['integer', 'exists:system_db.countries,id', 'nullable'],
             'latitude'          => [Rule::numeric(), 'nullable'],
             'longitude'         => [Rule::numeric(), 'nullable'],
-            'phone'             => ['string', 'max:50', 'nullable'],
+            'phone'             => ['string', 'max:20', 'nullable'],
             'email'             => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['nullable'],
             'birthday'          => ['date', 'nullable'],
@@ -111,12 +111,12 @@ class StoreUsersRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
-            'username' => Str::lower($this->username),
-            'label'    => Str::lower($this->label),
-            'email'    => Str::lower($this->email),
+            'username' => Str::lower($this['username']),
+            'label'    => Str::lower($this['label']),
+            'email'    => Str::lower($this['email']),
         ]);
     }
 }

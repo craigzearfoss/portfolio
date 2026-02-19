@@ -98,7 +98,7 @@
                                                     'type'      => 'tel',
                                                     'name'      => 'phone',
                                                     'value'     => old('phone') ?? $user->phone,
-                                                    'maxlength' => 50,
+                                                    'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
 

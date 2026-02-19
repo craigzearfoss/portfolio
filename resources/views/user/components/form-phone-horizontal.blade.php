@@ -52,7 +52,7 @@ if (!empty($style)) {
                                    name="{!! $phoneLabelName !!}"
                                    placeholder="label"
                                    value="{!! $label !!}"
-                                   maxlength="255"
+                                   maxlength="100"
                             >
                         </div>
                     </div>

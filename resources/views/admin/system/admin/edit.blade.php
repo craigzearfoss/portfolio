@@ -147,7 +147,7 @@
                 'type'      => 'tel',
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $owner->phone,
-                'maxlength' => 50,
+                'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
 

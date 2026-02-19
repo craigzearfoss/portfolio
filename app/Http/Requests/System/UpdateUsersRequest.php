@@ -80,8 +80,8 @@ class UpdateUsersRequest extends FormRequest
             'country_id'        => ['integer', 'exists:system_db.countries,id', 'nullable'],
             'latitude'          => [Rule::numeric(), 'nullable'],
             'longitude'         => [Rule::numeric(), 'nullable'],
-            'phone'             => ['string', 'max:50', 'nullable'],
-            'email'             => ['string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$this->user->id],
+            'phone'             => ['string', 'max:20', 'nullable'],
+            'email'             => ['string', 'lowercase', 'email', 'max:255', 'unique:users,email,'.$this['user']->id],
             /* TODO: You can't update the user's emails
             'email'         => [
                 'email',

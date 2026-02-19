@@ -72,7 +72,7 @@ class UpdateAdminsRequest extends FormRequest
             'country_id'       => ['integer', 'exists:system_db.countries,id', 'nullable'],
             'latitude'         => [Rule::numeric(), 'nullable'],
             'longitude'        => [Rule::numeric(), 'nullable'],
-            'phone'            => ['string', 'max:50', 'nullable'],
+            'phone'            => ['string', 'max:20', 'nullable'],
             /* TODO: You can't update the admin's emails
             'email'         => [
                 'email',
@@ -135,12 +135,12 @@ class UpdateAdminsRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
-            'username' => Str::lower($this->username),
-            'label'    => Str::lower($this->label),
-            'email'    => Str::lower($this->email),
+            'username' => Str::lower($this['username']),
+            'label'    => Str::lower($this['label']),
+            'email'    => Str::lower($this['email']),
         ]);
 
         // if the account is disabled then force current session to logout

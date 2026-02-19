@@ -19,7 +19,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
+            $table->string('email', 255);
             $table->string('subject', 500);
             $table->text('body');
             $table->boolean('public')->default(false);

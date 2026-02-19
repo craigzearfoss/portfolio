@@ -67,7 +67,7 @@ class StoreAdminsRequest extends FormRequest
             'country_id'       => ['integer', 'exists:system_db.countries,id', 'nullable'],
             'latitude'         => [Rule::numeric(), 'nullable'],
             'longitude'        => [Rule::numeric(), 'nullable'],
-            'phone'            => ['string', 'max:50', 'nullable'],
+            'phone'            => ['string', 'max:20', 'nullable'],
             'email'            => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Admin::class],
             'birthday'         => ['date', 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],

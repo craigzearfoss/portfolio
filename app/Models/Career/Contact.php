@@ -157,6 +157,12 @@ class Contact extends Model
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
+            ->when(!empty($filters['salutation']), function ($query) use ($filters) {
+                $query->where('salutation', 'like', '%' . $filters['salutation'] . '%');
+            })
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where('title', 'like', '%' . $filters['title'] . '%');
+            })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
             })

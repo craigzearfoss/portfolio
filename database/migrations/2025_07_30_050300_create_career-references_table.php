@@ -56,13 +56,13 @@ return new class extends Migration
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->string('phone', 20)->nullable();
-            $table->string('phone_label', 255)->nullable();
+            $table->string('phone_label', 100)->nullable();
             $table->string('alt_phone', 20)->nullable();
-            $table->string('alt_phone_label', 255)->nullable();
+            $table->string('alt_phone_label', 100)->nullable();
             $table->string('email', 255)->nullable();
-            $table->string('email_label', 255)->nullable();
+            $table->string('email_label', 100)->nullable();
             $table->string('alt_email', 255)->nullable();
-            $table->string('alt_email_label', 255)->nullable();
+            $table->string('alt_email_label', 100)->nullable();
             $table->date('birthday')->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

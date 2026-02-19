@@ -105,7 +105,7 @@ return new class extends Migration
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
             $table->string('phone', 20)->nullable();
-            $table->string('email')->unique();
+            $table->string('email',255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->date('birthday')->nullable();
             $table->string('link', 500)->nullable();

@@ -64,7 +64,7 @@
                 'type'      => 'tel',
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $admin->phone,
-                'maxlength' => 50,
+                'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
 
