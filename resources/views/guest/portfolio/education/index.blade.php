@@ -32,65 +32,67 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>major</th>
-                <th>degree</th>
-                <th>school</th>
-                <th class="has-text-centered">graduated</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>major</th>
-                <th>degree</th>
-                <th>school</th>
-                <th class="has-text-centered">graduated</th>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($educations as $education)
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td data-field="major">
-                        {{ $education->major }}
-                        @if(!empty($education->minor)) {
-                            ({{ $education->minor }} minor)
-                        @endif
-                    </td>
-                    <td data-field="degreeType.name">
-                        {{ $education->degreeType->name }}
-                    </td>
-                    <td data-field="school.name">
-                        {!! $education->school->name ?? '' !!}
-                    </td>
-                    <td data-field="graduation_month|graduation_year" class="has-text-centered">
-                        {{ $education->graduation_year }}
-                        @if(!empty($education->currently_enrolled))
-                            (currently enrolled)
-                        @endif
-                    </td>
+                    <th>major</th>
+                    <th>degree</th>
+                    <th>school</th>
+                    <th class="has-text-centered">graduated</th>
                 </tr>
-
-            @empty
-
+                </thead>
+                <?php /*
+                <tfoot>
                 <tr>
-                    <td colspan="7">There is no education.</td>
+                    <th>major</th>
+                    <th>degree</th>
+                    <th>school</th>
+                    <th class="has-text-centered">graduated</th>
                 </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($educations as $education)
 
-            </tbody>
-        </table>
+                    <tr>
+                        <td data-field="major">
+                            {{ $education->major }}
+                            @if(!empty($education->minor)) {
+                                ({{ $education->minor }} minor)
+                            @endif
+                        </td>
+                        <td data-field="degreeType.name">
+                            {{ $education->degreeType->name }}
+                        </td>
+                        <td data-field="school.name">
+                            {!! $education->school->name ?? '' !!}
+                        </td>
+                        <td data-field="graduation_month|graduation_year" class="has-text-centered">
+                            {{ $education->graduation_year }}
+                            @if(!empty($education->currently_enrolled))
+                                (currently enrolled)
+                            @endif
+                        </td>
+                    </tr>
 
-        {!! $educations->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="7">There is no education.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $educations->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

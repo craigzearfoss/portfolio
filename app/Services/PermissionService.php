@@ -88,7 +88,7 @@ class PermissionService
 
         foreach (!empty($owner)
                      ? new AdminResource()->ownerResources($owner->id, $envType)
-                     : new Resource()->ownerResources(null, $envType)
+                     : new Resource()->ownerResources($envType)
                  as $resource) {
 
             if (!array_key_exists($resource->database_name, $permissions)) {

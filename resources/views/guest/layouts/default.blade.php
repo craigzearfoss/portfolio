@@ -39,7 +39,7 @@
             'next'       => $next ?? null,
         ])
 
-        <section class="is-main-section px-4 py-3">
+        <section class="is-main-section">
 
             @include('guest.components.messages', [
                 'errorMessages' => $errorMessages ?? [],

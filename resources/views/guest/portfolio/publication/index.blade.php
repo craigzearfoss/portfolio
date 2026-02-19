@@ -32,65 +32,67 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>title</th>
-                <th>publication</th>
-                <?php /* <th>publisher</th> */ ?>
-                <th>year</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>title</th>
-                <th>publication</th>
-                <th>publisher</th>
-                <th>year</th>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($publications as $publication)
-
-                <tr data-id="{{ $publication->id }}">
-                    <td data-field="title">
-                        @include('guest.components.link', [
-                            'name'  => $publication->title,
-                            'href'  => route('guest.portfolio.publication.show', [$owner, $publication->slug]),
-                            'class' => $publication->featured ? 'has-text-weight-bold' : ''
-                        ])
-                    </td>
-                    <td data-field="publication_name">
-                        {!! $publication->publication_name !!}
-                    </td>
-                    <?php /*
-                    <td data-field="publisher">
-                        {!! $publication->publisher !!}
-                    </td>
-                    */ ?>
-                    <td data-field="year" class="has-text-centered">
-                        {!! $publication->year !!}
-                    </td>
-                </tr>
-
-            @empty
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td colspan="3">There are no publications.</td>
+                    <th>title</th>
+                    <th>publication</th>
+                    <?php /* <th>publisher</th> */ ?>
+                    <th>year</th>
                 </tr>
+                </thead>
+                <?php /*
+                <tfoot>
+                <tr>
+                    <th>title</th>
+                    <th>publication</th>
+                    <th>publisher</th>
+                    <th>year</th>
+                </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($publications as $publication)
 
-            </tbody>
-        </table>
+                    <tr data-id="{{ $publication->id }}">
+                        <td data-field="title">
+                            @include('guest.components.link', [
+                                'name'  => $publication->title,
+                                'href'  => route('guest.portfolio.publication.show', [$owner, $publication->slug]),
+                                'class' => $publication->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        </td>
+                        <td data-field="publication_name">
+                            {!! $publication->publication_name !!}
+                        </td>
+                        <?php /*
+                        <td data-field="publisher">
+                            {!! $publication->publisher !!}
+                        </td>
+                        */ ?>
+                        <td data-field="year" class="has-text-centered">
+                            {!! $publication->year !!}
+                        </td>
+                    </tr>
 
-        {!! $publications->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="3">There are no publications.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $publications->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

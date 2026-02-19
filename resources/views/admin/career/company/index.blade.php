@@ -40,29 +40,17 @@
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.company.index') ])
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        @if($pagination_top)
-            {!! $companies->links('vendor.pagination.bulma') !!}
-        @endif
+            @if($pagination_top)
+                {!! $companies->links('vendor.pagination.bulma') !!}
+            @endif
 
-        <table class="table admin-table">
-            <thead>
-            <tr>
-                @if($admin->root)
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>industry</th>
-                <th>location</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-
-            @if(!empty($bottom_column_headings))
-                <tfoot>
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($admin->root)
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -70,100 +58,114 @@
                     <th>location</th>
                     <th>actions</th>
                 </tr>
-                </tfoot>
+                </thead>
+
+                @if(!empty($bottom_column_headings))
+                    <tfoot>
+                    <tr>
+                        @if(!empty($admin->root))
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>industry</th>
+                        <th>location</th>
+                        <th>actions</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
+                <tbody>
+
+                @forelse ($companies as $company)
+
+                    <tr data-id="{{ $company->id }}">
+                        @if(!empty($admin->root))
+                            <td data-field="owner.username" style="white-space: nowrap;">
+                                {{ $company->owner->username }}
+                            </td>
+                        @endif
+                        <td data-field="name">
+                            {!! $company->name !!}
+                        </td>
+                            <td data-field="industry.name">
+                                {!! $company->industry->name ?? '' !!}
+                            </td>
+                        <td data-field="location" style="white-space: nowrap;">
+                            {!!
+                                formatLocation([
+                                    'city'    => $company->city,
+                                    'state'   => $company->state->code ?? '',
+                                ])
+                            !!}
+                        </td>
+                        <td class="is-1">
+
+                            <div class="action-button-panel">
+
+                                @if(canRead(PermissionEntityTypes::RESOURCE, $company, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'show',
+                                        'href'  => route('admin.career.company.show', $company),
+                                        'icon'  => 'fa-list'
+                                    ])
+                                @endif
+
+                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $company, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'edit',
+                                        'href'  => route('admin.career.company.edit', $company),
+                                        'icon'  => 'fa-pen-to-square'
+                                    ])
+                                @endif
+
+                                @if (!empty($company->link))
+                                    @include('admin.components.link-icon', [
+                                        'title'  => !empty($company->link_name) ? $company->link_name : 'link',
+                                        'href'   => $company->link,
+                                        'icon'   => 'fa-external-link',
+                                        'target' => '_blank'
+                                    ])
+                                @else
+                                    @include('admin.components.link-icon', [
+                                        'title'    => 'link',
+                                        'icon'     => 'fa-external-link',
+                                        'disabled' => true
+                                    ])
+                                @endif
+
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $company, $admin))
+                                    <form class="delete-resource" action="{!! route('admin.career.company.destroy', $company) !!}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        @include('admin.components.button-icon', [
+                                            'title' => 'delete',
+                                            'class' => 'delete-btn',
+                                            'icon'  => 'fa-trash'
+                                        ])
+                                    </form>
+                                @endif
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                @empty
+
+                    <tr>
+                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no companies.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            @if($pagination_bottom)
+                {!! $companies->links('vendor.pagination.bulma') !!}
             @endif
 
-            <tbody>
-
-            @forelse ($companies as $company)
-
-                <tr data-id="{{ $company->id }}">
-                    @if(!empty($admin->root))
-                        <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $company->owner->username }}
-                        </td>
-                    @endif
-                    <td data-field="name">
-                        {!! $company->name !!}
-                    </td>
-                        <td data-field="industry.name">
-                            {!! $company->industry->name ?? '' !!}
-                        </td>
-                    <td data-field="location" style="white-space: nowrap;">
-                        {!!
-                            formatLocation([
-                                'city'    => $company->city,
-                                'state'   => $company->state->code ?? '',
-                            ])
-                        !!}
-                    </td>
-                    <td class="is-1">
-
-                        <div class="action-button-panel">
-
-                            @if(canRead(PermissionEntityTypes::RESOURCE, $company, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'show',
-                                    'href'  => route('admin.career.company.show', $company),
-                                    'icon'  => 'fa-list'
-                                ])
-                            @endif
-
-                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $company, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'edit',
-                                    'href'  => route('admin.career.company.edit', $company),
-                                    'icon'  => 'fa-pen-to-square'
-                                ])
-                            @endif
-
-                            @if (!empty($company->link))
-                                @include('admin.components.link-icon', [
-                                    'title'  => !empty($company->link_name) ? $company->link_name : 'link',
-                                    'href'   => $company->link,
-                                    'icon'   => 'fa-external-link',
-                                    'target' => '_blank'
-                                ])
-                            @else
-                                @include('admin.components.link-icon', [
-                                    'title'    => 'link',
-                                    'icon'     => 'fa-external-link',
-                                    'disabled' => true
-                                ])
-                            @endif
-
-                            @if(canDelete(PermissionEntityTypes::RESOURCE, $company, $admin))
-                                <form class="delete-resource" action="{!! route('admin.career.company.destroy', $company) !!}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    @include('admin.components.button-icon', [
-                                        'title' => 'delete',
-                                        'class' => 'delete-btn',
-                                        'icon'  => 'fa-trash'
-                                    ])
-                                </form>
-                            @endif
-
-                        </div>
-
-                    </td>
-                </tr>
-
-            @empty
-
-                <tr>
-                    <td colspan="{{ $admin->root ? '5' : '4' }}">There are no companies.</td>
-                </tr>
-
-            @endforelse
-
-            </tbody>
-        </table>
-
-        @if($pagination_bottom)
-            {!! $companies->links('vendor.pagination.bulma') !!}
-        @endif
-
+        </div>
     </div>
 
 @endsection

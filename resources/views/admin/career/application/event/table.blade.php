@@ -1,7 +1,7 @@
 @php
-$events = $events ?? [];
+    $events = $events ?? [];
 @endphp
-<table class="table admin-table">
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
     <th>date</th>

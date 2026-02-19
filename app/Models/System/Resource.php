@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 /**
  * @mixin Eloquent
@@ -163,7 +164,6 @@ class Resource extends Model
     /**
      * Returns the resources for specified owner.
      *
-     * @param int|null $ownerId
      * @param EnvTypes|null $envType
      * @param int|null $databaseId
      * @param array $filters
@@ -171,34 +171,30 @@ class Resource extends Model
      * @return Collection
      * @throws Exception
      */
-    public function ownerResources(int|null      $ownerId,
-                                   EnvTypes|null $envType = EnvTypes::GUEST,
+    public function ownerResources(EnvTypes|null $envType = EnvTypes::GUEST,
                                    int|null      $databaseId = null,
                                    array         $filters = [],
                                    array         $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
-        //?????????if ($envType == 'root') $envType = EnvTypes::ADMIN;
-        if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
-            throw new Exception('ENV type ' . $envType->value . ' not supported');
-        }
+        $ownerId = 1;   // this is id of the primary root admin who owns all resources
 
         $sortField = $orderBy[0] ?? 'sequence';
         $sortDir   = $orderBy[1] ?? 'asc';
         if (!str_starts_with($sortField, 'resources.')) $sortField = 'resources.'.$sortField;
 
         // create the query
-        $query = new Resource()->select([DB::raw("databases.name AS 'database_name'"), 'resources.*'])
-            ->join('databases', 'databases.id', 'resources.database_id')
-            ->orderBy($sortField, $sortDir);
-
-        if (!empty($ownerId)) {
-            $query->where('resources.owner_id', $ownerId);
-        }
-
-        // apply env type filter
-        if (!empty($envType)) {
-            $query->where('resources.'.$envType->value, 1);
-        }
+        $query = new Resource()->select([
+            DB::raw("admins.name AS 'admin_name'"),
+            DB::raw("admins.username AS 'admin_username'"),
+            DB::raw("admins.label AS 'admin_label'"),
+            DB::raw("databases.name AS 'database_name'"),
+            'resources.*']
+        )
+        ->join('admins', 'admins.id', 'resources.owner_id')
+        ->join('databases', 'databases.id', 'resources.database_id')
+        ->where('resources.'.$envType->value, 1)
+        ->where('resources.owner_id', $ownerId)
+        ->orderBy($sortField, $sortDir);
 
         // apply database filter
         if (!empty($databaseId)) {
@@ -230,7 +226,19 @@ class Resource extends Model
             }
         }
 
-        return $query->get();
+        // add the route name to all the resources
+        $resources = $query->get();
+        for ($i=0; $i<count($resources); $i++) {
+
+            $routeName = 'admin.' . str_replace('_', '-', $resources[$i]->database_name)
+                . '.' . $resources[$i]->name . '.index';
+            $url = Route::has($routeName) ? route($routeName) : null;
+
+            $resources[$i]->route = $routeName;
+            $resources[$i]->url = $url;
+        }
+
+        return $resources;
     }
 
     /**

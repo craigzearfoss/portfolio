@@ -88,29 +88,15 @@
         </form>
     </div>
 
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $loginAttempts->links('vendor.pagination.bulma') !!}
+            @endif
 
-    <div class="card p-4">
-
-        @if($pagination_top)
-            {!! $loginAttempts->links('vendor.pagination.bulma') !!}
-        @endif
-
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>type</th>
-                <th>id</th>
-                <th>username</th>
-                <th>action</th>
-                <th>ip address</th>
-                <th>success</th>
-                <th>datetime</th>
-            </tr>
-            </thead>
-
-            @if(!empty($bottom_column_headings))
-                <tfoot>
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                <thead>
                 <tr>
                     <th>type</th>
                     <th>id</th>
@@ -120,54 +106,68 @@
                     <th>success</th>
                     <th>datetime</th>
                 </tr>
-                </tfoot>
+                </thead>
+
+                @if(!empty($bottom_column_headings))
+                    <tfoot>
+                    <tr>
+                        <th>type</th>
+                        <th>id</th>
+                        <th>username</th>
+                        <th>action</th>
+                        <th>ip address</th>
+                        <th>success</th>
+                        <th>datetime</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
+                <tbody>
+
+                @forelse ($loginAttempts as $loginAttempt)
+
+                    <tr data-id="{{ $loginAttempt->id }}" style="line-height: 1;">
+                        <td data-field="type">
+                            {!! $type !!}
+                        </td>
+                        <td data-field="{{ $type == 'admin' ? 'admin_id' : 'user_id' }}" class="pt-0 pb-0 has-text-right">
+                            {!! $type == 'admin' ? $loginAttempt->admin_id : $loginAttempt->user_id !!}
+                        </td>
+                        <td data-field="username" class="pt-0 pb-0">
+                            {!! $loginAttempt->username !!}
+                        </td>
+                        <td data-field="action" class="pt-0 pb-0">
+                            {!! $loginAttempt->action !!}
+                        </td>
+                        <td data-field="ip_address" class="pt-0 pb-0">
+                            {!! $loginAttempt->ip_address !!}
+                        </td>
+                        <td data-field="success" class="has-text-centered" class="pt-0 pb-0">
+                            {{ !empty($loginAttempts->success) ? 'yes' : 'no '}}
+                        </td>
+                        <td data-field="created_at" class="pt-0 pb-0">
+                            {{ longDateTime($loginAttempt->created_at) }}
+                        </td>
+                    </tr>
+
+                @empty
+
+                    <tr>
+                        <td colspan="7">There are no entries in
+                            the {{ $type == 'admin' ? 'login_attempts_admin' : 'login_attempts_user' }} log.
+                        </td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            @if($pagination_bottom)
+                {!! $loginAttempts->links('vendor.pagination.bulma') !!}
             @endif
 
-            <tbody>
-
-            @forelse ($loginAttempts as $loginAttempt)
-
-                <tr data-id="{{ $loginAttempt->id }}" style="line-height: 1;">
-                    <td data-field="type">
-                        {!! $type !!}
-                    </td>
-                    <td data-field="{{ $type == 'admin' ? 'admin_id' : 'user_id' }}" class="pt-0 pb-0 has-text-right">
-                        {!! $type == 'admin' ? $loginAttempt->admin_id : $loginAttempt->user_id !!}
-                    </td>
-                    <td data-field="username" class="pt-0 pb-0">
-                        {!! $loginAttempt->username !!}
-                    </td>
-                    <td data-field="action" class="pt-0 pb-0">
-                        {!! $loginAttempt->action !!}
-                    </td>
-                    <td data-field="ip_address" class="pt-0 pb-0">
-                        {!! $loginAttempt->ip_address !!}
-                    </td>
-                    <td data-field="success" class="has-text-centered" class="pt-0 pb-0">
-                        {{ !empty($loginAttempts->success) ? 'yes' : 'no '}}
-                    </td>
-                    <td data-field="created_at" class="pt-0 pb-0">
-                        {{ longDateTime($loginAttempt->created_at) }}
-                    </td>
-                </tr>
-
-            @empty
-
-                <tr>
-                    <td colspan="7">There are no entries in
-                        the {{ $type == 'admin' ? 'login_attempts_admin' : 'login_attempts_user' }} log.
-                    </td>
-                </tr>
-
-            @endforelse
-
-            </tbody>
-        </table>
-
-        @if($pagination_bottom)
-            {!! $loginAttempts->links('vendor.pagination.bulma') !!}
-        @endif
-
+        </div>
     </div>
 
 @endsection

@@ -30,7 +30,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container floating-div card p-4 mb-2">
+        <div class="show-container floating-div card">
 
             <div>
 

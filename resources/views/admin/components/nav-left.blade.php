@@ -63,7 +63,7 @@
                                         <ul class="menu-list pl-2" style="margin-left: 1em;">
 
                                             @for ($i2 = 0; $i2 < count($menu2Items); $i2++)
-{{ $menu2Items[$i2]->name }}
+
                                                 <li>
                                                     @include('admin.components.nav-link-left', [
                                                         'level'  => 3,

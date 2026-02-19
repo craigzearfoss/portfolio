@@ -41,33 +41,35 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        {!! $categories->links('vendor.pagination.bulma') !!}
+            {!! $categories->links('vendor.pagination.bulma') !!}
 
-        <ul>
+            <ul>
 
-            @forelse ($categories as $category)
+                @forelse ($categories as $category)
 
-                <li>
-                    @include('guest.components.dictionary-definition', [
-                        'word'  => $category,
-                        'route' => route('guest.dictionary.category.show', $category->slug)
-                    ])
-                </li>
+                    <li>
+                        @include('guest.components.dictionary-definition', [
+                            'word'  => $category,
+                            'route' => route('guest.dictionary.category.show', $category->slug)
+                        ])
+                    </li>
 
-            @empty
+                @empty
 
-                <tr>
-                    <li>There are no categories in the dictionary.</li>
-                </tr>
+                    <tr>
+                        <li>There are no categories in the dictionary.</li>
+                    </tr>
 
-            @endforelse
+                @endforelse
 
-        </ul>
+            </ul>
 
-        {!! $categories->links('vendor.pagination.bulma') !!}
+            {!! $categories->links('vendor.pagination.bulma') !!}
 
+        </div>
     </div>
 
 @endsection

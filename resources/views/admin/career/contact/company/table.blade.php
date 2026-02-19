@@ -1,7 +1,7 @@
 @php
 $companies = $companies ?? [];
 @endphp
-<table class="table admin-table">
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
     <th>active</th>

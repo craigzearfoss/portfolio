@@ -100,7 +100,7 @@
             </h2>
             <hr class="m-1">
 
-            <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <th>username</th>
                 <th>name</th>

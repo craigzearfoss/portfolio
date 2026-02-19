@@ -32,5 +32,5 @@
         'style'      => $styles,
         'icon'       => $icon ?? false,
         'dataTarget' => $dataTarget ?? null,
-    ]);
+    ])
 @endif

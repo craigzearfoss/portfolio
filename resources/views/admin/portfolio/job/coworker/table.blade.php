@@ -1,7 +1,7 @@
 @php
     $coworkers = $coworkers ?? [];
 @endphp
-<table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
     <th style="min-width: 6em;">title</th>

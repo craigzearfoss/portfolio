@@ -10,7 +10,9 @@
     $styles = !empty($style)
         ? is_array($style) ? $style : explode(';', $style)
         : [];
-    if (!empty($level ?? 0)) $styles[] = 'padding: 0.3rem';
+    if ($level ?? 0 > 1) {
+        $styles[] = 'padding: 0.3rem';
+    }
 @endphp
 @if(empty($href))
     <span
@@ -36,5 +38,5 @@
         'style'      => $styles,
         'icon'       => $icon ?? false,
         'dataTarget' => $dataTarget ?? null,
-    ]);
+    ])
 @endif

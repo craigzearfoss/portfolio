@@ -32,63 +32,65 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>year</th>
-                <th>show</th>
-                <th>company</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>year</th>
-                <th>show</th>
-                <th>company</th>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($videos as $video)
-
-                <tr data-id="{{ $video->id }}">
-                    <td data-field="name">
-                        @include('guest.components.link', [
-                            'name'  => $video->name,
-                            'href'  => route('guest.portfolio.video.show', [$owner, $video->slug]),
-                            'class' => $video->featured ? 'has-text-weight-bold' : ''
-                        ])
-                    </td>
-                    <td data-field="year" class="has-text-centered">
-                        {!! $video->year !!}
-                    </td>
-                    <td data-field="show">
-                        {!! $video->show !!}
-                    </td>
-                    <td data-field="company">
-                        {!! $video->company !!}
-                    </td>
-                </tr>
-
-            @empty
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td colspan="4">There are no videos.</td>
+                    <th>name</th>
+                    <th>year</th>
+                    <th>show</th>
+                    <th>company</th>
                 </tr>
+                </thead>
+                <?php /*
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>year</th>
+                    <th>show</th>
+                    <th>company</th>
+                </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($videos as $video)
 
-            </tbody>
-        </table>
+                    <tr data-id="{{ $video->id }}">
+                        <td data-field="name">
+                            @include('guest.components.link', [
+                                'name'  => $video->name,
+                                'href'  => route('guest.portfolio.video.show', [$owner, $video->slug]),
+                                'class' => $video->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        </td>
+                        <td data-field="year" class="has-text-centered">
+                            {!! $video->year !!}
+                        </td>
+                        <td data-field="show">
+                            {!! $video->show !!}
+                        </td>
+                        <td data-field="company">
+                            {!! $video->company !!}
+                        </td>
+                    </tr>
 
-        {!! $videos->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="4">There are no videos.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $videos->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

@@ -63,5 +63,9 @@ class AppServiceProvider extends ServiceProvider
 
         view()->share('demo', config('app.demo_mode'));
         view()->share('readonly', config('app.readonly'));
+
+        view()->share('adminTableClasses', implode(' ', []));
+        view()->share('userTableClasses', implode(' ', ['is-bordered', 'is-striped', 'is-narrow', 'is-hoverable']));
+        view()->share('guestTableClasses', implode(' ', ['is-bordered', 'is-striped', 'is-narrow', 'is-hoverable']));
     }
 }

@@ -124,6 +124,7 @@ class BaseController extends Controller
      * @return void
      * @throws Exception
      */
+    /*
     protected function initialize($envType = EnvTypes::GUEST)
     {
         $this->envType = $envType;
@@ -157,7 +158,7 @@ class BaseController extends Controller
         view()->share('pagination_top', config('app.pagination_top'));
         view()->share('bottom_column_headings', config('app.bottom_column_headings'));
     }
-
+*/
     /**
      * Returns the number of items per page for pagination. First it checks the
      * PAGINATION_PER_PAGE variable in the .env file. If it is not set then it
@@ -230,6 +231,11 @@ class BaseController extends Controller
 
                 $owner = $currentAdmin;
             }
+        }
+
+        if (empty($owner) && ($envType->value == 'admin')) {
+
+            $owner = $currentAdmin;
         }
 
         return $owner;

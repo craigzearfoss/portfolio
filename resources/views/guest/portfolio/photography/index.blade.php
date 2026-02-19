@@ -32,58 +32,60 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>credit</th>
-                <th>year</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>credit</th>
-                <th>year</th>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($photos as $photo)
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'  => $photo->name,
-                            'href'  => route('guest.portfolio.photography.show', [$owner, $photo->slug]),
-                            'class' => $photo->featured ? 'has-text-weight-bold' : ''
-                        ])
-                    </td>
-                    <td>
-                        {!! $photo->credit !!}
-                    </td>
-                    <td class="has-text-centered">
-                        {!! $photo->year !!}
-                    </td>
+                    <th>name</th>
+                    <th>credit</th>
+                    <th>year</th>
                 </tr>
-
-            @empty
-
+                </thead>
+                <?php /*
+                <tfoot>
                 <tr>
-                    <td colspan="2">There are no photos.</td>
+                    <th>name</th>
+                    <th>credit</th>
+                    <th>year</th>
                 </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($photos as $photo)
 
-            </tbody>
-        </table>
+                    <tr>
+                        <td>
+                            @include('guest.components.link', [
+                                'name'  => $photo->name,
+                                'href'  => route('guest.portfolio.photography.show', [$owner, $photo->slug]),
+                                'class' => $photo->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        </td>
+                        <td>
+                            {!! $photo->credit !!}
+                        </td>
+                        <td class="has-text-centered">
+                            {!! $photo->year !!}
+                        </td>
+                    </tr>
 
-        {!! $photos->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="2">There are no photos.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $photos->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

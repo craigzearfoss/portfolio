@@ -32,65 +32,67 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>category</th>
-                <th>level (out of 10)</th>
-                <th>years</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>category</th>
-                <th>level (out of 10)</th>
-                <th>years</th>
-            </tr>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($skills as $skill)
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td>
-                        <strong>{!! $skill->name !!}</strong>
-                    </td>
-                    <td>
-                        {!! $skill->category->name ?? '' !!}
-                    </td>
-                    <td data-field="level" style="white-space: nowrap;" class="is">
-                        @if(!empty($skill->level))
-                            @include('guest.components.star-ratings', [
-                                'rating' => $skill->level,
-                                'label'  => "({$skill->level})"
-                            ])
-                        @endif
-                    </td>
-                    <td class="has-text-centered">
-                        {!! $skill->years !!}
-                    </td>
+                    <th>name</th>
+                    <th>category</th>
+                    <th>level (out of 10)</th>
+                    <th>years</th>
                 </tr>
-
-            @empty
-
+                </thead>
+                <?php /*
+                <tfoot>
                 <tr>
-                    <td colspan="4">There are no skills.</td>
+                    <th>name</th>
+                    <th>category</th>
+                    <th>level (out of 10)</th>
+                    <th>years</th>
                 </tr>
+                </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($skills as $skill)
 
-            </tbody>
-        </table>
+                    <tr>
+                        <td>
+                            <strong>{!! $skill->name !!}</strong>
+                        </td>
+                        <td>
+                            {!! $skill->category->name ?? '' !!}
+                        </td>
+                        <td data-field="level" style="white-space: nowrap;" class="is">
+                            @if(!empty($skill->level))
+                                @include('guest.components.star-ratings', [
+                                    'rating' => $skill->level,
+                                    'label'  => "({$skill->level})"
+                                ])
+                            @endif
+                        </td>
+                        <td class="has-text-centered">
+                            {!! $skill->years !!}
+                        </td>
+                    </tr>
 
-        {!! $skills->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="4">There are no skills.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $skills->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

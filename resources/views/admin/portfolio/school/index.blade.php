@@ -45,119 +45,121 @@
         </form>
     </div>
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        @if($pagination_top)
-            {!! $schools->links('vendor.pagination.bulma') !!}
-        @endif
+            @if($pagination_top)
+                {!! $schools->links('vendor.pagination.bulma') !!}
+            @endif
 
-        <table class="table admin-table">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>logo</th>
-                <th>state</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-
-            @if(!empty($bottom_column_headings))
-                <tfoot>
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                <thead>
                 <tr>
                     <th>name</th>
                     <th>logo</th>
                     <th>state</th>
                     <th>actions</th>
                 </tr>
-                </tfoot>
+                </thead>
+
+                @if(!empty($bottom_column_headings))
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>logo</th>
+                        <th>state</th>
+                        <th>actions</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
+                <tbody>
+
+                @forelse ($schools as $school)
+
+                    <tr data-id="{{ $school->id }}">
+                        <td data-field="name">
+                            {!! $school->name !!}
+                        </td>
+                        <td data-field="logo_small">
+                            @include('admin.components.image', [
+                                'src'   => $school->logo_small,
+                                'alt'   => $school->name,
+                                'width' => '48px',
+                            ])
+                        </td>
+                        <td data-field="state">
+                            {!! $school->state['name'] ?? '' !!}
+                        </td>
+                        <td class="is-1">
+
+                            <div class="action-button-panel">
+
+                                @if(canRead(PermissionEntityTypes::RESOURCE, $school, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'show',
+                                        'href'  => route('admin.portfolio.school.show', $school),
+                                        'icon'  => 'fa-list'
+                                    ])
+                                @endif
+
+                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $school, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'edit',
+                                        'href'  => route('admin.portfolio.school.edit', $school),
+                                        'icon'  => 'fa-pen-to-square'
+                                    ])
+                                @endif
+
+                                @if (!empty($school->link))
+                                    @include('admin.components.link-icon', [
+                                        'title'  => !empty($school->link_name) ? $school->link_name : 'link',
+                                        'href'   => $school->link,
+                                        'icon'   => 'fa-external-link',
+                                        'target' => '_blank'
+                                    ])
+                                @else
+                                    @include('admin.components.link-icon', [
+                                        'title'    => 'link',
+                                        'icon'     => 'fa-external-link',
+                                        'disabled' => true
+                                    ])
+                                @endif
+
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $school, $admin))
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.school.destroy', $school) !!}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        @include('admin.components.button-icon', [
+                                            'title' => 'delete',
+                                            'class' => 'delete-btn',
+                                            'icon'  => 'fa-trash'
+                                        ])
+                                    </form>
+                                @endif
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                @empty
+
+                    <tr>
+                        <td colspan="4">There are no schools.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            @if($pagination_bottom)
+                {!! $schools->links('vendor.pagination.bulma') !!}
             @endif
 
-            <tbody>
-
-            @forelse ($schools as $school)
-
-                <tr data-id="{{ $school->id }}">
-                    <td data-field="name">
-                        {!! $school->name !!}
-                    </td>
-                    <td data-field="logo_small">
-                        @include('admin.components.image', [
-                            'src'   => $school->logo_small,
-                            'alt'   => $school->name,
-                            'width' => '48px',
-                        ])
-                    </td>
-                    <td data-field="state">
-                        {!! $school->state['name'] ?? '' !!}
-                    </td>
-                    <td class="is-1">
-
-                        <div class="action-button-panel">
-
-                            @if(canRead(PermissionEntityTypes::RESOURCE, $school, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'show',
-                                    'href'  => route('admin.portfolio.school.show', $school),
-                                    'icon'  => 'fa-list'
-                                ])
-                            @endif
-
-                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $school, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'edit',
-                                    'href'  => route('admin.portfolio.school.edit', $school),
-                                    'icon'  => 'fa-pen-to-square'
-                                ])
-                            @endif
-
-                            @if (!empty($school->link))
-                                @include('admin.components.link-icon', [
-                                    'title'  => !empty($school->link_name) ? $school->link_name : 'link',
-                                    'href'   => $school->link,
-                                    'icon'   => 'fa-external-link',
-                                    'target' => '_blank'
-                                ])
-                            @else
-                                @include('admin.components.link-icon', [
-                                    'title'    => 'link',
-                                    'icon'     => 'fa-external-link',
-                                    'disabled' => true
-                                ])
-                            @endif
-
-                            @if(canDelete(PermissionEntityTypes::RESOURCE, $school, $admin))
-                                <form class="delete-resource"
-                                      action="{!! route('admin.portfolio.school.destroy', $school) !!}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    @include('admin.components.button-icon', [
-                                        'title' => 'delete',
-                                        'class' => 'delete-btn',
-                                        'icon'  => 'fa-trash'
-                                    ])
-                                </form>
-                            @endif
-
-                        </div>
-
-                    </td>
-                </tr>
-
-            @empty
-
-                <tr>
-                    <td colspan="4">There are no schools.</td>
-                </tr>
-
-            @endforelse
-
-            </tbody>
-        </table>
-
-        @if($pagination_bottom)
-            {!! $schools->links('vendor.pagination.bulma') !!}
-        @endif
-
+        </div>
     </div>
 
 @endsection

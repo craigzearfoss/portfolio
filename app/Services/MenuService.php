@@ -16,6 +16,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use JetBrains\PhpStorm\NoReturn;
 use stdClass;
 
 /**
@@ -135,7 +136,10 @@ class MenuService
         $this->user             = !empty($user) ? $user : loggedInUser();
         $this->currentRouteName = !empty($currentRouteName) ? $currentRouteName : Route::currentRouteName();
         $this->showAll          = false;
-//dd([$this->envType->value, $this->owner, $this->admin, $this->user, $this->currentRouteName, $this->showAll]);
+
+        if (request()->has('debug-menu')) {
+            $this->ddDebug();
+        }
 
         // in the admin area root admins get to see all menu items
         if (($this->envType == EnvTypes::ADMIN) && !empty($this->admin->root)) {
@@ -171,18 +175,28 @@ class MenuService
         }
 
         // get the databases and resources
-        if ($this->isRootAdmin) {
+        if ($this->isRootAdmin || empty($this->owner)) {
 
             // note that for root admins we pull menu items from the admins and resources
             // tables instead of the admin_databases and admin_resources tables
             $this->databases = new Database()->ownerDatabases(null, $this->envType, $filters);
-            $this->resources = new Resource()->ownerResources(null, $this->envType, null, $filters);
+            $this->resources = new Resource()->ownerResources($this->envType, null, $filters);
 
         } else {
 
             $this->databases = new AdminDatabase()->ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
             $this->resources = new AdminResource()->ownerResources($this->owner->id ?? null, $this->envType, null, $filters);
         }
+        /*
+        foreach($this->databases as $database) {
+            echo '<li>' . $database->owner_id . ' / ' . $database->name . '</li>';
+        }
+        echo '<hr>';
+        foreach($this->resources as $resource) {
+            echo '<li>' . $resource->owner_id . ' / ' . $resource->name . '</li>';
+        }
+        dd($this->resources[8]);
+        */
     }
 
     /**
@@ -736,5 +750,24 @@ class MenuService
     private function includeResource($resource): bool
     {
         return true;
+    }
+
+    /**
+     * @return void
+     */
+    #[NoReturn] protected function ddDebug()
+    {
+        if (!config('app.debug')) {
+            abort(500, 'Unauthorized. .env setting APP_DEBUG must be set to true to view this page.');
+        }
+
+        dd([
+            'envType'      => $this->envType->value,
+            'owner'        => $this->owner,
+            'admin'        => $this->admin,
+            'user'         => $this->user,
+            'currentRoute' => $this->currentRouteName,
+            'showAll'      => $this->showAll
+        ]);
     }
 }

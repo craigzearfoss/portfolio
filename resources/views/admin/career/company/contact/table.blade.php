@@ -1,7 +1,7 @@
 @php
-$contacts = $contacts ?? [];
+    $contacts = $contacts ?? [];
 @endphp
-<table class="table admin-table">
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
     <th>active</th>

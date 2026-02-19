@@ -1,7 +1,7 @@
 @php
-$communications = $communications ?? [];
+    $communications = $communications ?? [];
 @endphp
-<table class="table admin-table">
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>type</th>
     <th>subject</th>

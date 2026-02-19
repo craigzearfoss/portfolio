@@ -32,59 +32,61 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>type</th>
-                <th>meal</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>type</th>
-                <th>meal</th>
-            </tr>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($recipes as $recipe)
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'  => $recipe->name,
-                            'href'  => route('guest.personal.recipe.show', [$owner, $recipe->slug]),
-                            'class' => $recipe->featured ? 'has-text-weight-bold' : ''
-                        ])
-                    </td>
-                    <td data-field="types">
-                        {{ implode(', ', $recipe->types()) }}
-                    </td>
-                    <td data-field="meals">
-                        {{ implode(', ', $recipe->meals()) }}
-                    </td>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>meal</th>
                 </tr>
-
-            @empty
-
+                </thead>
+                <?php /*
+                <tfoot>
                 <tr>
-                    <td colspan="3">There are no recipes.</td>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>meal</th>
                 </tr>
+                </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($recipes as $recipe)
 
-            </tbody>
-        </table>
+                    <tr>
+                        <td>
+                            @include('guest.components.link', [
+                                'name'  => $recipe->name,
+                                'href'  => route('guest.personal.recipe.show', [$owner, $recipe->slug]),
+                                'class' => $recipe->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        </td>
+                        <td data-field="types">
+                            {{ implode(', ', $recipe->types()) }}
+                        </td>
+                        <td data-field="meals">
+                            {{ implode(', ', $recipe->meals()) }}
+                        </td>
+                    </tr>
 
-        {!! $recipes->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="3">There are no recipes.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $recipes->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

@@ -40,31 +40,17 @@
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.publication.index') ])
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        @if($pagination_top)
-            {!! $publications->links('vendor.pagination.bulma') !!}
-        @endif
+            @if($pagination_top)
+                {!! $publications->links('vendor.pagination.bulma') !!}
+            @endif
 
-        <p class="admin-table-caption">* An asterisk indicates a featured publication.</p>
-        <table class="table admin-table">
-            <thead>
-            <tr>
-                @if(!empty($admin->root))
-                    <th>owner</th>
-                @endif
-                <th>title</th>
-                <th>publication<br>name</th>
-                <th>publisher</th>
-                <th class="has-text-centered">year</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </thead>
+            <p class="admin-table-caption">* An asterisk indicates a featured publication.</p>
 
-            @if(!empty($bottom_column_headings))
-                <tfoot>
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                <thead>
                 <tr>
                     @if(!empty($admin->root))
                         <th>owner</th>
@@ -77,104 +63,121 @@
                     <th class="has-text-centered">disabled</th>
                     <th>actions</th>
                 </tr>
-                </tfoot>
+                </thead>
+
+                @if(!empty($bottom_column_headings))
+                    <tfoot>
+                    <tr>
+                        @if(!empty($admin->root))
+                            <th>owner</th>
+                        @endif
+                        <th>title</th>
+                        <th>publication<br>name</th>
+                        <th>publisher</th>
+                        <th class="has-text-centered">year</th>
+                        <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
+                <tbody>
+
+                @forelse ($publications as $publication)
+
+                    <tr data-id="{{ $publication->id }}">
+                        @if($admin->root)
+                            <td data-field="owner.username" style="white-space: nowrap;">
+                                {{ $publication->owner->username ?? '' }}
+                            </td>
+                        @endif
+                        <td data-field="title">
+                            {!! $publication->title !!}{!! !empty($publication->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                        </td>
+                        <td data-field="publication_name">
+                            {!! $publication->publication !!}
+                        </td>
+                        <td data-field="publisher">
+                            {!! $publication->publisher !!}
+                        </td>
+                        <td data-field="year">
+                            {!! $publication->year !!}
+                        </td>
+                        <td data-field="public" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $publication->public ])
+                        </td>
+                        <td data-field="disabled" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $publication->disabled ])
+                        </td>
+                        <td class="is-1">
+
+                            <div class="action-button-panel">
+
+                                @if(canRead(PermissionEntityTypes::RESOURCE, $publication, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'show',
+                                        'href'  => route('admin.portfolio.publication.show', $publication),
+                                        'icon'  => 'fa-list'
+                                    ])
+                                @endif
+
+                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $publication, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'edit',
+                                        'href'  => route('admin.portfolio.publication.edit', $publication),
+                                        'icon'  => 'fa-pen-to-square'
+                                    ])
+                                @endif
+
+                                @if (!empty($publication->link))
+                                    @include('admin.components.link-icon', [
+                                        'title'  => !empty($publication->link_name) ? $publication->link_name : 'link',
+                                        'href'   => $publication->link,
+                                        'icon'   => 'fa-external-link',
+                                        'target' => '_blank'
+                                    ])
+                                @else
+                                    @include('admin.components.link-icon', [
+                                        'title'    => 'link',
+                                        'icon'     => 'fa-external-link',
+                                        'disabled' => true
+                                    ])
+                                @endif
+
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $publication, $admin))
+                                    <form class="delete-resource" action="{!! route('admin.portfolio.publication.destroy', $publication) !!}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        @include('admin.components.button-icon', [
+                                            'title' => 'delete',
+                                            'class' => 'delete-btn',
+                                            'icon'  => 'fa-trash'
+                                        ])
+                                    </form>
+                                @endif
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                @empty
+
+                    <tr>
+                        <td colspan="{{ $admin->root ? '8' : '7' }}">There are no publications.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            @if($pagination_bottom)
+                {!! $publications->links('vendor.pagination.bulma') !!}
             @endif
 
-            <tbody>
-
-            @forelse ($publications as $publication)
-
-                <tr data-id="{{ $publication->id }}">
-                    @if($admin->root)
-                        <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $publication->owner->username ?? '' }}
-                        </td>
-                    @endif
-                    <td data-field="title">
-                        {!! $publication->title !!}{!! !empty($publication->featured) ? '<span class="featured-splat">*</span>' : '' !!}
-                    </td>
-                    <td data-field="publication_name">
-                        {!! $publication->publication !!}
-                    </td>
-                    <td data-field="publisher">
-                        {!! $publication->publisher !!}
-                    </td>
-                    <td data-field="year">
-                        {!! $publication->year !!}
-                    </td>
-                    <td data-field="public" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $publication->public ])
-                    </td>
-                    <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $publication->disabled ])
-                    </td>
-                    <td class="is-1">
-
-                        <div class="action-button-panel">
-
-                            @if(canRead(PermissionEntityTypes::RESOURCE, $publication, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'show',
-                                    'href'  => route('admin.portfolio.publication.show', $publication),
-                                    'icon'  => 'fa-list'
-                                ])
-                            @endif
-
-                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $publication, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'edit',
-                                    'href'  => route('admin.portfolio.publication.edit', $publication),
-                                    'icon'  => 'fa-pen-to-square'
-                                ])
-                            @endif
-
-                            @if (!empty($publication->link))
-                                @include('admin.components.link-icon', [
-                                    'title'  => !empty($publication->link_name) ? $publication->link_name : 'link',
-                                    'href'   => $publication->link,
-                                    'icon'   => 'fa-external-link',
-                                    'target' => '_blank'
-                                ])
-                            @else
-                                @include('admin.components.link-icon', [
-                                    'title'    => 'link',
-                                    'icon'     => 'fa-external-link',
-                                    'disabled' => true
-                                ])
-                            @endif
-
-                            @if(canDelete(PermissionEntityTypes::RESOURCE, $publication, $admin))
-                                <form class="delete-resource" action="{!! route('admin.portfolio.publication.destroy', $publication) !!}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    @include('admin.components.button-icon', [
-                                        'title' => 'delete',
-                                        'class' => 'delete-btn',
-                                        'icon'  => 'fa-trash'
-                                    ])
-                                </form>
-                            @endif
-
-                        </div>
-
-                    </td>
-                </tr>
-
-            @empty
-
-                <tr>
-                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no publications.</td>
-                </tr>
-
-            @endforelse
-
-            </tbody>
-        </table>
-
-        @if($pagination_bottom)
-            {!! $publications->links('vendor.pagination.bulma') !!}
-        @endif
-
+        </div>
     </div>
 
 @endsection

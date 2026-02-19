@@ -10,6 +10,7 @@ p {
 div.field.is-horizontal div.field-label label.label {
     min-width: 10em;
 }
+
 /* show-container */
 .show-container .columns .column {
     padding: 0.1em  0.5em 0.1em 0.5em;
@@ -185,6 +186,9 @@ div.field.is-horizontal div.field-label label.label {
     text-align: center;
 }
 
+.is-menu-main {
+    font-size: 1rem;
+}
 ul.menu p.menu-label.menu-label-left {
     margin-top: 6px;
     margin-bottom: 2px !important;
@@ -196,8 +200,6 @@ ul.menu p.menu-label span {
 
 ul.menu-list li {
     list-style: none;
-    padding-top: 0.2rem !important;
-    padding-bottom: 0.2rem;
 }
 
 .tabs-content li {
@@ -233,7 +235,7 @@ nav.pagination ul.pagination-list li {
 table.table.admin-table {
     border: 0 rgb(128, 128, 128) inset;
     border-collapse: collapse;
-    margin-bottom: 8px !important;
+    margin-bottom: .75rem !important;
 }
 
 table.table.admin-table tbody tr:not(.is-selected):nth-child(even) {
@@ -257,10 +259,20 @@ span.featured-splat {
     font-weight: 800;
 }
 
+table.table.guest-table {
+    border: 0 rgb(128, 128, 128) inset;
+    border-collapse: collapse;
+    margin-bottom: .75rem !important;
+}
+
 div.floating-div-container div.floating-div {
     display: inline-block;
     vertical-align: top;
     width: auto;
+}
+div.floating-div-container div.floating-div.card {
+    padding: 1rem !important;
+    margin-bottom: .5rem !important;
 }
 .top-left-span {
     position: absolute;
@@ -308,10 +320,26 @@ section.section.is-title-bar ul li:after {
 }
 
 /* subtitle bar */
+
+section.hero.is-hero-bar {
+    background-color: transparent;
+    border: 0;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
 div.subtitle-bar div.level div.level-left,
 div.subtitle-bar div.level div.level-right {
     margin-top: 2px;
 }
 div.subtitle-bar > * {
     vertical-align: top;  // Align children to middle of line
+}
+
+section.is-main-section {
+    padding: 0.5rem;
+}
+footer {
+    background-color: transparent !important;
+    border: 0;
+    margin-top: 0.5rem;
 }

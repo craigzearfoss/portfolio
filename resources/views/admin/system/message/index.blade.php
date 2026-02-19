@@ -30,25 +30,15 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        @if($pagination_top)
-            {!! $messages->links('vendor.pagination.bulma') !!}
-        @endif
+            @if($pagination_top)
+                {!! $messages->links('vendor.pagination.bulma') !!}
+            @endif
 
-        <table class="table admin-table">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>email</th>
-                <th>subject</th>
-                <th>created at</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-
-            @if(!empty($bottom_column_headings))
-                <tfoot>
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                <thead>
                 <tr>
                     <th>name</th>
                     <th>email</th>
@@ -56,58 +46,58 @@
                     <th>created at</th>
                     <th>actions</th>
                 </tr>
-                </tfoot>
-            @endif
+                </thead>
 
-            <tbody>
+                @if(!empty($bottom_column_headings))
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>subject</th>
+                        <th>created at</th>
+                        <th>actions</th>
+                    </tr>
+                    </tfoot>
+                @endif
 
-            @forelse ($messages as $message)
+                <tbody>
 
-                <tr data-id="{{ $message->id }}">
-                    <td data-field="name">
-                        {!! $message->name !!}
-                    </td>
-                    <td data-field="email">
-                        {!! $message->email !!}
-                    </td>
-                    <td data-field="subject">
-                        {!! $message->subject !!}
-                    </td>
-                    <td data-field="created_at">
-                        {{ shortDateTime($message->created_at) }}
-                    </td>
-                    <td class="is-1">
+                @forelse ($messages as $message)
 
-                        <div class="action-button-panel">
+                    <tr data-id="{{ $message->id }}">
+                        <td data-field="name">
+                            {!! $message->name !!}
+                        </td>
+                        <td data-field="email">
+                            {!! $message->email !!}
+                        </td>
+                        <td data-field="subject">
+                            {!! $message->subject !!}
+                        </td>
+                        <td data-field="created_at">
+                            {{ shortDateTime($message->created_at) }}
+                        </td>
+                        <td class="is-1">
 
-                            @if(canRead(PermissionEntityTypes::RESOURCE, $message, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'show',
-                                    'href'  => route('admin.system.message.show', $message),
-                                    'icon'  => 'fa-list'
-                                ])
-                            @endif
+                            <div class="action-button-panel">
 
-                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $message, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'edit',
-                                    'href'  => route('admin.system.message.edit', $message),
-                                    'icon'  => 'fa-pen-to-square'
-                                ])
-                            @endif
+                                @if(canRead(PermissionEntityTypes::RESOURCE, $message, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'show',
+                                        'href'  => route('admin.system.message.show', $message),
+                                        'icon'  => 'fa-list'
+                                    ])
+                                @endif
 
-                            @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
-                                @csrf
-                                @method('DELETE')
-                                @include('admin.components.button-icon', [
-                                    'title' => 'delete',
-                                    'class' => 'delete-btn',
-                                    'icon'  => 'fa-trash'
-                                ])
-                            @endif
+                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $message, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'edit',
+                                        'href'  => route('admin.system.message.edit', $message),
+                                        'icon'  => 'fa-pen-to-square'
+                                    ])
+                                @endif
 
-                            @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
-                                <form class="delete-resource" action="{!! route('admin.system.message.destroy', $message) !!}" method="POST">
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
                                     @csrf
                                     @method('DELETE')
                                     @include('admin.components.button-icon', [
@@ -115,29 +105,41 @@
                                         'class' => 'delete-btn',
                                         'icon'  => 'fa-trash'
                                     ])
-                                </form>
-                            @endif
+                                @endif
 
-                        </div>
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
+                                    <form class="delete-resource" action="{!! route('admin.system.message.destroy', $message) !!}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        @include('admin.components.button-icon', [
+                                            'title' => 'delete',
+                                            'class' => 'delete-btn',
+                                            'icon'  => 'fa-trash'
+                                        ])
+                                    </form>
+                                @endif
 
-                    </td>
-                </tr>
+                            </div>
 
-            @empty
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td colspan="5">There are no messages.</td>
-                </tr>
+                @empty
 
-            @endforelse
+                    <tr>
+                        <td colspan="5">There are no messages.</td>
+                    </tr>
 
-            </tbody>
-        </table>
+                @endforelse
 
-        @if($pagination_bottom)
-            {!! $messages->links('vendor.pagination.bulma') !!}
-        @endif
+                </tbody>
+            </table>
 
+            @if($pagination_bottom)
+                {!! $messages->links('vendor.pagination.bulma') !!}
+            @endif
+
+        </div>
     </div>
 
 @endsection

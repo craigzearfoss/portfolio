@@ -40,14 +40,16 @@
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.course.index') ])
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
         @if($pagination_top)
             {!! $courses->links('vendor.pagination.bulma') !!}
         @endif
 
         <p class="admin-table-caption">* An asterisk indicates a featured course.</p>
-        <table class="table admin-table">
+
+        <table class="table admin-table {{ $adminTableClasses ?? '' }}">
             <thead>
             <tr>
                 @if(!empty($admin->root))
@@ -175,6 +177,7 @@
             {!! $courses->links('vendor.pagination.bulma') !!}
         @endif
 
+        </div>
     </div>
 
 @endsection

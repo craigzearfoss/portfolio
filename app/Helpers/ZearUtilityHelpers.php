@@ -31,13 +31,42 @@ if (! function_exists('getEnvType')) {
     }
 }
 
+if ( !function_exists('getRouteBase')) {
+    /**
+     * Returns the base of a route name. For example guest.portfolio.course.index
+     * and guest.portfolio.course.show both have a base route of guest.portfolio.course.
+     *
+     * @param string|null $routeName
+     * @return string
+     */
+    function getRouteBase(string|null $routeName = null): string
+    {
+        if (empty($routeName)) {
+            $routeName = Route::currentRouteName();
+        }
+
+        $parts = explode('.', $routeName);
+        if (count($parts) > 2) {
+            $parts = array_slice($parts, 0, 3);
+        } elseif (count($parts) == 2) {
+            $parts = array_slice($parts, 0, 3);
+        }
+
+        return implode('.', $parts);
+    }
+}
+
 if (! function_exists('dbName')) {
     /**
+     * Returns the name of a database from the database tag.
+     * This is because names of databases can be specified in the .env file.
+     *
      * @param string $dbTag
+     * @return string|null
      */
-    function dbName(string $dbTag)  {
+    function dbName(string $dbTag): string|null  {
         if ($database = new Database()->where('tag', $dbTag)->first()) {
-            return $database->name;
+            return $database->database;
         } else {
             return null;
         }

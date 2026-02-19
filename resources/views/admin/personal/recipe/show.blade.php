@@ -287,7 +287,7 @@
 
                                 <hr class="navbar-divider">
 
-                                <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+                                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                                     <tbody>
 
                                     @foreach($recipe->steps as $step)

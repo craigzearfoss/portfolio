@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 /**
  * @mixin Eloquent
@@ -199,6 +200,10 @@ class AdminResource extends Model
                                    array         $filters = [],
                                    array         $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
+        if (empty($ownerId)) {
+            return new Resource()->ownerResources($envType, $databaseId, $filters, $orderBy);
+        }
+
         //?????if ($envType == 'root') $envType = EnvTypes::ADMIN;
         if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
             throw new Exception('ENV type ' . $envType->value . ' not supported');
@@ -209,18 +214,18 @@ class AdminResource extends Model
         if (!str_starts_with($sortField, 'admin_resources.')) $sortField = 'admin_resources.'.$sortField;
 
         // create the query
-        $query = new AdminResource()->select([DB::raw("databases.name AS 'database_name'"), 'admin_resources.*'])
+        $query = new AdminResource()->select([
+                DB::raw("admins.name AS 'admin_name'"),
+                DB::raw("admins.username AS 'admin_username'"),
+                DB::raw("admins.label AS 'admin_label'"),
+                DB::raw("databases.name AS 'database_name'"),
+                'admin_resources.*']
+        )
+            ->join('admins', 'admins.id', 'admin_resources.owner_id')
             ->join('databases', 'databases.id', 'admin_resources.database_id')
+            ->where('admin_resources.'.$envType->value, 1)
+            ->where('admin_resources.owner_id', $ownerId)
             ->orderBy($sortField, $sortDir);
-
-        if (!empty($ownerId)) {
-            $query->where('admin_resources.owner_id', $ownerId);
-        }
-
-        // apply env type filter
-        if (!empty($envType)) {
-            $query->where('admin_resources.'.$envType->value, 1);
-        }
 
         // apply database filter
         if (!empty($databaseId)) {
@@ -255,7 +260,37 @@ class AdminResource extends Model
             }
         }
 
-        return $query->get();
+        // add the route name to all the resources
+        $rootAdmin = new Admin()->find(1);
+
+        $resources = $query->get();
+        for ($i=0; $i<count($resources); $i++) {
+
+            $routeName = $envType->value
+                . '.' . str_replace('_', '-', $resources[$i]->database_name)
+                . '.' . $resources[$i]->name
+                . '.index';
+            $url = null;
+
+            if (Route::has($routeName)) {
+
+                if ($envType === EnvTypes::ADMIN) {
+
+                    $url = Route::has($routeName) ? route($routeName) : null;
+
+                } else {
+
+                    $url = route($routeName, $rootAdmin);
+                    $url = str_replace('/root-admin/', '/' . $resources[$i]->admin_label . '/', $url);
+                }
+            }
+
+            $resources[$i]->route = $routeName;
+            $resources[$i]->url = $url;
+            $resources[$i]->active = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
+        }
+
+        return $resources;
     }
 
     /**

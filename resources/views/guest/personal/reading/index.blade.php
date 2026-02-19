@@ -51,75 +51,77 @@
     </div>
     */ ?>
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        {!! $readings->links('vendor.pagination.bulma') !!}
+            {!! $readings->links('vendor.pagination.bulma') !!}
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>title</th>
-                <th>author</th>
-                <th class="has-text-centered">type</th>
-                <th class="has-text-centered">paper</th>
-                <th class="has-text-centered">audio</th>
-                <th class="has-text-centered">wish list</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>title</th>
-                <th>author</th>
-                <th class="has-text-centered">type</th>
-                <th class="has-text-centered">paper</th>
-                <th class="has-text-centered">audio</th>
-                <th class="has-text-centered">wish list</th>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($readings as $reading)
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'  => $reading->title,
-                            'href'  => route('guest.personal.reading.show', [$owner, $reading->slug]),
-                            'class' => $reading->featured ? 'has-text-weight-bold' : ''
-                        ])
-                    </td>
-                    <td>
-                        {{ $reading->author }}
-                    </td>
-                    <td class="has-text-centered">
-                        {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}
-                    </td>
-                    <td class="has-text-centered">
-                        @include('guest.components.checkmark', [ 'checked' => $reading->paper ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('guest.components.checkmark', [ 'checked' => $reading->audio ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('guest.components.checkmark', [ 'checked' => $reading->wishlist ])
-                    </td>
+                    <th>title</th>
+                    <th>author</th>
+                    <th class="has-text-centered">type</th>
+                    <th class="has-text-centered">paper</th>
+                    <th class="has-text-centered">audio</th>
+                    <th class="has-text-centered">wish list</th>
                 </tr>
-
-            @empty
-
+                </thead>
+                <?php /*
+                <tfoot>
                 <tr>
-                    <td colspan="6">There are no readings.</td>
+                    <th>title</th>
+                    <th>author</th>
+                    <th class="has-text-centered">type</th>
+                    <th class="has-text-centered">paper</th>
+                    <th class="has-text-centered">audio</th>
+                    <th class="has-text-centered">wish list</th>
                 </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($readings as $reading)
 
-            </tbody>
-        </table>
+                    <tr>
+                        <td>
+                            @include('guest.components.link', [
+                                'name'  => $reading->title,
+                                'href'  => route('guest.personal.reading.show', [$owner, $reading->slug]),
+                                'class' => $reading->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        </td>
+                        <td>
+                            {{ $reading->author }}
+                        </td>
+                        <td class="has-text-centered">
+                            {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}
+                        </td>
+                        <td class="has-text-centered">
+                            @include('guest.components.checkmark', [ 'checked' => $reading->paper ])
+                        </td>
+                        <td class="has-text-centered">
+                            @include('guest.components.checkmark', [ 'checked' => $reading->audio ])
+                        </td>
+                        <td class="has-text-centered">
+                            @include('guest.components.checkmark', [ 'checked' => $reading->wishlist ])
+                        </td>
+                    </tr>
 
-        {!! $readings->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="6">There are no readings.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $readings->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

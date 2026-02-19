@@ -25,22 +25,11 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table admin-table">
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>user_id</th>
-                <th>admin_id</th>
-                <th>ip_address</th>
-                <th>last_activity</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-
-            @if(!empty($bottom_column_headings))
-                <tfoot>
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                <thead>
                 <tr>
                     <th>id</th>
                     <th>user_id</th>
@@ -49,49 +38,62 @@
                     <th>last_activity</th>
                     <th>actions</th>
                 </tr>
-                </tfoot>
-            @endif
+                </thead>
 
-            <tbody>
+                @if(!empty($bottom_column_headings))
+                    <tfoot>
+                    <tr>
+                        <th>id</th>
+                        <th>user_id</th>
+                        <th>admin_id</th>
+                        <th>ip_address</th>
+                        <th>last_activity</th>
+                        <th>actions</th>
+                    </tr>
+                    </tfoot>
+                @endif
 
-            @forelse ($sessions as $session)
+                <tbody>
 
-                <tr data-id="{{ $session->id }}">
-                    <td data-field="id">
-                        {{ $session['id'] }}
-                    </td>
-                    <td data-field="user_id">
-                        {{ $session->user_id }}
-                    </td>
-                    <td data-field="admin_id">
-                        {{ $session->admin_id }}
-                    </td>
-                    <td data-field="ip_address">
-                        {!! $session->ip_address !!}
-                    </td>
-                    <td data-field="last_activity">
-                        {!! $session->last_activity !!}
-                    </td>
-                    <td>
-                        <a class="button is-small px-1 py-0" href="{!! route('admin.session.show', $session->id) !!}">
-                            <i class="fa-solid fa-list"></i>
-                        </a>
-                    </td>
-                </tr>
+                @forelse ($sessions as $session)
 
-            @empty
+                    <tr data-id="{{ $session->id }}">
+                        <td data-field="id">
+                            {{ $session['id'] }}
+                        </td>
+                        <td data-field="user_id">
+                            {{ $session->user_id }}
+                        </td>
+                        <td data-field="admin_id">
+                            {{ $session->admin_id }}
+                        </td>
+                        <td data-field="ip_address">
+                            {!! $session->ip_address !!}
+                        </td>
+                        <td data-field="last_activity">
+                            {!! $session->last_activity !!}
+                        </td>
+                        <td>
+                            <a class="button is-small px-1 py-0" href="{!! route('admin.session.show', $session->id) !!}">
+                                <i class="fa-solid fa-list"></i>
+                            </a>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td colspan="6">There are no sessions.</td>
-                </tr>
+                @empty
 
-            @endforelse
+                    <tr>
+                        <td colspan="6">There are no sessions.</td>
+                    </tr>
 
-            </tbody>
-        </table>
+                @endforelse
 
-        {!! $sessions->links('vendor.pagination.bulma') !!}
+                </tbody>
+            </table>
 
+            {!! $sessions->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

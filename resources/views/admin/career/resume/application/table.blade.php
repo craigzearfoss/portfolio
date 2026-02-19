@@ -1,7 +1,7 @@
 @php
 $notes = $notes ?? [];
 @endphp
-<table class="table admin-table">
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>company</th>
     <th>role</th>

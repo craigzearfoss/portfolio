@@ -45,7 +45,7 @@
             'buttons'    => $buttons,
         ])
 
-        <section class="is-main-section px-4 py-3">
+        <section class="is-main-section">
 
             @include('admin.components.messages', [
                 'errorMessages' => $errorMessages ?? [],

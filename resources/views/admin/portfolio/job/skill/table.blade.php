@@ -1,7 +1,7 @@
 @php
     $skills = $skills ?? [];
 @endphp
-<table class="table admin-table">
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
     <th>actions</th>

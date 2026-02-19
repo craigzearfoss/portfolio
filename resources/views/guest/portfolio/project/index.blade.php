@@ -32,72 +32,74 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>language</th>
-                <th>year</th>
-                <th>repository</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>language</th>
-                <th>year</th>
-                <th>repository</th>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($projects as $project)
-
-                <tr data-id="{{ $project->id }}">
-                    <td data-field="name">
-                        @include('guest.components.link', [
-                            'name'  => $project->name,
-                            'href'  => route('guest.portfolio.project.show', [$project->owner->label, $project->slug]),
-                            'class' => $project->featured ? 'has-text-weight-bold' : ''
-                        ])
-                    </td>
-                    <td data-field="language">
-                        {!! !empty($project->language)
-                            ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
-                            : ''
-                        !!}
-                    </td>
-                    <td data-field="year">
-                        {!! $project->year !!}
-                    </td>
-                    <td data-field="year">
-                        @if(!empty($project->repository_url))
-                            @include('guest.components.link', [
-                                'name'   => $project->repository_name,
-                                'href'   => $project->repository_url,
-                                'target' => '_blank'
-                            ])
-                        @endif
-                    </td>
-                </tr>
-
-            @empty
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td colspan="4">There are no projects.</td>
+                    <th>name</th>
+                    <th>language</th>
+                    <th>year</th>
+                    <th>repository</th>
                 </tr>
+                </thead>
+                <?php /*
+                <tfoot>
+                <tr>
+                    <th>name</th>
+                    <th>language</th>
+                    <th>year</th>
+                    <th>repository</th>
+                </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($projects as $project)
 
-            </tbody>
-        </table>
+                    <tr data-id="{{ $project->id }}">
+                        <td data-field="name">
+                            @include('guest.components.link', [
+                                'name'  => $project->name,
+                                'href'  => route('guest.portfolio.project.show', [$project->owner->label, $project->slug]),
+                                'class' => $project->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        </td>
+                        <td data-field="language">
+                            {!! !empty($project->language)
+                                ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
+                                : ''
+                            !!}
+                        </td>
+                        <td data-field="year">
+                            {!! $project->year !!}
+                        </td>
+                        <td data-field="year">
+                            @if(!empty($project->repository_url))
+                                @include('guest.components.link', [
+                                    'name'   => $project->repository_name,
+                                    'href'   => $project->repository_url,
+                                    'target' => '_blank'
+                                ])
+                            @endif
+                        </td>
+                    </tr>
 
-        {!! $projects->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="4">There are no projects.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $projects->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

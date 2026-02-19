@@ -1,7 +1,7 @@
 @php
     $tasks = $tasks ?? [];
 @endphp
-<table class="table admin-table">
+<table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>summary</th>
     <th>actions</th>

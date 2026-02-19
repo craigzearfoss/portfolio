@@ -4,8 +4,6 @@
         ? is_array($class) ? $class : explode(';', $class)
         : [];
 
-    if ($active ?? false) $classes[] = 'has-text-gray';
-
     // get styles
     $styles = !empty($style)
         ? is_array($style) ? $style : explode(';', $style)
@@ -30,7 +28,8 @@
         'href'       => $href,
         'class'      => $classes,
         'style'      => $styles,
+        'active'     => $active ?? false,
         'icon'       => $icon ?? false,
         'dataTarget' => $dataTarget ?? null,
-    ]);
+    ])
 @endif

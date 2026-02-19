@@ -32,58 +32,60 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>url</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>url</th>
-            </tr>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($links as $link)
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'  => $link->name,
-                            'href'  => route('guest.portfolio.link.show', [$owner, $link->slug]),
-                            'class' => $link->featured ? 'has-text-weight-bold' : ''
-                        ])
-                    </td>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'   => $link->url,
-                            'href'   => $link->url,
-                            'target' => '_blank',
-                        ])
-                    </td>
+                    <th>name</th>
+                    <th>url</th>
                 </tr>
-
-            @empty
-
+                </thead>
+                <?php /*
+                <tfoot>
                 <tr>
-                    <td colspan="2">There are no links.</td>
+                    <th>name</th>
+                    <th>url</th>
                 </tr>
+                </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($links as $link)
 
-            </tbody>
-        </table>
+                    <tr>
+                        <td>
+                            @include('guest.components.link', [
+                                'name'  => $link->name,
+                                'href'  => route('guest.portfolio.link.show', [$owner, $link->slug]),
+                                'class' => $link->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        </td>
+                        <td>
+                            @include('guest.components.link', [
+                                'name'   => $link->url,
+                                'href'   => $link->url,
+                                'target' => '_blank',
+                            ])
+                        </td>
+                    </tr>
 
-        {!! $links->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="2">There are no links.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $links->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

@@ -32,59 +32,61 @@
         @include('guest.components.disclaimer')
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-            <thead>
-            <tr>
-                <th>name</th>
-                <th>artist</th>
-                <th>year</th>
-            </tr>
-            </thead>
-            <?php /*
-            <tfoot>
-            <tr>
-                <th>name</th>
-                <th>artist</th>
-                <th>year</th>
-            </tr>
-            </tr>
-            </tfoot>
-            */ ?>
-            <tbody>
-
-            @forelse ($arts as $art)
-
+            <table class="table guest-table {{ $guestTableClasses ?? '' }}">
+                <thead>
                 <tr>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'  => $art->name,
-                            'href'  => route('guest.portfolio.art.show', [$owner, $art->slug]),
-                            'class' => $art->featured ? 'has-text-weight-bold' : ''
-                        ])
-                    </td>
-                    <td>
-                        {!! $art->artist !!}
-                    </td>
-                    <td class="has-text-centered">
-                        {!! $art->year !!}
-                    </td>
+                    <th>name</th>
+                    <th>artist</th>
+                    <th>year</th>
                 </tr>
-
-            @empty
-
+                </thead>
+                <?php /*
+                <tfoot>
                 <tr>
-                    <td colspan="3">There is no art.</td>
+                    <th>name</th>
+                    <th>artist</th>
+                    <th>year</th>
                 </tr>
+                </tr>
+                </tfoot>
+                */ ?>
+                <tbody>
 
-            @endforelse
+                @forelse ($arts as $art)
 
-            </tbody>
-        </table>
+                    <tr>
+                        <td>
+                            @include('guest.components.link', [
+                                'name'  => $art->name,
+                                'href'  => route('guest.portfolio.art.show', [$owner, $art->slug]),
+                                'class' => $art->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        </td>
+                        <td>
+                            {!! $art->artist !!}
+                        </td>
+                        <td class="has-text-centered">
+                            {!! $art->year !!}
+                        </td>
+                    </tr>
 
-        {!! $arts->links('vendor.pagination.bulma') !!}
+                @empty
 
+                    <tr>
+                        <td colspan="3">There is no art.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            {!! $arts->links('vendor.pagination.bulma') !!}
+
+        </div>
     </div>
 
 @endsection

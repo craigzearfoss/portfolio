@@ -247,7 +247,7 @@
                                 <div class="columns">
                                     <div class="column is-6">
 
-                                        <table>
+                                        <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                                             <tbody>
                                             <tr>
                                                 <td><strong>{!! !empty($application->phone_label) ? $applcation->phone_label : 'phone' !!}</strong></td>
@@ -263,7 +263,7 @@
                                     </div>
                                     <div class="column is-6">
 
-                                        <table>
+                                        <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                                             <tbody>
                                             <tr>
                                                 <td><strong>{!! !empty($application->email_label) ?$application->email_label : 'email' !!}</strong></td>

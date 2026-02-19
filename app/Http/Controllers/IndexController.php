@@ -17,8 +17,6 @@ class IndexController extends BaseController
     public function __construct(PermissionService $permissionService, Request $request)
     {
         parent::__construct($permissionService);
-
-        $this->initialize();
     }
 
     public function about(): View

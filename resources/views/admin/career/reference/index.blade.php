@@ -40,30 +40,15 @@
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.reference.index') ])
     @endif
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        @if($pagination_top)
-            {!! $references->links('vendor.pagination.bulma') !!}
-        @endif
+            @if($pagination_top)
+                {!! $references->links('vendor.pagination.bulma') !!}
+            @endif
 
-        <table class="table admin-table">
-            <thead>
-            <tr>
-                @if(!empty($admin->root))
-                    <th>owner</th>
-                @endif
-                <th>name</th>
-                <th>relation</th>
-                <th>phone</th>
-                <th>email</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-
-            @if(!empty($bottom_column_headings))
-                <tfoot>
+            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                <thead>
                 <tr>
                     @if(!empty($admin->root))
                         <th>owner</th>
@@ -76,104 +61,121 @@
                     <th class="has-text-centered">disabled</th>
                     <th>actions</th>
                 </tr>
-                </tfoot>
+                </thead>
+
+                @if(!empty($bottom_column_headings))
+                    <tfoot>
+                    <tr>
+                        @if(!empty($admin->root))
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>relation</th>
+                        <th>phone</th>
+                        <th>email</th>
+                        <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
+                <tbody>
+
+                @forelse ($references as $reference)
+
+                    <tr data-id="{{ $reference->id }}">
+                        @if($admin->root)
+                            <td data-field="owner.username" style="white-space: nowrap;">
+                                {{ $reference->owner->username ?? '' }}
+                            </td>
+                        @endif
+                        <td data-field="name" style="white-space: nowrap;">
+                            {!! $reference->name !!}
+                        </td>
+                        <td data-field="relation">
+                            {!! $reference->relation !!}
+                        </td>
+                        <td data-field="name" style="white-space: nowrap;">
+                            {!! $reference->phone !!}
+                        </td>
+                        <td data-field="name" style="white-space: nowrap;">
+                            {!! $reference->email !!}
+                        </td>
+                        <td data-field="public" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $reference->public ])
+                        </td>
+                        <td data-field="disabled" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $reference->disabled ])
+                        </td>
+                        <td class="is-1">
+
+                            <div class="action-button-panel">
+
+                                @if(canRead(PermissionEntityTypes::RESOURCE, $reference, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'show',
+                                        'href'  => route('admin.career.reference.show', $reference),
+                                        'icon'  => 'fa-list'
+                                    ])
+                                @endif
+
+                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $reference, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'edit',
+                                        'href'  => route('admin.career.reference.edit', $reference),
+                                        'icon'  => 'fa-pen-to-square'
+                                    ])
+                                @endif
+
+                                @if (!empty($reference->link))
+                                    @include('admin.components.link-icon', [
+                                        'title'  => !empty($reference->link_name) ? $reference->link_name : 'link',
+                                        'href'   => $reference->link,
+                                        'icon'   => 'fa-external-link',
+                                        'target' => '_blank'
+                                    ])
+                                @else
+                                    @include('admin.components.link-icon', [
+                                        'title'    => 'link',
+                                        'icon'     => 'fa-external-link',
+                                        'disabled' => true
+                                    ])
+                                @endif
+
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $reference, $admin))
+                                    <form class="delete-resource" action="{!! route('admin.career.reference.destroy', $reference) !!}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        @include('admin.components.button-icon', [
+                                            'title' => 'delete',
+                                            'class' => 'delete-btn',
+                                            'icon'  => 'fa-trash'
+                                        ])
+                                    </form>
+                                @endif
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                @empty
+
+                    <tr>
+                        <td colspan="{{ $admin->root ? '8' : '7' }}">There are no references.</td>
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+            </table>
+
+            @if($pagination_bottom)
+                {!! $references->links('vendor.pagination.bulma') !!}
             @endif
 
-            <tbody>
-
-            @forelse ($references as $reference)
-
-                <tr data-id="{{ $reference->id }}">
-                    @if($admin->root)
-                        <td data-field="owner.username" style="white-space: nowrap;">
-                            {{ $reference->owner->username ?? '' }}
-                        </td>
-                    @endif
-                    <td data-field="name" style="white-space: nowrap;">
-                        {!! $reference->name !!}
-                    </td>
-                    <td data-field="relation">
-                        {!! $reference->relation !!}
-                    </td>
-                    <td data-field="name" style="white-space: nowrap;">
-                        {!! $reference->phone !!}
-                    </td>
-                    <td data-field="name" style="white-space: nowrap;">
-                        {!! $reference->email !!}
-                    </td>
-                    <td data-field="public" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reference->public ])
-                    </td>
-                    <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reference->disabled ])
-                    </td>
-                    <td class="is-1">
-
-                        <div class="action-button-panel">
-
-                            @if(canRead(PermissionEntityTypes::RESOURCE, $reference, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'show',
-                                    'href'  => route('admin.career.reference.show', $reference),
-                                    'icon'  => 'fa-list'
-                                ])
-                            @endif
-
-                            @if(canUpdate(PermissionEntityTypes::RESOURCE, $reference, $admin))
-                                @include('admin.components.link-icon', [
-                                    'title' => 'edit',
-                                    'href'  => route('admin.career.reference.edit', $reference),
-                                    'icon'  => 'fa-pen-to-square'
-                                ])
-                            @endif
-
-                            @if (!empty($reference->link))
-                                @include('admin.components.link-icon', [
-                                    'title'  => !empty($reference->link_name) ? $reference->link_name : 'link',
-                                    'href'   => $reference->link,
-                                    'icon'   => 'fa-external-link',
-                                    'target' => '_blank'
-                                ])
-                            @else
-                                @include('admin.components.link-icon', [
-                                    'title'    => 'link',
-                                    'icon'     => 'fa-external-link',
-                                    'disabled' => true
-                                ])
-                            @endif
-
-                            @if(canDelete(PermissionEntityTypes::RESOURCE, $reference, $admin))
-                                <form class="delete-resource" action="{!! route('admin.career.reference.destroy', $reference) !!}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    @include('admin.components.button-icon', [
-                                        'title' => 'delete',
-                                        'class' => 'delete-btn',
-                                        'icon'  => 'fa-trash'
-                                    ])
-                                </form>
-                            @endif
-
-                        </div>
-
-                    </td>
-                </tr>
-
-            @empty
-
-                <tr>
-                    <td colspan="{{ $admin->root ? '8' : '7' }}">There are no references.</td>
-                </tr>
-
-            @endforelse
-
-            </tbody>
-        </table>
-
-        @if($pagination_bottom)
-            {!! $references->links('vendor.pagination.bulma') !!}
-        @endif
-
+        </div>
     </div>
 
 @endsection
