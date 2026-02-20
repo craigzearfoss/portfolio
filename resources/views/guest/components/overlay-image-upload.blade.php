@@ -9,14 +9,14 @@
         @csrf
 
         @if(!empty($maxFileSize))
-            @include('admin.components.form-hidden', [
+            @include('guest.components.form-hidden', [
                 'type' => 'hidden',
                 'name' => 'MAX_FILE_SIZE',
                 'value' => 1000 * $maxFileSize
             ])
         @endif
 
-        @include('admin.components.form-image-upload', [
+        @include('guest.components.form-image-upload', [
             'image'   => $file ?? '',
             'credit'  => $credit ?? '',
             'source'  => $source ?? '',

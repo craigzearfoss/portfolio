@@ -7,7 +7,7 @@
 <div class="field">
     @if(isset($label) && ($label === '') )
     @else
-        <label class="label">{!! $label ?? $name ?? '' !!}</label>
+        <label class="label" for="{{ $id }}">{!! $label ?? $name ?? '' !!}</label>
     @endif
     <div class="select">
         <select

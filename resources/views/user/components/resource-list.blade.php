@@ -27,10 +27,10 @@
 
             <li class="list-item">
 
-                @include('admin.components.link', [
+                @include('user.components.link', [
                     'name'  => $resource->plural,
-                    'href'  => Route::has('admin.'.$resourceType.'.'.$resource->name.'.index')
-                                   ? route('admin.'.$resourceType.'.'.$resource->name.'.index', (isRootAdmin() ? [ 'owner_id' => $owner->id ?? '' ] : []))
+                    'href'  => Route::has('user.'.$resourceType.'.'.$resource->name.'.index')
+                                   ? route('user.'.$resourceType.'.'.$resource->name.'.index', (isRootAdmin() ? [ 'owner_id' => $owner->id ?? '' ] : []))
                                    : null,
                     'class' => 'list-item',
                 ])

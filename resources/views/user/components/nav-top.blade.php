@@ -29,7 +29,7 @@
         </span>
     </span>
 @else
-    @include('admin.components.nav-button', [
+    @include('user.components.nav-button', [
         'name'       => $name,
         'href'       => $href,
         'class'      => $classes,

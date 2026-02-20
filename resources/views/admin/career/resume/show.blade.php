@@ -194,7 +194,7 @@
                                     'external' => true,
                                 ])
 
-                                @include('admin.components.show-row-settings', [
+                                @include('admin.components.show-row-visibility', [
                                     'resource' => $resume,
                                 ])
 

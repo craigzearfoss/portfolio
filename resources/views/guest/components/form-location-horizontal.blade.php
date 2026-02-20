@@ -8,7 +8,7 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{!! $label ?? 'location' !!}</label>
+        <label class="label" for="inputStreet">{!! $label ?? 'location' !!}</label>
     </div>
     <div class="field-body">
 
@@ -35,7 +35,7 @@ if (!empty($style)) {
 
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label"></label>
+        <label class="label" for="inputStreet2"></label>
     </div>
     <div class="field-body">
 
@@ -62,11 +62,11 @@ if (!empty($style)) {
 
 <div class="field is-horizontal mb-0">
     <div class="field-label mb-2">
-        <label class="label" style="min-width: 10em !important;"></label>
+        <label class="label" for="inputCity" style="min-width: 10em !important;"></label>
     </div>
     <div class="field-body has-text-left">
 
-        <div class="mb-0 mr-2 mb-2">
+        <div class="mr-2 mb-2">
             <input class="input {!! $class !!} @error('role') is-invalid @enderror"
                    type="text"
                    id="inputCity"
@@ -126,7 +126,7 @@ if (!empty($style)) {
 
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label" style="min-width: 10em !important;"></label>
+        <label class="label" for="inputCountry_id" style="min-width: 10em !important;"></label>
     </div>
     <div class="field-body">
 

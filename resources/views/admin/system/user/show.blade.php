@@ -38,153 +38,155 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
+
+            @include('admin.components.show-row', [
+                'name'  => 'id',
+                'value' => $thisUser->id
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'user name',
+                'value' => $thisUser->username
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $thisUser->name
+            ])
+
+            @php
+                $userTeamListItems = [];
+                foreach ($thisUser->teams as $userTeam) {
+                    $userTeamListItems[] = view('admin.components.link', [
+                        'name' => $userTeam->name,
+                        'href' => route('admin.system.user-team.show', $userTeam)
+                    ]) . ($userTeam->id == $thisUser->team->id ? ' (current team)' : '');
+                }
+            @endphp
+            @include('user.components.show-row', [
+                'name'  => 'teams',
+                'value' => !empty($userTeamListItems) ? implode('<br>', $userTeamListItems) : '',
+            ])
+
+            @php
+                $userGroupListItems = [];
+                foreach ($thisUser->groups as $userGroup) {
+                    $userGroupListItems[] = view('admin.components.link', [
+                        'name' => $userGroup->name,
+                        'href' => route('admin.system.user-group.show', $userGroup)
+                    ]) . (!empty($userGroup->team) ? ' (' . $userGroup->team->name . ')' : '');
+                }
+            @endphp
+            @include('admin.components.show-row', [
+                'name'  => 'groups',
+                'value' => !empty($userGroupListItems) ? implode('<br>', $userGroupListItems) : '',
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'salutation',
+                'value' => $thisUser->salutation
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'title',
+                'value' => $thisUser->title
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'role',
+                'value' => $thisUser->role
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'employer',
+                'value' => $thisUser->employer
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'location',
+                'value' => formatLocation([
+                               'street'          => $thisUser->street,
+                               'street2'         => $thisUser->street2,
+                               'city'            => $thisUser->city,
+                               'state'           => $thisUser->state->code ?? '',
+                               'zip'             => $thisUser->zip,
+                               'country'         => $thisUser->country->iso_alpha3 ?? '',
+                               'streetSeparator' => '<br>',
+                           ])
+            ])
+
+            @include('admin.components.show-row-coordinates', [
+                'resource' => $thisUser
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'phone',
+                'value' => $thisUser->phone
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'email',
+                'value' => $thisUser->email
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'email verified at',
+                'value' => longDateTime($thisUser->email_verified_at)
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'birthday',
+                'value' => longDate($thisUser->birthday),
+            ])
+
+            @include('admin.components.show-row-link', [
+                'name'   => !empty($thisUser->link_name) ? $thisUser->link_name : 'link',
+                'href'   => $thisUser->link,
+                'target' => '_blank'
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $thisUser->description
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'bio',
+                'value' => $thisUser->bio
+            ])
+
+            @include('admin.components.show-row-images', [
+                'resource' => $thisUser,
+                'download' => true,
+                'external' => true,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'status',
+                'value' => \App\Models\System\User::statusName($thisUser->status) ?? ''
+            ])
+
+            @include('admin.components.show-row-visibility', [
+                'resource' => $thisUser,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($thisUser->created_at)
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($thisUser->updated_at)
+            ])
+
         </div>
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $thisUser->id
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'user name',
-            'value' => $thisUser->username
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $thisUser->name
-        ])
-
-        @php
-            $userTeamListItems = [];
-            foreach ($thisUser->teams as $userTeam) {
-                $userTeamListItems[] = view('admin.components.link', [
-                    'name' => $userTeam->name,
-                    'href' => route('admin.system.user-team.show', $userTeam)
-                ]) . ($userTeam->id == $thisUser->team->id ? ' (current team)' : '');
-            }
-        @endphp
-        @include('user.components.show-row', [
-            'name'  => 'teams',
-            'value' => !empty($userTeamListItems) ? implode('<br>', $userTeamListItems) : '',
-        ])
-
-        @php
-            $userGroupListItems = [];
-            foreach ($thisUser->groups as $userGroup) {
-                $userGroupListItems[] = view('admin.components.link', [
-                    'name' => $userGroup->name,
-                    'href' => route('admin.system.user-group.show', $userGroup)
-                ]) . (!empty($userGroup->team) ? ' (' . $userGroup->team->name . ')' : '');
-            }
-        @endphp
-        @include('admin.components.show-row', [
-            'name'  => 'groups',
-            'value' => !empty($userGroupListItems) ? implode('<br>', $userGroupListItems) : '',
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'salutation',
-            'value' => $thisUser->salutation
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'title',
-            'value' => $thisUser->title
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'role',
-            'value' => $thisUser->role
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'employer',
-            'value' => $thisUser->employer
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'location',
-            'value' => formatLocation([
-                           'street'          => $thisUser->street,
-                           'street2'         => $thisUser->street2,
-                           'city'            => $thisUser->city,
-                           'state'           => $thisUser->state->code ?? '',
-                           'zip'             => $thisUser->zip,
-                           'country'         => $thisUser->country->iso_alpha3 ?? '',
-                           'streetSeparator' => '<br>',
-                       ])
-        ])
-
-        @include('admin.components.show-row-coordinates', [
-            'resource' => $thisUser
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'phone',
-            'value' => $thisUser->phone
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'email',
-            'value' => $thisUser->email
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'email verified at',
-            'value' => longDateTime($thisUser->email_verified_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'birthday',
-            'value' => longDate($thisUser->birthday),
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($thisUser->link_name) ? $thisUser->link_name : 'link',
-            'href'   => $thisUser->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $thisUser->description
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'bio',
-            'value' => $thisUser->bio
-        ])
-
-        @include('admin.components.show-row-images', [
-            'resource' => $thisUser,
-            'download' => true,
-            'external' => true,
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'status',
-            'value' => \App\Models\System\User::statusName($thisUser->status) ?? ''
-        ])
-
-        @include('admin.components.show-row-settings', [
-            'resource' => $thisUser,
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($thisUser->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($thisUser->updated_at)
-        ])
-
     </div>
 
 @endsection

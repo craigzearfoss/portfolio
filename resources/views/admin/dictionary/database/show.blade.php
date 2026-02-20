@@ -138,7 +138,7 @@
             'filename' => getFileSlug($database->name . '-thumb', $database->thumbnail)
         ])
 
-        @include('admin.components.show-row-settings', [
+        @include('admin.components.show-row-visibility', [
             'resource' => $database,
         ])
 

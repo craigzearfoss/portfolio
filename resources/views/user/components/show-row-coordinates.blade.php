@@ -1,20 +1,38 @@
 @php
-    $styles = [];
-    if (!empty($width)) $styles[] = 'width: '. $width . ';';
-    if (!empty($minWidth)) $styles[] = 'min-width: '. $minWidth . ';';
-    if (!empty($display)) $styles[] = 'display: '. $display . ';';
-    if (!empty($whiteSpace)) $styles[] = 'white-space: '. $whiteSpace . ';';
+    $classes = !empty($class)
+        ? (is_array($class) ? $class : explode(' ', $class))
+        : [];
+    $classes[] ='property-list';
+    $classes[] ='columns';
 
-    $style = !empty($styles) ? ('style="' . implode('; ', $styles) . ';"') : '';
-    $class = $class ?? '';
+    $styles = !empty($style)
+        ? (is_array($style) ? $style : explode(';', $style))
+        : [];
+
+    // get styles for defined properties
+    $styleArray = [];
+    if (!empty($width)) $styleArray[] = 'width: '. $width . ';';
+    if (!empty($minWidth)) $styleArray[] = 'min-width: '. $minWidth . ';';
+    if (!empty($display)) $styleArray[] = 'display: '. $display . ';';
+    if (!empty($whiteSpace)) $styleArray[] = 'white-space: '. $whiteSpace . ';';
+    if (!empty($styleArray)) {
+        $styles = array_merge($styles, $styleArrayt);
+    }
     $resource = $resource ?? null;
 @endphp
-
 @if($resource->hasAttribute('latitude') || $resource->hasAttribute('longitude'))
 
-    <div class="columns {!! $class !!}" {!! $style !!}>
-        <div class="column is-2" style="min-width: 6rem;"><strong>coordinates</strong></div>
-        <div class="column is-10 pl-0">
+    <div @if(!empty($classes))
+         class="{!! implode(' ', $classes) !!}"
+         @endif
+         @if(!empty($styles))
+             style="{!! implode(' ', $styles) !!}"
+         @endif
+    >
+        <div class="column is-2 label">
+            <strong>coordinates</strong>
+        </div>
+        <div class="column is-10 value">
             <div>
 
                 <div class="container" style="display: flex; gap: 1em;">

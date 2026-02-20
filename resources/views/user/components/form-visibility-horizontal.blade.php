@@ -59,7 +59,7 @@ if (!empty($style)) {
                 ])
 
                 <div style="display: inline-block; width: 10em;">
-                    <label class="label" style="display: inline-block !important;">sequence</label>
+                    <label class="label" for="inputSequence" style="display: inline-block !important;">sequence</label>
                     <span class="control ">
                         <input class="input"
                                style="margin-top: -4px;"

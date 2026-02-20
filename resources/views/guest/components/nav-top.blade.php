@@ -5,7 +5,7 @@
 @endphp
 @if($menuItems = $menuService->topMenu())
 
-    <nav id="navbar-main" class="navbar is-fixed-top has-background-success">
+    <nav id="navbar-main" class="navbar guest is-fixed-top">
         <div class="navbar-brand">
 
             @include('guest.components.nav-link-top', [
@@ -53,7 +53,7 @@
                     <?php /* user dropdown menu at the top right */ ?>
                     @if($menuItem->name == 'user-dropdown')
 
-                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
+                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
 
                             @php
                                 $name = '';

@@ -1,7 +1,7 @@
 @php
     $skills = $skills ?? [];
 @endphp
-<table class="table admin-table {{ $adminTableClasses ?? '' }}">
+<table class="table admin-table skill-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
     <th>actions</th>
@@ -11,10 +11,9 @@
     @foreach($skills as $skill)
 
         <tr>
-            <td>
+            <td data-field="name">
                 {!! $skill->name !!}
             </td>
-            <td>
             <td class="is-1" style="white-space: nowrap;">
 
                 <a title="show" class="button is-small px-1 py-0"

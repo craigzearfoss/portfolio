@@ -20,7 +20,7 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{!! empty($alt) ? 'email' : 'alt email' !!}</label>
+        <label class="label" for="{{ $emailId }}">{!! empty($alt) ? 'email' : 'alt email' !!}</label>
     </div>
     <div class="field-body">
         <div class="content mb-0 mr-2">
@@ -52,7 +52,7 @@ if (!empty($style)) {
                                    name="{!! $emailLabelName !!}"
                                    placeholder="label"
                                    value="{!! $label !!}"
-                                   maxlength="255"
+                                   maxlength="100"
                             >
                         </div>
                     </div>

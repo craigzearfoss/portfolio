@@ -4,12 +4,12 @@
 <div class="field">
     <label class="label">@TODO: {!! $label ?? $name ?? '' !!}</label>
     <div class="control">
-        <label class="radio">
-            <input type="radio" name="answer" />
+        <label class="radio" for="inputAnswerYes">
+            <input type="radio" id="inputAnswerYes" name="answer" />
             Yes
         </label>
-        <label class="radio">
-            <input type="radio" name="answer" />
+        <label class="radio" for="inputAnswerNo">
+            <input type="radio" id="inputAnswerNo" name="answer" />
             No
         </label>
     </div>

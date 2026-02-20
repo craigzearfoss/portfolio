@@ -42,8 +42,9 @@
 
 @section('content')
 
-    <section class="section p-0">
-        <div class="container show-container">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
+
             <div class="columns is-12 is-variable">
                 <div class="column is-12-tablet">
 
@@ -203,7 +204,7 @@
                                     'external' => true,
                                 ])
 
-                                @include('admin.components.show-row-settings', [
+                                @include('admin.components.show-row-visibility', [
                                     'resource' => $recipe,
                                 ])
 
@@ -287,7 +288,7 @@
 
                                 <hr class="navbar-divider">
 
-                                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                                <table class="table admin-table recipe-instruction-table {{ $adminTableClasses ?? '' }}">
                                     <tbody>
 
                                     @foreach($recipe->steps as $step)
@@ -312,8 +313,9 @@
                     </div>
 
                 </div>
+
             </div>
         </div>
-    </section>
+    </div>
 
 @endsection

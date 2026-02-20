@@ -42,132 +42,134 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $course->id
-        ])
-
-        @if($admin->root)
             @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $course->owner->username
+                'name'  => 'id',
+                'value' => $course->id
             ])
-        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $course->name
-        ])
+            @if($admin->root)
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $course->owner->username
+                ])
+            @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $course->slug
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $course->name
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $course->featured
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $course->slug
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $course->summary
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'featured',
+                'checked' => $course->featured
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $course->year
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $course->summary
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'completed',
-            'checked' => $course->completed
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'year',
+                'value' => $course->year
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'completion date',
-            'value' => longDate($course->completion_date)
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'completed',
+                'checked' => $course->completed
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'duration hours',
-            'value' => $course->duration_hours
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'completion date',
+                'value' => longDate($course->completion_date)
+            ])
 
-        @include('admin.components.show-row', [
-            'name' => 'academy',
-            'value' => view('admin.components.link', [
-                'name' => $course->academy['name'] ?? '',
-                'href' => !empty($course->academy)
-                                ? route('admin.portfolio.academy.show', $course->academy)
-                                : ''
-                            ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'duration hours',
+                'value' => $course->duration_hours
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'school',
-            'value' => $course->school
-        ])
+            @include('admin.components.show-row', [
+                'name' => 'academy',
+                'value' => view('admin.components.link', [
+                    'name' => $course->academy['name'] ?? '',
+                    'href' => !empty($course->academy)
+                                    ? route('admin.portfolio.academy.show', $course->academy)
+                                    : ''
+                                ])
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'instructor',
-            'value' => $course->instructor
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'school',
+                'value' => $course->school
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sponsor',
-            'value' => $course->sponsor
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'instructor',
+                'value' => $course->instructor
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $course->notes
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'sponsor',
+                'value' => $course->sponsor
+            ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($course->link_name) ? $course->link_name : 'link',
-            'href'   => $course->link,
-            'target' => '_blank'
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $course->notes
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $course->description
-        ])
+            @include('admin.components.show-row-link', [
+                'name'   => !empty($course->link_name) ? $course->link_name : 'link',
+                'href'   => $course->link,
+                'target' => '_blank'
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => $course->disclaimer
-                       ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $course->description
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $course,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => $course->disclaimer
+                           ])
+            ])
 
-        @include('admin.components.show-row-settings', [
-            'resource' => $course,
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $course,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($course->created_at)
-        ])
+            @include('admin.components.show-row-visibility', [
+                'resource' => $course,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($course->updated_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($course->created_at)
+            ])
 
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($course->updated_at)
+            ])
+
+        </div>
     </div>
 
 @endsection

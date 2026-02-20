@@ -23,7 +23,7 @@
 
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">
+        <label class="label" for="inputImage">
             {!! $name !!}
             @if (!empty($src))
                 <a title="preview"
@@ -65,6 +65,7 @@
 
     <div class="field is-horizontal">
         <div class="field-label">
+            <?php /** @TODO: add "for" property to label element */ ?>
             <label class="label"></label>
         </div>
         <div class="field-body">

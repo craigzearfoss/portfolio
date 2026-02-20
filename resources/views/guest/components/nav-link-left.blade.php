@@ -23,7 +23,7 @@
         {!! $name ?? '' !!}
     </span>
 @else
-    @include('admin.components.nav-button', [
+    @include('guest.components.nav-button', [
         'name'       => $name ?? '',
         'href'       => $href,
         'class'      => $classes,

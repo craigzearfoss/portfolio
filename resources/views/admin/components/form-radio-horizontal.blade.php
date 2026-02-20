@@ -8,12 +8,12 @@
     <div class="field-body">
         <div class="field is-narrow">
             <div class="control">
-                <label class="radio">
-                    <input type="radio" name="member">
+                <label class="radio" for="inputMemberYes">
+                    <input type="radio" id="inputMemberYes" name="member">
                     Yes
                 </label>
-                <label class="radio">
-                    <input type="radio" name="member">
+                <label class="radio" for="inputMemberNo">
+                    <input type="radio" id="inputMemberNo" name="member">
                     No
                 </label>
 

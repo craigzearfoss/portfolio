@@ -78,7 +78,7 @@
             ])
 
             <?php /*
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'   => old('public') ?? $message->public,
                 'readonly' => old('readonly') ?? $message->readonly,
                 'root'     => old('root') ?? $message->root,

@@ -3,7 +3,7 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <label class="label">{!! $label ?? $name ?? '' !!}</label>
+        <label class="label" for="{{ $id }}">{!! $label ?? $name ?? '' !!}</label>
     </div>
     <div class="field-body">
         <div class="field">

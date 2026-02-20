@@ -29,9 +29,8 @@
 
 @section('content')
 
-    <div style="display: flex;">
-
-        <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
             {!! $words->links('vendor.pagination.bulma') !!}
 

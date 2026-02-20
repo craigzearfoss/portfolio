@@ -14,7 +14,7 @@ if (!empty($style)) {
 
             <div class="checkbox-container card form-container p-4">
 
-                @include('guest.components.form-checkbox', [
+                @include('admin.components.form-checkbox', [
                     'name'            => 'public',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -22,7 +22,7 @@ if (!empty($style)) {
                     'message'         => $message ?? '',
                 ])
 
-                @include('guest.components.form-checkbox', [
+                @include('admin.components.form-checkbox', [
                     'name'            => 'readonly',
                     'label'           => 'read-only',
                     'value'           => 1,
@@ -32,7 +32,7 @@ if (!empty($style)) {
                 ])
 
                 @if(isRootAdmin())
-                    @include('guest.components.form-checkbox', [
+                    @include('admin.components.form-checkbox', [
                         'name'            => 'root',
                         'value'           => 1,
                         'unchecked_value' => 0,
@@ -42,7 +42,7 @@ if (!empty($style)) {
                     ])
                 @endif
 
-                @include('guest.components.form-checkbox', [
+                @include('admin.components.form-checkbox', [
                     'name'            => 'disabled',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -50,7 +50,7 @@ if (!empty($style)) {
                     'message'         => $message ?? '',
                 ])
 
-                @include('guest.components.form-checkbox', [
+                @include('admin.components.form-checkbox', [
                     'name'            => 'demo',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -59,7 +59,7 @@ if (!empty($style)) {
                 ])
 
                 <div style="display: inline-block; width: 10em;">
-                    <label class="label" style="display: inline-block !important;">sequence</label>
+                    <label class="label" for="inputSequence" style="display: inline-block !important;">sequence</label>
                     <span class="control ">
                         <input class="input"
                                style="margin-top: -4px;"

@@ -22,7 +22,7 @@
 
                 <div class="field is-horizontal" style="width: 10em;">
                     <div class="field-label" style="display: inline-block; width: 2.5em;">
-                        <label class="label">level</label>
+                        <label class="label" for="inputMenu_level">level</label>
                     </div>
                     <div class="field-body mb-1" style="display:  inline-block;">
                         <div class="field">

@@ -35,123 +35,125 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $userGroup->id
-        ])
-
-        @if($admin->root)
             @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $userGroup->owner->username
+                'name'  => 'id',
+                'value' => $userGroup->id
             ])
-        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'team',
-            'value' => $userGroup->team->name ?? ''
-        ])
+            @if($admin->root)
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $userGroup->owner->username
+                ])
+            @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $userGroup->name
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'team',
+                'value' => $userGroup->team->name ?? ''
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $userGroup->slug
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $userGroup->name
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $userGroup->abbreviation
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $userGroup->slug
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $userGroup->description
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'abbreviation',
+                'value' => $userGroup->abbreviation
+            ])
 
-        @include('admin.components.show-row-settings', [
-            'resource' => $userGroup,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $userGroup->description
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($userGroup->created_at)
-        ])
+            @include('admin.components.show-row-visibility', [
+                'resource' => $userGroup,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($userGroup->updated_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($userGroup->created_at)
+            ])
 
-        <div class="card p-4">
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($userGroup->updated_at)
+            ])
 
-            <h2 class="subtitle mb-0">
-                Group Members
-            </h2>
-            <hr class="m-1">
+            <div class="card p-4">
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <th>username</th>
-                <th>name</th>
-                <th>email</th>
-                <th></th>
-                </thead>
-                <tbody>
+                <h2 class="subtitle mb-0">
+                    Group Members
+                </h2>
+                <hr class="m-1">
 
-                @if(!empty($userGroup->members))
+                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                    <thead>
+                    <th>username</th>
+                    <th>name</th>
+                    <th>email</th>
+                    <th></th>
+                    </thead>
+                    <tbody>
 
-                    @foreach($userGroup->members as $member)
+                    @if(!empty($userGroup->members))
+
+                        @foreach($userGroup->members as $member)
+
+                            <tr>
+                                <td>
+                                    {!! $member->username !!}
+                                </td>
+                                <td>
+                                    {!! $member->name !!}
+                                </td>
+                                <td>
+                                    {!! $member->email !!}
+                                </td>
+                                <td>
+                                    <a title="show" class="button is-small px-1 py-0"
+                                       href="{!! route('admin.user.show', $member->id) !!}">
+                                        <i class="fa-solid fa-list"></i>
+                                    </a>
+
+                                    <a title="edit" class="button is-small px-1 py-0"
+                                       href="{!! route('admin.user.edit', $member->id) !!}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        @endforeach
+
+                    @else
 
                         <tr>
-                            <td>
-                                {!! $member->username !!}
-                            </td>
-                            <td>
-                                {!! $member->name !!}
-                            </td>
-                            <td>
-                                {!! $member->email !!}
-                            </td>
-                            <td>
-                                <a title="show" class="button is-small px-1 py-0"
-                                   href="{!! route('admin.user.show', $member->id) !!}">
-                                    <i class="fa-solid fa-list"></i>
-                                </a>
-
-                                <a title="edit" class="button is-small px-1 py-0"
-                                   href="{!! route('admin.user.edit', $member->id) !!}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                            <td colspan="3">
+                                No members found.
                             </td>
                         </tr>
 
-                    @endforeach
+                    @endif
 
-                @else
+                    </tbody>
+                </table>
 
-                    <tr>
-                        <td colspan="3">
-                            No members found.
-                        </td>
-                    </tr>
-
-                @endif
-
-                </tbody>
-            </table>
+            </div>
 
         </div>
-
     </div>
 
 @endsection

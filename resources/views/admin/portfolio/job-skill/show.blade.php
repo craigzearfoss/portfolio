@@ -33,98 +33,100 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $jobSkill->id
-        ])
-
-        @if($admin->root)
             @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $jobSkill->owner->username
+                'name'  => 'id',
+                'value' => $jobSkill->id
             ])
-        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'job',
-            'value' =>  view('admin.components.link', [
-                'name' => $jobSkill->job->name,
-                'href' => route('admin.portfolio.job.show', $jobSkill->job)
+            @if($admin->root)
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $jobSkill->owner->username
+                ])
+            @endif
+
+            @include('admin.components.show-row', [
+                'name'  => 'job',
+                'value' =>  view('admin.components.link', [
+                    'name' => $jobSkill->job->name,
+                    'href' => route('admin.portfolio.job.show', $jobSkill->job)
+                ])
             ])
-        ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'category',
-            'value' =>  view('admin.components.link', [
-                'name' => $jobSkill->category->name,
-                'href' => route('admin.dictionary.category.show', $jobSkill->job)
+            @include('admin.components.show-row', [
+                'name'  => 'category',
+                'value' =>  view('admin.components.link', [
+                    'name' => $jobSkill->category->name,
+                    'href' => route('admin.dictionary.category.show', $jobSkill->job)
+                ])
             ])
-        ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $jobSkill->name
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $jobSkill->name
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'level',
-            'value' => $jobSkill->level
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'level',
+                'value' => $jobSkill->level
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $jobSkill->summary
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $jobSkill->summary
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $jobSkill->notes
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $jobSkill->notes
+            ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($jobSkill->link_name) ? $jobSkill->link_name : 'link',
-            'href'   => $jobSkill->link,
-            'target' => '_blank'
-        ])
+            @include('admin.components.show-row-link', [
+                'name'   => !empty($jobSkill->link_name) ? $jobSkill->link_name : 'link',
+                'href'   => $jobSkill->link,
+                'target' => '_blank'
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $jobSkill->description
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $jobSkill->description
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => $jobSkill->disclaimer
-                       ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => $jobSkill->disclaimer
+                           ])
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $jobSkill,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $jobSkill,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row-settings', [
-            'resource' => $jobSkill,
-        ])
+            @include('admin.components.show-row-visibility', [
+                'resource' => $jobSkill,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($jobSkill->created_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($jobSkill->created_at)
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($jobSkill->updated_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($jobSkill->updated_at)
+            ])
 
+        </div>
     </div>
 
 @endsection

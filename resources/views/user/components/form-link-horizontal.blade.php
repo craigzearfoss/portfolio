@@ -8,7 +8,7 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label" style="min-width: 8em;">{!! $label ?? 'link' !!}</label>
+        <label class="label" for="inputLink" style="min-width: 8em;">{!! $label ?? 'link' !!}</label>
     </div>
     <div class="field-body">
 

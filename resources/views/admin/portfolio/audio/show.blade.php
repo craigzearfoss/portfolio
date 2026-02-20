@@ -42,157 +42,159 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $audio->id
-        ])
-
-        @if($admin->root)
             @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $audio->owner->username
+                'name'  => 'id',
+                'value' => $audio->id
             ])
-        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $audio->name
-        ])
+            @if($admin->root)
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $audio->owner->username
+                ])
+            @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $audio->slug
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $audio->name
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'parent',
-            'value' => !empty($audio->parent)
-                ? view('admin.components.link', [
-                        'name' => $audio->parent['name'] ?? '',
-                        'href' => route('admin.portfolio.audio.show', $audio->parent)
-                    ])
-                : ''
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $audio->slug
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $audio->featured
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'parent',
+                'value' => !empty($audio->parent)
+                    ? view('admin.components.link', [
+                            'name' => $audio->parent['name'] ?? '',
+                            'href' => route('admin.portfolio.audio.show', $audio->parent)
+                        ])
+                    : ''
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $audio->summary
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'featured',
+                'checked' => $audio->featured
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'full episode',
-            'checked' => $audio->full_episode
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $audio->summary
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'clip',
-            'checked' => $audio->clip
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'full episode',
+                'checked' => $audio->full_episode
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'podcast',
-            'checked' => $audio->podcast
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'clip',
+                'checked' => $audio->clip
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'source recording',
-            'checked' => $audio->source_recording
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'podcast',
+                'checked' => $audio->podcast
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'date',
-            'value' => longDate($audio->date)
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'source recording',
+                'checked' => $audio->source_recording
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $audio->year
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'date',
+                'value' => longDate($audio->date)
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'company',
-            'value' => $audio->company
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'year',
+                'value' => $audio->year
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'credit',
-            'value' => $audio->credit
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'company',
+                'value' => $audio->company
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'show',
-            'value' => $audio->show
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'credit',
+                'value' => $audio->credit
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'location',
-            'value' => $audio->location
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'show',
+                'value' => $audio->show
+            ])
 
-        @include('admin.components.show-row', [
-            'name'   => 'embed',
-            'value'  => $audio->embed,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'location',
+                'value' => $audio->location
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'audio url',
-            'value' => $audio->audio_url,
-        ])
+            @include('admin.components.show-row', [
+                'name'   => 'embed',
+                'value'  => $audio->embed,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $audio->notes
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'audio url',
+                'value' => $audio->audio_url,
+            ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
-            'href'   => $audio->link,
-            'target' => '_blank'
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $audio->notes
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $audio->description
-        ])
+            @include('admin.components.show-row-link', [
+                'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
+                'href'   => $audio->link,
+                'target' => '_blank'
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => $audio->disclaimer
-                       ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $audio->description
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $audio,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => $audio->disclaimer
+                           ])
+            ])
 
-        @include('admin.components.show-row-settings', [
-            'resource' => $audio,
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $audio,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($audio->created_at)
-        ])
+            @include('admin.components.show-row-visibility', [
+                'resource' => $audio,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($audio->updated_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($audio->created_at)
+            ])
 
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($audio->updated_at)
+            ])
+
+        </div>
     </div>
 
 @endsection

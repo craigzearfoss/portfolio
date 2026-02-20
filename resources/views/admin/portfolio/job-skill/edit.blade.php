@@ -151,7 +151,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? $jobSkill->public,
                 'readonly'    => old('readonly') ?? $jobSkill->readonly,
                 'root'        => old('root')     ?? $jobSkill->root,

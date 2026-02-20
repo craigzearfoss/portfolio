@@ -1,7 +1,7 @@
 @php
     $tasks = $tasks ?? [];
 @endphp
-<table class="table admin-table {{ $adminTableClasses ?? '' }}">
+<table class="table admin-table task-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>summary</th>
     <th>actions</th>
@@ -11,7 +11,7 @@
     @foreach($tasks as $task)
 
         <tr>
-            <td>
+            <td data-field="summary">
                 {{ $task->summary ?? '' }}
             </td>
             <td class="is-1" style="white-space: nowrap;">

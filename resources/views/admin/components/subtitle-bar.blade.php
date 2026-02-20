@@ -1,6 +1,6 @@
 <section class="hero is-hero-bar">
 
-    <div class="subtitle-bar hero-body p-3">
+    <div class="subtitle-bar hero-body">
         <div class="level">
 
             <div class="level-left" style="display: inline-block;">

@@ -20,7 +20,7 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{!! empty($alt) ? 'phone' : 'alt phone' !!}</label>
+        <label class="label" for="{{ $phoneId }}">{!! empty($alt) ? 'phone' : 'alt phone' !!}</label>
     </div>
     <div class="field-body">
         <div class="content mb-0 mr-2">

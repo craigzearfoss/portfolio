@@ -131,7 +131,7 @@
                 'name'      => 'year',
                 'value'     => old('year') ?? '',
                 'min'       => 1900,
-                'max'       => date('Y') + 1,
+                'max'       => intval(date('Y')) + 1,
                 'message'   => $message ?? '',
             ])
 
@@ -183,7 +183,7 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? 0,
                 'readonly'    => old('readonly') ?? 0,
                 'root'        => old('root')     ?? 0,

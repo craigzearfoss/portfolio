@@ -318,7 +318,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? $publication->public,
                 'readonly'    => old('readonly') ?? $publication->readonly,
                 'root'        => old('root')     ?? $publication->root,

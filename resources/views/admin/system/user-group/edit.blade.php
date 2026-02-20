@@ -114,7 +114,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? $userGroup->public,
                 'readonly'    => old('readonly') ?? $userGroup->readonly,
                 'root'        => old('root')     ?? $userGroup->root,

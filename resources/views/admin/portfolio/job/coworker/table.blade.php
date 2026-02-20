@@ -1,7 +1,7 @@
 @php
     $coworkers = $coworkers ?? [];
 @endphp
-<table class="table admin-table {{ $adminTableClasses ?? '' }}">
+<table class="table admin-table coworker-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
     <th style="min-width: 6em;">title</th>
@@ -21,16 +21,16 @@
                     'href' => route('admin.portfolio.job-coworker.show', $coworker)
                 ])
             </td>
-            <td data-field="featured" class="has-text-centered">
+            <td data-field="title">
                 {!! $coworker->title !!}
             </td>
-            <td>
+            <td data-field="level">
                 {!! $coworker->level !!}
             </td>
-            <td>
+            <td data-field="phone">
                 {!! $coworker->phone !!}
             </td>
-            <td>
+            <td data-field="email">
                 {!! $coworker->email !!}
             </td>
             <td class="is-1" style="white-space: nowrap;">

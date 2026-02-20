@@ -136,7 +136,7 @@
                 'menu_level' => old('meni_level') ?? $resource->menu_level,
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? $resource->public,
                 'readonly'    => old('readonly') ?? $resource->readonly,
                 'root'        => old('root')     ?? $resource->root,

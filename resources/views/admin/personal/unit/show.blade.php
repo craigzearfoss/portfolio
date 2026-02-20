@@ -35,69 +35,72 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
+
+            @include('admin.components.show-row', [
+                'name'  => 'id',
+                'value' => $unit->id
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $unit->name
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'abbreviation',
+                'value' => $unit->abbreviation
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'system',
+                'value' => $unit->system
+            ])
+
+            @include('admin.components.show-row-link', [
+                'name'   => 'link',
+                'href'   =>$unit->link,
+                'target' => '_blank'
+            ])
+
+            @include('admin.components.show-row-link', [
+                'name'   => !empty($unit->link_name) ? $unit->link_name : 'link',
+                'href'   => $unit->link,
+                'target' => '_blank'
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $unit->description
+            ])
+
+            @include('admin.components.show-row-images', [
+                'resource' => $unit,
+                'download' => true,
+                'external' => true,
+            ])
+
+            @include('admin.components.show-row-checkbox', [
+                'name'     => 'sequence',
+                'checked' => $unit->sequence,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($unit->created_at)
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($unit->updated_at)
+            ])
+
         </div>
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $unit->id
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $unit->name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $unit->abbreviation
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'system',
-            'value' => $unit->system
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   =>$unit->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($unit->link_name) ? $unit->link_name : 'link',
-            'href'   => $unit->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $unit->description
-        ])
-
-        @include('admin.components.show-row-images', [
-            'resource' => $unit,
-            'download' => true,
-            'external' => true,
-        ])
-
-        @include('admin.components.show-row-settings', [
-            'resource' => $unit,
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($unit->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($unit->updated_at)
-        ])
-
     </div>
 
 @endsection

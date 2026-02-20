@@ -100,7 +100,7 @@
             'value' => $event->description
         ])
 
-        @include('admin.components.show-row-settings', [
+        @include('admin.components.show-row-visibility', [
             'resource' => $event,
         ])
 

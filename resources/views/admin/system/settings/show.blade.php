@@ -25,7 +25,8 @@
 
 @section('content')
 
-    <div class="card pl-2 pr-2 pb-2">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
             <h2 class="subtitle mt-2 mb-1">.env settings</h2>
 
@@ -41,6 +42,7 @@
 
             </code>
 
+        </div>
     </div>
 
 @endsection

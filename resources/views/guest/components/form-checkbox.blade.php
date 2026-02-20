@@ -3,7 +3,7 @@
 @endphp
 <div class="field">
     <div class="control">
-        <label class="label">
+        <label class="label" for="{{ $id }}">
             @if(empty($nohidden))
                 <input type="hidden" name="{!! $name ?? 'name' !!}" value="{!! $unchecked_value ?? '0' !!}">
             @endif

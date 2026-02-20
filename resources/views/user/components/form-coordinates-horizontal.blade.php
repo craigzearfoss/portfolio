@@ -8,7 +8,7 @@ if (!empty($style)) {
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{!! $label ?? 'coordinates' !!}</label>
+        <label class="label" for="inputLatitude">{!! $label ?? 'coordinates' !!}</label>
     </div>
     <div class="field-body">
 

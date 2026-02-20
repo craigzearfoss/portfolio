@@ -21,7 +21,7 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        @if($label !== '-')<label class="label">{!! $label !!}</label> @endif
+        @if($label !== '-')<label class="label" for="{{ $id }}">{!! $label !!}</label> @endif
     </div>
     <div class="field-body">
         <div class="field">

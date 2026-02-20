@@ -78,7 +78,7 @@ class RecipeController extends BaseAdminController
         readGate(PermissionEntityTypes::RESOURCE, $recipe, $this->admin);
 
         list($prev, $next) = $recipe->prevAndNextPages(
-            $recipe['i'],
+            $recipe['id'],
             'admin.personal.recipe.show',
             $this->owner ?? null,
             [ 'name', 'asc' ]

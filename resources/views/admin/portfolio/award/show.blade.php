@@ -42,113 +42,115 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $award->id
-        ])
-
-        @if($admin->root)
             @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $award->owner->username
+                'name'  => 'id',
+                'value' => $award->id
             ])
-        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $award->name
-        ])
+            @if($admin->root)
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $award->owner->username
+                ])
+            @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'category',
-            'value' => $award->category
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $award->name
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $award->nominated_work
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'category',
+                'value' => $award->category
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $award->slug
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $award->nominated_work
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $award->featured
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $award->slug
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $award->summary
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'featured',
+                'checked' => $award->featured
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $award->year
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $award->summary
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'date received',
-            'value' => longDate($award->received)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'year',
+                'value' => $award->year
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $award,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'date received',
+                'value' => longDate($award->received)
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $award->notes
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $award,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($award->link_name) ? $award->link_name : 'link',
-            'href'   => $award->link,
-            'target' => '_blank'
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $award->notes
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $award->description
-        ])
+            @include('admin.components.show-row-link', [
+                'name'   => !empty($award->link_name) ? $award->link_name : 'link',
+                'href'   => $award->link,
+                'target' => '_blank'
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => $award->disclaimer
-                       ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $award->description
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $award,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => $award->disclaimer
+                           ])
+            ])
 
-        @include('admin.components.show-row-settings', [
-            'resource' => $award,
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $award,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($award->created_at)
-        ])
+            @include('admin.components.show-row-visibility', [
+                'resource' => $award,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($award->updated_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($award->created_at)
+            ])
 
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($award->updated_at)
+            ])
+
+        </div>
     </div>
 
 @endsection

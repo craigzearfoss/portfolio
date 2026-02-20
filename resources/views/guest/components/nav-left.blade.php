@@ -11,7 +11,7 @@
         <div class="aside-tools">
             <div class="aside-tools-label has-text-left" style="width: 100%;">
 
-                @include('admin.components.button-home', [
+                @include('guest.components.button-home', [
                     'name'     => 'Home',
                     'href'     => route('guest.index'),
                     'selected' => true,
@@ -19,7 +19,7 @@
 
                 <span>&nbsp;&nbsp;&nbsp;</span>
 
-                @include('admin.components.button-home', [
+                @include('guest.components.button-home', [
                     'name'     => 'Admin',
                     'href'     => route('admin.dashboard'),
                     'selected' => false,

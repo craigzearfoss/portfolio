@@ -42,123 +42,125 @@ $breadcrumbs = [
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $certificate->id
-        ])
-
-        @if($admin->root)
             @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $certificate->owner->username
+                'name'  => 'id',
+                'value' => $certificate->id
             ])
-        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $certificate->name
-        ])
+            @if($admin->root)
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $certificate->owner->username
+                ])
+            @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $certificate->slug
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $certificate->name
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $certificate->featured
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $certificate->slug
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $certificate->summary
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'featured',
+                'checked' => $certificate->featured
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'organization',
-            'value' => $certificate->organization
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $certificate->summary
+            ])
 
-        @include('admin.components.show-row', [
-            'name' => 'academy',
-            'value' => view('admin.components.link', [
-                'name' => $certificate->academy['name'] ?? '',
-                'href' => !empty($certificate->academy)
-                                ? route('admin.portfolio.academy.show', $certificate->academy)
-                                : ''
-                            ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'organization',
+                'value' => $certificate->organization
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $certificate->year
-        ])
+            @include('admin.components.show-row', [
+                'name' => 'academy',
+                'value' => view('admin.components.link', [
+                    'name' => $certificate->academy['name'] ?? '',
+                    'href' => !empty($certificate->academy)
+                                    ? route('admin.portfolio.academy.show', $certificate->academy)
+                                    : ''
+                                ])
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'received',
-            'value' => longDate($certificate->received)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'year',
+                'value' => $certificate->year
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'expiration',
-            'value' => longDate($certificate->expiration)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'received',
+                'value' => longDate($certificate->received)
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $certificate,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'expiration',
+                'value' => longDate($certificate->expiration)
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $certificate->notes
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $certificate,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
-            'href'   => $certificate->link,
-            'target' => '_blank'
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $certificate->notes
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $certificate->description
-        ])
+            @include('admin.components.show-row-link', [
+                'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
+                'href'   => $certificate->link,
+                'target' => '_blank'
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => $certificate->disclaimer
-                       ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $certificate->description
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $certificate,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => $certificate->disclaimer
+                           ])
+            ])
 
-        @include('admin.components.show-row-settings', [
-            'resource' => $certificate,
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $certificate,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($certificate->created_at)
-        ])
+            @include('admin.components.show-row-visibility', [
+                'resource' => $certificate,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($certificate->updated_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($certificate->created_at)
+            ])
 
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($certificate->updated_at)
+            ])
+
+        </div>
     </div>
 
 @endsection

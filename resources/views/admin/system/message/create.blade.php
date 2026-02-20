@@ -64,7 +64,7 @@
             ])
 
             <?php /*
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'root'     => old('root') ?? 0,
                 'readonly' => old('readonly') ?? 0,
                 'root'     => old('root') ?? 0,

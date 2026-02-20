@@ -45,113 +45,115 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $adminResource->id
-        ])
-
-        @if($admin->root)
-            @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $adminResource->owner->username
-            ])
-        @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'database',
-            'value' => $adminResource->database->name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $adminResource->name
-        ])
-
-        @if(!empty($adminResource->parent))
-            @include('admin.components.show-row-link', [
-                'name'   => 'parent',
-                'label'  => $adminResource->parent->name,
-                'href'   => route('admin.system.resource.show', $adminResource->parent->id)
-            ])
-        @else
-            @include('admin.components.show-row', [
-                'name'  => 'parent',
-                'value' => ''
-            ])
-        @endif
-
-        <div class="columns">
-            <div class="column is-2"><strong>children</strong>:</div>
-            <div class="column is-10 pl-0">
-                @if(!empty($adminResource->children))
-                    <ol>
-                        @foreach($adminResource->children as $child)
-                            <li>
-                                @include('admin.components.link', [
-                                    'name' => $child->name,
-                                    'href' => route('admin.system.resource.show', $child)
-                                ])
-                            </li>
-                        @endforeach
-                    </ol>
-                @endif
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
             </div>
+
+            @include('admin.components.show-row', [
+                'name'  => 'id',
+                'value' => $adminResource->id
+            ])
+
+            @if($admin->root)
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $adminResource->owner->username
+                ])
+            @endif
+
+            @include('admin.components.show-row', [
+                'name'  => 'database',
+                'value' => $adminResource->database->name
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $adminResource->name
+            ])
+
+            @if(!empty($adminResource->parent))
+                @include('admin.components.show-row-link', [
+                    'name'   => 'parent',
+                    'label'  => $adminResource->parent->name,
+                    'href'   => route('admin.system.resource.show', $adminResource->parent->id)
+                ])
+            @else
+                @include('admin.components.show-row', [
+                    'name'  => 'parent',
+                    'value' => ''
+                ])
+            @endif
+
+            <div class="columns">
+                <div class="column is-2"><strong>children</strong>:</div>
+                <div class="column is-10 pl-0">
+                    @if(!empty($adminResource->children))
+                        <ol>
+                            @foreach($adminResource->children as $child)
+                                <li>
+                                    @include('admin.components.link', [
+                                        'name' => $child->name,
+                                        'href' => route('admin.system.resource.show', $child)
+                                    ])
+                                </li>
+                            @endforeach
+                        </ol>
+                    @endif
+                </div>
+            </div>
+
+            @include('admin.components.show-row', [
+                'name'  => 'table',
+                'value' => $adminResource->table
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'class',
+                'value' => $adminResource->class
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'title',
+                'value' => $adminResource->title
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'plural',
+                'value' => $adminResource->plural
+            ])
+
+            @include('admin.components.show-row-icon', [
+                'name' => 'icon',
+                'icon' => $adminResource->icon
+            ])
+
+            @include('admin.components.show-row-environments', [
+                'resource' => $adminResource,
+            ])
+
+            @include('admin.components.show-row-menu-fields', [
+                'menu'       => $adminResource->menu,
+                'menu_level' => $adminResource->menu_level,
+            ])
+
+            @include('admin.components.show-row-visibility', [
+                'resource' => $adminResource,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($adminResource->created_at)
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($adminResource->updated_at)
+            ])
+
         </div>
-
-        @include('admin.components.show-row', [
-            'name'  => 'table',
-            'value' => $adminResource->table
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'class',
-            'value' => $adminResource->class
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'title',
-            'value' => $adminResource->title
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'plural',
-            'value' => $adminResource->plural
-        ])
-
-        @include('admin.components.show-row-icon', [
-            'name' => 'icon',
-            'icon' => $adminResource->icon
-        ])
-
-        @include('admin.components.show-row-environments', [
-            'resource' => $adminResource,
-        ])
-
-        @include('admin.components.show-row-menu-fields', [
-            'menu'       => $adminResource->menu,
-            'menu_level' => $adminResource->menu_level,
-        ])
-
-        @include('admin.components.show-row-settings', [
-            'resource' => $adminResource,
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($adminResource->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($adminResource->updated_at)
-        ])
-
     </div>
 
 @endsection

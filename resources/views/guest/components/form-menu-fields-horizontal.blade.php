@@ -11,7 +11,7 @@
 
             <div class="checkbox-container card form-container p-4">
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'menu',
                     'label'           => 'include',
                     'value'           => 1,
@@ -22,7 +22,7 @@
 
                 <div class="field is-horizontal" style="width: 10em;">
                     <div class="field-label" style="display: inline-block; width: 2.5em;">
-                        <label class="label">level</label>
+                        <label class="label" for="inputMenu_level">level</label>
                     </div>
                     <div class="field-body mb-1" style="display:  inline-block;">
                         <div class="field">

@@ -25,9 +25,10 @@ if (!empty($style)) {
         <div class="field">
             <div class="control {{ !empty($hasIcon) ? 'has-icons-left' : '' }}">
                 <div class="file has-name">
-                    <label class="file-label">
+                    <label class="file-label" for="inputFile">
                         <input class="file-input"
                                type="file"
+                               id="inputFile"
                                name="image"
                                @if (!empty($accept)) accept="{{ is_array($accept) ? implode(',', $accept) : $accept }}" @endif
                         >
@@ -79,7 +80,7 @@ if (!empty($style)) {
 
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label"></label>
+        <label class="label" for="inputImage_credit"></label>
     </div>
     <div class="field-body">
 

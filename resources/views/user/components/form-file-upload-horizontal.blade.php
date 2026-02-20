@@ -1,5 +1,6 @@
 <div class="field is-horizontal">
     <div class="field-label">
+        <?php /** @TODO: add "for" property to label element */ ?>
         <label class="label">
             {!! $label ?? $name ?? '' !!}
             @if (!empty($src))
@@ -17,8 +18,8 @@
         <div class="field">
             <div class="control {{ !empty($hasIcon) ? 'has-icons-left' : '' }}">
                 <div class="file has-name">
-                    <label class="file-label">
-                        <input class="file-input" type="file" name="{!! $name !!}">
+                    <label class="file-label" for="inputFile">
+                        <input class="file-input" type="file" id="inputFile" name="{!! $name !!}">
                         <span class="file-cta">
                             <span class="file-icon">
                                 <i class="fas fa-upload"></i>

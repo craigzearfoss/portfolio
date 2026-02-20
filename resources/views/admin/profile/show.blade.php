@@ -21,68 +21,51 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
-PROFILE PAGE
-        @include('admin.components.show-row', [
-            'name'  => 'username',
-            'value' => $admin->username
-        ])
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $admin->name
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'username',
+                'value' => $admin->username,
+                'style' => 'white-space: nowrap;',
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'phone',
-            'value' => $admin->phone
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $admin->name
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'email',
-            'value' => $admin->email
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'phone',
+                'value' => $admin->phone
+            ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $admin->image,
-            'alt'      => 'image',
-            'width'    => '300px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug($admin->name, $admin->image)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'email',
+                'value' => $admin->email
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => $admin->image_credit
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($admin->created_at)
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => $admin->image_source
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($admin->updated_at),
+                'style' => 'white-space: nowrap;',
+            ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $admin->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug($admin->name . '-thumb', $admin->thumbnail)
-        ])
+        </div>
+        <div class="show-container card floating-div">
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($admin->created_at)
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $admin,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($admin->updated_at)
-        ])
-
+        </div>
     </div>
 
 @endsection

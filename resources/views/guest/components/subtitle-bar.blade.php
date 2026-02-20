@@ -19,7 +19,7 @@
             <div class="level-right" style="display: inline-block;">
                 @if(!empty($prev) || !empty($next))
                     <div style="display: inline-block; float: right;">
-                        @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+                        @include('guest.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
                     </div>
                 @elseif (!empty($buttons))
                     <div class="level-item">

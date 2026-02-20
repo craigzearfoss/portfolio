@@ -138,7 +138,7 @@
             'filename' => getFileSlug($language->name . '-thumb', $language->thumbnail)
         ])
 
-        @include('admin.components.show-row-settings', [
+        @include('admin.components.show-row-visibility', [
             'resource' => $language,
         ])
 

@@ -18,7 +18,6 @@
     if (!empty($styleArray)) {
         $styles = array_merge($styles, $styleArrayt);
     }
-    $resource = $resource ?? null;
 @endphp
 <div @if(!empty($classes))
          class="{!! implode(' ', $classes) !!}"
@@ -28,20 +27,20 @@
      @endif
 >
     <div class="column is-2 label">
-        <strong>environments</strong>:
+        <strong>visibility</strong>:
     </div>
     <div class="column is-10 value">
         <div>
 
             <div class="floating-div-container settings">
 
-                @foreach(['guest', 'user', 'admin', 'global'] as $setting)
+                @foreach(['public', 'readonly', 'root', 'disabled', 'demo'] as $setting)
 
                     @if($resource->hasAttribute($setting))
 
                         <div class="show-container card floating-div">
                             <span>
-                                @include('user.components.checkbox', [ 'checked' => !empty($resource->{$setting}) ])
+                                @include('admin.components.checkbox', [ 'checked' => !empty($resource->{$setting}) ])
                             </span>
                             <span><strong>{{ $setting == 'readonly' ? 'read-only' : $setting }}</strong></span>
                         </div>
@@ -49,6 +48,15 @@
                     @endif
 
                 @endforeach
+
+                @if($resource->hasAttribute('sequence'))
+
+                    <div class="item show-container card floating-div">
+                        <span><strong>sequence:</strong></span>
+                        <span>{{ $resource->sequence ?? '0' }}</span>
+                    </div>
+
+                @endif
 
             </div>
 

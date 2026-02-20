@@ -255,7 +255,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? $audio->public,
                 'readonly'    => old('readonly') ?? $audio->readonly,
                 'root'        => old('root')     ?? $audio->root,

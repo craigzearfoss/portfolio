@@ -138,7 +138,7 @@
             'filename' => getFileSlug($stack->name . '-thumb', $stack->thumbnail)
         ])
 
-        @include('admin.components.show-row-settings', [
+        @include('admin.components.show-row-visibility', [
             'resource' => $stack,
         ])
 

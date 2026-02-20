@@ -35,78 +35,80 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
+
+            @include('admin.components.show-row', [
+                'name'  => 'id',
+                'value' => $certification->id
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $certification->name
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $certification->slug
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'abbreviation',
+                'value' => $certification->abbreviation
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'type',
+                'value' => $certification->certificationType->name ?? ''
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'organization',
+                'value' => $certification->organization
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $certification->notes
+            ])
+
+            @include('admin.components.show-row-link', [
+                'name'   => !empty($certification->link_name) ? $certification->link_name :'link',
+                'href'   => $certification->link,
+                'target' => '_blank'
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $certification->description
+            ])
+
+            @include('admin.components.show-row-images', [
+                'resource' => $certification,
+                'download' => true,
+                'external' => true,
+            ])
+
+            @include('admin.components.show-row-visibility', [
+                'resource' => $certification,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($certification->created_at)
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($certification->updated_at)
+            ])
+
         </div>
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $certification->id
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $certification->name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $certification->slug
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $certification->abbreviation
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'type',
-            'value' => $certification->certificationType->name ?? ''
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'organization',
-            'value' => $certification->organization
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $certification->notes
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => !empty($certification->link_name) ? $certification->link_name :'link',
-            'href'   => $certification->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $certification->description
-        ])
-
-        @include('admin.components.show-row-images', [
-            'resource' => $certification,
-            'download' => true,
-            'external' => true,
-        ])
-
-        @include('admin.components.show-row-settings', [
-            'resource' => $certification,
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($certification->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($certification->updated_at)
-        ])
-
     </div>
 
 @endsection

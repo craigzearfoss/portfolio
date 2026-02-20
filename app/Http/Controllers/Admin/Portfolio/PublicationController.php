@@ -81,7 +81,7 @@ class PublicationController extends BaseAdminController
             $publication['id'],
             'admin.portfolio.publication.show',
             $this->owner ?? null,
-            [ 'name', 'asc' ]
+            [ 'title', 'asc' ]
         );
 
         return view('admin.portfolio.publication.show', compact('publication', 'prev', 'next'));

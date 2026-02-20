@@ -5,7 +5,7 @@
 @endphp
 @if($menuItems = $menuService->topMenu())
 
-    <nav id="navbar-main" class="navbar is-fixed-top">
+    <nav id="navbar-main" class="navbar admin is-fixed-top">
         <div class="navbar-brand">
 
             @include('admin.components.nav-link-top', [
@@ -17,7 +17,7 @@
 
             <div class="navbar-item has-control">
 
-                <span class="mr-4 has-text-primary" style=" font-size: 1.5em; font-weight: 800;">
+                <span class="mr-4" style=" font-size: 1.5em; font-weight: 800;">
                     {{ config('app.name') }} Admin Area
                 </span>
 
@@ -55,21 +55,21 @@
                         <?php /* user dropdown menu at the top right */ ?>
                         @if($menuItem->name == 'user-dropdown')
 
-                            <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
+                            <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
 
                                 @php
-                                    $name = '';
+                                    $avatarElems = [];
                                     if (!empty($menuItem->thumbnail)) {
-                                        $name .= '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
+                                        $avatarElems[] = '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
                                     }
-                                    $name .= '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
+                                    $avatarElems[] = '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
                                     if (!empty($menuItem->icon)) {
-                                        $name .= '<span class="text-xl"><i class="fa-solid '.$menuItem->icon.'"></i>';
+                                        $avatarElems[] = '<span class="text-xl"><i class="fa-solid '.$menuItem->icon.'"></i>';
                                     }
                                 @endphp
 
                                 @include('admin.components.nav-link-top', [
-                                    'name'       => $name,
+                                    'name'       => implode('', $avatarElems),
                                     'href'       => false,
                                     'class'      => 'navbar-link is-arrowless',
                                     'icon'       => false

@@ -13,7 +13,7 @@
 
             <div class="checkbox-container card form-container p-4">
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'guest',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -21,7 +21,7 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'user',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -29,7 +29,7 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'admin',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -37,7 +37,7 @@
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('guest.components.form-checkbox', [
                     'name'            => 'global',
                     'value'           => 1,
                     'unchecked_value' => 0,

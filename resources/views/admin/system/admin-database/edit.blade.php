@@ -213,7 +213,7 @@
                 'menu_level' => old('meni_level') ?? $adminDatabase->menu_level,
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'     => old('public')   ?? $adminDatabase->public,
                 'readonly'    => old('readonly') ?? $adminDatabase->readonly,
                 'root'        => old('root')     ?? $adminDatabase->root,

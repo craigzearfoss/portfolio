@@ -4,7 +4,7 @@
         $propsArray[] = "{$key}={$value}";
     }
 @endphp
-<a href="{{ $cancel_url ?? route('user.index') }}"
+<a href="{{ $cancel_url ?? route('admin.dashboard') }}"
    class="button is-small is-dark"
 ><i class="fa-solid fa-close"></i> Cancel</a>
 

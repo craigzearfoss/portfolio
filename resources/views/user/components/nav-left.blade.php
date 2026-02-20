@@ -13,7 +13,7 @@
         <div class="aside-tools">
             <div class="aside-tools-label has-text-left" style="width: 100%;">
 
-                @include('admin.components.button-home', [
+                @include('user.components.button-home', [
                     'name'     => 'Home',
                     'href'     => route('guest.index'),
                     'selected' => true,
@@ -76,7 +76,7 @@
 
                             @foreach ($menuItems[$i]['children'] as $l2=>$menu2Item)
                                 <li>
-                                    @include('guest.components.nav-link-left', [
+                                    @include('user.components.nav-link-left', [
                                         'level'  => 2,
                                         'name'   => !empty($menu2Item->plural) ? $menu2Item->plural : $menu2Item->title,
                                         'href'   => !empty($menu2Item->url) ? $menu2Item->url : false,
@@ -91,7 +91,7 @@
 
                                             @foreach ($menu2Item->children as $menu3Item)
                                                 <li>
-                                                    @include('guest.components.nav-link-left', [
+                                                    @include('user.components.nav-link-left', [
                                                         'level'  => 3,
                                                         'name'   => !empty($menu3Item->plural) ? $menu3Item->plural : $menu3Item->title,
                                                         'href'   => !empty($menu3Item->url) ? $menu3Item->url : false,

@@ -35,63 +35,65 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
+
+            @include('admin.components.show-row', [
+                'name'  => 'id',
+                'value' => $ingredient->id
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'full_name',
+                'value' => $ingredient->full_name
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $ingredient->name
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $ingredient->slug
+            ])
+
+            @include('admin.components.show-row-link', [
+                'name'   => $ingredient->link_name ?? 'link',
+                'href'   => $ingredient->link,
+                'target' => '_blank'
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $ingredient->description
+            ])
+
+            @include('admin.components.show-row-images', [
+                'resource' => $ingredient,
+                'download' => true,
+                'external' => true,
+            ])
+
+            @include('admin.components.show-row-visibility', [
+                'resource' => $ingredient,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($ingredient->created_at)
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($ingredient->updated_at)
+            ])
+
         </div>
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $ingredient->id
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'full_name',
-            'value' => $ingredient->full_name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $ingredient->name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $ingredient->slug
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => $ingredient->link_name ?? 'link',
-            'href'   => $ingredient->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $ingredient->description
-        ])
-
-        @include('admin.components.show-row-images', [
-            'resource' => $ingredient,
-            'download' => true,
-            'external' => true,
-        ])
-
-        @include('admin.components.show-row-settings', [
-            'resource' => $ingredient,
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($ingredient->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($ingredient->updated_at)
-        ])
-
     </div>
 
 @endsection

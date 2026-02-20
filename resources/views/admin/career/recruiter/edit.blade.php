@@ -194,7 +194,7 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? $recruiter->public,
                 'readonly'    => old('readonly') ?? $recruiter->readonly,
                 'root'        => old('root')     ?? $recruiter->root,

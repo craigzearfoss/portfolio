@@ -102,7 +102,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? $recipeStep->public,
                 'readonly'    => old('readonly') ?? $recipeStep->readonly,
                 'root'        => old('root')     ?? $recipeStep->root,

@@ -255,7 +255,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-settings-horizontal', [
+            @include('admin.components.form-visibility-horizontal', [
                 'public'      => old('public')   ?? $video->public,
                 'readonly'    => old('readonly') ?? $video->readonly,
                 'root'        => old('root')     ?? $video->root,

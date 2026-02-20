@@ -24,21 +24,19 @@
 
 @section('content')
 
-    <div style="display: flex;">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="card m-4">
-            <div class="card-body p-4">
-                <div class="list is-hoverable">
+            <div class="list is-hoverable">
 
-                    @include('admin.components.resource-list', [
-                        'resourceType' => dbName('personal_db'),
-                        'resources'    => $personals
-                    ])
+                @include('admin.components.resource-list', [
+                    'resourceType' => dbName('personal_db'),
+                    'resources'    => $personals
+                ])
 
-                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
 @endsection

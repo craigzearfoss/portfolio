@@ -42,97 +42,99 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
+            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+            </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $art->id
-        ])
-
-        @if($admin->root)
             @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $art->owner->username ?? ''
+                'name'  => 'id',
+                'value' => $art->id
             ])
-        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $art->name
-        ])
+            @if($admin->root)
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $art->owner->username ?? ''
+                ])
+            @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'artist',
-            'value' => $art->artist
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $art->name
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $art->slug
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'artist',
+                'value' => $art->artist
+            ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $art->featured
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $art->slug
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $art->summary
-        ])
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'featured',
+                'checked' => $art->featured
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $art->year
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $art->summary
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => $art->notes
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'year',
+                'value' => $art->year
+            ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => $art->link_name ?? 'link',
-            'href'   => $art->link ?? '',
-            'target' => '_blank'
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $art->notes
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $art->description
-        ])
+            @include('admin.components.show-row-link', [
+                'name'   => $art->link_name ?? 'link',
+                'href'   => $art->link ?? '',
+                'target' => '_blank'
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [
-                            'value' => $art->disclaimer
-                       ])
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $art->description
+            ])
 
-        @include('admin.components.show-row-images', [
-            'resource' => $art,
-            'download' => true,
-            'external' => true,
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'disclaimer',
+                'value' => view('admin.components.disclaimer', [
+                                'value' => $art->disclaimer
+                           ])
+            ])
 
-        @include('admin.components.show-row-settings', [
-            'resource' => $art,
-        ])
+            @include('admin.components.show-row-images', [
+                'resource' => $art,
+                'download' => true,
+                'external' => true,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($art->created_at)
-        ])
+            @include('admin.components.show-row-visibility', [
+                'resource' => $art,
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($art->updated_at)
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'created at',
+                'value' => longDateTime($art->created_at)
+            ])
 
+            @include('admin.components.show-row', [
+                'name'  => 'updated at',
+                'value' => longDateTime($art->updated_at)
+            ])
+
+        </div>
     </div>
 
 @endsection

@@ -138,7 +138,7 @@
             'filename' => getFileSlug($framework->name . '-thumb', $framework->thumbnail)
         ])
 
-        @include('admin.components.show-row-settings', [
+        @include('admin.components.show-row-visibility', [
             'resource' => $framework,
         ])
 

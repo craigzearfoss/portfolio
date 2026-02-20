@@ -2,7 +2,7 @@
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
 @endphp
 <div class="field">
-    <label for="{!! $id !!}" class="label">{!! $label ?? $name ?? '' !!}</label>
+    <label class="label" for="{{ $id }}">{!! $label ?? $name ?? '' !!}</label>
     <div class="control">
         <span class="text-field">{!! $value ?? '' !!}</span>
     </div>
