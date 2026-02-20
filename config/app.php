@@ -14,6 +14,7 @@ return [
     */
 
     'admin_login_enabled'     => boolval(env('APP_ADMIN_LOGIN_ENABLED', false)),
+    'admin_table_classes'     => explode('|', env('ADMIN_TABLE_CLASSES', '')),
     'admins_enabled'          => boolval(env('APP_ADMINS_ENABLED', true)),
     'asset_url'               => env('ASSET_URL', ''),
     'bottom_column_headings'  => boolval(env('APP_BOTTOM_COLUMN_HEADINGS', 0)),
@@ -43,6 +44,7 @@ return [
     'google_recaptcha_key'    => env('GOOGLE_RECAPTCHA_KEY', ''),
     'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET', ''),
     'google_tag'              => env('GOOGLE_TAG', ''),
+    'guest_table_classes'     => explode('|', env('GUEST_TABLE_CLASSES', '')),
     'image_dir'               => env('IMAGE_DIR', ''),
     'name'                    => env('APP_NAME', 'My Portfolio'),
     'open_enrollment'         => boolval(env('APP_OPEN_ENROLLMENT', false)),
@@ -68,6 +70,7 @@ return [
         : [],
     'upload_max_file_size'    => intval(env('APP_UPLOAD_MAX_FILE_SIZE', 2048)),
     'user_login_enabled'      => boolval(env('APP_USER_LOGIN_ENABLED', false)),
+    'user_table_classes'      => explode('|', env('USER_TABLE_CLASSES', '')),
     'users_enabled'           => boolval(env('APP_USERS_ENABLED', true)),
     'version'                 => env('APP_VERSION', 'beta'),
 
