@@ -11,6 +11,9 @@
 
     $ownerModel = new Owner();
 
+    $title    = $pageTitle ?? 'Add New Application';
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -33,18 +36,19 @@
     ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New Application',
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->any()
+    'title'         => $title,
+    'subtitle'      => $subtitle,
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'menuService'   => $menuService,
+    'admin'         => $admin,
+    'user'          => $user,
+    'owner'         => $owner,
 ])
 
 @section('content')

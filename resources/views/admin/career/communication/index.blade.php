@@ -1,6 +1,9 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $subtitle = $title;
+
     $buttons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
@@ -26,16 +29,17 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'title'         => $title,
+    'subtitle'      => $subtitle,
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'menuService'   => $menuService,
+    'admin'         => $admin,
+    'user'          => $user,
+    'owner'         => $owner,
 ])
 
 @section('content')

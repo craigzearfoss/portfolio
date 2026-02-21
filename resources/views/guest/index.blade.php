@@ -1,14 +1,8 @@
-@php
-    // set breadcrumbs
-    $breadcrumbs = [];
-
-    // set navigation buttons
-    $buttons = [];
-@endphp
+@php /* for url '/' */ @endphp
 @extends('guest.layouts.default', [
     'title'            => $pageTitle ?? config('app.name'),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
+    'breadcrumbs'      => [],
+    'buttons'          => [],
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
@@ -22,83 +16,64 @@
 
 @section('content')
 
-    <div class="card column p-4">
+    <div class="column p-4">
 
-        <div class="column has-text-centered">
+        @if ($admins->currentPage() == 1)
 
-            <h1 class="title">{!! config('app.name') !!}</h1>
+            <div class="column has-text-centered">
 
-            <div class="has-text-centered">
-                <a class="is-size-6" href="{!! route('guest.login') !!}">
-                    User Login
-                </a>
-                |
-                <a class="is-size-6" href="{!! route('guest.login') !!}">
-                    Admin Login
-                </a>
+                <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }} Admin!</h2>
+
+                <div class="is-flex is-align-items-center is-justify-content-center mb-2">
+                    <div class="box has-text-left"  <?php /* style="max-width: 40em;" */ ?>>
+                        <h2 class="subtitle">About This Site</h2>
+                        <p>
+                            This project is a multi-user website for people to display their work portfolio and accomplishments,
+                            personal projects, collections, or other types of data. It is in the very early beta stage of development.
+                        </p>
+                        <p>
+                            It started out as a system to manage a job search.  In the admin area you can track your
+                            job applications, resumes, and cover letter as well a many your references and company contacts.
+                            You can add communications, events, and notes to all of you applications.
+                        </p>
+                        <p>
+                            This project was created by <strong>Craig Zearfoss</strong> who can be found on LinkedIn at
+                            <a href="https://www.linkedin.com/in/craig-zearfoss/" target="_blank"><strong>https://www.linkedin.com/in/craig-zearfoss/</strong></a>
+                            or at his personal page at <a href="https://zearfoss.com" target="_blank"><strong>https://zearfoss.com</strong></a>.
+                        </p>
+                        <p>
+                            For more details about this site, as well as a to-do-list of work that is being done and features
+                            that are still to be added, visit the <a href="{{route('guest.about')}}"><strong>About Page</strong></a>.
+                        </p>
+                        <p>
+                            If you would like to contact me about this project or an employment opportunity, please do it
+                            through my LinkedIn page. Thanks. - <i>Craig Zearfoss</i>
+                        </p>
+                    </div>
+                </div>
+
+                <?php /*
+                <div class="has-text-centered">
+                    <a class="is-size-6" href="{{ route('admin.login') }}">
+                        User Login
+                    </a>
+                    |
+                    <a class="is-size-6" href="{{ route('admin.login') }}">
+                        Admin Login
+                    </a>
+                </div>
+                */ ?>
+
             </div>
 
-        </div>
+            @endif
 
     </div>
 
-    <div class="card column p-4">
+    <div class="card p-4">
 
-        <div class="columns">
-
-            <div class="column is-one-third pt-0">
-
-                @include('guest.components.image', [
-                    'name'     => 'image',
-                    'src'      => $admin->image,
-                    'alt'      => $admin->name,
-                    'width'    => '300px',
-                    'filename' => getFileSlug($admin->name, $admin->image)
-                ])
-
-                <div class="show-container p-4">
-
-                    @include('guest.components.show-row', [
-                        'name'  => 'role',
-                        'value' => $admin->role
-                    ])
-
-                    @include('guest.components.show-row', [
-                        'name'  => 'employer',
-                        'value' => '<br>' . $admin->employer
-                    ])
-
-                    @include('guest.components.show-row', [
-                        'name'  => 'bio',
-                        'value' => $admin->bio ?? ''
-                    ])
-
-                </div>
-
-            </div>
-
-            <div class="column is-two-thirds pt-0">
-
-                <ul class="menu-list" style="max-width: 20em;">
-
-                    @foreach ($portfolioResourceTypes as $resourceType)
-
-                        @if(empty($resourceType->global) && Route::has('guest.admin.portfolio.'.$resourceType->name.'.index'))
-                            <li>
-                                @include('guest.components.link', [
-                                    'name' => $resourceType->plural,
-                                    'href' => route('guest.portfolio.'.$resourceType->name.'.index', $admin),
-                                ])
-                            </li>
-                        @endif
-
-                    @endforeach
-
-                </ul>
-
-            </div>
-
-        </div>
+        <h4 class="title is-size-4 mb-2">Candidates</h4>
+        @include('guest.components.admins-table', ['admins' => $admins])
 
     </div>
 

@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class IndexController extends BaseAdminController
@@ -230,47 +232,47 @@ class IndexController extends BaseAdminController
             ->with('success', 'Your password has been changed. You can login with your new password.');
     }
 
+    /**
+     * Display the admin about page.
+     *
+     * @return View
+     */
     public function about(): View
     {
-        return view(themedTemplate('system.about'));
-    }
-
-    public function contact(): View
-    {
-        return view(themedTemplate('system.contact'));
+        return view(themedTemplate('admin.about'));
     }
 
     /**
-     * Store a submitted contact message in storage.
+     * Display the admin contact page.
+     *
+     * @return View
+     */
+    public function contact(): View
+    {
+        return view(themedTemplate('admin.contact'));
+    }
+
+    /**
+     * Store a submitted admin contact message in storage.
      *
      * @param MessageStoreRequest $messageStoreRequest
      * @return RedirectResponse
      */
-    public function storeMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
+    public function storeContactMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
     {
-        die('@TODO: ???? Controllers\Admin\IndexController->storeMessage');
+        die('@TODO: ???? Controllers\Admin\IndexController->storContactMessage');
         $message = new Message()->create($messageStoreRequest->validated());
 
         return redirect(route('admin.dashboard'))
             ->with('success', 'Your message has been sent. Thank you!.');
     }
 
-    public function privacy_policy(): View
-    {
-        return view(themedTemplate('system.privacy-policy'));
-    }
-
-    public function terms_and_conditions(): View
-    {
-        return view(themedTemplate('system.terms-and-conditions'));
-    }
-
     /**
      * Download a file from the storage directory.
      *
      * @return StreamedResponse|null
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function download_from_storage(): StreamedResponse|null
     {
@@ -304,5 +306,25 @@ class IndexController extends BaseAdminController
         }
 
         return Storage::disk('public')->download($filePath, $newFileName);
+    }
+
+    /**
+     * Display the admin privacy policy page.
+     *
+     * @return View
+     */
+    public function privacy_policy(): View
+    {
+        return view(themedTemplate('admin.privacy-policy'));
+    }
+
+    /**
+     * Display the admin terms and conditions page.
+     *
+     * @return View
+     */
+    public function terms_and_conditions(): View
+    {
+        return view(themedTemplate('admin.terms-and-conditions'));
     }
 }

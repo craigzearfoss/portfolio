@@ -26,21 +26,23 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $owner->disclaimer ])
+    @if($owner->demo)
+        @if($disclaimerMessage = config('app.demo_disclaimer'))
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+        @endif
+    @endif
 
     <div class="floating-div-container">
 
         <div class="show-container floating-div card">
 
-            <div>
+            <div class="container">
 
-                <div class="container">
-
-                    @include('guest.components.image', [
-                        'src'      => $thisAdmin->image,
-                        'width'    => '300px',
-                        'download' => false,
-                        'external' => false,
+                @include('guest.components.image', [
+                    'src'      => $thisAdmin->image,
+                    'width'    => '300px',
+                    'download' => false,
+                    'external' => false,
                     ])
 
                     <span class="bottom-right-span m-4 pb-2 pr-4">
@@ -53,10 +55,9 @@
                         ])
                     </span>
 
-                </div>
 
             </div>
-            <div class="m-2">
+            <div class="m-2 mt-3">
 
                 @include('guest.components.show-row', [
                     'name'  => 'name',
@@ -108,22 +109,24 @@
                         <ul class="menu-list" style="max-width: 20em;">
 
                             @foreach ($resources as $resource)
-<?php /*
-                                <li>
-                                    @include('guest.components.link', [
-                                        'name'  => $resource->plural,
-                                        'href'  => route('guest.'.$resource->database_name.'.'.$resource->name.'.index',
-                                                         $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
-                                                   ),
-                                        'class' => 'list-item',
-                                        'style' => [
-                                            'padding: 0.2rem',
-                                            'white-space: nowrap',
-                                            'margin-left: ' . (12 * ($resource->menu_level - 1)) . 'px',
-                                        ],
-                                    ])
-                                </li>
-*/ ?>
+
+                                @if(!empty($resource->url))
+
+                                    <li>
+                                        @include('guest.components.link', [
+                                            'name'  => $resource->plural,
+                                            'href'  => $resource->url,
+                                            'class' => 'list-item',
+                                            'style' => [
+                                                'padding: 0.2rem',
+                                                'white-space: nowrap',
+                                                'margin-left: ' . (12 * ($resource->menu_level - 1)) . 'px',
+                                            ],
+                                        ])
+                                    </li>
+
+                                @endif
+
                             @endforeach
 
                         </ul>

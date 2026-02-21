@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Guest;
 
+use App\Http\Requests\MessageStoreRequest;
 use App\Models\System\Admin;
+use App\Models\System\Message;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -31,12 +34,22 @@ class IndexController extends BaseGuestController
             $featuredAdmin = null;
         }
 
-        return view(themedTemplate('system.index'), compact('admin', 'admins', 'featuredAdmin'))
+        return view(themedTemplate('guest.index'), compact('admin', 'admins', 'featuredAdmin'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Guest candidates home page.
+     * Display the guest about page.
+     *
+     * @return View
+     */
+    public function about(): View
+    {
+        return view(themedTemplate('guest.about'));
+    }
+
+    /**
+     * Display the guest candidates page.
      *
      * @param Request $request
      * @return View
@@ -53,5 +66,50 @@ class IndexController extends BaseGuestController
 
         return view(themedTemplate('guest.system.admin.index'), compact('admin', 'candidates'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
+    }
+
+    /**
+     * Display the guest contact and conditions page.
+     *
+     * @return View
+     */
+    public function contact(): View
+    {
+        return view(themedTemplate('guest.contact'));
+    }
+
+
+    /**
+     * Store a submitted guest contact message in storage.
+     *
+     * @param MessageStoreRequest $messageStoreRequest
+     * @return RedirectResponse
+     */
+    public function storeContactMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
+    {
+        $message = new Message()->create($messageStoreRequest->validated());
+
+        return redirect(route('guest.index'))
+            ->with('success', 'Your message has been sent. Thank you!.');
+    }
+
+    /**
+     * Display the guest privacy policy page.
+     *
+     * @return View
+     */
+    public function privacy_policy(): View
+    {
+        return view(themedTemplate('guest.privacy-policy'));
+    }
+
+    /**
+     * Display the guest terms and conditions page.
+     *
+     * @return View
+     */
+    public function terms_and_conditions(): View
+    {
+        return view(themedTemplate('guest.terms-and-conditions'));
     }
 }

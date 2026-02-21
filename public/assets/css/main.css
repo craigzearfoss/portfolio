@@ -185,6 +185,10 @@ div.field.is-horizontal div.field-label label.label {
     z-index: 999999 !important;
     text-align: center;
 }
+.message.is-danger, .message.is-info, .message.is-success, .message.is-warning {
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.5rem !important;
+}
 
 .is-menu-main {
     font-size: 1rem;

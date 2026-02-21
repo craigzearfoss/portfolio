@@ -29,7 +29,9 @@
 @section('content')
 
     @if($owner->demo)
-        @include('guest.components.disclaimer')
+        @if($disclaimerMessage = config('app.demo_disclaimer'))
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+        @endif
     @endif
 
     <div class="floating-div-container">

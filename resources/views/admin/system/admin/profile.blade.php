@@ -50,7 +50,7 @@
 
     <div class="floating-div-container">
 
-        <div class="show-container floating-div card p-4 mb-2 mr-2">
+        <div class="show-container floating-div card">
 
             <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
                 @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])

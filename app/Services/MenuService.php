@@ -132,7 +132,7 @@ class MenuService
     {
         $this->envType          = $envType ?? getEnvType();
         $this->owner            = $owner;
-        $this->admin            = !empty($admi) ? $admin : loggedInAdmin();
+        $this->admin            = !empty($admin) ? $admin : loggedInAdmin();
         $this->user             = !empty($user) ? $user : loggedInUser();
         $this->currentRouteName = !empty($currentRouteName) ? $currentRouteName : Route::currentRouteName();
         $this->showAll          = false;

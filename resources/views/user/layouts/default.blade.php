@@ -1,4 +1,11 @@
 @php
+    $title            = $title ?? '';
+    $breadcrumbs      = $breadcrumbs ?? [];
+    $buttons          = $buttons ?? [];
+    $errorMessages    = $errorMessages = [];
+    $success          = $success ?? null;
+    $error            = $error ?? null;
+    $menuService      = $menuService ?? null;
     $admin            = $admin ?? null;
     $user             = $user ?? null;
     $owner            = $owner ?? null;

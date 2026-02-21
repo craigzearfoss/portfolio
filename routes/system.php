@@ -44,14 +44,12 @@ use App\Http\Controllers\Guest\Dictionary\StackController as GuestDictionaryStac
 // ---------------------------------------------------------------------------------------------------------------------
 // base routes
 // ---------------------------------------------------------------------------------------------------------------------
-Route::get('about', [IndexController::class, 'about'])->name('about');
-Route::get('contact', [IndexController::class, 'contact'])->name('contact');
-Route::post('contact/store', [IndexController::class, 'storeMessage'])->name('contact.storeMessage');
-Route::get('privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
-Route::get('terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
-
+Route::get('about', [GuestIndexController::class, 'about'])->name('guest.about');
 Route::get('candidates', [GuestIndexController::class, 'candidates'])->name('guest.admin.index');
-
+Route::get('contact', [GuestIndexController::class, 'contact'])->name('guest.contact');
+Route::post('contact/store', [GuestIndexController::class, 'storeContactMessage'])->name('guest.contact.storeContactMessage');
+Route::get('privacy-policy', [GuestIndexController::class, 'privacy_policy'])->name('guest.privacy-policy');
+Route::get('terms-and-conditions', [GuestIndexController::class, 'terms_and_conditions'])->name('guest.terms-and-conditions');
 
 Route::get('download-from-public', [IndexController::class, 'download_from_public'])->name('download-from-public');
 Route::get('view-document', [IndexController::class, 'view_document'])->name('view-document');
@@ -88,11 +86,11 @@ Route::name('user.')->group(function () {
 // admin routes
 // ---------------------------------------------------------------------------------------------------------------------
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('about', [IndexController::class, 'about'])->name('about');
-    Route::get('contact', [IndexController::class, 'contact'])->name('contact');
-    Route::post('contact/store', [IndexController::class, 'storeMessage'])->name('contact.storeMessage');
-    Route::get('privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
-    Route::get('terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
+    Route::get('about', [AdminIndexController::class, 'about'])->name('about');
+    Route::get('contact', [AdminIndexController::class, 'contact'])->name('contact');
+    Route::post('contact/store', [AdminIndexController::class, 'storeContactMessage'])->name('contact.storeContactMessage');
+    Route::get('privacy-policy', [AdminIndexController::class, 'privacy_policy'])->name('privacy-policy');
+    Route::get('terms-and-conditions', [AdminIndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
 
     Route::get('forgot-password', [AdminIndexController::class, 'forgot_password'])->name('forgot-password');
     Route::post('forgot-password', [AdminIndexController::class, 'forgot_password'])->name('forgot-password-submit');

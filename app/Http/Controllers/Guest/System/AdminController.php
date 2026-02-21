@@ -50,12 +50,12 @@ class AdminController extends BaseGuestController
         $dbColumns = [
             'Portfolio' => new AdminResource()->ownerResources(
                 $this->owner->id ?? null,
-                EnvTypes::ADMIN,
+                EnvTypes::GUEST,
                 new Database()->where('tag', 'portfolio_db')->first()->id ?? null
             ),
             'Personal' => new AdminResource()->ownerResources(
                 $this->owner->id,
-                EnvTypes::ADMIN,
+                EnvTypes::GUEST,
                 new Database()->where('tag', 'personal_db')->first()->id ?? null
             ),
         ];

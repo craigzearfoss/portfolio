@@ -27,36 +27,34 @@
 
 @section('content')
 
-    <div style="display: flex;">
+    @if($disclaimerMessage = config('app.demo_disclaimer'))
+        @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+    @endif
 
-        <div class="card m-0">
-            <div class="card-body p-4">
-                <div class="list is-hoverable">
-                    <ul class="menu-list" style="max-width: 20em;">
+    <div class="container">
 
-                        @foreach ($personals as $personal)
+        <ul class="menu-list" style="width: 20rem;">
 
-                            <?php /* @TODO: This is a hack to filter out level 2 resources. Need to find the proper way to do this */ ?>
-                            @if(!in_array($personal->name, ['recipe-ingredient', 'recipe-step']))
+            @foreach($personals as $personal)
 
-                                <li>
-                                    @include('admin.components.link', [
-                                        'name'  => $personal->plural,
-                                        'href'  => Route::has('guest.personal.'.$personal->name.'.index')
-                                                        ? route('guest.personal.'.$personal->name.'.index', $owner)
-                                                        : '',
-                                        'class' => 'list-item',
-                                    ])
-                                </li>
+                @if($personal->has_owner && !in_array($personal->name, [ 'ingredient', 'recipe-ingredient', 'recipe-step' ]))
 
-                            @endif
+                <li>
+                    @include('admin.components.link', [
+                        'name'  => $personal->plural,
+                        'href'  => Route::has('guest.'.$personal->database_name.'.'.$personal->name.'.index')
+                                        ? route('guest.'.$personal->database_name.'.'.$personal->name.'.index', $owner)
+                                        : '',
+                        'class' => 'list-item ml-4',
+                        'icon'  => $personal->icon,
+                    ])
+                </li>
 
-                        @endforeach
+                @endif
 
-                    </ul>
-                </div>
-            </div>
-        </div>
+            @endforeach
+
+        </ul>
 
     </div>
 

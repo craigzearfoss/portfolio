@@ -31,7 +31,12 @@
 
 @section('content')
 
-    @include('guest.components.disclaimer', [ 'value' => $art->disclaimer ])
+
+    @if($owner->demo)
+        @if($disclaimerMessage = config('app.demo_disclaimer'))
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+        @endif
+    @endif
 
     <div class="show-container p-4">
 

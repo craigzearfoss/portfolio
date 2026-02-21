@@ -33,8 +33,8 @@
             <div class="has-text-centered">
                 <h4>User logins have been disabled.</h4>
                 <p class="p-4">
-                    @include('admin.components.link', [ 'name' => 'Home',
-                                                        'href' => route('admin.index'),
+                    @include('user.components.link', [ 'name' => 'Home',
+                                                        'href' => route('guest.index'),
                                                         'icon' => 'fa-house'
                     ])
                 </p>
@@ -46,19 +46,19 @@
 
                 <div class="p-2 has-text-centered">
                     <p class="mb-1">
-                        To log in as the <strong>demo</strong> admin use the credentials below.
+                        To log in as the <strong>demo</strong> user use the credentials below.
                     </p>
                     <code class=" has-text-primary">{{ $demoUsername }} / {{ $demoPassword }}</code>
                 </div>
 
             @endif
 
-            <form action="{{ route('user.login-submit') }}" method="POST">
+            <form id="frmMain" action="{{ route('user.login-submit') }}" method="POST">
                 @csrf
 
                 @include('user.components.form-hidden', [
                     'name'  => 'referer',
-                    'value' => referer('home')
+                    'value' => referer('guest.index')
                 ])
 
                 @include('user.components.form-input', [
@@ -83,8 +83,8 @@
                 ])
 
                 <div class="has-text-centered my-3">
-                    @include('admin.components.link', [
-                        'name'       => 'Forgot Password?',
+                    @include('user.components.link', [
+                        'name'       => 'Forgot User Password?',
                         'href'       => route('user.forgot-password'),
                         'style'      => 'text-primary-600 hover:underline',
                         'cancel_url' => referer('admin.index')

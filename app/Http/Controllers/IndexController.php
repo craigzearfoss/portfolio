@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use PhpOffice\PhpWord\IOFactory;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class IndexController extends BaseController
@@ -19,46 +21,12 @@ class IndexController extends BaseController
         parent::__construct($permissionService);
     }
 
-    public function about(): View
-    {
-        return view(themedTemplate('system.about'));
-    }
-
-    public function contact(): View
-    {
-        return view(themedTemplate('system.contact'));
-    }
-
-    /**
-     * Store a submitted contact message in storage.
-     *
-     * @param MessageStoreRequest $messageStoreRequest
-     * @return RedirectResponse
-     */
-    public function storeMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
-    {
-        $message = new Message()->create($messageStoreRequest->validated());
-
-        return redirect(route('guest.index'))
-            ->with('success', 'Your message has been sent. Thank you!.');
-    }
-
-    public function privacy_policy(): View
-    {
-        return view(themedTemplate('system.privacy-policy'));
-    }
-
-    public function terms_and_conditions(): View
-    {
-        return view(themedTemplate('system.terms-and-conditions'));
-    }
-
     /**
      * Download a file from the public directory.
      *
      * @return StreamedResponse|null
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function download_from_public(): StreamedResponse|null
     {
@@ -99,8 +67,8 @@ class IndexController extends BaseController
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|View
      * @throws \PhpOffice\PhpWord\Exception\Exception
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function view_document()
     {

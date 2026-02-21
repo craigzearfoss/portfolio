@@ -120,9 +120,9 @@ if (! function_exists('loggedInUser')) {
     /**
      * Returns User object of the logged-in user or null if there is not one.
      *
-     * @return \App\Models\System\Admin|null
+     * @return Admin|null
      */
-    function loggedInUser(): \App\Models\System\Admin|null
+    function loggedInUser(): Admin|null
     {
         if (! Auth::guard('user')->check()) {
             return null;
@@ -172,11 +172,11 @@ if (! function_exists('loggedInAdmin')) {
     /**
      * Returns Admin object of the logged-in admin or null if there is not one.
      *
-     * @return \App\Models\System\Admin|null
+     * @return Admin|null
      */
-    function loggedInAdmin(): \App\Models\System\Admin|null
+    function loggedInAdmin(): Admin|null
     {
-        if (! Auth::guard('admin')->check()) {
+        if (!Auth::guard('admin')->check()) {
             return null;
         } else {
             return Auth::guard('admin')->user();
@@ -247,9 +247,9 @@ if (! function_exists('canCreate')) {
      * @param Admin|null $admin
      * @return bool
      */
-    function canCreate(PermissionEntityTypes|string  $entityType,
-                       string                        $entity,
-                       \App\Models\System\Admin|null $admin = null): bool
+    function canCreate(PermissionEntityTypes|string $entityType,
+                       string                       $entity,
+                       Admin|null                   $admin = null): bool
     {
         if (empty($entity)) {
             abort(500, 'canCreate(): Argument #2 ($entity) cannot be empty');
@@ -289,7 +289,7 @@ if (! function_exists('canRead')) {
      * @return bool
      */
     function canRead(PermissionEntityTypes|string $entityType,
-                                                  $entity, \App\Models\System\Admin|null
+                                                  $entity, Admin|null
                                                   $admin = null): bool
     {
         if (empty($entity)) {
@@ -332,9 +332,9 @@ if (! function_exists('canUpdate')) {
      * @param Admin|null $admin
      * @return bool
      */
-    function canUpdate(PermissionEntityTypes         $entityType,
-                                                     $entity,
-                       \App\Models\System\Admin|null $admin = null): bool
+    function canUpdate(PermissionEntityTypes $entityType,
+                                             $entity,
+                       Admin|null            $admin = null): bool
     {
         if (empty($entity)) {
             abort(500, 'canUpdate(): Argument #2 ($entity) cannot be empty');
@@ -375,9 +375,9 @@ if (! function_exists('canDelete')) {
      * @param Admin|null $admin
      * @return bool
      */
-    function canDelete(PermissionEntityTypes         $entityType,
-                                                     $entity,
-                       \App\Models\System\Admin|null $admin = null): bool
+    function canDelete(PermissionEntityTypes $entityType,
+                                             $entity,
+                       Admin|null            $admin = null): bool
     {
         if (empty($entity)) {
             abort(500, 'canDelete(): Argument #2 ($entity) cannot be empty.');
@@ -411,9 +411,9 @@ if (! function_exists('createGate')) {
      * @param Admin|null $admin
      * @return void
      */
-    function createGate(PermissionEntityTypes|string  $entityType,
-                        string                        $entity,
-                        \App\Models\System\Admin|null $admin = null)
+    function createGate(PermissionEntityTypes|string $entityType,
+                        string                       $entity,
+                        Admin|null                   $admin = null)
     {
         if (!canCreate($entityType, $entity, $admin)) {
             abort(403, 'Read not authorized.');
@@ -428,9 +428,9 @@ if (! function_exists('readGate')) {
      * @param Admin|null $admin
      * @return void
      */
-    function readGate(PermissionEntityTypes|string  $entityType,
-                                                    $entity,
-                      \App\Models\System\Admin|null $admin = null)
+    function readGate(PermissionEntityTypes|string $entityType,
+                                                   $entity,
+                      Admin|null                   $admin = null)
     {
         if (!canRead($entityType, $entity, $admin)) {
             abort(403, 'Read not authorized.');
@@ -445,9 +445,9 @@ if (! function_exists('updateGate')) {
      * @param Admin|null $admin
      * @return void
      */
-    function updateGate(PermissionEntityTypes         $entityType,
-                                                      $entity,
-                        \App\Models\System\Admin|null $admin = null)
+    function updateGate(PermissionEntityTypes $entityType,
+                                              $entity,
+                        Admin|null            $admin = null)
     {
         if (!canUpdate($entityType, $entity, $admin)) {
             abort(403, 'Update not authorized.');
@@ -462,9 +462,9 @@ if (! function_exists('deleteGate')) {
      * @param Admin|null $admin
      * @return void
      */
-    function deleteGate(PermissionEntityTypes         $entityType,
-                                                      $entity,
-                        \App\Models\System\Admin|null $admin = null)
+    function deleteGate(PermissionEntityTypes $entityType,
+                                              $entity,
+                        Admin|null            $admin = null)
     {
         if (!canDelete($entityType, $entity, $admin)) {
             abort(403, 'Delete not authorized.');

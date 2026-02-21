@@ -16,7 +16,7 @@
     if (!empty($display)) $styleArray[] = 'display: '. $display . ';';
     if (!empty($whiteSpace)) $styleArray[] = 'white-space: '. $whiteSpace . ';';
     if (!empty($styleArray)) {
-        $styles = array_merge($styles, $styleArrayt);
+        $styles = array_merge($styles, $styleArray);
     }
 @endphp
 <div @if(!empty($classes))
