@@ -114,7 +114,7 @@ class IndexController extends BaseUserController
      * @param Request $request
      * @return RedirectResponse|View
      */
-    public function forgot_password(Request $request): RedirectResponse | View
+    public function forgot_password(Request $request): RedirectResponse|View
     {
         if ($request->isMethod('post')) {
 
@@ -201,7 +201,7 @@ class IndexController extends BaseUserController
      * @param $email
      * @return RedirectResponse|View
      */
-    public function reset_password($token, $email): RedirectResponse |View
+    public function reset_password($token, $email): RedirectResponse|View
     {
         if (!$user = new User()->where('email', $email)->where('token', $token)->first()) {
             return redirect()->route('admin.login')
@@ -222,8 +222,7 @@ class IndexController extends BaseUserController
     public function reset_password_submit(Request $request, $token, $email): RedirectResponse
     {
         $request->validate([
-            'password' => ['required'],
-            'confirm_password' => ['required', 'same:password']
+            'password' => ['required', 'confirmed', Password::defaults()->letters()->numbers()->symbols()],
         ]);
 
         if (!$user = new User()->where('email', $email)->where('token', $token)->first()) {

@@ -2,7 +2,7 @@
     use App\Enums\EnvTypes;
 
     // set breadcrumbs
-    $title    = $pagTitle ?? 'Login';
+    $title    = $pagTitle ?? 'Admin Login';
     $subtitle = false;
 
     // set breadcrumbs
@@ -21,7 +21,7 @@
             Admin Login
         </div>
 
-        @if (!$loginEnabled)
+        @if (!config('app.admin_login_enabled'))
 
             <div class="has-text-centered">
                 <h4>Admin logins have been disabled.</h4>
@@ -35,13 +35,13 @@
 
         @else
 
-            @if($demoAutologin)
+            @if(config('app.demo_admin_autologin'))
 
                 <div class="p-2 has-text-centered">
                     <p class="mb-1">
                         To log in as the <strong>demo</strong> admin use the credentials below.
                     </p>
-                    <code class=" has-text-primary">{{ $demoUsername }} / {{ $demoPassword }}</code>
+                    <code class=" has-text-primary">{{ config('app.demo_admin_username') }} / {{ config('app.demo_admin_password') }}</code>
                 </div>
 
             @endif

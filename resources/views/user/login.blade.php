@@ -1,24 +1,17 @@
 @php
-    $loginEnabled  = config('app.user_login_enabled');
-    $isDemoEnabled = config('app.demo_user_enabled');
-    $demoUsername  = config('app.demo_user_username');
-    $demoPassword  = config('app.demo_user_password');
-    $demoAutologin = config('app.demo_user_autologin');
+    use App\Enums\EnvTypes;
+
+    // set breadcrumbs
+    $title    = $pagTitle ?? 'User Login';
+    $subtitle = false;
+
+    // set breadcrumbs
+    $breadcrumbs = [];
+
+    $buttons = [];
 @endphp
-@extends('user.layouts.default', [
-    'title'            => $pageTitle ?? 'Login',
-    'breadcrumbs'      => [],
-    'buttons'          => [],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('user.layouts.default')
 
 @section('content')
 
@@ -42,13 +35,13 @@
 
         @else
 
-            @if($demoAutologin)
+            @if(config('app.demo_user_autologin'))
 
                 <div class="p-2 has-text-centered">
                     <p class="mb-1">
                         To log in as the <strong>demo</strong> user use the credentials below.
                     </p>
-                    <code class=" has-text-primary">{{ $demoUsername }} / {{ $demoPassword }}</code>
+                    <code class=" has-text-primary">{{ config('app.demo_user_username') }} / {{ config('app.demo_user_password') }}</code>
                 </div>
 
             @endif
@@ -87,16 +80,16 @@
                         'name'       => 'Forgot User Password?',
                         'href'       => route('user.forgot-password'),
                         'style'      => 'text-primary-600 hover:underline',
-                        'cancel_url' => referer('admin.index')
+                        'cancel_url' => referer('user.index')
                     ])
 
                     |
 
-                    @include('admin.components.link', [
+                    @include('user.components.link', [
                         'name'       => 'Forgot User Name?',
                         'href'       => route('user.forgot-username'),
                         'style'      => 'text-primary-600 hover:underline',
-                        'cancel_url' => referer('admin.index')
+                        'cancel_url' => referer('user.index')
                     ])
 
                 </div>

@@ -176,8 +176,8 @@ class IndexController extends BaseAdminController
 
             Mail::to($request->email)->send(new ResetPassword($subject, $info));
 
-            return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check your
-            email. If you do not find the email in your inbox, please check your spam folder.');
+            return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check
+            your email. If you do not find the email in your inbox, please check your spam folder.');
 
         } else {
 
@@ -192,7 +192,7 @@ class IndexController extends BaseAdminController
      * @param $email
      * @return RedirectResponse|View
      */
-    public function reset_password($token, $email): RedirectResponse | View
+    public function reset_password($token, $email): RedirectResponse|View
     {
         if (!$admin = new Admin()->where('email', $email)->where('token', $token)->first()) {
             return redirect()->route('admin.login')

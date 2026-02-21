@@ -21,7 +21,7 @@
 <div class="field">
     @if(isset($label) && ($label === '') )
     @else
-        <label class="label">{!! $label ?? $name !!}</label>
+        <label class="label" for="{{ $id }}">{!! $label ?? $name !!}</label>
     @endif
     <div class="control {{ $hasIcon ? 'has-icons-left' : '' }}">
         <input class="input {!! $class !!} @error('role') is-invalid @enderror"

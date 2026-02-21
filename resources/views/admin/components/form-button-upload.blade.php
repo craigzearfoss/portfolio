@@ -1,11 +1,44 @@
 @php
-    $class = !empty($class) ? (is_array($class) ? implode(' ', $class) : $class) : 'button is-small is-dark my-0';
-    $style = !empty($style) ? (is_array($style) ? implode('; ', $style) : $style) : '';
+    $class = !empty($class) ? (!is_array($class) ? explode(' ', $class) : $class) : [];
+    $class[] = 'button';
+    $class[] = 'is-small';
+    $class[] = 'is-dark';
+
+    $style = !empty($style) ? (!is_array($style) ? explode(';', $style) : $style) : [];
+
+    $propsArray = [];
+    foreach ($props ?? [] as $key=>$value) {
+        $propsArray[] = "{$key}={$value}";
+    }
+
+    $icon = $icon ?? 'fa-upload';
 @endphp
-<button type="button"
-        class="{!! $class !!}"
-        @if (!empty($style))style="{!! $style !!}" @endif
+<button
+    type="{{ $type ?? 'button' }}"
+    @if (!empty($name))
+        name="{{ $name }}"
+    @endif
+    @if (!empty($id))
+        id="{{ $id }}"
+    @endif
+    @if (!empty($class))
+        class="{{ implode(' ' , $class) }}"
+    @endif
+    @if (!empty($style))
+        style="{{ implode(' ' , $class) }}"
+    @endif
+    @if (!empty($onclick))
+        onclick="{!! $onclick !!}"
+    @endif
+    @if(!empty($disabled) || !empty($readonly))
+        disabled
+    @endif
+    @if (!empty($propsArray))
+        {!! implode(' ', $propsArray) !!}
+    @endif
 >
-    <i class="fa fa-upload mr-1"></i>
+    @if (!empty($icon))
+        <i class="fa-solid {{ $icon }}"></i>
+    @endif
     {!! $name ?? '' !!}
 </button>
