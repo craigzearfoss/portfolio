@@ -1,6 +1,9 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title = $pageTitle ?? 'Music';
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -21,18 +24,8 @@
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Music', 'href' => route('admin.portfolio.music.create', $owner ?? $admin)])->render();
     }
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Music',
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

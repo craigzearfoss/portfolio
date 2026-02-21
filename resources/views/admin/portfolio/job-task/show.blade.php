@@ -1,6 +1,21 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? 'Job Task';
+    $subtitle = $title;
+
+    // set navigation buttons
+    $breadcrumbs = [
+        [ 'name' => 'Home',              'href' => route('admin.index') ],
+        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Jobs',              'href' => route('admin.portfolio.job.index') ],
+        [ 'name' => $jobTask->job->name, 'href' => route('admin.portfolio.job.show', $jobTask->job) ],
+        [ 'name' => 'Tasks',             'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
+        [ 'name' => 'Show' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $jobTask, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.job-task.edit', $jobTask)])->render();
@@ -10,26 +25,8 @@
     }
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-task.index')])->render();
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Job Task',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',              'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',              'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $jobTask->job->name, 'href' => route('admin.portfolio.job.show', $jobTask->job) ],
-        [ 'name' => 'Tasks',             'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
-        [ 'name' => 'Show' ],
-    ],
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

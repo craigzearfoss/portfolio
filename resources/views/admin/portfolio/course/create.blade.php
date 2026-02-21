@@ -2,6 +2,9 @@
     use App\Models\Portfolio\Academy;
     use App\Models\System\Owner;
 
+    $title    = $pageTitle ?? 'Add New Course';
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -23,20 +26,8 @@
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.course.index')])->render(),
     ];
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New Course',
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

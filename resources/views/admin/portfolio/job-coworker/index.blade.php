@@ -1,6 +1,10 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? (!empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers');
+    $subtitle = $title;
+
+    // set breadcrumbs
     $breadcrumbs    = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -15,23 +19,14 @@
         $breadcrumbs[] = [ 'name' => 'Coworkers', 'href' => route('admin.portfolio.job-coworker.index') ];
     }
 
+    // set navigation buttons
     $buttons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'job-coworker', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create')])->render();
     }
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? (!empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers'),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

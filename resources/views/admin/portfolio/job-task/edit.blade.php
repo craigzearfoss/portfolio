@@ -1,10 +1,12 @@
 @php
     use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Job Task Edit',
-    'breadcrumbs'      => [
+
+    $title    = $pageTitle ?? 'Job Task Edit';
+    $subtitle = $title;
+
+    // set navigation buttons
+    $breadcrumbs = [
         [ 'name' => 'Home',              'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
@@ -12,20 +14,15 @@
         [ 'name' => $jobTask->job->name, 'href' => route('admin.portfolio.job.show', $jobTask->job) ],
         [ 'name' => 'Tasks',             'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
         [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-task.index')])->render(),
-    ],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+    ];
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 
