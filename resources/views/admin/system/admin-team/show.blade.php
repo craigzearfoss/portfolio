@@ -1,6 +1,18 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? 'Admin Team: ' . $adminTeam->name;
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Admin Teams',     'href' => route('admin.system.admin-team.index') ],
+        [ 'name' => $adminTeam->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $adminTeam, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-team.edit', $adminTeam)])->render();
@@ -14,23 +26,8 @@
     }
     $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-team.index') ])->render();
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Admin Team: ' . $adminTeam->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Admin Teams',     'href' => route('admin.system.admin-team.index') ],
-        [ 'name' => $adminTeam->name ]
-    ],
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

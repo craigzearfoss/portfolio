@@ -4,16 +4,7 @@
     $title    = $pageTitle ??  'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
-    $buttons = [];
-        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Preview Current Resume',
-                                                           'href' => route('admin.career.resume.preview', $owner),
-                                                           'style' => 'background-color: #3e8ed0 !important;'
-                                                         ])->render();
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
-    }
-@endphp
-@php
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -31,12 +22,19 @@
             [ 'name' => 'Resumes' ]
         ];
     }
+
+    // set navigation buttons
+    $buttons = [];
+        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Preview Current Resume',
+                                                           'href' => route('admin.career.resume.preview', $owner),
+                                                           'style' => 'background-color: #3e8ed0 !important;'
+                                                         ])->render();
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
+    }
 @endphp
-@extends('admin.layouts.default', [
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

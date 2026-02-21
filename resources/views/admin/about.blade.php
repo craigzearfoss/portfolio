@@ -1,25 +1,21 @@
 @php
-    use App\Enums\EnvTypes
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pagTitle ?? 'About Us',
-    'subtitle'         => false,
-    'breadcrumbs'      => [
+    use App\Enums\EnvTypes;
+
+    // set breadcrumbs
+    $title    = $pagTitle ?? 'About Us';
+    $subtitle = false;
+
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'About Us']
-    ],
-    'buttons'          => [],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+    ];
+
+    $buttons = [];
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 

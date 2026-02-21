@@ -18,11 +18,8 @@
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Unit', 'href' => route('admin.personal.unit.create')])->render();
     }
 @endphp
-@extends('admin.layouts.default', [
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

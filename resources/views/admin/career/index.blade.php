@@ -12,19 +12,8 @@
     // set navigation buttons
     $buttons = [];
 @endphp
-@extends('admin.layouts.default', [
-    'title'         => $title,
-    'subtitle'      => $subtitle,
-    'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'menuService'   => $menuService,
-    'admin'         => $admin,
-    'user'          => $user,
-    'owner'         => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

@@ -18,11 +18,8 @@
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Board', 'href' => route('admin.career.job-board.create')])->render();
     }
 @endphp
-@extends('admin.layouts.default', [
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

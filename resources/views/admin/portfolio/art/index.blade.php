@@ -1,6 +1,8 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? 'Art';
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -25,19 +27,8 @@
                                                                               )])->render();
     }
 @endphp
-@include('includes.template-variables')/
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Art',
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

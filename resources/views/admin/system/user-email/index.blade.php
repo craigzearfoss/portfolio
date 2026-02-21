@@ -1,41 +1,29 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? (isRootAdmin() ? 'User Emails' : 'Emails');
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Teams' ],
+        [ 'name' => isRootAdmin() ? 'User Emails' : 'Emails' ],
     ];
 
     // set navigation buttons
     $buttons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Team',
-                                                               'href' => route('admin.system.admin-team.create',
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-email', $admin)) {
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Email',
+                                                               'href' => route('admin.system.user-email.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
-    if (canRead(PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
-        $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Groups',
-                                                                'href' => route('admin.system.admin-group.index')
-                                                              ])->render();
-    }
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Teams',
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

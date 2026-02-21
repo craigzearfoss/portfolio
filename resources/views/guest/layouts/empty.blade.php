@@ -1,7 +1,15 @@
 @php
-    $admin = $admin ?? null;
-    $user  = $user ?? null;
-    $owner = $owner ?? null;
+    $title            = $title ?? '';
+    $subtitle         = $subtitle ?? false;
+    $breadcrumbs      = $breadcrumbs ?? [];
+    $buttons          = $buttons ?? [];
+    $errorMessages    = $errorMessages = [];
+    $success          = $success ?? null;
+    $error            = $error ?? null;
+    $menuService      = $menuService ?? null;
+    $admin            = $admin ?? null;
+    $user             = $user ?? null;
+    $owner            = $owner ?? null;
 @endphp
 <!DOCTYPE html>
 <html lang="en">

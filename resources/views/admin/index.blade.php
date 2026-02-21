@@ -1,16 +1,20 @@
-@php /* for url '/admin/' */ @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? config('app.name'),
-    'breadcrumbs'      => [],
-    'buttons'          => [],
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+@php
+    use App\Enums\EnvTypes;
+
+    // set breadcrumbs
+    $title    = $pagTitle ?? config('app.name');
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home', 'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard' ],
+    ];
+
+    $buttons = [];
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 

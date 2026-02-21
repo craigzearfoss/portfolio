@@ -1,6 +1,18 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? 'User Group: ' . $userGroup->name;
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'User Groups',     'href' => route('admin.system.user-group.index') ],
+        [ 'name' => $userGroup->name ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $userGroup, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit', $userGroup)
@@ -15,23 +27,8 @@
     }
     $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-group.index') ])->render();
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'User Group: ' . $userGroup->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'User Groups',     'href' => route('admin.system.user-group.index') ],
-        [ 'name' => $userGroup->name ]
-    ],
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

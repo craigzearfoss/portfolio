@@ -4,6 +4,7 @@
     $title    = $pageTitle ?? 'Edit Resume' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -25,24 +26,14 @@
             [ 'name' => 'Edit' ]
         ];
     }
-@endphp
-@extends('admin.layouts.default', [
-    'title'         => $title,
-    'subtitle'      => $subtitle,
-    'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.career.resume.index')])->render(),
-    ],
-    'errorMessages' => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'menuService'   => $menuService,
-    'admin'         => $admin,
-    'user'          => $user,
-    'owner'         => $owner,
-])
+    ];
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 

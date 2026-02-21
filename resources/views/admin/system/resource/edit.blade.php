@@ -2,6 +2,9 @@
     use App\Models\System\Database;
     use App\Models\System\Owner;
 
+    $title    = $pageTitle ?? $resource->database->name . '.' . $resource->name .  ' Resource';
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',                                        'href' => route('guest.index') ],
@@ -17,20 +20,7 @@
         view('admin.components.nav-button-back', ['href' => referer('admin.system.resource.index')])->render(),
     ];
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? $resource->database->name . '.' . $resource->name .  ' Resource',
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+@extends('admin.layouts.default')
 
 @section('content')
 

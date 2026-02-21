@@ -1,26 +1,24 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Edit My Profile',
-    'breadcrumbs'      => [
+@php
+    $title    = $pageTitle ?? 'Edit My Profile';
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'My Profile',      'href' => route('admin.profile.show') ],
         [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button', ['name' => 'Change Password', 'icon'=>'fa-key', 'href' => route('admin.profile.change-password')])->render(),
         view('admin.components.nav-button-back', ['href' => referer('admin.profile.index')])->render(),
-    ],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+    ]
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 

@@ -1,24 +1,17 @@
 @php
-    $loginEnabled  = config('app.admin_login_enabled');
-    $isDemoEnabled = config('app.demo_admin_enabled');
-    $demoUsername  = config('app.demo_admin_username');
-    $demoPassword  = config('app.demo_admin_password');
-    $demoAutologin = config('app.demo_admin_autologin');
+    use App\Enums\EnvTypes;
+
+    // set breadcrumbs
+    $title    = $pagTitle ?? 'Login';
+    $subtitle = false;
+
+    // set breadcrumbs
+    $breadcrumbs = [];
+
+    $buttons = [];
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Login',
-    'breadcrumbs'      => [],
-    'buttons'          => [],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

@@ -1,6 +1,9 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? 'Resources';
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -12,29 +15,8 @@
     // set navigation buttons
     $buttons = [];
 @endphp
-@php
-    // set breadcrumbs
-    $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Resources' ],
-    ];
 
-    // set navigation buttons
-    $buttons = [];
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Resources',
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+@extends('admin.layouts.default')
 
 @section('content')
 

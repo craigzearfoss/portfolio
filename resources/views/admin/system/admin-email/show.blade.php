@@ -1,36 +1,33 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? (isRootAdmin() ? 'Admin Email' : 'Email');
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',                                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                         'href' => route('admin.dashboard') ],
+        [ 'name' => isRootAdmin() ? 'Admin Emails' : 'Emails', 'href' => route('admin.system.admin-email.index') ],
+        [ 'name' => isRootAdmin() ? 'Admin Email' : 'Email' ]
+    ];
+
+    // set navigation buttons
     $buttons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $adminTeam, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-team.edit', $adminTeam)])->render();
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $adminEmail, $admin)) {
+        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-email.edit', $adminEmail)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Team',
-                                                               'href' => route('admin.system.admin-team.create',
+        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Email',
+                                                               'href' => route('admin.system.admin-email.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-team.index') ])->render();
+    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-email.index') ])->render();
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Admin Team: ' . $adminTeam->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Admin Teams',     'href' => route('admin.system.admin-team.index') ],
-        [ 'name' => $adminTeam->name ]
-    ],
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

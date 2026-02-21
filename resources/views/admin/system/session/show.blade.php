@@ -1,22 +1,20 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Session: ' . $session->id,
-    'breadcrumbs'      => [
+@php
+    $title    = $pageTitle ?? 'Session: ' . $session->id;
+    $subtitle = $title;
+
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Sessions',        'href' => route('admin.system.session.index') ],
         [ 'name' => $session->id ],
-    ],
-    'buttons'          => [
+    ];
+
+    $buttons = [
         view('admin.components.nav-button-back', [ 'href' => referer('admin.system.session.index' )])->render(),
-    ],
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+    ];
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 

@@ -18,11 +18,8 @@
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
     }
 @endphp
-@extends('admin.layouts.default', [
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

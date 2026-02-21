@@ -1,28 +1,24 @@
 @php
     use App\Models\System\Owner;
     use App\Models\System\UserTeam;
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New User Group',
-    'breadcrumbs'      => [
+
+    $title    = $pageTitle ?? 'Add New User Group';
+
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'User Groups',     'href' => route('admin.system.user-group.index') ],
         [ 'name' => 'Add' ]
-    ],
-    'buttons'          => [
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.system.user-group.index')])->render(),
-    ],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+    ];
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 

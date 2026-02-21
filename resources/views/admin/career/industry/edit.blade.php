@@ -17,13 +17,8 @@
         view('admin.components.nav-button-back', ['href' => referer('admin.career.industry.index')])->render(),
     ];
 @endphp
-@extends('admin.layouts.default', [
-    'errorMessages' => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

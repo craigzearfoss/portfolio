@@ -4,6 +4,7 @@
     $title    = $pageTitle ?? 'Resume: ' . $resume->name . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
+    // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',             'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
@@ -13,6 +14,7 @@
         [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ]
     ];
 
+    // set navigation buttons
     $buttons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $resume, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.resume.edit', $resume)])->render();
@@ -23,19 +25,7 @@
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.resume.index')])->render();
 @endphp
 
-@extends('admin.layouts.default', [
-    'title'         => $title,
-    'subtitle'      => $subtitle,
-    'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => $buttons,
-    'errorMessages' => $errors->messages() ?? [],
-    'success'       => session('success') ?? null,
-    'error'         => session('error') ?? null,
-    'menuService'   => $menuService,
-    'admin'         => $admin,
-    'user'          => $user,
-    'owner'         => $owner,
-])
+@extends('admin.layouts.default')
 
 @section('content')
 

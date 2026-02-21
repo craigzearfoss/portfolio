@@ -1,3 +1,20 @@
+@php
+    use App\Enums\EnvTypes;
+
+    // set breadcrumbs
+    $title    = $pagTitle ?? 'Admin Dashboard';
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard' ]
+    ];
+
+    $buttons = [];
+@endphp
+
+
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Admin Dashboard',
     'breadcrumbs'      => [

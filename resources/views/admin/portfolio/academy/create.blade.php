@@ -1,25 +1,23 @@
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New Academy',
-    'breadcrumbs'      => [
+@php
+    $title    = $pageTitle ?? 'Add New Academy';
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Academies',       'href' => route('admin.portfolio.academy.index') ],
         [ 'name' => 'Add' ],
-    ],
-    'buttons'          => [
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.academy.index')])->render(),
-    ],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+    ]
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 

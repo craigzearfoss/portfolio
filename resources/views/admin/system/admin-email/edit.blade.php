@@ -1,35 +1,26 @@
 @php
     use App\Models\System\Owner;
 
+    $title    = $pageTitle ?? $adminEmail->email;
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index', ['owner_id'=>$owner->id]) ],
-        [ 'name' => 'Teams',           'href' => route('admin.system.admin-team.index', ['owner_id'=>$owner->id]) ],
-        [ 'name' => $adminTeam->name,  'href' => route('admin.system.admin-team.show', [$adminTeam, 'owner_id'=>$owner->id]) ],
+        [ 'name' => 'Home',                                                  'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                       'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                                'href' => route('admin.system.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => isRootAdmin() ? 'Admin Email Numbers' : 'Email Numbers', 'href' => route('admin.system.admin-email.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => $adminEmail->email, 'href' => route('admin.system.admin-email.show', [$adminEmail, 'owner_id'=>$owner->id]) ],
         [ 'name' => 'Edit' ]
     ];
 
     // set navigation buttons
     $buttons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-team.index')])->render(),
+        view('admin.components.nav-button-back', ['href' => referer('admin.system.admin-email.index')])->render(),
     ];
 @endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? $adminTeam->name . ' Team',
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('admin.layouts.default')
 
 @section('content')
 

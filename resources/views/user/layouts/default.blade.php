@@ -1,5 +1,6 @@
 @php
     $title            = $title ?? '';
+    $subtitle         = $subtitle ?? false;
     $breadcrumbs      = $breadcrumbs ?? [];
     $buttons          = $buttons ?? [];
     $errorMessages    = $errorMessages = [];
