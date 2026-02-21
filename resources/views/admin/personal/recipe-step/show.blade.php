@@ -1,6 +1,20 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step;
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',                      'href' => route('admin.index') ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard')],
+        [ 'name' => 'Personal',                  'href' => route('admin.personal.index') ],
+        [ 'name' => 'Recipes',                   'href' => route('admin.personal.recipe.index') ],
+        [ 'name' => $recipeStep->recipe['name'], 'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
+        [ 'name' => 'Step ' . $recipeStep->step ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $recipeStep, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-step.edit', $recipeStep)])->render();
@@ -11,23 +25,9 @@
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-step.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',                      'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard')],
-        [ 'name' => 'Personal',                  'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',                   'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => $recipeStep->recipe['name'], 'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
-        [ 'name' => 'Step ' . $recipeStep->step ],
-    ],
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

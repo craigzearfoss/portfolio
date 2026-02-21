@@ -3,10 +3,12 @@
     use App\Models\Personal\Recipe;
     use App\Models\Personal\Unit;
     use App\Models\System\Owner;
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Recipe Ingredient: ' . $recipeIngredient->ingredient->name,
-    'breadcrumbs'      => [
+
+    $title    = $pageTitle ?? 'Recipe Ingredient: ' . $recipeIngredient->ingredient->name;
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',                  'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',              'href' => route('admin.personal.index') ],
@@ -14,19 +16,19 @@
         [ 'name' => 'Ingredients',           'href' => route('admin.personal.recipe-ingredient.index') ],
         [ 'name' => $recipeIngredient->name, 'href' => route('admin.personal.recipe-ingredient.show', $recipeIngredient) ],
         [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-ingredient.index')])->render(),
-    ],
-    'errorMessages'    => $errors->any()
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

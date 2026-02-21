@@ -1,29 +1,31 @@
 @php
     use App\Models\Career\Application;
     use App\Models\System\Owner;
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? (!empty($title) ? $title : 'Cover Letter: ' . $coverLetter->name),
-    'breadcrumbs'      => [
+
+    $title    = $pageTitle ?? (!empty($title) ? $title : 'Cover Letter: ' . $coverLetter->name);
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',             'href' => route('admin.index') ],
         [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',           'href' => route('admin.career.index') ],
         [ 'name' => 'Cover Letters',    'href' => route('admin.career.cover-letter.index') ],
         [ 'name' => $coverLetter->name, 'href' => route('admin.career.cover-letter.show', $coverLetter) ],
         [ 'name' => 'Edit' ],
-    ],
-    'buttons'          => [
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.career.cover-letter.index')])->render(),
-    ],
-    'errorMessages'    => $errors->any()
+    ];
+@endphp
+@extends('admin.layouts.default', [
+    'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

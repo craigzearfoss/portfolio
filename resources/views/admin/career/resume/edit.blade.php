@@ -1,6 +1,9 @@
 @php
     use App\Models\System\Owner;
 
+    $title    = $pageTitle ?? 'Edit Resume' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $subtitle = $title;
+
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -24,20 +27,21 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Edit Resume' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => [
+    'title'         => $title,
+    'subtitle'      => $subtitle,
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => [
         view('admin.components.nav-button-back', ['href' => referer('admin.career.resume.index')])->render(),
     ],
-    'errorMessages'    => $errors->any()
+    'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'menuService'   => $menuService,
+    'admin'         => $admin,
+    'user'          => $user,
+    'owner'         => $owner,
 ])
 
 @section('content')

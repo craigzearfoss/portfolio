@@ -1,6 +1,19 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title = $pageTitle ?? 'Cover Letter: ' . $coverLetter->name;
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',             'href' => route('admin.index') ],
+        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+        [ 'name' => 'Cover Letters',    'href' => route('admin.career.cover-letter.index') ],
+        [ 'name' => $coverLetter->name ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $coverLetter, $admin)) {
         $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.cover-letter.edit', $coverLetter)])->render();
@@ -15,22 +28,17 @@
         : '';
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Cover Letter: ' . $coverLetter->name,
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',             'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-        [ 'name' => 'Cover Letters',    'href' => route('admin.career.cover-letter.index') ],
-        [ 'name' => $coverLetter->name ],
-    ],
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'title'         => $title,
+    'subtitle'      => $subtitle,
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'menuService'   => $menuService,
+    'admin'         => $admin,
+    'user'          => $user,
+    'owner'         => $owner,
 ])
 
 @section('content')

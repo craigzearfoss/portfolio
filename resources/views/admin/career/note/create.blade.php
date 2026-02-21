@@ -2,6 +2,9 @@
     use App\Models\Career\Application;
     use App\Models\System\Owner;
 
+    $title    = $$pageTitle ?? 'Add Note' . (!empty($application) ? ' to ' . $application->name . ' application' : '');
+    $subtitle = $title;
+
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -23,20 +26,11 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $$pageTitle ?? 'Add Note' . (!empty($application) ? ' to ' . $application->name . ' application' : ''),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => [
-        view('admin.components.nav-button-back', ['href' => referer('admin.career.note.index')])->render(),
-    ],
-    'errorMessages'    => $errors->any()
+    'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

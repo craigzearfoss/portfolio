@@ -1,6 +1,9 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title = $pageTitle ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $subtitle = $title;
+
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -31,16 +34,9 @@
     $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.event.index')])->render();
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

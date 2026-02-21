@@ -1,30 +1,30 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? ((!empty($recipeId) && !empty($recipeIngredient->recipe))
+        ?  $recipeIngredient->recipe['name'] . ' Ingredients'
+        : 'Recipe Ingredients');
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
+        [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
+        [ 'name' => 'Ingredients' ],
+    ];
+
+    // set navigation buttons
     $buttons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create', $owner)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? ((!empty($recipeId) && !empty($recipeIngredient->recipe))
-        ?  $recipeIngredient->recipe['name'] . ' Ingredients'
-        : 'Recipe Ingredients'),
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => 'Ingredients' ],
-    ],
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

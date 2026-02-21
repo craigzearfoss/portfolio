@@ -1,23 +1,17 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    if (!empty($application)) {
-        $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ]
-        ];
-    } else {
-        $breadcrumbs = [
-            [ 'name' => 'Home',            'href' => route('guest.index') ],
-            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-            [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ]
-        ];
-    }
+    $title    = $pageTitle ?? 'Resume: ' . $resume->name . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $subtitle = $title;
+
+    $breadcrumbs = [
+        [ 'name' => 'Home',             'href' => route('admin.index') ],
+        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+        [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
+        [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ]
+    ];
 
     $buttons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $resume, $admin)) {
@@ -30,22 +24,17 @@
 @endphp
 
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Resume: ' . $resume->name . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'      => [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
-        [ 'name' => $resume->name ],
-    ],
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'title'         => $title,
+    'subtitle'      => $subtitle,
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'menuService'   => $menuService,
+    'admin'         => $admin,
+    'user'          => $user,
+    'owner'         => $owner,
 ])
 
 @section('content')

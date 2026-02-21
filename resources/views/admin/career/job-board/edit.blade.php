@@ -1,4 +1,7 @@
 @php
+    $title = $pageTitle ?? (!empty($title) ? $title : 'Job Board: ' . $jobBoard->name);
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -15,18 +18,11 @@
     ];
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? (!empty($title) ? $title : 'Job Board: ' . $jobBoard->name),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->any()
+    'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

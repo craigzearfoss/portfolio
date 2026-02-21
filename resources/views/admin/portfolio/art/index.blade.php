@@ -25,6 +25,7 @@
                                                                               )])->render();
     }
 @endphp
+@include('includes.template-variables')/
 @extends('admin.layouts.default', [
     'title'            => $pageTitle ?? 'Art',
     'breadcrumbs'      => $breadcrumbs,

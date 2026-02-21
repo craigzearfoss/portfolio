@@ -1,6 +1,10 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ?? (!empty($recipe->name) ?  $recipe->name . ' Instructions' : 'Recipe Instructions');
+    $subtitle = $title;
+
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',            'href' => route('guest.index') ],
@@ -19,22 +23,16 @@
         ];
     }
 
+    // set navigation buttons
     $buttons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe-step', $admin)) {
         $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create', $owner)])->render();
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? (!empty($recipe->name) ?  $recipe->name . ' Instructions' : 'Recipe Instructions'),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

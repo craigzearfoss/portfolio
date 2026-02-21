@@ -1,28 +1,30 @@
 @php
     use App\Models\Career\Application;
     use App\Models\System\Owner;
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Add New Cover Letter',
-    'breadcrumbs'      => [
+
+    $title    = $pageTitle ?? 'Add New Cover Letter';
+    $subtitle = $title;
+
+    // set breadcrumbs
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Cover Letters',   'href' => route('admin.career.cover-letter.index') ],
         [ 'name' => 'Attach' ],
-    ],
-    'buttons'         => [
+    ];
+
+    // set navigation buttons
+    $buttons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.career.cover-letter.index')])->render(),
-    ],
+    ];
+@endphp
+@extends('admin.layouts.default', [
     'errorMessages'    => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
     'success'          => session('success') ?? null,
     'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
 ])
 
 @section('content')

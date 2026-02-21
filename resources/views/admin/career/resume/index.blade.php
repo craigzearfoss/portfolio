@@ -1,6 +1,9 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $title    = $pageTitle ??  'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $subtitle = $title;
+
     $buttons = [];
         $buttons[] = view('admin.components.nav-button', [ 'name' => 'Preview Current Resume',
                                                            'href' => route('admin.career.resume.preview', $owner),
@@ -30,16 +33,9 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title'            => $pageTitle ??  'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')
