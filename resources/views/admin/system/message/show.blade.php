@@ -24,7 +24,7 @@
                                                                               )
                                                              ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.message.index') ])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.message.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

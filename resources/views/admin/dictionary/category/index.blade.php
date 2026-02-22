@@ -17,7 +17,7 @@
     // set navigation buttons
     $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'category', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Category', 'href' => route('admin.dictionary.category.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Category', 'href' => route('admin.dictionary.category.create')])->render();
     }
 @endphp
 

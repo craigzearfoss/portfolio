@@ -21,7 +21,7 @@
     if (canCreate(PermissionEntityTypes::RESOURCE, 'certification', $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certification', 'href' => route('admin.portfolio.certification.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.certification.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.certification.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

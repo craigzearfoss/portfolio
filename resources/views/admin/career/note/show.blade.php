@@ -31,9 +31,9 @@
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.note.edit', $note)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'note', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.note.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.note.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

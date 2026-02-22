@@ -48,7 +48,7 @@
         @include('admin.components.subtitle-bar', [
             'title'      => $title,
             'selectList' => $navSelectList ?? '',
-            'buttons'    => $buttons,
+            'buttons'    => $navButtons,
         ])
 
         <section class="is-main-section">

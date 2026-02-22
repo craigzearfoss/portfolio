@@ -8,7 +8,7 @@
     // set breadcrumbs
     $breadcrumbs = [];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('user.layouts.default')
