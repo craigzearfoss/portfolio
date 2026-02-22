@@ -16,6 +16,10 @@
 
 @section('content')
 
+    @if($disclaimerMessage = config('app.demo_disclaimer'))
+        @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+    @endif
+
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 

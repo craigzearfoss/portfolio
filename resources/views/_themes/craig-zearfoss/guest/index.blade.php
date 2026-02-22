@@ -55,7 +55,7 @@
                     </p>
                     <p>
                         For more details about this site, as well as a to-do-list of work that is being done and features
-                        that are still to be added, visit the <a href="{{route('guest.about')}}"><strong>About Page</strong></a>.
+                        that are still to be added, visit the <a href="{{ route('guest.about') }}"><strong>About Page</strong></a>.
                     </p>
                     <p>
                         If you would like to contact me about this project or an employment opportunity, please do it

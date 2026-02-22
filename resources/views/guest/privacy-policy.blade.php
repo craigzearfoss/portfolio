@@ -1,24 +1,18 @@
 @php
     use App\Enums\EnvTypes;
-@endphp
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Privacy Policy',
-    'subtitle'         => false,
-    'breadcrumbs'      => [
+
+    $title    = $pageTitle ?? 'Privacy Policy';
+    $subtitle = false;
+
+    $breadcrumbs = [
         [ 'name' => 'Home', 'href' => route('guest.index')],
         [ 'name' => 'Privacy Policy']
-    ],
-    'buttons'          => [],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+    ];
+
+    $buttons = [];
+@endphp
+
+@extends('guest.layouts.default')
 
 @section('content')
 

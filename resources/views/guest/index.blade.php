@@ -1,18 +1,13 @@
-@php /* for url '/' */ @endphp
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? config('app.name'),
-    'breadcrumbs'      => [],
-    'buttons'          => [],
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+@php
+    $title    = $pageTitle ?? config('app.name');
+    $subtitle = $title;
+
+    $breadcrumbs = [];
+
+    $buttons = [];
+@endphp
+
+@extends('guest.layouts.default')
 
 @section('content')
 
@@ -43,7 +38,7 @@
                         </p>
                         <p>
                             For more details about this site, as well as a to-do-list of work that is being done and features
-                            that are still to be added, visit the <a href="{{route('guest.about')}}"><strong>About Page</strong></a>.
+                            that are still to be added, visit the <a href="{{ route('guest.about') }}"><strong>About Page</strong></a>.
                         </p>
                         <p>
                             If you would like to contact me about this project or an employment opportunity, please do it

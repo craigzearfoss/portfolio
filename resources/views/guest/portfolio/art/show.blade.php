@@ -1,4 +1,7 @@
 @php
+    $title    = $pageTitle ?? 'Art: ' . $art->name . (!empty($art->artist) ? ' by ' . $art->artist : '');
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
@@ -14,20 +17,8 @@
         view('guest.components.nav-button-back',  ['href' => referer('guest.admin.portfolio.art.index', $owner)])->render(),
     ];
 @endphp
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? 'Art: ' . $art->name . (!empty($art->artist) ? ' by ' . $art->artist : ''),
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('guest.layouts.default')
 
 @section('content')
 
