@@ -3,6 +3,9 @@
     $subtitle      = $subtitle ?? false;
     $breadcrumbs   = $breadcrumbs ?? [];
     $buttons       = $buttons ?? [];
+    $navSelectList = $navSelectList ?? null;
+    $prev          = $prev ?? null;
+    $next          = $next ?? null;
     $errorMessages = $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [];
@@ -44,7 +47,7 @@
 
         @include('admin.components.subtitle-bar', [
             'title'      => $title,
-            'selectList' => $selectList ?? '',
+            'selectList' => $navSelectList ?? '',
             'buttons'    => $buttons,
         ])
 

@@ -1,6 +1,9 @@
 @php
     use App\Models\Dictionary\DictionarySection;
 
+    $title    = 'Dictionary: Databases';
+    $subtitle = $title;
+
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',       'href' => route('guest.index') ],
@@ -10,34 +13,23 @@
 
     // set navigation buttons
     $buttons = [];
+
+    $navSelectList = View::make('guest.components.form-select', [
+        'name'     => '',
+        'label'    => '',
+        'value'    => route('guest.dictionary.database.index'),
+        'list'     => new DictionarySection()->listOptions(
+        [],
+        'route',
+        'name',
+        true
+        ),
+        'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
+        'message'  => $message ?? '',
+    ]);
 @endphp
-@extends('guest.layouts.default', [
-    'title'            => 'Dictionary: Databases' ,
-    'breadcrumbs'      => $breadcrumbs,
-    'buttons'          => $buttons,
-    'selectList'       => View::make('guest.components.form-select', [
-                            'name'     => '',
-                            'label'    => '',
-                            'value'    => route('guest.dictionary.database.index'),
-                            'list'     => new DictionarySection()->listOptions(
-                                [],
-                                'route',
-                                'name',
-                                true
-                            ),
-                            'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
-                            'message'  => $message ?? '',
-                        ]),
-    'errorMessages'    => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
-        : [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+
+@extends('guest.layouts.default')
 
 @section('content')
 
