@@ -15,9 +15,9 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'database', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.dictionary.database.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.dictionary.database.create')])->render();
     }
 @endphp
 

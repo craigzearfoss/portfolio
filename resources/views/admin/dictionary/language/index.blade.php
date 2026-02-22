@@ -15,9 +15,9 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'language', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Language', 'href' => route('admin.dictionary.language.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Language', 'href' => route('admin.dictionary.language.create')])->render();
     }
 @endphp
 

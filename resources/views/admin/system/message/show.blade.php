@@ -13,12 +13,12 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $message, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.message.edit', $message) ])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.message.edit', $message) ])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'message', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Message',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Message',
                                                                'href' => route('admin.system.message.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )

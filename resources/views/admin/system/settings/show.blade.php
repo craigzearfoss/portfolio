@@ -11,7 +11,7 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('admin.layouts.default')

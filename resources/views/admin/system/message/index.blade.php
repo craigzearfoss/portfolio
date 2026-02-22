@@ -13,9 +13,9 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'message', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
     }
 @endphp
 

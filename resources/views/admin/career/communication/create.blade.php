@@ -6,6 +6,7 @@
     $title    = $pageTitle ?? 'Add Communication' . (!empty($application) ? ' to ' . $application->name . ' application' : '');
     $subtitle = $title;
 
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -25,6 +26,11 @@
             [ 'name' => 'Add' ]
         ];
     }
+
+    // set navigation buttons
+    $navButtons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.career.communication.index')])->render(),
+    ];
 @endphp
 
 @extends('admin.layouts.default')

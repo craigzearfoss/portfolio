@@ -13,18 +13,18 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $adminGroup, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-group.edit', $adminGroup)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-group.edit', $adminGroup)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
                                                                'href' => route('admin.system.admin-group.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-group.index') ])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-group.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

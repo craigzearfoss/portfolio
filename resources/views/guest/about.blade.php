@@ -9,7 +9,7 @@
         [ 'name' => 'About Us']
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('guest.layouts.default')

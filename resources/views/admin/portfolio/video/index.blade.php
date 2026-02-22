@@ -19,9 +19,9 @@
     $breadcrumbs[] = [ 'name' => 'Videos' ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'video', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Video', 'href' => route('admin.portfolio.video.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Video', 'href' => route('admin.portfolio.video.create', $owner ?? $admin)])->render();
     }
 @endphp
 

@@ -14,27 +14,27 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
-    $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'View Profile',
+    $navButtons = [];
+    $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'View Profile',
                                                             'href' => route('admin.system.admin.show', $thisAdmin)
                                                           ])->render();
     if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
                                                                'href' => route('admin.system.admin.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
     if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
-        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
+        $navButtons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
                                                            'icon'=>'fa-key',
                                                            'href' => route('admin.system.admin.change-password', $thisAdmin)
                                                          ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin.index', $thisAdmin) ])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin.index', $thisAdmin) ])->render();
 @endphp
 
 @extends('admin.layouts.default')

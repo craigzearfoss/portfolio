@@ -19,9 +19,9 @@
     $breadcrumbs[] = [ 'name' => 'Courses' ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'course', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create', $owner ?? $admin)])->render();
     }
 @endphp
 

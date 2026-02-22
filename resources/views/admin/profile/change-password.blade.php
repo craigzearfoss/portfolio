@@ -1,20 +1,19 @@
 @php
     $title    = $pageTitle ?? 'Change Password';
-
-    // set breadcrumbs
     $subtitle = $title;
 
-    // set navigation buttons
-    $buttons = [
-        view('admin.components.nav-button-back', ['href' => referer('admin.profile.index')])->render(),
-    ];
-
+    // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.index') ],
         [ 'name' => 'My Profile',      'href' => route('admin.profile.show') ],
         [ 'name' => 'Change Password' ],
+    ];
+
+    // set navigation buttons
+    $navButtons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.profile.index')])->render(),
     ];
 @endphp
 

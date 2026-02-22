@@ -9,7 +9,7 @@
         [ 'name' => 'Terms & Conditions']
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('guest.layouts.default')

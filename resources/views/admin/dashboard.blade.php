@@ -11,7 +11,7 @@
         [ 'name' => 'Admin Dashboard' ]
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 

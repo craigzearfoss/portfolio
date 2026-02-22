@@ -19,9 +19,9 @@
     $breadcrumbs[] = [ 'name' => 'Companies' ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'job-search-log', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Log Entry', 'href' => route('admin.career.job-search-log.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Log Entry', 'href' => route('admin.career.job-search-log.create', $owner ?? $admin)])->render();
     }
 @endphp
 

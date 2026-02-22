@@ -20,9 +20,9 @@
     $breadcrumbs[] = [ 'name' => 'Photography' ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'photo', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Photo',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Photo',
                                                                'href' => route('admin.portfolio.photography.create',
                                                                                !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
                                                                               )])->render();

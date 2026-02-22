@@ -19,9 +19,9 @@
     $breadcrumbs[] = [ 'name' => 'Skills' ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'skill', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Skill', 'href' => route('admin.portfolio.skill.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Skill', 'href' => route('admin.portfolio.skill.create', $owner ?? $admin)])->render();
     }
 @endphp
 

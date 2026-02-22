@@ -21,12 +21,12 @@
     $breadcrumbs[] = [ 'name' => 'Add' ];
 
     // set navigation buttons
-    $buttons = [
+    $navButtons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.link.index')])->render(),
     ];
 @endphp
 
-@extends('admin.layouts.default'])
+@extends('admin.layouts.default')
 
 @section('content')
 

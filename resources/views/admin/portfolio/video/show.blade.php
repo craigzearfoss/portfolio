@@ -21,14 +21,14 @@
     $breadcrumbs[] = [ 'name' => $video->name ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $video, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.video.edit', $video)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.video.edit', $video)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'video', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Video', 'href' => route('admin.portfolio.video.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Video', 'href' => route('admin.portfolio.video.create', $owner ?? $admin)])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.video.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.video.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

@@ -13,9 +13,9 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-email', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Email',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Email',
                                                                'href' => route('admin.system.user-email.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )

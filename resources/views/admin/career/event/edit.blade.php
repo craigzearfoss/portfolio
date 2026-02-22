@@ -5,6 +5,7 @@
     $title    = $pageTitle ?? 'Edit Event' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -26,6 +27,11 @@
             [ 'name' => 'Edit' ]
         ];
     }
+
+    // set navigation buttons
+    $navButtons = [
+        view('admin.components.nav-button-back', ['href' => referer('admin.career.event.index')])->render()
+    ];
 @endphp
 
 @extends('admin.layouts.default')

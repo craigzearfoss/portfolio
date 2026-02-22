@@ -12,7 +12,7 @@
         [ 'name' => 'Forgot Password']
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @section('content')

@@ -16,14 +16,14 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $jobSkill, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.job-skill.edit', $jobSkill)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.job-skill.edit', $jobSkill)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'job-skill', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-skill.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-skill.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

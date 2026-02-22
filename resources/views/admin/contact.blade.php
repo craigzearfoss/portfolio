@@ -12,7 +12,7 @@
         [ 'name' => 'Contact Us']
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('admin.layouts.default')

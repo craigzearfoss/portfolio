@@ -15,14 +15,14 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-ingredient.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-ingredient.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

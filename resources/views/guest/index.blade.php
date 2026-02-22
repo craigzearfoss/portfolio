@@ -4,7 +4,7 @@
 
     $breadcrumbs = [];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('guest.layouts.default')

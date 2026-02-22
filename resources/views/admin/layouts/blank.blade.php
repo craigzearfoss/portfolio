@@ -2,7 +2,7 @@
     $title         = $title ?? '';
     $subtitle      = $subtitle ?? false;
     $breadcrumbs   = $breadcrumbs ?? [];
-    $buttons       = $buttons ?? [];
+    $navButtons    = $navButtons ?? [];
     $navSelectList = $navSelectList ?? null;
     $prev          = $prev ?? null;
     $next          = $next ?? null;

@@ -12,7 +12,7 @@
         [ 'name' => 'Reset Password']
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('admin.layouts.default')

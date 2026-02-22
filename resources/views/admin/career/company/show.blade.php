@@ -21,14 +21,14 @@
     $breadcrumbs[] = [ 'name' => $company->name ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $company, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.company.edit', $company)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.company.edit', $company)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'company', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create', $owner ?? $admin)])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.company.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.company.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

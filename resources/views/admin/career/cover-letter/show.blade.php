@@ -14,14 +14,14 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $coverLetter, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.cover-letter.edit', $coverLetter)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.cover-letter.edit', $coverLetter)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'cover-letter', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.cover-letter.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.cover-letter.index')])->render();
 
     $fileExtension = !empty($coverLetter->filepath)
         ? Illuminate\Support\Facades\File::extension($coverLetter->filepath)

@@ -21,7 +21,7 @@
     $breadcrumbs[] = [ 'name' => 'Add' ];
 
     // set navigation buttons
-    $buttons = [
+    $navButtons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe.index')])->render(),
     ];
 @endphp

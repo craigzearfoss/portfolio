@@ -24,13 +24,13 @@
     }
 
     // set navigation buttons
-    $buttons = [];
-        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Preview Current Resume',
-                                                           'href' => route('admin.career.resume.preview', $owner),
-                                                           'style' => 'background-color: #3e8ed0 !important;'
-                                                         ])->render();
+    $navButtons = [];
+    $navButtons[] = view('admin.components.nav-button', [ 'name' => 'Preview Current Resume',
+                                                       'href' => route('admin.career.resume.preview', $owner),
+                                                       'style' => 'background-color: #3e8ed0 !important;'
+                                                     ])->render();
     if (canCreate(PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
 @endphp
 

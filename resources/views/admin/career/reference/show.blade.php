@@ -21,14 +21,14 @@
     $breadcrumbs[] = [ 'name' => $reference->name ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $reference, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.reference.edit', $reference)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.reference.edit', $reference)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'reference', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create', $owner ?? $admin)])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.reference.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.reference.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

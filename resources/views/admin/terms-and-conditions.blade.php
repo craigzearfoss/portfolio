@@ -12,7 +12,7 @@
         [ 'name' => 'Terms & Conditions']
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('admin.layouts.default')

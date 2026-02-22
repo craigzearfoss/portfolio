@@ -8,7 +8,7 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
 
     $navSelectList = View::make('guest.components.form-select', [
         'name'     => '',

@@ -4,6 +4,7 @@
     $title    = $pageTitle ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -22,9 +23,10 @@
         ];
     }
 
-    $buttons = [];
+    // set navigation buttons
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'event', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
     }
 @endphp
 

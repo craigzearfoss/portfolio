@@ -21,14 +21,14 @@
     $breadcrumbs[] = [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $music, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.music.edit', $music)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.music.edit', $music)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'music', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Music', 'href' => route('admin.portfolio.music.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Music', 'href' => route('admin.portfolio.music.create', $owner ?? $admin)])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.music.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.music.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

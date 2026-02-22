@@ -21,14 +21,14 @@
     $breadcrumbs[] = [ 'name' => $course->name ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $course, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.course.edit', $course)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.course.edit', $course)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'course', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create', $owner ?? $admin)])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.course.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.course.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

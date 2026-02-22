@@ -4,12 +4,7 @@
     $title    = $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
-    $buttons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
-    }
-@endphp
-@php
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -26,6 +21,12 @@
             [ 'name' => 'Career',          'href' => route('admin.career.index') ],
             [ 'name' => 'Communications' ]
         ];
+    }
+
+    // set navigation buttons
+    $navButtons = [];
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
     }
 @endphp
 

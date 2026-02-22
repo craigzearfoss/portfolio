@@ -13,7 +13,7 @@
     ];
 
     // set navigation buttons
-    $buttons = [
+    $navButtons = [
         view('guest.components.nav-button-back',  ['href' => referer('guest.admin.portfolio.link.index', $owner)])->render(),
     ];
 @endphp

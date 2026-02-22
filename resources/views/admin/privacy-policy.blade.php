@@ -12,7 +12,7 @@
         [ 'name' => 'Privacy Policy']
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('admin.layouts.default')

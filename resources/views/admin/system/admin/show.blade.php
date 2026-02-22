@@ -19,24 +19,24 @@
     }
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
                                                                'href' => route('admin.system.admin.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
     if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
-        $buttons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
+        $navButtons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
                                                            'icon'=>'fa-key',
                                                            'href' => route('admin.system.admin.change-password', $thisAdmin)
                                                          ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => route('admin.system.admin.profile', $thisAdmin)])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => route('admin.system.admin.profile', $thisAdmin)])->render();
 @endphp
 
 @extends('admin.layouts.default')

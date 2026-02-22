@@ -14,14 +14,14 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $recruiter, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.recruiter.edit', $recruiter)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.recruiter.edit', $recruiter)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'recruiter', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recruiter', 'href' => route('admin.career.recruiter.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recruiter', 'href' => route('admin.career.recruiter.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.recruiter.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.recruiter.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

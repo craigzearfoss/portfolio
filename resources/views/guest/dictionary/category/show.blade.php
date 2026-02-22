@@ -11,7 +11,7 @@
     ];
 
     // set navigation buttons
-    $buttons = [
+    $navButtons = [
         view('guest.components.nav-button-back', ['href' => referer('guest.dictionary.index')])->render()
     ];
 @endphp

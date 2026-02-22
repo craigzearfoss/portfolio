@@ -9,7 +9,7 @@
         [ 'name' => 'Privacy Policy']
     ];
 
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('guest.layouts.default')

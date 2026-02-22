@@ -4,6 +4,7 @@
     $title    = $pageTitle ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -22,9 +23,10 @@
         ];
     }
 
-    $buttons = [];
+    // set navigation buttons
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'note', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
     }
 @endphp
 

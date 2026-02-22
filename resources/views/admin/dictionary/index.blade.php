@@ -1,31 +1,29 @@
 @php
     use App\Enums\EnvTypes;
     use App\Models\Dictionary\DictionarySection;
-@endphp
-@extends('admin.layouts.default', [
-    'title'            => 'Dictionary',
-    'breadcrumbs'      => [
+
+    $title    = 'Dictionary';
+    $subtitle = $title;
+
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
         [ 'name' => 'Dictionary']
-    ],
-    'selectList'       => View::make('admin.components.form-select', [
-            'name'     => '',
-            'label'    => '',
-            'value'    => route('admin.dictionary.index'),
-            'list'     => new DictionarySection()->listOptions([], 'route', 'name', true, false, [ 'name'=>'asc' ], EnvTypes::ADMIN),
-            'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
-            'message'  => $message ?? '',
-        ]),
-    'buttons'          => [],
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+    ];
+
+    $navButtons = [];
+
+    $navSelectList = View::make('admin.components.form-select', [
+        'name'     => '',
+        'label'    => '',
+        'value'    => route('admin.dictionary.index'),
+        'list'     => new DictionarySection()->listOptions([], 'route', 'name', true, false, [ 'name'=>'asc' ], EnvTypes::ADMIN),
+        'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
+        'message'  => $message ?? '',
+    ]);
+@endphp
+
+@extends('admin.layouts.default')
 
 @section('content')
 

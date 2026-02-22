@@ -4,16 +4,7 @@
     $title    = $pageTitle ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
-    $buttons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.communication.edit', $communication)])->render();
-    }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
-    }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.communication.index')])->render();
-@endphp
-@php
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -33,6 +24,16 @@
             [ 'name' => 'Communication' ]
         ];
     }
+
+    // set navigation buttons
+    $navButtons = [];
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin)) {
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.communication.edit', $communication)])->render();
+    }
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
+    }
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.communication.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

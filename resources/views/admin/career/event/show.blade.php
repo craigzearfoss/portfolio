@@ -4,6 +4,7 @@
     $title = $pageTitle ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
 
+    // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('admin.index') ],
@@ -24,14 +25,15 @@
         ];
     }
 
-    $buttons = [];
+    // set navigation buttons
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $event, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.event.edit', $event)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.event.edit', $event)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'event', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.event.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.event.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

@@ -16,11 +16,11 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (isRootAdmin() && !empty($owner)) {
-        $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-resource.index', [ 'owner_id'=>$owner->id ]) ])->render();
+        $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-resource.index', [ 'owner_id'=>$owner->id ]) ])->render();
     } else {
-        $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-resource.index') ])->render();
+        $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-resource.index') ])->render();
     }
 @endphp
 

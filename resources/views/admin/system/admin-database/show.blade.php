@@ -18,17 +18,17 @@
     $breadcrumbs[] = [ 'name' => $adminDatabase->name . ' db' ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (isRootAdmin() && !empty($owner)) {
         if (canUpdate(PermissionEntityTypes::RESOURCE, $adminDatabase, $admin)) {
-            $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', [ $adminDatabase, 'owner_id'=>$owner->id ]) ])->render();
+            $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', [ $adminDatabase, 'owner_id'=>$owner->id ]) ])->render();
         }
     } else {
         if (canUpdate(PermissionEntityTypes::RESOURCE, $adminDatabase, $admin)) {
-            $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', $adminDatabase) ])->render();
+            $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-database.edit', $adminDatabase) ])->render();
         }
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-database.index', (isRootAdmin() && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : []) ])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-database.index', (isRootAdmin() && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : []) ])->render();
 @endphp
 
 @extends('admin.layouts.default')

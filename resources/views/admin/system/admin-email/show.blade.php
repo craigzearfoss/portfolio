@@ -13,18 +13,18 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $adminEmail, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-email.edit', $adminEmail)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-email.edit', $adminEmail)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Email',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Email',
                                                                'href' => route('admin.system.admin-email.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-email.index') ])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-email.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

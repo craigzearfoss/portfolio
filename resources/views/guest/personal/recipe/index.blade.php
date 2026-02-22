@@ -12,7 +12,7 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
 @endphp
 
 @extends('guest.layouts.default')

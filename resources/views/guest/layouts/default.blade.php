@@ -2,7 +2,7 @@
     $title         = $title ?? '';
     $subtitle      = $subtitle ?? false;
     $breadcrumbs   = $breadcrumbs ?? [];
-    $buttons       = $buttons ?? [];
+    $navButtons    = $navButtons ?? [];
     $navSelectList = $navSelectList ?? null;
     $prev          = $prev ?? null;
     $next          = $next ?? null;
@@ -45,7 +45,7 @@
         @include('guest.components.subtitle-bar', [
             'title'      => $title ?? '',
             'selectList' => $navSelectList ?? '',
-            'buttons'    => $buttons ?? [],
+            'buttons'    => $navButtons ?? [],
             'prev'       => $prev ?? null,
             'next'       => $next ?? null,
         ])

@@ -21,14 +21,14 @@
     $breadcrumbs[] = [ 'name' => $project->name ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $project, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.project.edit', $project)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.project.edit', $project)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'project', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Project', 'href' => route('admin.portfolio.project.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Project', 'href' => route('admin.portfolio.project.create', $owner ?? $admin)])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.project.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.project.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

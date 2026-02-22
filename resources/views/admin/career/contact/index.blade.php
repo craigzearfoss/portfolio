@@ -21,7 +21,7 @@
     // set navigation buttons
     $buttons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'contact', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Contact', 'href' => route('admin.career.contact.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Contact', 'href' => route('admin.career.contact.create', $owner ?? $admin)])->render();
     }
 @endphp
 

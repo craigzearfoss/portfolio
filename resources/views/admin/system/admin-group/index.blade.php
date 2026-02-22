@@ -13,14 +13,14 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
                                                                'href' => route('admin.system.admin-group.create')
                                                              ])->render();
     }
     if (canRead(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
-        $buttons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Teams',
+        $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Teams',
                                                                 'href' => route('admin.system.admin-team.index')
                                                               ])->render();
     }

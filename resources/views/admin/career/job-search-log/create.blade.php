@@ -21,7 +21,7 @@
     $breadcrumbs[] = [ 'name' => 'Add Entry' ];
 
     // set navigation buttons
-    $buttons = [
+    $navButtons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.career.job-search-log.index')])->render(),
     ];
 @endphp

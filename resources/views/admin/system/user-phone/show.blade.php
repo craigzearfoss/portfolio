@@ -13,18 +13,18 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $userPhone, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-phone.edit', $userPhone)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-phone.edit', $userPhone)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Phone',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Phone',
                                                                'href' => route('admin.system.user-phone.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-phone.index') ])->render();
+    $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-phone.index') ])->render();
 @endphp
 
 @extends('admin.layouts.default')

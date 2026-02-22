@@ -14,14 +14,14 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $database, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.database.edit', $database)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.database.edit', $database)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'database', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.dictionary.database.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.dictionary.database.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

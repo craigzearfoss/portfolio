@@ -10,7 +10,7 @@
     ];
 
     // set navigation buttons
-    $buttons = [
+    $navButtons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.system.user.index')])->render(),
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user.show', $user) ],
     ];

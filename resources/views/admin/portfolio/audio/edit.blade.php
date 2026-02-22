@@ -24,7 +24,7 @@
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons
-    $buttons = [
+    $navButtons = [
         view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.audio.index')])->render(),
     ];
 @endphp

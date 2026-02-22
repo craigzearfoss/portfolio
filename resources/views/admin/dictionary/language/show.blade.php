@@ -14,14 +14,14 @@
     ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $language, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.language.edit', $language)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.language.edit', $language)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'language', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Language', 'href' => route('admin.dictionary.language.create')])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Language', 'href' => route('admin.dictionary.language.create')])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

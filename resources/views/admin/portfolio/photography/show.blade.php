@@ -21,14 +21,14 @@
     $breadcrumbs[] = [ 'name' => $photo->name ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $photo, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.photography.edit', $photo)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.photography.edit', $photo)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'photography', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Photo', 'href' => route('admin.portfolio.photography.create', ['owner_id'=>$owner->id])])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Photo', 'href' => route('admin.portfolio.photography.create', ['owner_id'=>$owner->id])])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.photography.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.photography.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')

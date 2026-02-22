@@ -21,14 +21,14 @@
     $breadcrumbs[] = [ 'name' => $reading->name ];
 
     // set navigation buttons
-    $buttons = [];
+    $navButtons = [];
     if (canUpdate(PermissionEntityTypes::RESOURCE, $reading, $admin)) {
-        $buttons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.reading.edit', $reading)])->render();
+        $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.reading.edit', $reading)])->render();
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'reading', $admin)) {
-        $buttons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reading', 'href' => route('admin.personal.reading.create', $owner ?? $admin)])->render();
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reading', 'href' => route('admin.personal.reading.create', $owner ?? $admin)])->render();
     }
-    $buttons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.reading.index')])->render();
+    $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.reading.index')])->render();
 @endphp
 
 @extends('admin.layouts.default')
