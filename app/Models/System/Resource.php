@@ -43,7 +43,7 @@ class Resource extends Model
         'database_id',
         'name',
         'parent_id',
-        'table',
+        'table_name',
         'class',
         'title',
         'plural',
@@ -51,7 +51,6 @@ class Resource extends Model
         'guest',
         'user',
         'admin',
-        'global',
         'menu',
         'menu_level',
         'menu_collapsed',
@@ -67,8 +66,9 @@ class Resource extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'database_id', 'name', 'parent_id', 'table', 'title', 'plural', 'guest',
-        'user', 'admin', 'global', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'database_id', 'name', 'parent_id', 'table_name', 'title', 'plural',
+        'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'public', 'readonly', 'root',
+        'disabled', 'demo'];
 
     /**
      *
@@ -102,8 +102,8 @@ class Resource extends Model
             ->when(isset($filters['parent_id']), function ($query) use ($filters) {
                 $query->where('parent_id', '=', intval($filters['parent_id']));
             })
-            ->when(!empty($filters['table']), function ($query) use ($filters) {
-                $query->where('table', 'like', '%' . $filters['table'] . '%');
+            ->when(!empty($filters['table_name']), function ($query) use ($filters) {
+                $query->where('table_name', 'like', '%' . $filters['table_name'] . '%');
             })
             ->when(!empty($filters['class']), function ($query) use ($filters) {
                 $query->where('class', 'like', '%' . $filters['class'] . '%');

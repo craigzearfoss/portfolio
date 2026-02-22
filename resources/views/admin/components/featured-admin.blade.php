@@ -1,7 +1,13 @@
-@if($owner)
+@php
+    use App\Models\System\AdminDatabase;
+@endphp
+
+@if
+
+    ($owner)
 
     @php
-        $portfolioResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
+        $portfolioResourceTypes = AdminDatabase::getResourceTypes(
             $owner->id,
             'portfolio',
             [
@@ -10,7 +16,7 @@
             ],
         );
 
-        $personalResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
+        $personalResourceTypes = AdminDatabase::getResourceTypes(
             $owner->id,
             'personal',
             [
@@ -83,12 +89,12 @@
 
                         @foreach ($portfolioResourceTypes as $resourceType)
 
-                            @if(empty($resourceType['global']) && Route::has('admin.admin.portfolio.'.$resourceType['name'].'.index'))
+                            @if(Route::has('admin.admin.portfolio.'.$resourceType['name'].'.index'))
                                 <li>
                                     @include('admin.components.link', [
                                         'name'  => $resourceType['plural'],
                                         'href'  => 'admin.portfolio.'.$resourceType['name'].'.index', $owner),
-                                        'class' => 'pt-1 pb-1',
+                                    'class' => 'pt-1 pb-1',
                                     ])
                                 </li>
                             @endif
@@ -107,12 +113,12 @@
 
                         @foreach ($personalResourceTypes as $resourceType)
 
-                            @if(empty($resourceType['global']) && Route::has('admin.admin.personal.'.$resourceType['name'].'.index'))
+                            @if(Route::has('admin.admin.personal.'.$resourceType['name'].'.index'))
                                 <li>
                                     @include('admin.components.link', [
                                         'name'  => $resourceType['plural'],
                                         'href'  => 'admin.system.'.$resourceType['name'].'.index'),
-                                        'class' => 'pt-1 pb-1',
+                                    'class' => 'pt-1 pb-1',
                                     ])
                                 </li>
                             @endif

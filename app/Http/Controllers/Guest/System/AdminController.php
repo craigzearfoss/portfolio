@@ -14,7 +14,7 @@ use Illuminate\View\View;
 class AdminController extends BaseGuestController
 {
     /**
-     * Display a listing of admins.
+     * Display the guest candidates page.
      *
      * @param Request $request
      * @return View
@@ -23,12 +23,13 @@ class AdminController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $owners = new Admin()->where('public', 1)
+        $admin = null;
+        $candidates = new Admin()->where('public', 1)
             ->where('disabled', false)
-            ->orderBy('username')
+            ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        return view('guest.system.admin.index', compact('owners'))
+        return view(themedTemplate('guest.system.admin.index'), compact('admin', 'candidates'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

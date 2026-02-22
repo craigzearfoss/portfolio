@@ -3,33 +3,18 @@
 
     // set breadcrumbs
     $title    = $pagTitle ?? 'Admin Dashboard';
-    $subtitle = $title;
+    $subtitle = false;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
+        [ 'name' => 'Home', 'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard' ]
     ];
 
     $navButtons = [];
 @endphp
 
-
-@extends('admin.layouts.default', [
-    'title'            => $pageTitle ?? 'Admin Dashboard',
-    'breadcrumbs'      => [
-        [ 'name' => 'Home', 'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard' ],
-    ],
-    'buttons'          => [],
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+@extends('admin.layouts.default')
 
 @section('content')
 
@@ -41,11 +26,13 @@
 
     @if($admin->root)
 
-        <div class="card p-4">
+        <div class="floating-div-container">
+            <div class="show-container card floating-div">
 
-            <h4 class="title is-size-4 mb-2">Admins</h4>
-            @include('admin.components.admins-table', ['owners' => $owners])
+                <h4 class="title is-size-4 mb-2">Admins</h4>
+                @include('admin.components.admins-table', ['admins' => $owners])
 
+            </div>
         </div>
 
     @endif

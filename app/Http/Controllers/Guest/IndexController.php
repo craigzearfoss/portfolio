@@ -49,26 +49,6 @@ class IndexController extends BaseGuestController
     }
 
     /**
-     * Display the guest candidates page.
-     *
-     * @param Request $request
-     * @return View
-     */
-    public function candidates(Request $request): View
-    {
-        $perPage = $request->query('per_page', $this->perPage());
-
-        $admin = null;
-        $candidates = new Admin()->where('public', 1)
-            ->where('disabled', false)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
-
-        return view(themedTemplate('guest.system.admin.index'), compact('admin', 'candidates'))
-            ->with('i', (request()->input('page', 1) - 1) * $perPage);
-    }
-
-    /**
      * Display the guest contact and conditions page.
      *
      * @return View

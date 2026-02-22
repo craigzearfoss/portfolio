@@ -36,7 +36,6 @@ return new class extends Migration
                     'guest'          => $personalDatabase->guest,
                     'user'           => $personalDatabase->user,
                     'admin'          => $personalDatabase->admin,
-                    'global'         => $personalDatabase->global,
                     'menu'           => $personalDatabase->menu,
                     'menu_level'     => $personalDatabase->menu_level,
                     'menu_collapsed' => $personalDatabase->menu_collapsed,

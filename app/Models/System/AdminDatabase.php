@@ -48,7 +48,6 @@ class AdminDatabase extends Model
         'guest',
         'user',
         'admin',
-        'global',   // the database has no owner
         'menu',
         'menu_level',
         'menu_collapsed',
@@ -64,8 +63,8 @@ class AdminDatabase extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'database_id', 'name', 'database', 'tag', 'title', 'plural', 'guest',
-        'user', 'admin', 'global', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'public', 'readonly', 'root',
+    const array SEARCH_COLUMNS = ['id', 'owner_id', 'database_id', 'name', 'database', 'tag', 'title', 'plural',
+        'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'public', 'readonly', 'root',
         'disabled', 'demo'];
 
     /**

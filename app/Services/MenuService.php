@@ -85,13 +85,6 @@ class MenuService
     protected bool $usersEnabled = true;
 
     /**
-     * @var array|string[]
-     */
-    protected array $globalDatabases = [
-        'dictionary',
-    ];
-
-    /**
      * @var bool
      */
     protected bool $showAll = false;
@@ -406,7 +399,7 @@ class MenuService
         $menuItem->level             = $level;
         $menuItem->name              = $data['name'] ?? null;
         $menuItem->database          = $data['database'] ?? null;
-        $menuItem->table             = $data['table'] ?? null;
+        $menuItem->table_name        = $data['table_name'] ?? null;
         $menuItem->tag               = $data['tag'] ?? null;
         $menuItem->title             = $data['title'] ?? '';
         $menuItem->plural            = $data['plural'] ?? '';
@@ -715,13 +708,13 @@ class MenuService
                 } elseif(!empty($this->admin->root)) {
                     // root admins can see every menu item
                     return true;
-                } elseif (empty($menuItem->admin) && empty($menuItem->global)) {
+                } elseif (empty($menuItem->admin)) {
                     return false;
                 }
                 break;
 
             case EnvTypes::USER:
-                if (empty($this->user) || empty($menuItem->user) || empty($menuItem->global)) {
+                if (empty($this->user)) {
                     return false;
                 }
                 break;
@@ -732,7 +725,7 @@ class MenuService
                 ) {
                     return false;
                 }
-                if (empty($menuItem->guest) || empty($menuItem->global)) {
+                if (empty($menuItem->guest)) {
                     return false;
                 }
                 break;

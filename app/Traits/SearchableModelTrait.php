@@ -208,9 +208,6 @@ trait SearchableModelTrait
             ->when(isset($filters['admin']), function ($query) use ($filters) {
                 $query->where('admin', '=', boolval(['admin']));
             })
-            ->when(isset($filters['global']), function ($query) use ($filters) {
-                $query->where('global', '=', boolval(['global']));
-            })
             ->when(isset($filters['menu']), function ($query) use ($filters) {
                 $query->where('menu', '=', boolval(['menu']));
             })

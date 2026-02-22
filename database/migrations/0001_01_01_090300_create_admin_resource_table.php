@@ -37,7 +37,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('resources', 'id')
                 ->onDelete('cascade');
-            $table->string('table', 50)->index('table_idx');
+            $table->string('table_name', 50)->index('table_name_idx');
             $table->string('class');
             $table->string('title', 50);
             $table->string('plural', 50);
@@ -45,7 +45,6 @@ return new class extends Migration
             $table->boolean('guest')->default(false);
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);
-            $table->boolean('global')->default(false);
             $table->boolean('menu')->default(false);
             $table->integer('menu_level')->default(1);
             $table->boolean('menu_collapsed')->default(false);
@@ -60,7 +59,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->unique(['owner_id', 'resource_id'], 'owner_id_resource_id_unique');
-            $table->unique(['owner_id', 'resource_id', 'table'], 'owner_id_resource_id_table_unique');
+            $table->unique(['owner_id', 'resource_id', 'table_name'], 'owner_id_resource_id_table_name_unique');
             $table->unique(['owner_id', 'resource_id', 'class'], 'owner_id_resource_id_class_unique');
             $table->unique(['owner_id', 'resource_id', 'title'], 'owner_id_resource_id_title_unique');
         });
@@ -81,7 +80,7 @@ return new class extends Migration
                         'database_id'    => $systemResource->database_id,
                         'name'           => $systemResource->name,
                         'parent_id'      => $systemResource->parent_id,
-                        'table'          => $systemResource->table,
+                        'table_name'     => $systemResource->table_name,
                         'class'          => $systemResource->class,
                         'title'          => $systemResource->title,
                         'plural'         => $systemResource->plural,
@@ -89,7 +88,6 @@ return new class extends Migration
                         'guest'          => $systemResource->guest,
                         'user'           => $systemResource->user,
                         'admin'          => $systemResource->admin,
-                        'global'         => $systemResource->global,
                         'menu'           => $systemResource->menu,
                         'menu_level'     => $systemResource->menu_level,
                         'menu_collapsed' => $systemResource->menu_collapsed,

@@ -55,7 +55,6 @@ class StoreAdminDatabasesRequest extends FormRequest
             'guest'          => ['integer', 'between:0,1'],
             'user'           => ['integer', 'between:0,1'],
             'admin'          => ['integer', 'between:0,1'],
-            'global'         => ['integer', 'between:0,1'],
             'menu'           => ['integer', 'between:0,1'],
             'menu_level'     => ['integer'],
             'menu_collapsed' => ['integer', 'between:0,1'],

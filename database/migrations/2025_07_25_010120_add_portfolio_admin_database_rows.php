@@ -36,7 +36,6 @@ return new class extends Migration
                     'guest'          => $portfolioDatabase->guest,
                     'user'           => $portfolioDatabase->user,
                     'admin'          => $portfolioDatabase->admin,
-                    'global'         => $portfolioDatabase->global,
                     'menu'           => $portfolioDatabase->menu,
                     'menu_level'     => $portfolioDatabase->menu_level,
                     'menu_collapsed' => $portfolioDatabase->menu_collapsed,

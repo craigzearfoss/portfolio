@@ -345,10 +345,10 @@ if (! function_exists('canUpdate')) {
         } else {
 
             if (!is_string($entity)) {
-                if (!$table = $entity->getTable()) {
+                if (!$tableName = $entity->getTable()) {
                     abort(500, 'canUpdate(): Table not found in Argument #2 ($entity). ' . callingFunction());
-                } elseif (!$adminResourceRow = new AdminResource()->where('table', $table)->first()) {
-                    abort(500, 'canUpdate(): Resource not found for table ' . $table . '. ' . callingFunction());
+                } elseif (!$adminResourceRow = new AdminResource()->where('table_name', $tableName)->first()) {
+                    abort(500, 'canUpdate(): Resource not found for table ' . $tableName . '. ' . callingFunction());
                 }
             }
 
@@ -387,10 +387,10 @@ if (! function_exists('canDelete')) {
             return true;
         } else {
 
-            if (!$table = $entity->getTable()) {
+            if (!$tableName = $entity->getTable()) {
                 abort(500, 'canDelete(): Table not found in Argument #2 ($entity). ' . callingFunction());
-            } elseif (!$adminResourceRow = new AdminResource()->where('table', $table)->first()) {
-                abort(500, 'canDelete(): Resource not found for table ' . $table . '. ' . callingFunction());
+            } elseif (!$adminResourceRow = new AdminResource()->where('table_name', $tableName)->first()) {
+                abort(500, 'canDelete(): Resource not found for table ' . $tableName . '. ' . callingFunction());
             }
 
             // non-root admins can only delete entities that they own
@@ -755,19 +755,19 @@ if (! function_exists('uniqueSlug')) {
      * TODO: Come up with a nicer way of append characters to slug when needed to make it unique.
      *
      * @param string $name
-     * @param string|null $table
+     * @param string|null $tableName
      * @param int|null $ownerId
      * @return string
      */
-    function uniqueSlug(string $name, ?string $table = null, ?int $ownerId = null): string
+    function uniqueSlug(string $name, ?string $tableName = null, ?int $ownerId = null): string
     {
         $slug = \Illuminate\Support\Str::slug($name);
 
-        if (!empty($table)) {
+        if (!empty($tableName)) {
 
-            if (str_contains($table, '.')) {
-                $database = explode('.', $table)[0];
-                $table = explode('.', $table)[1];
+            if (str_contains($tableName, '.')) {
+                $database = explode('.', $tableName)[0];
+                $table = explode('.', $tableName)[1];
             } else {
                 $database = null;
             }
@@ -775,11 +775,11 @@ if (! function_exists('uniqueSlug')) {
             if (!empty($ownerId)) {
 
                 if (empty($database)) {
-                    while (DB::table($table)->where('owner_id', $ownerId)->where('slug', $slug)->count()) {
+                    while (DB::table($tableName)->where('owner_id', $ownerId)->where('slug', $slug)->count()) {
                         $slug = $slug . '-1';
                     }
                 } else {
-                    while (DB::connection($database)->table($table)->where('owner_id', $ownerId)->where('slug', $slug)->count()) {
+                    while (DB::connection($database)->table($tableName)->where('owner_id', $ownerId)->where('slug', $slug)->count()) {
                         $slug = $slug . '-1';
                     }
                 }
@@ -787,11 +787,11 @@ if (! function_exists('uniqueSlug')) {
             } else {
 
                 if (empty($database)) {
-                    while (DB::table($table)->where('slug', $slug)->count()) {
+                    while (DB::table($tableName)->where('slug', $slug)->count()) {
                         $slug = $slug . '-1';
                     }
                 } else {
-                    while (DB::connection($database)->table($table)->where('slug', $slug)->count()) {
+                    while (DB::connection($database)->table($tableName)->where('slug', $slug)->count()) {
                         $slug = $slug . '-1';
                     }
                 }

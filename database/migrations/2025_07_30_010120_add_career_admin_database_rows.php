@@ -36,7 +36,6 @@ return new class extends Migration
                     'guest'          => $careerDatabase->guest,
                     'user'           => $careerDatabase->user,
                     'admin'          => $careerDatabase->admin,
-                    'global'         => $careerDatabase->global,
                     'menu'           => $careerDatabase->menu,
                     'menu_level'     => $careerDatabase->menu_level,
                     'menu_collapsed' => $careerDatabase->menu_collapsed,

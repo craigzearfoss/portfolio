@@ -259,7 +259,7 @@ class Job extends Model
             $name = 'default';
 
             if ($database = new Database()->where('tag', self::DATABASE_TAG)->first()) {
-                if ($resource = new Resource()->where('database_id', $database->id)->where('table', 'jobs')->first()) {
+                if ($resource = new Resource()->where('database_id', $database->id)->where('table_name', 'jobs')->first()) {
                     $value = ResourceSetting::getSetting($resource->id, 'template');
                     if (!empty($value)) {
                         $name = $value;

@@ -45,7 +45,7 @@ use App\Http\Controllers\Guest\Dictionary\StackController as GuestDictionaryStac
 // base routes
 // ---------------------------------------------------------------------------------------------------------------------
 Route::get('about', [GuestIndexController::class, 'about'])->name('guest.about');
-Route::get('candidates', [GuestIndexController::class, 'candidates'])->name('guest.admin.index');
+Route::get('candidates', [GuestSystemAdminController::class, 'index'])->name('guest.admin.index');
 Route::get('contact', [GuestIndexController::class, 'contact'])->name('guest.contact');
 Route::post('contact/store', [GuestIndexController::class, 'storeContactMessage'])->name('guest.contact.storeContactMessage');
 Route::get('privacy-policy', [GuestIndexController::class, 'privacy_policy'])->name('guest.privacy-policy');

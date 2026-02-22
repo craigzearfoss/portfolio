@@ -248,8 +248,8 @@ class IndexController extends BaseUserController
             $request->validate(new StoreUsersRequest()->rules());
 
             $user = new User();
-            $user->name     = $request->name;
-            $user->email    = $request->email;
+            $user->name     = $request->get('name');
+            $user->email    = $request->get('email');
             $user->password = Hash::make($request->password);
             $user->token    = hash('sha256', time());
             $user->status   = 0;

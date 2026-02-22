@@ -36,7 +36,6 @@ return new class extends Migration
                     'guest'          => $dictionaryDatabase->guest,
                     'user'           => $dictionaryDatabase->user,
                     'admin'          => $dictionaryDatabase->admin,
-                    'global'         => $dictionaryDatabase->global,
                     'menu'           => $dictionaryDatabase->menu,
                     'menu_level'     => $dictionaryDatabase->menu_level,
                     'menu_collapsed' => $dictionaryDatabase->menu_collapsed,

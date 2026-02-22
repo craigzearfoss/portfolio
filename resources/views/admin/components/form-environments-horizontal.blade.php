@@ -1,8 +1,7 @@
 @php
-    $guest  = $guest ?? 0;
-    $user   = $user ?? 0;
-    $admin  = $admin ?? 0;
-    $global = $global ?? 0;
+    $guest = $guest ?? 0;
+    $user  = $user ?? 0;
+    $admin = $admin ?? 0;
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
@@ -34,14 +33,6 @@
                     'value'           => 1,
                     'unchecked_value' => 0,
                     'checked'         => $admin ?? 0,
-                    'message'         => $message ?? '',
-                ])
-
-                @include('admin.components.form-checkbox', [
-                    'name'            => 'global',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => $global ?? 0,
                     'message'         => $message ?? '',
                 ])
 

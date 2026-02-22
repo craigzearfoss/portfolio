@@ -107,12 +107,11 @@
                 'guest'  => old('guest')  ?? $database->guest,
                 'user'   => old('user')   ?? $database->user,
                 'admin'  => old('admin')  ?? $database->admin,
-                'global' => old('global') ?? $database->global,
             ])
 
             @include('admin.components.form-menu-fields-horizontal', [
                 'menu'       => old('menu')       ?? $database->menu,
-                'menu_level' => old('meni_level') ?? $database->menu_level,
+                'menu_level' => old('menu_level') ?? $database->menu_level,
             ])
 
             @include('admin.components.form-visibility-horizontal', [

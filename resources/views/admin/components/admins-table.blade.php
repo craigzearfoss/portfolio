@@ -12,53 +12,49 @@
         <?php /*
             <tfoot>
             <tr>
-                <th style="white-space: nowrap;">user name</th>
+                <th></th>
                 <th>name</th>
-                <th>team</th>
-                <th>email</th>
-                <th>status</th>
-                <th class="has-text-centered">root</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
+                <th>role</th>
+                <th>employer</th>
             </tr>
             </tfoot>
             */ ?>
         <tbody>
 
-        @forelse ($owners as $owner)
+        @forelse ($admins as $thisAdmin)
 
-            <tr data-id="{{ $owner->id }}">
+            <tr data-id="{{ $thisAdmin->id }}">
                 <td data-field="thumbnail" style="width: 40px; padding: 1px;">
-                    @if(!empty($owner->thumbnail))
+                    @if(!empty($thisAdmin->thumbnail))
                         @include('admin.components.link', [
                             'name' => view('admin.components.image', [
-                                            'src'      => $owner->thumbnail,
+                                            'src'      => $thisAdmin->thumbnail,
                                             'alt'      => 'profile image',
                                             'width'    => '40px',
-                                            'filename' => $owner->thumbnail
+                                            'filename' => $thisAdmin->thumbnail
                                         ]),
-                            'href' => route('admin.system.admin.profile', $owner),
+                            'href' => route('admin.system.admin.profile', $thisAdmin),
                         ])
                     @endif
                 </td>
                 <td data-field="name">
                     @include('admin.components.link', [
-                        'name' => !empty($owner->name) ? $owner->name : $owner->label,
-                        'href' => route('admin.system.admin.profile', $owner),
+                        'name' => !empty($thisAdmin->name) ? $thisAdmin->name : $thisAdmin->label,
+                        'href' => route('admin.system.admin.profile', $thisAdmin),
                     ])
                 </td>
                 <td data-field="role">
-                    {{ $owner->role ?? '' }}
+                    {{ $thisAdmin->role ?? '' }}
                 </td>
                 <td data-field="employer">
-                    {{ $owner->employer ?? '' }}
+                    {{ $thisAdmin->employer ?? '' }}
                 </td>
             </tr>
 
         @empty
 
             <tr>
-                <td colspan="4">There are no users.</td>
+                <td colspan="4">There are no admins.</td>
             </tr>
 
         @endforelse
@@ -66,6 +62,6 @@
         </tbody>
     </table>
 
-    {!! $owners->links('vendor.pagination.bulma') !!}
+    {!! $admins->links('vendor.pagination.bulma') !!}
 
 </div>

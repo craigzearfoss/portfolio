@@ -37,7 +37,7 @@ class JobCoworkerController extends BaseAdminController
         $job = null;
         $query = null;
 
-        if ($jobId = $request->job_id) {
+        if ($jobId = $request->get('job_id')) {
 
             $job = new Job()->findOrFail($jobId);
 

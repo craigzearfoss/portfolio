@@ -51,13 +51,13 @@ class StoreResourcesRequest extends FormRequest
                 })
             ],
             'parent_id'      => ['integer', Rule::in(new Resource()->where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
-            'table'          => [
+            'table_name'     => [
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('system_db.resources', 'table')->where(function ($query) {
+                Rule::unique('system_db.resources', 'table_name')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
-                        ->where('table', $this->table);
+                        ->where('table', $this->table_name);
                 })
             ],
             'class'          => ['required', 'string', 'max:255'],
@@ -67,7 +67,6 @@ class StoreResourcesRequest extends FormRequest
             'guest'          => ['integer', 'between:0,1'],
             'user'           => ['integer', 'between:0,1'],
             'admin'          => ['integer', 'between:0,1'],
-            'global'         => ['integer', 'between:0,1'],
             'menu'           => ['integer', 'between:0,1'],
             'menu_level'     => ['integer'],
             'menu_collapsed' => ['integer', 'between:0,1'],

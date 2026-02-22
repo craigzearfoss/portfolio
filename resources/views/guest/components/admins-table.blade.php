@@ -12,53 +12,49 @@
         <?php /*
             <tfoot>
             <tr>
-                <th style="white-space: nowrap;">user name</th>
+                <th></th>
                 <th>name</th>
-                <th>team</th>
-                <th>email</th>
-                <th>status</th>
-                <th class="has-text-centered">root</th>
-                <th class="has-text-centered">disabled</th>
-                <th>actions</th>
+                <th>role</th>
+                <th>employer</th>
             </tr>
             </tfoot>
             */ ?>
         <tbody>
 
-        @forelse ($admins as $admin)
+        @forelse ($admins as $thisAdmin)
 
-            <tr data-id="{{ $admin->id }}">
+            <tr data-id="{{ $thisAdmin->id }}">
                 <td data-field="thumbnail" style="width: 40px; padding: 1px;">
-                    @if(!empty($admin->thumbnail))
+                    @if(!empty($thisAdmin->thumbnail))
                         @include('guest.components.link', [
                             'name' => view('guest.components.image', [
-                                            'src'      => $admin->thumbnail,
+                                            'src'      => $thisAdmin->thumbnail,
                                             'alt'      => 'profile image',
                                             'width'    => '40px',
-                                            'filename' => $admin->thumbnail
+                                            'filename' => $thisAdmin->thumbnail
                                         ]),
-                            'href' => route('guest.admin.show', $admin),
+                            'href' => route('guest.admin.show', $thisAdmin),
                         ])
                     @endif
                 </td>
                 <td data-field="name">
                     @include('guest.components.link', [
-                        'name' => !empty($admin->name) ? $admin->name : $admin->label,
-                        'href' => route('guest.admin.show', $admin),
+                        'name' => !empty($thisAdmin->name) ? $thisAdmin->name : $thisAdmin->label,
+                        'href' => route('guest.admin.show', $thisAdmin),
                     ])
                 </td>
                 <td data-field="role">
-                    {{ $admin->role ?? '' }}
+                    {{ $thisAdmin->role ?? '' }}
                 </td>
                 <td data-field="employer">
-                    {{ $admin->employer ?? '' }}
+                    {{ $thisAdmin->employer ?? '' }}
                 </td>
             </tr>
 
         @empty
 
             <tr>
-                <td colspan="4">There are no users.</td>
+                <td colspan="4">There are no admins.</td>
             </tr>
 
         @endforelse

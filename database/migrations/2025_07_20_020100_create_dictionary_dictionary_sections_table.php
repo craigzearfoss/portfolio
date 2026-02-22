@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('plural', 100)->unique();
-            $table->string('table', 100)->unique();
+            $table->string('table_name', 100)->unique();
             $table->string('model', 100)->unique();
             $table->string('icon', 50)->nullable();
             $table->boolean('public')->default(true);
@@ -39,7 +39,7 @@ return new class extends Migration
                 'name'        => 'Category',
                 'plural'      => 'categories',
                 'slug'        => 'category',
-                'table'       => 'categories',
+                'table_name'  => 'categories',
                 'model'       => 'Dictionary\\Category',
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 2000,
@@ -48,7 +48,7 @@ return new class extends Migration
                 'name'        => 'Database',
                 'plural'      => 'Databases',
                 'slug'        => 'database',
-                'table'       => 'databases',
+                'table_name'  => 'databases',
                 'model'       => 'Dictionary\\Database',
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 2100,
@@ -57,7 +57,7 @@ return new class extends Migration
                 'name'        => 'Framework',
                 'plural'      => 'Frameworks',
                 'slug'        => 'framework',
-                'table'       => 'frameworks',
+                'table_name'  => 'frameworks',
                 'model'       => 'Dictionary\\Framework',
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 200,
@@ -66,7 +66,7 @@ return new class extends Migration
                 'name'        => 'Language',
                 'plural'      => 'Languages',
                 'slug'        => 'language',
-                'table'       => 'languages',
+                'table_name'  => 'languages',
                 'model'       => 'Dictionary\\Language',
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 300,
@@ -75,7 +75,7 @@ return new class extends Migration
                 'name'        => 'Library',
                 'plural'      => 'Libraries',
                 'slug'        => 'library',
-                'table'       => 'libraries',
+                'table_name'  => 'libraries',
                 'model'       => 'Dictionary\\Library',
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 400,
@@ -84,7 +84,7 @@ return new class extends Migration
                 'name'        => 'Operating system',
                 'plural'      => 'Operating systems',
                 'slug'        => 'operating-system',
-                'table'       => 'operating_systems',
+                'table_name'  => 'operating_systems',
                 'model'       => 'Dictionary\\OperatingSystem',
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 500,
@@ -93,7 +93,7 @@ return new class extends Migration
                 'name'        => 'Server',
                 'plural'      => 'Servers',
                 'slug'        => 'server',
-                'table'       => 'servers',
+                'table_name'  => 'servers',
                 'model'       => 'Dictionary\\Server',
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 600,
@@ -102,7 +102,7 @@ return new class extends Migration
                 'name'        => 'Stack',
                 'plural'      => 'Stacks',
                 'slug'        => 'stack',
-                'table'       => 'stacks',
+                'table_name'  => 'stacks',
                 'model'       => 'Dictionary\\Stack',
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 700,

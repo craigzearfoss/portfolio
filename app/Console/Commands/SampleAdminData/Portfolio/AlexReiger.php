@@ -904,7 +904,7 @@ class AlexReiger extends Command
     {
         echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
 
-        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table', $tableName)->first()) {
+        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table_name', $tableName)->first()) {
 
             $data = [];
 

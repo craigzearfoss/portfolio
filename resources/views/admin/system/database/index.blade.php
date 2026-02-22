@@ -40,7 +40,6 @@
                     <th class="has-text-centered">guest</th>
                     <th class="has-text-centered">user</th>
                     <th class="has-text-centered">admin</th>
-                    <th class="has-text-centered">global</th>
                     <th class="has-text-centered">sequence</th>
                     <th class="has-text-centered">menu</th>
                     <th class="has-text-centered">menu<br>level</th>
@@ -64,7 +63,6 @@
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
                         <th class="has-text-centered">admin</th>
-                        <th class="has-text-centered">global</th>
                         <th class="has-text-centered">sequence</th>
                         <th class="has-text-centered">menu</th>
                         <th class="has-text-centered">menu<br>level</th>
@@ -120,9 +118,6 @@
                         </td>
                         <td data-field="admin" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $database->admin ])
-                        </td>
-                        <td data-field="global" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $database->global ])
                         </td>
                         <td data-field="sequence" class="has-text-centered">
                             {{ $database->sequence }}

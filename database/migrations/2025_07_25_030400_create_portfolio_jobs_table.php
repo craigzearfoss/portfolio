@@ -33,7 +33,7 @@ return new class extends Migration
                 . config('app.system_db') . '.databases table.');
         }
 
-        if (!$jobResource = new Resource()->where('database_id', $database->id)->where('table', 'jobs')->first()) {
+        if (!$jobResource = new Resource()->where('database_id', $database->id)->where('table_name', 'jobs')->first()) {
             abort(500, 'Resource with name `job` not found in ' . config('system_db') . '.resources table.');
         }
 

@@ -40,7 +40,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('resources', 'id')
                 ->onDelete('cascade');
-            $table->string('table', 50)->index('table_idx');
+            $table->string('table_name', 50)->index('table_name_idx');
             $table->string('class');
             $table->string('title', 50);
             $table->string('plural', 50);
@@ -48,7 +48,6 @@ return new class extends Migration
             $table->boolean('guest')->default(false);
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);
-            $table->boolean('global')->default(false);
             $table->boolean('menu')->default(false);
             $table->integer('menu_level')->default(1);
             $table->boolean('menu_collapsed')->default(false);
@@ -63,7 +62,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->unique(['database_id', 'name'], 'database_id_name_unique');
-            $table->unique(['database_id', 'table'], 'database_id_table_unique');
+            $table->unique(['database_id', 'table_name'], 'database_id_table_name_unique');
         });
 
         if (!$database = new Database()->where('tag', $this->database_tag)->first()) {
@@ -80,7 +79,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'admin',
                     'parent_id'       => null,
-                    'table'           => 'admins',
+                    'table_name'      => 'admins',
                     'class'           => 'App\Models\System\Admin',
                     'title'           => 'Admin',
                     'plural'          => 'Admins',
@@ -88,7 +87,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 1,
                     'menu_collapsed'  => false,
@@ -104,7 +102,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'admin-email',
                     'parent_id'       => null,
-                    'table'           => 'admin_emails',
+                    'table_name'      => 'admin_emails',
                     'class'           => 'App\Models\System\AdminEmail',
                     'title'           => 'Admin Email',
                     'plural'          => 'Admin Emails',
@@ -112,7 +110,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 2,
                     'menu_collapsed'  => false,
@@ -128,7 +125,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'admin-phone',
                     'parent_id'       => null,
-                    'table'           => 'admin_phones',
+                    'table_name'      => 'admin_phones',
                     'class'           => 'App\Models\System\AdminPhone',
                     'title'           => 'Admin Phone',
                     'plural'          => 'Admin Phones',
@@ -136,7 +133,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 2,
                     'menu_collapsed'  => false,
@@ -152,7 +148,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'admin-team',
                     'parent_id'       => null,
-                    'table'           => 'admin_teams',
+                    'table_name'      => 'admin_teams',
                     'class'           => 'App\Models\System\AdminTeam',
                     'title'           => 'Admin Team',
                     'plural'          => 'Admin Teams',
@@ -160,7 +156,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 1,
                     'menu_collapsed'  => false,
@@ -176,7 +171,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'admin-group',
                     'parent_id'       => null,
-                    'table'           => 'admin_groups',
+                    'table_name'      => 'admin_groups',
                     'class'           => 'App\Models\System\AdminGroup',
                     'title'           => 'Admin Group',
                     'plural'          => 'Admin Groups',
@@ -184,7 +179,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 1,
                     'menu_collapsed'  => false,
@@ -200,7 +194,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'user',
                     'parent_id'       => null,
-                    'table'           => 'users',
+                    'table_name'      => 'users',
                     'class'           => 'App\Models\System\User',
                     'title'           => 'User',
                     'plural'          => 'Users',
@@ -208,7 +202,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 1,
                     'menu_collapsed'  => false,
@@ -224,7 +217,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'user-email',
                     'parent_id'       => null,
-                    'table'           => 'user_emails',
+                    'table_name'      => 'user_emails',
                     'class'           => 'App\Models\System\UserEmail',
                     'title'           => 'User Email',
                     'plural'          => 'User Emails',
@@ -232,7 +225,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 2,
                     'menu_collapsed'  => false,
@@ -248,7 +240,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'user-phone',
                     'parent_id'       => null,
-                    'table'           => 'user_phones',
+                    'table_name'      => 'user_phones',
                     'class'           => 'App\Models\System\UserPhone',
                     'title'           => 'User Phone',
                     'plural'          => 'User Phones',
@@ -256,7 +248,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 2,
                     'menu_collapsed'  => false,
@@ -272,7 +263,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'user-team',
                     'parent_id'       => null,
-                    'table'           => 'user_teams',
+                    'table_name'      => 'user_teams',
                     'class'           => 'App\Models\System\UserTeam',
                     'title'           => 'User Team',
                     'plural'          => 'User Teams',
@@ -280,7 +271,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 1,
                     'menu_collapsed'  => false,
@@ -296,7 +286,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'user-group',
                     'parent_id'       => null,
-                    'table'           => 'user_groups',
+                    'table_name'      => 'user_groups',
                     'class'           => 'App\Models\System\UserGroup',
                     'title'           => 'User Group',
                     'plural'          => 'User Groups',
@@ -304,7 +294,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 1,
                     'menu_collapsed'  => false,
@@ -320,7 +309,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'message',
                     'parent_id'       => null,
-                    'table'           => 'messages',
+                    'table_name'      => 'messages',
                     'class'           => 'App\Models\System\Message',
                     'title'           => 'Message',
                     'plural'          => 'Messages',
@@ -328,7 +317,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 1,
                     'menu_collapsed'  => false,
@@ -344,7 +332,7 @@ return new class extends Migration
                     'database_id'     => $database->id,
                     'name'            => 'session',
                     'parent_id'       => null,
-                    'table'           => 'sessions',
+                    'table_name'      => 'sessions',
                     'class'           => 'App\Models\System\Sessions',
                     'title'           => 'Session',
                     'plural'          => 'Sessions',
@@ -352,7 +340,6 @@ return new class extends Migration
                     'guest'           => false,
                     'user'            => false,
                     'admin'           => true,
-                    'global'          => false,
                     'menu'            => true,
                     'menu_level'      => 1,
                     'menu_collapsed'  => false,

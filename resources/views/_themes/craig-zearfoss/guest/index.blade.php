@@ -1,15 +1,15 @@
-@extends('guest.layouts.default', [
-    'title'            => $pageTitle ?? ($featuredAdmin ? $featuredAdmin->name : config('add.name')),
-    'breadcrumbs'      => [],
-    'buttons'          => [],
-    'errorMessages'    => $errors->messages() ?? [],
-    'success'          => session('success') ?? null,
-    'error'            => session('error') ?? null,
-    'menuService'      => $menuService,
-    'admin'            => $admin,
-    'user'             => $user,
-    'owner'            => $owner,
-])
+@php
+    $title    = $pageTitle ?? ($featuredAdmin ? $featuredAdmin->name : config('add.name'));
+    $subtitle = false;
+
+    // set breadcrumbs
+    $breadcrumbs = [];
+
+    // set navigation buttons
+    $navButtons = [];
+@endphp
+
+@extends('guest.layouts.default')
 
 @section('content')
 

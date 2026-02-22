@@ -35,7 +35,7 @@ class JobTaskController extends BaseAdminController
         $job = null;
         $query = null;
 
-        if ($jobId = $request->job_id) {
+        if ($jobId = $request->get('job_id')) {
 
             $job = new Job()->findOrFail($jobId);
 
@@ -63,7 +63,7 @@ class JobTaskController extends BaseAdminController
             if (isRootAdmin()) {
 
                 $query = $jobTaskModel->orderBy('job_id', 'desc');
-                if (($owner_id = $request->owner_id) && ($owner = new Owner()->findOrFail($owner_id))) {
+                if (($owner_id = $request->get('owner_id')) && ($owner = new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
 
@@ -94,7 +94,7 @@ class JobTaskController extends BaseAdminController
     {
         createGate(PermissionEntityTypes::RESOURCE, 'job-task', $this->admin);
 
-        $jobId = $request->job_id;
+        $jobId = $request->get('job_id');
         $job = !empty($jobId) ? new Job()->find($jobId) : null;
 
         return view('admin.portfolio.job-task.create', compact('job'));

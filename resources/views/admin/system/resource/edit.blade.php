@@ -118,12 +118,11 @@
                 'guest'  => old('guest')  ?? $resource->guest,
                 'user'   => old('user')   ?? $resource->user,
                 'admin'  => old('admin')  ?? $resource->admin,
-                'global' => old('global') ?? $resource->global,
             ])
 
             @include('admin.components.form-menu-fields-horizontal', [
                 'menu'       => old('menu')       ?? $resource->menu,
-                'menu_level' => old('meni_level') ?? $resource->menu_level,
+                'menu_level' => old('menu_level') ?? $resource->menu_level,
             ])
 
             @include('admin.components.form-visibility-horizontal', [

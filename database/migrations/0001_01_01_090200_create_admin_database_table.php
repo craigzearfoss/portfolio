@@ -38,7 +38,6 @@ return new class extends Migration
             $table->boolean('guest')->default(false);
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);
-            $table->boolean('global')->default(false);
             $table->boolean('menu')->default(false);
             $table->integer('menu_level')->default(1);
             $table->boolean('menu_collapsed')->default(false);
@@ -77,7 +76,6 @@ return new class extends Migration
                     'guest'          => $systemDatabase->guest,
                     'user'           => $systemDatabase->user,
                     'admin'          => $systemDatabase->admin,
-                    'global'         => $systemDatabase->global,
                     'menu'           => $systemDatabase->menu,
                     'menu_level'     => $systemDatabase->menu_level,
                     'menu_collapsed' => $systemDatabase->menu_collapsed,

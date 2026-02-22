@@ -109,6 +109,7 @@ class IndexController extends BaseAdminController
             ];
 
             if (Auth::guard('admin')->attempt($data)) {
+
                 $admin = Auth::guard('admin')->user();
                 if ($admin->disabled) {
                     return view(themedTemplate('admin.login'))
@@ -117,7 +118,9 @@ class IndexController extends BaseAdminController
                 } else {
                     return redirect()->route('admin.dashboard');
                 }
+
             } else {
+
                 return view(themedTemplate('admin.login'))
                     ->with('username', $username)
                     ->withErrors(['GLOBAL' => 'Incorrect login information.<br>Double-check the username and password and try signing in again.']);

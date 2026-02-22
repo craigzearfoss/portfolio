@@ -1,4 +1,6 @@
 @php
+    use App\Enums\EnvTypes;
+
     $classes = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
@@ -35,15 +37,15 @@
 
             <div class="floating-div-container settings">
 
-                @foreach(['guest', 'user', 'admin', 'global'] as $setting)
+                @foreach(array_column(EnvTypes::cases(), 'value') as $envType)
 
-                    @if($resource->hasAttribute($setting))
+                    @if($resource->hasAttribute($envType))
 
                         <div class="show-container card floating-div">
                             <span>
-                                @include('user.components.checkbox', [ 'checked' => !empty($resource->{$setting}) ])
+                                @include('user.components.checkbox', [ 'checked' => !empty($resource->{$envType}) ])
                             </span>
-                            <span><strong>{{ $setting == 'readonly' ? 'read-only' : $setting }}</strong></span>
+                            <span><strong>{{ $envType == 'readonly' ? 'read-only' : $envType }}</strong></span>
                         </div>
 
                     @endif

@@ -1,7 +1,11 @@
+@php
+    use App\Models\System\AdminDatabase;
+@endphp
+
 @if($admin)
 
     @php
-        $portfolioResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
+        $portfolioResourceTypes = AdminDatabase::getResourceTypes(
             $admin->id,
             'portfolio',
             [
@@ -10,7 +14,7 @@
             ],
         );
 
-        $personalResourceTypes = \App\Models\System\AdminDatabase::getResourceTypes(
+        $personalResourceTypes = AdminDatabase::getResourceTypes(
             $admin->id,
             'personal',
             [
@@ -83,7 +87,7 @@
 
                         @foreach ($portfolioResourceTypes as $resourceType)
 
-                            @if(empty($resourceType['global']) && Route::has('user.admin.portfolio.'.$resourceType['name'].'.index'))
+                            @if(Route::has('user.admin.portfolio.'.$resourceType['name'].'.index'))
                                 <li>
                                     @include('user.components.link', [
                                         'name'  => $resourceType['plural'],
@@ -107,7 +111,7 @@
 
                         @foreach ($personalResourceTypes as $resourceType)
 
-                            @if(empty($resourceType['global']) && Route::has('user.admin.personal.'.$resourceType['name'].'.index'))
+                            @if(Route::has('user.admin.personal.'.$resourceType['name'].'.index'))
                                 <li>
                                     @include('user.components.link', [
                                         'name'  => $resourceType['plural'],

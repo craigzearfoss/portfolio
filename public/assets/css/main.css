@@ -256,37 +256,66 @@ nav.pagination ul.pagination-list li {
 }
 
 /* admin table */
-table.table.admin-table {
+table.table.admin-table,
+table.table.user-table,
+table.table.guest-table {
     border: 0 rgb(128, 128, 128) inset;
     border-collapse: collapse;
     margin-bottom: .75rem !important;
 }
-table.table.admin-table.coworker-table { max-width: 60rem; }
-table.table.admin-table.skill-table { max-width: 20rem; }
-table.table.admin-table.task-table { max-width: 40rem; }
-table.table.admin-table.recipe-instruction-table td {
-    white-space: wrap;
-    width: auto !important;
-}
 
-table.table.admin-table tbody tr:not(.is-selected):nth-child(even) {
+table.table.admin-table tbody tr:not(.is-selected):nth-child(even),
+table.table.user-table tbody tr:not(.is-selected):nth-child(even),
+table.table.guest-table tbody tr:not(.is-selected):nth-child(even) {
     background-color: #f5f5f5;
     width: auto !important;
 }
+
 table.table.admin-table thead th, table.admin-table thead td,
-table.table.admin-table tbody th, table.admin-table tbody td {
+table.table.admin-table tbody th, table.admin-table tbody td,
+table.table.user-table thead th, table.user-table thead td,
+table.table.user-table tbody th, table.user-table tbody td,
+table.table.guest-table thead th, table.guest-table thead td,
+table.table.guest-table tbody th, table.guest-table tbody td {
     padding: 0.1em 0.2em;
     white-space: nowrap;
     width: 1%;
     cursor: default
 }
-table.table.admin-table tbody tr:not(.is-selected):hover{ background-color:#e0e0e0 }
-table.table.admin-table tbody tr:not(.is-selected):hover:nth-child(even) { background-color:#e0e0e0 }
-p.admin-table-caption {
+
+table.table.admin-table tbody tr:not(.is-selected):hover,
+table.table.user-table tbody tr:not(.is-selected):hover,
+table.table.guest-table tbody tr:not(.is-selected):hover {
+    background-color:#e0e0e0
+}
+
+table.table.admin-table tbody tr:not(.is-selected):hover:nth-child(even),
+table.table.user-table tbody tr:not(.is-selected):hover:nth-child(even),
+table.table.guest-table tbody tr:not(.is-selected):hover:nth-child(even) {
+    background-color:#e0e0e0
+}
+
+p.admin-table-caption,
+p.user-table-caption,
+p.guest-table-caption {
     font-size: 14px;
     font-style: italic;
     margin: 0 !important;
 }
+
+table.table.admin-table.recipe-instruction-table td,
+table.table.user-table.recipe-instruction-table td,
+table.table.guest-table.recipe-instruction-table td {
+    white-space: wrap;
+    width: auto !important;
+}
+
+table.table.admin-table.coworker-table { max-width: 60rem; }
+
+table.table.admin-table.skill-table { max-width: 20rem; }
+
+table.table.admin-table.task-table { max-width: 40rem; }
+
 span.featured-splat {
     font-weight: 800;
 }
