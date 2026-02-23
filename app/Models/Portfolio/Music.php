@@ -41,8 +41,8 @@ class Music extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'owner_id',
         'parent_id',
+        'owner_id',
         'name',
         'artist',
         'slug',
@@ -76,9 +76,9 @@ class Music extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'parent_id', 'name', 'artist', 'featured', 'collection', 'track',
-        'label', 'catalog_number', 'year', 'release_date', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'name', 'artist', 'featured', 'summary', 'collection',
+        'track', 'label', 'catalog_number', 'year', 'release_date', 'audio_url', 'notes', 'description', 'disclaimer',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -105,13 +105,6 @@ class Music extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['parent_id']), function ($query) use ($filters) {
                 $query->where('parent_id', '=', intval($filters['parent_id']));
@@ -124,6 +117,9 @@ class Music extends Model
             })
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(isset($filters['collection']), function ($query) use ($filters) {
                 $query->where('collection', '=', boolval(['collection']));
@@ -143,8 +139,17 @@ class Music extends Model
             ->when(!empty($filters['release_date']), function ($query) use ($filters) {
                 $query->where('release_date', '=', ['release_date']);
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['audio_url']), function ($query) use ($filters) {
+                $query->where('audio_url', '=', ['audio_url']);
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

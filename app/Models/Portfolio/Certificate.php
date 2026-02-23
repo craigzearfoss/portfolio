@@ -70,8 +70,9 @@ class Certificate extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'organization', 'academy_id', 'year',
-        'received', 'expiration', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'organization', 'academy_id',
+        'year', 'received', 'expiration', 'certificate_url', 'notes', 'description', 'disclaimer', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -98,19 +99,12 @@ class Certificate extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['organization']), function ($query) use ($filters) {
                 $query->where('organization', 'like', '%' . $filters['organization'] . '%');
@@ -124,8 +118,20 @@ class Certificate extends Model
             ->when(isset($filters['received']), function ($query) use ($filters) {
                 $query->where('received', '=', $filters['received']);
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(isset($filters['expiration']), function ($query) use ($filters) {
+                $query->where('expiration', '=', $filters['expiration']);
+            })
+            ->when(isset($filters['certificate_url']), function ($query) use ($filters) {
+                $query->where('certificate_url', '=', $filters['certificate_url']);
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

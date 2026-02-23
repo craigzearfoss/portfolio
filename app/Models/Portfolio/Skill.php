@@ -42,11 +42,11 @@ class Skill extends Model
     protected $fillable = [
         'owner_id',
         'name',
-        'version',
-        'type', // 0=soft skill, 1=hard skill
-        'featured',
         'slug',
+        'version',
+        'featured',
         'summary',
+        'type_id', // 0=soft skill, 1=hard skill
         'level',
         'dictionary_category_id',
         'start_year',
@@ -70,11 +70,19 @@ class Skill extends Model
     ];
 
     /**
+     *
+     */
+    const array TYPE = [
+        0 => 'soft skill',
+        1 => 'hard skill',
+    ];
+
+    /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'version', 'type', 'featured', 'level',
-        'dictionary_category_id', 'start_year', 'end_year', 'years', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'version', 'featured', 'summary', 'type_id', 'level',
+        'dictionary_category_id', 'start_year', 'end_year', 'years', 'notes', 'description', 'disclaimer', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -92,6 +100,23 @@ class Skill extends Model
     }
 
     /**
+     * Returns an array of options for a select list for skill type (soft skill, hard skill)
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public function salutationListOptions(bool $includeBlank = false): array
+    {
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        foreach (self::TYPE as $type) {
+            $options[$type] = $type;
+        }
+
+        return $options;
+    }
+
+    /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
      *
@@ -101,22 +126,18 @@ class Skill extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['version']), function ($query) use ($filters) {
                 $query->where('version', 'like', '%' . $filters['version'] . '%');
             })
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
+            ->when(isset($filters['type_id']), function ($query) use ($filters) {
+                $query->where('type_id', '=', intval(['type_id']));
             })
             ->when(isset($filters['level']), function ($query) use ($filters) {
                 $query->where('level', '=', intval(['level']));
@@ -133,8 +154,14 @@ class Skill extends Model
             ->when(isset($filters['years']), function ($query) use ($filters) {
                 $query->where('years', '=', intval(['years']));
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

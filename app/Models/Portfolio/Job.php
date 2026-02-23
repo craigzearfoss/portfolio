@@ -93,9 +93,10 @@ class Job extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company', 'role', 'featured', 'start_month', 'start_year',
-        'end_month', 'job_employment_type_id', 'job_location_type_id', 'end_year', 'street', 'street2', 'city',
-        'state_id', 'zip', 'country_id', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company', 'role', 'featured', 'summary', 'start_month',
+        'start_year', 'end_month', 'end_year', 'job_employment_type_id', 'job_location_type_id', 'street', 'street2',
+        'city', 'state_id', 'zip', 'country_id', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -144,6 +145,9 @@ class Job extends Model
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval(['featured']));
             })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
             ->when(isset($filters['start_month']), function ($query) use ($filters) {
                 $query->where('start_month', '=', intval($filters['start_month']));
             })
@@ -161,18 +165,18 @@ class Job extends Model
             })
             ->when(isset($filters['job_location_type_id']), function ($query) use ($filters) {
                 $query->where('job_location_type_id', '=', intval($filters['job_location_type_id']));
+            });
+
+        $query =$this->appendAddressFilters($query, $filters);
+
+        $query->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(!empty($filters['city']), function ($query) use ($filters) {
-                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
-                $query->where('state_id', '=', intval($filters['state_id']));
-            })
-            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where('country_id', '=', intval($filters['country_id']));
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

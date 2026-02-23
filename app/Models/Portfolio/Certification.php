@@ -78,14 +78,27 @@ class Certification extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
         $query = new self()->getSearchQuery($filters, $owner);
+
+        $query = $this->appendStandardFilters($query, $filters)
+            ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
+                $query->where('abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
+            })
+            ->when(!empty($filters['certification_type_id']), function ($query) use ($filters) {
+                $query->where('certification_type_id', '=', intval($filters['certification_type_id']));
+            })
+            ->when(!empty($filters['organization']), function ($query) use ($filters) {
+                $query->where('organization', 'like', '%' . $filters['organization'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            });
 
         return $this->appendStandardFilters($query, $filters);
     }

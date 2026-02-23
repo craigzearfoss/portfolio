@@ -30,6 +30,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name', 100)->index('name_idx');
             $table->boolean('featured')->default(false);
+            $table->string('summary', 500)->nullable();
             $table->boolean('type')->default(true);
             $table->foreignId('dictionary_category_id')
                 ->nullable()

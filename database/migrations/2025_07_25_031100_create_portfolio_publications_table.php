@@ -43,8 +43,8 @@ return new class extends Migration
             $table->string('summary', 500)->nullable();
             $table->string('publication_name')->nullable();
             $table->string('publisher')->nullable();
-            $table->date('date')->nullable();
-            $table->integer('year')->nullable();
+            $table->date('publication_date')->nullable();
+            $table->integer('publication_year')->nullable();
             $table->string('credit')->nullable();
             $table->boolean('fiction')->default(false);
             $table->boolean('nonfiction')->default(false);

@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('slug');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('year')->nullable();
+            $table->integer('year_received')->nullable();
             $table->date('received')->nullable();
             $table->string('organization')->nullable();
             $table->text('notes')->nullable();

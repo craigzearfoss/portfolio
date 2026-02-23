@@ -40,11 +40,16 @@ return new class extends Migration
             $table->string('name')->index('name_idx');
             $table->string('title', 100)->nullable();
             $table->boolean('featured')->default(false);
+            $table->string('summary', 500)->nullable();
             $table->integer('level_id')->default(1);  // 1-coworker, 2-superior, 3-subordinate
-            $table->string('work_phone', 20)->nullable();
-            $table->string('personal_phone', 20)->nullable();
-            $table->string('work_email', 255)->nullable();
-            $table->string('personal_email', 255)->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('phone_label', 100)->nullable();
+            $table->string('alt_phone', 20)->nullable();
+            $table->string('alt_phone_label', 100)->nullable();
+            $table->string('email', 255)->nullable();
+            $table->string('email_label', 100)->nullable();
+            $table->string('alt_email', 255)->nullable();
+            $table->string('alt_email_label', 100)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

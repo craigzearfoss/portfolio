@@ -43,10 +43,10 @@ class JobSkill extends Model
         'job_id',
         'name',
         'featured',
+        'summary',
         'type', // 0=soft skill, 1=hard skill
         'dictionary_category_id',
         'dictionary_term_id',
-        'summary',
         'notes',
         'link',
         'link_name',
@@ -69,8 +69,9 @@ class JobSkill extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'owner_id', 'job_id', 'name', 'type', 'dictionary_category_id', 'dictionary_term_id',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'owner_id', 'job_id', 'name', 'featured', 'summary', 'type',
+        'dictionary_category_id', 'dictionary_term_id', 'notes', 'description', 'disclaimer', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -97,17 +98,7 @@ class JobSkill extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval($filters['featured']));
             })
@@ -119,10 +110,17 @@ class JobSkill extends Model
             })
             ->when(isset($filters['dictionary_term_id']), function ($query) use ($filters) {
                 $query->where('dictionary_term_id', '=', intval($filters['dictionary_term_id']));
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
             });
+
+            $query->when(!empty($filters['notes']), function ($query) use ($filters) {
+                    $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                })
+                ->when(!empty($filters['description']), function ($query) use ($filters) {
+                    $query->where('description', 'like', '%' . $filters['description'] . '%');
+                })
+                ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                    $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                });
 
         return $this->appendStandardFilters($query, $filters);
     }

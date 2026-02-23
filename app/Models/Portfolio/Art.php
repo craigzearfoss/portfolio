@@ -95,9 +95,6 @@ class Art extends Model
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
             ->when(!empty($filters['artist']), function ($query) use ($filters) {
                 $query->where('artist', 'like', '%' . $filters['artist'] . '%');
             })

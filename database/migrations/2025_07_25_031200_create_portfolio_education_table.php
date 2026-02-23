@@ -45,6 +45,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('slug');
             $table->boolean('featured')->default(false);
+            $table->string('summary', 500)->nullable();
             $table->integer('enrollment_month')->nullable();
             $table->integer('enrollment_year')->nullable();
             $table->boolean('graduated')->default(false);

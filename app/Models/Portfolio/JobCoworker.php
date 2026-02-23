@@ -47,11 +47,16 @@ class JobCoworker extends Model
         'name',
         'title',
         'featured',
+        'summary',
         'level_id',
-        'work_phone',
-        'personal_phone',
-        'work_email',
-        'personal_email',
+        'phone',
+        'phone_label',
+        'alt_phone',
+        'alt_phone_label',
+        'email',
+        'email_label',
+        'alt_email',
+        'alt_email_label',
         'notes',
         'link',
         'link_name',
@@ -81,9 +86,9 @@ class JobCoworker extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'job_id', 'name', 'title', 'level_id', 'work_phone',
-        'personal_phone', 'work_email', 'personal_email', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'job_id', 'name', 'title', 'featured', 'summary', 'level_id',
+        'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label',
+        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -142,13 +147,6 @@ class JobCoworker extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
@@ -162,23 +160,24 @@ class JobCoworker extends Model
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval($filters['featured']));
             })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
             ->when(isset($filters['level_id']), function ($query) use ($filters) {
                 $query->where('level_id', '=', intval($filters['level_id']));
+            });
+
+        $query =$this->appendPhoneFilters($query, $filters);
+        $query =$this->appendEmailFilters($query, $filters);
+
+        $query->when(!empty($filters['notes']), function ($query) use ($filters) {
+            $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+        })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(!empty($filters['work_phone']), function ($query) use ($filters) {
-                $query->where('work_phone', 'like', '%' . $filters['work_phone'] . '%');
-            })
-            ->when(!empty($filters['personal_phone']), function ($query) use ($filters) {
-                $query->where('personal_phone', 'like', '%' . $filters['personal_phone'] . '%');
-            })
-            ->when(!empty($filters['work_email']), function ($query) use ($filters) {
-                $query->where('work_email', 'like', '%' . $filters['work_email'] . '%');
-            })
-            ->when(!empty($filters['personal_email']), function ($query) use ($filters) {
-                $query->where('personal_email', 'like', '%' . $filters['personal_email'] . '%');
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

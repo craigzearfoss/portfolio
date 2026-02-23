@@ -31,8 +31,8 @@ return new class extends Migration
             $table->string('slug');
             $table->string('version', 20)->nullable();
             $table->boolean('featured')->default(false);
-            $table->boolean('type')->default(true);
             $table->string('summary', 500)->nullable();
+            $table->integer('type_id')->default(0);
             $table->tinyInteger('level')->nullable();
             $table->foreignId('dictionary_category_id')
                 ->nullable()

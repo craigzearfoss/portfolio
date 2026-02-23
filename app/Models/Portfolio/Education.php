@@ -43,6 +43,7 @@ class Education extends Model
         'school_id',
         'slug',
         'featured',
+        'summary',
         'enrollment_month',
         'enrollment_year',
         'graduated',
@@ -71,7 +72,8 @@ class Education extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id',
-        'currently_enrolled', 'completed', 'start_month', 'start_year', 'end_month', 'end_year', 'is_public',
+        'featured', 'summary', 'enrollment_year', 'enrollment_month', 'graduated', 'graduation_year',
+        'graduation_month', 'currently_enrolled', 'summary', 'notes', 'description', 'disclaimer', 'is_public',
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
@@ -117,6 +119,9 @@ class Education extends Model
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval(['featured']));
             })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
             ->when(isset($filters['enrollment_month']), function ($query) use ($filters) {
                 $query->where('enrollment_month', '=', intval($filters['enrollment_month']));
             })
@@ -135,8 +140,14 @@ class Education extends Model
             ->when(isset($filters['currently_enrolled']), function ($query) use ($filters) {
                 $query->where('currently_enrolled', '=', intval($filters['currently_enrolled']));
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

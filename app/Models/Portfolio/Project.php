@@ -69,8 +69,9 @@ class Project extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'year', 'language', 'language_version',
-        'repository_name', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'year', 'language',
+        'language_version', 'repository_url', 'repository_name', 'notes', 'description', 'disclaimer',  'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -97,19 +98,15 @@ class Project extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['year']), function ($query) use ($filters) {
                 $query->where('year', '=', intval(['year']));
@@ -120,15 +117,28 @@ class Project extends Model
             ->when(!empty($filters['language_version']), function ($query) use ($filters) {
                 $query->where('language_version', 'like', '%' . $filters['language_version'] . '%');
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['repository']), function ($query) use ($filters) {
+                $repository = $filters['repository'];
+                $query->orWhere(function ($query) use ($repository) {
+                    $query->where('repository_url', 'LIKE', '%' . $repository . '%')
+                        ->orWhere('repository_name', 'LIKE', '%' . $repository . '%');
+                });
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);
     }
 
     /**
-     * Get the system owner of the portfollio project.
+     * Get the system owner of the portfolio project.
      */
     public function owner(): BelongsTo
     {

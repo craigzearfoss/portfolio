@@ -49,6 +49,7 @@ class JobTask extends Model
         'link',
         'link_name',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',
@@ -64,8 +65,8 @@ class JobTask extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'owner_id', 'job_id', 'title', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'owner_id', 'job_id', 'featured', 'summary', 'notes', 'description', 'disclaimer',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -113,9 +114,16 @@ class JobTask extends Model
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            });
+
+        $query->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

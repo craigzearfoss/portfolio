@@ -115,16 +115,9 @@ class Audio extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
         $query = new self()->getSearchQuery($filters)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+                $query->where('parent_id', '=', intval(['parent_id']));
             })
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval($filters['featured']));
@@ -162,16 +155,18 @@ class Audio extends Model
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where('location', 'like', '%' . $filters['location'] . '%');
             })
-            ->when(!empty($filters['url']), function ($query) use ($filters) {
-                $url = $filters['url'];
-                $query->orWhere(function ($query) use ($url) {
-                    $query->where('audio_url', 'LIKE', '%' . $url . '%')
-                        ->orWhere('review_link1', 'LIKE', '%' . $url . '%')
-                        ->orWhere('review_link1_name', 'LIKE', '%' . $url . '%')
-                        ->orWhere('review_link2', 'LIKE', '%' . $url . '%')
-                        ->orWhere('review_link2_name', 'LIKE', '%' . $url . '%')
-                        ->orWhere('review_link3', 'LIKE', '%' . $url . '%')
-                        ->orWhere('review_link3_name', 'LIKE', '%' . $url . '%');
+            ->when(!empty($filters['audio_url']), function ($query) use ($filters) {
+                $query->where('audio_url', 'like', '%' . $filters['publication_url'] . '%');
+            })
+            ->when(!empty($filters['review']), function ($query) use ($filters) {
+                $review = $filters['review'];
+                $query->orWhere(function ($query) use ($review) {
+                    $query->where('review_link1', 'LIKE', '%' . $review . '%')
+                        ->orWhere('review_link1_name', 'LIKE', '%' . $review . '%')
+                        ->orWhere('review_link2', 'LIKE', '%' . $review . '%')
+                        ->orWhere('review_link2_name', 'LIKE', '%' . $review . '%')
+                        ->orWhere('review_link3', 'LIKE', '%' . $review . '%')
+                        ->orWhere('review_link3_name', 'LIKE', '%' . $review . '%');
                 });
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
