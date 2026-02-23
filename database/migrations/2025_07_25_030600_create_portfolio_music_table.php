@@ -52,12 +52,11 @@ return new class extends Migration
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
-            $table->boolean('public')->default(true);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
-            $table->integer('sequence')->default(false);
+            $table->boolean('is_public')->default(true);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(false);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
 
@@ -87,8 +86,12 @@ return new class extends Migration
                 'link_name'      => null,
                 'description'    => null,
                 'image'          => null,
+                'is_public'      => true,
+                'is_readonly'    => false,
+                'is_root'        => false,
+                'is_disabled'    => false,
+                'is_demo'        => false,
                 'sequence'       => 1,
-                'public'         => 1,
             ],
         ];
 

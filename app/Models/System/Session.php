@@ -36,12 +36,13 @@ class Session extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'user_id', 'admin_id', 'ip_address', 'user_agent', 'payload', 'last_activity'];
+    const array SEARCH_COLUMNS = [ 'id', 'user_id', 'admin_id', 'ip_address', 'user_agent', 'payload',
+        'last_activity' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['last_activity', 'desc'];
+    const array SEARCH_ORDER_BY = [ 'last_activity', 'desc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.

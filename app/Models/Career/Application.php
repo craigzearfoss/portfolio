@@ -92,28 +92,28 @@ class Application extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating', 'active',
-        'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max', 'compensation_unit_id',
-        'job_duration_type_id', 'job_employment_type_id', 'job_location_type_id', 'street', 'street2', 'city',
-        'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation', 'health', 'phone',
-        'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label',
-        'public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating',
+        'active', 'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max',
+        'compensation_unit_id', 'job_duration_type_id', 'job_employment_type_id', 'job_location_type_id', 'street',
+        'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation',
+        'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email',
+        'alt_email_label', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['role', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'role', 'asc' ];
 
     /**
      * @return void

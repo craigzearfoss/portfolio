@@ -60,11 +60,11 @@ class Resume extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
@@ -91,13 +91,13 @@ class Resume extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'doc_filepath', 'pdf_filepath',
-        'content', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'doc_filepath',
+        'pdf_filepath', 'content', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['date', 'desc'];
+    const array SEARCH_ORDER_BY = [ 'date', 'desc' ];
 
     /**
      * @return void

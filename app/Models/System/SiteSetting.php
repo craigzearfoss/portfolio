@@ -40,12 +40,12 @@ class SiteSetting extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'name', 'setting_type_id', 'value'];
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'setting_type_id', 'value' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.

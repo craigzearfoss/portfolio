@@ -33,11 +33,11 @@ return new class extends Migration
             $table->string('thumbnail', 500)->nullable();
             $table->string('logo', 500)->nullable();
             $table->string('logo_small', 500)->nullable();
-            $table->boolean('public')->default(true);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
+            $table->boolean('is_public')->default(false);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(true);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
@@ -50,6 +50,11 @@ return new class extends Migration
                 'name'         => 'Default User Team',
                 'slug'         => 'default-user-team',
                 'abbreviation' => 'DUT',
+                'is_public'    => false,
+                'is_readonly'  => false,
+                'is_root'      => false,
+                'is_disabled'  => false,
+                'is_demo'      => false,
             ],
             [
                 'id'           => 2,
@@ -57,6 +62,11 @@ return new class extends Migration
                 'name'         => 'Demo User Team',
                 'slug'         => 'demo-user-team',
                 'abbreviation' => 'DEUT',
+                'is_public'    => false,
+                'is_readonly'  => false,
+                'is_root'      => false,
+                'is_disabled'  => false,
+                'is_demo'      => false,
             ],
         ];
 

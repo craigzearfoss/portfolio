@@ -42,11 +42,11 @@ return new class extends Migration
             $table->integer('menu_level')->default(1);
             $table->boolean('menu_collapsed')->default(false);
             $table->string('icon', 50)->nullable();
-            $table->boolean('public')->default(true);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
+            $table->boolean('is_public')->default(true);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(false);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
@@ -80,11 +80,11 @@ return new class extends Migration
                     'menu_level'     => $systemDatabase->menu_level,
                     'menu_collapsed' => $systemDatabase->menu_collapsed,
                     'icon'           => $systemDatabase->icon,
-                    'public'         => $systemDatabase->public,
-                    'readonly'       => $systemDatabase->readonly,
-                    'root'           => $systemDatabase->root,
-                    'disabled'       => $systemDatabase->disabled,
-                    'demo'           => $systemDatabase->demo,
+                    'is_public'      => $systemDatabase->is_public,
+                    'is_readonly'    => $systemDatabase->is_readonly,
+                    'is_root'        => $systemDatabase->is_root,
+                    'is_disabled'    => $systemDatabase->is_disabled,
+                    'is_demo'        => $systemDatabase->is_demo,
                     'sequence'       => $systemDatabase->sequence,
                 ];
             }

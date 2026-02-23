@@ -43,10 +43,10 @@ class LoginAttemptsAdmin extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'admin_id', 'username', 'action', 'ip_address', 'success', 'created_at'];
+    const array SEARCH_COLUMNS = [ 'id', 'admin_id', 'username', 'action', 'ip_address', 'success', 'created_at' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['created_at', 'desc'];
+    const array SEARCH_ORDER_BY = [ 'created_at', 'desc' ];
 }

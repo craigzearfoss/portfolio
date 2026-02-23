@@ -48,13 +48,13 @@ class Tags extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['owner_id', 'name', 'resource_id', 'model_class', 'model_item_id', 'dictionary_category_id',
-        'dictionary_term_id'];
+    const array SEARCH_COLUMNS = [ 'owner_id', 'name', 'resource_id', 'model_class', 'model_item_id',
+        'dictionary_category_id', 'dictionary_term_id' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.

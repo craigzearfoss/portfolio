@@ -59,24 +59,24 @@ class School extends Model
         'thumbnail',
         'logo',
         'logo_small',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'name', 'slug', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
-        'zip', 'country_id'];
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'slug', 'enrollment', 'founded', 'street', 'street2', 'city',
+        'state_id', 'zip', 'country_id', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Get the system country that owns the school.

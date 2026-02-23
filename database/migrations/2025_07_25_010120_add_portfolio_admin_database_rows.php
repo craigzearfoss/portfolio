@@ -20,7 +20,7 @@ return new class extends Migration
         $ownerIds = $this->getAdminIds();
         $portfolioDatabase = $this->getDatabase();
 
-        if (!empty($ownerIds) && !empty($portfolioDatabase)) {
+        if (!empty($ownerIds) && !empty($portfolioDatabase) && empty($portfolioDatabase->root)) {
 
             $data = [];
 
@@ -29,7 +29,7 @@ return new class extends Migration
                     'owner_id'       => $ownerId,
                     'database_id'    => $portfolioDatabase->id,
                     'name'           => $portfolioDatabase->name,
-                    'database'       => $portfolioDatabase->database,
+                    'database_name'  => $portfolioDatabase->database_name,
                     'tag'            => $portfolioDatabase->tag,
                     'title'          => $portfolioDatabase->title,
                     'plural'         => $portfolioDatabase->plural,
@@ -40,11 +40,11 @@ return new class extends Migration
                     'menu_level'     => $portfolioDatabase->menu_level,
                     'menu_collapsed' => $portfolioDatabase->menu_collapsed,
                     'icon'           => $portfolioDatabase->icon,
-                    'public'         => $portfolioDatabase->public,
-                    'readonly'       => $portfolioDatabase->readonly,
-                    'root'           => $portfolioDatabase->root,
-                    'disabled'       => $portfolioDatabase->disabled,
-                    'demo'           => $portfolioDatabase->demo,
+                    'is_public'      => $portfolioDatabase->is_public,
+                    'is_readonly'    => $portfolioDatabase->is_readonly,
+                    'is_root'        => $portfolioDatabase->is_root,
+                    'is_disabled'    => $portfolioDatabase->is_disabled,
+                    'is_demo'        => $portfolioDatabase->is_demo,
                     'sequence'       => $portfolioDatabase->sequence,
                 ];
             }

@@ -37,10 +37,11 @@ class DictionarySection extends Model
         'table_name',
         'model',
         'icon',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 

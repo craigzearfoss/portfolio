@@ -58,24 +58,24 @@ class JobSkill extends Model
         'thumbnail',
         'logo',
         'logo_small',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['owner_id', 'job_id', 'name', 'type', 'dictionary_category_id', 'dictionary_term_id',
-        'public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'owner_id', 'job_id', 'name', 'type', 'dictionary_category_id', 'dictionary_term_id',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * @return void

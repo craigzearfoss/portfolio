@@ -20,7 +20,7 @@ return new class extends Migration
         $ownerIds = $this->getAdminIds();
         $dictionaryDatabase = $this->getDatabase();
 
-        if (!empty($ownerIds) && !empty($dictionaryDatabase)) {
+        if (!empty($ownerIds) && !empty($dictionaryDatabase) && empty($dictionaryDatabase->root)) {
 
             $data = [];
 
@@ -29,7 +29,7 @@ return new class extends Migration
                     'owner_id'       => $ownerId,
                     'database_id'    => $dictionaryDatabase->id,
                     'name'           => $dictionaryDatabase->name,
-                    'database'       => $dictionaryDatabase->database,
+                    'database_name'  => $dictionaryDatabase->database_name,
                     'tag'            => $dictionaryDatabase->tag,
                     'title'          => $dictionaryDatabase->title,
                     'plural'         => $dictionaryDatabase->plural,
@@ -40,11 +40,11 @@ return new class extends Migration
                     'menu_level'     => $dictionaryDatabase->menu_level,
                     'menu_collapsed' => $dictionaryDatabase->menu_collapsed,
                     'icon'           => $dictionaryDatabase->icon,
-                    'public'         => $dictionaryDatabase->public,
-                    'readonly'       => $dictionaryDatabase->readonly,
-                    'root'           => $dictionaryDatabase->root,
-                    'disabled'       => $dictionaryDatabase->disabled,
-                    'demo'           => $dictionaryDatabase->demo,
+                    'is_public'      => $dictionaryDatabase->is_public,
+                    'is_readonly'    => $dictionaryDatabase->is_readonly,
+                    'is_root'        => $dictionaryDatabase->is_root,
+                    'is_disabled'    => $dictionaryDatabase->is_disabled,
+                    'is_demo'        => $dictionaryDatabase->is_demo,
                     'sequence'       => $dictionaryDatabase->sequence,
                 ];
             }

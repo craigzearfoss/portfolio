@@ -44,23 +44,24 @@ class RecipeStep extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'recipe_id', 'step','public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'recipe_id', 'step', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['recipe_id', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'recipe_id', 'asc' ];
 
     /**
      * @return void

@@ -57,24 +57,24 @@ class Reading extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'title', 'author', 'featured', 'publication_year', 'fiction',
-        'nonfiction', 'paper', 'audio', 'wishlist', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'title', 'author', 'featured', 'publication_year', 'fiction',
+        'nonfiction', 'paper', 'audio', 'wishlist', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['title', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'title', 'asc' ];
 
     /**
      * @return void

@@ -32,11 +32,11 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('subject')->index('subject_idx');
             $table->text('body')->nullable();
-            $table->boolean('public')->default(false);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
+            $table->boolean('is_public')->default(false);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(false);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();

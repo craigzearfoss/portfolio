@@ -37,11 +37,11 @@ return new class extends Migration
             $table->string('thumbnail', 500)->nullable();
             $table->string('logo', 500)->nullable();
             $table->string('logo_small', 500)->nullable();
-            $table->boolean('public')->default(false);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
+            $table->boolean('is_public')->default(true);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(false);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
@@ -145,8 +145,8 @@ return new class extends Migration
 
         // add timestamps
         for($i=0; $i<count($data);$i++) {
-            $data[$i]['public'] = 1;
-            $data[$i]['root'] = 1;
+            $data[$i]['is_public'] = true;
+            $data[$i]['is_root'] = true;
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
         }

@@ -39,12 +39,12 @@ class CertificationType extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'name'];
+    const array SEARCH_COLUMNS = [ 'id', 'name' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Get the portfolio certifications for the certification type.

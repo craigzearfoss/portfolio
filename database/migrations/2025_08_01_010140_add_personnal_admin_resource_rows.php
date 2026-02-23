@@ -46,10 +46,11 @@ return new class extends Migration
                         'menu_level'     => $personalResource->menu_level,
                         'menu_collapsed' => $personalResource->menu_collapsed,
                         'icon'           => $personalResource->icon,
-                        'public'         => $personalResource->public,
-                        'readonly'       => $personalResource->readonly,
-                        'disabled'       => $personalResource->disabled,
-                        'demo'           => $personalResource->disabled,
+                        'is_public'      => $personalResource->is_public,
+                        'is_readonly'    => $personalResource->is_readonly,
+                        'is_root'        => $personalResource->is_root,
+                        'is_disabled'    => $personalResource->is_disabled,
+                        'is_demo'        => $personalResource->is_demo,
                         'sequence'       => $personalResource->sequence,
                     ];
                 }

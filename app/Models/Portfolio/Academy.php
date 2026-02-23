@@ -45,23 +45,24 @@ class Academy extends Model
         'thumbnail',
         'logo',
         'logo_small',
-        'public',
-        'readonly',
-        'root',
-        'demo',
-        'disabled',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'name', 'slug'];
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'slug', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
+        'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.

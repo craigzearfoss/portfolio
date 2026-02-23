@@ -75,11 +75,11 @@ class Contact extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
@@ -100,14 +100,14 @@ class Contact extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'salutation', 'title', 'street', 'street2', 'city',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'salutation', 'title', 'street', 'street2', 'city',
         'state_id', 'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'link', 'link_name',
-        'public', 'readonly', 'root','disabled','demo'];
+        'is_public', 'is_readonly', 'is_root','is_disabled','is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * @return void

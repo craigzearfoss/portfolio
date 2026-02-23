@@ -20,7 +20,7 @@ return new class extends Migration
         $ownerIds = $this->getAdminIds();
         $careerDatabase = $this->getDatabase();
 
-        if (!empty($ownerIds) && !empty($careerDatabase)) {
+        if (!empty($ownerIds) && !empty($careerDatabase) && empty($careerDatabase->root)) {
 
             $data = [];
 
@@ -40,11 +40,11 @@ return new class extends Migration
                     'menu_level'     => $careerDatabase->menu_level,
                     'menu_collapsed' => $careerDatabase->menu_collapsed,
                     'icon'           => $careerDatabase->icon,
-                    'public'         => $careerDatabase->public,
-                    'readonly'       => $careerDatabase->readonly,
-                    'root'           => $careerDatabase->root,
-                    'disabled'       => $careerDatabase->disabled,
-                    'demo'           => $careerDatabase->demo,
+                    'is_public'      => $careerDatabase->is_public,
+                    'is_readonly'    => $careerDatabase->is_readonly,
+                    'is_root'        => $careerDatabase->is_root,
+                    'is_disabled'    => $careerDatabase->is_disabled,
+                    'is_demo'        => $careerDatabase->is_demo,
                     'sequence'       => $careerDatabase->sequence,
                 ];
             }

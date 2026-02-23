@@ -66,11 +66,11 @@ return new class extends Migration
             $table->string('thumbnail', 500)->nullable();
             $table->string('logo', 500)->nullable();
             $table->string('logo_small', 500)->nullable();
-            $table->boolean('public')->default(false);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
+            $table->boolean('is_public')->default(false);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(false);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();

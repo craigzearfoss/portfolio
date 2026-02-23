@@ -72,11 +72,11 @@ class User extends Authenticatable
         'token',
         'requires_relogin',
         'status',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
@@ -115,14 +115,14 @@ class User extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'user_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role', 'street',
-        'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root',
-        'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'user_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role',
+        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['username', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'username', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.

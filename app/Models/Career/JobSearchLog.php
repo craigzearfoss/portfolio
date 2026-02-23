@@ -53,13 +53,13 @@ class JobSearchLog extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'message', 'application_id', 'cover_letter_id', 'resume_id',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'message', 'application_id', 'cover_letter_id', 'resume_id',
         'company_id', 'contact_id', 'communication_id', 'event_id', 'note_id', 'reference_id', 'recruiter_id' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['role', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'role', 'asc' ];
 
     /**
      * @return void

@@ -62,25 +62,25 @@ class Course extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'year', 'completed', 'completion_date',
-        'duration_hours', 'academy_id', 'school', 'instructor', 'sponsor', 'public', 'readonly', 'root', 'disabled',
-        'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'year', 'completed', 'completion_date',
+        'duration_hours', 'academy_id', 'school', 'instructor', 'sponsor', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * @return void

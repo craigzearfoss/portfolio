@@ -166,11 +166,11 @@ return new class extends Migration
             $table->string('token')->nullable();
             $table->boolean('requires_relogin')->default(false);
             $table->boolean('status')->default(false)->comment('0-pending, 1-active');
-            $table->boolean('public')->default(false);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
+            $table->boolean('is_public')->default(false);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(true);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
@@ -185,7 +185,7 @@ return new class extends Migration
 
         $data[] =[
             'id'                => 1,
-//            'admin_team_id'     => null,
+            //'admin_team_id'     => null,
             'username'          => $this->rootUsername,
             'name'              => $this->rootName,
             'label'             => $this->rootLabel,
@@ -197,8 +197,11 @@ return new class extends Migration
             'image'             => $imagePath,
             'thumbnail'         => $thumbnailPath,
             'token'             => '',
-            'public'            => 0,
-            'root'              => 1,
+            'is_public'         => false,
+            'is_readonly'       => false,
+            'is_root'           => true,
+            'is_disabled'       => false,
+            'is_demo'           => false,
         ];
 
         $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
@@ -208,7 +211,7 @@ return new class extends Migration
 
         $data[] = [
             'id'                => 2,
-//            'admin_team_id'     => null,
+            //'admin_team_id'     => null,
             'username'          => $this->defaultUsername,
             'name'              => $this->defaultName,
             'label'             => $this->defaultLabel,
@@ -220,8 +223,11 @@ return new class extends Migration
             'thumbnail'         => $thumbnailPath,
             'status'            => 1,
             'token'             => '',
-            'public'            => 0,
-            'root'              => 0,
+            'is_public'         => false,
+            'is_readonly'       => false,
+            'is_root'           => false,
+            'is_disabled'       => false,
+            'is_demo'           => false,
         ];
 
         $imageDir = imageDir() . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'admin'
@@ -231,7 +237,7 @@ return new class extends Migration
 
         $data[] = [
             'id'                => 3,
-//            'admin_team_id'     => null,
+            //'admin_team_id'     => null,
             'username'          => $this->demoUsername,
             'name'              => $this->demoName,
             'label'             => $this->demoLabel,
@@ -243,8 +249,11 @@ return new class extends Migration
             'thumbnail'         => $thumbnailPath,
             'status'            => 1,
             'token'             => '',
-            'public'            => 1,
-            'root'              => 0,
+            'is_public'         => false,
+            'is_readonly'       => false,
+            'is_root'           => false,
+            'is_disabled'       => false,
+            'is_demo'           => false,
         ];
 
         // add timestamps

@@ -43,11 +43,11 @@ return new class extends Migration
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
-            $table->boolean('public')->default(false);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
+            $table->boolean('is_public')->default(false);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(false);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
 
             $table->timestamps();
@@ -60,12 +60,16 @@ return new class extends Migration
         /*
         $data = [
             [
-                'name'     => '',
-                'date'     => null,
-                'primary'  => 0,
-                'doc_url'  => null,
-                'pdf_url'  => null,
-                'public'   => 0,
+                'name'        => '',
+                'date'        => null,
+                'primary'     => 0,
+                'doc_url'     => null,
+                'pdf_url'     => null,
+                'is_public'   => false,
+                'is_readonly' => false,
+                'is_root'     => false,
+                'is_disabled' => false,
+                'is_demo'     => false,
             ],
         ];
 

@@ -39,23 +39,24 @@ class Message extends Model
         'email',
         'subject',
         'body',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'name', 'email', 'subject', 'body','public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'email', 'subject', 'body','is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['subject', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'subject', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.

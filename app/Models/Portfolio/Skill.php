@@ -61,24 +61,25 @@ class Skill extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'type', 'featured', 'level', 'dictionary_category_id',
-        'start_year', 'end_year', 'years', 'public', 'readonly', 'root', 'disabled','demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'version', 'type', 'featured', 'level',
+        'dictionary_category_id', 'start_year', 'end_year', 'years', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * @return void

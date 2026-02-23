@@ -25,10 +25,11 @@ return new class extends Migration
             $table->string('table_name', 100)->unique();
             $table->string('model', 100)->unique();
             $table->string('icon', 50)->nullable();
-            $table->boolean('public')->default(true);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
+            $table->boolean('is_public')->default(true);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(false);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();

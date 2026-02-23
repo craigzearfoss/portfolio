@@ -33,18 +33,23 @@ class UserEmail extends Model
         'label',
         'description',
         'notes',
-        'public',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'owner_id', 'email', 'label', 'description', 'notes', 'public' ];
+    const array SEARCH_COLUMNS = [ 'owner_id', 'email', 'label', 'description', 'notes', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['email', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'email', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -68,8 +73,21 @@ class UserEmail extends Model
         })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where('email', 'like', '%' . $filters['email'] . '%');
-            })->when(isset($filters['public']), function ($query) use ($filters) {
-                $query->where('public', '=', boolval(['public']));
+            })
+            ->when(isset($filters['is_public']), function ($query) use ($filters) {
+                $query->where('is_public', '=', boolval(['is_public']));
+            })
+            ->when(isset($filters['is_readonly']), function ($query) use ($filters) {
+                $query->where('is_readonly', '=', boolval(['is_readonly']));
+            })
+            ->when(isset($filters['is_root']), function ($query) use ($filters) {
+                $query->where('is_root', '=', boolval(['is_root']));
+            })
+            ->when(isset($filters['is_disabled']), function ($query) use ($filters) {
+                $query->where('is_disabled', '=', boolval(['is_disabled']));
+            })
+            ->when(isset($filters['is_demo']), function ($query) use ($filters) {
+                $query->where('is_demo', '=', boolval(['is_demo']));
             });
 
         return $this->appendStandardFilters($query, $filters);

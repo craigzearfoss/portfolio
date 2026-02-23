@@ -42,20 +42,20 @@ class Ingredient extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
-        'sequence',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'full_name', 'name', 'public', 'readonly', 'root', 'disabled'];
+    const array SEARCH_COLUMNS = [ 'id', 'full_name', 'name', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
+        'is_demo' ];
 
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.

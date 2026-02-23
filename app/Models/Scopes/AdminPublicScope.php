@@ -40,7 +40,7 @@ class AdminPublicScope implements Scope
         } else {
 
             // this is a user or guest route
-            $builder->where('public', 1)->where('disabled', 0);
+            $builder->where('is_public', true)->where('disabled', false);
         }
 
         return $builder;

@@ -55,25 +55,25 @@ class Resource extends Model
         'menu_level',
         'menu_collapsed',
         'icon',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'database_id', 'name', 'parent_id', 'table_name', 'title', 'plural',
-        'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'public', 'readonly', 'root',
-        'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'database_id', 'name', 'parent_id', 'table_name', 'title',
+        'plural', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.

@@ -40,11 +40,11 @@ return new class extends Migration
                     'menu_level'     => $personalDatabase->menu_level,
                     'menu_collapsed' => $personalDatabase->menu_collapsed,
                     'icon'           => $personalDatabase->icon,
-                    'public'         => $personalDatabase->public,
-                    'readonly'       => $personalDatabase->readonly,
-                    'root'           => $personalDatabase->root,
-                    'disabled'       => $personalDatabase->disabled,
-                    'demo'           => $personalDatabase->demo,
+                    'is_public'      => $personalDatabase->is_public,
+                    'is_readonly'    => $personalDatabase->is_readonly,
+                    'is_root'        => $personalDatabase->is_root,
+                    'is_disabled'    => $personalDatabase->is_disabled,
+                    'is_demo'        => $personalDatabase->is_demo,
                     'sequence'       => $personalDatabase->sequence,
                 ];
             }

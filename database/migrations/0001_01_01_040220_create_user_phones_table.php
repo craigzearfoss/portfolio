@@ -26,7 +26,11 @@ return new class extends Migration
             $table->string('label', 100)->nullable();
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
-            $table->boolean('public')->default(false);
+            $table->boolean('is_public')->default(false);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(true);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

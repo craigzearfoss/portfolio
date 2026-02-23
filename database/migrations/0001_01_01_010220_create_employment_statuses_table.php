@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Note that this is in the career table instead of the system table.
+     *
      * @var string
      */
-    protected string $database_tag = 'career_db';
+    protected string $database_tag = 'system_db';
 
     /**
      * Run the migrations.

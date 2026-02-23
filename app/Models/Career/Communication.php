@@ -49,24 +49,24 @@ class Communication extends Model
         'date',
         'time',
         'body',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'subject', 'to', 'from', 'date', 'time', 'body',
-        'public', 'readonly', 'root', 'disabled', 'demo',];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'subject', 'to', 'from', 'date', 'time', 'body',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['subject', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'subject', 'asc' ];
 
     /**
      * @return void

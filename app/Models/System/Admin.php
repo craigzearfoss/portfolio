@@ -100,11 +100,11 @@ class Admin extends Authenticatable
         'token',
         'requires_relogin',
         'status',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
@@ -144,8 +144,8 @@ class Admin extends Authenticatable
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'admin_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role',
-        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly',
-        'root', 'disabled', 'demo' ];
+        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *

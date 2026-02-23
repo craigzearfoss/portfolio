@@ -46,10 +46,11 @@ return new class extends Migration
                         'menu_level'     => $careerResource->menu_level,
                         'menu_collapsed' => $careerResource->menu_collapsed,
                         'icon'           => $careerResource->icon,
-                        'public'         => $careerResource->public,
-                        'readonly'       => $careerResource->readonly,
-                        'disabled'       => $careerResource->disabled,
-                        'demo'           => $careerResource->disabled,
+                        'is_public'      => $careerResource->is_public,
+                        'is_readonly'    => $careerResource->is_readonly,
+                        'is_root'        => $careerResource->is_root,
+                        'is_disabled'    => $careerResource->is_disabled,
+                        'is_demo'        => $careerResource->is_demo,
                         'sequence'       => $careerResource->sequence,
                     ];
                 }

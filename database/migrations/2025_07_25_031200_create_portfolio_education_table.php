@@ -61,11 +61,11 @@ return new class extends Migration
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
-            $table->boolean('public')->default(true);
-            $table->boolean('readonly')->default(false);
-            $table->boolean('root')->default(false);
-            $table->boolean('disabled')->default(false);
-            $table->boolean('demo')->default(false);
+            $table->boolean('is_public')->default(true);
+            $table->boolean('is_readonly')->default(false);
+            $table->boolean('is_root')->default(false);
+            $table->boolean('is_disabled')->default(false);
+            $table->boolean('is_demo')->default(false);
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
@@ -76,36 +76,40 @@ return new class extends Migration
         /*
         $data = [
             [
-                'id'             => 1,
-                'owner_id        => null
-                'title'          => '',
-                'slug'           => '',
-                'featured'       => 0,
-                'parent_id       => null,
-                'featured'       => 0,
-                'summary'        => null,
-                'publication'    => null,
-                'publisher'      => null,
-                'date'           => null,
-                'year'           => null,
-                'credit'         => null,
-                'freelance'      => 0,
-                'fiction'        => 0,
-                'nonfiction'     => 0,
-                'technical'      => 0,
-                'research'       => 0,
-                'poetry'         => 0,
-                'online'         => 0,
-                'novel'          => 0,
-                'book'           => 0,
-                'textbook'       => 0,
-                'article'        => 0,
-                'paper'          => 0,
-                'pamphlet'       => 0,
-                'link'           => '',
-                'link_name'      => '',
-                'description'    => '',
-                'public'         => 1,
+                'id'          => 1,
+                'owner_id     => null
+                'title'       => '',
+                'slug'        => '',
+                'featured'    => 0,
+                'parent_id    => null,
+                'featured'    => 0,
+                'summary'     => null,
+                'publication' => null,
+                'publisher'   => null,
+                'date'        => null,
+                'year'        => null,
+                'credit'      => null,
+                'freelance'   => 0,
+                'fiction'     => 0,
+                'nonfiction'  => 0,
+                'technical'   => 0,
+                'research'    => 0,
+                'poetry'      => 0,
+                'online'      => 0,
+                'novel'       => 0,
+                'book'        => 0,
+                'textbook'    => 0,
+                'article'     => 0,
+                'paper'       => 0,
+                'pamphlet'    => 0,
+                'link'        => '',
+                'link_name'   => '',
+                'description' => '',
+                'is_public'   => true,
+                'is_readonly' => false,
+                'is_root'     => false,
+                'is_disabled' => false,
+                'is_demo'     => false,
             ],
         ];
 

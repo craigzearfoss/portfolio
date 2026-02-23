@@ -21,7 +21,7 @@ return new class extends Migration
         $ownerIds = $this->getAdminIds();
         $portfolioResources = $this->getDbResources();
 
-        if (!empty($ownerIds) && !empty($portfolioResources)) {
+        if (!empty($ownerIds) && !empty($portfolioResources) && empty($portfolioResources->root)) {
 
             $data = [];
 
@@ -46,10 +46,11 @@ return new class extends Migration
                         'menu_level'     => $portfolioResource->menu_level,
                         'menu_collapsed' => $portfolioResource->menu_collapsed,
                         'icon'           => $portfolioResource->icon,
-                        'public'         => $portfolioResource->public,
-                        'readonly'       => $portfolioResource->readonly,
-                        'disabled'       => $portfolioResource->disabled,
-                        'demo'           => $portfolioResource->disabled,
+                        'is_public'      => $portfolioResource->is_public,
+                        'is_readonly'    => $portfolioResource->is_readonly,
+                        'is_root'        => $portfolioResource->is_root,
+                        'is_disabled'    => $portfolioResource->is_disabled,
+                        'is_demo'        => $portfolioResource->is_demo,
                         'sequence'       => $portfolioResource->sequence,
                     ];
                 }

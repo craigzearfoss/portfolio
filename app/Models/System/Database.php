@@ -51,24 +51,25 @@ class Database extends Model
         'menu_level',
         'menu_collapsed',
         'icon',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'guest', 'user',
-        'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'guest', 'user',
+        'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
+        'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -156,10 +157,21 @@ class Database extends Model
             $query->where('databases.name', $dbName);
         }
 
-        if (isset($filters['public'])) $query->where('resources.public', $filters['public'] ? 1 : 0);
-        if (isset($filters['readonly'])) $query->where('resources.readonly', $filters['readonly'] ? 1 : 0);
-        if (isset($filters['root'])) $query->where('resources.root', $filters['root'] ? 1 : 0);
-        if (isset($filters['disabled'])) $query->where('resources.disabled', $filters['disabled'] ? 1 : 0);
+        if (isset($filters['is_public'])) {
+            $query->where('resources.is_public', $filters['is_public'] ? 1 : 0);
+        }
+
+        if (isset($filters['is_readonly'])) {
+            $query->where('resources.is_readonly', $filters['is_readonly'] ? 1 : 0);
+        }
+
+        if (isset($filters['is_root'])) {
+            $query->where('resources.is_root', $filters['is_root'] ? 1 : 0);
+        }
+
+        if (isset($filters['is_disabled'])) {
+            $query->where('resources.is_disabled', $filters['is_disabled'] ? 1 : 0);
+        }
 
         return $query->get()->toArray();
     }

@@ -80,26 +80,26 @@ class Reference extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'title', 'friend', 'family', 'coworker', 'supervisor',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'title', 'friend', 'family', 'coworker', 'supervisor',
         'subordinate', 'professional', 'other', 'company_id', 'street', 'street2', 'city', 'state_id', 'zip',
-        'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'public', 'readonly', 'root',
-        'disabled', 'demo'];
+        'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['name', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
      * @return void

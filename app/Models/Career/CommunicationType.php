@@ -39,12 +39,12 @@ class CommunicationType extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'name'];
+    const array SEARCH_COLUMNS = [ 'id', 'name' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['sequence', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'sequence', 'asc' ];
 
     /**
      * Get the career applications for the job communication type.

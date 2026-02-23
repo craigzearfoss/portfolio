@@ -81,26 +81,26 @@ class Publication extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
-        'demo',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
         'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = ['id', 'owner_id', 'title', 'parent_id', 'featured', 'publication_name', 'publisher',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'title', 'parent_id', 'featured', 'publication_name', 'publisher',
         'date', 'year', 'credit', 'freelance', 'fiction', 'nonfiction', 'technical', 'research', 'poetry', 'online',
-        'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet', 'public', 'readonly', 'root', 'disabled',
-        'demo'];
+        'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_emo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = ['title', 'asc'];
+    const array SEARCH_ORDER_BY = [ 'title', 'asc' ];
 
     /**
      * @return void

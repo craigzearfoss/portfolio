@@ -21,7 +21,7 @@ return new class extends Migration
         $ownerIds = $this->getAdminIds();
         $dictionaryResources = $this->getDbResources();
 
-        if (!empty($ownerIds) && !empty($dictionaryResources)) {
+        if (!empty($ownerIds) && !empty($dictionaryResources) && empty($dictionaryResources->root)) {
 
             $data = [];
 
@@ -29,11 +29,11 @@ return new class extends Migration
 
                 foreach ($dictionaryResources as $dictionaryResource) {
                     $data[] = [
+                        'parent_id'      => $dictionaryResource->parent_id,
                         'owner_id'       => $ownerId,
                         'resource_id'    => $dictionaryResource->id,
                         'database_id'    => $dictionaryResource->database_id,
                         'name'           => $dictionaryResource->name,
-                        'parent_id'      => $dictionaryResource->parent_id,
                         'table_name'     => $dictionaryResource->table_name,
                         'class'          => $dictionaryResource->class,
                         'title'          => $dictionaryResource->title,
@@ -46,10 +46,11 @@ return new class extends Migration
                         'menu_level'     => $dictionaryResource->menu_level,
                         'menu_collapsed' => $dictionaryResource->menu_collapsed,
                         'icon'           => $dictionaryResource->icon,
-                        'public'         => $dictionaryResource->public,
-                        'readonly'       => $dictionaryResource->readonly,
-                        'disabled'       => $dictionaryResource->disabled,
-                        'demo'           => $dictionaryResource->disabled,
+                        'is_public'      => $dictionaryResource->is_public,
+                        'is_readonly'    => $dictionaryResource->is_readonly,
+                        'is_root'        => $dictionaryResource->is_root,
+                        'is_disabled'    => $dictionaryResource->is_disabled,
+                        'is_demo'        => $dictionaryResource->is_demo,
                         'sequence'       => $dictionaryResource->sequence,
                     ];
                 }
