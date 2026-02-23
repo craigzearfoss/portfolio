@@ -96,9 +96,9 @@ class Recipe extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'author', 'prep_time','total_time', 'main',
-        'side', 'dessert', 'appetizer', 'beverage', 'breakfast', 'lunch', 'dinner', 'snack', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'featured', 'summary', 'source',  'author', 'prep_time',
+        'total_time', 'main', 'side', 'dessert', 'appetizer', 'beverage', 'breakfast', 'lunch', 'dinner', 'snack',
+        'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -125,13 +125,6 @@ class Recipe extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
@@ -139,11 +132,14 @@ class Recipe extends Model
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval(['featured']));
             })
-            ->when(isset($filters['source']), function ($query) use ($filters) {
-                $query->where('source', '=', $filters['source']);
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(isset($filters['author']), function ($query) use ($filters) {
-                $query->where('author', '=', $filters['author']);
+            ->when(!empty($filters['source']), function ($query) use ($filters) {
+                $query->where('source', 'like', '%' . $filters['source'] . '%');
+            })
+            ->when(!empty($filters['author']), function ($query) use ($filters) {
+                $query->where('author', 'like', '%' . $filters['author'] . '%');
             })
             ->when(isset($filters['prep_time']), function ($query) use ($filters) {
                 $query->where('prep_time', '<=', intval($filters['prep_time']));
@@ -178,8 +174,14 @@ class Recipe extends Model
             ->when(isset($filters['snack']), function ($query) use ($filters) {
                 $query->where('snack', '=', boolval(['snack']));
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

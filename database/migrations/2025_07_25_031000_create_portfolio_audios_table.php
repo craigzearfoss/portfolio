@@ -23,15 +23,15 @@ return new class extends Migration
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
 
             $table->id();
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->constrained('audios', 'id')
+                ->onDelete('cascade');
             $table->foreignId('owner_id')
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug');
-            $table->foreignId('parent_id')
-                ->nullable()
-                ->constrained('audios', 'id')
-                ->onDelete('cascade');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
             $table->boolean('full_episode')->default(false);
@@ -66,7 +66,7 @@ return new class extends Migration
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
-            $table->integer('sequence')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

@@ -29,11 +29,11 @@ return new class extends Migration
 
                 foreach ($careerResources as $careerResource) {
                     $data[] = [
+                        'parent_id'      => $careerResource->parent_id,
                         'owner_id'       => $ownerId,
                         'resource_id'    => $careerResource->id,
                         'database_id'    => $careerResource->database_id,
                         'name'           => $careerResource->name,
-                        'parent_id'      => $careerResource->parent_id,
                         'table_name'     => $careerResource->table_name,
                         'class'          => $careerResource->class,
                         'title'          => $careerResource->title,

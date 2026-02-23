@@ -68,8 +68,9 @@ class Reading extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'title', 'author', 'featured', 'publication_year', 'fiction',
-        'nonfiction', 'paper', 'audio', 'wishlist', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'title', 'author', 'featured', 'summary', 'publication_year',
+        'fiction', 'nonfiction', 'paper', 'audio', 'wishlist', 'notes', 'description', 'disclaimer', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -111,8 +112,8 @@ class Reading extends Model
             ->when(!empty($filters['title']), function ($query) use ($filters) {
                 $query->where('title', 'like', '%' . $filters['title'] . '%');
             })
-            ->when(!empty($filters['author']), function ($query) use ($filters) {
-                $query->where('author', 'like', '%' . $filters['author'] . '%');
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', 'like', '%' . $filters['featured'] . '%');
             })
             ->when(isset($filters['fiction']), function ($query) use ($filters) {
                 $query->where('fiction', '=', boolval($filters['fiction']));
@@ -128,6 +129,15 @@ class Reading extends Model
             })
             ->when(isset($filters['wishlist']), function ($query) use ($filters) {
                 $query->where('wishlist', '=', boolval($filters['wishlist']));
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -32,6 +32,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->integer('step')->default(1);
             $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
@@ -41,7 +42,7 @@ return new class extends Migration
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
-            $table->integer('sequence')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -38,12 +38,17 @@ return new class extends Migration
             $table->integer('start_year')->nullable();
             $table->integer('end_year')->nullable();
             $table->integer('years')->default(0);
+            $table->text('notes')->nullable();
+            $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
             $table->boolean('is_public')->default(false);
             $table->boolean('is_readonly')->default(false);
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
-            $table->integer('sequence')->default(false);
+            $table->integer('sequence')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
         });

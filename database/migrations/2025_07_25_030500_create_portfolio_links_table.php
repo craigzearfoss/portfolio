@@ -44,9 +44,9 @@ return new class extends Migration
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
-            $table->integer('sequence')->default(false);
-            $table->softDeletes();
+            $table->integer('sequence')->default(0);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');

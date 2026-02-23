@@ -56,7 +56,7 @@ class Academy extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'slug', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
         'is_demo' ];
 
     /**

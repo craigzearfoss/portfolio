@@ -23,6 +23,10 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admin_resources', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->constrained('resources', 'id')
+                ->onDelete('cascade');
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
@@ -33,10 +37,6 @@ return new class extends Migration
                 ->constrained('databases', 'id')
                 ->onDelete('cascade');
             $table->string('name', 50);
-            $table->foreignId('parent_id')
-                ->nullable()
-                ->constrained('resources', 'id')
-                ->onDelete('cascade');
             $table->string('table_name', 50)->index('table_name_idx');
             $table->string('class');
             $table->string('title', 50);
@@ -54,7 +54,7 @@ return new class extends Migration
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
-            $table->integer('sequence')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -75,11 +75,11 @@ return new class extends Migration
 
                 foreach ($systemResources as $systemResource) {
                     $data[] = [
+                        'parent_id'      => $systemResource->parent_id,
                         'owner_id'       => $ownerId,
                         'resource_id'    => $systemResource->id,
                         'database_id'    => $systemResource->database_id,
                         'name'           => $systemResource->name,
-                        'parent_id'      => $systemResource->parent_id,
                         'table_name'     => $systemResource->table_name,
                         'class'          => $systemResource->class,
                         'title'          => $systemResource->title,

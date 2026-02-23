@@ -87,7 +87,8 @@ class Company extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'industry_id', 'street', 'street2', 'city', 'state_id',
-        'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'is_public', 'is_readonly', 'is_root',
+        'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
+        'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
         'is_disabled', 'demo' ];
 
     /**
@@ -115,42 +116,23 @@ class Company extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
-            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['industry_id']), function ($query) use ($filters) {
                 $query->where('industry_id', '=', intval($filters['industry_id']));
+            });
+
+        $query =$this->appendAddressFilters($query, $filters);
+        $query =$this->appendPhoneFilters($query, $filters);
+        $query =$this->appendEmailFilters($query, $filters);
+
+            $query->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(!empty($filters['city']), function ($query) use ($filters) {
-                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
-                $query->where('state_id', '=', intval($filters['state_id']));
-            })
-            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where('country_id', '=', intval($filters['country_id']));
-            })
-            ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $email = $filters['email'];
-                $query->orWhere(function ($query) use ($email) {
-                    $query->where('email', 'LIKE', '%' . $email . '%')
-                        ->orWhere('alt_email', 'LIKE', '%' . $email . '%');
-                });
-            })
-            ->when(!empty($filters['phone']), function ($query) use ($filters) {
-                $phone = $filters['phone'];
-                $query->orWhere(function ($query) use ($phone) {
-                    $query->where('phone', 'LIKE', '%' . $phone . '%')
-                        ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%');
-                });
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

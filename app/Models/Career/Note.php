@@ -46,7 +46,7 @@ class Note extends Model
         'body',
         'is_public',
         'is_readonly',
-        'root',
+        'is_root',
         'is_disabled',
         'is_demo',
         'sequence',

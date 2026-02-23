@@ -50,7 +50,6 @@ class Recruiter extends Model
         'regional',
         'national',
         'international',
-        'local',
         'street',
         'street2',
         'city',
@@ -85,9 +84,10 @@ class Recruiter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'local', 'regional', 'national', 'international', 'street', 'street2',
-        'city', 'state_id', 'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo', 'sequence',];
+    const array SEARCH_COLUMNS = [ 'id', 'name', 'postings_url', 'local', 'regional', 'national', 'international',
+        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'phone_label', 'alt_phone',
+        'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo', 'sequence' ];
 
     /**
      *
@@ -128,21 +128,10 @@ class Recruiter extends Model
             })
             ->when(!empty($filters['country_id']), function ($query) use ($filters) {
                 $query->where('country_id', '=', intval($filters['country_id']));
-            })
-            ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $email = $filters['email'];
-                $query->orWhere(function ($query) use ($email) {
-                    $query->where('email', 'LIKE', '%' . $email . '%')
-                        ->orWhere('alt_email', 'LIKE', '%' . $email . '%');
-                });
-            })
-            ->when(!empty($filters['phone']), function ($query) use ($filters) {
-                $phone = $filters['phone'];
-                $query->orWhere(function ($query) use ($phone) {
-                    $query->where('phone', 'LIKE', '%' . $phone . '%')
-                        ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%');
-                });
             });
+
+        $query =$this->appendPhoneFilters($query, $filters);
+        $query =$this->appendEmailFilters($query, $filters);
 
         return $this->appendStandardFilters($query, $filters);
     }

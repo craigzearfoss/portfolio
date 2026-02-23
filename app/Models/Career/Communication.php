@@ -60,8 +60,8 @@ class Communication extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'subject', 'to', 'from', 'date', 'time', 'body',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'communication_type_id', 'subject', 'to',
+        'from', 'date', 'time', 'body', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *

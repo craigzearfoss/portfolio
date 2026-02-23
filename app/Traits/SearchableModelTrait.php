@@ -182,12 +182,80 @@ trait SearchableModelTrait
      */
     public function getSearchQuery(array $filters = [], Owner|Admin|null $owner = null): mixed
     {
+        if (!empty($owner)) {
+            if (array_key_exists('owner_id', $filters)) {
+                unset($filters['owner_id']);
+            }
+            $filters['owner_id'] = $owner['id'];
+        }
+
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
             });
+    }
+
+    /**
+     * Append address column filters to a database query.
+     *
+     * @param Builder $query
+     * @param array $filters
+     * @param bool $includeDemo
+     * @return Builder
+     */
+    public function appendAddressFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    {
+        $query->when(!empty($filters['email']), function ($query) use ($filters) {
+            $email = $filters['email'];
+            $query->orWhere(function ($query) use ($email) {
+                $query->where('email', 'LIKE', '%' . $email . '%')
+                    ->orWhere('email_label', 'LIKE', '%' . $email . '%')
+                    ->orWhere('alt_email', 'LIKE', '%' . $email . '%')
+                    ->orWhere('alt_email_label', 'LIKE', '%' . $email . '%');
+                });
+            })
+            ->when(!empty($filters['city']), function ($query) use ($filters) {
+                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+            })
+            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
+                $query->where('state_id', '=', intval($filters['state_id']));
+            })
+            ->when(!empty($filters['zip']), function ($query) use ($filters) {
+                $query->where('zip', 'LIKE', '%' . $filters['zip'] . '%');
+            })
+            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
+                $query->where('country_id', '=', intval($filters['country_id']));
+            });
+
+        return $query;
+    }
+
+    /**
+     * Append email column filters to a database query.
+     *
+     * @param Builder $query
+     * @param array $filters
+     * @param bool $includeDemo
+     * @return Builder
+     */
+    public function appendEmailFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    {
+        $query->when(!empty($filters['email']), function ($query) use ($filters) {
+            $email = $filters['email'];
+            $query->orWhere(function ($query) use ($email) {
+                $query->where('email', 'LIKE', '%' . $email . '%')
+                    ->orWhere('email_label', 'LIKE', '%' . $email . '%')
+                    ->orWhere('alt_email', 'LIKE', '%' . $email . '%')
+                    ->orWhere('alt_email_label', 'LIKE', '%' . $email . '%');
+            });
+        });
+
+        return $query;
     }
 
     /**
@@ -200,8 +268,8 @@ trait SearchableModelTrait
     public function appendEnvironmentFilters(Builder $query, array $filters = []): Builder
     {
         $query->when(isset($filters['guest']), function ($query) use ($filters) {
-            $query->where('guest', '=', boolval(['guest']));
-        })
+                $query->where('guest', '=', boolval(['guest']));
+            })
             ->when(isset($filters['user']), function ($query) use ($filters) {
                 $query->where('user', '=', boolval(['user']));
             })
@@ -222,6 +290,29 @@ trait SearchableModelTrait
     }
 
     /**
+     * Append phone column filters to a database query.
+     *
+     * @param Builder $query
+     * @param array $filters
+     * @param bool $includeDemo
+     * @return Builder
+     */
+    public function appendEPhoneFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    {
+        $query->when(!empty($filters['phone']), function ($query) use ($filters) {
+            $phone = $filters['phone'];
+            $query->orWhere(function ($query) use ($phone) {
+                $query->where('phone', 'LIKE', '%' . $phone . '%')
+                    ->orWhere('phone_label', 'LIKE', '%' . $phone . '%')
+                    ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%')
+                    ->orWhere('alt_phone_label', 'LIKE', '%' . $phone . '%');
+            });
+        });
+
+        return $query;
+    }
+
+    /**
      * Append standard column filters to a database query.
      *
      * @param Builder $query
@@ -231,21 +322,21 @@ trait SearchableModelTrait
      */
     public function appendStandardFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
     {
-        $query->when(isset($filters['public']), function ($query) use ($filters) {
-            $query->where('public', '=', boolval(['public']));
-        })
-        ->when(isset($filters['readonly']), function ($query) use ($filters) {
-            $query->where('readonly', '=', boolval(['readonly']));
-        })
-        ->when(isset($filters['root']), function ($query) use ($filters) {
-            $query->where('root', '=', boolval(['root']));
-        })
-        ->when(isset($filters['disabled']), function ($query) use ($filters) {
-            $query->where('disabled', '=', boolval(['disabled']));
-        })
-        ->when(isset($filters['sequence']), function ($query) use ($filters) {
-            $query->where('sequence', '=', intval(['sequence']));
-        });
+        $query->when(isset($filters['is_public']), function ($query) use ($filters) {
+                $query->where('is_public', '=', boolval(['is_public']));
+            })
+            ->when(isset($filters['is_readonly']), function ($query) use ($filters) {
+                $query->where('is_readonly', '=', boolval(['is_readonly']));
+            })
+            ->when(isset($filters['is_root']), function ($query) use ($filters) {
+                $query->where('is_root', '=', boolval(['is_root']));
+            })
+            ->when(isset($filters['is_disabled']), function ($query) use ($filters) {
+                $query->where('is_disabled', '=', boolval(['is_disabled']));
+            })
+            ->when(isset($filters['sequence']), function ($query) use ($filters) {
+                $query->where('sequence', '=', intval(['sequence']));
+            });
 
         if ($includeDemo) {
            $query->when(isset($filters['demo']), function ($query) use ($filters) {

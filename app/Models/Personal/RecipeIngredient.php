@@ -43,6 +43,7 @@ class RecipeIngredient extends Model
         'unit_id',
         'qualifier',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',
@@ -59,7 +60,7 @@ class RecipeIngredient extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'recipe_id', 'ingredient_id', 'amount', 'unit_id', 'qualifier',
-        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -105,8 +106,14 @@ class RecipeIngredient extends Model
             ->when(!empty($filters['ingredient_id']), function ($query) use ($filters) {
                 $query->where('ingredient_id', '=', intval($filters['ingredient_id']));
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['unit_id']), function ($query) use ($filters) {
+                $query->where('unit_id', '=', intval($filters['unit_id']));
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+                ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

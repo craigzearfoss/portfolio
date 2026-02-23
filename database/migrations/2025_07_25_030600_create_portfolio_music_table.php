@@ -23,12 +23,12 @@ return new class extends Migration
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
 
             $table->id();
-            $table->foreignId('owner_id')
-                ->constrained($systemDbName . '.admins', 'id')
-                ->onDelete('cascade');
             $table->foreignId('parent_id')
                 ->nullable()
                 ->constrained('music', 'id')
+                ->onDelete('cascade');
+            $table->foreignId('owner_id')
+                ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('artist')->nullable()->index('artist_idx');
@@ -57,6 +57,7 @@ return new class extends Migration
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

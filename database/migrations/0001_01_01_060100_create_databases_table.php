@@ -32,7 +32,7 @@ return new class extends Migration
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
             $table->string('name', 50)->unique();
-            $table->string('database', 50)->unique();
+            $table->string('database_name', 50)->unique();
             $table->string('tag', 50)->unique();
             $table->string('title', 50);
             $table->string('plural', 50);
@@ -49,7 +49,7 @@ return new class extends Migration
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
-            $table->integer('sequence')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

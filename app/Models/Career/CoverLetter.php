@@ -68,8 +68,8 @@ class CoverLetter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'date', 'filepath', 'content', 'link',
-        'link_name', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'date', 'filepath', 'content', 'notes',
+        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -96,14 +96,7 @@ class CoverLetter extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -112,6 +105,21 @@ class CoverLetter extends Model
             })
             ->when(!empty($filters['date']), function ($query) use ($filters) {
                 $query->where('date', '=', $filters['date']);
+            })
+            ->when(!empty($filters['filepath']), function ($query) use ($filters) {
+                $query->where('filepath', 'like', '%' . $filters['filepath'] . '%');
+            })
+            ->when(!empty($filters['content']), function ($query) use ($filters) {
+                $query->where('content', 'like', '%' . $filters['content'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

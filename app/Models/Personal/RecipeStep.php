@@ -40,6 +40,7 @@ class RecipeStep extends Model
         'recipe_id',
         'step',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',
@@ -55,8 +56,8 @@ class RecipeStep extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'recipe_id', 'step', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'recipe_id', 'step', 'description', 'disclaimer', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -99,11 +100,14 @@ class RecipeStep extends Model
             ->when(!empty($filters['recipe_id']), function ($query) use ($filters) {
                 $query->where('recipe_id', '=', intval($filters['recipe_id']));
             })
+            ->when(!empty($filters['step']), function ($query) use ($filters) {
+                $query->where('step', '=', intval($filters['step']));
+            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

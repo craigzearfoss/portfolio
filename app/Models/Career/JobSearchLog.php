@@ -53,8 +53,9 @@ class JobSearchLog extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'message', 'application_id', 'cover_letter_id', 'resume_id',
-        'company_id', 'contact_id', 'communication_id', 'event_id', 'note_id', 'reference_id', 'recruiter_id' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'message', 'time_logged', 'application_id', 'cover_letter_id',
+        'resume_id', 'company_id', 'contact_id', 'communication_id', 'event_id', 'note_id', 'reference_id',
+        'recruiter_id' ];
 
     /**
      *
@@ -89,9 +90,15 @@ class JobSearchLog extends Model
         }
 
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-            $query->where('id', '=', intval($filters['id']));
+                $query->where('id', '=', intval($filters['id']));
             })->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
+            ->when(!empty($filters['message']), function ($query) use ($filters) {
+                $query->where('message', 'like', '%' . $filters['message'] . '%');
+            })
+            ->when(!empty($filters['time_logged']), function ($query) use ($filters) {
+                $query->where('time_logged', 'like', '%' . $filters['time_logged'] . '%');
             })
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where('application_id', '=', intval($filters['application_id']));

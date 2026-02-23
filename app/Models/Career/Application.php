@@ -60,8 +60,8 @@ class Application extends Model
         'compensation_max',
         'compensation_unit_id',
         'job_duration_type_id',
-        'job_employment_type_id',
         'job_location_type_id',
+        'job_employment_type_id',
         'street',
         'street2',
         'city',
@@ -105,15 +105,16 @@ class Application extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating',
         'active', 'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max',
-        'compensation_unit_id', 'job_duration_type_id', 'job_employment_type_id', 'job_location_type_id', 'street',
+        'compensation_unit_id', 'job_duration_type_id', 'job_location_type_id', 'job_employment_type_id', 'street',
         'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation',
         'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email',
-        'alt_email_label', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
+        'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'role', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'post_date', 'desc' ];
 
     /**
      * @return void
@@ -278,6 +279,12 @@ class Application extends Model
             ->when(!empty($filters['country_id']), function ($query) use ($filters) {
                 $query->where('country_id', '=', intval($filters['country_id']));
             })
+            ->when(isset($filters['bonus']), function ($query) use ($filters) {
+                $query->where('bonus', '=', intval($filters['bonus']));
+            })
+            ->when(isset($filters['w2']), function ($query) use ($filters) {
+                $query->where('w2', '=', boolval($filters['w2']));
+            })
             ->when(isset($filters['relocation']), function ($query) use ($filters) {
                 $query->where('relocation', '=', boolval($filters['relocation']));
             })
@@ -289,21 +296,21 @@ class Application extends Model
             })
             ->when(isset($filters['health']), function ($query) use ($filters) {
                 $query->where('health', '=', boolval($filters['health']));
-            })
-            ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $email = $filters['email'];
-                $query->orWhere(function ($query) use ($email) {
-                    $query->where('email', 'LIKE', '%' . $email . '%')
-                        ->orWhere('alt_email', 'LIKE', '%' . $email . '%');
-                });
-            })
-            ->when(!empty($filters['phone']), function ($query) use ($filters) {
-                $phone = $filters['phone'];
-                $query->orWhere(function ($query) use ($phone) {
-                    $query->where('phone', 'LIKE', '%' . $phone . '%')
-                        ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%');
-                });
             });
+
+        $query =$this->appendPhoneFilters($query, $filters);
+        $query =$this->appendEmailFilters($query, $filters);
+
+        $query->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            });
+
 
         return $this->appendStandardFilters($query, $filters);
     }

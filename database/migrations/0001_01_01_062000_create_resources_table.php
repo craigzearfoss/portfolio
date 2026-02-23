@@ -29,6 +29,10 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('resources', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->constrained('resources', 'id')
+                ->onDelete('cascade');
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
@@ -36,10 +40,6 @@ return new class extends Migration
                 ->constrained('databases', 'id')
                 ->onDelete('cascade');
             $table->string('name', 50);
-            $table->foreignId('parent_id')
-                ->nullable()
-                ->constrained('resources', 'id')
-                ->onDelete('cascade');
             $table->string('table_name', 50)->index('table_name_idx');
             $table->string('class');
             $table->string('title', 50);
@@ -57,7 +57,7 @@ return new class extends Migration
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
-            $table->integer('sequence')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -76,9 +76,9 @@ return new class extends Migration
              ** ----------------------------------------------------- */
             $data = [
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'admin',
-                    'parent_id'       => null,
                     'table_name'      => 'admins',
                     'class'           => 'App\Models\System\Admin',
                     'title'           => 'Admin',
@@ -99,9 +99,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 10,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'admin-email',
-                    'parent_id'       => null,
                     'table_name'      => 'admin_emails',
                     'class'           => 'App\Models\System\AdminEmail',
                     'title'           => 'Admin Email',
@@ -122,9 +122,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 13,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'admin-phone',
-                    'parent_id'       => null,
                     'table_name'      => 'admin_phones',
                     'class'           => 'App\Models\System\AdminPhone',
                     'title'           => 'Admin Phone',
@@ -145,9 +145,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 16,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'admin-team',
-                    'parent_id'       => null,
                     'table_name'      => 'admin_teams',
                     'class'           => 'App\Models\System\AdminTeam',
                     'title'           => 'Admin Team',
@@ -168,9 +168,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 20,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'admin-group',
-                    'parent_id'       => null,
                     'table_name'      => 'admin_groups',
                     'class'           => 'App\Models\System\AdminGroup',
                     'title'           => 'Admin Group',
@@ -191,9 +191,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 30,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'user',
-                    'parent_id'       => null,
                     'table_name'      => 'users',
                     'class'           => 'App\Models\System\User',
                     'title'           => 'User',
@@ -214,9 +214,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 40,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'user-email',
-                    'parent_id'       => null,
                     'table_name'      => 'user_emails',
                     'class'           => 'App\Models\System\UserEmail',
                     'title'           => 'User Email',
@@ -237,9 +237,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 43,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'user-phone',
-                    'parent_id'       => null,
                     'table_name'      => 'user_phones',
                     'class'           => 'App\Models\System\UserPhone',
                     'title'           => 'User Phone',
@@ -260,9 +260,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 46,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'user-team',
-                    'parent_id'       => null,
                     'table_name'      => 'user_teams',
                     'class'           => 'App\Models\System\UserTeam',
                     'title'           => 'User Team',
@@ -283,9 +283,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 50,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'user-group',
-                    'parent_id'       => null,
                     'table_name'      => 'user_groups',
                     'class'           => 'App\Models\System\UserGroup',
                     'title'           => 'User Group',
@@ -306,9 +306,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 60,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'message',
-                    'parent_id'       => null,
                     'table_name'      => 'messages',
                     'class'           => 'App\Models\System\Message',
                     'title'           => 'Message',
@@ -329,9 +329,9 @@ return new class extends Migration
                     'sequence'        => $database->sequence + 70,
                 ],
                 [
+                    'parent_id'       => null,
                     'database_id'     => $database->id,
                     'name'            => 'session',
-                    'parent_id'       => null,
                     'table_name'      => 'sessions',
                     'class'           => 'App\Models\System\Sessions',
                     'title'           => 'Session',

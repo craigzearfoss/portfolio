@@ -34,9 +34,9 @@ return new class extends Migration
             $table->string('language_version', 20)->nullable();
             $table->string('repository_url')->nullable();
             $table->string('repository_name')->nullable();
+            $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
-            $table->text('notes')->nullable();
             $table->text('description')->nullable();
             $table->string('disclaimer', 500)->nullable();
             $table->string('image', 500)->nullable();
@@ -48,7 +48,7 @@ return new class extends Migration
             $table->boolean('is_root')->default(false);
             $table->boolean('is_disabled')->default(false);
             $table->boolean('is_demo')->default(false);
-            $table->integer('sequence')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

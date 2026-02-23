@@ -47,9 +47,9 @@ class Resume extends Model
         'slug',
         'date',
         'primary',
-        'content',
         'doc_filepath',
         'pdf_filepath',
+        'content',
         'file_type',
         'notes',
         'link',
@@ -92,7 +92,8 @@ class Resume extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'doc_filepath',
-        'pdf_filepath', 'content', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'pdf_filepath', 'content', 'file_type', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -196,14 +197,7 @@ class Resume extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -213,8 +207,26 @@ class Resume extends Model
             ->when(isset($filters['primary']), function ($query) use ($filters) {
                 $query->where('primary', '=', boolval($filters['primary']));
             })
+            ->when(!empty($filters['doc_filepath']), function ($query) use ($filters) {
+                $query->where('doc_filepath', 'like', '%' . $filters['doc_filepath'] . '%');
+            })
+            ->when(!empty($filters['pdf_filepath']), function ($query) use ($filters) {
+                $query->where('pdf_filepath', 'like', '%' . $filters['pdf_filepath'] . '%');
+            })
+            ->when(!empty($filters['content']), function ($query) use ($filters) {
+                $query->where('content', 'like', '%' . $filters['content'] . '%');
+            })
             ->when(!empty($filters['file_type']), function ($query) use ($filters) {
                 $query->where('file_type', '=', $filters['file_type']);
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

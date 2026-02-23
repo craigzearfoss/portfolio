@@ -29,11 +29,11 @@ return new class extends Migration
 
                 foreach ($portfolioResources as $portfolioResource) {
                     $data[] = [
+                        'parent_id'      => $portfolioResource->parent_id,
                         'owner_id'       => $ownerId,
                         'resource_id'    => $portfolioResource->id,
                         'database_id'    => $portfolioResource->database_id,
                         'name'           => $portfolioResource->name,
-                        'parent_id'      => $portfolioResource->parent_id,
                         'table_name'     => $portfolioResource->table_name,
                         'class'          => $portfolioResource->class,
                         'title'          => $portfolioResource->title,
