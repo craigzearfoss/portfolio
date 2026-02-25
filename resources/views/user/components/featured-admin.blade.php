@@ -44,7 +44,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('user.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('user.resume', $admin),
+                                'href'   => route('guest.resume', $admin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',

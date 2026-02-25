@@ -46,7 +46,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('admin.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('admin.portfolio.resume', $owner),
+                                'href'   => route('admin.career.resume.preview', $owner),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
