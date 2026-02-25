@@ -51,7 +51,10 @@ return new class extends Migration
             $table->date('close_date')->nullable();
             $table->integer('compensation_min')->nullable();
             $table->integer('compensation_max')->nullable();
-            $table->integer('compensation_unit_id')->nullable();
+            $table->foreignId('compensation_unit_id')
+                ->nullable()
+                ->constrained('compensation_units', 'id')
+                ->onDelete('cascade');
             $table->foreignId('job_duration_type_id')
                 ->constrained('job_duration_types', 'id')
                 ->onDelete('cascade');
@@ -118,10 +121,10 @@ return new class extends Migration
                 'apply_date'             => null,
                 'compensation_min'       => null,
                 'compensation_max'       => null,
-                'compensation_unit'      => null,  // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
-                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
-                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
-                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'compensation_unit_id'   => null,
+                'job_duration_type_id'   => 1,
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 3,
                 'city'                   => null,
                 'state_id'               => null,
                 'country_id'             => 237,
@@ -130,7 +133,7 @@ return new class extends Migration
                 'benefits'               => 0,
                 'vacation'               => 0,
                 'health'                 => 0,
-                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'job_board_id'           => 8,
                 'link'                   => '',
                 'link_name'              => '',
             ],

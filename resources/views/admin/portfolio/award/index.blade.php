@@ -96,7 +96,7 @@
                             @include('admin.components.checkmark', [ 'checked' => $award->public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $award->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $award->is_disabled ])
                         </td>
                         <td class="is-1">
 

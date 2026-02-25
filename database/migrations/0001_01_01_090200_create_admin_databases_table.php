@@ -1,4 +1,4 @@
-7<?php
+<?php
 
 use App\Models\System\Admin;
 use App\Models\System\AdminDatabase;
@@ -30,7 +30,7 @@ return new class extends Migration
                 ->constrained('databases', 'id')
                 ->onDelete('cascade');
             $table->string('name', 50)->index('name_idx');
-            $table->string('database_name', 50)->index('database_name_idx');
+            $table->string('database', 50)->index('database_idx');
             $table->string('tag', 50)->index('tag_idx');
             $table->string('title', 50);
             $table->string('plural', 50);

@@ -19,7 +19,7 @@ class Guest
     {
         /*
         if ($admin = $request->route('admin')) {
-            if (empty($admin->public)) {
+            if (empty($admin->is_public)) {
                 abort(404);
             }
         }

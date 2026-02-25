@@ -56,7 +56,7 @@ return new class extends Migration
                 'menu'        => true,
                 'menu_level'  => 0,
                 'icon'        => 'fa-folder',
-                'is_public'   => false,
+                'is_public'   => true,
                 'is_readonly' => false,
                 'is_root'     => false,
                 'is_disabled' => false,

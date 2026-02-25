@@ -24,8 +24,8 @@ class AdminController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $admin = null;
-        $candidates = new Admin()->where('public', 1)
-            ->where('disabled', false)
+        $candidates = new Admin()->where('is_public', 1)
+            ->where('is_disabled', false)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -42,7 +42,7 @@ class AdminController extends BaseGuestController
      */
     public function show(Admin $admin): View
     {
-        if (!empty($this->owner) && (!$this->owner['public'] || $this->owner['disabled'])) {
+        if (!empty($this->owner) && (!$this->owner['is_public'] || $this->owner['is_disabled'])) {
             abort(404);
         }
 

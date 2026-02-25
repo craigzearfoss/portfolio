@@ -12,7 +12,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',       'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name,   'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Career',       'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
@@ -191,11 +191,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $company->public,
-                'readonly'    => old('readonly') ?? $company->readonly,
-                'root'        => old('root')     ?? $company->root,
-                'disabled'    => old('disabled') ?? $company->disabled,
-                'demo'        => old('demo')     ?? $company->demo,
+                'public'      => old('is_public')   ?? $company->is_public,
+                'readonly'    => old('is_readonly') ?? $company->is_readonly,
+                'root'        => old('is_root')     ?? $company->root,
+                'disabled'    => old('is_disabled') ?? $company->is_disabled,
+                'demo'        => old('is_demo')     ?? $company->is_demo,
                 'sequence'    => old('sequence') ?? $company->sequence,
                 'message'     => $message ?? '',
             ])

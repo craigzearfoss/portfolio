@@ -60,10 +60,10 @@
                             {!! $academy->name !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $academy->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $academy->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $academy->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $academy->is_disabled ])
                         </td>
                         <td class="is-1">
 

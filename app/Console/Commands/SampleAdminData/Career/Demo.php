@@ -1243,7 +1243,7 @@ EOD,
         if (!empty($data)) {
             foreach ($data as $i=>$dataArray) {
                 $dataArray = [$dataArray];
-                $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['demo' => $this->demo]));
+                $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->demo]));
             }
             //$this->insertSystemAdminResource($this->adminId, 'applications');
         }
@@ -1282,7 +1282,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'application_skills');
         }
     }
@@ -1391,7 +1391,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
@@ -1472,7 +1472,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
@@ -1497,7 +1497,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'communications');
         }
     }
@@ -1729,7 +1729,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'cover_letters');
         }
     }
@@ -1755,7 +1755,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'events');
         }
     }
@@ -1780,7 +1780,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'notes');
         }
     }
@@ -1808,7 +1808,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'references');
         }
     }
@@ -1821,26 +1821,26 @@ EOD,
         echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
 
         $data = [
-            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 1 ],
-            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 1 ],
-            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'date' => '2025-12-08', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'public' => 1 ],
-            //[ 'name' => '',                                         'slug' => '',                                                    'date' => null,         'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'public' => 1 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
+            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'date' => '2025-12-08', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
+            //[ 'name' => '',                                         'slug' => '',                                                    'date' => null,         'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
         ];
 
         $resumeModel = new Resume();
 
         if (!empty($data)) {
-            $resumeModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $resumeModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'resumes');
         }
 

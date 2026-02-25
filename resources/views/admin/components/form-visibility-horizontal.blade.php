@@ -15,46 +15,50 @@ if (!empty($style)) {
             <div class="checkbox-container card form-container p-4">
 
                 @include('admin.components.form-checkbox', [
-                    'name'            => 'public',
+                    'name'            => 'is_public',
+                    'label'           => 'public',
                     'value'           => 1,
                     'unchecked_value' => 0,
-                    'checked'         => $public ?? 0,
+                    'checked'         => $is_public ?? 0,
                     'message'         => $message ?? '',
                 ])
 
                 @include('admin.components.form-checkbox', [
-                    'name'            => 'readonly',
+                    'name'            => 'is_readonly',
                     'label'           => 'read-only',
                     'value'           => 1,
                     'unchecked_value' => 0,
-                    'checked'         => $readonly ?? 0,
+                    'checked'         => $is_readonly ?? 0,
                     'message'         => $message ?? '',
                 ])
 
                 @if(isRootAdmin())
                     @include('admin.components.form-checkbox', [
-                        'name'            => 'root',
+                        'name'            => 'is_root',
+                        'label'           => 'root',
                         'value'           => 1,
                         'unchecked_value' => 0,
-                        'checked'         => $root ?? 0,
-                        'disabled'        => $root ?? 0,
+                        'checked'         => $is_root ?? 0,
+                        'disabled'        => $is_root ?? 0,
                         'message'         => $message ?? '',
                     ])
                 @endif
 
                 @include('admin.components.form-checkbox', [
-                    'name'            => 'disabled',
+                    'name'            => 'is_disabled',
+                    'label'           => 'disabled',
                     'value'           => 1,
                     'unchecked_value' => 0,
-                    'checked'         => $disabled ?? 0,
+                    'checked'         => $is_disabled ?? 0,
                     'message'         => $message ?? '',
                 ])
 
                 @include('admin.components.form-checkbox', [
-                    'name'            => 'demo',
+                    'name'            => 'is_demo',
+                    'label'           => 'demo',
                     'value'           => 1,
                     'unchecked_value' => 0,
-                    'checked'         => $demo ?? 0,
+                    'checked'         => $is_demo ?? 0,
                     'message'         => $message ?? '',
                 ])
 

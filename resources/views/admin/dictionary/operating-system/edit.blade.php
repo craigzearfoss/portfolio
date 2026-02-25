@@ -153,11 +153,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $operatingSystem->public,
-                'readonly'    => old('readonly') ?? $operatingSystem->readonly,
-                'root'        => old('root')     ?? $operatingSystem->root,
-                'disabled'    => old('disabled') ?? $operatingSystem->disabled,
-                'demo'        => old('demo')     ?? $operatingSystem->demo,
+                'public'      => old('is_public')   ?? $operatingSystem->is_public,
+                'readonly'    => old('is_readonly') ?? $operatingSystem->is_readonly,
+                'root'        => old('is_root')     ?? $operatingSystem->root,
+                'disabled'    => old('is_disabled') ?? $operatingSystem->is_disabled,
+                'demo'        => old('is_demo')     ?? $operatingSystem->is_demo,
                 'sequence'    => old('sequence') ?? $operatingSystem->sequence,
                 'message'     => $message ?? '',
             ])

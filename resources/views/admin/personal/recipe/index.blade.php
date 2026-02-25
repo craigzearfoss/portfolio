@@ -93,10 +93,10 @@
                             {!! implode(', ', $recipe->meals()) !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $recipe->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $recipe->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $recipe->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $recipe->is_disabled ])
                         </td>
                         <td class="is-1">
 

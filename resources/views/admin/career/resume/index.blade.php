@@ -52,7 +52,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -67,7 +67,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -85,7 +85,7 @@
                 @forelse ($resumes as $resume)
 
                     <tr data-id="{{ $resume->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $resume->owner->username ?? '' }}
                             </td>
@@ -100,10 +100,10 @@
                             @include('admin.components.checkmark', [ 'checked' => $resume->primary ])
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $resume->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $resume->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $resume->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $resume->is_disabled ])
                         </td>
                         <td class="is-1">
 
@@ -160,7 +160,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '7' : '6' }}">There are no resumes.</td>
+                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">There are no resumes.</td>
                     </tr>
 
                 @endforelse

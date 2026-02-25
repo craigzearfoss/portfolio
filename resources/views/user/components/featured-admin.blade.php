@@ -9,8 +9,8 @@
             $admin->id,
             'portfolio',
             [
-                'public'   => 1,
-                'disabled' => 0,
+                'is_public'   => 1,
+                'is_disabled' => 0,
             ],
         );
 
@@ -18,8 +18,8 @@
             $admin->id,
             'personal',
             [
-                'public'   => 1,
-                'disabled' => 0,
+                'is_public'   => 1,
+                'is_disabled' => 0,
             ],
         );
     @endphp

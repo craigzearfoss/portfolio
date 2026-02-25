@@ -43,7 +43,7 @@
                 'value' => referer('admin.career.resume.index')
             ])
 
-            @if($admin->root)
+            @if($admin->is_root)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -141,11 +141,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? 0,
-                'readonly'    => old('readonly') ?? 0,
-                'root'        => old('root')     ?? 0,
-                'disabled'    => old('disabled') ?? 0,
-                'demo'        => old('demo')     ?? 0,
+                'public'      => old('is_public')   ?? 0,
+                'readonly'    => old('is_readonly') ?? 0,
+                'root'        => old('is_root')     ?? 0,
+                'disabled'    => old('is_disabled') ?? 0,
+                'demo'        => old('is_demo')     ?? 0,
                 'sequence'    => old('sequence') ?? 0,
                 'message'     => $message ?? '',
             ])

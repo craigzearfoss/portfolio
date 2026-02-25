@@ -41,7 +41,7 @@ class InitSampleAdmin extends Command
     /**
      * @var int
      */
-    protected int $demo = 1;
+    protected int $is_demo = 1;
 
     /**
      * @var int
@@ -103,12 +103,12 @@ class InitSampleAdmin extends Command
      */
     public function handle(): void
     {
-        $username     = $this->argument('username');
-        $password     = $this->option('password');
-        $adminTeamId  = $this->option('team_id');
-        $adminGroupId = $this->option('group_id');
-        $this->demo   = $this->option('demo');
-        $this->silent = $this->option('silent');
+        $username      = $this->argument('username');
+        $password      = $this->option('password');
+        $adminTeamId   = $this->option('team_id');
+        $adminGroupId  = $this->option('group_id');
+        $this->is_demo = $this->option('demo');
+        $this->silent  = $this->option('silent');
 
         if (($username == '*') || (strtolower($username) === 'all')) {
             $this->processAll = true;
@@ -153,7 +153,7 @@ class InitSampleAdmin extends Command
 
             if (!empty($adminTeamId)) echo '    admin_team_id: ' . $adminTeamId . PHP_EOL;
             if (!empty($adminGroupId)) echo '    admin_group_id: ' . $adminGroupId . PHP_EOL;
-            echo '    demo:     ' . $this->demo . PHP_EOL;
+            echo '    demo:     ' . $this->is_demo . PHP_EOL;
 
             if (empty($password)) {
                 if ($this->processAll) {
@@ -267,7 +267,7 @@ class InitSampleAdmin extends Command
             echo PHP_EOL . "Skipping {$initPortfolioFile}. File not found." . PHP_EOL;
         } else {
             echo PHP_EOL . "Importing Portfolio data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:init-' . $username . '-portfolio --demo=' . $this->demo . ' --silent');
+            Artisan::call('app:init-' . $username . '-portfolio --demo=' . $this->is_demo . ' --silent');
         }
 
         /* --------------------------------------------------------------------------- */
@@ -278,7 +278,7 @@ class InitSampleAdmin extends Command
             echo PHP_EOL . "Skipping {$initCareerFile}. File not found." . PHP_EOL;
         } else {
             echo PHP_EOL . "Importing Career data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:init-' . $username . '-career --demo=' . $this->demo . ' --silent');
+            Artisan::call('app:init-' . $username . '-career --demo=' . $this->is_demo . ' --silent');
         }
 
         /* --------------------------------------------------------------------------- */
@@ -289,7 +289,7 @@ class InitSampleAdmin extends Command
             echo PHP_EOL . "Skipping {$initPersonalFile}. File not found." . PHP_EOL;
         } else {
             echo PHP_EOL . "Importing Personal data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:init-' . $username . '-personal --demo=' . $this->demo . ' --silent');
+            Artisan::call('app:init-' . $username . '-personal --demo=' . $this->is_demo . ' --silent');
         }
     }
 
@@ -380,17 +380,17 @@ class InitSampleAdmin extends Command
                 'role'              => self::USER_DATA[$username]['role'] ,
                 'employer'          => self::USER_DATA[$username]['employer'],
                 'email_verified_at' => now(),
-                'public'            => true,
+                'is_public'         => true,
                 'status'            => 1,
                 'token'             => '',
-                'root'              => false,
+                'is_root'           => false,
                 'image'             => $imagePath,
                 'thumbnail'         => $thumbnailPath,
             ]
         ];
 
         if (!empty($data)) {
-            new Admin()->insert($this->additionalColumns($data, true, null, ['demo' => $this->demo]));
+            new Admin()->insert($this->additionalColumns($data, true, null, ['is_demo' => $this->is_demo]));
         }
     }
 

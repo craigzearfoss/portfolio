@@ -142,11 +142,11 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'The Scream',                       'artist' => 'Edvard Munch',           'slug' => 'the-scream-by-edvard-munch',                                 'summary' => null, 'year' => 1893, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Edvard-Munch/paintings-wm/munch004.jpg',               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'The Wanderer Above a Sea of Mist', 'artist' => 'Caspar David Friedrich', 'slug' => 'the-wanderer-above-a-sea-of-mist-by-caspar-david-friedrich', 'summary' => null, 'year' => 1818, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich016.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Nude Descending a Staircase II',   'artist' => 'Marcel Duchamp',         'slug' => 'nude-descending-a-staircase-ii-by-marcel-duchamp',           'summary' => null, 'year' => 1912, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Marcel-Duchamp/paintings-wm/duchamp-001.jpg',          'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'American Gothic',                  'artist' => 'Grant Wood',             'slug' => 'american-gothic-by-grant-wood',                              'summary' => null, 'year' => 1930, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Grant-Wood/paintings-wm/grant-wood-001.jpg',           'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'There Is a God',                   'artist' => 'Kevin Dixon',            'slug' => 'there-is-a-god-by-kevin-dixon',                              'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image' => null,                                                                                           'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
+            [ 'name' => 'The Scream',                       'artist' => 'Edvard Munch',           'slug' => 'the-scream-by-edvard-munch',                                 'summary' => null, 'year' => 1893, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Edvard-Munch/paintings-wm/munch004.jpg',               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'The Wanderer Above a Sea of Mist', 'artist' => 'Caspar David Friedrich', 'slug' => 'the-wanderer-above-a-sea-of-mist-by-caspar-david-friedrich', 'summary' => null, 'year' => 1818, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich016.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Nude Descending a Staircase II',   'artist' => 'Marcel Duchamp',         'slug' => 'nude-descending-a-staircase-ii-by-marcel-duchamp',           'summary' => null, 'year' => 1912, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Marcel-Duchamp/paintings-wm/duchamp-001.jpg',          'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'American Gothic',                  'artist' => 'Grant Wood',             'slug' => 'american-gothic-by-grant-wood',                              'summary' => null, 'year' => 1930, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Grant-Wood/paintings-wm/grant-wood-001.jpg',           'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'There Is a God',                   'artist' => 'Kevin Dixon',            'slug' => 'there-is-a-god-by-kevin-dixon',                              'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                           'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
@@ -155,7 +155,7 @@ class DarrinStephens extends Command
                 'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
@@ -166,7 +166,7 @@ class DarrinStephens extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -199,13 +199,13 @@ class DarrinStephens extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -227,13 +227,13 @@ class DarrinStephens extends Command
                 'featured'        => 0,
                 'year'            => null,
                 'organization'    => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -258,13 +258,13 @@ class DarrinStephens extends Command
                 'received'        => '0000-00-00',
                 'certificate_url' => null,
                 'description'     => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -277,10 +277,10 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'Laravel & PHP Mastery: Build 5 Real-World Projects', 'slug' => 'laravel-and-php-mastery-build-5-real-world-projects', 'completed' => 1, 'completion_date' => '2018-06-26', 'year' => 2018, 'duration_hours' => 30.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-beginner-fundamentals/', 'link_name' => null, 'public' => 1, 'summary' => 'Master Laravel, PHP & full-stack skills by building 5 production-ready apps!' ],
-            [ 'name' => 'The Complete ReactJs Course - Basics to Advanced',   'slug' => 'the-complete-reactjs-course-basics-to-advanced',      'completed' => 1, 'completion_date' => '2025-03-25', 'year' => 2025, 'duration_hours' => 3.5,  'academy_id' => 8, 'instructor' => 'Qaifi Khan and Mavludin Abdulkadirov', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-js-basics-to-advanced/',   'link_name' => null, 'public' => 1, 'summary' => 'Learn React JS from scratch with hands-on practice assignments and projects.' ],
-            [ 'name' => 'Vue.js 3 Masterclass: Build 7 Real-World Apps',      'slug' => 'vue.js-3-masterclass-build-7-real-world-apps',        'completed' => 1, 'completion_date' => '2017-09-09', 'year' => 2017, 'duration_hours' => 15.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-in-action/',                 'link_name' => null, 'public' => 1, 'summary' => 'Master Vue 3 & the Composition API by building 7 production-ready apps and launching your frontend developer career!' ],
-            [ 'name' => 'Learn React',                                        'slug' => 'learn-react',                                         'completed' => 1, 'completion_date' => '2019-02-18', 'year' => 2019, 'duration_hours' => 15.1, 'academy_id' => 6, 'instructor' => 'Bob Ziroll',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-react-c0e',                         'link_name' => null, 'public' => 1, 'summary' => 'Welcome to the ultimate React 101 course! Designed with MDN Web Docs, it\'s the perfect place to learn modern React basics interactively. You’ll tackle 170+ coding challenges and build six projects, gaining confidence to create real-world applications.' ],
+            [ 'name' => 'Laravel & PHP Mastery: Build 5 Real-World Projects', 'slug' => 'laravel-and-php-mastery-build-5-real-world-projects', 'completed' => 1, 'completion_date' => '2018-06-26', 'year' => 2018, 'duration_hours' => 30.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-beginner-fundamentals/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Master Laravel, PHP & full-stack skills by building 5 production-ready apps!' ],
+            [ 'name' => 'The Complete ReactJs Course - Basics to Advanced',   'slug' => 'the-complete-reactjs-course-basics-to-advanced',      'completed' => 1, 'completion_date' => '2025-03-25', 'year' => 2025, 'duration_hours' => 3.5,  'academy_id' => 8, 'instructor' => 'Qaifi Khan and Mavludin Abdulkadirov', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-js-basics-to-advanced/',   'link_name' => null, 'is_public' => 1, 'summary' => 'Learn React JS from scratch with hands-on practice assignments and projects.' ],
+            [ 'name' => 'Vue.js 3 Masterclass: Build 7 Real-World Apps',      'slug' => 'vue.js-3-masterclass-build-7-real-world-apps',        'completed' => 1, 'completion_date' => '2017-09-09', 'year' => 2017, 'duration_hours' => 15.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-in-action/',                 'link_name' => null, 'is_public' => 1, 'summary' => 'Master Vue 3 & the Composition API by building 7 production-ready apps and launching your frontend developer career!' ],
+            [ 'name' => 'Learn React',                                        'slug' => 'learn-react',                                         'completed' => 1, 'completion_date' => '2019-02-18', 'year' => 2019, 'duration_hours' => 15.1, 'academy_id' => 6, 'instructor' => 'Bob Ziroll',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-react-c0e',                         'link_name' => null, 'is_public' => 1, 'summary' => 'Welcome to the ultimate React 101 course! Designed with MDN Web Docs, it\'s the perfect place to learn modern React basics interactively. You’ll tackle 170+ coding challenges and build six projects, gaining confidence to create real-world applications.' ],
             /*
             [
                 'name'            => '',
@@ -295,14 +295,14 @@ class DarrinStephens extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -354,7 +354,7 @@ class DarrinStephens extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -393,12 +393,12 @@ class DarrinStephens extends Command
                 'longitude'              => -75.9995742,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -411,11 +411,11 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Larry Tate',     'title' => 'Manager',     'level_id' => 2, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Larry Tate',     'title' => 'Manager',     'level_id' => 2, 'link' => null, 'link_name' => null ],
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -434,13 +434,13 @@ class DarrinStephens extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -458,13 +458,13 @@ class DarrinStephens extends Command
                 'job_id'   => $this->jobId[1],
                 'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
                 'sequence' => 0,
-                'public'   => 1,
+                'is_public'   => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -485,7 +485,7 @@ class DarrinStephens extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Dick_York',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'Darrin Stephens: TV\'s Original Mad Man',
@@ -495,7 +495,7 @@ class DarrinStephens extends Command
                 'url'         => 'https://www.stoneward.com/blog/2015/07/darrin-stephens-tvs-original-mad-man/',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'IMDb (Bewitched TV show)',
@@ -505,7 +505,7 @@ class DarrinStephens extends Command
                 'url'         => 'https://www.imdb.com/title/tt0057733/',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             /*
             [
@@ -516,13 +516,13 @@ class DarrinStephens extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -535,27 +535,27 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Camel Walk',                'artist' => 'Southern Culture on the Skids',      'slug' => 'camel-walk-by-southern-culture-on-the-skids',       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Geffen Records',    'catalog_number' => null,       'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/T9NLgyEFzOo?si=uWiZcWOuHKLcHbN5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/T9NLgyEFzOo?si=uWiZcWOuHKLcHbN5', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Drivin\' on 9',             'artist' => 'Ed\'s Redeeming Qualities',          'slug' => 'drivin-on-9-by-eds-redeeming-qualities',            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1989, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Love You Period',         'artist' => 'Dan Baird',                          'slug' => 'i-love-you-period-by-dan-baird',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Def American',      'catalog_number' => null,       'year' => 1992, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/6Ci1b8CE344?si=xGuSB6XsdKjaJgAF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/6Ci1b8CE344?si=xGuSB6XsdKjaJgAF', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Green Lights',              'artist' => 'NRBQ',                               'slug' => 'green-lights-by-nrbq',                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Mercury Records',   'catalog_number' => null,       'year' => 1978, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/L2xdXNSBZrM?si=V2-b4RJK7LekUAOh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/L2xdXNSBZrM?si=V2-b4RJK7LekUAOh', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Wrong',                     'artist' => 'Archers of Loaf',                    'slug' => 'wrong-by-archers-of-loaf',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',     'catalog_number' => null,       'year' => 1993, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kjDwZNs6GLs?si=LsdBN6al3Go3b-os" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/kjDwZNs6GLs?si=dJVUmaITTY6Unz2P', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Ratatata',                  'artist' =>  'Babymetal with Electric Callboy',   'slug' => 'ratatata-by-babymetal-with-electric-callboy',       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/EDnIEWyVIlE?si=YH9KkA-lh4K8__7I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/EDnIEWyVIlE?si=DWkBji5GiMh1fKKO', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Sabre Dance',               'artist' => 'Dave Edmunds',                       'slug' => 'sabre-dance-by-dave-edmunds',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'EMI',               'catalog_number' => null,       'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WLvA7tL44Lo?si=4s-mWeXs8hAxS6Qc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WLvA7tL44Lo?si=4s-mWeXs8hAxS6Qc', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Against I',               'artist' => 'Bad Brains',                         'slug' => 'i-against-i-by-bad-brains',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'SST Records',       'catalog_number' => 'SSTCD 65', 'year' => 1986, 'release_date' => '1986-11-21', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/cCEkuo94X6I?si=wOy2Zpb_TrLh_qrn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/cCEkuo94X6I?si=wOy2Zpb_TrLh_qrn', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Precision Auto',            'artist' => 'Superchunk',                         'slug' => 'precision-auto-by-superchunk',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records',     'catalog_number' => null,       'year' => 1993, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/FgaZGl_G8Nw?si=Z-_2p7Fpb0pxLJMe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/FgaZGl_G8Nw?si=3Ef0c7uGLQ2xG1Ka', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'More Bad Times',            'artist' => 'Ed\'s Redeeming Qualities',          'slug' => 'more-bad-times-by-eds-redeeming-qualities',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1990, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/swDnRTvE4BY?si=zBPXNV3ydETxBkR8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/swDnRTvE4BY?si=zBPXNV3ydETxBkR8', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'My Favorite Shirt',         'artist' => 'The Figgs',                          'slug' => 'my-favorite-shirt-by-the-figgs',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'In the City',               'artist' => 'The Jam',                            'slug' => 'in-the-city-by-the-jam',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wbfw1YfeAlA?si=WDIzxwQ5uli7rsoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wbfw1YfeAlA?si=sTbgEOLFW7vg_lwa', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Good with God',             'artist' => 'Old 97\'s featuring Brandi Carlile', 'slug' => 'good-with-god-by-old-97s-featuring-brandi-carlile', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 2017, 'release_date' => '2017-02-24', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/dDMMd4zx7is?si=gwFvrctn8C2rPEJg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/dDMMd4zx7is?si=gwFvrctn8C2rPEJg', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Tennessee Plates',          'artist' => 'John Hiatt',                         'slug' => 'tennessee-plates-by-john-hiatt',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M',               'catalog_number' => null,       'year' => 1988, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I\'m Tight',                'artist' => 'Louis Cole',                         'slug' => 'im-tight-by-louis-cole',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 2022, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Temporary Secretary',       'artist' => 'Paul McCartney',                     'slug' => 'temporary-secretary-by-paul-mccartney',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Girls Talk',                'artist' => 'Dave Edmunds',                       'slug' => 'girls-talk-by-dave-edmunds',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Swan Song Records', 'catalog_number' => null,       'year' => 1979, 'release_date' => '1979-06-09', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/qSOjXj2uXN0?si=S4mg_A7TfuUSQRMY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/qSOjXj2uXN0?si=00GmuCDwrAgzHZ-7', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Leaves in Autumn',          'artist' => 'Hasil Adkins',                       'slug' => 'leaves-in-autumn-by-hasil-adkins',                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Norton Records',    'catalog_number' => null,       'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NHxaIfhH6HI?si=HTrCCyQ5YFr5utYO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/NHxaIfhH6HI?si=HTrCCyQ5YFr5utYO', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'What\'s Goin\' On?',        'artist' => 'Dynamite Shakers',                   'slug' => 'whats-goin-on-by-dynamite-shakers',                 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rCQ2PXd7mF4?si=HtI4KH8DdDise-29" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rCQ2PXd7mF4?si=HtI4KH8DdDise-29', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Bad Word For A Good Thing', 'artist' => 'The Friggs',                         'slug' => 'bad-word-for-a-good-thing-by-the-friggs',           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1997, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'There Was a Time',          'artist' => 'Ginger Root',                        'slug' => 'there-was-a-time-by-ginger-root',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2eUf4rWtxLU?si=Eht2mBc3dwx4IvK9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2eUf4rWtxLU?si=2Stc9oPVQoaa3b80', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
+            [ 'name' => 'Camel Walk',                'artist' => 'Southern Culture on the Skids',      'slug' => 'camel-walk-by-southern-culture-on-the-skids',       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Geffen Records',    'catalog_number' => null,       'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/T9NLgyEFzOo?si=uWiZcWOuHKLcHbN5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/T9NLgyEFzOo?si=uWiZcWOuHKLcHbN5', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Drivin\' on 9',             'artist' => 'Ed\'s Redeeming Qualities',          'slug' => 'drivin-on-9-by-eds-redeeming-qualities',            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1989, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Love You Period',         'artist' => 'Dan Baird',                          'slug' => 'i-love-you-period-by-dan-baird',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Def American',      'catalog_number' => null,       'year' => 1992, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/6Ci1b8CE344?si=xGuSB6XsdKjaJgAF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/6Ci1b8CE344?si=xGuSB6XsdKjaJgAF', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Green Lights',              'artist' => 'NRBQ',                               'slug' => 'green-lights-by-nrbq',                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Mercury Records',   'catalog_number' => null,       'year' => 1978, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/L2xdXNSBZrM?si=V2-b4RJK7LekUAOh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/L2xdXNSBZrM?si=V2-b4RJK7LekUAOh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Wrong',                     'artist' => 'Archers of Loaf',                    'slug' => 'wrong-by-archers-of-loaf',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',     'catalog_number' => null,       'year' => 1993, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kjDwZNs6GLs?si=LsdBN6al3Go3b-os" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/kjDwZNs6GLs?si=dJVUmaITTY6Unz2P', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ratatata',                  'artist' =>  'Babymetal with Electric Callboy',   'slug' => 'ratatata-by-babymetal-with-electric-callboy',       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/EDnIEWyVIlE?si=YH9KkA-lh4K8__7I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/EDnIEWyVIlE?si=DWkBji5GiMh1fKKO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Sabre Dance',               'artist' => 'Dave Edmunds',                       'slug' => 'sabre-dance-by-dave-edmunds',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'EMI',               'catalog_number' => null,       'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WLvA7tL44Lo?si=4s-mWeXs8hAxS6Qc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WLvA7tL44Lo?si=4s-mWeXs8hAxS6Qc', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Against I',               'artist' => 'Bad Brains',                         'slug' => 'i-against-i-by-bad-brains',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'SST Records',       'catalog_number' => 'SSTCD 65', 'year' => 1986, 'release_date' => '1986-11-21', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/cCEkuo94X6I?si=wOy2Zpb_TrLh_qrn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/cCEkuo94X6I?si=wOy2Zpb_TrLh_qrn', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Precision Auto',            'artist' => 'Superchunk',                         'slug' => 'precision-auto-by-superchunk',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records',     'catalog_number' => null,       'year' => 1993, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/FgaZGl_G8Nw?si=Z-_2p7Fpb0pxLJMe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/FgaZGl_G8Nw?si=3Ef0c7uGLQ2xG1Ka', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'More Bad Times',            'artist' => 'Ed\'s Redeeming Qualities',          'slug' => 'more-bad-times-by-eds-redeeming-qualities',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1990, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/swDnRTvE4BY?si=zBPXNV3ydETxBkR8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/swDnRTvE4BY?si=zBPXNV3ydETxBkR8', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'My Favorite Shirt',         'artist' => 'The Figgs',                          'slug' => 'my-favorite-shirt-by-the-figgs',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'In the City',               'artist' => 'The Jam',                            'slug' => 'in-the-city-by-the-jam',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wbfw1YfeAlA?si=WDIzxwQ5uli7rsoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wbfw1YfeAlA?si=sTbgEOLFW7vg_lwa', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Good with God',             'artist' => 'Old 97\'s featuring Brandi Carlile', 'slug' => 'good-with-god-by-old-97s-featuring-brandi-carlile', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 2017, 'release_date' => '2017-02-24', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/dDMMd4zx7is?si=gwFvrctn8C2rPEJg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/dDMMd4zx7is?si=gwFvrctn8C2rPEJg', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Tennessee Plates',          'artist' => 'John Hiatt',                         'slug' => 'tennessee-plates-by-john-hiatt',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M',               'catalog_number' => null,       'year' => 1988, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I\'m Tight',                'artist' => 'Louis Cole',                         'slug' => 'im-tight-by-louis-cole',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 2022, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Temporary Secretary',       'artist' => 'Paul McCartney',                     'slug' => 'temporary-secretary-by-paul-mccartney',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Girls Talk',                'artist' => 'Dave Edmunds',                       'slug' => 'girls-talk-by-dave-edmunds',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Swan Song Records', 'catalog_number' => null,       'year' => 1979, 'release_date' => '1979-06-09', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/qSOjXj2uXN0?si=S4mg_A7TfuUSQRMY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/qSOjXj2uXN0?si=00GmuCDwrAgzHZ-7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Leaves in Autumn',          'artist' => 'Hasil Adkins',                       'slug' => 'leaves-in-autumn-by-hasil-adkins',                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Norton Records',    'catalog_number' => null,       'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NHxaIfhH6HI?si=HTrCCyQ5YFr5utYO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/NHxaIfhH6HI?si=HTrCCyQ5YFr5utYO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'What\'s Goin\' On?',        'artist' => 'Dynamite Shakers',                   'slug' => 'whats-goin-on-by-dynamite-shakers',                 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rCQ2PXd7mF4?si=HtI4KH8DdDise-29" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rCQ2PXd7mF4?si=HtI4KH8DdDise-29', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Bad Word For A Good Thing', 'artist' => 'The Friggs',                         'slug' => 'bad-word-for-a-good-thing-by-the-friggs',           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 1997, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZjBn7pZZyvY?si=gpe0mZB5nOJrzEwz', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'There Was a Time',          'artist' => 'Ginger Root',                        'slug' => 'there-was-a-time-by-ginger-root',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null,       'year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2eUf4rWtxLU?si=Eht2mBc3dwx4IvK9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2eUf4rWtxLU?si=2Stc9oPVQoaa3b80', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -574,13 +574,13 @@ class DarrinStephens extends Command
                 'link'           => null,
                 'link_name'      => null,
                 'description'    => null,
-                'public'         => 1,
+                'is_public'         => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -605,13 +605,13 @@ class DarrinStephens extends Command
                 'repository_url'   => null,
                 'repository_name'  => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -633,8 +633,8 @@ class DarrinStephens extends Command
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => null,
-                'year'              => 2025,
+                'publication_date'  => null,
+                'publication_year'  => 2025,
                 'credit'            => null,
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -655,13 +655,13 @@ class DarrinStephens extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -674,27 +674,27 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'sales',              'slug' => 'sales',              'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'customer relations', 'slug' => 'customer-relations', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'advertising',        'slug' => 'advertising',        'version' => null, 'featured' => 1, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'sales',              'slug' => 'sales',              'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'customer relations', 'slug' => 'customer-relations', 'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'advertising',        'slug' => 'advertising',        'version' => null, 'featured' => 1, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
                 'featured'               => 1,
-                'type'                   => 1,
+                'type_id'                => 1,
                 'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,
-                'public'                 => 1
+                'is_public'              => 1
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -726,13 +726,13 @@ class DarrinStephens extends Command
                 'link'             => null,
                 'link_name'        => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

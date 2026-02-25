@@ -67,10 +67,10 @@
                             {!! $framework->abbreviation !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $framework->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $framework->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $framework->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $framework->is_disabled ])
                         </td>
                         <td class="is-1">
 

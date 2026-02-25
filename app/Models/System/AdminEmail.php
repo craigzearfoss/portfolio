@@ -38,6 +38,7 @@ class AdminEmail extends Model
         'is_root',
         'is_disabled',
         'is_demo',
+        'sequence',
     ];
 
     /**
@@ -68,26 +69,23 @@ class AdminEmail extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = new self()->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-            $query->where('owner_id', '=', intval($filters['owner_id']));
-        })
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+              $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
+                $query->where('owner_id', '=', intval($filters['owner_id']));
+            })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where('email', 'like', '%' . $filters['email'] . '%');
             })
-            ->when(isset($filters['is_public']), function ($query) use ($filters) {
-                $query->where('is_public', '=', boolval(['is_public']));
+            ->when(!empty($filters['label']), function ($query) use ($filters) {
+                $query->where('label', 'like', '%' . $filters['label'] . '%');
             })
-            ->when(isset($filters['is_readonly']), function ($query) use ($filters) {
-                $query->where('is_readonly', '=', boolval(['is_readonly']));
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(isset($filters['is_root']), function ($query) use ($filters) {
-                $query->where('is_root', '=', boolval(['is_root']));
-            })
-            ->when(isset($filters['is_disabled']), function ($query) use ($filters) {
-                $query->where('is_disabled', '=', boolval(['is_disabled']));
-            })
-            ->when(isset($filters['is_demo']), function ($query) use ($filters) {
-                $query->where('is_demo', '=', boolval(['is_demo']));
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);
@@ -95,6 +93,8 @@ class AdminEmail extends Model
 
     /**
      * Get the system owner of the email.
+     *
+     * @return BelongsTo
      */
     public function owner(): BelongsTo
     {

@@ -142,11 +142,11 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'M-Maybe',                     'artist' => 'Roy Lichtenstein',                  'slug' => 'm-maybe-by-roy-lichtenstein',                             'year' => 1965, 'featured' => 0, 'public' => 1, 'image' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/CZOnngqWwAEswhO.jpg',                                                        'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Summer Sissy',                'artist' => 'Ron Liberti',                       'slug' => 'summer-sissy-by-ron-liberti',                             'year' => null, 'featured' => 0, 'public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1661292044799-N2HGQXCCF98VWL7RKI5L/image-asset.jpeg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'The Sleeping Venus',          'artist' => 'Giorgio da Castelfranco Giorgione', 'slug' => 'the-sleeping-venus-by-giorgio-da-castelfranco-giorgione', 'year' => 1508, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Giorgio_da_Castelfranco_Giorgione/paintings-wm/giorgione003.jpg',                                'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'Lady Godiva',                 'artist' => 'John Collier',                      'slug' => 'lady-godiva-by-john-collier',                             'year' => 1898, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/John_Collier/paintings-wm/collier004.jpg',                                                       'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
-            [ 'name' => 'A Bar at the Folies-Bergere', 'artist' => 'Edouard Manet',                     'slug' => 'a-bar-at-the-folies-bergere-by-edouard-manet',            'year' => 1881, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Edouard_Manet/paintings-wm/manet015.jpg',                                                        'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'M-Maybe',                     'artist' => 'Roy Lichtenstein',                  'slug' => 'm-maybe-by-roy-lichtenstein',                             'year' => 1965, 'featured' => 0, 'is_public' => 1, 'image' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/CZOnngqWwAEswhO.jpg',                                                        'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Summer Sissy',                'artist' => 'Ron Liberti',                       'slug' => 'summer-sissy-by-ron-liberti',                             'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1661292044799-N2HGQXCCF98VWL7RKI5L/image-asset.jpeg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Sleeping Venus',          'artist' => 'Giorgio da Castelfranco Giorgione', 'slug' => 'the-sleeping-venus-by-giorgio-da-castelfranco-giorgione', 'year' => 1508, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Giorgio_da_Castelfranco_Giorgione/paintings-wm/giorgione003.jpg',                                'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Lady Godiva',                 'artist' => 'John Collier',                      'slug' => 'lady-godiva-by-john-collier',                             'year' => 1898, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/John_Collier/paintings-wm/collier004.jpg',                                                       'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'A Bar at the Folies-Bergere', 'artist' => 'Edouard Manet',                     'slug' => 'a-bar-at-the-folies-bergere-by-edouard-manet',            'year' => 1881, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Edouard_Manet/paintings-wm/manet015.jpg',                                                        'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
                 'name'        => '',
@@ -155,7 +155,7 @@ class SamMalone extends Command
                 'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'image'       => null,
                 'link_name'   => null,
                 'link'        => null,
@@ -166,7 +166,7 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -199,13 +199,13 @@ class SamMalone extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -218,15 +218,15 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
-            [ 'name' => 'Primetime Emmy Award',   'slug' => '1990-primetime-emmy-award-for-outstanding-lead-actor-in-a-comedy-series',     'category' => 'Outstanding Lead Actor in a Comedy Series',        'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1990, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
-            [ 'name' => 'Primetime Emmy Award',   'slug' => '1993-primetime-emmy-award-for-outstanding-lead-actor-in-a-comedy-series',     'category' => 'Outstanding Lead Actor in a Comedy Series',        'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1993, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
-            [ 'name' => 'Primetime Emmy Award',   'slug' => 'primetime-emmy-award-bob-hope-humanitarian-award',                            'category' => 'Bob Hope Humanitarian Award',                      'nominated_work' => null,                     'featured' => 0, 'year' => 2025, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
-            [ 'name' => 'Golden Globe Award',     'slug' => '1984-golden-globe-award-for-best-actor-miniseries-or-television-film',        'category' => 'Best Actor – Miniseries or Television Film',       'nominated_work' => 'Something About Amelia', 'featured' => 0, 'year' => 1984, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
-            [ 'name' => 'Golden Globe Award',     'slug' => '1989-golden-globe-award-for-best-actor-television-series-musical-or-comedy',  'category' => 'Best Actor – Television Series Musical or Comedy', 'nominated_work' => 'Cheers',                 'featured' => 1, 'year' => 1989, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
-            [ 'name' => 'Golden Globe Award',     'slug' => '1990-golden-globe-award-for-best-actor-television-series-musical-or-comedy',  'category' => 'Best Actor – Television Series Musical or Comedy', 'nominated_work' => 'Cheers',                 'featured' => 1, 'year' => 1990, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
-            [ 'name' => 'Carol Burnett Award',    'slug' => '2025-carol-burnett-award-for-funniest-male-performer-in-a-television-series', 'category' => 'Funniest Male Performer in a Television Series',   'nominated_work' => null,                     'featured' => 0, 'year' => 2025, 'organization' => null, 'public' => 1 ],
-            [ 'name' => 'American Comedy Award',  'slug' => '1991-american-comedy-award',                                                  'category' => null,                                               'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1991, 'organization' => null, 'public' => 1 ],
-            [ 'name' => 'Critics\' Choice Award', 'slug' => '2017-critics-choice-award-for-best-actor-in-a-comedy-series',                 'category' => 'Best Actor in a Comedy Series',                    'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 2017, 'organization' => 'Critics Choice Association (CCA)', 'public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award',   'slug' => '1990-primetime-emmy-award-for-outstanding-lead-actor-in-a-comedy-series',     'category' => 'Outstanding Lead Actor in a Comedy Series',        'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1990, 'organization' => 'Academy of Television Arts & Sciences', 'is_public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award',   'slug' => '1993-primetime-emmy-award-for-outstanding-lead-actor-in-a-comedy-series',     'category' => 'Outstanding Lead Actor in a Comedy Series',        'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1993, 'organization' => 'Academy of Television Arts & Sciences', 'is_public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award',   'slug' => 'primetime-emmy-award-bob-hope-humanitarian-award',                            'category' => 'Bob Hope Humanitarian Award',                      'nominated_work' => null,                     'featured' => 0, 'year' => 2025, 'organization' => 'Academy of Television Arts & Sciences', 'is_public' => 1 ],
+            [ 'name' => 'Golden Globe Award',     'slug' => '1984-golden-globe-award-for-best-actor-miniseries-or-television-film',        'category' => 'Best Actor – Miniseries or Television Film',       'nominated_work' => 'Something About Amelia', 'featured' => 0, 'year' => 1984, 'organization' => 'Hollywood Foreign Correspondents Association', 'is_public' => 1 ],
+            [ 'name' => 'Golden Globe Award',     'slug' => '1989-golden-globe-award-for-best-actor-television-series-musical-or-comedy',  'category' => 'Best Actor – Television Series Musical or Comedy', 'nominated_work' => 'Cheers',                 'featured' => 1, 'year' => 1989, 'organization' => 'Hollywood Foreign Correspondents Association', 'is_public' => 1 ],
+            [ 'name' => 'Golden Globe Award',     'slug' => '1990-golden-globe-award-for-best-actor-television-series-musical-or-comedy',  'category' => 'Best Actor – Television Series Musical or Comedy', 'nominated_work' => 'Cheers',                 'featured' => 1, 'year' => 1990, 'organization' => 'Hollywood Foreign Correspondents Association', 'is_public' => 1 ],
+            [ 'name' => 'Carol Burnett Award',    'slug' => '2025-carol-burnett-award-for-funniest-male-performer-in-a-television-series', 'category' => 'Funniest Male Performer in a Television Series',   'nominated_work' => null,                     'featured' => 0, 'year' => 2025, 'organization' => null, 'is_public' => 1 ],
+            [ 'name' => 'American Comedy Award',  'slug' => '1991-american-comedy-award',                                                  'category' => null,                                               'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1991, 'organization' => null, 'is_public' => 1 ],
+            [ 'name' => 'Critics\' Choice Award', 'slug' => '2017-critics-choice-award-for-best-actor-in-a-comedy-series',                 'category' => 'Best Actor in a Comedy Series',                    'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 2017, 'organization' => 'Critics Choice Association (CCA)', 'is_public' => 1 ],
             /*
             [
                 'name'            => '',
@@ -236,13 +236,13 @@ class SamMalone extends Command
                 'featured'        => 0,
                 'year'            => null,
                 'organization'    => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -267,13 +267,13 @@ class SamMalone extends Command
                 'received'        => '0000-00-00',
                 'certificate_url' => null,
                 'description'     => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -286,12 +286,12 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'MongoDB PHP Developer Path',                    'slug' => 'mongodb-php-developer-path',                    'completed' => 1, 'completion_date' => '2017-06-01', 'year' => 2017, 'duration_hours' => 20,   'academy_id' => 5, 'instructor' => null,                                  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/learning-paths/mongodb-php-developer-path',     'link_name' => null, 'public' => 1, 'summary' => 'This learning path contains a series of units to teach you MongoDB skills. In this path, you’ll learn the basics of building modern applications with PHP, using MongoDB as your database.' ],
-            [ 'name' => 'The AI Engineer Path',                          'slug' => 'the-ai-engineer-path',                          'completed' => 1, 'completion_date' => '2016-10-02', 'year' => 2016, 'duration_hours' => 10.3, 'academy_id' => 6, 'instructor' => 'Per Borgen',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/the-ai-engineer-path-c02v',                           'link_name' => null, 'public' => 1, 'summary' => 'Build apps powered by generative AI - an essential 2025 skill for product teams at startups, agencies, and large corporations.' ],
-            [ 'name' => 'Learn TypeScript',                              'slug' => 'learn-typescript',                              'completed' => 1, 'completion_date' => '2018-06-02', 'year' => 2018, 'duration_hours' => 4.2,  'academy_id' => 6, 'instructor' => 'Bob Ziroll',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-typescript-c03c',                               'link_name' => null, 'public' => 1, 'summary' => 'This course introduces you to the essential building blocks of TypeScript through a hands-on approach. You\'ll explore the fundamentals of TypeScript, TS in React and TS in Express, plus build a TS-based project.' ],
-            [ 'name' => 'The Complete Front-End Web Development Course', 'slug' => 'the-complete-front-end-web-development-course', 'completed' => 1, 'completion_date' => '2023-12-02', 'year' => 2023, 'duration_hours' => 17,   'academy_id' => 8, 'instructor' => 'Joseph Delgadillo and Nick Germaine', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/front-end-web-development/',                 'link_name' => null, 'public' => 1, 'summary' => 'Get started as a front-end web developer using HTML, CSS, JavaScript, jQuery, and Bootstrap!' ],
-            [ 'name' => 'Designing Scalable Frontend Systems',           'slug' => 'designing-scalable-frontend-systems',           'completed' => 1, 'completion_date' => '2023-01-15', 'year' => 2023, 'duration_hours' => 2,    'academy_id' => 8, 'instructor' => 'Manoj Satishkumar',                   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/designing-scalable-frontend-systems/',       'link_name' => null, 'public' => 1, 'summary' => 'Attend your next frontend system design interview round with confidence' ],
-            [ 'name' => 'Amazon Elastic Container Service (AWS ECS)',    'slug' => 'amazon-elastic-container-service-(aws-ecs)',    'completed' => 1, 'completion_date' => '2018-05-21', 'year' => 2018, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan',                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/amazon-elastic-container-service-aws-ecs/', 'link_name' => null, 'public' => 1, 'summary' => 'Amazon Elastic Container Service (Amazon ECS) is a highly scalable and fast container management service. ECS is responsible for managing the lifecycle of a container, starting from creating/running till it gets torn down.' ],
+            [ 'name' => 'MongoDB PHP Developer Path',                    'slug' => 'mongodb-php-developer-path',                    'completed' => 1, 'completion_date' => '2017-06-01', 'year' => 2017, 'duration_hours' => 20,   'academy_id' => 5, 'instructor' => null,                                  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/learning-paths/mongodb-php-developer-path',     'link_name' => null, 'is_public' => 1, 'summary' => 'This learning path contains a series of units to teach you MongoDB skills. In this path, you’ll learn the basics of building modern applications with PHP, using MongoDB as your database.' ],
+            [ 'name' => 'The AI Engineer Path',                          'slug' => 'the-ai-engineer-path',                          'completed' => 1, 'completion_date' => '2016-10-02', 'year' => 2016, 'duration_hours' => 10.3, 'academy_id' => 6, 'instructor' => 'Per Borgen',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/the-ai-engineer-path-c02v',                           'link_name' => null, 'is_public' => 1, 'summary' => 'Build apps powered by generative AI - an essential 2025 skill for product teams at startups, agencies, and large corporations.' ],
+            [ 'name' => 'Learn TypeScript',                              'slug' => 'learn-typescript',                              'completed' => 1, 'completion_date' => '2018-06-02', 'year' => 2018, 'duration_hours' => 4.2,  'academy_id' => 6, 'instructor' => 'Bob Ziroll',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-typescript-c03c',                               'link_name' => null, 'is_public' => 1, 'summary' => 'This course introduces you to the essential building blocks of TypeScript through a hands-on approach. You\'ll explore the fundamentals of TypeScript, TS in React and TS in Express, plus build a TS-based project.' ],
+            [ 'name' => 'The Complete Front-End Web Development Course', 'slug' => 'the-complete-front-end-web-development-course', 'completed' => 1, 'completion_date' => '2023-12-02', 'year' => 2023, 'duration_hours' => 17,   'academy_id' => 8, 'instructor' => 'Joseph Delgadillo and Nick Germaine', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/front-end-web-development/',                 'link_name' => null, 'is_public' => 1, 'summary' => 'Get started as a front-end web developer using HTML, CSS, JavaScript, jQuery, and Bootstrap!' ],
+            [ 'name' => 'Designing Scalable Frontend Systems',           'slug' => 'designing-scalable-frontend-systems',           'completed' => 1, 'completion_date' => '2023-01-15', 'year' => 2023, 'duration_hours' => 2,    'academy_id' => 8, 'instructor' => 'Manoj Satishkumar',                   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/designing-scalable-frontend-systems/',       'link_name' => null, 'is_public' => 1, 'summary' => 'Attend your next frontend system design interview round with confidence' ],
+            [ 'name' => 'Amazon Elastic Container Service (AWS ECS)',    'slug' => 'amazon-elastic-container-service-(aws-ecs)',    'completed' => 1, 'completion_date' => '2018-05-21', 'year' => 2018, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan',                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/amazon-elastic-container-service-aws-ecs/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Amazon Elastic Container Service (Amazon ECS) is a highly scalable and fast container management service. ECS is responsible for managing the lifecycle of a container, starting from creating/running till it gets torn down.' ],
             /*
             [
                 'name'            => '',
@@ -306,14 +306,14 @@ class SamMalone extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -348,7 +348,7 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -387,7 +387,7 @@ class SamMalone extends Command
                 'longitude'              => -71.060511,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             /*
             [
@@ -408,13 +408,13 @@ class SamMalone extends Command
                 'country_id'             => 237,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -432,55 +432,55 @@ class SamMalone extends Command
                 'name'           => 'Woody Boyd',
                 'title'          => 'Bartender',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Rebecca Howe',
                 'title'          => 'Manager',
                 'level_id'       => 2,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Diane Chambers',
                 'title'          => 'Bar Waitress',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Ernie Pantusso',
                 'title'          => 'Bartender',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Carla Tortelli',
                 'title'          => 'Bar Waitress',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             /*
             [
@@ -488,17 +488,17 @@ class SamMalone extends Command
                 'name'           => '',
                 'title'          => '',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -517,13 +517,13 @@ class SamMalone extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -541,13 +541,13 @@ class SamMalone extends Command
                 'job_id'   => $this->jobId[1],
                 'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
                 'sequence' => 0,
-                'public'   => 1,
+                'is_public'   => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -568,7 +568,7 @@ class SamMalone extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Ted_Danson',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'Wikipedia (Cheers TV show)',
@@ -578,7 +578,7 @@ class SamMalone extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Cheers',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             /*
             [
@@ -589,13 +589,13 @@ class SamMalone extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -608,13 +608,13 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Natural\'s Not In It',   'artist' => 'Gang of Four',      'slug' => 'naturals-not-in-it-by-gang-of-four',    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Freak Magnet',           'artist' => 'Tuscadero',         'slug' => 'freak-magnet-by-tuscadero',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null, 'year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/KwLYF3FeBG4?si=n9tRKFAsbXUSzuiR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/KwLYF3FeBG4?si=n9tRKFAsbXUSzuiR', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Kid Changed',            'artist' => 'Worn-Tin',          'slug' => 'kid-changed-by-worn-tin',               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/mqJysHEl4n0?si=sf6uRiY3aMZgmami" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/mqJysHEl4n0?si=sf6uRiY3aMZgmami', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'The Curse',              'artist' => 'The Mekons',        'slug' => 'the-curse-by-the-mekons',               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rXzrCUSskcA?si=JAUVPCxPHj5_R3er" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rXzrCUSskcA?si=JAUVPCxPHj5_R3er', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Freeburn (I Want Rock)', 'artist' => 'Zen Frisbee',       'slug' => 'freeburn-(i-want-rock)-by-zen-frisbee', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1992, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/qsvTRZKNrig?si=M27NA5Eh73xkkpTl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/qsvTRZKNrig?si=M27NA5Eh73xkkpTl', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Every Word Means No',    'artist' => 'Let\'s Active',     'slug' => 'every-word-means-no-by-lets-active',    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1989, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/AvuetnVoxIs?si=2nB6Nhb4Eb0GMxAf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/AvuetnVoxIs?si=2nB6Nhb4Eb0GMxAf', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Someday, Someway',       'artist' => 'Marshall Crenshaw', 'slug' => 'someday-someway-by-marshall-crenshaw',  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',    'catalog_number' => null, 'year' => 1982, 'release_date' => '1982-04-28', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/j7sg66vfNHs?si=Yq5FB1tXJ77jq7LH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/j7sg66vfNHs?si=Yq5FB1tXJ77jq7LH', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
+            [ 'name' => 'Natural\'s Not In It',   'artist' => 'Gang of Four',      'slug' => 'naturals-not-in-it-by-gang-of-four',    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Freak Magnet',           'artist' => 'Tuscadero',         'slug' => 'freak-magnet-by-tuscadero',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null, 'year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/KwLYF3FeBG4?si=n9tRKFAsbXUSzuiR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/KwLYF3FeBG4?si=n9tRKFAsbXUSzuiR', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Kid Changed',            'artist' => 'Worn-Tin',          'slug' => 'kid-changed-by-worn-tin',               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/mqJysHEl4n0?si=sf6uRiY3aMZgmami" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/mqJysHEl4n0?si=sf6uRiY3aMZgmami', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'The Curse',              'artist' => 'The Mekons',        'slug' => 'the-curse-by-the-mekons',               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rXzrCUSskcA?si=JAUVPCxPHj5_R3er" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rXzrCUSskcA?si=JAUVPCxPHj5_R3er', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Freeburn (I Want Rock)', 'artist' => 'Zen Frisbee',       'slug' => 'freeburn-(i-want-rock)-by-zen-frisbee', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1992, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/qsvTRZKNrig?si=M27NA5Eh73xkkpTl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/qsvTRZKNrig?si=M27NA5Eh73xkkpTl', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Every Word Means No',    'artist' => 'Let\'s Active',     'slug' => 'every-word-means-no-by-lets-active',    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1989, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/AvuetnVoxIs?si=2nB6Nhb4Eb0GMxAf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/AvuetnVoxIs?si=2nB6Nhb4Eb0GMxAf', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Someday, Someway',       'artist' => 'Marshall Crenshaw', 'slug' => 'someday-someway-by-marshall-crenshaw',  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',    'catalog_number' => null, 'year' => 1982, 'release_date' => '1982-04-28', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/j7sg66vfNHs?si=Yq5FB1tXJ77jq7LH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/j7sg66vfNHs?si=Yq5FB1tXJ77jq7LH', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -633,13 +633,13 @@ class SamMalone extends Command
                 'link'           => null,
                 'link_name'      => null,
                 'description'    => null,
-                'public'         => 1,
+                'is_public'         => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -664,13 +664,13 @@ class SamMalone extends Command
                 'repository_url'   => null,
                 'repository_name'  => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -692,8 +692,8 @@ class SamMalone extends Command
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => null,
-                'year'              => 2025,
+                'publication_date'  => null,
+                'publication_year'  => 2025,
                 'credit'            => null,
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -714,13 +714,13 @@ class SamMalone extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -733,28 +733,28 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'mixology',             'slug' => 'mixology',             'type' => 1, 'featured' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'hospitality',          'slug' => 'hospitality',          'type' => 0, 'featured' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'small talk',           'slug' => 'small-talk',           'type' => 0, 'featured' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'personnel management', 'slug' => 'personnel-management', 'type' => 0, 'featured' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'mixology',             'slug' => 'mixology',             'type_id' => 1, 'featured' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'hospitality',          'slug' => 'hospitality',          'type_id' => 0, 'featured' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'small talk',           'slug' => 'small-talk',           'type_id' => 0, 'featured' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'personnel management', 'slug' => 'personnel-management', 'type_id' => 0, 'featured' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
                 'featured'               => 1,
-                'type'                   => 1,
+                'type_id'                => 1,
                 'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,
-                'public'                 => 1
+                'is_public'                 => 1
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -786,13 +786,13 @@ class SamMalone extends Command
                 'link'             => null,
                 'link_name'        => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

@@ -24,8 +24,8 @@ class ServerController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $servers = new Server()->where('name', '!=', 'other')
-            ->where('public', true)
-            ->where('disabled', false)
+            ->where('is_public', true)
+            ->where('is_disabled', false)
             ->where('name', '!=', 'other')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

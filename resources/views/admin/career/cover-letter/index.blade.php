@@ -37,7 +37,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if($admin->root)
+                    @if($admin->is_root)
                         <th>owner</th>
                     @endif
                     <th>company</th>
@@ -52,7 +52,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>company</th>
@@ -70,7 +70,7 @@
                 @forelse ($coverLetters as $coverLetter)
 
                     <tr data-id="{{ $coverLetter->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $coverLetter->owner->username }}
                             </td>
@@ -88,7 +88,7 @@
                             @include('admin.components.checkmark', [ 'checked' => $coverLetter->application->active ?? 0 ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $coverLetter->is_disabled ])
                         </td>
                         <td class="is-1">
 
@@ -145,7 +145,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '7' : '6' }}">There are no cover letters.</td>
+                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">There are no cover letters.</td>
                     </tr>
 
                 @endforelse

@@ -2,6 +2,7 @@
 
 namespace App\Models\System;
 
+use App\Models\System\User as UserModel;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\UserFactory;
 use Eloquent;
@@ -40,8 +41,8 @@ class User extends Authenticatable
     protected $fillable = [
         'user_team_id',
         'username',
-        'label',
         'name',
+        'label',
         'salutation',
         'title',
         'role',
@@ -56,11 +57,14 @@ class User extends Authenticatable
         'longitude',
         'phone',
         'email',
+        'email_verified_at',
         'birthday',
+        'bio',
+        'notes',
         'link',
         'link_name',
-        'bio',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',
@@ -115,9 +119,10 @@ class User extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'user_team_id', 'username', 'label', 'name', 'salutation', 'title', 'role',
-        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'user_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role',
+        'employer', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'birthday', 'bio',
+        'notes', 'description', 'disclaimer', 'requires_relogin', 'status', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -129,20 +134,16 @@ class User extends Authenticatable
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
-     * @param Admin|Owner|null $owner
+     * @param UserModel|null $user
      * @return Builder
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(array $filters = [], UserModel|null $user = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->when(isset($filters['id']), function ($query) use ($filters) {
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(!empty($filters['user_team_id']), function ($query) use ($filters) {
+                $query->where('user_team_id', '=', intval($filters['user_team_id']));
             })
             ->when(!empty($filters['username']), function ($query) use ($filters) {
                 $query->where('username', 'like', '%' . $filters['username'] . '%');
@@ -164,30 +165,36 @@ class User extends Authenticatable
             })
             ->when(!empty($filters['employer']), function ($query) use ($filters) {
                 $query->where('employer', 'like', '%' . $filters['employer'] . '%');
-            })
-            ->when(!empty($filters['city']), function ($query) use ($filters) {
-                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
-            })
-            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
-                $query->where('state_id', '=', intval($filters['state_id']));
-            })
-            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where('country_id', '=', intval($filters['country_id']));
-            })
-            ->when(!empty($filters['phone']), function ($query) use ($filters) {
-                $query->where('phone', 'LIKE', '%' . $filters['phone'] . '%');
+            });
+
+        $query =$this->appendAddressFilters($query, $filters);
+
+        $query->when(!empty($filters['phone']), function ($query) use ($filters) {
+                $query->where('phone', 'like', '%' . $filters['phone'] . '%');
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $query->where('email', 'LIKE', '%' . $filters['email'] . '%');
+                $query->where('email', 'like', '%' . $filters['email'] . '%');
             })
             ->when(!empty($filters['birthday']), function ($query) use ($filters) {
-                $query->where('birthday', '=',  $filters['birthday']);
+                $query->where('birthday', '=', $filters['birthday']);
+            })
+            ->when(!empty($filters['bio']), function ($query) use ($filters) {
+                $query->where('bio', 'like', '%' . $filters['bio'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(isset($filters['requires_relogin']), function ($query) use ($filters) {
-                $query->where('requires_relogin', '=', boolval($filters['requires_relogin']));
+                $query->where('requires_relogin', '=', boolval(['requires_relogin']));
             })
             ->when(isset($filters['status']), function ($query) use ($filters) {
-                $query->where('status', '=', boolval($filters['status']));
+                $query->where('status', '=', intval(['status']));
             });
 
         return $this->appendStandardFilters($query, $filters);

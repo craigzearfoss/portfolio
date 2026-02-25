@@ -48,7 +48,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     @if(empty($application))
@@ -65,7 +65,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         @if(empty($application))
@@ -85,7 +85,7 @@
                 @forelse ($communications as $communication)
 
                     <tr data-id="{{ $communication->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $communication->owner->username }}
                             </td>
@@ -182,7 +182,7 @@
 
                     <tr>
                         @php
-                            $colspan = $admin->root ? '6' : '5';
+                            $colspan = $admin->is_root ? '6' : '5';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
                         <td colspan="{{ $colspan }}">There are no communications.</td>

@@ -77,7 +77,7 @@
 
                                         @include('user.components.show-row-checkbox', [
                                             'name'    => 'disabled',
-                                            'checked' => $user->disabled
+                                            'checked' => $user->is_disabled
                                         ])
                                         */ ?>
 

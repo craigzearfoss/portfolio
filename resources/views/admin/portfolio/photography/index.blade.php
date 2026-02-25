@@ -100,7 +100,7 @@
                             @include('admin.components.checkmark', [ 'checked' => $photo->public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $photo->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $photo->is_disabled ])
                         </td>
                         <td class="is-1">
 

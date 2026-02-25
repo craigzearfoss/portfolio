@@ -9,7 +9,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
@@ -43,7 +43,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if($admin->root)
+                    @if($admin->is_root)
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -59,7 +59,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -78,7 +78,7 @@
                 @forelse ($contacts as $contact)
 
                     <tr data-id="{{ $contact->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $contact->owner->username }}
                             </td>
@@ -103,10 +103,10 @@
                             {!! $contact->email !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $contact->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $contact->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $contact->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $contact->is_disabled ])
                         </td>
                         <td class="is-1">
 
@@ -163,7 +163,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '8' : '7' }}">There are no contacts.</td>
+                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">There are no contacts.</td>
                     </tr>
 
                 @endforelse

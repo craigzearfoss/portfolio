@@ -85,11 +85,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $ingredient->public,
-                'readonly'    => old('readonly') ?? $ingredient->readonly,
-                'root'        => old('root')     ?? $ingredient->root,
-                'disabled'    => old('disabled') ?? $ingredient->disabled,
-                'demo'        => old('demo')     ?? $ingredient->demo,
+                'public'      => old('is_public')   ?? $ingredient->is_public,
+                'readonly'    => old('is_readonly') ?? $ingredient->is_readonly,
+                'root'        => old('is_root')     ?? $ingredient->root,
+                'disabled'    => old('is_disabled') ?? $ingredient->is_disabled,
+                'demo'        => old('is_demo')     ?? $ingredient->is_demo,
                 'sequence'    => old('sequence') ?? $ingredient->sequence,
                 'message'     => $message ?? '',
             ])

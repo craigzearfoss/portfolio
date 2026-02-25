@@ -67,10 +67,10 @@
                             {!! $category->abbreviation !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $category->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $category->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $category->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $category->is_disabled ])
                         </td>
                         <td class="is-1">
 

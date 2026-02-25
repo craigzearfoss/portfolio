@@ -151,7 +151,7 @@ class Demo extends Command
                 'summary'        => null,
                 'year'           => 1992,
                 'featured'       => 1,
-                'public'         => 1,
+                'is_public'         => 1,
                 'image'      => null,
                 'link_name'      => null,
                 'link'           => null,
@@ -165,7 +165,7 @@ class Demo extends Command
                 'summary'        => null,
                 'year'           => 1994,
                 'featured'       => 1,
-                'public'         => 1,
+                'is_public'         => 1,
                 'image'      => null,
                 'link_name'      => null,
                 'link'           => null,
@@ -179,7 +179,7 @@ class Demo extends Command
                 'summary'        => null,
                 'year'           => 1994,
                 'featured'       => 0,
-                'public'         => 1,
+                'is_public'         => 1,
                 'image'      => null,
                 'link_name'      => null,
                 'link'           => null,
@@ -193,7 +193,7 @@ class Demo extends Command
                 'summary'        => null,
                 'year'           => 1994,
                 'featured'       => 1,
-                'public'         => 1,
+                'is_public'         => 1,
                 'image'      => null,
                 'link_name'      => null,
                 'link'           => null,
@@ -207,7 +207,7 @@ class Demo extends Command
                 'summary'        => null,
                 'year'           => 1994,
                 'featured'       => 0,
-                'public'         => 1,
+                'is_public'         => 1,
                 'image'      => null,
                 'link_name'      => null,
                 'link'           => null,
@@ -221,7 +221,7 @@ class Demo extends Command
                 'summary'        => null,
                 'year'           => 1998,
                 'featured'       => 1,
-                'public'         => 1,
+                'is_public'         => 1,
                 'image'      => null,
                 'link_name'      => null,
                 'link'           => null,
@@ -236,7 +236,7 @@ class Demo extends Command
                 'summary'        => null,
                 'year'        => 2025,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
@@ -247,7 +247,7 @@ class Demo extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -281,7 +281,7 @@ class Demo extends Command
                 'audio_url'         => null,
                 'link'              => 'https://www.gilbertpodcast.com/20-20-weird-al-yankovic/',
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ],
             [
             'owner_id'          => $this->adminId,
@@ -304,7 +304,7 @@ class Demo extends Command
             'audio_url'         => null,
             'link'              => 'https://www.npr.org/podcasts/510208/car-talk',
             'link_name'         => null,
-            'public'            => 1,
+            'is_public'            => 1,
         ]
             /*
             [
@@ -328,13 +328,13 @@ class Demo extends Command
                 'audio_url'         => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'audio');
         }
     }
@@ -362,13 +362,13 @@ class Demo extends Command
                 'link'            => null,
                 'link_name'       => null,
                 'description'     => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -398,7 +398,7 @@ class Demo extends Command
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -424,7 +424,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Cloud%20Concepts.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -440,7 +440,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Core%20Services.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -456,7 +456,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Course%20Introduction.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -472,7 +472,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Compute%20Services%20Overview.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -488,7 +488,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Database%20Services%20Overview.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -504,7 +504,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Shared%20Responsibility%20Model.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -520,7 +520,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Auto%20Scaling.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -536,7 +536,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Backup.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -552,7 +552,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Device%20Farm.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -568,7 +568,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Fargate.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -584,7 +584,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Import-Export.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -600,7 +600,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Snowball.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -616,7 +616,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Snowmobile.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -632,7 +632,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Storage%20Gateway.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -648,7 +648,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Aurora.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -664,7 +664,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20EC2%20Systems%20Manager.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -680,7 +680,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20ElastiCache.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -696,7 +696,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Block%20Storage%20-%20EBS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -712,7 +712,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Compute%20Cloud%20-%20EC2.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -728,7 +728,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20File%20System%20-%20EFS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -744,7 +744,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Load%20Balancer%20-%20Classic.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -760,7 +760,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20FSx%20for%20Lustre.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -776,7 +776,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20FSx%20for%20Windows%20File%20Server.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -792,7 +792,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Glacier.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -808,7 +808,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Redshift.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -824,7 +824,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Relational%20Database%20Service%20-%20RDS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -840,7 +840,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20S3.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -856,7 +856,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Simple%20Storage%20Service%20-%20S3.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -872,7 +872,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20PostgreSQL%20Fundamentals.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -888,7 +888,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/RS62SKVP89SG.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/RS62SKVP89SG',
                 'link_name'       => 'Coursera verification',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -904,7 +904,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/52BCA2UWTHPE.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/52BCA2UWTHPE',
                 'link_name'       => 'Coursera verification',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -920,7 +920,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MUUFRJW2JK7G.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/MUUFRJW2JK7G',
                 'link_name'       => 'Coursera verification',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -936,7 +936,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/KFJC8C2ZLQPU.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/KFJC8C2ZLQPU',
                 'link_name'       => 'Coursera verification',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -952,7 +952,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/DWKGKVVLFE9F.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/DWKGKVVLFE9F',
                 'link_name'       => 'Coursera verification',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -968,7 +968,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/LK8958ER9X7D.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/LK8958ER9X7D',
                 'link_name'       => 'Coursera verification',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -984,7 +984,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/64K4C9WZSJQ.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/64K4C9WZSJQ',
                 'link_name'       => 'Coursera verification',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1000,7 +1000,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/javascript-foundations.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1016,7 +1016,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/responsive-web-design.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1032,7 +1032,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBz9qkj8zq9r.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1048,7 +1048,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBh4n25xp9f3.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-cb169d9d-f28b-5cfc-98ae-6849d44e9e45-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
 
@@ -1065,7 +1065,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB4llntcxgsw.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-28e6dfda-043f-5c82-a2ad-ff1aa0b4091f-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1081,7 +1081,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB5u800z5l3u.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-f04e21f1-2b5f-588f-a921-14605013fb42-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1097,7 +1097,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBz9qkj8zq9r.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1113,7 +1113,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBvcjb83odqk.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-5fc17da8-4f83-5c1d-9e13-18c046833329-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1129,7 +1129,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBzmzrrpzzin.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-b3ac9b75-0c7b-51ea-8cd0-b250bf0a2bcc-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1145,7 +1145,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB0elknbkm6j.pdf',
                 'link'            => 'learn.mongodb.com/learn/certificates/university-m001-mongob-basics?userId=63744623-417f-5e55-8d5c-c09650679c4d&id=2dc804a7-34d3-5ed1-b3de-750819bdb3c4',
                 'link_name'       => 'MongoDB certificate link',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1161,7 +1161,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Learn%20CSS%20Animations.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1177,7 +1177,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Build%20Tic%20Tac%20Toe%20with%20React%20Hooks.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1193,7 +1193,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Build%20a%20movie%20search%20app%20in%20React.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1209,7 +1209,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Learn%20React%20Hooks%20In%20One%20Hour.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1225,7 +1225,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/sitepoint-introduction-to-es6.png',
                 'link'            => null,  // not found https://www.sitepoint.com/premium/cert/77e357ad4e843374
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1241,7 +1241,7 @@ class Demo extends Command
                 'certificate_url' => 'https://ude.my/UC-KBO1JBPE',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1257,7 +1257,7 @@ class Demo extends Command
                 'certificate_url' => 'https://ude.my/UC-07ca111c-1cac-48f5-9838-4c277d7d4485',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1273,7 +1273,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-02e72577-9ba3-420e-ae5a-9bd0744e5410',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1289,7 +1289,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-242b0dd4-0281-459c-bf98-54171bf64b05',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1305,7 +1305,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-374a4848-1715-4b4f-8cc2-eca24dbf74d0',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1321,7 +1321,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-a381561e-e6e3-48ec-884b-589070ef3962',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1337,7 +1337,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-INJ6D45T',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1353,7 +1353,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-YUC36HUA',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1369,7 +1369,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-Z8I0FZNQ',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1385,7 +1385,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-R1F91C9Z',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1401,7 +1401,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-ff3519ca-b81c-4e00-ab52-60ccf6028d06',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1417,7 +1417,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-72f079ac-e4de-47d9-ae85-f24f5d630159',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1433,7 +1433,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-f61996b5-c4c9-4551-bb10-29aaa7c5bcde',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1449,7 +1449,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-BQ55MYKN',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1465,7 +1465,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-6b64edb0-2cad-4fc6-935a-207b64b743d5',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1481,7 +1481,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-38ce2a2e-daeb-420e-aa4b-f70966e9756d',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1497,7 +1497,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-O8SY9NGJ',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1513,7 +1513,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-85DMHWQJ',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1529,7 +1529,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-XU9T4JHQ',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1545,7 +1545,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-50b102c5-21aa-40af-84f9-f9e63fd416cb',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             /*
@@ -1562,14 +1562,14 @@ class Demo extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -1638,7 +1638,7 @@ class Demo extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -1678,7 +1678,7 @@ class Demo extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             [
                 'id'                     => $this->jobId[2],
@@ -1701,7 +1701,7 @@ class Demo extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             [
                 'id'                     => $this->jobId[3],
@@ -1724,7 +1724,7 @@ class Demo extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             [
                 'id'                     => $this->jobId[4],
@@ -1747,7 +1747,7 @@ class Demo extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             [
                 'id'                     => $this->jobId[5],
@@ -1770,7 +1770,7 @@ class Demo extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             [
                 'id'                     => $this->jobId[6],
@@ -1793,7 +1793,7 @@ class Demo extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             [
                 'id'                     => $this->jobId[7],
@@ -1816,12 +1816,12 @@ class Demo extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -1834,35 +1834,35 @@ class Demo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Walter White',     'title' => 'Chemistry Teacher',                             'level_id' => 2, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-3644',  'work_email' => 'walter.white@chemistry.eduv',       'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Tony Soprano',     'title' => 'Mob Boss',                                      'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(913) 555-5399',  'work_email' => 'tony@sopranos.com',                 'personal_email' => 'bigtony@yahoo.com',          'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'George Costanza',  'title' => 'Hand Model',                                    'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(917) 555-6003',  'work_email' => 'george@seinfeld.com',               'personal_email' => 'george229@live.com',         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Michael Scott',    'title' => 'Regional Manager',                              'level_id' => 1, 'work_phone' => '(208) 555-4280', 'personal_phone' => '(603) 555-2707',  'work_email' => 'michael.scott@dunder-mifflin.com',  'personal_email' => 'saul2@outlook.com',          'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[2], 'name' => 'Saul Goodman',     'title' => 'Methamphetamine Manufacturer',                  'level_id' => 2, 'work_phone' => '651-555-7986',   'personal_phone' => '+1 612-555-3685', 'work_email' => 'sgoodman@lawyers.biz',              'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[2], 'name' => 'Jesse Pinkman',    'title' => 'Application Developer',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[2], 'name' => 'Dwight Schrute',   'title' => 'Salesman',                                      'level_id' => 2, 'work_phone' => '(651) 555-8027', 'personal_phone' => null,              'work_email' => 'dwight-schrute@dunder-mifflin.com', 'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Chandler Bing',    'title' => 'Junior Copywriter',                             'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(612) 555-9827',  'work_email' => null,                                'personal_email' => 'matt.mccall.2121@gmail.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Joey Tribbiani',   'title' => 'Actor',                                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(612) 555-6766',  'work_email' => null,                                'personal_email' => 'don@fullstackdon.com',       'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Gregory House',    'title' => 'Doctor',                                        'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(304) 555-7715',  'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Sherlock Holmes',  'title' => 'Detective',                                     'level_id' => 2,  'work_phone' => null,            'personal_phone' => '(612) 555-5100',  'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Barney Stinson',   'title' => 'FBI Informant',                                 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(651) 555-3683',  'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Mike Ehrmantraut', 'title' => 'Police Officer',                                'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => 'mehrmantraut@hotmail.com',   'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Daryl Dixon',      'title' => 'Hunter for the Atlanta Camp',                   'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(507) 555-0608',  'work_email' => 'daryl@walkingdead.com',             'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Ron Swanson',      'title' => 'Director of Parks and Recreation Department',   'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Sheldon Cooper',   'title' => 'Senior Theoretical Physicist',                  'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Rick Grimes',      'title' => 'Sheriff\'s Deputy',                             'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(954) 555-2367',  'work_email' => 'rick@walkingdead.com',              'personal_email' => 'txgrimes@gmail.com',         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Eric Cartman',     'title' => 'Student',                                       'level_id' => 1, 'work_phone' => null,             'personal_phone' => '954-555-4020',    'work_email' => 'eric@southpark.com',                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Jean-Luc Picard',  'title' => 'Starship Captain',                              'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(786) 555-0224',  'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Al Bundy',         'title' => 'Shoe Salesman',                                 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(561) 555-0540',  'work_email' => null,                                'personal_email' => 'mom@addamsfamily.com',       'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Morticia Addams',  'title' => 'Homemaker',                                     'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[5], 'name' => 'Phoebe Buffay',    'title' => 'Massage Therapist',                             'level_id' => 1, 'work_phone' => '(336) 555-3796', 'personal_phone' => '(336) 555-0084',  'work_email' => 'phoebe@friends.com',                'personal_email' => null,                         'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[5], 'name' => 'Lucy Ricardo',     'title' => 'Housewife',                                     'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(336) 555-1933',  'work_email' => null,                                'personal_email' => 'lucy@desilu.com',            'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[6], 'name' => 'Dean Winchester',  'title' => 'Hunter and Tracker',                            'level_id' => 2, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => null,  'link_name' => null ],
-            //[ 'job_id' => $this->jobId[x], 'name' => 'Ethan Bailey',     'title' => '',                                              'level_id' => 2, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Walter White',     'title' => 'Chemistry Teacher',                             'level_id' => 2, 'phone' => '(208) 555-0507', 'phone_label' => 'work',     'alt_phone' => '(208) 555-3644',  'alt_phone_label' => 'personal', 'email' => 'walter.white@chemistry.eduv',       'email_label' => 'work',     'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Tony Soprano',     'title' => 'Mob Boss',                                      'level_id' => 2, 'phone' => '(913) 555-5399', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'tony@sopranos.com',                 'email_label' => 'work',     'alt_email' => 'bigtony@yahoo.com',  'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'George Costanza',  'title' => 'Hand Model',                                    'level_id' => 1, 'phone' => '(917) 555-6003', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'george@seinfeld.com',               'email_label' => 'work',     'alt_email' => 'george229@live.com', 'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Michael Scott',    'title' => 'Regional Manager',                              'level_id' => 1, 'phone' => '(208) 555-4280', 'phone_label' => 'work',     'alt_phone' => '(603) 555-2707',  'alt_phone_label' => 'personal', 'email' => 'michael.scott@dunder-mifflin.com',  'email_label' => 'work',     'alt_email' => 'saul2@outlook.com',  'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[2], 'name' => 'Saul Goodman',     'title' => 'Methamphetamine Manufacturer',                  'level_id' => 2, 'phone' => '651-555-7986',   'phone_label' => 'work',     'alt_phone' => '+1 612-555-3685', 'alt_phone_label' => 'personal', 'email' => 'sgoodman@lawyers.biz',              'email_label' => 'work',     'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[2], 'name' => 'Jesse Pinkman',    'title' => 'Application Developer',                         'level_id' => 1, 'phone' => null,             'phone_label' => null,       'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[2], 'name' => 'Dwight Schrute',   'title' => 'Salesman',                                      'level_id' => 2, 'phone' => '(651) 555-8027', 'phone_label' => 'work',     'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'dwight-schrute@dunder-mifflin.com', 'email_label' => 'work',     'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Chandler Bing',    'title' => 'Junior Copywriter',                             'level_id' => 2, 'phone' => '(612) 555-9827', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'matt.mccall.2121@gmail.com',        'email_label' => 'personal', 'alt_email' => null,                 'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Joey Tribbiani',   'title' => 'Actor',                                         'level_id' => 1, 'phone' => '(612) 555-6766', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'don@fullstackdon.com',              'email_label' => 'personal', 'alt_email' => null,                 'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Gregory House',    'title' => 'Doctor',                                        'level_id' => 1, 'phone' => '(304) 555-7715', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Sherlock Holmes',  'title' => 'Detective',                                     'level_id' => 2, 'phone' => '(612) 555-5100', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Barney Stinson',   'title' => 'FBI Informant',                                 'level_id' => 1, 'phone' => '(651) 555-3683', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Mike Ehrmantraut', 'title' => 'Police Officer',                                'level_id' => 1, 'phone' => null,             'phone_label' => null,       'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'mehrmantraut@hotmail.com',          'email_label' => 'personal', 'alt_email' => null,                 'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Daryl Dixon',      'title' => 'Hunter for the Atlanta Camp',                   'level_id' => 1, 'phone' => '(507) 555-0608', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'daryl@walkingdead.com',             'email_label' => 'work',     'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Ron Swanson',      'title' => 'Director of Parks and Recreation Department',   'level_id' => 1, 'phone' => null,             'phone_label' => null,       'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Sheldon Cooper',   'title' => 'Senior Theoretical Physicist',                  'level_id' => 1, 'phone' => null,             'phone_label' => null,       'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Rick Grimes',      'title' => 'Sheriff\'s Deputy',                             'level_id' => 2, 'phone' => '(954) 555-2367', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'rick@walkingdead.com',              'email_label' => 'work',     'alt_email' => 'txgrimes@gmail.com', 'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Eric Cartman',     'title' => 'Student',                                       'level_id' => 1, 'phone' => '(954)-555-4020', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'eric@southpark.com',                'email_label' => 'work',     'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Jean-Luc Picard',  'title' => 'Starship Captain',                              'level_id' => 1, 'phone' => '(786) 555-0224', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Al Bundy',         'title' => 'Shoe Salesman',                                 'level_id' => 1, 'phone' => '(561) 555-0540', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'mom@addamsfamily.com',              'email_label' => 'personal', 'alt_email' => null,                 'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Morticia Addams',  'title' => 'Homemaker',                                     'level_id' => 1, 'phone' => null,             'phone_label' => null,       'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[5], 'name' => 'Phoebe Buffay',    'title' => 'Massage Therapist',                             'level_id' => 1, 'phone' => '(336) 555-3796', 'phone_label' => 'work',     'alt_phone' => '(336) 555-0084',  'alt_phone_label' => 'personal', 'email' => 'phoebe@friends.com',                'email_label' => 'work',     'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[5], 'name' => 'Lucy Ricardo',     'title' => 'Housewife',                                     'level_id' => 1, 'phone' => '(336) 555-1933', 'phone_label' => 'personal', 'alt_phone' => null,              'alt_phone_label' => null,       'email' => 'lucy@desilu.com',                   'email_label' => 'personal', 'alt_email' => null,                 'alt_email_label' => 'personal', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[6], 'name' => 'Dean Winchester',  'title' => 'Hunter and Tracker',                            'level_id' => 2, 'phone' => null,             'phone_label' => null,       'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null,  'link_name' => null ],
+            //[ 'job_id' => $this->jobId[x], 'name' => 'Ethan Bailey',     'title' => '',                                              'level_id' => 2, 'phone' => null,             'phone_label' => null,       'alt_phone' => null,              'alt_phone_label' => null,       'email' => null,                                'email_label' => null,       'alt_email' => null,                 'alt_email_label' => null,       'link' => null, 'link_name' => null ],
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -1881,13 +1881,13 @@ class Demo extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -1915,7 +1915,7 @@ class Demo extends Command
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -1928,14 +1928,14 @@ class Demo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
-            [ 'name' => 'LinkedIn',                             'slug' => 'linkedin',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.linkedin.com/in/craig-zearfoss/',    'public' => 1, 'sequence' => 0, 'description' => null ],
-            [ 'name' => 'GitHub',                               'slug' => 'github',                              'featured' => 1, 'summary' => null, 'url' => 'https://github.com/craigzearfoss',               'public' => 1, 'sequence' => 1, 'description' => null ],
-            [ 'name' => 'Facebook',                             'slug' => 'facebook',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.facebook.com/craig.zearfoss',        'public' => 1, 'sequence' => 2, 'description' => null ],
-            [ 'name' => 'Craig Zearfoss Collection, 1988-2008', 'slug' => 'craig-zearfoss-collection-1988-2008', 'featured' => 1, 'summary' => null, 'url' => 'https://finding-aids.lib.unc.edu/catalog/20509', 'public' => 1, 'sequence' => 3, 'description' => '<p>A publicly available collection of live video recordings I made from 1994 to 2002. The collection also includes audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.</p>' ],
+            [ 'name' => 'LinkedIn',                             'slug' => 'linkedin',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.linkedin.com/in/craig-zearfoss/',    'is_public' => 1, 'sequence' => 0, 'description' => null ],
+            [ 'name' => 'GitHub',                               'slug' => 'github',                              'featured' => 1, 'summary' => null, 'url' => 'https://github.com/craigzearfoss',               'is_public' => 1, 'sequence' => 1, 'description' => null ],
+            [ 'name' => 'Facebook',                             'slug' => 'facebook',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.facebook.com/craig.zearfoss',        'is_public' => 1, 'sequence' => 2, 'description' => null ],
+            [ 'name' => 'Craig Zearfoss Collection, 1988-2008', 'slug' => 'craig-zearfoss-collection-1988-2008', 'featured' => 1, 'summary' => null, 'url' => 'https://finding-aids.lib.unc.edu/catalog/20509', 'is_public' => 1, 'sequence' => 3, 'description' => '<p>A publicly available collection of live video recordings I made from 1994 to 2002. The collection also includes audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.</p>' ],
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -1963,7 +1963,7 @@ class Demo extends Command
                 'link'              => null,
                 'link_name'         => null,
                 'image'             => 'https://www.invaluable.com/blog/wp-content/uploads/sites/77/2023/01/Abbey-Road-666x670.jpg',
-                'public'            => 1,
+                'is_public'            => 1,
             ],
             [
                 'owner_id'          => $this->adminId,
@@ -1979,7 +1979,7 @@ class Demo extends Command
                 'link'              => null,
                 'link_name'         => null,
                 'image'             => 'https://www.invaluable.com/blog/wp-content/uploads/sites/77/2023/01/Lunch-Atop-Skyscraper.jpg',
-                'public'            => 1,
+                'is_public'            => 1,
             ],
             [
                 'owner_id'          => $this->adminId,
@@ -1995,7 +1995,7 @@ class Demo extends Command
                 'link'              => null,
                 'link_name'         => null,
                 'image'             => 'https://www.invaluable.com/blog/wp-content/uploads/sites/77/2023/01/Tank-Man-670x448.jpg',
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             /*
             [
@@ -2012,13 +2012,13 @@ class Demo extends Command
                 'link'              => null,
                 'link_name'         => null,
                 'image'             => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Photography()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Photography()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'audio');
         }
     }
@@ -2031,44 +2031,44 @@ class Demo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Natural\'s Not In It',                              'artist' => 'Gang of Four',                  'slug' => 'naturals-not-in-it-by-gang-of-four',                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Tennessee Plates',                                  'artist' => 'John Hiatt',                    'slug' => 'tennessee-plates-by-john-hiatt',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M', 'catalog_number' => null, 'year' => 1988, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Ridiculous',                                        'artist' => 'Dynamite Shakers',              'slug' => 'ridiculous-by-dynamite-shakers',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Chicken Payback',                                   'artist' => 'The Bees',                      'slug' => 'chicken-payback-by-the-bees',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Virgin', 'catalog_number' => null, 'year' => 2004, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wq7ASMbOpmo?si=Jszf8vyl7_fdGz1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wq7ASMbOpmo?si=Jszf8vyl7_fdGz1A', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'In My Life',                                        'artist' => 'The Beatles',                   'slug' => 'in-my-life-by-the-beatles',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZqpysaAo4BQ?si=_N5E-dyVBqqGZ7lO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZqpysaAo4BQ?si=_N5E-dyVBqqGZ7lO', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Freeburn (I Want Rock)',                            'artist' => 'Zen Frisbee',                   'slug' => 'freeburn-(i-want-rock)-by-zen-frisbee',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1992, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/qsvTRZKNrig?si=M27NA5Eh73xkkpTl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/qsvTRZKNrig?si=M27NA5Eh73xkkpTl', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Take Me I\'m Yours',                                'artist' => 'Squeeze',                       'slug' => 'take-me-im-yours-by-squeeze',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1978, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Lt8etY7C4z0?si=2lGwxGvrJAH4mBi3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Lt8etY7C4z0?si=2lGwxGvrJAH4mBi3', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'What Is Life',                                      'artist' => 'George Harrison',               'slug' => 'what-is-life-by-george-harrison',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/fiH9edd25Bc?si=VmSSB-7meR0EQtmE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/fiH9edd25Bc?si=VmSSB-7meR0EQtmE', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Love the Sound of Breaking Glass',                'artist' => 'Nick Lowe',                     'slug' => 'i-love-the-sound-of-breaking-glass-by-nick-lowe',   'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records', 'catalog_number' => null, 'year' => 1978, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Satellite of Love',                                 'artist' => 'Lou Reed',                      'slug' => 'satellite-of-love-by-lou-reed',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Records', 'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kJoHspUta-E?si=1OesZ2HWc3GM1msx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/kJoHspUta-E?si=1OesZ2HWc3GM1msx', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Ragged But Right',                                  'artist' => 'The Woggles',                   'slug' => 'ragged-but-right-by-the-woggles',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/HXM0D3hnUv4?si=lfNzu1LaAkAtksqx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/HXM0D3hnUv4?si=lfNzu1LaAkAtksqx', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'It\'s All Nothing Until It\'s Everything',          'artist' => 'KNOWER',                        'slug' => 'its-all-nothing-until-its-everything-by-knower',     'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'KNOWER MUSIC', 'catalog_number' => null, 'year' => 2023, 'release_date' => '2023-06-02', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NDpeHQUSWT0?si=3rdV7cP81SKfTMYk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/NDpeHQUSWT0?si=3rdV7cP81SKfTMYk', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'The Girl Can\'t Dance / Look Away',                  'artist' => 'The Swingin\' Neckbreakers',   'slug' => 'the-girl-cant-dance-look-away-by-the-swingin-neckbreakers', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1993, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MXn7Cvbl93g?si=fSoYbTwkY2hJh8Ic" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MXn7Cvbl93g?si=fSoYbTwkY2hJh8Ic', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Treble Twist',                                      'artist' => 'The Kaisers',                   'slug' => 'treble-twist-by-the-kaisers',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Soundflat Records', 'catalog_number' => null, 'year' => 2018, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/f168zesLjxA?si=Bb593-gOglYlhbJX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/f168zesLjxA?si=Bb593-gOglYlhbJX', 'link_name' => 'YOuTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Hyper Enough',                                      'artist' => 'Superchunk',                    'slug' => 'hyper-enough-by-superchunk',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records', 'catalog_number' => null, 'year' => 1995, 'release_date' => '1995-09-19', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ba44JRAjpV4?si=y3fOFg1d7Vb-0RjG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ba44JRAjpV4?si=y3fOFg1d7Vb-0RjG', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Up the Junction',                                   'artist' => 'Squeeze',                       'slug' => 'up-the-junction-by-squeeze',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1979, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/RQciegmLPAo?si=wa1Q3o0nasasJMpb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/RQciegmLPAo?si=ZQ2oAHHmVXqr_M8e', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Internettin\'',                                     'artist' => 'Terry Anderson',                'slug' => 'internettin-by-terry-anderson',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2017, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rIPF6j6PazI?si=P6JG2Fuqlr1hI1gv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rIPF6j6PazI?si=P6JG2Fuqlr1hI1gv', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Knew the Bride (When She Used to Rock and Roll)', 'artist' => 'Nick Lowe',                     'slug' => 'i-knew-the-bride-(when-she-used-to-rock-and-roll)-by-nick-lowe', 'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1985, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Kn1CXbf2xF8?si=4NbjYced2Mmi3avh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Kn1CXbf2xF8?si=4NbjYced2Mmi3avh', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Big Brown Eyes',                                    'artist' => 'Old 97\'s',                     'slug' => 'big-brown-eyes-by-old-97s',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1996, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LrOOQtcdwwQ?si=ACisure9flUrty_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/LrOOQtcdwwQ?si=Ihqd1m784Dj2DDwR', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'You\'re My Favorite Waste of Time',                 'artist' => 'Marshall Crenshaw',             'slug' => 'youre-my-favorite-waste-of-time-by-marshall-crenshaw', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.', 'catalog_number' => null, 'year' => 1982, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tpyRvpX7Z7Y?si=3TLRhUfHBvvAZ_kg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/tpyRvpX7Z7Y?si=nqA15jc0jiJwEKun', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Don\'t Know Why',                                 'artist' => 'HOA',                           'slug' => 'i-dont-know-why-by-hoa',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2024, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8J1b4znVbEI?si=Fuc1_XucvrlrAuFT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8J1b4znVbEI?si=Fuc1_XucvrlrAuFT', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Styrofoam',                                         'artist' => 'Tyla Gang',                     'slug' => 'styrofoam-by-tyla-gang',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1977, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kWtbnDy378Q?si=4V8JaXzg36tz9v2S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/kWtbnDy378Q?si=4V8JaXzg36tz9v2S', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Against I',                                       'artist' => 'Bad Brains',                    'slug' => 'i-against-i-by-bad-brains',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'SST Records', 'catalog_number' => 'SSTCD 65', 'year' => 1986, 'release_date' => '1986-11-21', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/cCEkuo94X6I?si=wOy2Zpb_TrLh_qrn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/cCEkuo94X6I?si=wOy2Zpb_TrLh_qrn', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Live for Buzz',                                   'artist' => 'The Swingin\' Neckbreakers',    'slug' => 'i-live-for-buzz-by-the-swingin-neckbreakers',       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1993, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ClxDoj9Uzz8?si=jBuBK0n7AT72ItXr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ClxDoj9Uzz8?si=fUv1NVjXZr-CmJr-', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'RC Cola and a Moon Pie',                            'artist' => 'NRBQ',                          'slug' => 'rc-cola-and-a-moon-pie-by-nrbq',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1973, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/1DJZpsAkWys?si=MJknSSNjNJPHWBti" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/1DJZpsAkWys?si=MJknSSNjNJPHWBti', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Tempted',                                           'artist' => 'Squeeze',                       'slug' => 'tempted-by-squeeze',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1981, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vZic9ZHU_40?si=T_Fis4rOHv6bruQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vZic9ZHU_40?si=T_Fis4rOHv6bruQI', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Cowboy Boots',                                      'artist' => 'The Backsliders',               'slug' => 'cowboy-boots-by-the-backsliders',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1996, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'In the City',                                       'artist' => 'The Jam',                       'slug' => 'in-the-city-by-the-jam',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1977, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wbfw1YfeAlA?si=WDIzxwQ5uli7rsoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wbfw1YfeAlA?si=sTbgEOLFW7vg_lwa', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Ridin\' in My Car',                                 'artist' => 'NRBQ',                          'slug' => 'ridin-in-my-car-by-nrbq',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1977, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/zFJop5rk0N4?si=A3yfPPN-f8b7RzxI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/zFJop5rk0N4?si=A3yfPPN-f8b7RzxI', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Tomorrow and Tomorrow',                             'artist' => 'HOA',                           'slug' => 'tomorrow-and-tomorrow-by-hoa',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2024, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/6HUcUhehFyU?si=QxD5lL-e2io72R4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/6HUcUhehFyU?si=QxD5lL-e2io72R4J', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Perfect Day',                                       'artist' => 'Lou Reed',                      'slug' => 'perfect-day-by-lou-reed',                           'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Record', 'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Hit Me with Your Rhythm Stick',                     'artist' => 'Ian Dury and the Blockheads',   'slug' => 'hit-me-with-your-rhythm-stick-by-ian-dury-and-the-blockheads', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1979, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MSr4eswF4Ao?si=_7UVJdctmIUy-Z20" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MSr4eswF4Ao?si=_7UVJdctmIUy-Z20', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Clampdown',                                         'artist' => 'The Clash',                     'slug' => 'clampdown-by-the-clash',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-12-14', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LQ82BX0hGBM?si=m9G9lQjbKm0gFOwT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/LQ82BX0hGBM?si=Jbm-Re0FeCqT1lts', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'OSCA',                                              'artist' => 'Tokyo Jihen',                   'slug' => 'osca-by-tokyo-jihen',                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'EMI Music Japan', 'catalog_number' => null, 'year' => 2007, 'release_date' => '2007-07-11', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ix8Inb2wAl4?si=hVqYiDK5a_8G7EDe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Ix8Inb2wAl4?si=hVqYiDK5a_8G7EDe', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'The World Is Full Of Bastards',                     'artist' => 'Mary Prankster',                'slug' => 'the-world-is-full-of-bastards-by-mary-prankster',   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2001, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WUsvXcT8Ctk?si=FW4YDlOCUiikRGwf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WUsvXcT8Ctk?si=FW4YDlOCUiikRGwf', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Beatrice',                                          'artist' => 'Worn-Tin & Boyo',               'slug' => 'beatrice-by-worn-tin-and-boyo',                     'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2012, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg', 'link_name' => null, 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Chica Alborotada / Tallahassee Lassie',             'artist' => 'Los Straitjackers featuring Big Sandy', 'slug' => 'chica-alborotada-tallahassee-lassie-by-los-straitjackers-featuring-big-sandy', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Redeye Worldwide', 'catalog_number' => null, 'year' => 2001, 'release_date' => '2001-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/URpa29Qz8Cs?si=_hX0cyDBocK-0XsG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/URpa29Qz8Cs?si=hE_T3BvQY7L6XQSr', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'There Was a Time',                                  'artist' => 'Ginger Root',                   'slug' => 'there-was-a-time-by-ginger-root',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2024, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2eUf4rWtxLU?si=Eht2mBc3dwx4IvK9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2eUf4rWtxLU?si=2Stc9oPVQoaa3b80', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
+            [ 'name' => 'Natural\'s Not In It',                              'artist' => 'Gang of Four',                  'slug' => 'naturals-not-in-it-by-gang-of-four',                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Tennessee Plates',                                  'artist' => 'John Hiatt',                    'slug' => 'tennessee-plates-by-john-hiatt',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M', 'catalog_number' => null, 'year' => 1988, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Z1TGnguTaQ8?si=NqM4QNHJQNOEXFsx', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ridiculous',                                        'artist' => 'Dynamite Shakers',              'slug' => 'ridiculous-by-dynamite-shakers',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Chicken Payback',                                   'artist' => 'The Bees',                      'slug' => 'chicken-payback-by-the-bees',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Virgin', 'catalog_number' => null, 'year' => 2004, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wq7ASMbOpmo?si=Jszf8vyl7_fdGz1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wq7ASMbOpmo?si=Jszf8vyl7_fdGz1A', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'In My Life',                                        'artist' => 'The Beatles',                   'slug' => 'in-my-life-by-the-beatles',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZqpysaAo4BQ?si=_N5E-dyVBqqGZ7lO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZqpysaAo4BQ?si=_N5E-dyVBqqGZ7lO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Freeburn (I Want Rock)',                            'artist' => 'Zen Frisbee',                   'slug' => 'freeburn-(i-want-rock)-by-zen-frisbee',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1992, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/qsvTRZKNrig?si=M27NA5Eh73xkkpTl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/qsvTRZKNrig?si=M27NA5Eh73xkkpTl', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Take Me I\'m Yours',                                'artist' => 'Squeeze',                       'slug' => 'take-me-im-yours-by-squeeze',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1978, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Lt8etY7C4z0?si=2lGwxGvrJAH4mBi3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Lt8etY7C4z0?si=2lGwxGvrJAH4mBi3', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'What Is Life',                                      'artist' => 'George Harrison',               'slug' => 'what-is-life-by-george-harrison',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/fiH9edd25Bc?si=VmSSB-7meR0EQtmE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/fiH9edd25Bc?si=VmSSB-7meR0EQtmE', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Love the Sound of Breaking Glass',                'artist' => 'Nick Lowe',                     'slug' => 'i-love-the-sound-of-breaking-glass-by-nick-lowe',   'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records', 'catalog_number' => null, 'year' => 1978, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Satellite of Love',                                 'artist' => 'Lou Reed',                      'slug' => 'satellite-of-love-by-lou-reed',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Records', 'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kJoHspUta-E?si=1OesZ2HWc3GM1msx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/kJoHspUta-E?si=1OesZ2HWc3GM1msx', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ragged But Right',                                  'artist' => 'The Woggles',                   'slug' => 'ragged-but-right-by-the-woggles',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/HXM0D3hnUv4?si=lfNzu1LaAkAtksqx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/HXM0D3hnUv4?si=lfNzu1LaAkAtksqx', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'It\'s All Nothing Until It\'s Everything',          'artist' => 'KNOWER',                        'slug' => 'its-all-nothing-until-its-everything-by-knower',     'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'KNOWER MUSIC', 'catalog_number' => null, 'year' => 2023, 'release_date' => '2023-06-02', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NDpeHQUSWT0?si=3rdV7cP81SKfTMYk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/NDpeHQUSWT0?si=3rdV7cP81SKfTMYk', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'The Girl Can\'t Dance / Look Away',                  'artist' => 'The Swingin\' Neckbreakers',   'slug' => 'the-girl-cant-dance-look-away-by-the-swingin-neckbreakers', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1993, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MXn7Cvbl93g?si=fSoYbTwkY2hJh8Ic" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MXn7Cvbl93g?si=fSoYbTwkY2hJh8Ic', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Treble Twist',                                      'artist' => 'The Kaisers',                   'slug' => 'treble-twist-by-the-kaisers',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Soundflat Records', 'catalog_number' => null, 'year' => 2018, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/f168zesLjxA?si=Bb593-gOglYlhbJX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/f168zesLjxA?si=Bb593-gOglYlhbJX', 'link_name' => 'YOuTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Hyper Enough',                                      'artist' => 'Superchunk',                    'slug' => 'hyper-enough-by-superchunk',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records', 'catalog_number' => null, 'year' => 1995, 'release_date' => '1995-09-19', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ba44JRAjpV4?si=y3fOFg1d7Vb-0RjG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ba44JRAjpV4?si=y3fOFg1d7Vb-0RjG', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Up the Junction',                                   'artist' => 'Squeeze',                       'slug' => 'up-the-junction-by-squeeze',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1979, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/RQciegmLPAo?si=wa1Q3o0nasasJMpb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/RQciegmLPAo?si=ZQ2oAHHmVXqr_M8e', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Internettin\'',                                     'artist' => 'Terry Anderson',                'slug' => 'internettin-by-terry-anderson',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2017, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rIPF6j6PazI?si=P6JG2Fuqlr1hI1gv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rIPF6j6PazI?si=P6JG2Fuqlr1hI1gv', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Knew the Bride (When She Used to Rock and Roll)', 'artist' => 'Nick Lowe',                     'slug' => 'i-knew-the-bride-(when-she-used-to-rock-and-roll)-by-nick-lowe', 'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1985, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Kn1CXbf2xF8?si=4NbjYced2Mmi3avh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Kn1CXbf2xF8?si=4NbjYced2Mmi3avh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Big Brown Eyes',                                    'artist' => 'Old 97\'s',                     'slug' => 'big-brown-eyes-by-old-97s',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1996, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LrOOQtcdwwQ?si=ACisure9flUrty_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/LrOOQtcdwwQ?si=Ihqd1m784Dj2DDwR', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'You\'re My Favorite Waste of Time',                 'artist' => 'Marshall Crenshaw',             'slug' => 'youre-my-favorite-waste-of-time-by-marshall-crenshaw', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.', 'catalog_number' => null, 'year' => 1982, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tpyRvpX7Z7Y?si=3TLRhUfHBvvAZ_kg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/tpyRvpX7Z7Y?si=nqA15jc0jiJwEKun', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Don\'t Know Why',                                 'artist' => 'HOA',                           'slug' => 'i-dont-know-why-by-hoa',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2024, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8J1b4znVbEI?si=Fuc1_XucvrlrAuFT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8J1b4znVbEI?si=Fuc1_XucvrlrAuFT', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Styrofoam',                                         'artist' => 'Tyla Gang',                     'slug' => 'styrofoam-by-tyla-gang',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1977, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kWtbnDy378Q?si=4V8JaXzg36tz9v2S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/kWtbnDy378Q?si=4V8JaXzg36tz9v2S', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Against I',                                       'artist' => 'Bad Brains',                    'slug' => 'i-against-i-by-bad-brains',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'SST Records', 'catalog_number' => 'SSTCD 65', 'year' => 1986, 'release_date' => '1986-11-21', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/cCEkuo94X6I?si=wOy2Zpb_TrLh_qrn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/cCEkuo94X6I?si=wOy2Zpb_TrLh_qrn', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Live for Buzz',                                   'artist' => 'The Swingin\' Neckbreakers',    'slug' => 'i-live-for-buzz-by-the-swingin-neckbreakers',       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1993, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ClxDoj9Uzz8?si=jBuBK0n7AT72ItXr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ClxDoj9Uzz8?si=fUv1NVjXZr-CmJr-', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'RC Cola and a Moon Pie',                            'artist' => 'NRBQ',                          'slug' => 'rc-cola-and-a-moon-pie-by-nrbq',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1973, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/1DJZpsAkWys?si=MJknSSNjNJPHWBti" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/1DJZpsAkWys?si=MJknSSNjNJPHWBti', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Tempted',                                           'artist' => 'Squeeze',                       'slug' => 'tempted-by-squeeze',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1981, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vZic9ZHU_40?si=T_Fis4rOHv6bruQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/vZic9ZHU_40?si=T_Fis4rOHv6bruQI', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Cowboy Boots',                                      'artist' => 'The Backsliders',               'slug' => 'cowboy-boots-by-the-backsliders',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1996, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'In the City',                                       'artist' => 'The Jam',                       'slug' => 'in-the-city-by-the-jam',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1977, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wbfw1YfeAlA?si=WDIzxwQ5uli7rsoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wbfw1YfeAlA?si=sTbgEOLFW7vg_lwa', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ridin\' in My Car',                                 'artist' => 'NRBQ',                          'slug' => 'ridin-in-my-car-by-nrbq',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1977, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/zFJop5rk0N4?si=A3yfPPN-f8b7RzxI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/zFJop5rk0N4?si=A3yfPPN-f8b7RzxI', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Tomorrow and Tomorrow',                             'artist' => 'HOA',                           'slug' => 'tomorrow-and-tomorrow-by-hoa',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2024, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/6HUcUhehFyU?si=QxD5lL-e2io72R4J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/6HUcUhehFyU?si=QxD5lL-e2io72R4J', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Perfect Day',                                       'artist' => 'Lou Reed',                      'slug' => 'perfect-day-by-lou-reed',                           'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Record', 'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Hit Me with Your Rhythm Stick',                     'artist' => 'Ian Dury and the Blockheads',   'slug' => 'hit-me-with-your-rhythm-stick-by-ian-dury-and-the-blockheads', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1979, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MSr4eswF4Ao?si=_7UVJdctmIUy-Z20" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MSr4eswF4Ao?si=_7UVJdctmIUy-Z20', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Clampdown',                                         'artist' => 'The Clash',                     'slug' => 'clampdown-by-the-clash',                            'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-12-14', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LQ82BX0hGBM?si=m9G9lQjbKm0gFOwT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/LQ82BX0hGBM?si=Jbm-Re0FeCqT1lts', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'OSCA',                                              'artist' => 'Tokyo Jihen',                   'slug' => 'osca-by-tokyo-jihen',                               'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'EMI Music Japan', 'catalog_number' => null, 'year' => 2007, 'release_date' => '2007-07-11', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ix8Inb2wAl4?si=hVqYiDK5a_8G7EDe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Ix8Inb2wAl4?si=hVqYiDK5a_8G7EDe', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'The World Is Full Of Bastards',                     'artist' => 'Mary Prankster',                'slug' => 'the-world-is-full-of-bastards-by-mary-prankster',   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2001, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WUsvXcT8Ctk?si=FW4YDlOCUiikRGwf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WUsvXcT8Ctk?si=FW4YDlOCUiikRGwf', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Beatrice',                                          'artist' => 'Worn-Tin & Boyo',               'slug' => 'beatrice-by-worn-tin-and-boyo',                     'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2012, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg', 'link_name' => null, 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Chica Alborotada / Tallahassee Lassie',             'artist' => 'Los Straitjackers featuring Big Sandy', 'slug' => 'chica-alborotada-tallahassee-lassie-by-los-straitjackers-featuring-big-sandy', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Redeye Worldwide', 'catalog_number' => null, 'year' => 2001, 'release_date' => '2001-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/URpa29Qz8Cs?si=_hX0cyDBocK-0XsG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/URpa29Qz8Cs?si=hE_T3BvQY7L6XQSr', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'There Was a Time',                                  'artist' => 'Ginger Root',                   'slug' => 'there-was-a-time-by-ginger-root',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null, 'catalog_number' => null, 'year' => 2024, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2eUf4rWtxLU?si=Eht2mBc3dwx4IvK9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2eUf4rWtxLU?si=2Stc9oPVQoaa3b80', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -2087,13 +2087,13 @@ class Demo extends Command
                 'link'      => null,
                 'link_name'      => null,
                 'description'    => null,
-                'public'         => 1,
+                'is_public'         => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -2199,7 +2199,7 @@ class Demo extends Command
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -2220,8 +2220,8 @@ class Demo extends Command
                 'summary'           => 'An interview with Adam Becker, a science journalist and author of MORE EVERYTHING FOREVER: AI Overlords, Space Empires, and Silicon Valley\'s Crusade to Control the Fate of Humanity, just out from Basic Books.',
                 'publication_name'  => 'Tech Policy Press',
                 'publisher'         => null,
-                'date'              => '2025-04-27',
-                'year'              => 2025,
+                'publication_date'  => '2025-04-27',
+                'publication_year'  => 2025,
                 'credit'            => 'Justin Hendrick',
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -2242,7 +2242,7 @@ class Demo extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ],
             [
                 'title'             => '2025, A Retrospective',
@@ -2252,8 +2252,8 @@ class Demo extends Command
                 'summary'           => 'A collection of 2025 posts from Where\'s Your Ed At, a blog from British-born media relations specialist, author, and prominent tech industry critic Ed Zitron.',
                 'publication_name'  => 'Where\'s Your Ed At',
                 'publisher'         => null,
-                'date'              => '2025-12-25',
-                'year'              => 2025,
+                'publication_date'  => '2025-12-25',
+                'publication_year'  => 2025,
                 'credit'            => 'Edward Zitron',
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -2274,7 +2274,7 @@ class Demo extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ],
             [
                 'title'             => 'Attack of the 50 Foot Blockchain: Bitcoin, Blockchain, Ethereum & Smart Contracts',
@@ -2284,8 +2284,8 @@ class Demo extends Command
                 'summary'           => 'Everything to do with cryptocurrencies and blockchains is the domain of fast-talking conmen. If anyone tries to sell you on either, kick them in the nuts and run.',
                 'publication_name'  => null,
                 'publisher'         => 'CreateSpace Independent Publishing Platform',
-                'date'              => '2017-07-24',
-                'year'              => 2017,
+                'publication_date'  => '2017-07-24',
+                'publication_year'  => 2017,
                 'credit'            => 'David Gerard',
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -2306,7 +2306,7 @@ class Demo extends Command
                 'description'       => null,
                 'link'              => 'https://www.amazon.com/Attack-50-Foot-Blockchain-Contracts/dp/1974000060',
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ],
             [
                 'title'             => 'Independent journalist Molly White knows how to follow the memecoin',
@@ -2316,8 +2316,8 @@ class Demo extends Command
                 'summary'           => 'The cryptocurrency and tech newsletter Citation Needed is pay-what-you-want. White currently has about 29,000 subscribers including about 2,400 paid subscribers despite the lack of a paywall.',
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => '2025-08-14',
-                'year'              => 2025,
+                'publication_date'  => '2025-08-14',
+                'publication_year'  => 2025,
                 'credit'            => 'Sarah Scire',
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -2338,7 +2338,7 @@ class Demo extends Command
                 'description'       => null,
                 'link'              => 'https://www.niemanlab.org/2025/08/independent-journalist-molly-white-knows-how-to-follow-the-memecoin/',
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
 
             /*
@@ -2350,8 +2350,8 @@ class Demo extends Command
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => null,
-                'year'              => 2025,
+                'publication_date'  => null,
+                'publication_year'  => 2025,
                 'credit'            => null,
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -2372,13 +2372,13 @@ class Demo extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -2391,49 +2391,49 @@ class Demo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 3,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Symfony',           'slug' => 'symfony',           'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 1,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Vue.js',            'slug' => 'vue-js',            'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'jQuery',            'slug' => 'jquery',            'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'React',             'slug' => 'react',             'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 3,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'JavaScript',        'slug' => 'javascript',        'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 9,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'PHP',               'slug' => 'php',               'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'SQL',               'slug' => 'sql',               'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 9,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Powershell',        'slug' => 'powershell',        'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 3,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'BASH',              'slug' => 'bash',              'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 6,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'DOS',               'slug' => 'dos',               'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 6,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'MySQL',             'slug' => 'mysql',             'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 8,   'level' => 9,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'MariaDB',           'slug' => 'mariadb',           'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 8,   'level' => 9,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Postgres',          'slug' => 'postgres',          'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 8,   'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'MongoDB',           'slug' => 'mongodb',           'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 8,   'level' => 3,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Elasticsearch',     'slug' => 'elasticsearch',     'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 8,   'level' => 3,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Linux',             'slug' => 'linux',             'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 17,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Ubuntu',            'slug' => 'ubuntu',            'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 17,  'level' => 7,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Windows',           'slug' => 'windows',           'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 17,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'macOS',             'slug' => 'macos',             'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 17,  'level' => 4,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Apache2',           'slug' => 'apache2',           'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 26,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Nginx',             'slug' => 'nginx',             'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 26,  'level' => 7,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Git',               'slug' => 'git',               'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 34,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'JIRA',              'slug' => 'jira',              'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 34,  'level' => 7,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'HTML5',             'slug' => 'html5',             'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'CSS3',              'slug' => 'css3',              'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'DOM',               'slug' => 'dom',               'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'JSX',               'slug' => 'jsx',               'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Ajax',              'slug' => 'ajax',              'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Twitter Bootstrap', 'slug' => 'twitter-bootstrap', 'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 7,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Bulma',             'slug' => 'bulma',             'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 11,  'level' => 4,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'JSON',              'slug' => 'json',              'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'REST',              'slug' => 'rest',              'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 16,  'level' => 9,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 7,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 12,  'level' => 7,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 19,  'level' => 4,  'years' => 20,  'start_year' => null, 'public' => 1 ],
-            //[ 'name' => '',                  'slug' => '',                  'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => 1,   'level' => 5,  'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Symfony',           'slug' => 'symfony',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 1,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Vue.js',            'slug' => 'vue-js',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'jQuery',            'slug' => 'jquery',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'React',             'slug' => 'react',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JavaScript',        'slug' => 'javascript',        'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'PHP',               'slug' => 'php',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'SQL',               'slug' => 'sql',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Powershell',        'slug' => 'powershell',        'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'BASH',              'slug' => 'bash',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 6,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'DOS',               'slug' => 'dos',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 6,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MySQL',             'slug' => 'mysql',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MariaDB',           'slug' => 'mariadb',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Postgres',          'slug' => 'postgres',          'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MongoDB',           'slug' => 'mongodb',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Elasticsearch',     'slug' => 'elasticsearch',     'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Linux',             'slug' => 'linux',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ubuntu',            'slug' => 'ubuntu',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Windows',           'slug' => 'windows',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'macOS',             'slug' => 'macos',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 4,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Apache2',           'slug' => 'apache2',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 26,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Nginx',             'slug' => 'nginx',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 26,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Git',               'slug' => 'git',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 34,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JIRA',              'slug' => 'jira',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 34,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'HTML5',             'slug' => 'html5',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CSS3',              'slug' => 'css3',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'DOM',               'slug' => 'dom',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JSX',               'slug' => 'jsx',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ajax',              'slug' => 'ajax',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Twitter Bootstrap', 'slug' => 'twitter-bootstrap', 'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Bulma',             'slug' => 'bulma',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 4,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JSON',              'slug' => 'json',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'REST',              'slug' => 'rest',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 16,  'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 19,  'level' => 4,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            //[ 'name' => '',                  'slug' => '',                  'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 1,   'level' => 5,  'years' => null, 'start_year' => null, 'is_public' => 1 ],
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -2460,7 +2460,7 @@ class Demo extends Command
                 'credit'           => 'Craig Zearfoss, Rob Linder',
                 'show'             => 'Live Around Town',
                 'location'         => 'Chapel Hill, NC and Raleigh, NC',
-                'public'           => 1,
+                'is_public'           => 1,
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vGobMdqmulI?si=AvM5y69Pgkv_6FKD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/vGobMdqmulI?si=84OJZ8hM2P2BhKHk',
                 'link_name'        => 'YouTube',
@@ -2484,7 +2484,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/DCfjWDD4HMw?si=ozn-YOXDbDQVLaCH',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Live Around Town - episode 3',
@@ -2504,7 +2504,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/QpoHRSwvC6I?si=yqoYiulhq2Mm-82W',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Live Around Town - episode 4',
@@ -2524,7 +2524,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/PJ_rOzaCMTE?si=Rq4J13VnMIR25gIs',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Live Around Town - episode 5',
@@ -2544,7 +2544,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/iOSVHuAXYlU?si=dnGV-wUAUPKVOlk3',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Bandelirium from the Cave in Chapel Hill, NC - episode 1',
@@ -2563,7 +2563,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/CxHwQM74eno?si=Bm_62bBD2RO1zTYd',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Bandelirium from the Cave in Chapel Hill, NC - episode 2',
@@ -2583,7 +2583,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/QtmqTI1YK2M?si=JyhqD3-IeHgZW7nG',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Bandelirium from the Cave in Chapel Hill, NC - episode 3',
@@ -2603,7 +2603,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/7yDv19IU9EY?si=giCY3E8ESHCW0PBZ',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Sleazefest: The Movie',
@@ -2623,7 +2623,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/EFUzw85z8hU?si=KxJ6WE0TNO_Ow0Bg',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'The Woggles - Ramadan Romance',
@@ -2643,7 +2643,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/NjiOGW_wkIY?si=DLblWHZD8gGyENWC',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
 
             [
@@ -2664,7 +2664,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/1sp_U2ROdn8?si=_P3nIBuPfbjPVb4l',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Shark Quest on Live @ the Cave',
@@ -2684,7 +2684,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/BVLFp-Pe2m0?si=AdYE6hQ2Rd4B5bGa',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Lud on Live @ the Cave',
@@ -2704,7 +2704,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/CWDu6Vou2mo?si=H0gTFXyScmYisuTI',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Transportation on Live @ the Cave',
@@ -2724,7 +2724,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/QpW8PIWGs5I?si=JwX9hpWJmpv1Q5lO',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Trailer Bride on Live @ the Cave',
@@ -2744,7 +2744,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/gibuGcpZF7A?si=sSZRfKFgVvlSyd4a',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Evil Wiener on Live @ the Cave',
@@ -2764,7 +2764,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/OCpQf5siO0M?si=EgcxNKHmUCug74ZH',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Clok-Lok on Live @ the Cave',
@@ -2784,7 +2784,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/tacQld_hcGg?si=cOCdBlDT3B_Whdpi',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Ghost of Rock on Live @ the Cave',
@@ -2804,7 +2804,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/2E-2ZvvMYV8?si=1vsUbToX709hmCjz',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Morris on Live @ the Cave',
@@ -2824,7 +2824,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/VTVv3Mk8OtI?si=-vsYSlR34IAubT92',
                 'link_name'        => 'YouTube',
                 'description' => 'Performing I\' Not the One to Choose',
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Chris Smith on Live @ the Cave',
@@ -2844,7 +2844,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/H0hg22giaDM?si=3ojMppZcK8E2R384',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Kitty Box and the Alley Cats on Live @ the Cave',
@@ -2864,7 +2864,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/v8oteqf-nW8?si=BvxEnbk1DnrLyYAI',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Dom Casual on Live @ the Cave',
@@ -2884,7 +2884,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/wHp9bObySSk?si=50KhLnbPlOI28iw7',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Malt Swagger on Live @ the Cave',
@@ -2904,7 +2904,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/LUcldiQPy7A?si=1DhP8BycELWb2lN-',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'The Lucy Stoners - on Live @ the Cave',
@@ -2924,7 +2924,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/YFGyGs61D9U?si=bnES-w4eTwyY7mCy',
                 'link_name'        => 'YouTube',
                 'description' => 'Performing Not Half of Us.',
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Chuck Chuck Goose on Live @ the Cave',
@@ -2944,7 +2944,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/C1N8np3OOGM?si=bftOeUZ5pOlA--9J',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'David Spencer on Live @ the Cave',
@@ -2964,7 +2964,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/CL5pVZoIGkU?si=O-C--dbGqVWEa0uv',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Roman Candles on Live @ the Cave',
@@ -2984,7 +2984,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/a4Jm6FokBso?si=dQqMupWCigGDN9-W',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Hobart Willis and the Back Forty on Live @ the Cave',
@@ -3004,7 +3004,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/BcP-0LC8nUQ?si=OxgDpCmkNaQhcudZ',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Chupa Chup on Live @ the Cave',
@@ -3024,7 +3024,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/J7EBVGJOuGM?si=sdQoP9hCzwI97RYH',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Pistol Pete and Popgun Paul on Live @ the Cave',
@@ -3044,7 +3044,7 @@ class Demo extends Command
                 'link'             => '',
                 'link_name'        => '',
                 'description'      => 'Performing Never Be Straight',
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Dexter Romweber on Live @ the Cave',
@@ -3064,7 +3064,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/co6BuJKbUcc?si=90y73q0D_nvNmlfu',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Dexter Romweber on Live @ the Cave - Brazil',
@@ -3084,7 +3084,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/mI04UiU_smI?si=aF_z7B5rpbUcUpmg',
                 'link_name'        => 'YouTube',
                 'description'      => 'Performing Brazil',
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Z-TV with Dexter Romweber',
@@ -3104,7 +3104,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/zQcKf3Bk6mA?si=M0R6jZVEo9eo-aPF',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'Dreadful - The Somnambulist Project',
@@ -3124,7 +3124,7 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/kggOFqg5zYg?si=vJSWXsQ3qvi8pBYR',
                 'link_name'        => 'YouTube',
                 'description'      => 'Conceived, written, and directed by Jason Arkles, this play won accolades as one of the top ten theatrical productions of the year, featuring his puppetry as well as the music by music director Curtis Eller along with the Dreadful Quartet.',
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             [
                 'name'             => 'The Serpent - The Somnambulist Project - 1995 Carrboro Arts Center',
@@ -3144,12 +3144,12 @@ class Demo extends Command
                 'link'             => 'https://youtu.be/c4dkSej-mx0?si=2rI-qAkI6IKnbRsW',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             //$this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

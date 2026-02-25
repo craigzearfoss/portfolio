@@ -24,8 +24,8 @@ class IndexController extends BaseGuestController
         $adminModel = new Admin();
 
         $admin = null;
-        $admins = $adminModel->where('public', 1)
-            ->where('disabled', false)
+        $admins = $adminModel->where('is_public', 1)
+            ->where('is_disabled', false)
             ->orderBy('name')->paginate($perPage)->appends(request()->except('page'));
 
         if ($featuredUsername = config('app.featured_admin')) {

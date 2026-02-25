@@ -50,7 +50,7 @@ class AddPortfolio extends Command
     /**
      * @var int
      */
-    protected int $demo = 0;
+    protected int $is_demo = 0;
 
     /**
      * @var int
@@ -92,7 +92,7 @@ class AddPortfolio extends Command
      */
     public function handle(): void
     {
-        $this->demo   = $this->option('demo');
+        $this->is_demo   = $this->option('demo');
         $this->silent = $this->option('silent');
 
         // get the database id
@@ -111,7 +111,7 @@ class AddPortfolio extends Command
 
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
-            echo 'demo: ' . $this->demo . PHP_EOL;
+            echo 'demo: ' . $this->is_demo . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
@@ -150,7 +150,7 @@ class AddPortfolio extends Command
                 'summary'     => 'I purchased this unique painting from Chapel Hill, NC artist Laird Dixon shortly after the release of his band Zen Frisbee\'s debut 1994 CD I\'m As Mad as Faust</i>.',
                 'year'        => 1992,
                 'featured'    => 1,
-                'public'      => 1,
+                'is_public'      => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -164,7 +164,7 @@ class AddPortfolio extends Command
                 'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 CD <i>Sleazefest - Two Nights or Bands, Bar-BQ & Beer</i>.',
                 'year'        => 1994,
                 'featured'    => 1,
-                'public'      => 1,
+                'is_public'      => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -178,7 +178,7 @@ class AddPortfolio extends Command
                 'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the 1994 CD <i>Sleazefest - Two Nights or Bands, Bar-BQ & Beer</i>.',
                 'year'        => 1994,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -192,7 +192,7 @@ class AddPortfolio extends Command
                 'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of <i>Sleazefest - Two Nights or Bands, Bar-BQ & Beer</i>.',
                 'year'        => 1994,
                 'featured'    => 1,
-                'public'      => 1,
+                'is_public'      => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -206,7 +206,7 @@ class AddPortfolio extends Command
                 'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of <i>Sleazefest - Two Nights or Bands, Bar-BQ & Beer</i>.',
                 'year'        => 1994,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -220,7 +220,7 @@ class AddPortfolio extends Command
                 'summary'     => 'This was one of the many works of Chapel Hill, NC rock and roll legend Dexter Romweber, who was posthumously inducted into the North Carolina Musicians Hall of Fame in 2025. He used to stay at my apartment quite frequently because he was best friends with my roommate, record producer Dave Schmitt. I\'ll always treasure it.',
                 'year'        => 1998,
                 'featured'    => 1,
-                'public'      => 1,
+                'is_public'      => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -235,7 +235,7 @@ class AddPortfolio extends Command
                 'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
@@ -246,7 +246,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -279,13 +279,13 @@ class AddPortfolio extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -313,13 +313,13 @@ class AddPortfolio extends Command
                 'link'            => null,
                 'link_name'       => null,
                 'description'     => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -349,7 +349,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -375,7 +375,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Cloud%20Concepts.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -391,7 +391,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Core%20Services.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -407,7 +407,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Course%20Introduction.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -423,7 +423,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Compute%20Services%20Overview.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -439,7 +439,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Database%20Services%20Overview.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -455,7 +455,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Shared%20Responsibility%20Model.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -471,7 +471,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Auto%20Scaling.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -487,7 +487,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Backup.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -503,7 +503,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Device%20Farm.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -519,7 +519,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Fargate.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -535,7 +535,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Import-Export.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -551,7 +551,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Snowball.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -567,7 +567,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Snowmobile.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -583,7 +583,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Storage%20Gateway.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -599,7 +599,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Aurora.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -615,7 +615,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20EC2%20Systems%20Manager.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -631,7 +631,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20ElastiCache.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -647,7 +647,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Block%20Storage%20-%20EBS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -663,7 +663,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Compute%20Cloud%20-%20EC2.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -679,7 +679,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20File%20System%20-%20EFS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -695,7 +695,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Load%20Balancer%20-%20Classic.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -711,7 +711,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20FSx%20for%20Lustre.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -727,7 +727,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20FSx%20for%20Windows%20File%20Server.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -743,7 +743,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Glacier.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -759,7 +759,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Redshift.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -775,7 +775,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Relational%20Database%20Service%20-%20RDS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -791,7 +791,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20S3.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -807,7 +807,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Simple%20Storage%20Service%20-%20S3.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -823,7 +823,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20PostgreSQL%20Fundamentals.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -839,7 +839,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/RS62SKVP89SG',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -855,7 +855,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/52BCA2UWTHPE',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -871,7 +871,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/MUUFRJW2JK7G',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -887,7 +887,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/KFJC8C2ZLQPU',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -903,7 +903,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/DWKGKVVLFE9F',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [   //@TODO: The didn't download
@@ -919,7 +919,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/LK8958ER9X7D',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -935,7 +935,7 @@ class AddPortfolio extends Command
                 'certificate_url' => null,
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/64K4C9WZSJQ',
                 'link_name'       => 'Coursera verification',
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -951,7 +951,7 @@ class AddPortfolio extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -967,7 +967,7 @@ class AddPortfolio extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -983,7 +983,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -999,7 +999,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-cb169d9d-f28b-5cfc-98ae-6849d44e9e45-certificate.pdf',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1015,7 +1015,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-28e6dfda-043f-5c82-a2ad-ff1aa0b4091f-certificate.pdf',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1031,7 +1031,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-f04e21f1-2b5f-588f-a921-14605013fb42-certificate.pdf',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1047,7 +1047,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-21b801e0-1ed1-5c6e-ba1a-a88245a9d7a1-certificate.pdf',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1063,7 +1063,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-5fc17da8-4f83-5c1d-9e13-18c046833329-certificate.pdf',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1079,7 +1079,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-b3ac9b75-0c7b-51ea-8cd0-b250bf0a2bcc-certificate.pdf',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1095,7 +1095,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-2dc804a7-34d3-5ed1-b3de-750819bdb3c4-certificate.pdf',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1111,7 +1111,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Learn%20CSS%20Animations.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1127,7 +1127,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Build%20Tic%20Tac%20Toe%20with%20React%20Hooks.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1143,7 +1143,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Build%20a%20movie%20search%20app%20in%20React.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1159,7 +1159,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Learn%20React%20Hooks%20In%20One%20Hour.png',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1175,7 +1175,7 @@ class AddPortfolio extends Command
                 'certificate_url' => null,
                 'link'            => null,  // not found https://www.sitepoint.com/premium/cert/77e357ad4e843374
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1191,7 +1191,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://ude.my/UC-KBO1JBPE',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             [
@@ -1207,7 +1207,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-07ca111c-1cac-48f5-9838-4c277d7d4485/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1223,7 +1223,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-02e72577-9ba3-420e-ae5a-9bd0744e5410/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1239,7 +1239,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'http://ude.my/UC-242b0dd4-0281-459c-bf98-54171bf64b05',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1255,7 +1255,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-374a4848-1715-4b4f-8cc2-eca24dbf74d0/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1271,7 +1271,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-a381561e-e6e3-48ec-884b-589070ef3962/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1287,7 +1287,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-INJ6D45T/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1303,7 +1303,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-YUC36HUA/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1319,7 +1319,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-Z8I0FZNQ/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1335,7 +1335,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-R1F91C9Z/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1351,7 +1351,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-ff3519ca-b81c-4e00-ab52-60ccf6028d06/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1367,7 +1367,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-72f079ac-e4de-47d9-ae85-f24f5d630159/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1383,7 +1383,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-f61996b5-c4c9-4551-bb10-29aaa7c5bcde/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1399,7 +1399,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-BQ55MYKN/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1415,7 +1415,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-6b64edb0-2cad-4fc6-935a-207b64b743d5/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1431,7 +1431,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-38ce2a2e-daeb-420e-aa4b-f70966e9756d/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1447,7 +1447,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-O8SY9NGJ/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1463,7 +1463,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-85DMHWQJ/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1479,7 +1479,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-XU9T4JHQ/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1495,7 +1495,7 @@ class AddPortfolio extends Command
                 'certificate_url' => 'https://www.udemy.com/certificate/UC-50b102c5-21aa-40af-84f9-f9e63fd416cb/',
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             /*
@@ -1512,14 +1512,14 @@ class AddPortfolio extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -1588,7 +1588,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -1630,7 +1630,7 @@ class AddPortfolio extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'              => 1,
             ],
             [
                 'id'                     => $this->jobId[2],
@@ -1653,7 +1653,7 @@ class AddPortfolio extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public' => 1,
+                'is_public'              => 1,
             ],
             [
                 'id'                     => $this->jobId[3],
@@ -1676,7 +1676,7 @@ class AddPortfolio extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'              => 1,
             ],
             [
                 'id'                     => $this->jobId[4],
@@ -1699,7 +1699,7 @@ class AddPortfolio extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'              => 1,
             ],
             [
                 'id'                     => $this->jobId[5],
@@ -1722,7 +1722,7 @@ class AddPortfolio extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'              => 1,
             ],
             [
                 'id'                     => $this->jobId[6],
@@ -1745,7 +1745,7 @@ class AddPortfolio extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'              => 1,
             ],
             [
                 'id'                     => $this->jobId[7],
@@ -1768,12 +1768,12 @@ class AddPortfolio extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'              => 1,
             ],
         ];
 
         if (!empty($data)) {
-            $jobModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            $jobModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -1786,35 +1786,35 @@ class AddPortfolio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Kevin Hemsley',         'title' => 'Project Manager, National and Homeland Security Directorate', 'level_id' => 2, 'work_phone' => '(208) 526-0507', 'personal_phone' => '(208) 317-3644', 'work_email' => 'kevin.hemsley@inl.gov', 'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/',       'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Paul Davis',            'title' => 'Project Lead',                                   'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(913) 608-5399',  'work_email' => 'paul.davis@inl.gov',                'personal_email' => 'prtdavis2@yahoo.com',        'link' => null,                                                         'link_name' => null       ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Alen Kahen',            'title' => 'Senior Developer',                               'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(917) 685-6003',  'work_email' => 'alen.kahen@inl.com',                'personal_email' => 'akahen@live.com',            'link' => 'https://www.linkedin.com/in/alenkahen/',                     'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Nancy Gomez Dominguez', 'title' => null,                                             'level_id' => 1, 'work_phone' => '(208) 526-4280', 'personal_phone' => '(603) 779-2707',  'work_email' => 'nancy.gomezdominguez@inl.gov',      'personal_email' => 'ngd.00@outlook.com',         'link' => null,                                                         'link_name' => null       ],
-            [ 'job_id' => $this->jobId[2], 'name' => 'Tegan Snyder',          'title' => 'Specialist Marketing',                           'level_id' => 2, 'work_phone' => '651-733-7986',   'personal_phone' => '+1 612-559-3685', 'work_email' => 'tsnyder@mmm.com',                   'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/tegansnyder/',                   'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[2], 'name' => 'Ben Carey',             'title' => 'Application Developer',                          'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/benjamintcarey/',                'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[2], 'name' => 'Nils Haugen',           'title' => 'Regulatory Syndication Lead',                    'level_id' => 2, 'work_phone' => '(651) 737-8027', 'personal_phone' => null,              'work_email' => 'nhaugen2@mmm.com',                  'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/nils-haugen/',                   'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Matt McCall',           'title' => 'Senior Software Development Manager',            'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(612) 812-9827',  'work_email' => null,                                'personal_email' => 'matt.mccall.2121@gmail.com', 'link' => 'https://www.linkedin.com/in/matt-mccall-6342346/',           'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Don Westendorp',        'title' => 'PHP Lead',                                       'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(612) 290-6766',  'work_email' => null,                                'personal_email' => 'don@fullstackdon.com',       'link' => 'https://www.linkedin.com/in/donald-w-2093141a2/',            'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Christopher Browning',  'title' => 'PHP Developer',                                  'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(304) 266-7715',  'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/christopher-browning-6b43b9b7/', 'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Tamara Barum',          'title' => 'Software Development Manager',                   'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(612) 282-5100',  'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/tamarajbarum/',                  'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Bob Schnurr',           'title' => 'Scrum Master',                                   'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(651) 983-3683',  'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/robertwschnurr/',                'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Lance Bailles',         'title' => 'Senior Front-End Developer',                     'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => 'lancebailles@hotmail.com',   'link' => 'https://www.linkedin.com/in/lance-bailles-a89b78100/',       'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Sarah Wilson',          'title' => 'Principal Production Editor',                    'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(507) 290-0608',  'work_email' => 'swilson@questarai.com',             'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/sarah-wilson-2434585b/',         'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Gavin Duffy',           'title' => 'Senior Graphic Artist',                          'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/gavinduffy1/',                   'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[3], 'name' => 'Sylvia Vassileva',      'title' => 'Technical Solutions Architect at MentorMate',    'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/sylvia-vassileva/',              'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Tom Avery',             'title' => 'Chief Technology Officer',                       'level_id' => 2, 'work_phone' => null,             'personal_phone' => '(954) 993-2367',  'work_email' => 'tom.avery@logangroupservices.com',  'personal_email' => 'txtilde@gmail.com',          'link' => 'https://www.linkedin.com/in/tom-avery-957301275/',           'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Bryan Hughes',          'title' => 'Software Development Manager',                   'level_id' => 1, 'work_phone' => null,             'personal_phone' => '954-326-4020',    'work_email' => 'bhughes@klma.com',                  'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/hugheba/',                       'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Gaston Longhitano',     'title' => 'Senior Software Engineer - Full Stack Engineer', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(786) 281-0224',  'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/gastonlonghitano/',              'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Joseph Yanni',          'title' => 'Lead Developer',                                 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(561) 707-0540',  'work_email' => null,                                'personal_email' => 'jyanni@gmail.com',           'link' => 'https://www.linkedin.com/in/josephyanni/',                   'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[4], 'name' => 'Jorge Coello',          'title' => 'Senior Software Developer',                      'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/jorgecoello/',                   'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[5], 'name' => 'Thor Mirchandani',      'title' => 'Owner',                                          'level_id' => 1, 'work_phone' => '(336) 499-3796', 'personal_phone' => '(336) 995-0084',  'work_email' => 'tmirchandani@presensit.com',                'personal_email' => null,                 'link' => null,                                                         'link_name' => null       ],
-            [ 'job_id' => $this->jobId[5], 'name' => 'Pat Cheely',            'title' => 'Director ID',                                    'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(336) 509-1933',  'work_email' => null,                                'personal_email' => 'pat.cheely@gmail.com',       'link' => 'https://www.linkedin.com/in/patcheely/',                     'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[6], 'name' => 'Ethan Bailey',          'title' => 'Vice President of Information Technology',       'level_id' => 2, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/ethanbailey/',                   'link_name' => 'LinkedIn' ],
-            //[ 'job_id' => $this->jobId[x], 'name' => 'Ethan Bailey',          'title' => '',                                               'level_id' => 2, 'work_phone' => null,             'personal_phone' => null,              'work_email' => null,                                'personal_email' => null,                         'link' => null,                                                       'link_name' => null       ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Kevin Hemsley',         'title' => 'Project Manager, National and Homeland Security Directorate', 'level_id' => 2, 'phone' => '(208) 526-0507', 'phone_label' => 'work',     'alt_phone' => '(208) 317-3644',  'email' => 'kevin.hemsley@inl.gov',             'email_label' => 'work',      'alt_email' => null,                 'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/',       'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Paul Davis',            'title' => 'Project Lead',                                                'level_id' => 2, 'phone' => '(913) 608-5399', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'paul.davis@inl.gov',                'email_label' => 'work',     'alt_email' => 'prtdavis2@yahoo.com', 'link' => null,                                                         'link_name' => null       ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Alen Kahen',            'title' => 'Senior Developer',                                            'level_id' => 1, 'phone' => '(917) 685-6003', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'alen.kahen@inl.com',                'email_label' => 'work',     'alt_email' => 'akahen@live.com',     'link' => 'https://www.linkedin.com/in/alenkahen/',                     'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Nancy Gomez Dominguez', 'title' => null,                                                          'level_id' => 1, 'phone' => '(208) 526-4280', 'phone_label' => 'work',     'alt_phone' => '(603) 779-2707',  'email' => 'nancy.gomezdominguez@inl.gov',      'email_label' => 'work',     'alt_email' => 'ngd.00@outlook.com',  'link' => null,                                                         'link_name' => null       ],
+            [ 'job_id' => $this->jobId[2], 'name' => 'Tegan Snyder',          'title' => 'Specialist Marketing',                                        'level_id' => 2, 'phone' => '651-733-7986',   'phone_label' => 'work',     'alt_phone' => '+1 612-559-3685', 'email' => 'tsnyder@mmm.com',                   'email_label' => 'work',     'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/tegansnyder/',                   'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[2], 'name' => 'Ben Carey',             'title' => 'Application Developer',                                       'level_id' => 1, 'phone' => null,             'phone_label' => 'work',     'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/benjamintcarey/',                'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[2], 'name' => 'Nils Haugen',           'title' => 'Regulatory Syndication Lead',                                 'level_id' => 2, 'phone' => '(651) 737-8027', 'phone_label' => 'work',     'alt_phone' => null,              'email' => 'nhaugen2@mmm.com',                  'email_label' => 'work',     'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/nils-haugen/',                   'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Matt McCall',           'title' => 'Senior Software Development Manager',                         'level_id' => 2, 'phone' => '(612) 812-9827', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'matt.mccall.2121@gmail.com',        'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/matt-mccall-6342346/',           'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Don Westendorp',        'title' => 'PHP Lead',                                                    'level_id' => 1, 'phone' => '(612) 290-6766', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'don@fullstackdon.com',              'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/donald-w-2093141a2/',            'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Christopher Browning',  'title' => 'PHP Developer',                                               'level_id' => 1, 'phone' => '(304) 266-7715', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/christopher-browning-6b43b9b7/', 'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Tamara Barum',          'title' => 'Software Development Manager',                                'level_id' => 2, 'phone' => '(612) 282-5100', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/tamarajbarum/',                  'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Bob Schnurr',           'title' => 'Scrum Master',                                                'level_id' => 1, 'phone' => '(651) 983-3683', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/robertwschnurr/',                'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Lance Bailles',         'title' => 'Senior Front-End Developer',                                  'level_id' => 1, 'phone' => null,             'phone_label' => 'work',     'alt_phone' => null,              'email' => 'lancebailles@hotmail.com',          'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/lance-bailles-a89b78100/',       'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Sarah Wilson',          'title' => 'Principal Production Editor',                                 'level_id' => 1, 'phone' => '(507) 290-0608', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'swilson@questarai.com',             'email_label' => 'work',     'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/sarah-wilson-2434585b/',         'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Gavin Duffy',           'title' => 'Senior Graphic Artist',                                       'level_id' => 1, 'phone' => null,             'phone_label' => 'work',     'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/gavinduffy1/',                   'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[3], 'name' => 'Sylvia Vassileva',      'title' => 'Technical Solutions Architect at MentorMate',                 'level_id' => 1, 'phone' => null,             'phone_label' => 'work',     'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/sylvia-vassileva/',              'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Tom Avery',             'title' => 'Chief Technology Officer',                                    'level_id' => 2, 'phone' => '(954) 993-2367', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'tom.avery@logangroupservices.com',  'email_label' => 'work',     'alt_email' => 'txtilde@gmail.com',   'link' => 'https://www.linkedin.com/in/tom-avery-957301275/',           'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Bryan Hughes',          'title' => 'Software Development Manager',                                'level_id' => 1, 'phone' => '954-326-4020',   'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'bhughes@klma.com',                  'email_label' => 'work',     'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/hugheba/',                       'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Gaston Longhitano',     'title' => 'Senior Software Engineer - Full Stack Engineer',              'level_id' => 1, 'phone' => '(786) 281-0224', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/gastonlonghitano/',              'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Joseph Yanni',          'title' => 'Lead Developer',                                              'level_id' => 1, 'phone' => '(786) 281-0224', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'jyanni@gmail.com',                  'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/josephyanni/',                   'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[4], 'name' => 'Jorge Coello',          'title' => 'Senior Software Developer',                                   'level_id' => 1, 'phone' => null,             'phone_label' => 'work',     'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/jorgecoello/',                   'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[5], 'name' => 'Thor Mirchandani',      'title' => 'Owner',                                                       'level_id' => 1, 'phone' => '(336) 499-3796', 'phone_label' => 'work',     'alt_phone' => '(336) 995-0084',  'email' => 'tmirchandani@presensit.com',        'email_label' => 'work',     'alt_email' => null,                  'link' => null,                                                         'link_name' => null       ],
+            [ 'job_id' => $this->jobId[5], 'name' => 'Pat Cheely',            'title' => 'Director ID',                                                 'level_id' => 1, 'phone' => '(336) 509-1933', 'phone_label' => 'personal', 'alt_phone' => null,              'email' => 'pat.cheely@gmail.com',              'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/patcheely/',                     'link_name' => 'LinkedIn' ],
+            [ 'job_id' => $this->jobId[6], 'name' => 'Ethan Bailey',          'title' => 'Vice President of Information Technology',                    'level_id' => 2, 'phone' => null,             'phone_label' => 'work',     'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => 'https://www.linkedin.com/in/ethanbailey/',                   'link_name' => 'LinkedIn' ],
+            //[ 'job_id' => $this->jobId[x], 'name' => 'Ethan Bailey',          'title' => '',                                                            'level_id' => 2, 'phone' => null,             'phone_label' => 'work',     'alt_phone' => null,              'email' => null,                                'email_label' => 'personal', 'alt_email' => null,                  'link' => null,                                                       'link_name' => null       ],
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -1827,69 +1827,69 @@ class AddPortfolio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobSkills ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'Vue.js',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'JavaScript ES6',               'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'CodeIgniter',                  'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'Internet Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[2],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[2],  'name' => 'Vue.js',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[2],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[2],  'name' => 'Elasticsearch',                'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[2],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[2],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[2],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[2],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[3],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[3],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[3],  'name' => 'PostgreSQL',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[3],  'name' => 'XML',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[3],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[3],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[3],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[3],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'Symfony2',                     'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'Zend Framework',               'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'Nginx',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'Apache2',                      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'Internet Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[4],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'PDFLib',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'Apache2',                      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[5],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[6],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[6],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[6],  'name' => 'Oracle',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[6],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[6],  'name' => 'Windows',                      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[6],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[6],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[6],  'name' => 'SQL',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[7],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[7],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[7],  'name' => 'Windows',                      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[7],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[7],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null, 'public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Vue.js',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'JavaScript ES6',               'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'CodeIgniter',                  'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Internet Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Vue.js',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Elasticsearch',                'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'PostgreSQL',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'XML',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Symfony2',                     'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Zend Framework',               'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Nginx',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Apache2',                      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Internet Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'PDFLib',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'Apache2',                      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'Oracle',                       'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'Windows',                      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'SQL',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'Windows',                      'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null, 'is_public' => 1 ],
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -1917,7 +1917,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -1930,14 +1930,14 @@ class AddPortfolio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
-            [ 'name' => 'LinkedIn',                             'slug' => 'linkedin',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.linkedin.com/in/craig-zearfoss/',    'public' => 1, 'sequence' => 0, 'description' => null ],
-            [ 'name' => 'GitHub',                               'slug' => 'github',                              'featured' => 1, 'summary' => null, 'url' => 'https://github.com/craigzearfoss',               'public' => 1, 'sequence' => 1, 'description' => null ],
-            [ 'name' => 'Facebook',                             'slug' => 'facebook',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.facebook.com/craig.zearfoss',        'public' => 1, 'sequence' => 2, 'description' => null ],
-            [ 'name' => 'Craig Zearfoss Collection, 1988-2008', 'slug' => 'craig-zearfoss-collection-1988-2008', 'featured' => 1, 'summary' => null, 'url' => 'https://finding-aids.lib.unc.edu/catalog/20509', 'public' => 1, 'sequence' => 3, 'description' => '<p>A publicly available collection of live video recordings I made from 1994 to 2002. The collection also includes audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.</p>' ],
+            [ 'name' => 'LinkedIn',                             'slug' => 'linkedin',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.linkedin.com/in/craig-zearfoss/',    'is_public' => 1, 'sequence' => 0, 'description' => null ],
+            [ 'name' => 'GitHub',                               'slug' => 'github',                              'featured' => 1, 'summary' => null, 'url' => 'https://github.com/craigzearfoss',               'is_public' => 1, 'sequence' => 1, 'description' => null ],
+            [ 'name' => 'Facebook',                             'slug' => 'facebook',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.facebook.com/craig.zearfoss',        'is_public' => 1, 'sequence' => 2, 'description' => null ],
+            [ 'name' => 'Craig Zearfoss Collection, 1988-2008', 'slug' => 'craig-zearfoss-collection-1988-2008', 'featured' => 1, 'summary' => null, 'url' => 'https://finding-aids.lib.unc.edu/catalog/20509', 'is_public' => 1, 'sequence' => 3, 'description' => '<p>A publicly available collection of live video recordings I made from 1994 to 2002. The collection also includes audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.</p>' ],
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -1978,7 +1978,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 0,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[2],
@@ -2000,7 +2000,7 @@ class AddPortfolio extends Command
                 'description'    => "<p>Although I wasn't directly involved in this project, money from the sale of the Zen Frisbee CD was used to partially fund this CD. It's a an amazing guitar instrumental band that isn\'t surf music so much as movie soundtracks.</p>",
                 'image'          => 'https://i.discogs.com/n54HD-J69ubJn1AThIihnRnxR590dlPK0dqtYuVpuI4/rs:fit/g:sm/q:90/h:239/w:240/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNjYz/OTktMTQxNTg5NzM2/NC04NzIzLmpwZWc.jpeg',
                 'sequence'       => 2,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[3],
@@ -2022,7 +2022,7 @@ class AddPortfolio extends Command
                 'description'    => 'I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[4],
@@ -2044,7 +2044,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[5],
@@ -2066,7 +2066,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[6],
@@ -2088,7 +2088,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[7],
@@ -2110,7 +2110,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[8],
@@ -2132,7 +2132,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[9],
@@ -2154,7 +2154,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[10],
@@ -2176,7 +2176,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[11],
@@ -2198,7 +2198,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[12],
@@ -2220,7 +2220,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[13],
@@ -2242,7 +2242,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[14],
@@ -2264,7 +2264,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[15],
@@ -2286,7 +2286,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[16],
@@ -2308,7 +2308,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[17],
@@ -2330,7 +2330,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I financed and co-executive produced (along with Dave Jimenez) the debut CD of the seminal Chapel Hill, NC band Zen Frisbee. It was greatly received by to local music community, but, unfortunately, they were never able to break out beyond the regional market. Being able to facilitate the creation of this CD is one of the best things I\'ve done in my life ... to date.</p><p>The band and everyone involved in this project owes a tremendous debt of gratitude to <a href="https://en.wikipedia.org/wiki/Caleb_Southern" target="_blank">Caleb Southern</a> who worked tirelessly to capture this unique band. He went on to work with such bands as Archers of Loaf and Ben Folds Five. He passed away far to young in 2023 at the age of 53.',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[18],
@@ -2352,7 +2352,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[19],
@@ -2374,7 +2374,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[20],
@@ -2396,7 +2396,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[21],
@@ -2418,7 +2418,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[22],
@@ -2440,7 +2440,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[23],
@@ -2462,7 +2462,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[24],
@@ -2484,7 +2484,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[25],
@@ -2506,7 +2506,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[26],
@@ -2528,7 +2528,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[27],
@@ -2550,7 +2550,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[28],
@@ -2572,7 +2572,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[29],
@@ -2594,7 +2594,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[30],
@@ -2616,7 +2616,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[31],
@@ -2638,7 +2638,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[32],
@@ -2660,7 +2660,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[33],
@@ -2682,7 +2682,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[34],
@@ -2704,7 +2704,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[35],
@@ -2726,7 +2726,7 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
             [
                 'id'             => $id[36],
@@ -2748,12 +2748,12 @@ class AddPortfolio extends Command
                 'description'    => '<p>I organized the filming and recording of the inaugural <i>Sleazefest!</i>, a 2-day festival of garage rock, B-movies, and barbecue that took place at Local 506 in Chapel Hill, NC in August of 1994. I was the co-executive producer of the CD/double album along with Matt Johnson. (In other words I financed it.) The great Dave Schmitt produced it, and it was master by Brent Lambert in The Kitchen, Chapel Hill, NC.</p>',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
-                'public'         => 1,
+                'is_public'      => 1,
             ],
         ];
 
         if (!empty($data)) {
-            $musicModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            $musicModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -2879,7 +2879,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -2901,8 +2901,8 @@ EOD,
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => null,
-                'year'              => 2025,
+                'publication_date'  => null,
+                'publication_year'  => 2025,
                 'credit'            => null,
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -2923,13 +2923,13 @@ EOD,
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'         => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -2942,49 +2942,49 @@ EOD,
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'type' => 1, 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 8,   'start_year' => 2016, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'type' => 1, 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 4,   'start_year' => 2021, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'type' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 4,   'start_year' => 2013, 'end_year' => 2016, 'public' => 1 ],
-            [ 'name' => 'Symfony',           'slug' => 'symfony',           'version' => null, 'type' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 1,  'years' => 4,   'start_year' => 2011, 'end_year' => 2016, 'public' => 1 ],
-            [ 'name' => 'Vue.js',            'slug' => 'vue-js',            'version' => null, 'type' => 1, 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 8,  'years' => 5,   'start_year' => 2019, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'jQuery',            'slug' => 'jquery',            'version' => null, 'type' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 10, 'years' => 18,  'start_year' => 2006, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'React',             'slug' => 'react',             'version' => null, 'type' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 18,  'start_year' => 2006, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'JavaScript',        'slug' => 'javascript',        'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 9,  'years' => 18,  'start_year' => 2006, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'PHP',               'slug' => 'php',               'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 10, 'years' => 25,  'start_year' => 1998, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'SQL',               'slug' => 'sql',               'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 9,  'years' => 25,  'start_year' => 1998, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Powershell',        'slug' => 'powershell',        'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 3,  'years' => 2,   'start_year' => null, 'end_year' => 2019, 'public' => 1 ],
-            [ 'name' => 'BASH',              'slug' => 'bash',              'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 6,  'years' => 5,   'start_year' => 2000, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'DOS',               'slug' => 'dos',               'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 6,  'years' => 5,   'start_year' => 2000, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'MySQL',             'slug' => 'mysql',             'version' => null, 'type' => 1, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 9,  'years' => 25,  'start_year' => 1998, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'MariaDB',           'slug' => 'mariadb',           'version' => null, 'type' => 1, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 9,  'years' => 4,   'start_year' => 2021, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Postgres',          'slug' => 'postgres',          'version' => null, 'type' => 1, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 8,  'years' => 3,   'start_year' => 2016, 'end_year' => 2019, 'public' => 1 ],
-            [ 'name' => 'MongoDB',           'slug' => 'mongodb',           'version' => null, 'type' => 1, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 3,  'years' => 1,   'start_year' => null, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Elasticsearch',     'slug' => 'elasticsearch',     'version' => null, 'type' => 1, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 3,  'years' => 1,   'start_year' => 2019, 'end_year' => 2021, 'public' => 1 ],
-            [ 'name' => 'Linux',             'slug' => 'linux',             'version' => null, 'type' => 1, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 8,  'years' => 14,  'start_year' => 2011, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Ubuntu',            'slug' => 'ubuntu',            'version' => null, 'type' => 1, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 7,  'years' => 14,  'start_year' => 2011, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Windows',           'slug' => 'windows',           'version' => null, 'type' => 1, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 8,  'years' => 30,  'start_year' => 1995, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'macOS',             'slug' => 'macos',             'version' => null, 'type' => 1, 'dictionary_category_id' => 17,  'featured' => 0, 'level' => 4,  'years' => 2,   'start_year' => 2023, 'end_year' => 2025, 'public' => 1 ],
-            [ 'name' => 'Apache2',           'slug' => 'apache2',           'version' => null, 'type' => 1, 'dictionary_category_id' => 26,  'featured' => 0, 'level' => 8,  'years' => 4,   'start_year' => 2011, 'end_year' => 2014, 'public' => 1 ],
-            [ 'name' => 'Nginx',             'slug' => 'nginx',             'version' => null, 'type' => 1, 'dictionary_category_id' => 26,  'featured' => 0, 'level' => 7,  'years' => 9,   'start_year' => 2016, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Git',               'slug' => 'git',               'version' => null, 'type' => 1, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 8,  'years' => 12,  'start_year' => 2011, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'JIRA',              'slug' => 'jira',              'version' => null, 'type' => 1, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 7,  'years' => 7,   'start_year' => 2011, 'end_year' => 2019, 'public' => 1 ],
-            [ 'name' => 'HTML5',             'slug' => 'html5',             'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 15,  'start_year' => 2010, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'CSS3',              'slug' => 'css3',              'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20,  'start_year' => 2005, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'DOM',               'slug' => 'dom',               'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 10, 'years' => 18,  'start_year' => 2006, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'JSX',               'slug' => 'jsx',               'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 1,   'start_year' => null, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Ajax',              'slug' => 'ajax',              'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 18,  'start_year' => 2006, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Twitter Bootstrap', 'slug' => 'twitter-bootstrap', 'version' => null, 'type' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 7,  'years' => 9,   'start_year' => 2016, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'Bulma',             'slug' => 'bulma',             'version' => null, 'type' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 4,  'years' => 1,   'start_year' => 2025, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'JSON',              'slug' => 'json',              'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 10, 'years' => 18,  'start_year' => 2006, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'REST',              'slug' => 'rest',              'version' => null, 'type' => 1, 'dictionary_category_id' => 16,  'featured' => 0, 'level' => 9,  'years' => 9,   'start_year' => 2016, 'end_year' => null, 'public' => 1 ],
-            [ 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 3,   'start_year' => 2016, 'end_year' => 2019, 'public' => 1 ],
-            [ 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'type' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 3,   'start_year' => 2016, 'end_year' => 2019, 'public' => 1 ],
-            [ 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'type' => 1, 'dictionary_category_id' => 19,  'featured' => 0, 'level' => 4,  'years' => 1,   'start_year' => null, 'end_year' => null, 'public' => 1 ],
-            //[ 'name' => '',                  'slug' => '',                  'version' => null, 'type' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'public' => 1 ],
+            [ 'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 8,   'start_year' => 2016, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 4,   'start_year' => 2021, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 4,   'start_year' => 2013, 'end_year' => 2016, 'is_public' => 1 ],
+            [ 'name' => 'Symfony',           'slug' => 'symfony',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 1,  'years' => 4,   'start_year' => 2011, 'end_year' => 2016, 'is_public' => 1 ],
+            [ 'name' => 'Vue.js',            'slug' => 'vue-js',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 8,  'years' => 5,   'start_year' => 2019, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'jQuery',            'slug' => 'jquery',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 10, 'years' => 18,  'start_year' => 2006, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'React',             'slug' => 'react',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 18,  'start_year' => 2006, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JavaScript',        'slug' => 'javascript',        'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 9,  'years' => 18,  'start_year' => 2006, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'PHP',               'slug' => 'php',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 10, 'years' => 25,  'start_year' => 1998, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'SQL',               'slug' => 'sql',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 9,  'years' => 25,  'start_year' => 1998, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Powershell',        'slug' => 'powershell',        'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 3,  'years' => 2,   'start_year' => null, 'end_year' => 2019, 'is_public' => 1 ],
+            [ 'name' => 'BASH',              'slug' => 'bash',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 6,  'years' => 5,   'start_year' => 2000, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'DOS',               'slug' => 'dos',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 6,  'years' => 5,   'start_year' => 2000, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MySQL',             'slug' => 'mysql',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 9,  'years' => 25,  'start_year' => 1998, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MariaDB',           'slug' => 'mariadb',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 9,  'years' => 4,   'start_year' => 2021, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Postgres',          'slug' => 'postgres',          'version' => null, 'type_id' => 1, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 8,  'years' => 3,   'start_year' => 2016, 'end_year' => 2019, 'is_public' => 1 ],
+            [ 'name' => 'MongoDB',           'slug' => 'mongodb',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 3,  'years' => 1,   'start_year' => null, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Elasticsearch',     'slug' => 'elasticsearch',     'version' => null, 'type_id' => 1, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 3,  'years' => 1,   'start_year' => 2019, 'end_year' => 2021, 'is_public' => 1 ],
+            [ 'name' => 'Linux',             'slug' => 'linux',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 8,  'years' => 14,  'start_year' => 2011, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ubuntu',            'slug' => 'ubuntu',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 7,  'years' => 14,  'start_year' => 2011, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Windows',           'slug' => 'windows',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 8,  'years' => 30,  'start_year' => 1995, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'macOS',             'slug' => 'macos',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 17,  'featured' => 0, 'level' => 4,  'years' => 2,   'start_year' => 2023, 'end_year' => 2025, 'is_public' => 1 ],
+            [ 'name' => 'Apache2',           'slug' => 'apache2',           'version' => null, 'type_id' => 1, 'dictionary_category_id' => 26,  'featured' => 0, 'level' => 8,  'years' => 4,   'start_year' => 2011, 'end_year' => 2014, 'is_public' => 1 ],
+            [ 'name' => 'Nginx',             'slug' => 'nginx',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 26,  'featured' => 0, 'level' => 7,  'years' => 9,   'start_year' => 2016, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Git',               'slug' => 'git',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 8,  'years' => 12,  'start_year' => 2011, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JIRA',              'slug' => 'jira',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 7,  'years' => 7,   'start_year' => 2011, 'end_year' => 2019, 'is_public' => 1 ],
+            [ 'name' => 'HTML5',             'slug' => 'html5',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 15,  'start_year' => 2010, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CSS3',              'slug' => 'css3',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20,  'start_year' => 2005, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'DOM',               'slug' => 'dom',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 10, 'years' => 18,  'start_year' => 2006, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JSX',               'slug' => 'jsx',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 1,   'start_year' => null, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ajax',              'slug' => 'ajax',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 18,  'start_year' => 2006, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Twitter Bootstrap', 'slug' => 'twitter-bootstrap', 'version' => null, 'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 7,  'years' => 9,   'start_year' => 2016, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Bulma',             'slug' => 'bulma',             'version' => null, 'type_id' => 1, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 4,  'years' => 1,   'start_year' => 2025, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JSON',              'slug' => 'json',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 10, 'years' => 18,  'start_year' => 2006, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'REST',              'slug' => 'rest',              'version' => null, 'type_id' => 1, 'dictionary_category_id' => 16,  'featured' => 0, 'level' => 9,  'years' => 9,   'start_year' => 2016, 'end_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 3,   'start_year' => 2016, 'end_year' => 2019, 'is_public' => 1 ],
+            [ 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'type_id' => 1, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 3,   'start_year' => 2016, 'end_year' => 2019, 'is_public' => 1 ],
+            [ 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'type_id' => 1, 'dictionary_category_id' => 19,  'featured' => 0, 'level' => 4,  'years' => 1,   'start_year' => null, 'end_year' => null, 'is_public' => 1 ],
+            //[ 'name' => '',                  'slug' => '',                  'version' => null, 'type_id' => 1, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'end_year' => null, 'is_public' => 1 ],
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -3011,7 +3011,7 @@ EOD,
                 'credit'           => 'Craig Zearfoss, Rob Linder',
                 'show'             => 'Live Around Town',
                 'location'         => 'Chapel Hill, NC and Raleigh, NC',
-                'public'           => 1,
+                'is_public'        => 1,
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vGobMdqmulI?si=AvM5y69Pgkv_6FKD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/vGobMdqmulI?si=84OJZ8hM2P2BhKHk',
                 'link_name'        => 'YouTube',
@@ -3035,7 +3035,7 @@ EOD,
                 'link'             => 'https://youtu.be/DCfjWDD4HMw?si=ozn-YOXDbDQVLaCH',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Live Around Town - episode 3',
@@ -3055,7 +3055,7 @@ EOD,
                 'link'             => 'https://youtu.be/QpoHRSwvC6I?si=yqoYiulhq2Mm-82W',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Live Around Town - episode 4',
@@ -3075,7 +3075,7 @@ EOD,
                 'link'             => 'https://youtu.be/PJ_rOzaCMTE?si=Rq4J13VnMIR25gIs',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Live Around Town - episode 5',
@@ -3095,7 +3095,7 @@ EOD,
                 'link'             => 'https://youtu.be/iOSVHuAXYlU?si=dnGV-wUAUPKVOlk3',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Bandelirium from the Cave in Chapel Hill, NC - episode 1',
@@ -3115,7 +3115,7 @@ EOD,
                 'link'             => 'https://youtu.be/CxHwQM74eno?si=Bm_62bBD2RO1zTYd',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Bandelirium from the Cave in Chapel Hill, NC - episode 2',
@@ -3135,7 +3135,7 @@ EOD,
                 'link'             => 'https://youtu.be/QtmqTI1YK2M?si=JyhqD3-IeHgZW7nG',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Bandelirium from the Cave in Chapel Hill, NC - episode 3',
@@ -3155,7 +3155,7 @@ EOD,
                 'link'             => 'https://youtu.be/7yDv19IU9EY?si=giCY3E8ESHCW0PBZ',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Sleazefest: The Movie',
@@ -3175,7 +3175,7 @@ EOD,
                 'link'             => 'https://youtu.be/EFUzw85z8hU?si=KxJ6WE0TNO_Ow0Bg',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'The Woggles - Ramadan Romance',
@@ -3195,7 +3195,7 @@ EOD,
                 'link'             => 'https://youtu.be/NjiOGW_wkIY?si=DLblWHZD8gGyENWC',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
 
             [
@@ -3216,7 +3216,7 @@ EOD,
                 'link'             => 'https://youtu.be/1sp_U2ROdn8?si=_P3nIBuPfbjPVb4l',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Shark Quest on Live @ the Cave',
@@ -3236,7 +3236,7 @@ EOD,
                 'link'             => 'https://youtu.be/BVLFp-Pe2m0?si=AdYE6hQ2Rd4B5bGa',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Lud on Live @ the Cave',
@@ -3256,7 +3256,7 @@ EOD,
                 'link'             => 'https://youtu.be/CWDu6Vou2mo?si=H0gTFXyScmYisuTI',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Transportation on Live @ the Cave',
@@ -3276,7 +3276,7 @@ EOD,
                 'link'             => 'https://youtu.be/QpW8PIWGs5I?si=JwX9hpWJmpv1Q5lO',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Trailer Bride on Live @ the Cave',
@@ -3296,7 +3296,7 @@ EOD,
                 'link'             => 'https://youtu.be/gibuGcpZF7A?si=sSZRfKFgVvlSyd4a',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Evil Wiener on Live @ the Cave',
@@ -3316,7 +3316,7 @@ EOD,
                 'link'             => 'https://youtu.be/OCpQf5siO0M?si=EgcxNKHmUCug74ZH',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Clok-Lok on Live @ the Cave',
@@ -3336,7 +3336,7 @@ EOD,
                 'link'             => 'https://youtu.be/tacQld_hcGg?si=cOCdBlDT3B_Whdpi',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Ghost of Rock on Live @ the Cave',
@@ -3356,7 +3356,7 @@ EOD,
                 'link'             => 'https://youtu.be/2E-2ZvvMYV8?si=1vsUbToX709hmCjz',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Morris on Live @ the Cave',
@@ -3376,7 +3376,7 @@ EOD,
                 'link'             => 'https://youtu.be/VTVv3Mk8OtI?si=-vsYSlR34IAubT92',
                 'link_name'        => 'YouTube',
                 'description'      => 'Performing I\'m Not the One to Choose',
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Chris Smith on Live @ the Cave',
@@ -3396,7 +3396,7 @@ EOD,
                 'link'             => 'https://youtu.be/H0hg22giaDM?si=3ojMppZcK8E2R384',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Kitty Box and the Alley Cats on Live @ the Cave',
@@ -3416,7 +3416,7 @@ EOD,
                 'link'             => 'https://youtu.be/v8oteqf-nW8?si=BvxEnbk1DnrLyYAI',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Dom Casual on Live @ the Cave',
@@ -3436,7 +3436,7 @@ EOD,
                 'link'             => 'https://youtu.be/wHp9bObySSk?si=50KhLnbPlOI28iw7',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Malt Swagger on Live @ the Cave',
@@ -3456,7 +3456,7 @@ EOD,
                 'link'             => 'https://youtu.be/LUcldiQPy7A?si=1DhP8BycELWb2lN-',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'The Lucy Stoners - on Live @ the Cave',
@@ -3476,7 +3476,7 @@ EOD,
                 'link'             => 'https://youtu.be/YFGyGs61D9U?si=bnES-w4eTwyY7mCy',
                 'link_name'        => 'YouTube',
                 'description'      => 'Performing Not Half of Us.',
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Chuck Chuck Goose on Live @ the Cave',
@@ -3496,7 +3496,7 @@ EOD,
                 'link'             => 'https://youtu.be/C1N8np3OOGM?si=bftOeUZ5pOlA--9J',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'David Spencer on Live @ the Cave',
@@ -3516,7 +3516,7 @@ EOD,
                 'link'             => 'https://youtu.be/CL5pVZoIGkU?si=O-C--dbGqVWEa0uv',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Roman Candles on Live @ the Cave',
@@ -3536,7 +3536,7 @@ EOD,
                 'link'             => 'https://youtu.be/a4Jm6FokBso?si=dQqMupWCigGDN9-W',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Hobart Willis and the Back Forty on Live @ the Cave',
@@ -3556,7 +3556,7 @@ EOD,
                 'link'             => 'https://youtu.be/BcP-0LC8nUQ?si=OxgDpCmkNaQhcudZ',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Chupa Chup on Live @ the Cave',
@@ -3576,7 +3576,7 @@ EOD,
                 'link'             => 'https://youtu.be/J7EBVGJOuGM?si=sdQoP9hCzwI97RYH',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Pistol Pete and Popgun Paul on Live @ the Cave',
@@ -3596,7 +3596,7 @@ EOD,
                 'link'             => '',
                 'link_name'        => '',
                 'description'      => 'Performing Never Be Straight',
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Dexter Romweber on Live @ the Cave',
@@ -3616,7 +3616,7 @@ EOD,
                 'link'             => 'https://youtu.be/co6BuJKbUcc?si=90y73q0D_nvNmlfu',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Dexter Romweber on Live @ the Cave - Brazil',
@@ -3636,7 +3636,7 @@ EOD,
                 'link'             => 'https://youtu.be/mI04UiU_smI?si=aF_z7B5rpbUcUpmg',
                 'link_name'        => 'YouTube',
                 'description'      => 'Performing Brazil',
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Z-TV with Dexter Romweber',
@@ -3656,7 +3656,7 @@ EOD,
                 'link'             => 'https://youtu.be/zQcKf3Bk6mA?si=M0R6jZVEo9eo-aPF',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'Dreadful - The Somnambulist Project',
@@ -3676,7 +3676,7 @@ EOD,
                 'link'             => 'https://youtu.be/kggOFqg5zYg?si=vJSWXsQ3qvi8pBYR',
                 'link_name'        => 'YouTube',
                 'description'      => 'Conceived, written, and directed by Jason Arkles, this play won accolades as one of the top ten theatrical productions of the year, featuring his puppetry as well as the music by music director Curtis Eller along with the Dreadful Quartet.',
-                'public'           => 1,
+                'is_public'        => 1,
             ],
             [
                 'name'             => 'The Serpent - The Somnambulist Project - 1995 Carrboro Arts Center',
@@ -3696,12 +3696,12 @@ EOD,
                 'link'             => 'https://youtu.be/c4dkSej-mx0?si=2rI-qAkI6IKnbRsW',
                 'link_name'        => 'YouTube',
                 'description'      => null,
-                'public'           => 1,
+                'is_public'        => 1,
             ],
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

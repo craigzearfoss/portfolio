@@ -53,7 +53,7 @@
                 'value' => $resume->id
             ])
 
-            @if($admin->root)
+            @if($admin->is_root)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -167,11 +167,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $resume->public,
-                'readonly'    => old('readonly') ?? $resume->readonly,
-                'root'        => old('root')     ?? $resume->root,
-                'disabled'    => old('disabled') ?? $resume->disabled,
-                'demo'        => old('demo')     ?? $resume->demo,
+                'public'      => old('is_public')   ?? $resume->is_public,
+                'readonly'    => old('is_readonly') ?? $resume->is_readonly,
+                'root'        => old('is_root')     ?? $resume->root,
+                'disabled'    => old('is_disabled') ?? $resume->is_disabled,
+                'demo'        => old('is_demo')     ?? $resume->is_demo,
                 'sequence'    => old('sequence') ?? $resume->sequence,
                 'message'     => $message ?? '',
             ])

@@ -179,11 +179,11 @@
             </div>
 
             @include('admin.components.form-visibility-horizontal', [
-                'root'        => old('root')     ?? 0,
-                'readonly'    => old('readonly') ?? 0,
-                'root'        => old('root')     ?? 0,
-                'disabled'    => old('disabled') ?? 0,
-                'demo'        => old('demo')     ?? 0,
+                'root'        => old('is_root')     ?? 0,
+                'readonly'    => old('is_readonly') ?? 0,
+                'root'        => old('is_root')     ?? 0,
+                'disabled'    => old('is_disabled') ?? 0,
+                'demo'        => old('is_demo')     ?? 0,
                 'sequence'    => old('sequence') ?? 0,
                 'message'     => $message ?? '',
             ])

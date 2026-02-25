@@ -142,9 +142,9 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Paris Street; Rainy Weather', 'artist' => 'Gustave Caillebotte', 'slug' => 'paris-street-rainy weather-by-gustave-caillebotte', 'summary' => null, 'year' => 1877, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Gustave_Caillebotte/paintings-wm/caillebotte016.jpg',                                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
-            [ 'name' => 'Pipe Lite',                   'artist' => 'Ron Liberti',         'slug' => 'pipe-lite-by-ron-liberti',                          'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1700155997410-QNQVSCXLRF5P4BW9XW7A/Pipe+Lite+%231+Test+Print+.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null ],
-            [ 'name' => '(untitled)',                  'artist' => 'Wes Freed',           'slug' => '(untitled-8)-by-wes freed',                         'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image' => 'https://i.pinimg.com/736x/4e/72/ce/4e72cee3880dee1ef216e72ddff4b76c.jpg',                                                                              'link_name' => null,              'link' => null,                             'notes' => null, 'description' => null ],
+            [ 'name' => 'Paris Street; Rainy Weather', 'artist' => 'Gustave Caillebotte', 'slug' => 'paris-street-rainy weather-by-gustave-caillebotte', 'summary' => null, 'year' => 1877, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Gustave_Caillebotte/paintings-wm/caillebotte016.jpg',                                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null ],
+            [ 'name' => 'Pipe Lite',                   'artist' => 'Ron Liberti',         'slug' => 'pipe-lite-by-ron-liberti',                          'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1700155997410-QNQVSCXLRF5P4BW9XW7A/Pipe+Lite+%231+Test+Print+.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null ],
+            [ 'name' => '(untitled)',                  'artist' => 'Wes Freed',           'slug' => '(untitled-8)-by-wes freed',                         'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => 'https://i.pinimg.com/736x/4e/72/ce/4e72cee3880dee1ef216e72ddff4b76c.jpg',                                                                              'link_name' => null,              'link' => null,                             'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
@@ -153,7 +153,7 @@ class DwayneSchneider extends Command
                 'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
@@ -164,7 +164,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -197,13 +197,13 @@ class DwayneSchneider extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -216,8 +216,8 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
-            [ 'name' => 'Golden Globe Award',   'slug' => '1980-golden-globe-award-for-best-supporting-actor-in-a-television-series',      'category' => 'Best Supporting Actor in a Television Series',    'nominated_work' => 'One Day at a Time', 'featured' => 1, 'year' => 1980, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
-            [ 'name' => 'Primetime Emmy Award', 'slug' => '1984-primetime-emmy-award-for-outstanding-supporting-actor-in-a-comedy-series', 'category' => 'Outstanding Supporting Actor in a Comedy Series', 'nominated_work' => 'One Day at a Time', 'featured' => 1, 'year' => 1984, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
+            [ 'name' => 'Golden Globe Award',   'slug' => '1980-golden-globe-award-for-best-supporting-actor-in-a-television-series',      'category' => 'Best Supporting Actor in a Television Series',    'nominated_work' => 'One Day at a Time', 'featured' => 1, 'year' => 1980, 'organization' => 'Hollywood Foreign Correspondents Association', 'is_public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award', 'slug' => '1984-primetime-emmy-award-for-outstanding-supporting-actor-in-a-comedy-series', 'category' => 'Outstanding Supporting Actor in a Comedy Series', 'nominated_work' => 'One Day at a Time', 'featured' => 1, 'year' => 1984, 'organization' => 'Academy of Television Arts & Sciences', 'is_public' => 1 ],
             /*
             [
                 'name'            => '',
@@ -227,13 +227,13 @@ class DwayneSchneider extends Command
                 'featured'        => 0,
                 'year'            => null,
                 'organization'    => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -258,13 +258,13 @@ class DwayneSchneider extends Command
                 'received'        => '0000-00-00',
                 'certificate_url' => null,
                 'description'     => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -277,9 +277,9 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'Learn Node.js',                                                'slug' => 'learn-node-js',                                                 'completed' => 1, 'completion_date' => '2019-01-19', 'year' => 2019, 'duration_hours' => 3.5,  'academy_id' => 6, 'instructor' => 'Tom Chant',                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-nodejs-c00ho9qqh6',                           'link_name' => null, 'public' => 1, 'summary' => 'Discover how to craft fast, efficient backends with Node.js, the go-to runtime for modern web developers. From APIs to fullstack apps, see how Node.js makes backend development smooth, scalable, and fun.' ],
-            [ 'name' => 'Next.js 15 & React - The Complete Guide',                      'slug' => 'next-js-15-and-react-the-complete-guide',                       'completed' => 1, 'completion_date' => '2023-03-19', 'year' => 2023, 'duration_hours' => 40,   'academy_id' => 8, 'instructor' => 'Maximilian Schwarzmüller', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/nextjs-react-the-complete-guide/',         'link_name' => null, 'public' => 1, 'summary' => 'Learn NextJS 15 from the ground up and build fullstack ReactJS + NextJS apps with the App Router or Pages Router!' ],
-            [ 'name' => 'Laravel 12 & Vue 3 fullstack Mastery: Build 2 portfolio apps', 'slug' => 'laravel-12-and-vue-3-fullstack-mastery-build-2-portfolio-apps', 'completed' => 1, 'completion_date' => '2023-07-17', 'year' => 2023, 'duration_hours' => 35.5, 'academy_id' => 8, 'instructor' => 'Eding Muhamad Saprudin',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-vuejs-fullstack-web-development/', 'link_name' => null, 'public' => 1, 'summary' => 'From zero to job-ready: build two stunning full-stack single page applications that will get you hired' ],
+            [ 'name' => 'Learn Node.js',                                                'slug' => 'learn-node-js',                                                 'completed' => 1, 'completion_date' => '2019-01-19', 'year' => 2019, 'duration_hours' => 3.5,  'academy_id' => 6, 'instructor' => 'Tom Chant',                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-nodejs-c00ho9qqh6',                           'link_name' => null, 'is_public' => 1, 'summary' => 'Discover how to craft fast, efficient backends with Node.js, the go-to runtime for modern web developers. From APIs to fullstack apps, see how Node.js makes backend development smooth, scalable, and fun.' ],
+            [ 'name' => 'Next.js 15 & React - The Complete Guide',                      'slug' => 'next-js-15-and-react-the-complete-guide',                       'completed' => 1, 'completion_date' => '2023-03-19', 'year' => 2023, 'duration_hours' => 40,   'academy_id' => 8, 'instructor' => 'Maximilian Schwarzmüller', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/nextjs-react-the-complete-guide/',         'link_name' => null, 'is_public' => 1, 'summary' => 'Learn NextJS 15 from the ground up and build fullstack ReactJS + NextJS apps with the App Router or Pages Router!' ],
+            [ 'name' => 'Laravel 12 & Vue 3 fullstack Mastery: Build 2 portfolio apps', 'slug' => 'laravel-12-and-vue-3-fullstack-mastery-build-2-portfolio-apps', 'completed' => 1, 'completion_date' => '2023-07-17', 'year' => 2023, 'duration_hours' => 35.5, 'academy_id' => 8, 'instructor' => 'Eding Muhamad Saprudin',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-vuejs-fullstack-web-development/', 'link_name' => null, 'is_public' => 1, 'summary' => 'From zero to job-ready: build two stunning full-stack single page applications that will get you hired' ],
             /*
             [
                 'name'            => '',
@@ -294,14 +294,14 @@ class DwayneSchneider extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -353,7 +353,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -392,12 +392,12 @@ class DwayneSchneider extends Command
                 'longitude'              => -86.3625191,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -416,10 +416,10 @@ class DwayneSchneider extends Command
                 'name'           => '',
                 'title'          => '',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
                 'link'           => null,
                 'link_name'      => null
             ],
@@ -427,7 +427,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -446,13 +446,13 @@ class DwayneSchneider extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -470,13 +470,13 @@ class DwayneSchneider extends Command
                 'job_id'   => $this->jobId[1],
                 'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
                 'sequence' => 0,
-                'public'   => 1,
+                'is_public'   => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -497,7 +497,7 @@ class DwayneSchneider extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Pat_Harrington_Jr.',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'Wikipedia (One Day at a Time TV show)',
@@ -507,7 +507,7 @@ class DwayneSchneider extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/One_Day_at_a_Time_(2017_TV_series)',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             /*
             [
@@ -518,13 +518,13 @@ class DwayneSchneider extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -537,27 +537,27 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Let\'s Have e Party',               'artist' => 'Wanda Jackson',             'slug' => 'lets-have-a-party-by-wanda-jackson',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/7ksBcV-qrgo?si=J3V8qUR657Ss1Ke0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/7ksBcV-qrgo?si=J3V8qUR657Ss1Ke0', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => '(White Man) in Hammersmith Palais', 'artist' => 'The Clash',                 'slug' => '(white-man)-in-hammersmith-palais-by-the-clash', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/96UtZPLiT90?si=E5YStah1ZdFkvCWT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/96UtZPLiT90?si=E5YStah1ZdFkvCWT', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Veronica',                          'artist' => 'Elvis Costello',            'slug' => 'veronica-by-elvis-costello',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',    'catalog_number' => null, 'year' => 1989, 'release_date' => '1989-02-14', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MFTVrIZx61s?si=AntTi3ke4QhTLMOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MFTVrIZx61s?si=AntTi3ke4QhTLMOA', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Up the Junction',                   'artist' => 'Squeeze',                   'slug' => 'up-the-junction-by-squeeze',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1979, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/RQciegmLPAo?si=wa1Q3o0nasasJMpb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/RQciegmLPAo?si=ZQ2oAHHmVXqr_M8e', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Queen for a Day',                   'artist' => 'Tuscadero',                 'slug' => 'queen-for-a-day-by-tuscadero',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null, 'year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WrEpRDtRlmE?si=rC7jzPub6A2i79Z_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WrEpRDtRlmE?si=rC7jzPub6A2i79Z_', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Cowboy Boots',                      'artist' => 'The Backsliders',           'slug' => 'cowboy-boots-by-the-backsliders',                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Don\'t Know Why',                 'artist' => 'HOA',                       'slug' => 'i-dont-know-why-by-hoa',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8J1b4znVbEI?si=Fuc1_XucvrlrAuFT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8J1b4znVbEI?si=Fuc1_XucvrlrAuFT', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Cruel to Be Kind',                  'artist' => 'Nick Lowe',                 'slug' => 'cruel-to-be-kind-by-nick-lowe',                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Radar',           'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-08-17', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/b0l3QWUXVho?si=-nHqIrfIOI1xHRRB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/b0l3QWUXVho?si=prXqH-NK2CfvdRT0', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Hoy Hoy',                           'artist' => 'The Collins Kids',          'slug' => 'hoy-hoy-by-the-collins-kids',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1956, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8bpXOx9aAo4?si=nOiIniQOStglRNtk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8bpXOx9aAo4?si=nOiIniQOStglRNtk', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'In the City',                       'artist' => 'The Jam',                   'slug' => 'in-the-city-by-the-jam',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wbfw1YfeAlA?si=WDIzxwQ5uli7rsoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wbfw1YfeAlA?si=sTbgEOLFW7vg_lwa', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Beatrice',                          'artist' => 'Worn-Tin & Boyo',           'slug' => 'beatrice-by-worn-tin-and-boyo',                  'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2012, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'True Zero Hook',                    'artist' => 'Small 23',                  'slug' => 'true-zero-hook-by-small-23',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',   'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/JggwaBud-_Y?si=lPxhCxqBUD5wBniy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/JggwaBud-_Y?si=lPxhCxqBUD5wBniy', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Sunset of My Tears',                'artist' => 'Shakin\' Pyramids',         'slug' => 'sunset-of-my-tears-by-shakin-pyramids',          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Cuba Libre',      'catalog_number' => null, 'year' => 1981, 'release_date' => '1981-03-27', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Yc_Lz7Daf4Y?si=z8EElC6gQPlGtule" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Yc_Lz7Daf4Y?si=z8EElC6gQPlGtule', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Outta My Head',                     'artist' => 'The Boojums',               'slug' => 'outta-my-head-by-the-boojums',                   'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2025, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZXJcDAiZDoI?si=ThXg0XGv5Ke9uTYr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZXJcDAiZDoI?si=ThXg0XGv5Ke9uTYr', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'The Hunch',                         'artist' => 'Hasil Adkins',              'slug' => 'the-hunch-by-hasil-adkins',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1986, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tT0CQ9kLgo0?si=LxzbTMM8bm6W1Ci9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/tT0CQ9kLgo0?si=LxzbTMM8bm6W1Ci9', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Thing Called Love',                 'artist' => 'John Hiatt',                'slug' => 'thing-called-love-by-john-hiatt',                'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M',             'catalog_number' => null, 'year' => 1987, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xHWUPiimFPE?si=MsZemA9Wxl99X4wn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xHWUPiimFPE?si=Aw9wzrnWejb1ZRvP', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Let It Be',                         'artist' => 'The Beatles',               'slug' => 'let-it-be-by-the-beatles',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/egCy1KoE1Ss?si=lz7-zITN539d48Z9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/egCy1KoE1Ss?si=lz7-zITN539d48Z9', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'What Is Life',                      'artist' => 'George Harrison',           'slug' => 'what-is-life-by-george-harrison',                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/fiH9edd25Bc?si=VmSSB-7meR0EQtmE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/fiH9edd25Bc?si=VmSSB-7meR0EQtmE', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Ramadan Romance',                   'artist' => 'The Woggles',               'slug' => 'ramadan-romance-by-the-woggles',                 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NjiOGW_wkIY?si=Rqgyn4T7DZ9Fntdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/NjiOGW_wkIY?si=Rqgyn4T7DZ9Fntdc', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Drivin\' on 9',                     'artist' => 'Ed\'s Redeeming Qualities', 'slug' => 'drivin-on-9-by-eds-redeeming-qualities',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1989, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Summertime Blues',                  'artist' => 'Eddie Cochran',             'slug' => 'summertime-blues-by-eddie-cochran',              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/zdIqME_JLaU?si=slzCulWHjkTeXSvr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/zdIqME_JLaU?si=slzCulWHjkTeXSvr', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
+            [ 'name' => 'Let\'s Have e Party',               'artist' => 'Wanda Jackson',             'slug' => 'lets-have-a-party-by-wanda-jackson',             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/7ksBcV-qrgo?si=J3V8qUR657Ss1Ke0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/7ksBcV-qrgo?si=J3V8qUR657Ss1Ke0', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => '(White Man) in Hammersmith Palais', 'artist' => 'The Clash',                 'slug' => '(white-man)-in-hammersmith-palais-by-the-clash', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/96UtZPLiT90?si=E5YStah1ZdFkvCWT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/96UtZPLiT90?si=E5YStah1ZdFkvCWT', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Veronica',                          'artist' => 'Elvis Costello',            'slug' => 'veronica-by-elvis-costello',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',    'catalog_number' => null, 'year' => 1989, 'release_date' => '1989-02-14', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MFTVrIZx61s?si=AntTi3ke4QhTLMOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MFTVrIZx61s?si=AntTi3ke4QhTLMOA', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Up the Junction',                   'artist' => 'Squeeze',                   'slug' => 'up-the-junction-by-squeeze',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1979, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/RQciegmLPAo?si=wa1Q3o0nasasJMpb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/RQciegmLPAo?si=ZQ2oAHHmVXqr_M8e', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Queen for a Day',                   'artist' => 'Tuscadero',                 'slug' => 'queen-for-a-day-by-tuscadero',                   'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Elektra Records', 'catalog_number' => null, 'year' => 1998, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WrEpRDtRlmE?si=rC7jzPub6A2i79Z_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WrEpRDtRlmE?si=rC7jzPub6A2i79Z_', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Cowboy Boots',                      'artist' => 'The Backsliders',           'slug' => 'cowboy-boots-by-the-backsliders',                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/p2Ojt8SeJGY?si=WB6ufytRN_MWRx9U', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Don\'t Know Why',                 'artist' => 'HOA',                       'slug' => 'i-dont-know-why-by-hoa',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2024, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8J1b4znVbEI?si=Fuc1_XucvrlrAuFT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8J1b4znVbEI?si=Fuc1_XucvrlrAuFT', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Cruel to Be Kind',                  'artist' => 'Nick Lowe',                 'slug' => 'cruel-to-be-kind-by-nick-lowe',                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Radar',           'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-08-17', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/b0l3QWUXVho?si=-nHqIrfIOI1xHRRB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/b0l3QWUXVho?si=prXqH-NK2CfvdRT0', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Hoy Hoy',                           'artist' => 'The Collins Kids',          'slug' => 'hoy-hoy-by-the-collins-kids',                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1956, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8bpXOx9aAo4?si=nOiIniQOStglRNtk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8bpXOx9aAo4?si=nOiIniQOStglRNtk', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'In the City',                       'artist' => 'The Jam',                   'slug' => 'in-the-city-by-the-jam',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1977, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wbfw1YfeAlA?si=WDIzxwQ5uli7rsoY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wbfw1YfeAlA?si=sTbgEOLFW7vg_lwa', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Beatrice',                          'artist' => 'Worn-Tin & Boyo',           'slug' => 'beatrice-by-worn-tin-and-boyo',                  'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2012, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9PfksWA5NXg?si=Es5xRg07gZ3GoHCg', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'True Zero Hook',                    'artist' => 'Small 23',                  'slug' => 'true-zero-hook-by-small-23',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Alias Records',   'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/JggwaBud-_Y?si=lPxhCxqBUD5wBniy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/JggwaBud-_Y?si=lPxhCxqBUD5wBniy', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Sunset of My Tears',                'artist' => 'Shakin\' Pyramids',         'slug' => 'sunset-of-my-tears-by-shakin-pyramids',          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Cuba Libre',      'catalog_number' => null, 'year' => 1981, 'release_date' => '1981-03-27', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Yc_Lz7Daf4Y?si=z8EElC6gQPlGtule" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Yc_Lz7Daf4Y?si=z8EElC6gQPlGtule', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Outta My Head',                     'artist' => 'The Boojums',               'slug' => 'outta-my-head-by-the-boojums',                   'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 2025, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZXJcDAiZDoI?si=ThXg0XGv5Ke9uTYr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZXJcDAiZDoI?si=ThXg0XGv5Ke9uTYr', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'The Hunch',                         'artist' => 'Hasil Adkins',              'slug' => 'the-hunch-by-hasil-adkins',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1986, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tT0CQ9kLgo0?si=LxzbTMM8bm6W1Ci9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/tT0CQ9kLgo0?si=LxzbTMM8bm6W1Ci9', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Thing Called Love',                 'artist' => 'John Hiatt',                'slug' => 'thing-called-love-by-john-hiatt',                'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M',             'catalog_number' => null, 'year' => 1987, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xHWUPiimFPE?si=MsZemA9Wxl99X4wn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xHWUPiimFPE?si=Aw9wzrnWejb1ZRvP', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Let It Be',                         'artist' => 'The Beatles',               'slug' => 'let-it-be-by-the-beatles',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/egCy1KoE1Ss?si=lz7-zITN539d48Z9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/egCy1KoE1Ss?si=lz7-zITN539d48Z9', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'What Is Life',                      'artist' => 'George Harrison',           'slug' => 'what-is-life-by-george-harrison',                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/fiH9edd25Bc?si=VmSSB-7meR0EQtmE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/fiH9edd25Bc?si=VmSSB-7meR0EQtmE', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ramadan Romance',                   'artist' => 'The Woggles',               'slug' => 'ramadan-romance-by-the-woggles',                 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NjiOGW_wkIY?si=Rqgyn4T7DZ9Fntdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/NjiOGW_wkIY?si=Rqgyn4T7DZ9Fntdc', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Drivin\' on 9',                     'artist' => 'Ed\'s Redeeming Qualities', 'slug' => 'drivin-on-9-by-eds-redeeming-qualities',         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1989, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Summertime Blues',                  'artist' => 'Eddie Cochran',             'slug' => 'summertime-blues-by-eddie-cochran',              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,              'catalog_number' => null, 'year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/zdIqME_JLaU?si=slzCulWHjkTeXSvr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/zdIqME_JLaU?si=slzCulWHjkTeXSvr', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -576,13 +576,13 @@ class DwayneSchneider extends Command
                 'link'           => null,
                 'link_name'      => null,
                 'description'    => null,
-                'public'         => 1,
+                'is_public'         => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -607,13 +607,13 @@ class DwayneSchneider extends Command
                 'repository_url'   => null,
                 'repository_name'  => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -635,8 +635,8 @@ class DwayneSchneider extends Command
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => null,
-                'year'              => 2025,
+                'publication_date'  => null,
+                'publication_year'  => 2025,
                 'credit'            => null,
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -657,13 +657,13 @@ class DwayneSchneider extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -676,29 +676,29 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'building maintenance',   'slug' => 'building-maintenance',   'version' => null, 'featured' => 1, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'small appliance repair', 'slug' => 'small-appliance-repair', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'commercial electronics', 'slug' => 'commercial-electronics', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'carpentry',              'slug' => 'carpentry',              'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'time management',        'slug' => 'time-management',        'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'building maintenance',   'slug' => 'building-maintenance',   'version' => null, 'featured' => 1, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'small appliance repair', 'slug' => 'small-appliance-repair', 'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'commercial electronics', 'slug' => 'commercial-electronics', 'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'carpentry',              'slug' => 'carpentry',              'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'time management',        'slug' => 'time-management',        'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
                 'featured'               => 1,
-                'type'                   => 1,
+                'type_id'                => 1,
                 'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,
-                'public'                 => 1
+                'is_public'              => 1
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -730,13 +730,13 @@ class DwayneSchneider extends Command
                 'link'             => null,
                 'link_name'        => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

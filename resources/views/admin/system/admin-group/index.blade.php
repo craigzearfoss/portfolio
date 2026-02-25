@@ -105,7 +105,7 @@
                             {!! $adminGroup->abbreviation !!}
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $adminGroup->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $adminGroup->is_disabled ])
                         </td>
                         <td class="is-1">
 

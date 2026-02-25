@@ -58,8 +58,8 @@ class AdminTeam extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'abbreviation', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'abbreviation', 'description', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -76,19 +76,15 @@ class AdminTeam extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+        $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', '=', $filters['name']);
             })
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where('abbreviation', '=', $filters['abbreviation']);
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', '=', $filters['description']);
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -131,7 +131,7 @@
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled') ?? $user->disabled,
+                                                    'checked'         => old('is_disabled') ?? $user->is_disabled,
                                                     'message'         => $message ?? '',
                                                 ])
                                                 */ ?>

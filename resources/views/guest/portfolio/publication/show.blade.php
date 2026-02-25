@@ -87,17 +87,17 @@
             ])
         @endif
 
-        @if(empty($publication->date))
+        @if(empty($publication->publication_date))
             @include('guest.components.show-row', [
-                'name'  => 'date',
-                'value' => longDate($publication->date)
+                'name'  => 'publication_date',
+                'value' => longDate($publication->publication_date)
             ])
         @endif
 
-        @if(empty($publication->year))
+        @if(empty($publication->publication_year))
             @include('guest.components.show-row', [
                 'name'  => 'year',
-                'value' => $publication->year
+                'value' => $publication->publication_year
             ])
         @endif
 

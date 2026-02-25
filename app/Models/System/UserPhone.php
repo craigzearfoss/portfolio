@@ -38,12 +38,13 @@ class UserPhone extends Model
         'is_root',
         'is_disabled',
         'is_demo',
+        'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'owner_id', 'phone', 'label', 'description', 'notes', 'is_readonly', 'is_public',
+    const array SEARCH_COLUMNS = [ 'owner_id', 'phone', 'label', 'description', 'notes', 'is_public', 'is_readonly',
         'is_root', 'is_disabled', 'is_demo' ];
 
     /**
@@ -68,26 +69,23 @@ class UserPhone extends Model
             $filters['user_id'] = $user->id;
         }
 
-        $query = new self()->when(!empty($filters['user_id']), function ($query) use ($filters) {
-            $query->where('user_id', '=', intval($filters['user_id']));
-        })
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+              $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(!empty($filters['user_id']), function ($query) use ($filters) {
+                $query->where('user_id', '=', intval($filters['user_id']));
+            })
             ->when(!empty($filters['phone']), function ($query) use ($filters) {
                 $query->where('phone', 'like', '%' . $filters['phone'] . '%');
             })
-            ->when(isset($filters['is_public']), function ($query) use ($filters) {
-                $query->where('is_public', '=', boolval(['is_public']));
+            ->when(!empty($filters['label']), function ($query) use ($filters) {
+                $query->where('label', 'like', '%' . $filters['label'] . '%');
             })
-            ->when(isset($filters['is_readonly']), function ($query) use ($filters) {
-                $query->where('is_readonly', '=', boolval(['is_readonly']));
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(isset($filters['is_root']), function ($query) use ($filters) {
-                $query->where('is_root', '=', boolval(['is_root']));
-            })
-            ->when(isset($filters['is_disabled']), function ($query) use ($filters) {
-                $query->where('is_disabled', '=', boolval(['is_disabled']));
-            })
-            ->when(isset($filters['is_demo']), function ($query) use ($filters) {
-                $query->where('is_demo', '=', boolval(['is_demo']));
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

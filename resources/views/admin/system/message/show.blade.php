@@ -71,12 +71,12 @@
 
             @include('admin.components.show-row-checkbox', [
                 'name'    => 'public',
-                'checked' => $message->public
+                'checked' => $message->is_public
             ])
 
             @include('admin.components.show-row-checkbox', [
                 'name'    => 'read-only',
-                'checked' => $message->readonly
+                'checked' => $message->is_readonly
             ])
 
             @include('admin.components.show-row-checkbox', [
@@ -86,12 +86,12 @@
 
             @include('admin.components.show-row-checkbox', [
                 'name'    => 'disabled',
-                'checked' => $message->disabled
+                'checked' => $message->is_disabled
             ])
 
             @include('admin.components.show-row-checkbox', [
                 'name'    => 'demo',
-                'checked' => $message->demo
+                'checked' => $message->is_demo
             ])
             */ ?>
 

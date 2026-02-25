@@ -83,7 +83,7 @@
                             {!! $userTeam->abbreviation ?? '' !!}
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $userTeam->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $userTeam->is_disabled ])
                         </td>
                         <td class="is-1">
 

@@ -94,14 +94,14 @@
                         <td data-field="publisher">
                             {!! $publication->publisher !!}
                         </td>
-                        <td data-field="year">
-                            {!! $publication->year !!}
+                        <td data-field="publication_year">
+                            {!! $publication->publication_year !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $publication->public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $publication->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $publication->is_disabled ])
                         </td>
                         <td class="is-1">
 

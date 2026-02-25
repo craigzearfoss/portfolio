@@ -133,6 +133,10 @@ return new class extends Migration
             $table->string('title', 100)->nullable();
             $table->string('role', 100)->nullable();
             $table->string('employer', 100)->nullable();
+            $table->foreignId('employment_status_id')
+                ->nullable()
+                ->constrained('employment_statuses', 'id')
+                ->onDelete('cascade');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
@@ -151,10 +155,12 @@ return new class extends Migration
             $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->date('birthday')->nullable();
+            $table->text('bio')->nullable();
+            $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
-            $table->text('bio')->nullable();
             $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();

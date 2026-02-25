@@ -64,8 +64,8 @@ class AdminDatabase extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'database_id', 'name', 'database', 'tag', 'title', 'plural',
-        'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+        'has_owner', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -82,14 +82,7 @@ class AdminDatabase extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -122,9 +115,6 @@ class AdminDatabase extends Model
             })
             ->when(isset($filters['icon']), function ($query) use ($filters) {
                 $query->where('icon', '=', ['icon']);
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
             });
 
         $query = $this->appendEnvironmentFilters($query, $filters);
@@ -162,8 +152,12 @@ class AdminDatabase extends Model
 
         } else {
 
-            $query = new AdminDatabase()->select('admin_resources.*', 'admin_databases.id as database_id',
-                'admin_databases.name as database_name', 'admin_databases.database as database_database'
+            $query = new AdminDatabase()->select(
+                'admin_resources.*',
+                'admin_databases.id as database_id',
+                'admin_databases.name as database_name',
+                'admin_databases.database as database_database',
+                'admin_databases.tag as database_tag'
             )
                 ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
                 ->orderBy('admin_resources.sequence');
@@ -172,10 +166,10 @@ class AdminDatabase extends Model
                 $query->where('admin_databases.name', $dbName);
             }
 
-            if (isset($filters['public'])) $query->where('admin_resources.public', $filters['public'] ? 1 : 0);
-            if (isset($filters['readonly'])) $query->where('admin_resources.readonly', $filters['readonly'] ? 1 : 0);
-            if (isset($filters['root'])) $query->where('admin_resources.root', $filters['root'] ? 1 : 0);
-            if (isset($filters['disabled'])) $query->where('admin_resources.disabled', $filters['disabled'] ? 1 : 0);
+            if (isset($filters['is_public'])) $query->where('admin_resources.public', $filters['is_public'] ? 1 : 0);
+            if (isset($filters['is_readonly'])) $query->where('admin_resources.readonly', $filters['is_readonly'] ? 1 : 0);
+            if (isset($filters['is_root'])) $query->where('admin_resources.root', $filters['is_root'] ? 1 : 0);
+            if (isset($filters['is_disabled'])) $query->where('admin_resources.disabled', $filters['is_disabled'] ? 1 : 0);
 
             return $query->get()->toArray();
         }
@@ -196,8 +190,7 @@ class AdminDatabase extends Model
                                           array         $filters = [],
                                           array         $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
-        //?????????if ($envType == 'root') $envType = EnvTypes::ADMIN;
-        if (!empty($envType) && !in_array($envType,  [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
+        if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
             throw new Exception('ENV type ' . $envType->value . ' not supported');
         }
 
@@ -246,7 +239,7 @@ class AdminDatabase extends Model
     }
 
     /**
-     * Get the system admin_resources of the admin_databases.
+     * Get the system admin_resources of the admin_database.
      *
      * @return HasMany
      */

@@ -67,10 +67,10 @@
                             {!! $operatingSystem->abbreviation !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $operatingSystem->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $operatingSystem->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $operatingSystem->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $operatingSystem->is_disabled ])
                         </td>
                         <td class="is-1">
 

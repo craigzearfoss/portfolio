@@ -156,14 +156,14 @@ class MenuService
                 : [
                     'menu'                => 1,
                     $this->envType->value => true,
-                    'disabled'            => false
+                    'is_disabled'         => false
                   ];
         } else {
             $filters = [
                 'menu'                => 1,
                 $this->envType->value => true,
-                'public'              => true,
-                'disabled'            => false
+                'is_public'           => true,
+                'is_disabled'         => false
             ];
         }
 
@@ -174,7 +174,6 @@ class MenuService
             // tables instead of the admin_databases and admin_resources tables
             $this->databases = new Database()->ownerDatabases(null, $this->envType, $filters);
             $this->resources = new Resource()->ownerResources($this->envType, null, $filters);
-
         } else {
 
             $this->databases = new AdminDatabase()->ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
@@ -413,10 +412,10 @@ class MenuService
         $menuItem->admin             = $data['admin'] ?? 0;
         $menuItem->icon              = $data['icon'] ?? null;
         $menuItem->sequence          = $data['sequence'] ?? 0;
-        $menuItem->public            = $data['public'] ?? 0;
-        $menuItem->readonly          = $data['readonly'] ?? 0;
-        $menuItem->root              = $data['root'] ?? 0;
-        $menuItem->disabled          = $data['disabled'] ?? 0;
+        $menuItem->public            = $data['is_public'] ?? 0;
+        $menuItem->readonly          = $data['is_readonly'] ?? 0;
+        $menuItem->root              = $data['is_root'] ?? 0;
+        $menuItem->disabled          = $data['is_disabled'] ?? 0;
         $menuItem->admin_id          = $data['admin'] ?? null;
         $menuItem->db_id             = $data['db_id'] ?? null;
         $menuItem->db_name           = $data['db_name'] ?? null;
@@ -586,7 +585,7 @@ class MenuService
 
         // if there are no jobs for this owner then return null
         if (new Resource()->withoutGlobalScope(AdminPublicScope::class)
-                ->where('name', 'job')->where($this->envType->value, 1)->where('public', 1)->count() == 0
+                ->where('name', 'job')->where($this->envType->value, 1)->where('is_public', 1)->count() == 0
         ) {
             return null;
         }

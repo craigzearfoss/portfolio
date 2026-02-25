@@ -19,7 +19,7 @@
 
 @section('content')
 
-    @if($owner->demo)
+    @if($owner->is_demo)
         @if($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
@@ -67,8 +67,8 @@
                             {!! $publication->publisher !!}
                         </td>
                         */ ?>
-                        <td data-field="year" class="has-text-centered">
-                            {!! $publication->year !!}
+                        <td data-field="publication_year" class="has-text-centered">
+                            {!! $publication->publication_year !!}
                         </td>
                     </tr>
 

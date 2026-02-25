@@ -62,9 +62,9 @@ class Database extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'guest', 'user',
-        'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'has_owner', 'guest',
+        'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -81,14 +81,7 @@ class Database extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -147,8 +140,12 @@ class Database extends Model
                                             array       $filters = [],
                                             array       $orderBy = ['seq', 'asc']):  array
     {
-        $query = new Database()->select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
-            , 'databases.database as database_database'
+        $query = new Database()->select(
+            'resources.*',
+            'databases.id as database_id',
+            'databases.name as database_name',
+            'databases.database as database_database',
+            'databases.database as database_tag'
         )
             ->join('resources', 'resources.database_id', '=', 'databases.id')
             ->orderBy('resources.sequence');
@@ -191,14 +188,13 @@ class Database extends Model
                                           array         $filters = [],
                                           array         $orderBy = [ 'sequence' => 'asc' ]): Collection
     {
-        //????????if ($envType == 'root') $envType = EnvTypes::ADMIN;
         if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
             throw new Exception('ENV type ' . $envType->value . ' not supported');
         }
 
         $sortField = $orderBy[0] ?? 'sequence';
         $sortDir   = $orderBy[1] ?? 'asc';
-        if (substr($sortField, 0, 16) !== 'databases.') $sortField = 'databases.'.$sortField;
+        if (!str_starts_with($sortField, 'databases.')) $sortField = 'databases.'.$sortField;
 
         // create the query
         $query = new Database()->orderBy($sortField, $sortDir);
@@ -215,13 +211,12 @@ class Database extends Model
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
 
-            if (substr($col, 0, 16) !== 'databases.') $col = 'databases.'.$col;
+            if (!str_starts_with($col, 'databases.')) $col = 'databases.'.$col;
 
             if (is_array($value)) {
                 $query = $query->whereIn($col, $value);
             } else {
                 $parts = explode(' ', $col);
-
                 $col = $parts[0];
                 if (!empty($parts[1])) {
                     $operator = trim($parts[1]);

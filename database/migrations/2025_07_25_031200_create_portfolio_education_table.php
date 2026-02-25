@@ -52,7 +52,6 @@ return new class extends Migration
             $table->integer('graduation_month')->nullable();
             $table->integer('graduation_year')->nullable();
             $table->boolean('currently_enrolled')->default(false);
-            $table->string('summary', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

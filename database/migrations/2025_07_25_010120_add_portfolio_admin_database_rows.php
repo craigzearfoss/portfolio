@@ -29,7 +29,7 @@ return new class extends Migration
                     'owner_id'       => $ownerId,
                     'database_id'    => $portfolioDatabase->id,
                     'name'           => $portfolioDatabase->name,
-                    'database_name'  => $portfolioDatabase->database_name,
+                    'database'       => $portfolioDatabase->database,
                     'tag'            => $portfolioDatabase->tag,
                     'title'          => $portfolioDatabase->title,
                     'plural'         => $portfolioDatabase->plural,

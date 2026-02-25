@@ -37,7 +37,6 @@ return new class extends Migration
                 ->constrained($dictionaryDbName . '.categories', 'id')
                 ->onDelete('cascade');
             $table->integer('dictionary_term_id')->nullable();
-            $table->string('summary', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

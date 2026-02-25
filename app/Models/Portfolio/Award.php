@@ -43,7 +43,7 @@ class Award extends Model
         'slug',
         'featured',
         'summary',
-        'year_received',
+        'year',
         'received',
         'organization',
         'notes',
@@ -67,7 +67,7 @@ class Award extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'category', 'nominated_work', 'featured', 'summary',
-        'year_received', 'received', 'organization', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
+        'year', 'received', 'organization', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
         'is_root', 'is_disabled', 'is_demo' ];
 
     /**
@@ -108,8 +108,8 @@ class Award extends Model
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(isset($filters['year_received']), function ($query) use ($filters) {
-                $query->where('year_received', '=', intval($filters['year_received']));
+            ->when(isset($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', intval($filters['year']));
             })
             ->when(isset($filters['received']), function ($query) use ($filters) {
                 $query->where('received', '=', intval($filters['received']));

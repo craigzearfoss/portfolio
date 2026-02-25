@@ -34,7 +34,7 @@ class IndexController extends BaseAdminController
 
         if (Auth::guard('admin')->check()) {
 
-            $owners = new Admin()->where('disabled', 0)
+            $owners = new Admin()->where('is_disabled', 0)
                 ->orderBy('username')
                 ->paginate($perPage)->appends(request()->except('page'));
 
@@ -56,7 +56,7 @@ class IndexController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $owners = new Admin()->where('disabled', 0)
+        $owners = new Admin()->where('is_disabled', 0)
             ->orderBy('username')->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('admin.dashboard'), compact('owners'));

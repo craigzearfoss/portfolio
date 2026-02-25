@@ -339,8 +339,8 @@ trait SearchableModelTrait
             });
 
         if ($includeDemo) {
-           $query->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', intval(['demo']));
+           $query->when(isset($filters['is_demo']), function ($query) use ($filters) {
+                $query->where('is_demo', '=', intval(['is_demo']));
             });
         }
 

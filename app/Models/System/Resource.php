@@ -39,10 +39,10 @@ class Resource extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'parent_id',
         'owner_id',
         'database_id',
         'name',
-        'parent_id',
         'table_name',
         'class',
         'title',
@@ -66,9 +66,9 @@ class Resource extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'database_id', 'name', 'parent_id', 'table_name', 'title',
-        'plural', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'database_id', 'name', 'table_name', 'class', 'title',
+        'plural', 'has_owner', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -85,22 +85,15 @@ class Resource extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters, $owner)
+            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+                $query->where('parent_id', '=', intval($filters['parent_id']));
+            })
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
             ->when(isset($filters['database_id']), function ($query) use ($filters) {
                 $query->where('database_id', '=', intval($filters['database_id']));
-            })
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
-                $query->where('parent_id', '=', intval($filters['parent_id']));
             })
             ->when(!empty($filters['table_name']), function ($query) use ($filters) {
                 $query->where('table_name', 'like', '%' . $filters['table_name'] . '%');
@@ -117,11 +110,17 @@ class Resource extends Model
             ->when(isset($filters['has_owner']), function ($query) use ($filters) {
                 $query->where('has_owner', '=', boolval(['has_owner']));
             })
+            ->when(isset($filters['menu']), function ($query) use ($filters) {
+                $query->where('menu', '=', boolval(['menu']));
+            })
+            ->when(isset($filters['menu_level']), function ($query) use ($filters) {
+                $query->where('menu_level', '=', intval(['menu_level']));
+            })
+            ->when(isset($filters['menu_collapsed']), function ($query) use ($filters) {
+                $query->where('menu_collapsed', '=', boolval(['menu_collapsed']));
+            })
             ->when(isset($filters['icon']), function ($query) use ($filters) {
                 $query->where('icon', '=', ['icon']);
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
             });
 
         $query = $this->appendEnvironmentFilters($query, $filters);
@@ -131,6 +130,8 @@ class Resource extends Model
 
     /**
      * Get the system owner of the resource.
+     *
+     * @return BelongsTo
      */
     public function owner(): BelongsTo
     {
@@ -139,6 +140,8 @@ class Resource extends Model
 
     /**
      * Get the parent of the resource.
+     *
+     * @return BelongsTo
      */
     public function parent(): BelongsTo
     {
@@ -147,6 +150,8 @@ class Resource extends Model
 
     /**
      * Get the children of the system resource.
+     *
+     * @return HasMany
      */
     public function children(): HasMany
     {
@@ -188,6 +193,8 @@ class Resource extends Model
             DB::raw("admins.username AS 'admin_username'"),
             DB::raw("admins.label AS 'admin_label'"),
             DB::raw("databases.name AS 'database_name'"),
+            DB::raw("databases.database AS 'database_database'"),
+            DB::raw("databases.tag AS 'database_tag'"),
             'resources.*']
         )
         ->join('admins', 'admins.id', 'resources.owner_id')
@@ -204,15 +211,17 @@ class Resource extends Model
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
 
-            if (substr($col, 0, 16) !== 'resources.') $col = 'resources.'.$col;
+            if (!str_starts_with($col, 'admin_resources.')) $col = 'resources.'.$col;
 
             if (is_array($value)) {
                 $query = $query->whereIn($col, $value);
             } else {
                 $parts = explode(' ', $col);
                 $col = $parts[0];
+
                 if (!empty($parts[1])) {
                     $operator = trim($parts[1]);
+
                     if (in_array($operator, ['<>', '!=', '=!'])) {
                         $query->where($col, '<>', $value);
                     } elseif (strtolower($operator) == 'like') {
@@ -221,21 +230,44 @@ class Resource extends Model
                         throw new Exception('Invalid resources filter column: ' . $col . ' ' . $operator);
                     }
                 } else {
+
                     $query = $query->where($col, $value);
                 }
             }
         }
 
-        // add the route name to all the resources
         $resources = $query->get();
         for ($i=0; $i<count($resources); $i++) {
 
+            // add the route name to all the resources
             $routeName = 'admin.' . str_replace('_', '-', $resources[$i]->database_name)
                 . '.' . $resources[$i]->name . '.index';
             $url = Route::has($routeName) ? route($routeName) : null;
 
             $resources[$i]->route = $routeName;
             $resources[$i]->url = $url;
+
+            // add owner array to resource
+            $resources[$i]->owner = [
+                'id'       => $resources[$i]->owner_id,
+                'name'     => $resources[$i]->admin_name,
+                'username' => $resources[$i]->admin_username,
+                'label'    => $resources[$i]->admin_label,
+            ];
+            unset($resources[$i]->admin_name);
+            unset($resources[$i]->admin_username);
+            unset($resources[$i]->admin_label);
+
+            // add database array to resource
+            $resources[$i]->database = [
+                'id'       => $resources[$i]->database_id,
+                'name'     => $resources[$i]->database_name,
+                'database' => $resources[$i]->database_database,
+                'tag'      => $resources[$i]->database_tag,
+            ];
+            unset($resources[$i]->database_name);
+            unset($resources[$i]->database_database);
+            unset($resources[$i]->database_tag);
         }
 
         return $resources;

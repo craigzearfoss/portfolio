@@ -95,11 +95,11 @@ class UpdateAdminsRequest extends FormRequest
             'token'            => ['string', 'max:255', 'nullable'],
             'requires_relogin' => ['integer', 'between:0,1'],
             'status'           => ['integer', 'between:0,1'],
-            'public'           => ['integer', 'between:0,1'],
-            'readonly'         => ['integer', 'between:0,1'],
-            'root'             => ['integer', 'between:0,1'],
-            'disabled'         => ['integer', 'between:0,1'],
-            'demo'             => ['integer', 'between:0,1'],
+            'is_public'        => ['integer', 'between:0,1'],
+            'is_readonly'      => ['integer', 'between:0,1'],
+            'is_root'          => ['integer', 'between:0,1'],
+            'is_disabled'      => ['integer', 'between:0,1'],
+            'is_demo'          => ['integer', 'between:0,1'],
             'sequence'         => ['integer', 'min:0', 'nullable'],
         ];
 
@@ -110,7 +110,7 @@ class UpdateAdminsRequest extends FormRequest
 
         if (Auth::guard('admin')->user()->root && ($this->id !== Auth::guard('admin')->user()->id)) {
             // Only root admins can disable other admins, but not themselves.
-            $ruleArray = array_merge($ruleArray, [ 'disabled' => ['integer', 'between:0,1'] ]);
+            $ruleArray = array_merge($ruleArray, [ 'is_disabled' => ['integer', 'between:0,1'] ]);
         }
 
         return $ruleArray;
@@ -144,7 +144,7 @@ class UpdateAdminsRequest extends FormRequest
         ]);
 
         // if the account is disabled then force current session to logout
-        if (!empty($this['disabled'])) {
+        if (!empty($this['is_disabled'])) {
             $this->merge(['requires_relogin' => 1]);
         }
     }

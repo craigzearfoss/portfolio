@@ -18,7 +18,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',           'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name,       'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Career',           'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
@@ -58,7 +58,7 @@
                 'value' => $application->id
             ])
 
-            @if($admin->root)
+            @if($admin->is_root)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -350,11 +350,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $application->public,
-                'readonly'    => old('readonly') ?? $application->readonly,
-                'root'        => old('root')     ?? $application->root,
-                'disabled'    => old('disabled') ?? $application->disabled,
-                'demo'        => old('demo')     ?? $application->demo,
+                'public'      => old('is_public')   ?? $application->is_public,
+                'readonly'    => old('is_readonly') ?? $application->is_readonly,
+                'root'        => old('is_root')     ?? $application->is_root,
+                'disabled'    => old('is_disabled') ?? $application->is_disabled,
+                'demo'        => old('is_demo')     ?? $application->is_demo,
                 'sequence'    => old('sequence') ?? $application->sequence,
                 'message'     => $message ?? '',
             ])

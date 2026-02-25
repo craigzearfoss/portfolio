@@ -263,11 +263,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $recipe->public,
-                'readonly'    => old('readonly') ?? $recipe->readonly,
-                'root'        => old('root')     ?? $recipe->root,
-                'disabled'    => old('disabled') ?? $recipe->disabled,
-                'demo'        => old('demo')     ?? $recipe->demo,
+                'public'      => old('is_public')   ?? $recipe->is_public,
+                'readonly'    => old('is_readonly') ?? $recipe->is_readonly,
+                'root'        => old('is_root')     ?? $recipe->root,
+                'disabled'    => old('is_disabled') ?? $recipe->is_disabled,
+                'demo'        => old('is_demo')     ?? $recipe->is_demo,
                 'sequence'    => old('sequence') ?? $recipe->sequence,
                 'message'     => $message ?? '',
             ])

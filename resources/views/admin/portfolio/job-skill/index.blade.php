@@ -96,10 +96,10 @@
                             {!! $jobSkill->summary !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $jobSkill->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $jobSkill->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $jobSkill->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $jobSkill->is_disabled ])
                         </td>
                         <td class="is-1">
 

@@ -54,7 +54,7 @@
                 'value' => $note->id
             ])
 
-            @if($admin->root)
+            @if($admin->is_root)
                 @include('admin.components.form-select-horizontal', [
                 'name'     => 'owner_id',
                 'label'    => 'owner',
@@ -94,11 +94,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'       => old('public') ?? $note->public,
-                'readonly'    => old('readonly') ?? $note->readonly,
-                'root'        => old('root') ?? $note->root,
-                'disabled'    => old('disabled') ?? $note->disabled,
-                'demo'        => old('demo') ?? $note->demo,
+                'public'       => old('is_public') ?? $note->is_public,
+                'readonly'    => old('is_readonly') ?? $note->is_readonly,
+                'root'        => old('is_root') ?? $note->is_root,
+                'disabled'    => old('is_disabled') ?? $note->is_disabled,
+                'demo'        => old('is_demo') ?? $note->is_demo,
                 'sequence'    => old('sequence') ?? $note->sequence,
                 'message'     => $message ?? '',
             ])

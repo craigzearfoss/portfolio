@@ -142,14 +142,14 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'There Is a God',       'artist' => 'Kevin Dixon',           'slug' => 'there-is-a-god-by-kevin-dixon',                       'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image' => null,                                                                                                       'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null,  ],
-            [ 'name' => 'Mona Lisa (La Gioconda)',              'artist' => 'Leonardo da Vinci',     'slug' => 'mona-lisa-(la-gioconda)-by-leonardo-da-vinci',        'summary' => null, 'year' => 1503, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/da_Vinci_Leonardo/paintings-wm/leonardo004.jpg',                   'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Portrait of Adele Bloch-Bauer',        'artist' => 'Gustav Klimt',          'slug' => 'portrait-of-adele-bloch-bauer-by-gustav-klimt',       'summary' => null, 'year' => 1907, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Gustav_Klimt/paintings-wm/klimt016.jpg',                           'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Marilyn Diptych',      'artist' => 'Andy Warhol',           'slug' => 'marilyn-diptych-by-andy-warhol',                      'summary' => null, 'year' => 1962, 'featured' => 0, 'public' => 1, 'image' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/2014_45_andy_warhol_mark_lawson-1024x768.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null ],
-            [ 'name' => 'Portrait of Doctor Gachet',            'artist' => 'Vincent van Gogh',      'slug' => 'portrait-of-doctor-gachet-by-vincent-van-gogh',       'summary' => null, 'year' => 1890, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh129.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'The Swing',            'artist' => 'Jean-Honore Fragonard', 'slug' => 'the-swing-by-jean-honore-fragonard',                  'summary' => null, 'year' => 1767, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Jean-Honore_Fragonard/paintings-wm/fragonard002.jpg',              'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'The Annunciation',     'artist' => 'Leonardo da Vinci',     'slug' => 'the-annunciation-by-leonardo-da-vinci',               'summary' => null, 'year' => 1472, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/da_Vinci_Leonardo/paintings-wm/leonardo001.jpg',                   'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Water Lily Pond, (Symphony in Green)', 'artist' => 'Claude Monet',          'slug' => 'water-lily-pond-(symphony-in-green)-by-claude-monet', 'summary' => null, 'year' => 1899, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet018.jpg',                     'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'There Is a God',       'artist' => 'Kevin Dixon',           'slug' => 'there-is-a-god-by-kevin-dixon',                       'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                                       'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null,  ],
+            [ 'name' => 'Mona Lisa (La Gioconda)',              'artist' => 'Leonardo da Vinci',     'slug' => 'mona-lisa-(la-gioconda)-by-leonardo-da-vinci',        'summary' => null, 'year' => 1503, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/da_Vinci_Leonardo/paintings-wm/leonardo004.jpg',                   'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Portrait of Adele Bloch-Bauer',        'artist' => 'Gustav Klimt',          'slug' => 'portrait-of-adele-bloch-bauer-by-gustav-klimt',       'summary' => null, 'year' => 1907, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Gustav_Klimt/paintings-wm/klimt016.jpg',                           'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Marilyn Diptych',      'artist' => 'Andy Warhol',           'slug' => 'marilyn-diptych-by-andy-warhol',                      'summary' => null, 'year' => 1962, 'featured' => 0, 'is_public' => 1, 'image' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/2014_45_andy_warhol_mark_lawson-1024x768.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null ],
+            [ 'name' => 'Portrait of Doctor Gachet',            'artist' => 'Vincent van Gogh',      'slug' => 'portrait-of-doctor-gachet-by-vincent-van-gogh',       'summary' => null, 'year' => 1890, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh129.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'The Swing',            'artist' => 'Jean-Honore Fragonard', 'slug' => 'the-swing-by-jean-honore-fragonard',                  'summary' => null, 'year' => 1767, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Jean-Honore_Fragonard/paintings-wm/fragonard002.jpg',              'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'The Annunciation',     'artist' => 'Leonardo da Vinci',     'slug' => 'the-annunciation-by-leonardo-da-vinci',               'summary' => null, 'year' => 1472, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/da_Vinci_Leonardo/paintings-wm/leonardo001.jpg',                   'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Water Lily Pond, (Symphony in Green)', 'artist' => 'Claude Monet',          'slug' => 'water-lily-pond-(symphony-in-green)-by-claude-monet', 'summary' => null, 'year' => 1899, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet018.jpg',                     'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
@@ -158,7 +158,7 @@ class FredFlintstone extends Command
                 'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
@@ -169,7 +169,7 @@ class FredFlintstone extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -202,13 +202,13 @@ class FredFlintstone extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -230,13 +230,13 @@ class FredFlintstone extends Command
                 'featured'        => 0,
                 'year'            => null,
                 'organization'    => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -261,13 +261,13 @@ class FredFlintstone extends Command
                 'received'        => '0000-00-00',
                 'certificate_url' => null,
                 'description'     => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -280,14 +280,14 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'Ultimate AWS Certified AI Practitioner AIF-C01',             'slug' => 'ultimate-aws-certified-ai-practitioner-aif-c01',         'completed' => 1, 'completion_date' => '2017-05-29', 'year' => 2017, 'duration_hours' => 10,   'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-ai-practitioner-certified/',                                     'link_name' => null, 'public' => 1, 'summary' => 'Practice Exam included + explanations | Learn Artificial Intelligence | Pass the AWS AI Practitioner AIF-C01 exam!' ],
-            [ 'name' => 'Laravel From Scratch',                                       'slug' => 'laravel-from-scratch',                                         'completed' => 1, 'completion_date' => '2016-08-28', 'year' => 2016, 'duration_hours' => 13.5, 'academy_id' => 8, 'instructor' => 'Brad Traversy',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-from-scratch/',                                              'link_name' => null, 'public' => 1, 'summary' => 'Build and deploy a real-world job listing application and learn all of the fundamentals of the Laravel framework' ],
-            [ 'name' => 'Ultimate AWS Certified Solutions Architect Associate 2025',  'slug' => 'ultimate-aws-certified-solutions-architect-associate-2025',    'completed' => 1, 'completion_date' => '2013-07-09', 'year' => 2013, 'duration_hours' => 27,   'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/',               'link_name' => null, 'public' => 1, 'summary' => 'Full Practice Exam | Learn Cloud Computing | Pass the AWS Certified Solutions Architect Associate Certification SAA-C03!' ],
-            [ 'name' => 'Vue JS 3 For Modern Web Development - Beginner to Advanced', 'slug' => 'vue-js-3-for-modern-web-development-beginner-to-advanced',     'completed' => 1, 'completion_date' => '2024-11-11', 'year' => 2024, 'duration_hours' => 9,    'academy_id' => 8, 'instructor' => 'Ivan Lourenço Gomes',  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-js-v3-super-fast-course-from-zero-to-advanced-web-development/', 'link_name' => null, 'public' => 1, 'summary' => 'Front End Development with Vue3: Options API, Composition API, Pinia, Vuex, Vue Router, Vite, Vue CLI and More Vue.js!' ],
-            [ 'name' => 'Learn Vue',                                                  'slug' => 'learn-vue',                                                    'completed' => 1, 'completion_date' => '2017-04-28', 'year' => 2017, 'duration_hours' => 1.5,  'academy_id' => 6, 'instructor' => 'Rachel Johnson',       'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-vue-c0jrrpaasr',                                                        'link_name' => null, 'public' => 1, 'summary' => 'Learn Vue as you build real projects, dive into its core features, and create dynamic, reusable, and reactive apps with ease.' ],
-            [ 'name' => 'Ultimate AWS Certified Cloud Practitioner CLF-C02 2025',     'slug' => 'ultimate-aws-certified-cloud-practitioner-clf-c02-2025', 'completed' => 1, 'completion_date' => '2014-08-10', 'year' => 2014, 'duration_hours' => 14.5, 'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-cloud-practitioner-new/',                              'link_name' => null, 'public' => 1, 'summary' => 'Full Practice Exam included + explanations | Learn Cloud Computing | Pass the AWS Cloud Practitioner CLF-C02 exam!' ],
-            [ 'name' => 'Amazon Elastic Container Service (AWS ECS)',                 'slug' => 'amazon-elastic-container-service-(aws-ecs)',                   'completed' => 1, 'completion_date' => '2018-05-21', 'year' => 2018, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/amazon-elastic-container-service-aws-ecs/',                         'link_name' => null, 'public' => 1, 'summary' => 'Amazon Elastic Container Service (Amazon ECS) is a highly scalable and fast container management service. ECS is responsible for managing the lifecycle of a container, starting from creating/running till it gets torn down.' ],
-            [ 'name' => 'AWS Networking Fundamentals',                                'slug' => 'aws-networking-fundamentals',                                  'completed' => 1, 'completion_date' => '2023-09-15', 'year' => 2023, 'duration_hours' => 3,    'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-networking-fundamentals',                                       'link_name' => null, 'public' => 1, 'summary' => 'Lay the groundwork for seamless cloud operations with AWS Networking Fundamentals.' ],
+            [ 'name' => 'Ultimate AWS Certified AI Practitioner AIF-C01',             'slug' => 'ultimate-aws-certified-ai-practitioner-aif-c01',         'completed' => 1, 'completion_date' => '2017-05-29', 'year' => 2017, 'duration_hours' => 10,   'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-ai-practitioner-certified/',                                     'link_name' => null, 'is_public' => 1, 'summary' => 'Practice Exam included + explanations | Learn Artificial Intelligence | Pass the AWS AI Practitioner AIF-C01 exam!' ],
+            [ 'name' => 'Laravel From Scratch',                                       'slug' => 'laravel-from-scratch',                                         'completed' => 1, 'completion_date' => '2016-08-28', 'year' => 2016, 'duration_hours' => 13.5, 'academy_id' => 8, 'instructor' => 'Brad Traversy',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-from-scratch/',                                              'link_name' => null, 'is_public' => 1, 'summary' => 'Build and deploy a real-world job listing application and learn all of the fundamentals of the Laravel framework' ],
+            [ 'name' => 'Ultimate AWS Certified Solutions Architect Associate 2025',  'slug' => 'ultimate-aws-certified-solutions-architect-associate-2025',    'completed' => 1, 'completion_date' => '2013-07-09', 'year' => 2013, 'duration_hours' => 27,   'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/',               'link_name' => null, 'is_public' => 1, 'summary' => 'Full Practice Exam | Learn Cloud Computing | Pass the AWS Certified Solutions Architect Associate Certification SAA-C03!' ],
+            [ 'name' => 'Vue JS 3 For Modern Web Development - Beginner to Advanced', 'slug' => 'vue-js-3-for-modern-web-development-beginner-to-advanced',     'completed' => 1, 'completion_date' => '2024-11-11', 'year' => 2024, 'duration_hours' => 9,    'academy_id' => 8, 'instructor' => 'Ivan Lourenço Gomes',  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-js-v3-super-fast-course-from-zero-to-advanced-web-development/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Front End Development with Vue3: Options API, Composition API, Pinia, Vuex, Vue Router, Vite, Vue CLI and More Vue.js!' ],
+            [ 'name' => 'Learn Vue',                                                  'slug' => 'learn-vue',                                                    'completed' => 1, 'completion_date' => '2017-04-28', 'year' => 2017, 'duration_hours' => 1.5,  'academy_id' => 6, 'instructor' => 'Rachel Johnson',       'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-vue-c0jrrpaasr',                                                        'link_name' => null, 'is_public' => 1, 'summary' => 'Learn Vue as you build real projects, dive into its core features, and create dynamic, reusable, and reactive apps with ease.' ],
+            [ 'name' => 'Ultimate AWS Certified Cloud Practitioner CLF-C02 2025',     'slug' => 'ultimate-aws-certified-cloud-practitioner-clf-c02-2025', 'completed' => 1, 'completion_date' => '2014-08-10', 'year' => 2014, 'duration_hours' => 14.5, 'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-cloud-practitioner-new/',                              'link_name' => null, 'is_public' => 1, 'summary' => 'Full Practice Exam included + explanations | Learn Cloud Computing | Pass the AWS Cloud Practitioner CLF-C02 exam!' ],
+            [ 'name' => 'Amazon Elastic Container Service (AWS ECS)',                 'slug' => 'amazon-elastic-container-service-(aws-ecs)',                   'completed' => 1, 'completion_date' => '2018-05-21', 'year' => 2018, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/amazon-elastic-container-service-aws-ecs/',                         'link_name' => null, 'is_public' => 1, 'summary' => 'Amazon Elastic Container Service (Amazon ECS) is a highly scalable and fast container management service. ECS is responsible for managing the lifecycle of a container, starting from creating/running till it gets torn down.' ],
+            [ 'name' => 'AWS Networking Fundamentals',                                'slug' => 'aws-networking-fundamentals',                                  'completed' => 1, 'completion_date' => '2023-09-15', 'year' => 2023, 'duration_hours' => 3,    'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-networking-fundamentals',                                       'link_name' => null, 'is_public' => 1, 'summary' => 'Lay the groundwork for seamless cloud operations with AWS Networking Fundamentals.' ],
             /*
             [
                 'name'            => '',
@@ -302,14 +302,14 @@ class FredFlintstone extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -344,7 +344,7 @@ class FredFlintstone extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -383,7 +383,7 @@ class FredFlintstone extends Command
                 'longitude'              => -121.548541,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             /*
             [
@@ -406,13 +406,13 @@ class FredFlintstone extends Command
                 'longitude'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -430,22 +430,22 @@ class FredFlintstone extends Command
                 'name'           => 'Barney Rubble',
                 'title'          => 'Quarry Worker',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Nate Slate',
                 'title'          => 'Owner and Founder',
                 'level_id'       => 2,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             /*
             [
@@ -453,17 +453,17 @@ class FredFlintstone extends Command
                 'name'           => '',
                 'title'          => '',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -482,13 +482,13 @@ class FredFlintstone extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -506,13 +506,13 @@ class FredFlintstone extends Command
                 'job_id'   => $this->jobId[1],
                 'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
                 'sequence' => 0,
-                'public'   => 1,
+                'is_public'   => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -533,7 +533,7 @@ class FredFlintstone extends Command
                 'url'         => 'https://www.imdb.com/name/nm0715284/',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'Wikipedia',
@@ -543,7 +543,7 @@ class FredFlintstone extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Fred_Flintstone',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'IMDb',
@@ -553,7 +553,7 @@ class FredFlintstone extends Command
                 'url'         => 'https://www.imdb.com/title/tt0109813/',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'Getty Images',
@@ -563,7 +563,7 @@ class FredFlintstone extends Command
                 'url'         => 'https://www.gettyimages.com/photos/fred-flintstone-images',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             /*
             [
@@ -574,13 +574,13 @@ class FredFlintstone extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -593,11 +593,11 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Killer-Tune',                       'artist' => 'Tokyo Jihen',       'slug' => 'killer-tune-by-tokyo-jihen',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,            'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Hoy Hoy',                           'artist' => 'The Collins Kids',  'slug' => 'hoy-hoy-by-the-collins-kids',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,            'catalog_number' => null, 'year' => 1956, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8bpXOx9aAo4?si=nOiIniQOStglRNtk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8bpXOx9aAo4?si=nOiIniQOStglRNtk', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Crossed Wires',                     'artist' => 'Superchunk',        'slug' => 'crossed-wires-by-superchunk',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records', 'catalog_number' => null, 'year' => 2010, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/3dwxL7YOFPI?si=St01ow-DJMCslPpm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/3dwxL7YOFPI?si=Qcs4aTsJSj0HnqYd', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'You\'re My Favorite Waste of Time', 'artist' => 'Marshall Crenshaw', 'slug' => 'youre-my-favorite-waste-of-time-by-marshall-crenshaw', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',  'catalog_number' => null, 'year' => 1982, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tpyRvpX7Z7Y?si=3TLRhUfHBvvAZ_kg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/tpyRvpX7Z7Y?si=nqA15jc0jiJwEKun', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'My Favorite Shirt',                 'artist' => 'The Figgs',         'slug' => 'my-favorite-shirt-by-the-figgs',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,            'catalog_number' => null, 'year' => 1994, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
+            [ 'name' => 'Killer-Tune',                       'artist' => 'Tokyo Jihen',       'slug' => 'killer-tune-by-tokyo-jihen',                           'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,            'catalog_number' => null, 'year' => null, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/lC8la4l4RhQ?si=cxO0H3GaOTzWKW4o', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Hoy Hoy',                           'artist' => 'The Collins Kids',  'slug' => 'hoy-hoy-by-the-collins-kids',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,            'catalog_number' => null, 'year' => 1956, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8bpXOx9aAo4?si=nOiIniQOStglRNtk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/8bpXOx9aAo4?si=nOiIniQOStglRNtk', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Crossed Wires',                     'artist' => 'Superchunk',        'slug' => 'crossed-wires-by-superchunk',                          'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records', 'catalog_number' => null, 'year' => 2010, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/3dwxL7YOFPI?si=St01ow-DJMCslPpm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/3dwxL7YOFPI?si=Qcs4aTsJSj0HnqYd', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'You\'re My Favorite Waste of Time', 'artist' => 'Marshall Crenshaw', 'slug' => 'youre-my-favorite-waste-of-time-by-marshall-crenshaw', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',  'catalog_number' => null, 'year' => 1982, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tpyRvpX7Z7Y?si=3TLRhUfHBvvAZ_kg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/tpyRvpX7Z7Y?si=nqA15jc0jiJwEKun', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'My Favorite Shirt',                 'artist' => 'The Figgs',         'slug' => 'my-favorite-shirt-by-the-figgs',                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,            'catalog_number' => null, 'year' => 1994, 'release_date' => null, 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Oy9JKXDDPmo?si=7aNn2_YU52TtPTUO', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -616,13 +616,13 @@ class FredFlintstone extends Command
                 'link'           => null,
                 'link_name'      => null,
                 'description'    => null,
-                'public'         => 1,
+                'is_public'         => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -647,13 +647,13 @@ class FredFlintstone extends Command
                 'repository_url'   => null,
                 'repository_name'  => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -675,8 +675,8 @@ class FredFlintstone extends Command
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => null,
-                'year'              => 2025,
+                'publication_date'  => null,
+                'publication_year'  => 2025,
                 'credit'            => null,
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -697,13 +697,13 @@ class FredFlintstone extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -716,26 +716,26 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'crane operating', 'slug' => 'crane-operating', 'version' => null, 'featured' => 1, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'bowling',         'slug' => 'bowling',         'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'crane operating', 'slug' => 'crane-operating', 'version' => null, 'featured' => 1, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'bowling',         'slug' => 'bowling',         'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
                 'featured'               => 1,
-                'type'                   => 1,
+                'type_id'                => 1,
                 'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,
-                'public'                 => 1
+                'is_public'              => 1
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -767,13 +767,13 @@ class FredFlintstone extends Command
                 'link'             => null,
                 'link_name'        => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

@@ -38,8 +38,8 @@ return new class extends Migration
             $table->boolean('clip')->default(false);
             $table->boolean('public_access')->default(false);
             $table->boolean('source_recording')->default(false);
-            $table->date('video_date')->nullable();
-            $table->integer('video_year')->nullable();
+            $table->date('date')->nullable();
+            $table->integer('year')->nullable();
             $table->string('company')->nullable();
             $table->string('credit')->nullable();
             $table->string('show')->nullable();

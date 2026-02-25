@@ -64,11 +64,11 @@ class UpdateAdminDatabasesRequest extends FormRequest
             'menu_level'     => ['integer'],
             'menu_collapsed' => ['integer', 'between:0,1'],
             'icon'           => ['string', 'max:50', 'nullable'],
-            'public'         => ['integer', 'between:0,1'],
-            'readonly'       => ['integer', 'between:0,1'],
-            'root'           => ['integer', 'between:0,1'],
-            'disabled'       => ['integer', 'between:0,1'],
-            'demo'           => ['integer', 'between:0,1'],
+            'is_public'      => ['integer', 'between:0,1'],
+            'is_readonly'    => ['integer', 'between:0,1'],
+            'is_root'        => ['integer', 'between:0,1'],
+            'is_disabled'    => ['integer', 'between:0,1'],
+            'is_demo'        => ['integer', 'between:0,1'],
             'sequence'       => ['integer', 'min:0', 'nullable'],
         ];
     }

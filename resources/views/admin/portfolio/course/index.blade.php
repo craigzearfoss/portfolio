@@ -98,10 +98,10 @@
                         {{ shortDate($course->completion_date) }}
                     </td>
                     <td data-field="public" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $course->public ])
+                        @include('admin.components.checkmark', [ 'checked' => $course->is_public ])
                     </td>
                     <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $course->is_disabled ])
                     </td>
                     <td class="is-1">
 

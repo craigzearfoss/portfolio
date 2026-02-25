@@ -50,8 +50,8 @@ class Video extends Model
         'clip',
         'public_access',
         'source_recording',
-        'video_date',
-        'video_year',
+        'date',
+        'year',
         'company',
         'credit',
         'show',
@@ -85,7 +85,7 @@ class Video extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'parent_id', 'id', 'owner_id', 'name', 'featured', 'summary', 'full_episode',
-        'clip', 'public_access', 'source_recording', 'video_date', 'video_year', 'company', 'credit', 'show',
+        'clip', 'public_access', 'source_recording', 'date', 'year', 'company', 'credit', 'show',
         'location', 'video_url', 'review_link1', 'review_link1_name', 'review_link2', 'review_link2_name',
         'review_link3', 'review_link3_name', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
         'is_root', 'is_disabled', 'is_demo' ];
@@ -140,11 +140,11 @@ class Video extends Model
             ->when(isset($filters['source_recording']), function ($query) use ($filters) {
                 $query->where('source_recording', '=', boolval(['source_recording']));
             })
-            ->when(isset($filters['video_date']), function ($query) use ($filters) {
-                $query->where('video_date', '=', $filters['video_date']);
+            ->when(isset($filters['date']), function ($query) use ($filters) {
+                $query->where('date', '=', $filters['date']);
             })
-            ->when(isset($filters['video_year']), function ($query) use ($filters) {
-                $query->where('video_year', '=', intval($filters['video_year']));
+            ->when(isset($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', intval($filters['year']));
             })
             ->when(!empty($filters['company']), function ($query) use ($filters) {
                 $query->where('company', 'like', '%' . $filters['company'] . '%');

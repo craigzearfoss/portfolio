@@ -48,7 +48,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     @if(!empty($application))
@@ -63,7 +63,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         @if(!empty($application))
@@ -81,7 +81,7 @@
                 @forelse ($notes as $note)
 
                     <tr data-id="{{ $note->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $note->owner->username ?? '' }}
                             </td>
@@ -158,7 +158,7 @@
 
                     <tr>
                         @php
-                            $colspan = $admin->root ? '4' : '3';
+                            $colspan = $admin->is_root ? '4' : '3';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
                         <td colspan="{{ $colspan }}">There are no notes.</td>

@@ -10,7 +10,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
@@ -128,7 +128,7 @@
                                 'label'           => 'public access',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('public_access') ?? $video->public_access,
+                                'checked'         => old('public_access') ?? $video->is_public_access,
                                 'message'         => $message ?? '',
                             ])
 
@@ -247,11 +247,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $video->public,
-                'readonly'    => old('readonly') ?? $video->readonly,
-                'root'        => old('root')     ?? $video->root,
-                'disabled'    => old('disabled') ?? $video->disabled,
-                'demo'        => old('demo')     ?? $video->demo,
+                'public'      => old('is_public')   ?? $video->is_public,
+                'readonly'    => old('is_readonly') ?? $video->is_readonly,
+                'root'        => old('is_root')     ?? $video->root,
+                'disabled'    => old('is_disabled') ?? $video->is_disabled,
+                'demo'        => old('is_demo')     ?? $video->is_demo,
                 'sequence'    => old('sequence') ?? $video->sequence,
                 'message'     => $message ?? '',
             ])

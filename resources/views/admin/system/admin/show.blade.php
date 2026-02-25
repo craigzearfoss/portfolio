@@ -26,7 +26,7 @@
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
                                                                'href' => route('admin.system.admin.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $admin->is_root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }

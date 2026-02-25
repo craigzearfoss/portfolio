@@ -98,7 +98,7 @@
                                     'value' => $resume->id
                                 ])
 
-                                @if($admin->root)
+                                @if($admin->is_root)
                                     @include('admin.components.show-row', [
                                         'name'  => 'owner',
                                         'value' => $resume->owner->username

@@ -70,11 +70,11 @@
 
             <?php /*
             @include('admin.components.form-visibility-horizontal', [
-                'public'   => old('public') ?? $message->public,
-                'readonly' => old('readonly') ?? $message->readonly,
-                'root'     => old('root') ?? $message->root,
-                'disabled' => old('disabled') ?? $message->disabled,
-                'demo'     => old('demo') ?? $message->demo,
+                'public'   => old('is_public') ?? $message->is_public,
+                'readonly' => old('is_readonly') ?? $message->is_readonly,
+                'root'     => old('is_root') ?? $message->root,
+                'disabled' => old('is_disabled') ?? $message->is_disabled,
+                'demo'     => old('is_demo') ?? $message->is_demo,
                 'sequence' => old('sequence') ?? $message->sequence,
                 'message'  => $message ?? '',
             ])

@@ -169,11 +169,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $jobCoworker->public,
-                'readonly'    => old('readonly') ?? $jobCoworker->readonly,
-                'root'        => old('root')     ?? $jobCoworker->root,
-                'disabled'    => old('disabled') ?? $jobCoworker->disabled,
-                'demo'        => old('demo')     ?? $jobCoworker->demo,
+                'public'      => old('is_public')   ?? $jobCoworker->is_public,
+                'readonly'    => old('is_readonly') ?? $jobCoworker->is_readonly,
+                'root'        => old('is_root')     ?? $jobCoworker->root,
+                'disabled'    => old('is_disabled') ?? $jobCoworker->is_disabled,
+                'demo'        => old('is_demo')     ?? $jobCoworker->is_demo,
                 'sequence'    => old('sequence') ?? $jobCoworker->sequence,
                 'message'     => $message ?? '',
             ])

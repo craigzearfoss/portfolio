@@ -58,8 +58,8 @@ class AdminGroup extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'admin_team_id', 'name', 'abbreviation', 'is_public', '
-        is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'admin_team_id', 'name', 'abbreviation', 'description',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -76,25 +76,18 @@ class AdminGroup extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['admin_team_id']), function ($query) use ($filters) {
                 $query->where('admin_team_id', '=', intval($filters['admin_team_id']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', '=', $filters['name']);
             })
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where('abbreviation', '=', $filters['abbreviation']);
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(isset($filters['description']), function ($query) use ($filters) {
+                $query->where('description', '=', boolval($filters['description']));
             });
 
         return $this->appendStandardFilters($query, $filters);

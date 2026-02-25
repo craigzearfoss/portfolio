@@ -34,7 +34,7 @@
 
             <div class="floating-div-container settings">
 
-                @foreach(['public', 'readonly', 'root', 'disabled', 'demo'] as $setting)
+                @foreach(['is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo'] as $setting)
 
                     @if($resource->hasAttribute($setting))
 
@@ -42,7 +42,7 @@
                             <span>
                                 @include('admin.components.checkbox', [ 'checked' => !empty($resource->{$setting}) ])
                             </span>
-                            <span><strong>{{ $setting == 'readonly' ? 'read-only' : $setting }}</strong></span>
+                            <span><strong>{{ $setting == 'is_readonly' ? 'read-only' : $setting }}</strong></span>
                         </div>
 
                     @endif

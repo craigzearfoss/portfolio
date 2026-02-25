@@ -126,11 +126,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $recipeIngredient->public,
-                'readonly'    => old('readonly') ?? $recipeIngredient->readonly,
-                'root'        => old('root')     ?? $recipeIngredient->root,
-                'disabled'    => old('disabled') ?? $recipeIngredient->disabled,
-                'demo'        => old('demo')     ?? $recipeIngredient->demo,
+                'public'      => old('is_public')   ?? $recipeIngredient->is_public,
+                'readonly'    => old('is_readonly') ?? $recipeIngredient->is_readonly,
+                'root'        => old('is_root')     ?? $recipeIngredient->root,
+                'disabled'    => old('is_disabled') ?? $recipeIngredient->is_disabled,
+                'demo'        => old('is_demo')     ?? $recipeIngredient->is_demo,
                 'sequence'    => old('sequence') ?? $recipeIngredient->sequence,
                 'message'     => $message ?? '',
             ])

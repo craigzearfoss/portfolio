@@ -147,10 +147,10 @@
                             {!! $job->end_year !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $job->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $job->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $job->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $job->is_disabled ])
                         </td>
                         <td class="is-1">
 

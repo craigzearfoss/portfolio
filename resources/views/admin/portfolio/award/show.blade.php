@@ -65,7 +65,7 @@
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'name',
+                'name'  => 'nominated work',
                 'value' => $award->nominated_work
             ])
 

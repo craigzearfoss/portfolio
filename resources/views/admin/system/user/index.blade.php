@@ -107,7 +107,7 @@
                             {!! \App\Models\System\User::statusName($thisUser->status) ?? '' !!}
                         </td>
                         <td data-field=disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $thisUser->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $thisUser->is_disabled ])
                         </td>
                         <td class="is-1">
 

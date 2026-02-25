@@ -142,11 +142,11 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
-            [ 'name' => 'Marilyn Diptych',                 'artist' => 'Andy Warhol',      'slug' => 'marilyn-diptych-by-andy-warhol',                                     'summary' => null, 'year' => 1962, 'featured' => 0, 'public' => 1, 'image' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/2014_45_andy_warhol_mark_lawson-1024x768.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null ],
-            [ 'name' => 'Main Street',                     'artist' => 'Kevin Dixon',      'slug' => 'main-street-by-kevin-dixon',                                         'summary' => null, 'year' => null, 'featured' => 0, 'public' => 1, 'image' => null,                                                                                                       'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
-            [ 'name' => 'The Shepherds of Arcadia (Et In Arcadia Ego)',   'artist' => 'Nicolas Poussin',  'slug' => 'the-shepherds-of-arcadia-(et-in-arcadia-ego)-by-nicolas-poussin',    'summary' => null, 'year' => 1638, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Nicolas_Poussin/paintings-wm/poussin002.jpg',                      'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'The Night Cafe in the Place Lamartine in Arles', 'artist' => 'Vincent van Gogh', 'slug' => 'the-night-cafe-in-the-place-lamartine-in-arles-by-vincent-van-gogh', 'summary' => null, 'year' => 1888, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh150.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
-            [ 'name' => 'Wheat Field with Cypresses',      'artist' => 'Vincent van Gogh', 'slug' => 'wheat-field-with-cypresses-by-vincent-van-gogh',                     'summary' => null, 'year' => 1889, 'featured' => 0, 'public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh045.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Marilyn Diptych',                 'artist' => 'Andy Warhol',      'slug' => 'marilyn-diptych-by-andy-warhol',                                     'summary' => null, 'year' => 1962, 'featured' => 0, 'is_public' => 1, 'image' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/2014_45_andy_warhol_mark_lawson-1024x768.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null ],
+            [ 'name' => 'Main Street',                     'artist' => 'Kevin Dixon',      'slug' => 'main-street-by-kevin-dixon',                                         'summary' => null, 'year' => null, 'featured' => 0, 'is_public' => 1, 'image' => null,                                                                                                       'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null ],
+            [ 'name' => 'The Shepherds of Arcadia (Et In Arcadia Ego)',   'artist' => 'Nicolas Poussin',  'slug' => 'the-shepherds-of-arcadia-(et-in-arcadia-ego)-by-nicolas-poussin',    'summary' => null, 'year' => 1638, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Nicolas_Poussin/paintings-wm/poussin002.jpg',                      'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'The Night Cafe in the Place Lamartine in Arles', 'artist' => 'Vincent van Gogh', 'slug' => 'the-night-cafe-in-the-place-lamartine-in-arles-by-vincent-van-gogh', 'summary' => null, 'year' => 1888, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh150.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
+            [ 'name' => 'Wheat Field with Cypresses',      'artist' => 'Vincent van Gogh', 'slug' => 'wheat-field-with-cypresses-by-vincent-van-gogh',                     'summary' => null, 'year' => 1889, 'featured' => 0, 'is_public' => 1, 'image' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh045.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null ],
             /*
             [
                 'name'        => '',
@@ -155,7 +155,7 @@ class JedClampett extends Command
                 'summary'     => null,
                 'year'        => 2025,
                 'featured'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
                 'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
@@ -166,7 +166,7 @@ class JedClampett extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -199,13 +199,13 @@ class JedClampett extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -218,7 +218,7 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
-            [ 'name' => 'Disney Legend', 'slug' => 'disney-legend', 'category' => null, 'nominated_work' => null, 'featured' => 1, 'year' => 1993, 'organization' => 'Disney', 'public' => 1 ],
+            [ 'name' => 'Disney Legend', 'slug' => 'disney-legend', 'category' => null, 'nominated_work' => null, 'featured' => 1, 'year' => 1993, 'organization' => 'Disney', 'is_public' => 1 ],
             /*
             [
                 'name'            => '',
@@ -228,13 +228,13 @@ class JedClampett extends Command
                 'featured'        => 0,
                 'year'            => null,
                 'organization'    => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -259,13 +259,13 @@ class JedClampett extends Command
                 'received'        => '0000-00-00',
                 'certificate_url' => null,
                 'description'     => null,
-                'public'          => 1,
+                'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -278,16 +278,16 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'AWS Solutions Architect Associate Certification (SAA-C03)',    'slug' => 'aws-solutions-architect-associate-certification-(saa-c03)',    'completed' => 1, 'completion_date' => '2018-06-22', 'year' => 2018, 'duration_hours' => 48,   'academy_id' => 4, 'instructor' => 'Michael Forrester and Sanjeev Thyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-saa/',                                            'link_name' => null, 'public' => 1, 'summary' => 'Welcome to the AWS Solutions Architect Associate course, your gateway to becoming a certified AWS Solutions Architect!' ],
-            [ 'name' => 'Complete Vue.js 3 Course: Vuejs 3, Vite, TailwindCSS, Pinia',  'slug' => 'complete-vue.js-3-course:-vuejs-3,-vite,-tailwindcss,-pinia',  'completed' => 1, 'completion_date' => '2024-10-10', 'year' => 2024, 'duration_hours' => 16.5, 'academy_id' => 8, 'instructor' => 'OnlyKiosk Tech',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/complete-vuejs-3-course/',                             'link_name' => null, 'public' => 1, 'summary' => 'Vue3, TailwindCSS, VueX, Vue Router, Composition API, Pinia, and Vite; A Step-by-Step Guide to Building Vue Programs' ],
-            [ 'name' => 'AWS IAM',                                                      'slug' => 'aws-iam',                                                      'completed' => 1, 'completion_date' => '2019-07-13', 'year' => 2019, 'duration_hours' => 2,    'academy_id' => 4, 'instructor' => 'Amin Mansouri',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-iam',                                             'link_name' => null, 'public' => 1, 'summary' => 'Unlock the power of AWS Identity and Access Management (IAM) with our comprehensive IAM Mastery course.' ],
-            [ 'name' => 'Intro to Supabase',                                            'slug' => 'intro-to-supabase',                                            'completed' => 1, 'completion_date' => '2025-05-31', 'year' => 2025, 'duration_hours' => 4.8,  'academy_id' => 6, 'instructor' => 'Jonathan Hill',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-supabase-c0abltfqed',                                  'link_name' => null, 'public' => 1, 'summary' => 'Master Supabase essentials by building a real-world React.js Sales Dashboard App with authentication, real-time data operations, and secure user management.' ],
-            [ 'name' => 'Command Line Basics',                                          'slug' => 'command-line-basics',                                          'completed' => 1, 'completion_date' => '2018-03-21', 'year' => 2018, 'duration_hours' => 1.8,  'academy_id' => 6, 'instructor' => 'Ajo Borgvold',                              'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/command-line-basics-c08b87ogl0',                                'link_name' => null, 'public' => 1, 'summary' => 'Get to grips with the essential CLI skills you need to navigate files, automate tasks, and simplify your workflow.' ],
-            [ 'name' => 'FastAPI - The Complete Course 2026 (Beginner + Advanced)',     'slug' => 'fastapi-the-complete-course-2026-(beginner-plus-advanced)',    'completed' => 1, 'completion_date' => '2024-02-18', 'year' => 2024, 'duration_hours' => 21.5, 'academy_id' => 8, 'instructor' => 'Eric Roby and Chad Darby',                  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/fastapi-the-complete-course/',                         'link_name' => null, 'public' => 1, 'summary' => 'Dive in and learn FastAPI from scratch! Learn FastAPI, RESTful APIs using Python, SQLAlchemy, OAuth, JWT and way more!' ],
-            [ 'name' => 'Laravel & PHP Mastery: Build 5 Real-World Projects',           'slug' => 'laravel-and-php-mastery-build-5-real-world-projects',          'completed' => 1, 'completion_date' => '2018-06-26', 'year' => 2018, 'duration_hours' => 30.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-beginner-fundamentals/',                       'link_name' => null, 'public' => 1, 'summary' => 'Master Laravel, PHP & full-stack skills by building 5 production-ready apps!' ],
-            [ 'name' => 'JavaScript Interview Challenges',                              'slug' => 'javascript-interview-challenges',                              'completed' => 1, 'completion_date' => '2017-08-03', 'year' => 2017, 'duration_hours' => 2.3,  'academy_id' => 6, 'instructor' => 'Treasure Porth',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/javascript-interview-challenges-c02c',                          'link_name' => null, 'public' => 1, 'summary' => 'Your essential tech interview preparation pack! Practice solving problems and honing the skills you need to succeed in a frontend coding interview.' ],
-            [ 'name' => 'React.js AI Chatbot built with ChatGPT, Gemini and DeepSeek',  'slug' => 'react-js-ai-chatbot-built-with-chatgpt-gemini-and-deepseek',   'completed' => 1, 'completion_date' => '2018-12-06', 'year' => 2018, 'duration_hours' => 13.5, 'academy_id' => 8, 'instructor' => 'Anton Voroniuk and Dmytro Vasyliev',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/reactjs-ai-chatbot-built-with-chatgpt-and-gemini-ai/', 'link_name' => null, 'public' => 1, 'summary' => 'React Project: Build a Real-Time AI Chatbot with ChatGPT, Gemini, DeepSeek, Claude & Grok API' ],
-            [ 'name' => 'Ultimate AWS Certified Cloud Practitioner CLF-C02 2025',       'slug' => 'ultimate-aws-certified-cloud-practitioner-clf-c02-2025', 'completed' => 1, 'completion_date' => '2014-08-10', 'year' => 2014, 'duration_hours' => 14.5, 'academy_id' => 8, 'instructor' => 'Stephane Maarek',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-cloud-practitioner-new/',                'link_name' => null, 'public' => 1, 'summary' => 'Full Practice Exam included + explanations | Learn Cloud Computing | Pass the AWS Cloud Practitioner CLF-C02 exam!' ],
+            [ 'name' => 'AWS Solutions Architect Associate Certification (SAA-C03)',    'slug' => 'aws-solutions-architect-associate-certification-(saa-c03)',    'completed' => 1, 'completion_date' => '2018-06-22', 'year' => 2018, 'duration_hours' => 48,   'academy_id' => 4, 'instructor' => 'Michael Forrester and Sanjeev Thyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-saa/',                                            'link_name' => null, 'is_public' => 1, 'summary' => 'Welcome to the AWS Solutions Architect Associate course, your gateway to becoming a certified AWS Solutions Architect!' ],
+            [ 'name' => 'Complete Vue.js 3 Course: Vuejs 3, Vite, TailwindCSS, Pinia',  'slug' => 'complete-vue.js-3-course:-vuejs-3,-vite,-tailwindcss,-pinia',  'completed' => 1, 'completion_date' => '2024-10-10', 'year' => 2024, 'duration_hours' => 16.5, 'academy_id' => 8, 'instructor' => 'OnlyKiosk Tech',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/complete-vuejs-3-course/',                             'link_name' => null, 'is_public' => 1, 'summary' => 'Vue3, TailwindCSS, VueX, Vue Router, Composition API, Pinia, and Vite; A Step-by-Step Guide to Building Vue Programs' ],
+            [ 'name' => 'AWS IAM',                                                      'slug' => 'aws-iam',                                                      'completed' => 1, 'completion_date' => '2019-07-13', 'year' => 2019, 'duration_hours' => 2,    'academy_id' => 4, 'instructor' => 'Amin Mansouri',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-iam',                                             'link_name' => null, 'is_public' => 1, 'summary' => 'Unlock the power of AWS Identity and Access Management (IAM) with our comprehensive IAM Mastery course.' ],
+            [ 'name' => 'Intro to Supabase',                                            'slug' => 'intro-to-supabase',                                            'completed' => 1, 'completion_date' => '2025-05-31', 'year' => 2025, 'duration_hours' => 4.8,  'academy_id' => 6, 'instructor' => 'Jonathan Hill',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-supabase-c0abltfqed',                                  'link_name' => null, 'is_public' => 1, 'summary' => 'Master Supabase essentials by building a real-world React.js Sales Dashboard App with authentication, real-time data operations, and secure user management.' ],
+            [ 'name' => 'Command Line Basics',                                          'slug' => 'command-line-basics',                                          'completed' => 1, 'completion_date' => '2018-03-21', 'year' => 2018, 'duration_hours' => 1.8,  'academy_id' => 6, 'instructor' => 'Ajo Borgvold',                              'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/command-line-basics-c08b87ogl0',                                'link_name' => null, 'is_public' => 1, 'summary' => 'Get to grips with the essential CLI skills you need to navigate files, automate tasks, and simplify your workflow.' ],
+            [ 'name' => 'FastAPI - The Complete Course 2026 (Beginner + Advanced)',     'slug' => 'fastapi-the-complete-course-2026-(beginner-plus-advanced)',    'completed' => 1, 'completion_date' => '2024-02-18', 'year' => 2024, 'duration_hours' => 21.5, 'academy_id' => 8, 'instructor' => 'Eric Roby and Chad Darby',                  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/fastapi-the-complete-course/',                         'link_name' => null, 'is_public' => 1, 'summary' => 'Dive in and learn FastAPI from scratch! Learn FastAPI, RESTful APIs using Python, SQLAlchemy, OAuth, JWT and way more!' ],
+            [ 'name' => 'Laravel & PHP Mastery: Build 5 Real-World Projects',           'slug' => 'laravel-and-php-mastery-build-5-real-world-projects',          'completed' => 1, 'completion_date' => '2018-06-26', 'year' => 2018, 'duration_hours' => 30.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-beginner-fundamentals/',                       'link_name' => null, 'is_public' => 1, 'summary' => 'Master Laravel, PHP & full-stack skills by building 5 production-ready apps!' ],
+            [ 'name' => 'JavaScript Interview Challenges',                              'slug' => 'javascript-interview-challenges',                              'completed' => 1, 'completion_date' => '2017-08-03', 'year' => 2017, 'duration_hours' => 2.3,  'academy_id' => 6, 'instructor' => 'Treasure Porth',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/javascript-interview-challenges-c02c',                          'link_name' => null, 'is_public' => 1, 'summary' => 'Your essential tech interview preparation pack! Practice solving problems and honing the skills you need to succeed in a frontend coding interview.' ],
+            [ 'name' => 'React.js AI Chatbot built with ChatGPT, Gemini and DeepSeek',  'slug' => 'react-js-ai-chatbot-built-with-chatgpt-gemini-and-deepseek',   'completed' => 1, 'completion_date' => '2018-12-06', 'year' => 2018, 'duration_hours' => 13.5, 'academy_id' => 8, 'instructor' => 'Anton Voroniuk and Dmytro Vasyliev',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/reactjs-ai-chatbot-built-with-chatgpt-and-gemini-ai/', 'link_name' => null, 'is_public' => 1, 'summary' => 'React Project: Build a Real-Time AI Chatbot with ChatGPT, Gemini, DeepSeek, Claude & Grok API' ],
+            [ 'name' => 'Ultimate AWS Certified Cloud Practitioner CLF-C02 2025',       'slug' => 'ultimate-aws-certified-cloud-practitioner-clf-c02-2025', 'completed' => 1, 'completion_date' => '2014-08-10', 'year' => 2014, 'duration_hours' => 14.5, 'academy_id' => 8, 'instructor' => 'Stephane Maarek',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-cloud-practitioner-new/',                'link_name' => null, 'is_public' => 1, 'summary' => 'Full Practice Exam included + explanations | Learn Cloud Computing | Pass the AWS Cloud Practitioner CLF-C02 exam!' ],
             /*
             [
                 'name'            => '',
@@ -302,14 +302,14 @@ class JedClampett extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'public'          => 1,
+                'is_public'          => 1,
                 'summary'         => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -361,7 +361,7 @@ class JedClampett extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -400,7 +400,7 @@ class JedClampett extends Command
                 'longitude'              => -118.3963062,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             /*
             [
@@ -423,13 +423,13 @@ class JedClampett extends Command
                 'longitude'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -447,22 +447,22 @@ class JedClampett extends Command
                 'name'           => 'Milburn Drysdale',
                 'title'          => 'Banker',
                 'level_id'       => 3,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             [
                 'job_id'         => $this->jobId[1],
                 'name'           => 'Jane Hathaway',
                 'title'          => 'Bank Secretary',
                 'level_id'       => 3,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             /*
             [
@@ -470,17 +470,17 @@ class JedClampett extends Command
                 'name'           => '',
                 'title'          => '',
                 'level_id'       => 1,
-                'work_phone'     => null,
-                'personal_phone' => null,
-                'work_email'     => null,
-                'personal_email' => null,
-                'public'         => 1,
+                'phone'          => null,
+                'phone_label'    => null,
+                'email'          => null,
+                'email_label'    => null,
+                'is_public'      => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -499,13 +499,13 @@ class JedClampett extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
-                'public'                 => 1,
+                'is_public'                 => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job)skills');
         }
     }
@@ -523,13 +523,13 @@ class JedClampett extends Command
                 'job_id'   => $this->jobId[1],
                 'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
                 'sequence' => 0,
-                'public'   => 1,
+                'is_public'   => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -550,7 +550,7 @@ class JedClampett extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/Buddy_Ebsen',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'IMDb (Buddy Ebsen: Jed Clampet)',
@@ -560,7 +560,7 @@ class JedClampett extends Command
                 'url'         => 'https://www.imdb.com/title/tt0055662/characters/nm0001171/',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'Getty Images',
@@ -570,7 +570,7 @@ class JedClampett extends Command
                 'url'         => 'https://www.gettyimages.com/photos/jed-clampett',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             [
                 'name'        => 'Wikipedia (The Beverly Hillbillies TV show)',
@@ -580,7 +580,7 @@ class JedClampett extends Command
                 'url'         => 'https://en.wikipedia.org/wiki/The_Beverly_Hillbillies',
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             /*
             [
@@ -591,13 +591,13 @@ class JedClampett extends Command
                 'url'         => null,
                 'description' => null,
                 'sequence'    => 0,
-                'public'      => 1,
+                'is_public'      => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
         }
     }
@@ -610,33 +610,33 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $data = [
-            [ 'name' => 'Town Called Malice',                 'artist' => 'The Jam',                     'slug' => 'town-called-malice-by-the-jam',                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1982, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/YfpRm-p7qlY?si=xpjndR24oj4hOmSH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/YfpRm-p7qlY?si=JOv3Gjg-QNOLDBx3', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Perfect Day',                        'artist' => 'Lou Reed',                    'slug' => 'perfect-day-by-lou-reed',                                    'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Record',        'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Reasons To Be Cheerful, Pt. 3',      'artist' => 'Ian Dury and the Blockheads', 'slug' => 'reasons-to-be-cheerful-pt-3-by-ian-dury-and-the-blockheads', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Stiff',             'catalog_number' => null, 'year' => 1981, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/1injh4-n1jY?si=WGIWTrPQWb4kQJ5I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/1injh4-n1jY?si=WGIWTrPQWb4kQJ5I', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I Love the Sound of Breaking Glass', 'artist' => 'Nick Lowe',                   'slug' => 'i-love-the-sound-of-breaking-glass-by-nick-lowe',            'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records',  'catalog_number' => null, 'year' => 1978, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Drivin\' on 9',                      'artist' => 'Ed\'s Redeeming Qualities',   'slug' => 'drivin-on-9-by-eds-redeeming-qualities',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1989, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Me And The Boys',                    'artist' => 'NRBQ',                        'slug' => 'me-and-the-boys-by-nrbq',                                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/uuDHObqo99g?si=miNcriynbchibddV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/uuDHObqo99g?si=miNcriynbchibddV', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Ramadan Romance',                    'artist' => 'The Woggles',                 'slug' => 'ramadan-romance-by-the-woggles',                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NjiOGW_wkIY?si=Rqgyn4T7DZ9Fntdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/NjiOGW_wkIY?si=Rqgyn4T7DZ9Fntdc', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Jonesin\'',                          'artist' => 'Zen Frisbee',                 'slug' => 'jonesin-by-zen-frisbee',                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZKEj70erLaA?si=qVUIOf1zex0Jl_qi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZKEj70erLaA?si=qVUIOf1zex0Jl_qi', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Ridiculous',                         'artist' => 'Dynamite Shakers',            'slug' => 'ridiculous-by-dynamite-shakers',                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Temporary Secretary',                'artist' => 'Paul McCartney',              'slug' => 'temporary-secretary-by-paul-mccartney',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Chicken Payback',                    'artist' => 'The Bees',                    'slug' => 'chicken-payback-by-the-bees',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Virgin',            'catalog_number' => null, 'year' => 2004, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wq7ASMbOpmo?si=Jszf8vyl7_fdGz1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wq7ASMbOpmo?si=Jszf8vyl7_fdGz1A', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Thing Called Love',                  'artist' => 'John Hiatt',                  'slug' => 'thing-called-love-by-john-hiatt',                            'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M',               'catalog_number' => null, 'year' => 1987, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xHWUPiimFPE?si=MsZemA9Wxl99X4wn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xHWUPiimFPE?si=Aw9wzrnWejb1ZRvP', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Treble Twist',                       'artist' => 'The Kaisers',                 'slug' => 'treble-twist-by-the-kaisers',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Soundflat Records', 'catalog_number' => null, 'year' => 2018, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/f168zesLjxA?si=Bb593-gOglYlhbJX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/f168zesLjxA?si=Bb593-gOglYlhbJX', 'link_name' => 'YOuTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Crossed Wires',                      'artist' => 'Superchunk',                  'slug' => 'crossed-wires-by-superchunk',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records',     'catalog_number' => null, 'year' => 2010, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/3dwxL7YOFPI?si=St01ow-DJMCslPpm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/3dwxL7YOFPI?si=Qcs4aTsJSj0HnqYd', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Big Brown Eyes',                     'artist' => 'Old 97\'s',                   'slug' => 'big-brown-eyes-by-old-97s',                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LrOOQtcdwwQ?si=ACisure9flUrty_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/LrOOQtcdwwQ?si=Ihqd1m784Dj2DDwR', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Cruel to Be Kind',                   'artist' => 'Nick Lowe',                   'slug' => 'cruel-to-be-kind-by-nick-lowe',                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Radar',             'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-08-17', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/b0l3QWUXVho?si=-nHqIrfIOI1xHRRB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/b0l3QWUXVho?si=prXqH-NK2CfvdRT0', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Veronica',                           'artist' => 'Elvis Costello',              'slug' => 'veronica-by-elvis-costello',                                 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',      'catalog_number' => null, 'year' => 1989, 'release_date' => '1989-02-14', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MFTVrIZx61s?si=AntTi3ke4QhTLMOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MFTVrIZx61s?si=AntTi3ke4QhTLMOA', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Sabre Dance',                        'artist' => 'Dave Edmunds',                'slug' => 'sabre-dance-by-dave-edmunds',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'EMI',               'catalog_number' => null, 'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WLvA7tL44Lo?si=4s-mWeXs8hAxS6Qc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WLvA7tL44Lo?si=4s-mWeXs8hAxS6Qc', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Pump It',                            'artist' => 'Electric Callboy',            'slug' => 'pump-it-by-electric-callboy',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 2021, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/OnzkhQsmSag?si=QtIrCQB2jXpPpQz7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/OnzkhQsmSag?si=QtIrCQB2jXpPpQz7', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Natural\'s Not In It',               'artist' => 'Gang of Four',                'slug' => 'naturals-not-in-it-by-gang-of-four',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Blue Skies Over Dundalk',            'artist' => 'Mary Prankster',              'slug' => 'blue-skies-over-dundalk-by-mary-prankster',                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 2002, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/uJE76emOeBM?si=W6qdGAOA9Xt7Y-Jo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/uJE76emOeBM?si=W6qdGAOA9Xt7Y-Jo', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'I\'m Tight',                         'artist' => 'Louis Cole',                  'slug' => 'im-tight-by-louis-cole',                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 2022, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Underground',                        'artist' => 'Ben Folds Five',              'slug' => 'underground-by-ben-folds-five',                              'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Passenger/Cargo',   'catalog_number' => null, 'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/B3aALzT-e1Y?si=T3pJkNu3zc4rHKoS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/B3aALzT-e1Y?si=T3pJkNu3zc4rHKoS', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Wild & Blue',                        'artist' => 'The Mekons',                  'slug' => 'wild-and-blue-by-the-mekons',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/jc-6rSEjeYE?si=IPjtTEKZg2jS1c4L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/jc-6rSEjeYE?si=IPjtTEKZg2jS1c4L', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Uncle Walter',                       'artist' => 'Ben Folds Five',              'slug' => 'uncle-walter-by-ben-folds-five',                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Passenger/Cargo',   'catalog_number' => null, 'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/K3Pd_XRwf_Y?si=rmWuy1oGsPvZcD0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/K3Pd_XRwf_Y?si=rmWuy1oGsPvZcD0Q', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Race with the Devil',                'artist' => 'Gene Vincent',                'slug' => 'race-with-the-devil-by-gene-vincent',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/A4KaFQN-v1I?si=DmaJtWtyX5duTEb4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/A4KaFQN-v1I?si=DmaJtWtyX5duTEb4', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
-            [ 'name' => 'Jump',                               'artist' => 'Aztec Camera',                'slug' => 'jump-by-aztec-camera',                                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1984, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/COtZZmWKcRI?si=36ncq5Rryh1f_-y8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/COtZZmWKcRI?si=36ncq5Rryh1f_-y8', 'link_name' => 'YouTube', 'description' => null, 'public' => 1 ],
+            [ 'name' => 'Town Called Malice',                 'artist' => 'The Jam',                     'slug' => 'town-called-malice-by-the-jam',                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1982, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/YfpRm-p7qlY?si=xpjndR24oj4hOmSH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/YfpRm-p7qlY?si=JOv3Gjg-QNOLDBx3', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Perfect Day',                        'artist' => 'Lou Reed',                    'slug' => 'perfect-day-by-lou-reed',                                    'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'RCA Record',        'catalog_number' => null, 'year' => 1972, 'release_date' => '1972-11-08', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/9wxI4KK9ZYo?si=i9QsvUcBfrWwzqfb', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Reasons To Be Cheerful, Pt. 3',      'artist' => 'Ian Dury and the Blockheads', 'slug' => 'reasons-to-be-cheerful-pt-3-by-ian-dury-and-the-blockheads', 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Stiff',             'catalog_number' => null, 'year' => 1981, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/1injh4-n1jY?si=WGIWTrPQWb4kQJ5I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/1injh4-n1jY?si=WGIWTrPQWb4kQJ5I', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I Love the Sound of Breaking Glass', 'artist' => 'Nick Lowe',                   'slug' => 'i-love-the-sound-of-breaking-glass-by-nick-lowe',            'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Columbia Records',  'catalog_number' => null, 'year' => 1978, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/rroq-UvT-6M?si=q_kTPYVwEkFr4pGb', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Drivin\' on 9',                      'artist' => 'Ed\'s Redeeming Qualities',   'slug' => 'drivin-on-9-by-eds-redeeming-qualities',                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1989, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/2JuiDpuUUh4?si=rNO4OLJr6PDPcuIh', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Me And The Boys',                    'artist' => 'NRBQ',                        'slug' => 'me-and-the-boys-by-nrbq',                                    'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1980, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/uuDHObqo99g?si=miNcriynbchibddV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/uuDHObqo99g?si=miNcriynbchibddV', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ramadan Romance',                    'artist' => 'The Woggles',                 'slug' => 'ramadan-romance-by-the-woggles',                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NjiOGW_wkIY?si=Rqgyn4T7DZ9Fntdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/NjiOGW_wkIY?si=Rqgyn4T7DZ9Fntdc', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Jonesin\'',                          'artist' => 'Zen Frisbee',                 'slug' => 'jonesin-by-zen-frisbee',                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1994, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ZKEj70erLaA?si=qVUIOf1zex0Jl_qi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/ZKEj70erLaA?si=qVUIOf1zex0Jl_qi', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ridiculous',                         'artist' => 'Dynamite Shakers',            'slug' => 'ridiculous-by-dynamite-shakers',                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/aNeNYJ8f2G4?si=0h7W98pSwqUGTv2T', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Temporary Secretary',                'artist' => 'Paul McCartney',              'slug' => 'temporary-secretary-by-paul-mccartney',                      'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => null, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/5EeTkF-SLxE?si=GPUNr-cr1RzuCBhC', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Chicken Payback',                    'artist' => 'The Bees',                    'slug' => 'chicken-payback-by-the-bees',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Virgin',            'catalog_number' => null, 'year' => 2004, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wq7ASMbOpmo?si=Jszf8vyl7_fdGz1A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/Wq7ASMbOpmo?si=Jszf8vyl7_fdGz1A', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Thing Called Love',                  'artist' => 'John Hiatt',                  'slug' => 'thing-called-love-by-john-hiatt',                            'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'A&M',               'catalog_number' => null, 'year' => 1987, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/xHWUPiimFPE?si=MsZemA9Wxl99X4wn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/xHWUPiimFPE?si=Aw9wzrnWejb1ZRvP', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Treble Twist',                       'artist' => 'The Kaisers',                 'slug' => 'treble-twist-by-the-kaisers',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Soundflat Records', 'catalog_number' => null, 'year' => 2018, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/f168zesLjxA?si=Bb593-gOglYlhbJX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/f168zesLjxA?si=Bb593-gOglYlhbJX', 'link_name' => 'YOuTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Crossed Wires',                      'artist' => 'Superchunk',                  'slug' => 'crossed-wires-by-superchunk',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Merge Records',     'catalog_number' => null, 'year' => 2010, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/3dwxL7YOFPI?si=St01ow-DJMCslPpm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/3dwxL7YOFPI?si=Qcs4aTsJSj0HnqYd', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Big Brown Eyes',                     'artist' => 'Old 97\'s',                   'slug' => 'big-brown-eyes-by-old-97s',                                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1996, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LrOOQtcdwwQ?si=ACisure9flUrty_o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/LrOOQtcdwwQ?si=Ihqd1m784Dj2DDwR', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Cruel to Be Kind',                   'artist' => 'Nick Lowe',                   'slug' => 'cruel-to-be-kind-by-nick-lowe',                              'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Radar',             'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-08-17', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/b0l3QWUXVho?si=-nHqIrfIOI1xHRRB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/b0l3QWUXVho?si=prXqH-NK2CfvdRT0', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Veronica',                           'artist' => 'Elvis Costello',              'slug' => 'veronica-by-elvis-costello',                                 'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Warner Bros.',      'catalog_number' => null, 'year' => 1989, 'release_date' => '1989-02-14', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MFTVrIZx61s?si=AntTi3ke4QhTLMOA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/MFTVrIZx61s?si=AntTi3ke4QhTLMOA', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Sabre Dance',                        'artist' => 'Dave Edmunds',                'slug' => 'sabre-dance-by-dave-edmunds',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'EMI',               'catalog_number' => null, 'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/WLvA7tL44Lo?si=4s-mWeXs8hAxS6Qc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/WLvA7tL44Lo?si=4s-mWeXs8hAxS6Qc', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Pump It',                            'artist' => 'Electric Callboy',            'slug' => 'pump-it-by-electric-callboy',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 2021, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/OnzkhQsmSag?si=QtIrCQB2jXpPpQz7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/OnzkhQsmSag?si=QtIrCQB2jXpPpQz7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Natural\'s Not In It',               'artist' => 'Gang of Four',                'slug' => 'naturals-not-in-it-by-gang-of-four',                         'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1979, 'release_date' => '1979-09-25', 'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/_QAIX8410zs?si=sOuDBRLJ0jvNdBT6', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Blue Skies Over Dundalk',            'artist' => 'Mary Prankster',              'slug' => 'blue-skies-over-dundalk-by-mary-prankster',                  'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 2002, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/uJE76emOeBM?si=W6qdGAOA9Xt7Y-Jo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/uJE76emOeBM?si=W6qdGAOA9Xt7Y-Jo', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'I\'m Tight',                         'artist' => 'Louis Cole',                  'slug' => 'im-tight-by-louis-cole',                                     'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 2022, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/u9XrWB-u1vc?si=8aEyMDKMAk7-raO7', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Underground',                        'artist' => 'Ben Folds Five',              'slug' => 'underground-by-ben-folds-five',                              'featured' => 1, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Passenger/Cargo',   'catalog_number' => null, 'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/B3aALzT-e1Y?si=T3pJkNu3zc4rHKoS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/B3aALzT-e1Y?si=T3pJkNu3zc4rHKoS', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Wild & Blue',                        'artist' => 'The Mekons',                  'slug' => 'wild-and-blue-by-the-mekons',                                'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1991, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/jc-6rSEjeYE?si=IPjtTEKZg2jS1c4L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/jc-6rSEjeYE?si=IPjtTEKZg2jS1c4L', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Uncle Walter',                       'artist' => 'Ben Folds Five',              'slug' => 'uncle-walter-by-ben-folds-five',                             'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => 'Passenger/Cargo',   'catalog_number' => null, 'year' => 1995, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/K3Pd_XRwf_Y?si=rmWuy1oGsPvZcD0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/K3Pd_XRwf_Y?si=rmWuy1oGsPvZcD0Q', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Race with the Devil',                'artist' => 'Gene Vincent',                'slug' => 'race-with-the-devil-by-gene-vincent',                        'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1958, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/A4KaFQN-v1I?si=DmaJtWtyX5duTEb4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/A4KaFQN-v1I?si=DmaJtWtyX5duTEb4', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
+            [ 'name' => 'Jump',                               'artist' => 'Aztec Camera',                'slug' => 'jump-by-aztec-camera',                                       'featured' => 0, 'summary' => null, 'collection' => 0, 'track' => 1, 'label' => null,                'catalog_number' => null, 'year' => 1984, 'release_date' => null,         'embed' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/COtZZmWKcRI?si=36ncq5Rryh1f_-y8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 'audio_url' => null, 'link' => 'https://youtu.be/COtZZmWKcRI?si=36ncq5Rryh1f_-y8', 'link_name' => 'YouTube', 'description' => null, 'is_public' => 1 ],
             /*
             [
                 'name'           => '',
@@ -655,13 +655,13 @@ class JedClampett extends Command
                 'link'           => null,
                 'link_name'      => null,
                 'description'    => null,
-                'public'         => 1,
+                'is_public'         => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -686,13 +686,13 @@ class JedClampett extends Command
                 'repository_url'   => null,
                 'repository_name'  => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -714,8 +714,8 @@ class JedClampett extends Command
                 'summary'           => null,
                 'publication_name'  => null,
                 'publisher'         => null,
-                'date'              => null,
-                'year'              => 2025,
+                'publication_date'  => null,
+                'publication_year'  => 2025,
                 'credit'            => null,
                 'freelance'         => 0,
                 'fiction'           => 0,
@@ -736,13 +736,13 @@ class JedClampett extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'public'            => 1,
+                'is_public'            => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -755,27 +755,27 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'Leadership',  'slug' => 'leadership', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'diplomacy',   'slug' => 'diplomacy',  'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
-            [ 'name' => 'delegating',  'slug' => 'delegating', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'Leadership',  'slug' => 'leadership', 'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'diplomacy',   'slug' => 'diplomacy',  'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'delegating',  'slug' => 'delegating', 'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
                 'featured'               => 1,
-                'type'                   => 1,
+                'type_id'                => 1,
                 'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,
-                'public'                 => 1
+                'is_public'              => 1
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -807,13 +807,13 @@ class JedClampett extends Command
                 'link'             => null,
                 'link_name'        => null,
                 'description'      => null,
-                'public'           => 1,
+                'is_public'           => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }

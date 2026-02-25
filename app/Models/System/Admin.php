@@ -67,8 +67,8 @@ class Admin extends Authenticatable
     protected $fillable = [
         'admin_team_id',
         'username',
-        'label',
         'name',
+        'label',
         'salutation',
         'title',
         'role',
@@ -84,11 +84,14 @@ class Admin extends Authenticatable
         'longitude',
         'phone',
         'email',
+        'email_verified_at',
         'birthday',
+        'bio',
+        'notes',
         'link',
         'link_name',
-        'bio',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',
@@ -144,13 +147,88 @@ class Admin extends Authenticatable
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'admin_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role',
-        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'is_public',
+        'employer', 'employment_status_id', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone',
+        'email', 'birthday', 'bio', 'notes', 'description', 'disclaimer', 'requires_relogin', 'status', 'is_public',
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
     const array SEARCH_ORDER_BY = [ 'username', 'asc' ];
+
+    /**
+     * Returns the query builder for a search from the request parameters.
+     * If an owner is specified it will override any owner_id parameter in the request.
+     *
+     * @param array $filters
+     * @param Admin|Owner|null $owner
+     * @return Builder
+     */
+    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    {
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(!empty($filters['admin_team_id']), function ($query) use ($filters) {
+                $query->where('admin_team_id', '=', intval($filters['admin_team_id']));
+            })
+            ->when(!empty($filters['username']), function ($query) use ($filters) {
+                $query->where('username', 'like', '%' . $filters['username'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(!empty($filters['label']), function ($query) use ($filters) {
+                $query->where('label', 'like', '%' . $filters['label'] . '%');
+            })
+            ->when(!empty($filters['salutation']), function ($query) use ($filters) {
+                $query->where('salutation', 'like', '%' . $filters['salutation'] . '%');
+            })
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where('title', 'like', '%' . $filters['title'] . '%');
+            })
+            ->when(!empty($filters['role']), function ($query) use ($filters) {
+                $query->where('role', 'like', '%' . $filters['role'] . '%');
+            })
+            ->when(!empty($filters['employer']), function ($query) use ($filters) {
+                $query->where('employer', 'like', '%' . $filters['employer'] . '%');
+            })
+            ->when(!empty($filters['employment_status_id']), function ($query) use ($filters) {
+                $query->where('employment_status_id', '=', intval($filters['employment_status_id']));
+            });
+
+        $query =$this->appendAddressFilters($query, $filters);
+
+        $query->when(!empty($filters['phone']), function ($query) use ($filters) {
+                $query->where('phone', 'like', '%' . $filters['phone'] . '%');
+            })
+            ->when(!empty($filters['email']), function ($query) use ($filters) {
+                $query->where('email', 'like', '%' . $filters['email'] . '%');
+            })
+            ->when(!empty($filters['birthday']), function ($query) use ($filters) {
+                $query->where('birthday', '=', $filters['birthday']);
+            })
+            ->when(!empty($filters['bio']), function ($query) use ($filters) {
+                $query->where('bio', 'like', '%' . $filters['bio'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(isset($filters['requires_relogin']), function ($query) use ($filters) {
+                $query->where('requires_relogin', '=', boolval(['requires_relogin']));
+            })
+            ->when(isset($filters['status']), function ($query) use ($filters) {
+                $query->where('status', '=', intval(['status']));
+            });
+
+        return $this->appendStandardFilters($query, $filters);
+    }
 
     /**
      * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
@@ -184,79 +262,6 @@ class Admin extends Authenticatable
         }
 
         return $options;
-    }
-
-    /**
-     * Returns the query builder for a search from the request parameters.
-     * If an owner is specified it will override any owner_id parameter in the request.
-     *
-     * @param array $filters
-     * @param Admin|Owner|null $owner
-     * @return Builder
-     */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
-    {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-                unset($filters['id']);
-            }
-            $filters['id'] = $owner->id;
-        }
-
-        $query = new self()->when(isset($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
-            })
-            ->when(!empty($filters['username']), function ($query) use ($filters) {
-                $query->where('username', 'like', '%' . $filters['username'] . '%');
-            })
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
-            })
-            ->when(!empty($filters['label']), function ($query) use ($filters) {
-                $query->where('label', 'like', '%' . $filters['label'] . '%');
-            })
-            ->when(!empty($filters['salutation']), function ($query) use ($filters) {
-                $query->where('salutation', 'like', '%' . $filters['salutation'] . '%');
-            })
-            ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['title'] . '%');
-            })
-            ->when(!empty($filters['role']), function ($query) use ($filters) {
-                $query->where('role', 'like', '%' . $filters['role'] . '%');
-            })
-            ->when(!empty($filters['employer']), function ($query) use ($filters) {
-                $query->where('employer', 'like', '%' . $filters['employer'] . '%');
-            })
-            ->when(isset($filters['employment_status_id']), function ($query) use ($filters) {
-                $query->where('employment_status_id', '=', intval($filters['employment_status_id']));
-            })
-            ->when(!empty($filters['city']), function ($query) use ($filters) {
-                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
-            })
-            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
-                $query->where('state_id', '=', intval($filters['state_id']));
-            })
-            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where('country_id', '=', intval($filters['country_id']));
-            })
-            ->when(!empty($filters['phone']), function ($query) use ($filters) {
-                $query->where('phone', 'LIKE', '%' . $filters['phone'] . '%');
-            })
-            ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $query->where('email', 'LIKE', '%' . $filters['email'] . '%');
-            })
-            ->when(!empty($filters['birthday']), function ($query) use ($filters) {
-                $query->where('birthday', '=',  $filters['birthday']);
-            })
-            ->when(isset($filters['requires_relogin']), function ($query) use ($filters) {
-                $query->where('requires_relogin', '=', boolval($filters['requires_relogin']));
-            })
-            ->when(isset($filters['status']), function ($query) use ($filters) {
-                $query->where('status', '=', boolval($filters['status']));
-            });
-
-        return $this->appendStandardFilters($query, $filters);
     }
 
     /**
@@ -423,7 +428,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get all the system admingroups for the admin.
+     * Get all the system admin groups for the admin.
      *
      * @return BelongsToMany
      */

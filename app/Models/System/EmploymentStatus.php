@@ -19,7 +19,7 @@ class EmploymentStatus extends Model
     /**
      * @var string
      */
-    protected $connection = 'career_db';
+    protected $connection = 'system_db';
 
     /**
      * @var string

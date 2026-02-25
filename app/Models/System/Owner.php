@@ -82,11 +82,14 @@ class Owner extends Model
         'longitude',
         'phone',
         'email',
+        'email_verified_at',
         'birthday',
+        'bio',
+        'notes',
         'link',
         'link_name',
-        'bio',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',
@@ -142,48 +145,14 @@ class Owner extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'admin_team_id', 'username', 'name', 'label', 'salutation', 'title', 'role',
-        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email', 'is_status', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'demo' ];
+        'employer', 'employment_status_id', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone',
+        'email', 'birthday', 'bio', 'notes', 'description', 'disclaimer', 'requires_relogin', 'status', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
     const array SEARCH_ORDER_BY = [ 'username', 'asc' ];
-
-
-    /**
-     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
-     *
-     * @param bool $includeBlank
-     * @return array|string[]
-     */
-    public function salutationListOptions(bool $includeBlank = false): array
-    {
-        $options = $includeBlank ? [ '' => '' ] : [];
-
-        foreach (self::SALUTATIONS as $title) {
-            $options[$title] = $title;
-        }
-
-        return $options;
-    }
-
-    /**
-     * Returns an array of options for a select list for statuses, i.e. active or pending.
-     *
-     * @param bool $includeBlank
-     * @return array|string[]
-     */
-    public function statusListOptions(bool $includeBlank = false): array
-    {
-        $options = $includeBlank ? [ '' => '' ] : [];
-
-        foreach (self::STATUSES as $name) {
-            $options[$name] = $name;
-        }
-
-        return $options;
-    }
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -195,16 +164,11 @@ class Owner extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-                unset($filters['id']);
-            }
-            $filters['id'] = $owner->id;
-        }
-
-        return new self()->when(isset($filters['id']), function ($query) use ($filters) {
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
+            })
+            ->when(!empty($filters['admin_team_id']), function ($query) use ($filters) {
+                $query->where('admin_team_id', '=', intval($filters['admin_team_id']));
             })
             ->when(!empty($filters['username']), function ($query) use ($filters) {
                 $query->where('username', 'like', '%' . $filters['username'] . '%');
@@ -227,36 +191,75 @@ class Owner extends Model
             ->when(!empty($filters['employer']), function ($query) use ($filters) {
                 $query->where('employer', 'like', '%' . $filters['employer'] . '%');
             })
-            ->when(isset($filters['employment_status_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['employment_status_id']), function ($query) use ($filters) {
                 $query->where('employment_status_id', '=', intval($filters['employment_status_id']));
-            })
-            ->when(!empty($filters['city']), function ($query) use ($filters) {
-                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
-            })
-            ->when(!empty($filters['state_id']), function ($query) use ($filters) {
-                $query->where('state_id', '=', intval($filters['state_id']));
-            })
-            ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where('country_id', '=', intval($filters['country_id']));
-            })
-            ->when(!empty($filters['phone']), function ($query) use ($filters) {
-                $query->where('phone', 'LIKE', '%' . $filters['phone'] . '%');
+            });
+
+        $query =$this->appendAddressFilters($query, $filters);
+
+        $query->when(!empty($filters['phone']), function ($query) use ($filters) {
+                $query->where('phone', 'like', '%' . $filters['phone'] . '%');
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $query->where('email', 'LIKE', '%' . $filters['email'] . '%');
+                $query->where('email', 'like', '%' . $filters['email'] . '%');
             })
             ->when(!empty($filters['birthday']), function ($query) use ($filters) {
-                $query->where('birthday', '=',  $filters['birthday']);
+                $query->where('birthday', '=', $filters['birthday']);
+            })
+            ->when(!empty($filters['bio']), function ($query) use ($filters) {
+                $query->where('bio', 'like', '%' . $filters['bio'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(isset($filters['requires_relogin']), function ($query) use ($filters) {
-                $query->where('requires_relogin', '=', boolval($filters['requires_relogin']));
+                $query->where('requires_relogin', '=', boolval(['requires_relogin']));
             })
             ->when(isset($filters['status']), function ($query) use ($filters) {
-                $query->where('status', '=', boolval($filters['status']));
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+                $query->where('status', '=', intval(['status']));
             });
+
+        return $this->appendStandardFilters($query, $filters);
+    }
+
+    /**
+     * Returns an array of options for a select list for salutations, i.e. Mr., Mrs., Miss, etc.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public function salutationListOptions(bool $includeBlank = false): array
+    {
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        foreach (self::SALUTATIONS as $title) {
+            $options[$title] = $title;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns an array of options for a select list for statuses, i.e. active or pending.
+     *
+     * @param string $valueColumn - id or name
+     * @return array|string[]
+     */
+    public function statusListOptions(string $valueColumn = 'id'): array
+    {
+        $options = [];
+
+        foreach (self::STATUSES as $id=>$name) {
+            $options[$valueColumn == 'id' ? $id : $name] = $name;
+        }
+
+        return $options;
     }
 
     /**
@@ -403,6 +406,16 @@ class Owner extends Model
     }
 
     /**
+     * Get the system employment status that owns the admin.
+     *
+     * @return BelongsTo
+     */
+    public function employmentStatus(): BelongsTo
+    {
+        return $this->belongsTo(EmploymentStatus::class, 'employment_status_id');
+    }
+
+    /**
      * Get the career events for the owner.
      *
      * @return HasMany
@@ -413,9 +426,9 @@ class Owner extends Model
     }
 
     /**
-     * Get all the system groups for the admin.
+     * Get all the system admin groups for the owner.
      *
-     * @return HasMany
+     * @return BelongsToMany
      */
     public function groups(): BelongsToMany
     {
@@ -596,7 +609,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the system state that owns the admin.
+     * Get the system state that owns the owner.
      *
      * @return BelongsTo
      */
@@ -628,7 +641,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the current system admin_team of the admin.
+     * Get the current system admin team of the owner.
      *
      * @return BelongsTo
      */
@@ -638,7 +651,7 @@ class Owner extends Model
     }
 
     /**
-     * Get all the system admin_teams for the admin.
+     * Get all the system admin teams for the owner.
      *
      * @return BelongsToMany
      */

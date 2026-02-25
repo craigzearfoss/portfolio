@@ -59,8 +59,8 @@ class UserGroup extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'user_id', 'user_team_id', 'name', 'abbreviation', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'user_id', 'user_team_id', 'name', 'abbreviation', 'description',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -77,18 +77,30 @@ class UserGroup extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        $query = new self()->getSearchQuery($filters)
+        if (!empty($user)) {
+            if (array_key_exists('user_id', $filters)) {
+                unset($filters['user_id']);
+            }
+            $filters['user_id'] = $user->id;
+        }
+
+        $query = new self()->when(isset($filters['id']), function ($query) use ($filters) {
+                $query->where('id', '=', intval($filters['id']));
+            })
             ->when(isset($filters['user_id']), function ($query) use ($filters) {
                 $query->where('user_id', '=', intval($filters['user_id']));
             })
             ->when(isset($filters['user_team_id']), function ($query) use ($filters) {
                 $query->where('user_team_id', '=', intval($filters['user_team_id']));
             })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', '=', $filters['name']);
+            })
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where('abbreviation', '=', $filters['abbreviation']);
             })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
+            ->when(isset($filters['description']), function ($query) use ($filters) {
+                $query->where('description', '=', boolval($filters['description']));
             });
 
         return $this->appendStandardFilters($query, $filters);

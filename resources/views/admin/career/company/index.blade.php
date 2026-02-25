@@ -9,7 +9,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
@@ -43,7 +43,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if($admin->root)
+                    @if($admin->is_root)
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -56,7 +56,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -72,7 +72,7 @@
                 @forelse ($companies as $company)
 
                     <tr data-id="{{ $company->id }}">
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $company->owner->username }}
                             </td>
@@ -146,7 +146,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no companies.</td>
+                        <td colspan="{{ $admin->is_root ? '5' : '4' }}">There are no companies.</td>
                     </tr>
 
                 @endforelse

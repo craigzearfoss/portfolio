@@ -115,14 +115,14 @@
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'date',
                 'name'      => 'date',
-                'value'     => old('date') ?? $publication->date,
+                'value'     => old('publication_date') ?? $publication->publication_date,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
                 'name'      => 'year',
-                'value'     => old('year') ?? $publication->year,
+                'value'     => old('publication_year') ?? $publication->publication_year,
                 'min'       => 1980,
                 'max'       => now("Y"),
                 'message'   => $message ?? '',
@@ -310,11 +310,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $publication->public,
-                'readonly'    => old('readonly') ?? $publication->readonly,
-                'root'        => old('root')     ?? $publication->root,
-                'disabled'    => old('disabled') ?? $publication->disabled,
-                'demo'        => old('demo')     ?? $publication->demo,
+                'public'      => old('is_public')   ?? $publication->public,
+                'readonly'    => old('is_readonly') ?? $publication->is_readonly,
+                'root'        => old('is_root')     ?? $publication->root,
+                'disabled'    => old('is_disabled') ?? $publication->is_disabled,
+                'demo'        => old('is_demo')     ?? $publication->is_demo,
                 'sequence'    => old('sequence') ?? $publication->sequence,
                 'message'     => $message ?? '',
             ])

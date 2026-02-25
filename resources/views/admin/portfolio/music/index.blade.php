@@ -103,10 +103,10 @@
                             {!! $music->catalog_number !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $music->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $music->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $music->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $music->is_disabled ])
                         </td>
                         <td class="is-1">
 

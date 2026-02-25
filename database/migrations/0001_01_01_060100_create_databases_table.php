@@ -32,7 +32,7 @@ return new class extends Migration
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
             $table->string('name', 50)->unique();
-            $table->string('database_name', 50)->unique();
+            $table->string('database', 50)->unique();
             $table->string('tag', 50)->unique();
             $table->string('title', 50);
             $table->string('plural', 50);
@@ -61,7 +61,7 @@ return new class extends Migration
             [
                 'id'             => 1,
                 'name'           => 'system',
-                'database_name'  => config('app.' . $this->database_tag),
+                'database'       => config('app.' . $this->database_tag),
                 'tag'            => 'system_db',
                 'title'          => 'System',
                 'plural'         => 'Systems',
@@ -71,7 +71,7 @@ return new class extends Migration
                 'admin'          => true,
                 'menu'           => true,
                 'menu_level'     => 0,
-                'menu_collapsed' => true,
+                'menu_collapsed' => false,
                 'icon'           => 'fa-cog',
                 'is_public'      => true,
                 'is_readonly'    => false,

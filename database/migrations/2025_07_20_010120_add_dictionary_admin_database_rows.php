@@ -29,7 +29,7 @@ return new class extends Migration
                     'owner_id'       => $ownerId,
                     'database_id'    => $dictionaryDatabase->id,
                     'name'           => $dictionaryDatabase->name,
-                    'database_name'  => $dictionaryDatabase->database_name,
+                    'database'       => $dictionaryDatabase->database,
                     'tag'            => $dictionaryDatabase->tag,
                     'title'          => $dictionaryDatabase->title,
                     'plural'         => $dictionaryDatabase->plural,

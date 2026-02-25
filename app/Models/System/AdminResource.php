@@ -39,11 +39,11 @@ class AdminResource extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'parent_id',
         'owner_id',
         'resource_id',
         'database_id',
         'name',
-        'parent_id',
         'table_name',
         'class',
         'title',
@@ -67,8 +67,8 @@ class AdminResource extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'resource_id', 'database_id', 'name', 'parent_id', 'table_name',
-        'title', 'plural', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
+    const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'resource_id', 'database_id', 'name', 'table_name',
+        'class', 'title', 'plural', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
         'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
@@ -86,14 +86,10 @@ class AdminResource extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        if (!empty($owner)) {
-            if (array_key_exists('owner_id', $filters)) {
-                unset($filters['owner_id']);
-            }
-            $filters['owner_id'] = $owner->id;
-        }
-
-        $query = new self()->getSearchQuery($filters)
+        $query = new self()->getSearchQuery($filters, $owner)
+            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+                $query->where('parent_id', '=', intval($filters['parent_id']));
+            })
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
@@ -102,9 +98,6 @@ class AdminResource extends Model
             })
             ->when(isset($filters['database_id']), function ($query) use ($filters) {
                 $query->where('database_id', '=', intval($filters['database_id']));
-            })
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
-                $query->where('parent_id', '=', intval($filters['parent_id']));
             })
             ->when(!empty($filters['table_name']), function ($query) use ($filters) {
                 $query->where('table_name', 'like', '%' . $filters['table_name'] . '%');
@@ -132,9 +125,6 @@ class AdminResource extends Model
             })
             ->when(isset($filters['icon']), function ($query) use ($filters) {
                 $query->where('icon', '=', ['icon']);
-            })
-            ->when(isset($filters['demo']), function ($query) use ($filters) {
-                $query->where('demo', '=', boolval($filters['demo']));
             });
 
         $query = $this->appendEnvironmentFilters($query, $filters);
@@ -150,16 +140,6 @@ class AdminResource extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class, 'owner_id');
-    }
-
-    /**
-     * Get the system database that owns the resource.
-     *
-     * @return BelongsTo
-     */
-    public function database(): BelongsTo
-    {
-        return $this->belongsTo(Database::class, 'database_id');
     }
 
     /**
@@ -183,6 +163,14 @@ class AdminResource extends Model
     }
 
     /**
+     * Get the system database that owns the resource.
+     */
+    public function database(): BelongsTo
+    {
+        return $this->belongsTo(Database::class, 'database_id');
+    }
+
+    /**
      * Returns the resources for specified owner.
      *
      * @param int|null $ownerId
@@ -203,7 +191,6 @@ class AdminResource extends Model
             return new Resource()->ownerResources($envType, $databaseId, $filters, $orderBy);
         }
 
-        //?????if ($envType == 'root') $envType = EnvTypes::ADMIN;
         if (!empty($envType) && !in_array($envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
             throw new Exception('ENV type ' . $envType->value . ' not supported');
         }
@@ -218,6 +205,8 @@ class AdminResource extends Model
                 DB::raw("admins.username AS 'admin_username'"),
                 DB::raw("admins.label AS 'admin_label'"),
                 DB::raw("databases.name AS 'database_name'"),
+                DB::raw("databases.database AS 'database_database'"),
+                DB::raw("databases.tag AS 'database_tag'"),
                 'admin_resources.*']
         )
             ->join('admins', 'admins.id', 'admin_resources.owner_id')
@@ -263,6 +252,11 @@ class AdminResource extends Model
         $rootAdmin = new Admin()->find(1);
 
         $resources = $query->get();
+/*
+for($i=0; $i<count($resources); $i++) {
+    echo '<li>' . $i . ') ' . $resources[$i]->owner_id ?? '*' . '</li>';
+}        die;
+*/
         for ($i=0; $i<count($resources); $i++) {
 
             $routeName = $envType->value
@@ -287,6 +281,30 @@ class AdminResource extends Model
             $resources[$i]->route = $routeName;
             $resources[$i]->url = $url;
             $resources[$i]->active = getRouteBase(($routeName)) === getRouteBase(Route::currentRouteName());
+
+            // add owner array to resource
+            $resources[$i]->owner = empty($resources[$i]->owner_id)
+                ? null
+                : [
+                    'id' => $resources[$i]->owner_id,
+                    'name' => $resources[$i]->admin_name,
+                    'username' => $resources[$i]->admin_username,
+                    'label' => $resources[$i]->admin_label,
+                ];
+            unset($resources[$i]->admin_name);
+            unset($resources[$i]->admin_username);
+            unset($resources[$i]->admin_label);
+
+            // add database array to resource
+            $resources[$i]->database = [
+                'id' => $resources[$i]->database_id,
+                'name' => $resources[$i]->database_name,
+                'database' => $resources[$i]->database_database,
+                'tag' => $resources[$i]->database_tag,
+            ];
+            unset($resources[$i]->database_name);
+            unset($resources[$i]->database_database);
+            unset($resources[$i]->database_tag);
         }
 
         return $resources;

@@ -251,6 +251,8 @@ if (! function_exists('canCreate')) {
                        string                       $entity,
                        Admin|null                   $admin = null): bool
     {
+        //@TODO: temp for development
+        return true;
         if (empty($entity)) {
             abort(500, 'canCreate(): Argument #2 ($entity) cannot be empty');
         } elseif (empty($admin)) {
@@ -292,6 +294,8 @@ if (! function_exists('canRead')) {
                                                   $entity, Admin|null
                                                   $admin = null): bool
     {
+        //@TODO: temp for development
+        return true;
         if (empty($entity)) {
             abort(500, 'canRead(): Argument #2 ($entity) cannot be empty.');
         } elseif (empty($admin)) {
@@ -336,6 +340,8 @@ if (! function_exists('canUpdate')) {
                                              $entity,
                        Admin|null            $admin = null): bool
     {
+        //@TODO: temp for development
+        return true;
         if (empty($entity)) {
             abort(500, 'canUpdate(): Argument #2 ($entity) cannot be empty');
         } elseif (empty($admin)) {
@@ -379,6 +385,8 @@ if (! function_exists('canDelete')) {
                                              $entity,
                        Admin|null            $admin = null): bool
     {
+        //@TODO: temp for development
+        return true;
         if (empty($entity)) {
             abort(500, 'canDelete(): Argument #2 ($entity) cannot be empty.');
         } elseif (empty($admin)) {

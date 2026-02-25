@@ -32,7 +32,7 @@
 
         <div class="control ml-2 mt-2">
 
-            @if($adminModel->where('public', 1)->count() > 1)
+            @if($adminModel->where('is_public', 1)->count() > 1)
 
                 <div class="has-text-light">candidates</div>
 

@@ -79,12 +79,12 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'date',
-                'value' => longDate($publication->date)
+                'value' => longDate($publication->publication_date)
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'year',
-                'value' => $publication->year
+                'value' => $publication->publication_year
             ])
 
             @include('admin.components.show-row', [

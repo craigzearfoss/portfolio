@@ -9,7 +9,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
@@ -45,7 +45,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -58,7 +58,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -74,7 +74,7 @@
                 @forelse ($links as $link)
 
                     <tr data-id="{{ $link->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $link->owner->username ?? '' }}
                             </td>
@@ -83,10 +83,10 @@
                             {!! $link->name !!}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $link->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $link->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $link->is_disabled ])
                         </td>
                         <td class="is-1">
 
@@ -158,7 +158,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no links.</td>
+                        <td colspan="{{ $admin->is_root ? '5' : '4' }}">There are no links.</td>
                     </tr>
 
                 @endforelse

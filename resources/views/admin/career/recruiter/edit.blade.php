@@ -186,11 +186,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('public')   ?? $recruiter->public,
-                'readonly'    => old('readonly') ?? $recruiter->readonly,
-                'root'        => old('root')     ?? $recruiter->root,
-                'disabled'    => old('disabled') ?? $recruiter->disabled,
-                'demo'        => old('demo')     ?? $recruiter->demo,
+                'public'      => old('is_public')   ?? $recruiter->is_public,
+                'readonly'    => old('is_readonly') ?? $recruiter->is_readonly,
+                'root'        => old('is_root')     ?? $recruiter->root,
+                'disabled'    => old('is_disabled') ?? $recruiter->is_disabled,
+                'demo'        => old('is_demo')     ?? $recruiter->is_demo,
                 'sequence'    => old('sequence') ?? $recruiter->sequence,
                 'message'     => $message ?? '',
             ])

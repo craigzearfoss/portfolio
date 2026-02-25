@@ -38,9 +38,9 @@
             ])
         @endif
 
-        @if(!empty($award->category))
+        @if(!empty($award->nominated_work))
             @include('guest.components.show-row', [
-                'name'  => 'nominated_work',
+                'name'  => 'nominated work',
                 'value' => $award->nominated_work
             ])
         @endif

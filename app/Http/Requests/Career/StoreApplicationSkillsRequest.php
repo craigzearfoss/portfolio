@@ -37,7 +37,7 @@ class StoreApplicationSkillsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies', 'name')->where(function ($query) {
+                Rule::unique('career_db.application_skills', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -48,11 +48,11 @@ class StoreApplicationSkillsRequest extends FormRequest
             'start_year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'end_year'               => ['integer', 'between:1980,'.date("Y"), 'gt:start_year', 'nullable'],
             'years'                  => ['integer', 'min:0', 'nullable'],
-            'public'                 => ['integer', 'between:0,1'],
-            'readonly'               => ['integer', 'between:0,1'],
-            'root'                   => ['integer', 'between:0,1'],
-            'disabled'               => ['integer', 'between:0,1'],
-            'demo'                   => ['integer', 'between:0,1'],
+            'is_public'              => ['integer', 'between:0,1'],
+            'is_readonly'            => ['integer', 'between:0,1'],
+            'is_root'                => ['integer', 'between:0,1'],
+            'is_disabled'            => ['integer', 'between:0,1'],
+            'is_demo'                => ['integer', 'between:0,1'],
             'sequence'               => ['integer', 'min:0', 'nullable'],
         ];
     }

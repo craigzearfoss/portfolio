@@ -179,7 +179,7 @@ class FredFlintstone extends Command
         ];
 
         if (!empty($data)) {
-            $applicationModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $applicationModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'applications');
         }
     }
@@ -207,7 +207,7 @@ class FredFlintstone extends Command
         ];
 
         if (!empty($data)) {
-            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'application_skills');
         }
     }
@@ -244,7 +244,7 @@ class FredFlintstone extends Command
         ];
 
         if (!empty($data)) {
-            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'companies');
         }
     }
@@ -303,7 +303,7 @@ class FredFlintstone extends Command
         ];
 
         if (!empty($data)) {
-            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
     }
@@ -328,7 +328,7 @@ class FredFlintstone extends Command
         ];
 
         if (!empty($data)) {
-            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'communications');
         }
     }
@@ -355,7 +355,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'cover_letters');
         }
     }
@@ -381,7 +381,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'events');
         }
     }
@@ -406,7 +406,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'notes');
         }
     }
@@ -451,7 +451,7 @@ EOD,
         ];
 
         if (!empty($data)) {
-            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'references');
         }
     }
@@ -472,13 +472,13 @@ EOD,
                 'primary'     => 0,
                 'doc_filepath'     => null,
                 'pdf_filepath'     => null,
-                'public'      => 0,
+                'is_public'      => 0,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Resume()->insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            new Resume()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
             $this->insertSystemAdminResource($this->adminId, 'resumes');
         }
     }

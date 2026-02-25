@@ -129,10 +129,10 @@
                             {{ $database->menu_level }}
                         </td>
                         <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $database->public ])
+                            @include('admin.components.checkmark', [ 'checked' => $database->is_public ])
                         </td>
                         <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
+                            @include('admin.components.checkmark', [ 'checked' => $database->is_disabled ])
                         </td>
                         <td class="is-1">
 
