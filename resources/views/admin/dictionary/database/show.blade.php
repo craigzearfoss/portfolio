@@ -108,7 +108,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($database->name, $database->image)
+            'filename' => generateDownloadFilename($database)
         ])
 
         @include('admin.components.show-row', [
@@ -128,7 +128,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($database->name . '-thumb', $database->thumbnail)
+            'filename' => generateDownloadFilename($database, '-thumbnail')
         ])
 
         @include('admin.components.show-row-visibility', [

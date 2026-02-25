@@ -160,10 +160,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug(
-                    $music->name . (!empty($music->artist) ? '-by-' . $music->artist : ''),
-                    $music->image
-                 ),
+                'filename'     => generateDownloadFilename($music, '-thumbnail'),
                 'image_credit' => $music->image_credit,
                 'image_source' => $music->image_source,
             ])
@@ -177,9 +174,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug(
-                    $music->name . (!empty($music->artist) ? '-by-' . $music->artist : '') . '-thumbnail',
-                    $music->image
+                'filename' => generateDownloadFilename($music, '-thumbnail')
                  ),
             ])
         @endif

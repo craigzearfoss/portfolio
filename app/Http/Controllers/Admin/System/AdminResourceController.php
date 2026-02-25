@@ -9,6 +9,7 @@ use App\Http\Requests\System\UpdateAdminResourcesRequest;
 use App\Models\System\AdminResource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 /**
@@ -28,14 +29,19 @@ class AdminResourceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminResources = new AdminResource()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        if (!empty($this->owner)) {
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Resources' : 'Resources';
+            $adminResources = new AdminResource()->searchQuery($request->all(), $this->owner)
+                ->orderBy('sequence')
+                ->paginate($perPage)->appends(request()->except('page'));
 
-        return view('admin.system.admin-resource.index', compact('adminResources', 'pageTitle'))
+        } else {
+
+            $adminResources = new AdminResource()->where('id', '<', 0)
+                ->paginate($perPage)->appends(request()->except('page'));
+        }
+
+        return view('admin.system.admin-resource.index', compact('adminResources'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

@@ -1,4 +1,7 @@
 @php
+    $download = $download ?? false;
+    $external = $external ?? false;
+
     $classes = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
@@ -19,28 +22,26 @@
         $styles = array_merge($styles, $styleArray);
     }
 @endphp
-<div @if(!empty($classes))
-         class="{!! implode(' ', $classes) !!}"
-     @endif
-     @if(!empty($styles))
-         style="{!! implode(' ', $styles) !!}"
-     @endif
->
+<div class="property-list columns">
     <div class="column is-2 label">
         @if(!empty($name))
             <strong>{!! $name !!}</strong>:
         @endif
     </div>
     <div class="column is-10 value">
-        @include('admin.components.image', [
-            'src'      => $src ?? '',
-            'alt'      => htmlspecialchars($alt ?? ''),
-            'class'    => $class ?? '',
-            'style'    => $style ?? [],
-            'width'    => $width ?? '',
-            'height'   => $height ?? '',
-            'download' => $download ?? false,
-            'filename' => $filename ?? '',
-        ])
-    </div>
+        <div style="display: inline-block;">
+            @include('admin.components.image', [
+                'name'     => 'image',
+                'src'      => $src,
+                'filename' => $filename ?? null,
+                'alt'      => $alt ?? null,
+                'width'    => $width ?? null,
+                'height'   => $height ?? null,
+                'class'    => $class ?? [],
+                'style'    => $style ?? [],
+                'onclick'  => $onclick ?? null,
+                'download' => $download,
+                'external' => $external,
+            ])
+        </div>
 </div>

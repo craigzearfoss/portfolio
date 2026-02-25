@@ -1,5 +1,10 @@
 @php
-    $imageUrl = !empty($src) ? imageUrl($src) : $src;
+    $download = $download ?? false;
+    $external = $external ?? false;
+
+    $imageUrl  = !empty($src) ? imageUrl($src) : $src;
+    $extension = pathinfo($imageUrl, PATHINFO_EXTENSION);
+    $filename  = ($filename ?? 'download') . (!empty($extension) ? '.'. $extension : '');
 @endphp
 @if (!empty($imageUrl))
     <img
@@ -26,23 +31,31 @@
         @endif
     >
 
-    @if (!empty($download))
-        <a class="download-link text-xl"
-            title="{!! $title ?? 'download file'!!}"
-            data-url="{!! $imageUrl !!}"
-            data-filename="{!! $filename ?? '' !!}"
-        >
-            <i class="fa-solid fa-download"></i>
-        </a>
-    @endif
-    @if (!empty($external))
-        <a class="certificate text-xl"
-	   href="{!! $imageUrl !!}"
-           title="{{ $title ?? 'open file in a new window' }}"
-           target="_blank"
-        >
-            <i class="fa-solid fa-external-link"></i>
-        </a>
+    @if (!empty($download) || !empty($external))
+
+        <div id="download-image-controls" class="has-text-right">
+
+            @if (!empty($download))
+                <a class="download-link text-xl"
+                    title="{!! $title ?? 'download file'!!}"
+                    data-url="{!! $imageUrl !!}"
+                    data-filename="{!! $filename ?? '' !!}"
+                >
+                    <i class="fa-solid fa-download"></i>
+                </a>
+            @endif
+            @if (!empty($external))
+                <a class="certificate text-xl"
+               href="{!! $imageUrl !!}"
+                   title="{{ $title ?? 'open file in a new window' }}"
+                   target="_blank"
+                >
+                    <i class="fa-solid fa-external-link"></i>
+                </a>
+            @endif
+
+        </div>
+
     @endif
 
 @endif

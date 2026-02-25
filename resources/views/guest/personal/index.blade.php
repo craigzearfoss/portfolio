@@ -33,8 +33,8 @@
                 <li>
                     @include('admin.components.link', [
                         'name'  => $personal->plural,
-                        'href'  => Route::has('guest.'.$personal->database_name.'.'.$personal->name.'.index')
-                                        ? route('guest.'.$personal->database_name.'.'.$personal->name.'.index', $owner)
+                        'href'  => Route::has('guest.'.$personal->database['name'] . '.' . $personal->name . '.index')
+                                        ? route('guest.'.$personal->database['name'] . '.' . $personal->name . '.index', $owner)
                                         : '',
                         'class' => 'list-item ml-4',
                         'icon'  => $personal->icon,

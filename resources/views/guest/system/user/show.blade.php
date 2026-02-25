@@ -30,7 +30,7 @@
                     'src'      => $user->image,
                     'alt'      => $user->name,
                     'width'    => '300px',
-                    'filename' => getFileSlug($user->name, $user->image)
+                    'filename' => generateDownloadFilename($user)
                 ])
 
                 <div class="show-container p-4">

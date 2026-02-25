@@ -1,4 +1,7 @@
 @php
+    $download     = $download ?? false;
+    $external     = $external ?? false;
+
     $classes = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class))
         : [];
@@ -55,42 +58,57 @@
                             @if(!empty($resource->{$imageName}))
 
                                 @php
+
                                     switch ($imageName) {
                                         case 'certificate_url':
-                                            $imageName = 'certificate url';
-                                            $src   = $resource->certificate_url;
-                                            $width = '300px';
+                                            $src           = $resource->certificate_url;
+                                            $downloadType  = 'certificate';
+                                            $suffix        = null;
+                                            $width         = '300px';
                                             break;
                                         case 'image':
-                                            $src   = $resource->image;
-                                            $width = '300px';
+                                            $src           = $resource->image;
+                                            $downloadType  = 'image';
+                                            $suffix        = null;
+                                            $width         = '300px';
                                             break;
                                         case 'logo':
-                                            $src   = $resource->logo;
-                                            $width = '100px';
+                                            $src           = $resource->logo;
+                                            $downloadType  = 'logo';
+                                            $suffix        = '-logo';
+                                            $width         = '100px';
                                             break;
                                         case 'logo_small':
-                                            $imageName = 'logo small';
-                                            $src   = $resource->logo_small;
-                                            $width = '100px';
+                                            $src           = $resource->logo_small;
+                                            $downloadType  = 'small logo';
+                                            $suffix        = '-logo-small';
+                                            $width         = '100px';
                                             break;
                                         case 'thumbnail':
-                                            $src   = $resource->thumbnail;
-                                            $width = '100px';
+                                            $src           = $resource->thumbnail;
+                                            $downloadType  = 'thumbnail';
+                                            $suffix        = '-thumbnail';
+                                            $width         = '100px';
                                             break;
                                         default:
-                                            $width = null;
+                                            $downloadType  = 'image';
+                                            $suffix        = null;
+                                            $width         = null;
                                             break;
                                     }
+
+                                    $filename = generateDownloadFilename($resource, $suffix);
+
                                 @endphp
 
                                 @include('admin.components.image', [
                                     'name'     => 'image',
                                     'src'      => $src,
-                                    'alt'      => htmlspecialchars($imageName ?? ''),
+                                    'filename' => $filename,
+                                    'alt'      => $downloadType,
                                     'width'    => $width,
-                                    'download' => $download ?? false,
-                                    'external' => $external ?? false,
+                                    'download' => $download,
+                                    'external' => $external,
                                 ])
 
                                 @if($imageName === 'image')

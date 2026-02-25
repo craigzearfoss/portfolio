@@ -188,15 +188,16 @@ class BaseController extends Controller
         }
 
         // get the "owner_id" url parameter, if there is one
-        $owner_id = request()->query('owner_id');
-        if (!request()->has('owner_id')) {
-            $owner_id = null;
-        } else {
+        if (request()->exists('owner_id')) {
+            $owner_id = request()->query('owner_id');
             if (request()->query('owner_id') === '*') {
                 $owner_id = '*';
             } else {
                 $owner_id = intval($owner_id);
             }
+            request()->query->remove('owner_id');
+        } else {
+            $owner_id = null;
         }
 
         if (!empty($owner_id)) {

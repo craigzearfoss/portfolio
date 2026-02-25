@@ -179,7 +179,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($audio->name, $audio->image),
+                'filename'     => generateDownloadFilename($audio),
                 'image_credit' => $audio->image_credit,
                 'image_source' => $audio->image_source,
             ])
@@ -193,7 +193,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($audio->name . '-thumbnail', $audio->thumbnail)
+                'filename' => generateDownloadFilename($audio, '-thumbnail')
             ])
         @endif
 

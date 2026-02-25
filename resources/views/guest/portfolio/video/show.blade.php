@@ -180,7 +180,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($video->name, $video->image),
+                'filename'     => generateDownloadFilename($video),
                 'image_credit' => $video->image_credit,
                 'image_source' => $video->image_source,
             ])
@@ -194,7 +194,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($video->name . '-thumbnail', $video->thumbnail)
+                'filename' => generateDownloadFilename($video, '-thumbnail'),
             ])
         @endif
 

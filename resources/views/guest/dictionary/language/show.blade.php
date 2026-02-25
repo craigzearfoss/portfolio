@@ -83,7 +83,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($language->name, $language->image),
+                'filename'     => generateDownloadFilename($language),
                 'image_credit' => $language->image_credit,
                 'image_source' => $language->image_source,
             ])

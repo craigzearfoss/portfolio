@@ -29,7 +29,7 @@ class Admin
 
             $method = $request->method();
             $owner_id = $request->get('owner_id');
-            //dd([ 'owmer_id'=>$owner_id, 'admin->id'=>$admin->id, 'method'=>$method ]);
+            //dd([ 'owner_id'=>$owner_id, 'admin->id'=>$admin->id, 'method'=>$method ]);
 
             if (!empty($owner_id)
                 && in_array($method, [/*'POST',*/ 'PUT', 'PATCH', 'DELETE'])
@@ -38,8 +38,9 @@ class Admin
                 abort(403, 'You are not authorized to make changes to the resources of other admins.');
             }
 
-            // for non-root admins remove the owner_id url parameter
-            if (array_key_exists('owner_id', $request->all())) {
+            // in the admin area for non-root admins remove the owner_id url parameter
+            // because non-root admins can only view themselves
+            if (request()->exists('owner_id') && !isRootAdmin()) {
                 $request->query->remove('owner_id');
             }
         }

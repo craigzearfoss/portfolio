@@ -37,7 +37,7 @@
                     'src'      => $admin->image,
                     'alt'      => $admin->name,
                     'width'    => '200px',
-                    'filename' => getFileSlug($admin->name, $admin->image)
+                    'filename' => generateDownloadFilename($admin)
                 ])
 
                 <div class="show-container p-4">

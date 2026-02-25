@@ -236,7 +236,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($publication->name, $publication->image),
+                'filename'     => generateDownloadFilename($publication),
                 'image_credit' => $publication->image_credit,
                 'image_source' => $publication->image_source,
             ])
@@ -250,7 +250,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($publication->name . '-thumbnail', $publication->thumbnail)
+                'filename' => generateDownloadFilename($publication, '-thumbnail')
             ])
         @endif
 

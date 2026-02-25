@@ -83,7 +83,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($database->name, $database->image),
+                'filename'     => generateDownloadFilename($database),
                 'image_credit' => $database->image_credit,
                 'image_source' => $database->image_source,
             ])

@@ -82,10 +82,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename' => getFileSlug(
-                    $reading->title . (!empty($reading->author) ? '-by-' . $reading->artist : ''),
-                    $reading->image
-                 ),
+                'filename'     => generateDownloadFilename($reading),
                 'image_credit' => $reading->image_credit,
                 'image_source' => $reading->image_source,
             ])
@@ -99,10 +96,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug(
-                    $reading->title . (!empty($reading->author) ? '-by-' . $reading->artist : '') . '-thumbnail',
-                    $reading->image
-                 ),
+                'filename' => generateDownloadFilename($reading, '-thumbnail'),
             ])
         @endif
 

@@ -96,7 +96,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($award->name, $award->image),
+                'filename'     => generateDownloadFilename($award)
                 'image_credit' => $award->image_credit,
                 'image_source' => $award->image_source,
             ])
@@ -110,10 +110,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug(
-                    $award->name . (!empty($award->year) ? ' - ' . $award->year : '') . '-thumbnail',
-                    $award->thumbnail
-                )
+                'filename' => generateDownloadFilename($award, '-thumbnail')
             ])
         @endif
 

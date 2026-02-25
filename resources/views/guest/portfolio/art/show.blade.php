@@ -70,10 +70,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug(
-                    $art->name . (!empty($art->artist) ? '-by-' . $art->artist : ''),
-                    $art->image
-                 ),
+                'filename'     => generateDownloadFilename($art),
                 'image_credit' => $art->image_credit,
                 'image_source' => $art->image_source,
             ])
@@ -87,10 +84,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename'     => getFileSlug(
-                    $art->name . (!empty($art->artist) ? '-by-' . $art->artist : '') . '-thumbnail',
-                    $art->thumbnail
-                 ),
+                'filename'     => generateDownloadFilename($art, '-thumbnail'),
             ])
         @endif
 

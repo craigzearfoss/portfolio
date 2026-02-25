@@ -28,12 +28,12 @@
 <script>
     (function() {
         document.querySelectorAll('.download-link').forEach(element => {
-            element.addEventListener('click', function() {
-                let url = element.getAttribute('data-url');
-                let filename = element.getAttribute('data-filename') ?? '';
-                console.log(url,filename)
+            element.addEventListener('click', function(event) {
+                event.preventDefault();
+                const elem = event.currentTarget;
+                let url = elem.getAttribute('data-url');
+                let filename = elem.getAttribute('data-filename') ?? '';
                 downloadFile(url, filename)
-                console.log('Element with class "download-link" clicked:', this);
             });
         });
 

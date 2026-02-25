@@ -157,7 +157,7 @@
                                 <li>
                                     @include('admin.components.link', [
                                         'name'  => $resource->plural,
-                                        'href'  => route('admin.'.$resource->database_name.'.'.$resource->name.'.index',
+                                        'href'  => route('admin.'.$resource->database['name'].'.'.$resource->name.'.index',
                                                          $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
                                                    ),
                                         'class' => 'list-item',

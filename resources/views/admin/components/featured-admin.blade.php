@@ -37,7 +37,7 @@
                     'src'      => $owner->image,
                     'alt'      => $owner->name,
                     'width'    => '200px',
-                    'filename' => getFileSlug($owner->name, $owner->image)
+                    'filename' => generateDownloadFilename($owner)
                 ])
 
                 <div class="show-container p-4">

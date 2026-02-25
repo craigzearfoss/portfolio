@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/style.css') }}">
 */ ?>
 
+    <?php /* <script src="{{ asset('assets/jquery/jquery-4.0.0.min.js') }}"></script> */ ?>
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/development-only/main.js') }}"></script>
 

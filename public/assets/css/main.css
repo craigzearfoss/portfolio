@@ -339,7 +339,7 @@ div.floating-div-container div.floating-div.card {
     margin-bottom: .5rem !important;
 }
 div.floating-div-container.settings div.floating-div {
-    max-width: 7rem;
+    max-width: 8rem;
     white-space: nowrap;
     border: 0;
     padding: 0.2rem !important;

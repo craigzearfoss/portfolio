@@ -83,7 +83,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($category->name, $category->image),
+                'filename'     => generateDownloadFilename($category),
                 'image_credit' => $category->image_credit,
                 'image_source' => $category->image_source,
             ])

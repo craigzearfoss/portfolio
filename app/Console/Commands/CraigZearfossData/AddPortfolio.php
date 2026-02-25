@@ -146,7 +146,7 @@ class AddPortfolio extends Command
             [
                 'name'        => 'unnamed acrylic painting',
                 'artist'      => 'Laird Dixon',
-                'slug'        => 'former-painting-from-cats-cradle-by-laird-dixon',
+                'slug'        => 'former-painting-from-cats-cradle-by-by-laird-dixon',
                 'summary'     => 'I purchased this unique painting from Chapel Hill, NC artist Laird Dixon shortly after the release of his band Zen Frisbee\'s debut 1994 CD I\'m As Mad as Faust</i>.',
                 'year'        => 1992,
                 'featured'    => 1,
@@ -160,7 +160,7 @@ class AddPortfolio extends Command
             [
                 'name'        => 'Sleazefest! CD cover art',
                 'artist'      => 'Devlin Thompson',
-                'slug'        => 'sleazefest-cover-art-devlin-thompson',
+                'slug'        => 'sleazefest-cover-art-by-devlin-thompson',
                 'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 CD <i>Sleazefest - Two Nights or Bands, Bar-BQ & Beer</i>.',
                 'year'        => 1994,
                 'featured'    => 1,
@@ -174,7 +174,7 @@ class AddPortfolio extends Command
             [
                 'name'        => 'Sleazefest! CD back cover art',
                 'artist'      => 'Devlin Thompson',
-                'slug'        => 'sleazefest-back-cover-art-devlin-thompson',
+                'slug'        => 'sleazefest-back-cover-art-by-devlin-thompson',
                 'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the 1994 CD <i>Sleazefest - Two Nights or Bands, Bar-BQ & Beer</i>.',
                 'year'        => 1994,
                 'featured'    => 0,
@@ -188,7 +188,7 @@ class AddPortfolio extends Command
             [
                 'name'        => 'Sleazefest! VHS cover art',
                 'artist'      => 'Devlin Thompson',
-                'slug'        => 'sleazefest-vhs-cover-art-devlin-thompson',
+                'slug'        => 'sleazefest-vhs-cover-art-by-devlin-thompson',
                 'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of <i>Sleazefest - Two Nights or Bands, Bar-BQ & Beer</i>.',
                 'year'        => 1994,
                 'featured'    => 1,
@@ -202,7 +202,7 @@ class AddPortfolio extends Command
             [
                 'name'        => 'Sleazefest! VHS back cover art',
                 'artist'      => 'Devlin Thompson',
-                'slug'        => 'sleazefest-vhs-back-cover-art-devlin-thompson',
+                'slug'        => 'sleazefest-vhs-back-cover-art-by-devlin-thompson',
                 'summary'     => 'I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of <i>Sleazefest - Two Nights or Bands, Bar-BQ & Beer</i>.',
                 'year'        => 1994,
                 'featured'    => 0,

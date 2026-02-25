@@ -33,8 +33,8 @@
                 <li>
                     @include('admin.components.link', [
                         'name'  => $portfolio->plural,
-                        'href'  => Route::has('guest.'.$portfolio->database_name.'.'.$portfolio->name.'.index')
-                                        ? route('guest.'.$portfolio->database_name.'.'.$portfolio->name.'.index', $owner)
+                        'href'  => Route::has('guest.'.$portfolio->database['name'] . '.' . $portfolio->name . '.index')
+                                        ? route('guest.'.$portfolio->database['name'] . '.' . $portfolio->name . '.index', $owner)
                                         : '',
                         'class' => 'list-item ml-4',
                         'icon'  => $portfolio->icon,

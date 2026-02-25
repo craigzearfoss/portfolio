@@ -108,7 +108,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($language->name, $language->image)
+            'filename' => generateDownloadFilename($language)
         ])
 
         @include('admin.components.show-row', [
@@ -128,7 +128,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($language->name . '-thumb', $language->thumbnail)
+            'filename' => generateDownloadFilename($language, '-thumbnail')
         ])
 
         @include('admin.components.show-row-visibility', [

@@ -83,7 +83,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($library->name, $library->image),
+                'filename'     => generateDownloadFilename($library),
                 'image_credit' => $library->image_credit,
                 'image_source' => $library->image_source,
             ])

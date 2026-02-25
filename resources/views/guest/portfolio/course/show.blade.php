@@ -110,7 +110,7 @@
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($course->name, $course->certificate_url)
+                'filename' => generateDownloadFilename($course)
             ])
         @endif
 
@@ -137,7 +137,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($course->name, $course->image),
+                'filename'     => generateDownloadFilename($course, '-thumbnail'),
                 'image_credit' => $course->image_credit,
                 'image_source' => $course->image_source,
             ])
@@ -151,7 +151,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($course->name . '-thumbnail', $course->thumbnail)
+                'filename' => generateDownloadFilename($course, '-thumbnail')
             ])
         @endif
 

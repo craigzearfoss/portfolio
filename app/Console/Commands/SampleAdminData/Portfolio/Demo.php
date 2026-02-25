@@ -147,7 +147,7 @@ class Demo extends Command
             [
                 'name'           => 'unnamed acrylic painting',
                 'artist'         => 'Laird Dixon',
-                'slug'           => 'former-painting-from-cats-cradle-by-laird-dixon',
+                'slug'           => 'former-painting-from-cats-cradle-by-by-laird-dixon',
                 'summary'        => null,
                 'year'           => 1992,
                 'featured'       => 1,
@@ -161,7 +161,7 @@ class Demo extends Command
             [
                 'name'           => 'Sleazefest! CD cover art',
                 'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-cover-art-devlin-thompson',
+                'slug'           => 'sleazefest-cover-art-by-devlin-thompson',
                 'summary'        => null,
                 'year'           => 1994,
                 'featured'       => 1,
@@ -175,7 +175,7 @@ class Demo extends Command
             [
                 'name'           => 'Sleazefest! CD back cover art',
                 'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-back-cover-art-devlin-thompson',
+                'slug'           => 'sleazefest-back-cover-art-by-devlin-thompson',
                 'summary'        => null,
                 'year'           => 1994,
                 'featured'       => 0,
@@ -189,7 +189,7 @@ class Demo extends Command
             [
                 'name'           => 'Sleazefest! VHS cover art',
                 'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-vhs-cover-art-devlin-thompson',
+                'slug'           => 'sleazefest-vhs-cover-art-by-devlin-thompson',
                 'summary'        => null,
                 'year'           => 1994,
                 'featured'       => 1,
@@ -203,7 +203,7 @@ class Demo extends Command
             [
                 'name'           => 'Sleazefest! VHS back cover art',
                 'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-vhs-back-cover-art-devlin-thompson',
+                'slug'           => 'sleazefest-vhs-back-cover-art-by-devlin-thompson',
                 'summary'        => null,
                 'year'           => 1994,
                 'featured'       => 0,

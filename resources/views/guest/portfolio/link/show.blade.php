@@ -76,7 +76,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($link->name, $link->image),
+                'filename'     => generateDownloadFilename($link),
                 'image_credit' => $link->image_credit,
                 'image_source' => $link->image_source,
             ])
@@ -90,7 +90,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($link->name . '-thumbnail', $link->thumbnail)
+                'filename' => generateDownloadFilename($link, '-thumbnail')
             ])
         @endif
 

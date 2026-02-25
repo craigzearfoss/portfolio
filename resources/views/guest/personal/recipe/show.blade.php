@@ -118,7 +118,7 @@
                     'width'        => '300px',
                     'download'     => true,
                     'external'     => true,
-                    'filename'     => getFileSlug($recipe->name, $recipe->image),
+                    'filename'     => generateDownloadFilename($recipe),
                     'image_credit' => $recipe->image_credit,
                     'image_source' => $recipe->image_source,
                 ])
@@ -132,7 +132,7 @@
                     'width'    => '40px',
                     'download' => true,
                     'external' => true,
-                    'filename' => getFileSlug($recipe->name . '-thumbnail', $recipe->thumbnail)
+                    'filename' => generateDownloadFilename($recipe, '-thumbnail')
                 ])
             @endif
 

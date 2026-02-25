@@ -11,6 +11,7 @@ use App\Services\PermissionService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\IOFactory;
+use function Laravel\Prompts\alert;
 
 if (! function_exists('getEnvType')) {
     /**
@@ -229,7 +230,7 @@ if (! function_exists('isRootAdmin')) {
     function isRootAdmin(): bool
     {
         try {
-            return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
+            return Auth::guard('admin')->check() && boolval(Auth::guard('admin')->user()->is_root);
         } catch (\Throwable $th) {
             return false;
         }
@@ -569,33 +570,6 @@ if (! function_exists('formatLocation')) {
     }
 }
 
-
-if (! function_exists('getFileSlug')) {
-    /**
-     * Returns a 'sluggified' name with the specified file extension appended.
-     *
-     * @param string $name
-     * @param string $ext
-     * @return string
-     */
-    function getFileSlug(string $name, string $ext = 'png'): string
-    {
-        $fileSlug = \Illuminate\Support\Str::slug($name);
-
-        if (false !== str_contains($ext,'.')) {
-            $ext = pathinfo($ext, PATHINFO_EXTENSION);
-        } else {
-            $ext = '';
-        }
-
-        if (!empty($ext)) {
-            $fileSlug = $fileSlug . '.' . $ext;
-        }
-
-        return $fileSlug;
-    }
-}
-
 if (! function_exists('dateRangeDetails')) {
     /**
      * Returns an array of details about a date range.
@@ -896,6 +870,42 @@ if (! function_exists('generateEncodedFilename')) {
         );
 
         return substr($filename, 0, $maxLength);
+    }
+}
+
+if (! function_exists('generateDownloadFilename')) {
+    /**
+     * Generates the file name for an image download.
+     *
+     * @param $resource
+     * @param string|null $suffix
+     * @return string
+     */
+    function generateDownloadFilename($resource, string|null $suffix = null): string
+    {
+        if (empty($resource)) {
+            $filename = 'download';
+        } elseif (is_string($resource)) {
+            $filename = $resource;
+        } else {
+            if (!empty($resource->slug)) {
+                $filename = $resource->slug;
+            } elseif (!empty($resource->username)) {
+                $filename = $resource->username;
+            } elseif (!empty($resource->name)) {
+                $filename = $resource->name;
+            } elseif (!empty($resource->title)) {
+                $filename = $resource->title;
+            } else {
+                $filename = 'download';
+            }
+        }
+
+        if (!empty($suffix)) {
+            $filename .= '-' . $suffix;
+        }
+
+        return Str::slug($filename);
     }
 }
 

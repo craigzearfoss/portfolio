@@ -78,7 +78,7 @@
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($certificate->name, $certificate->certificate_url)
+                'filename' => generateDownloadFilename($certificate)
             ])
         @endif
 
@@ -105,7 +105,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => getFileSlug($certificate->name, $certificate->image),
+                'filename'     => generateDownloadFilename($certificate),
                 'image_credit' => $certificate->image_credit,
                 'image_source' => $certificate->image_source,
             ])
@@ -119,7 +119,7 @@
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($certificate->name . '-thumbnail', $certificate->thumbnail)
+                'filename' => generateDownloadFilename($certificate, '-thumbnail')
             ])
         @endif
 
