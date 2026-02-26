@@ -1,6 +1,6 @@
 @php
     $title    = $pageTitle ?? $owner->name . ' videos';
-    $subtitle =- $title;
+    $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [

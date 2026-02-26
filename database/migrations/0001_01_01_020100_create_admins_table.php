@@ -255,11 +255,11 @@ return new class extends Migration
             'thumbnail'         => $thumbnailPath,
             'status'            => 1,
             'token'             => '',
-            'is_public'         => false,
+            'is_public'         => true,
             'is_readonly'       => false,
             'is_root'           => false,
             'is_disabled'       => false,
-            'is_demo'           => false,
+            'is_demo'           => true,
         ];
 
         // add timestamps

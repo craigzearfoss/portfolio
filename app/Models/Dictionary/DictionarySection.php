@@ -62,10 +62,10 @@ class DictionarySection extends Model
                                 string        $labelColumn = 'name',
                                 bool          $includeBlank = false,
                                 bool          $includeOther = false,
-                                array         $orderBy = [ 'name'=>'asc' ],
+                                array         $orderBy = [ 'name', 'asc' ],
                                 EnvTypes|null $envType = EnvTypes::GUEST): array
     {
-        if (!in_array($valueColumn, ['id', 'name', 'slug', 'table_name', 'route'])) {
+        if (!in_array($valueColumn, ['id', 'name', 'slug', 'plural', 'table_name', 'route'])) {
             return [];
         }
 
@@ -79,8 +79,8 @@ class DictionarySection extends Model
             ];
         }
 
-        $query = new DictionarySection()->select('id', 'table_name', 'slug', 'table')
-            ->orderBy($orderBy[0], $orderBy[1]);
+        $query = new DictionarySection()->select('id', 'name', 'slug', 'plural', 'table_name');
+            //->orderBy($orderBy[0], $orderBy[1] ?? 'asc');
         foreach ($filters as $column => $value) {
             $query = $query->where($column, $value);
         }
@@ -143,7 +143,7 @@ class DictionarySection extends Model
 
             $firstSection = array_shift($dictionarySections);
             $builder = DB::table("{$dictionaryDB}.{$firstSection['table_name']}")
-                ->select(['id', 'full_name', 'table_name', 'slug', 'abbreviation', 'definition', 'wikipedia', 'link', 'link_name',
+                ->select(['id', 'full_name', 'name', 'slug', 'abbreviation', 'definition', 'wikipedia', 'link', 'link_name',
                     DB::raw("'{$firstSection['name']}' AS `table_name`"),
                     DB::raw("'{$firstSection['slug']}' AS `table_slug`"),
                 ])
@@ -152,7 +152,7 @@ class DictionarySection extends Model
             foreach ($dictionarySections as $dictionarySection) {
                 $builder->union(
                     DB::table("{$dictionaryDB}.{$dictionarySection['table_name']}")
-                        ->select(['id', 'full_name', 'table_name', 'slug', 'abbreviation', 'definition', 'wikipedia', 'link', 'link_name',
+                        ->select(['id', 'full_name', 'name', 'slug', 'abbreviation', 'definition', 'wikipedia', 'link', 'link_name',
                             DB::raw("'{$dictionarySection['name']}' AS `table_name`"),
                             DB::raw("'{$dictionarySection['slug']}' AS `table_slug`"),
                         ])

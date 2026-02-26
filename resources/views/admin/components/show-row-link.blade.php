@@ -36,7 +36,7 @@
             'href'     => $href ?? '',
             'name'     => $label ?? ($href ?? ''),
             'target'   => $target ?? '',
-            'download' => isset($download) ? boolval($download) : false,
+            'download' => isset($download) && boolval($download),
         ])
     </div>
 </div>

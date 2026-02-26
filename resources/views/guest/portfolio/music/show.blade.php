@@ -175,7 +175,6 @@
                 'download' => true,
                 'external' => true,
                 'filename' => generateDownloadFilename($music, '-thumbnail')
-                 ),
             ])
         @endif
 

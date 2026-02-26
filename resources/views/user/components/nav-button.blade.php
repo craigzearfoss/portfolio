@@ -6,9 +6,10 @@
     $name = $name ?? '';
 
     // get classes
-    $class = isset($class)
-        ? (is_array($class) ? implode(' ', $class) : $class)
-        : 'button is-small is-dark my-0';
+    $class = !empty($class) 
+        ? (is_array($class) ? $class : explode(' ', $class)) : ['is-small is-dark my-0'];
+    if ($active ?? false) $class[] = 'has-text-primary';
+    $class = implode(' ', $class);
 
     // get styles
     $style = isset($style)
@@ -21,10 +22,18 @@
         : (!str_contains($icon, '<') ? '<i class="fa ' . $icon . '"></i>' : $icon);
 @endphp
 <a @if(isset($href) && ($href !== false))href="{!! $href !!}" @endif
-@if (!empty($target ?? ''))target="{!! $target !!}" @endif
-   @if (!empty($class))class="{!! $class !!}" @endif
-   @if (!empty($style))style="{!! $style !!}" @endif
-   @if(!empty($dataTarget))data-target="{{ $dataTarget }}" @endif
+   @if(!empty($class))
+       class="{!! $class !!}"
+   @endif
+   @if(!empty($style))
+       style="{!! $style !!}"
+   @endif
+   @if(!empty($dataTarget))
+       data-target="{{ $dataTarget }}"
+   @endif
+   @if (!empty($target ?? ''))
+       target="{!! $target !!}"
+    @endif
 >
     {!! $icon !!}
     {!! $name !!}

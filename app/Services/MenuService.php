@@ -135,7 +135,7 @@ class MenuService
         }
 
         // in the admin area root admins get to see all menu items
-        if (($this->envType == EnvTypes::ADMIN) && !empty($this->admin->root)) {
+        if (($this->envType == EnvTypes::ADMIN) && !empty($this->admin->is_root)) {
             $this->isRootAdmin = true;
             $this->showAll = true;
             $this->owner = null;
@@ -168,8 +168,7 @@ class MenuService
         }
 
         // get the databases and resources
-        if ($this->isRootAdmin || empty($this->owner)) {
-
+        if ($this->isRootAdmin) {
             // note that for root admins we pull menu items from the admins and resources
             // tables instead of the admin_databases and admin_resources tables
             $this->databases = new Database()->ownerDatabases(null, $this->envType, $filters);
@@ -485,31 +484,31 @@ class MenuService
             // add resources by level
             $levelResources = $this->sortResourcesByLevel();
 
-            for ($level=4; $level>1; $level--) {
+            if (!array_key_exists(1, $levelResources)) {
+                return $menu;
+            }
 
-                if (array_key_exists($level, $levelResources)) {
-
-                    foreach ($levelResources[$level] as $resourceTable=>$resource) {
-
-                        if ($this->includeItem($resource)) {
-
-                            if ($parentResource = $this->getParentResource($resource->database_name . '.' . $resource->table)) {
-
-                                if (array_key_exists($parentResource, $levelResources[$level - 1])) {
-                                    $children = array_merge($levelResources[$level - 1][$parentResource]->children, [ $resource ]);
-                                    $levelResources[$level - 1][$parentResource]->children = $children;
-                                }
-                            }
-                        }
+            // append level 1 menu resources
+            foreach ($levelResources[1] as $level1resourceTable=>$level1resource) {
+                foreach ($menu as $databaseName=>$menuItem) {
+                    if (explode('.', $level1resourceTable)[0] == $databaseName) {
+                        $children = array_merge($menuItem->children, [ $level1resource ]);
+                        $menuItem->children = $children;
                     }
                 }
             }
 
-            if (!empty($levelResources[1])) {
-                foreach ($levelResources[1] as $resourceTable => $resource) {
-                    if (array_key_exists($resource->database_name, $menu)) {
-                        $children = array_merge($menu[$resource->database_name]->children, [$resource]);
-                        $menu[$resource->database_name]->children = $children;
+            // append level 2 menu resources
+            if (array_key_exists(2, $levelResources)) {
+                foreach ($levelResources[2] as $level2resourceTable=>$level2resource) {//dd([$level2resourceTable, $level2resource]);
+                    foreach ($menu as $databaseName=>$menuItem) {//dd([$databaseName, $menuItem]);
+                        foreach ($menuItem->children as $i=>$childResource) {
+                            //dd([$level2resourceTable, $childResource->database['name'] . '.' .  $childResource->name]);
+                            if ($level2resource->parent_id == $childResource->id) {
+                                $level1Children = array_merge($childResource->children, [ $level2resource ]);
+                                $childResource->children = array_values($level1Children);
+                            }
+                        }
                     }
                 }
             }
@@ -545,7 +544,7 @@ class MenuService
                 $resources[$i]->label = $resources[$i]->title;
                 $resources[$i]->children = [];
 
-                $levelResources[$resources[$i]->database_name . '.' . $resources[$i]->table] = $resources[$i];
+                $levelResources[$resources[$i]['database']['name'] . '.' . $resources[$i]->name] = $resources[$i];
             }
         }
 
@@ -604,7 +603,7 @@ class MenuService
         $menuItem->resource_id    = null;
         $menuItem->parent_id      = null;
         $menuItem->name           = 'Resume';
-        $menuItem->table          = null;
+        $menuItem->table_name     = null;
         $menuItem->tag            = null;
         $menuItem->title          = 'Resume';
         $menuItem->plural         = 'Resumes';
