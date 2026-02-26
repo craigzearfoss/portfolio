@@ -52,7 +52,7 @@ class ImageService
      * @param string $imageName
      * @return void
      */
-    public function validate(Request $request, $imageName = 'default'): void
+    public function validate(Request $request, string $imageName = 'default'): void
     {
         $validated = $request->validate($this->validationRules( $imageName));
     }

@@ -15,7 +15,7 @@ class IndexController extends BaseGuestController
      * @param Request $request
      * @return Factory|View|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory|View|\Illuminate\View\View
     {
         $perPage = $request->query('per_page', $this->perPage());
 

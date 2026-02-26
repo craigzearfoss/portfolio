@@ -229,7 +229,7 @@ if (! function_exists('isRootAdmin')) {
     function isRootAdmin(): bool
     {
         try {
-            return Auth::guard('admin')->check() && boolval(Auth::guard('admin')->user()->is_root);
+            return Auth::guard('admin')->check() && Auth::guard('admin')->user()->is_root;
         } catch (Throwable $th) {
             return false;
         }
@@ -949,7 +949,7 @@ if (! function_exists('calledFunction')) {
     /**
      * @return void
      */
-    function calledFunction()
+    function calledFunction(): void
     {
         // Get the call stack
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
