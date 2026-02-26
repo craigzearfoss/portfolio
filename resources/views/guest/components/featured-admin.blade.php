@@ -2,9 +2,7 @@
     use App\Models\System\AdminDatabase;
 @endphp
 
-@if
-
-    ($admin)
+@if($admin)
 
     @php
         $portfolioResourceTypes = AdminDatabase::getResourceTypes(
