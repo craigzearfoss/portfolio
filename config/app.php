@@ -33,7 +33,7 @@ return [
     'demo_admin_password'     => env('APP_DEMO_ADMIN_PASSWORD', ''),
     'demo_admin_url'          => boolval(env('APP_DEMO_ADMIN_URL')),
     'demo_admin_username'     => env('APP_DEMO_ADMIN_USERNAME', ''),
-    'demo_disclaimer'         => env('APP_DEMO_DISCLAIMER', 'For demonstration purposes only.'),
+    'demo_disclaimer'         => env('APP_DEMO_DISCLAIMER', null),
     'demo_user_autologin'     => boolval(env('APP_DEMO_USER_AUTOLOGIN', false)),
     'demo_mode'               => boolval(env('APP_DEMO_MODE', false)),
     'demo_user_enabled'       => boolval(env('APP_DEMO_USER_ENABLED', false)),
