@@ -145,7 +145,7 @@ class Database extends Model
             'databases.id as database_id',
             'databases.name as database_name',
             'databases.database as database_database',
-            'databases.database as database_tag'
+            'databases.tag as database_tag'
         )
             ->join('resources', 'resources.database_id', '=', 'databases.id')
             ->orderBy('resources.sequence');

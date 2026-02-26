@@ -158,7 +158,7 @@ class AdminDatabase extends Model
                 'admin_databases.name as database_name',
                 'admin_databases.database as database_database',
                 'admin_databases.tag as database_tag'
-            )
+        )
                 ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
                 ->orderBy('admin_resources.sequence');
 
@@ -166,10 +166,21 @@ class AdminDatabase extends Model
                 $query->where('admin_databases.name', $dbName);
             }
 
-            if (isset($filters['is_public'])) $query->where('admin_resources.public', $filters['is_public'] ? 1 : 0);
-            if (isset($filters['is_readonly'])) $query->where('admin_resources.readonly', $filters['is_readonly'] ? 1 : 0);
-            if (isset($filters['is_root'])) $query->where('admin_resources.root', $filters['is_root'] ? 1 : 0);
-            if (isset($filters['is_disabled'])) $query->where('admin_resources.disabled', $filters['is_disabled'] ? 1 : 0);
+            if (isset($filters['is_public'])) {
+                $query->where('admin_resources.is_public', $filters['is_public'] ? 1 : 0);
+            }
+
+            if (isset($filters['is_readonly'])) {
+                $query->where('admin_resources.is_readonly', $filters['is_readonly'] ? 1 : 0);
+            }
+
+            if (isset($filters['is_root'])) {
+                $query->where('admin_resources.is_root', $filters['is_root'] ? 1 : 0);
+            }
+
+            if (isset($filters['is_disabled'])) {
+                    $query->where('admin_resources.is_disabled', $filters['is_disabled'] ? 1 : 0);
+            }
 
             return $query->get()->toArray();
         }
