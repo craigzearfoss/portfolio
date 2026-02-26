@@ -2,10 +2,13 @@
 
 namespace Database\Factories\Personal;
 
+use App\Models\Personal\Recipe;
+use App\Models\Personal\RecipeStep;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personal\RecipeStep>
+ * @extends Factory<RecipeStep>
  */
 class RecipeStepFactory extends Factory
 {
@@ -17,8 +20,8 @@ class RecipeStepFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'    => \App\Models\System\Owner::all()->random()->id,
-            'recipe_id'   => \App\Models\Personal\Recipe::all()->random()->id,
+            'owner_id'    => Owner::all()->random()->id,
+            'recipe_id'   => Recipe::all()->random()->id,
             'step'        => fake()->numberBetween(1, 8),
             'description' => fake()->text(),
             'created_at'  => now(),

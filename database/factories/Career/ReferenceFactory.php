@@ -2,11 +2,14 @@
 
 namespace Database\Factories\Career;
 
+use App\Models\Career\Company;
+use App\Models\Career\Reference;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\Reference>
+ * @extends Factory<Reference>
  */
 class ReferenceFactory extends Factory
 {
@@ -21,7 +24,7 @@ class ReferenceFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'        => Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
             'friend'          => fake()->numberBetween(0, 1),
@@ -29,7 +32,7 @@ class ReferenceFactory extends Factory
             'coworker'        => fake()->numberBetween(0, 1),
             'professional'    => fake()->numberBetween(0, 1),
             'other'           => fake()->numberBetween(0, 1),
-            'company_id'      => \App\Models\Career\Company::all()->random()->id,
+            'company_id'      => Company::all()->random()->id,
             'street'          => fake()->streetAddress(),
             'street2'         => null,
             'city'            => fake()->city(),

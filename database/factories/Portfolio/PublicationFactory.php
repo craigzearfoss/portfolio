@@ -2,11 +2,13 @@
 
 namespace Database\Factories\Portfolio;
 
+use App\Models\Portfolio\Publication;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Publication>
+ * @extends Factory<Publication>
  */
 class PublicationFactory extends Factory
 {
@@ -22,7 +24,7 @@ class PublicationFactory extends Factory
         $slug = Str::slug($title);
 
         return [
-            'owner_id'          => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'          => Owner::all()->random()->id,
             'title'             => $title,
             'slug'              => $slug,
             'parent_id'         => null,

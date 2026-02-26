@@ -123,7 +123,7 @@ return new class extends Migration
     /**
      * @return array
      */
-    private function getAdminIds()
+    private function getAdminIds(): array
     {
         return Admin::all()->pluck('id')->toArray();
     }

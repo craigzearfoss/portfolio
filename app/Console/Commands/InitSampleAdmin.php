@@ -127,7 +127,7 @@ class InitSampleAdmin extends Command
 
         if (!empty($undefinedUsernames)) {
             if (count($undefinedUsernames) == 1) {
-                $this->error("Username {$undefinedUsernames[0]} not defined.");
+                $this->error("Username $undefinedUsernames[0] not defined.");
             } else {
                 $this->error('These usernames are not defined: ' . implode(', ', $undefinedUsernames));
             }
@@ -211,7 +211,7 @@ class InitSampleAdmin extends Command
                 if (DB::connection(self::DB_TAG)->table('admin_teams')
                         ->where('id', $adminTeamId)->count() == 0
                 ) {
-                    $errors[] = "Admin team id `{$adminTeamId}` does not exist.";
+                    $errors[] = "Admin team id `$adminTeamId` does not exist.";
                 }
             }
 
@@ -228,9 +228,9 @@ class InitSampleAdmin extends Command
                     if (!$group = DB::connection(self::DB_TAG)->table('admin_groups')
                         ->where('id', $adminGroupId)->first()
                     ) {
-                        $errors[] = "Admin group id `{$adminGroupId}` does not exist.";
+                        $errors[] = "Admin group id `$adminGroupId` does not exist.";
                     } elseif ($group->admin_team_id != $adminTeamId) {
-                        $errors[] = "Admin group id `{$adminGroupId}` does not belong to the admin team `{$adminTeamId}`.";
+                        $errors[] = "Admin group id `$adminGroupId` does not belong to the admin team `$adminTeamId`.";
                     }
                 }
             }
@@ -247,7 +247,7 @@ class InitSampleAdmin extends Command
         /* --------------------------------------------------------------------------- */
         if ($username != 'demo') {
 
-            echo PHP_EOL . "Importing Portfolio data for {$username} ..." . PHP_EOL;
+            echo PHP_EOL . "Importing Portfolio data for $username ..." . PHP_EOL;
 
             $this->insertSystemAdmin($username, $password, $adminId, $adminTeamId);
             $this->insertSystemAdminAdminTeams($username, $adminId, $adminTeamId);
@@ -264,9 +264,9 @@ class InitSampleAdmin extends Command
         /* --------------------------------------------------------------------------- */
         $initPortfolioFile = $sampleAdminDataDirectory.$DS.'Portfolio'.$DS.$initFile;
         if (!file_exists($initPortfolioFile)) {
-            echo PHP_EOL . "Skipping {$initPortfolioFile}. File not found." . PHP_EOL;
+            echo PHP_EOL . "Skipping $initPortfolioFile. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Portfolio data for {$username} ..." . PHP_EOL;
+            echo PHP_EOL . "Importing Portfolio data for $username ..." . PHP_EOL;
             Artisan::call('app:init-' . $username . '-portfolio --demo=' . $this->is_demo . ' --silent');
         }
 
@@ -275,9 +275,9 @@ class InitSampleAdmin extends Command
         /* --------------------------------------------------------------------------- */
         $initCareerFile = $sampleAdminDataDirectory.$DS.'Career'.$DS.$initFile;
         if (!file_exists($initCareerFile)) {
-            echo PHP_EOL . "Skipping {$initCareerFile}. File not found." . PHP_EOL;
+            echo PHP_EOL . "Skipping $initCareerFile. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Career data for {$username} ..." . PHP_EOL;
+            echo PHP_EOL . "Importing Career data for $username ..." . PHP_EOL;
             Artisan::call('app:init-' . $username . '-career --demo=' . $this->is_demo . ' --silent');
         }
 
@@ -286,9 +286,9 @@ class InitSampleAdmin extends Command
         /* --------------------------------------------------------------------------- */
         $initPersonalFile = $sampleAdminDataDirectory.$DS.'Personal'.$DS.$initFile;
         if (!file_exists($initPersonalFile)) {
-            echo PHP_EOL . "Skipping {$initPersonalFile}. File not found." . PHP_EOL;
+            echo PHP_EOL . "Skipping $initPersonalFile. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Personal data for {$username} ..." . PHP_EOL;
+            echo PHP_EOL . "Importing Personal data for $username ..." . PHP_EOL;
             Artisan::call('app:init-' . $username . '-personal --demo=' . $this->is_demo . ' --silent');
         }
     }

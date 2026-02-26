@@ -14,7 +14,7 @@ trait ModelPermissionsTrait
      *
      * @return void
      */
-    public function checkDemoMode()
+    public function checkDemoMode(): void
     {
         if (isDemo() && !isRootAdmin()) {
             throw ValidationException::withMessages([
@@ -28,7 +28,7 @@ trait ModelPermissionsTrait
      *
      * @return void
      */
-    public function checkOwner()
+    public function checkOwner(): void
     {
         if (!empty($this->owner_id)) {
 

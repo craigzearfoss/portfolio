@@ -3,11 +3,13 @@
 namespace Database\Factories\Portfolio;
 
 use App\Models\Portfolio\Job;
+use App\Models\Portfolio\JobCoworker;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\JobCoworker>
+ * @extends Factory<JobCoworker>
  */
 class JobCoworkerFactory extends Factory
 {
@@ -22,7 +24,7 @@ class JobCoworkerFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'        => Owner::all()->random()->id,
             'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'name'            => $name,
             'title'           => fake()->jobTitle(),

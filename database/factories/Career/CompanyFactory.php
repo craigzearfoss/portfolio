@@ -2,13 +2,14 @@
 
 namespace Database\Factories\Career;
 
+use App\Models\Career\Company;
 use App\Models\Career\Industry;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<\App\Models\Career\Company>
+ * @extends Factory<Company>
  */
 class CompanyFactory extends Factory
 {

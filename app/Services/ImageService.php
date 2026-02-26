@@ -39,16 +39,29 @@ class ImageService
             'nullable'
         ],
     ];
+
+    /**
+     *
+     */
     public function __construct()
     {
     }
 
-    public function validate(Request $request, $imageName = 'default')
+    /**
+     * @param Request $request
+     * @param string $imageName
+     * @return void
+     */
+    public function validate(Request $request, $imageName = 'default'): void
     {
         $validated = $request->validate($this->validationRules( $imageName));
     }
 
-    public function validationRules(string $type = 'default')
+    /**
+     * @param string $type
+     * @return mixed|string[]
+     */
+    public function validationRules(string $type = 'default'): mixed
     {
         if (array_key_exists($type, $this->validators)) {
             return $this->validators[$type];

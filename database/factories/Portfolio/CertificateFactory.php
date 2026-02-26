@@ -3,12 +3,13 @@
 namespace Database\Factories\Portfolio;
 
 use App\Models\Portfolio\Academy;
+use App\Models\Portfolio\Certificate;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<\App\Models\Portfolio\Certificate>
+ * @extends Factory<Certificate>
  */
 class CertificateFactory extends Factory
 {

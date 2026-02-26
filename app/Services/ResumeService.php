@@ -43,7 +43,7 @@ class ResumeService {
      * @param Admin $admin
      * @return void
      */
-    protected function loadData(Admin $admin)
+    protected function loadData(Admin $admin): void
     {
         $this->admin = $admin;
 
@@ -118,6 +118,9 @@ class ResumeService {
         ];
     }
 
+    /**
+     * @return View
+     */
     public function view(): View
     {
         $owner = $this->admin;

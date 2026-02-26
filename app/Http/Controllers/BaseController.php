@@ -166,12 +166,12 @@ class BaseController extends Controller
      *
      * @return int
      */
-    public function perPage()
+    public function perPage(): int
     {
         $perPage = config('app.pagination_per_page');
 
         if (empty($perPage)) {
-            $perPage = intval($this->PAGINATION_PER_PAGE);
+            $perPage = $this->PAGINATION_PER_PAGE;
         }
 
         return $perPage;
@@ -245,7 +245,7 @@ class BaseController extends Controller
     /**
      * @return void
      */
-    #[NoReturn] protected function ddDebug()
+    #[NoReturn] protected function ddDebug(): void
     {
         if (!config('app.debug')) {
             abort(500, 'Unauthorized. .env setting APP_DEBUG must be set to true to view this page.');

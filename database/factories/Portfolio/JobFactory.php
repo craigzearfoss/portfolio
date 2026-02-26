@@ -2,11 +2,13 @@
 
 namespace Database\Factories\Portfolio;
 
+use App\Models\Portfolio\Job;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Job>
+ * @extends Factory<Job>
  */
 class JobFactory extends Factory
 {
@@ -22,7 +24,7 @@ class JobFactory extends Factory
         $slug = Str::slug($company . ' (' . $role . ')');
 
         return [
-            'owner_id'     => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'     => Owner::all()->random()->id,
             'company'      => $company,
             'role'         => $role,
             'slug'         => $slug,

@@ -2,12 +2,13 @@
 
 namespace Database\Factories\Portfolio;
 
+use App\Models\Portfolio\Art;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<\App\Models\Portfolio\Art>
+ * @extends Factory<Art>
  */
 class ArtFactory extends Factory
 {

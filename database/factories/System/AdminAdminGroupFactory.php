@@ -3,11 +3,12 @@
 namespace Database\Factories\System;
 
 use App\Models\System\Admin;
+use App\Models\System\AdminAdminGroup;
 use App\Models\System\AdminGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<\App\Models\System\AdminAdminGroup>
+ * @extends Factory<AdminAdminGroup>
  */
 class AdminAdminGroupFactory extends Factory
 {

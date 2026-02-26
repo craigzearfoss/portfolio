@@ -3,11 +3,12 @@
 namespace Database\Factories\Career;
 
 use App\Models\Career\Application;
+use App\Models\Career\Communication;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<\App\Models\Career\Communication>
+ * @extends Factory<Communication>
  */
 class CommunicationFactory extends Factory
 {

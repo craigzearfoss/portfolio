@@ -492,7 +492,7 @@ EOD,
      */
     protected function insertSystemAdminResource(int $ownerId, string $tableName): void
     {
-        echo self::USERNAME . ": Inserting {$tableName} table into System\\AdminResource ...\n";
+        echo self::USERNAME . ": Inserting $tableName table into System\\AdminResource ...\n";
 
         if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table_name', $tableName)->first()) {
 

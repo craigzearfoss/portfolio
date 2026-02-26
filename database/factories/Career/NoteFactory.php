@@ -2,10 +2,13 @@
 
 namespace Database\Factories\Career;
 
+use App\Models\Career\Application;
+use App\Models\Career\Note;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\Note>
+ * @extends Factory<Note>
  */
 class NoteFactory extends Factory
 {
@@ -17,8 +20,8 @@ class NoteFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'       => \App\Models\System\Owner::all()->random()->id,
-            'application_id' => \App\Models\Career\Application::all()->random()->id,
+            'owner_id'       => Owner::all()->random()->id,
+            'application_id' => Application::all()->random()->id,
             'subject'        => fake()->sentence(),
             'body'           => fake()->text(),
             'sequence'       => 0,

@@ -17,19 +17,30 @@ class CaseInsensitiveIn implements ValidationRule
     protected array $values = [];
     private const string FORMAT_FUNCTION = 'strtolower';
 
+    /**
+     * @param array $values
+     */
     public function __construct(array $values = [])
     {
         $this->values = array_map(self::FORMAT_FUNCTION, $values);
     }
 
-    public function passes($attribute, $value)
+    /**
+     * @param $attribute
+     * @param $value
+     * @return bool
+     */
+    public function passes($attribute, $value): bool
     {
         $value = call_user_func(self::FORMAT_FUNCTION, $value);
 
         return $this->validateNotIn($attribute, $value, $this->values);
     }
 
-    public function message()
+    /**
+     * @return array|string|null
+     */
+    public function message(): array|string|null
     {
         return __('validation.invalid_value');
     }

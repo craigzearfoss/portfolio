@@ -2,12 +2,13 @@
 
 namespace Database\Factories\System;
 
+use App\Models\System\AdminTeam;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<\App\Models\System\AdminTeam>
+ * @extends Factory<AdminTeam>
  */
 class AdminTeamFactory extends Factory
 {

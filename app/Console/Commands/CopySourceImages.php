@@ -127,7 +127,7 @@ class CopySourceImages extends Command
      * @return void
      * @throws ReflectionException
      */
-    protected function copyResourcemages()
+    protected function copyResourcemages(): void
     {
         $DS = DIRECTORY_SEPARATOR;
 

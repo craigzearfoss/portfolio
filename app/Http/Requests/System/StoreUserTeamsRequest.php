@@ -88,7 +88,7 @@ class StoreUserTeamsRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         // generate the slug
         if (!empty($this['name'])) {

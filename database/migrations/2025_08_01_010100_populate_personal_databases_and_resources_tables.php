@@ -28,13 +28,13 @@ return new class extends Migration
         $dbName = config('app.' . $this->database_tag);
 
         if (empty($dbName)) {
-            throw new \Exception('app.'.$this->database_tag.' not defined in config\app.php file '
+            throw new Exception('app.'.$this->database_tag.' not defined in config\app.php file '
                 . ' or PERSONAL_DB_DATABASE not defined in .env file.'
             );
         }
 
         if (empty(DB::select("SHOW DATABASES LIKE '$dbName'"))) {
-            throw new \Exception("Database `$dbName` does not exist.");
+            throw new Exception("Database `$dbName` does not exist.");
         }
 
         //@TODO: Check if the database or and of the resources exist in the databases or resources tables.
@@ -78,7 +78,7 @@ return new class extends Migration
 
         if (!$database = $databaseModel->where('database', $dbName)->first()) {
 
-            throw new \Exception($dbName . 'database not found.');
+            throw new Exception($dbName . 'database not found.');
 
         } else {
 

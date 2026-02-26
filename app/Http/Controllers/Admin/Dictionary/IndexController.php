@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Dictionary\DictionarySection;
 use App\Models\System\Resource;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 /**
@@ -12,6 +14,10 @@ use Illuminate\Http\Request;
  */
 class IndexController extends BaseAdminController
 {
+    /**
+     * @param Request $request
+     * @return Factory|View|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $perPage = $request->query('per_page', 30 /*$this->perPage()*/);

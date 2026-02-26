@@ -173,7 +173,7 @@ class AddCraigZearfoss extends Command
             if (DB::connection(self::DB_TAG)->table('admin_teams')
                     ->where('id', $adminTeamId)->count() == 0
             ) {
-                $errors[] = "Admin team id `{$adminTeamId}` does not exist.";
+                $errors[] = "Admin team id `$adminTeamId` does not exist.";
             }
         }
 
@@ -190,9 +190,9 @@ class AddCraigZearfoss extends Command
                 if (!$group = DB::connection(self::DB_TAG)->table('admin_groups')
                     ->where('id', $adminGroupId)->first()
                 ) {
-                    $errors[] = "Admin group id `{$adminGroupId}` does not exist.";
+                    $errors[] = "Admin group id `$adminGroupId` does not exist.";
                 } elseif ($group->admin_team_id != $adminTeamId) {
-                    $errors[] = "Admin group id `{$adminGroupId}` does not belong to the admin team `{$adminTeamId}`.";
+                    $errors[] = "Admin group id `$adminGroupId` does not belong to the admin team `$adminTeamId`.";
                 }
             }
         }
@@ -236,9 +236,9 @@ class AddCraigZearfoss extends Command
         /* --------------------------------------------------------------------------- */
         $initPortfolioFile = $adminDataDirectory.$DS.'AddPortfolio.php';
         if (!file_exists($initPortfolioFile)) {
-            echo PHP_EOL . "Skipping {$initPortfolioFile}. File not found." . PHP_EOL;
+            echo PHP_EOL . "Skipping $initPortfolioFile. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Portfolio data for {$this->username} ..." . PHP_EOL;
+            echo PHP_EOL . "Importing Portfolio data for $this->username ..." . PHP_EOL;
             Artisan::call('app:add-' . $this->username . '-portfolio --demo=' . $this->is_demo . ' --silent');
         }
 
@@ -247,9 +247,9 @@ class AddCraigZearfoss extends Command
         /* --------------------------------------------------------------------------- */
         $initCareerFile = $adminDataDirectory.$DS.'AddCareer.php';
         if (!file_exists($initCareerFile)) {
-            echo PHP_EOL . "Skipping {$initCareerFile}. File not found." . PHP_EOL;
+            echo PHP_EOL . "Skipping $initCareerFile. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Career data for {$this->username} ..." . PHP_EOL;
+            echo PHP_EOL . "Importing Career data for $this->username ..." . PHP_EOL;
             Artisan::call('app:add-' . $this->username . '-career --demo=' . $this->is_demo . ' --silent');
         }
 
@@ -258,9 +258,9 @@ class AddCraigZearfoss extends Command
         /* --------------------------------------------------------------------------- */
         $initPersonalFile = $adminDataDirectory.$DS.'AddPersonal.php';
         if (!file_exists($initPersonalFile)) {
-            echo PHP_EOL . "Skipping {$initPersonalFile}. File not found." . PHP_EOL;
+            echo PHP_EOL . "Skipping $initPersonalFile. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Personal data for {$this->username} ..." . PHP_EOL;
+            echo PHP_EOL . "Importing Personal data for $this->username ..." . PHP_EOL;
             Artisan::call('app:add-' . $this->username . '-personal --demo=' . $this->is_demo . ' --silent');
         }
     }

@@ -142,7 +142,7 @@ class DictionarySection extends Model
             }
 
             $firstSection = array_shift($dictionarySections);
-            $builder = DB::table("{$dictionaryDB}.{$firstSection['table_name']}")
+            $builder = DB::table("$dictionaryDB.{$firstSection['table_name']}")
                 ->select(['id', 'full_name', 'name', 'slug', 'abbreviation', 'definition', 'wikipedia', 'link', 'link_name',
                     DB::raw("'{$firstSection['name']}' AS `table_name`"),
                     DB::raw("'{$firstSection['slug']}' AS `table_slug`"),
@@ -151,7 +151,7 @@ class DictionarySection extends Model
 
             foreach ($dictionarySections as $dictionarySection) {
                 $builder->union(
-                    DB::table("{$dictionaryDB}.{$dictionarySection['table_name']}")
+                    DB::table("$dictionaryDB.{$dictionarySection['table_name']}")
                         ->select(['id', 'full_name', 'name', 'slug', 'abbreviation', 'definition', 'wikipedia', 'link', 'link_name',
                             DB::raw("'{$dictionarySection['name']}' AS `table_name`"),
                             DB::raw("'{$dictionarySection['slug']}' AS `table_slug`"),

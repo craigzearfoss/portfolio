@@ -3,12 +3,13 @@
 namespace Database\Factories\Portfolio;
 
 use App\Models\Portfolio\Academy;
+use App\Models\Portfolio\Course;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<\App\Models\Portfolio\Course>
+ * @extends Factory<Course>
  */
 class CourseFactory extends Factory
 {

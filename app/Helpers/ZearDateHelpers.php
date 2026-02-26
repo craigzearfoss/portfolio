@@ -17,7 +17,7 @@ if (! function_exists('convertYmdToMdy')) {
 
         try {
             return Carbon::createFromFormat('Y-m-d', $YmdDate)->format('m-d-Y');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $YmdDate;
         }
     }
@@ -38,7 +38,7 @@ if (! function_exists('convertMdyToYmd')) {
 
         try {
             return Carbon::createFromFormat('m-d-Y', $mdYDate)->format('Y-m-d');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $mdYDate;
         }
     }
@@ -70,7 +70,7 @@ if (! function_exists('shortDate')) {
 
         try {
             return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateFormat);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $YmdDate;
         }
     }
@@ -107,7 +107,7 @@ if (! function_exists('longDate')) {
 
         try {
             return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateFormat);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $YmdDate;
         }
     }
@@ -137,7 +137,7 @@ if (! function_exists('shortDateTime')) {
 
         try {
             return Carbon::createFromFormat('Y-m-d H:i:s', $YmdHisDateTime)->format($dateTimeFormat);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $YmdHisDateTime;
         }
     }
@@ -167,7 +167,7 @@ if (! function_exists('longDateTime')) {
 
         try {
             return Carbon::createFromFormat('Y-m-d H:i:s', $YmdHisDateTime)->format($dateTimeFormat);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $YmdHisDateTime;
         }
     }

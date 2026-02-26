@@ -2,11 +2,13 @@
 
 namespace Database\Factories\Portfolio;
 
+use App\Models\Portfolio\Skill;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Skill>
+ * @extends Factory<Skill>
  */
 class SkillFactory extends Factory
 {
@@ -21,7 +23,7 @@ class SkillFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'     => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'     => Owner::all()->random()->id,
             'name'         => $name,
             'slug'         => $slug,
             'featured'     => fake()->numberBetween(0, 1),

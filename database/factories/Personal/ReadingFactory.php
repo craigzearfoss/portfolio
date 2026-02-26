@@ -2,11 +2,13 @@
 
 namespace Database\Factories\Personal;
 
+use App\Models\Personal\Reading;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personal\Reading>
+ * @extends Factory<Reading>
  */
 class ReadingFactory extends Factory
 {
@@ -23,7 +25,7 @@ class ReadingFactory extends Factory
             . (!empty($author) ? '-by-' . $author : ''));
 
         return [
-            'owner_id'         => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'         => Owner::all()->random()->id,
             'title'            => $title,
             'author'           => $author,
             'slug'             => $slug,

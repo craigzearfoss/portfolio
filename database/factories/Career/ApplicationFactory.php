@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Career;
 
+use App\Models\Career\Application;
 use App\Models\Career\Company;
 use App\Models\Career\JobBoard;
 use App\Models\Career\JobEmploymentType;
@@ -11,7 +12,7 @@ use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<\App\Models\Career\Application>
+ * @extends Factory<Application>
  */
 class ApplicationFactory extends Factory
 {

@@ -27,7 +27,7 @@ class StoreCertificatesRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      * @throws Exception
      */
     public function rules(): array
@@ -98,7 +98,7 @@ class StoreCertificatesRequest extends FormRequest
      *
      * @return void
      */
-    public function prepareForValidation()
+    public function prepareForValidation(): void
     {
         // generate the slug
         if (!empty($this['name'])) {

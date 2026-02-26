@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MessageStoreRequest;
 use App\Models\System\Message;
 use App\Services\PermissionService;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\IOFactory;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -65,12 +67,12 @@ class IndexController extends BaseController
     /**
      * Returns a Microsoft Word document from the public directory as HTML. It is not very most accurate.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|View
-     * @throws \PhpOffice\PhpWord\Exception\Exception
+     * @return Factory|\Illuminate\Contracts\View\View|View
+     * @throws Exception
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function view_document()
+    public function view_document(): Factory|\Illuminate\Contracts\View\View|View
     {
         $file = request()->get('file');
 

@@ -135,7 +135,7 @@ class UpdateUsersRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
             'username' => Str::lower($this->username),

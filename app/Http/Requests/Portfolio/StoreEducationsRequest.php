@@ -96,7 +96,7 @@ class StoreEducationsRequest extends FormRequest
      *
      * @return void
      */
-    public function prepareForValidation()
+    public function prepareForValidation(): void
     {
         // generate the slug
         if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {

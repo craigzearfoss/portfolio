@@ -2,19 +2,22 @@
 
 namespace Database\Factories\Portfolio;
 
+use App\Models\Portfolio\Project;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Random\RandomException;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Project>
+ * @extends Factory<Project>
  */
 class ProjectFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
-     * @return array|mixed[]
-     * @throws \Random\RandomException
+     * @return array
+     * @throws RandomException
      */
     public function definition(): array
     {
@@ -42,7 +45,7 @@ class ProjectFactory extends Factory
         }
 
         return [
-            'owner_id'         => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'         => Owner::all()->random()->id,
             'name'             => $name,
             'slug'             => $slug,
             'featured'         => fake()->numberBetween(0, 1),

@@ -2,12 +2,13 @@
 
 namespace Database\Factories\Portfolio;
 
+use App\Models\Portfolio\Audio;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<\App\Models\Portfolio\Audio>
+ * @extends Factory<Audio>
  */
 class AudioFactory extends Factory
 {

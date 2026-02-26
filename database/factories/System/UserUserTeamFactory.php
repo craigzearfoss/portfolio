@@ -2,10 +2,13 @@
 
 namespace Database\Factories\System;
 
+use App\Models\System\User;
+use App\Models\System\UserTeam;
+use App\Models\System\UserUserTeam;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\System\UserUserTeam>
+ * @extends Factory<UserUserTeam>
  */
 class UserUserTeamFactory extends Factory
 {
@@ -17,8 +20,8 @@ class UserUserTeamFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'      => \App\Models\System\User::all()->random()->id,
-            'user_team_id' => \App\Models\System\UserTeam::all()->random()->id,
+            'user_id'      => User::all()->random()->id,
+            'user_team_id' => UserTeam::all()->random()->id,
         ];
     }
 }

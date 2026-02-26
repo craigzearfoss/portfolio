@@ -19,16 +19,15 @@ if (! function_exists('getEnvType')) {
      *
      * @return EnvTypes
      */
-    function getEnvType()
+    function getEnvType(): EnvTypes
     {
         $currentRoute = Route::currentRouteName();
-        $envType = match (!empty($currentRoute) ? explode('.', $currentRoute)[0] : '') {
+
+        return match (!empty($currentRoute) ? explode('.', $currentRoute)[0] : '') {
             'admin' => EnvTypes::ADMIN,
             'user'  => EnvTypes::USER,
             default => EnvTypes::GUEST,
         };
-
-        return $envType;
     }
 }
 
@@ -85,7 +84,7 @@ if (! function_exists('refererRouteName')) {
         try {
             $referer = Request::header('referer');
             $routeName = app('router')->getRoutes()->match(app('request')->create($referer))->getName();
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $routeName = null;
         }
 
@@ -109,7 +108,7 @@ if (! function_exists('referer')) {
         if (empty($referer) && ! empty($fallbackRoute)) {
             try {
                 $referer = route($fallbackRoute, $parameters, $absolute);
-            } catch (\Throwable $th) {
+            } catch (Throwable $th) {
             }
         }
 
@@ -147,7 +146,7 @@ if (! function_exists('loggedInUserId')) {
             } else {
                 return null;
             }
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return null;
         }
     }
@@ -163,7 +162,7 @@ if (! function_exists('isUser')) {
     {
         try {
             return Auth::guard('user')->check();
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return false;
         }
     }
@@ -199,7 +198,7 @@ if (! function_exists('loggedInAdminId')) {
             } else {
                 return null;
             }
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return null;
         }
     }
@@ -215,7 +214,7 @@ if (! function_exists('isAdmin')) {
     {
         try {
             return Auth::guard('admin')->check();
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return false;
         }
     }
@@ -231,7 +230,7 @@ if (! function_exists('isRootAdmin')) {
     {
         try {
             return Auth::guard('admin')->check() && boolval(Auth::guard('admin')->user()->is_root);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return false;
         }
     }
@@ -422,7 +421,7 @@ if (! function_exists('createGate')) {
      */
     function createGate(PermissionEntityTypes|string $entityType,
                         string                       $entity,
-                        Admin|null                   $admin = null)
+                        Admin|null                   $admin = null): void
     {
         if (!canCreate($entityType, $entity, $admin)) {
             abort(403, 'Read not authorized.');
@@ -439,7 +438,7 @@ if (! function_exists('readGate')) {
      */
     function readGate(PermissionEntityTypes|string $entityType,
                                                    $entity,
-                      Admin|null                   $admin = null)
+                      Admin|null                   $admin = null): void
     {
         if (!canRead($entityType, $entity, $admin)) {
             abort(403, 'Read not authorized.');
@@ -456,7 +455,7 @@ if (! function_exists('updateGate')) {
      */
     function updateGate(PermissionEntityTypes $entityType,
                                               $entity,
-                        Admin|null            $admin = null)
+                        Admin|null            $admin = null):void
     {
         if (!canUpdate($entityType, $entity, $admin)) {
             abort(403, 'Update not authorized.');
@@ -473,7 +472,7 @@ if (! function_exists('deleteGate')) {
      */
     function deleteGate(PermissionEntityTypes $entityType,
                                               $entity,
-                        Admin|null            $admin = null)
+                        Admin|null            $admin = null): void
     {
         if (!canDelete($entityType, $entity, $admin)) {
             abort(403, 'Delete not authorized.');
@@ -947,6 +946,9 @@ if (! function_exists('viewDocument')) {
 }
 
 if (! function_exists('calledFunction')) {
+    /**
+     * @return void
+     */
     function calledFunction()
     {
         // Get the call stack
@@ -966,7 +968,7 @@ if (! function_exists('calledFunction')) {
     /**
      * @return void
      */
-    function callingFunction()
+    function callingFunction(): void
     {
         calledFunction();
     }

@@ -69,7 +69,7 @@ class StoreEventsRequest extends FormRequest
      *
      * @return void
      */
-    public function prepareForValidation()
+    public function prepareForValidation(): void
     {
         if (!empty($this->time)) {
             $this->merge([

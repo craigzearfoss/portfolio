@@ -362,7 +362,7 @@ class MenuService
                             $url = (!empty($this->owner) && ($database->name != 'dictionary'))
                                 ? route($route, $this->owner)
                                 : route($route);
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             $url = null;
                         }
                     }
@@ -435,13 +435,8 @@ class MenuService
      */
     public function getParentResource(string $resource): string|null
     {
-        foreach ($this->childResources as $parentResource=>$childResources) {
-            if (in_array($resource, $childResources)) {
-                return $parentResource;
-            }
-        }
+        return array_find_key($this->childResources, fn($childResources) => in_array($resource, $childResources));
 
-        return null;
     }
 
     /**
@@ -746,7 +741,7 @@ class MenuService
     /**
      * @return void
      */
-    #[NoReturn] protected function ddDebug()
+    #[NoReturn] protected function ddDebug(): void
     {
         if (!config('app.debug')) {
             abort(500, 'Unauthorized. .env setting APP_DEBUG must be set to true to view this page.');

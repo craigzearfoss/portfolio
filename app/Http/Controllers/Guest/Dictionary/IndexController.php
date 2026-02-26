@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Guest\Dictionary;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Dictionary\DictionarySection;
 use App\Models\System\Resource;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class IndexController extends BaseGuestController
 {
+    /**
+     * @param Request $request
+     * @return Factory|View|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $perPage = $request->query('per_page', $this->perPage());

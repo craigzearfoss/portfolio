@@ -3,10 +3,12 @@
 namespace Database\Factories\Portfolio;
 
 use App\Models\Portfolio\Job;
+use App\Models\Portfolio\JobTask;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\JobTask>
+ * @extends Factory<JobTask>
  */
 class JobTaskFactory extends Factory
 {
@@ -18,7 +20,7 @@ class JobTaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'        => Owner::all()->random()->id,
             'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'summary'         => fake()->sentence(8),
             'notes'           => fake()->text(),

@@ -4,6 +4,7 @@ use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\AdminResource;
 use App\Models\System\Resource;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -90,12 +91,18 @@ return new class extends Migration
         return Admin::all()->pluck('id')->toArray();
     }
 
+    /**
+     * @return null
+     */
     private function getDatabase()
     {
         return new Database()->where('tag', $this->database_tag)->first();
     }
 
-    private function getDbResources()
+    /**
+     * @return array|Collection
+     */
+    private function getDbResources(): array|Collection
     {
         if (!$database = $this->getDatabase()) {
             return [];

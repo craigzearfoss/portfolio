@@ -2,11 +2,13 @@
 
 namespace Database\Factories\System;
 
+use App\Models\System\Owner;
+use App\Models\System\UserTeam;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\System\UserTeam>
+ * @extends Factory<UserTeam>
  */
 class UserTeamFactory extends Factory
 {
@@ -22,7 +24,7 @@ class UserTeamFactory extends Factory
         $abbreviation = strtoupper(fake()->unique()->word());
 
         return [
-            'owner_id'     => \App\Models\System\Owner::all()->random()->id,
+            'owner_id'     => Owner::all()->random()->id,
             'name'         => $name,
             'slug '        => $slug,
             'abbreviation' => $abbreviation,

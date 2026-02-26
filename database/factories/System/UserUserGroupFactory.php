@@ -2,10 +2,13 @@
 
 namespace Database\Factories\System;
 
+use App\Models\System\User;
+use App\Models\System\UserGroup;
+use App\Models\System\UserUserGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\System\UserUserGroup>
+ * @extends Factory<UserUserGroup>
  */
 class UserUserGroupFactory extends Factory
 {
@@ -17,8 +20,8 @@ class UserUserGroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'       => \App\Models\System\User::all()->random()->id,
-            'user_group_id' => \App\Models\System\UserGroup::all()->random()->id,
+            'user_id'       => User::all()->random()->id,
+            'user_group_id' => UserGroup::all()->random()->id,
         ];
     }
 }

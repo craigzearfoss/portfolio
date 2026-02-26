@@ -111,7 +111,7 @@ class StoreCompaniesRequest extends FormRequest
      *
      * @return void
      */
-    public function prepareForValidation()
+    public function prepareForValidation(): void
     {
         // generate the slug
         if (!empty($this['name'])) {

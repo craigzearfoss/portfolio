@@ -19,7 +19,7 @@ class AdminPublicScope implements Scope
      * @param Model $model
      * @return false|Builder
      */
-    public function apply(Builder $builder, Model $model)
+    public function apply(Builder $builder, Model $model): false|Builder
     {
         $routeName = Route::currentRouteName();
 
