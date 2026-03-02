@@ -31,6 +31,11 @@ class BaseController extends Controller
     protected Admin|Owner|null $admin = null;
 
     /**
+     * Does the current admin have root permissions?
+     */
+    protected bool $isRootAdmin = false;
+
+    /**
      * @var Admin|Owner|null
      */
     protected Admin|Owner|null $owner = null;
@@ -84,6 +89,7 @@ class BaseController extends Controller
         $this->envType      = $envType;
         $this->resourceType = $this->getResourceTypeFromRoute();
         $this->admin        = loggedInAdmin();
+        $this->isRootAdmin  = $this->admin->root ?? false;
         $this->user         = loggedInUser();
         $this->owner        = $this->getOwner($this->admin);
 

@@ -33,7 +33,7 @@ class PhotographyController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Photography' : 'Photography';
+        $pageTitle = ($this->owner->name  ?? '') . ' photography';
 
         return view('admin.portfolio.photography.index', compact('photos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

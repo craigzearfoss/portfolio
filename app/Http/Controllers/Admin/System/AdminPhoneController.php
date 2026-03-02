@@ -30,7 +30,7 @@ class AdminPhoneController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this['owner']->name . ' Phones' : 'Phones';
+        $pageTitle = ($this->owner->name  ?? '') . ' phone numbers';
 
         return view('admin.system.admin-phone.index', compact('adminPhones', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -30,7 +30,7 @@ class JobSearchLogController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Job Search Log' : 'Job Search Log';
+        $pageTitle = ($this->owner->name  ?? '') . ' job search log';
 
         return view('admin.career.job-search-log.index', compact('jobSearchLogs', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

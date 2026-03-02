@@ -2,7 +2,7 @@
     use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? $jobCoworker->name;
+    $title    = $pageTitle ?? 'Edit JobCoworker: ' . $jobCoworker->name;
     $subtitle = $title;
 
     // set breadcrumbs

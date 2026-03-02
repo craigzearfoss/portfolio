@@ -38,7 +38,7 @@ class NoteController extends BaseAdminController
 
         $notes = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Notes' : 'Notes';
+        $pageTitle = ($this->owner->name  ?? '') . ' notes';
 
         return view('admin.career.note.index', compact('notes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

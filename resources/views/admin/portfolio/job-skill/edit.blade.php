@@ -3,7 +3,7 @@
     use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Job Skill Edit';
+    $title    = $pageTitle ?? 'Job Skill Edit: ' . $jobSkill->name;
     $subtitle = $title;
 
     // set navigation buttons

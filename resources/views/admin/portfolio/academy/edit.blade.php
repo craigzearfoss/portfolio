@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? 'Academy: ' . $academy->name;
+    $title    = $pageTitle ?? 'Edit Academy: ' . $academy->name;
     $subtitle = $title;
 
     // set breadcrumbs

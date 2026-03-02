@@ -37,7 +37,7 @@ class RecipeStepController extends BaseAdminController
         }
         $recipeSteps = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Recipe Steps' : 'Recipe Steps';
+        $pageTitle = ($this->owner->name  ?? '') . ' recipe steps';
 
         return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

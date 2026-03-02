@@ -34,7 +34,7 @@ class JobController extends BaseAdminController
             ->orderBy('start_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Jobs' : 'Jobs';
+        $pageTitle = ($this->owner->name  ?? '') . ' jobs';
 
         return view('admin.portfolio.job.index', compact('jobs', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

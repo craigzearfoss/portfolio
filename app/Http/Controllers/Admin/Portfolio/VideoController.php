@@ -33,7 +33,7 @@ class VideoController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Videos' : 'Videos';
+        $pageTitle = ($this->owner->name  ?? '') . ' videos';
 
         return view('admin.portfolio.video.index', compact('videos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

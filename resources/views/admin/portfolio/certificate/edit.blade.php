@@ -2,7 +2,7 @@
     use App\Models\Portfolio\Academy;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Certificate: ' . $certificate->name;
+    $title    = $pageTitle ?? 'Edit Certificate: ' . $certificate->name;
     $subtitle = $title;
 
     // set breadcrumbs

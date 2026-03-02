@@ -2,7 +2,7 @@
     use App\Models\Dictionary\Category;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Skill: ' . $skill->name;
+    $title    = $pageTitle ?? 'Edit Skill: ' . $skill->name;
     $subtitle = $title;
 
     // set breadcrumbs

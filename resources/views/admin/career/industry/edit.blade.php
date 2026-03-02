@@ -1,5 +1,5 @@
 @php
-    $title =    $pageTitle ?? (!empty($title) ? $title : 'Industry: ' . $industry->name);
+    $title    = $pageTitle ?? 'Edit Industry: ' . $industry->name ;
     $subtitle = $title;
 
     // set breadcrumbs

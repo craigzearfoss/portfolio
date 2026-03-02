@@ -2,7 +2,7 @@
     use App\Models\Portfolio\Job;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Job Task Edit';
+    $title    = $pageTitle ?? 'Edit Job Task';
     $subtitle = $title;
 
     // set navigation buttons

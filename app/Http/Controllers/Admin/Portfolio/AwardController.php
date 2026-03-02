@@ -33,7 +33,7 @@ class AwardController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Awards' : 'Awards';
+        $pageTitle = ($this->owner->name  ?? '') . ' awards';
 
         return view('admin.portfolio.award.index', compact('awards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

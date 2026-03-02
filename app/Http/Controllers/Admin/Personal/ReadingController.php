@@ -35,7 +35,7 @@ class ReadingController extends BaseAdminController
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Readings' : 'Readings';
+        $pageTitle = ($this->owner->name  ?? '') . ' readings';
 
         return view('admin.personal.reading.index', compact('readings', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

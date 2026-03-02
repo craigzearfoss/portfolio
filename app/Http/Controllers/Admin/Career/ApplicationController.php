@@ -40,7 +40,7 @@ class ApplicationController extends BaseAdminController
 
         $applications = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Applications' : 'Applications';
+        $pageTitle = ($this->owner->name  ?? '') . ' applications';
 
         return view('admin.career.application.index', compact('applications', 'resume', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

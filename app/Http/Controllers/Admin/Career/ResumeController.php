@@ -43,7 +43,7 @@ class ResumeController extends BaseAdminController
 
         $resumes = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Resumes' : 'Resumes';
+        $pageTitle = ($this->owner->name  ?? '') . ' resumes';
 
         return view('admin.career.resume.index', compact('resumes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

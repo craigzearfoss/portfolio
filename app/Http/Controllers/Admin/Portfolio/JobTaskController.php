@@ -78,7 +78,7 @@ class JobTaskController extends BaseAdminController
             $jobTasks = $query->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Job Tasks' : 'Job Tasks';
+        $pageTitle = ($this->owner->name  ?? '') . ' job tasks';
 
         return view('admin.portfolio.job-task.index', compact('jobTasks', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -2,7 +2,7 @@
     use App\Models\Career\Application;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? (!empty($title) ? $title : 'Cover Letter: ' . $coverLetter->name);
+    $title    = $pageTitle ?? 'Edit Cover Letter: ' . $coverLetter->name ;
     $subtitle = $title;
 
     // set breadcrumbs

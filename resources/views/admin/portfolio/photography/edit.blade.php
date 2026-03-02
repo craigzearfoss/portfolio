@@ -1,7 +1,7 @@
 @php
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Photography: ' . $photo->name;
+    $title    = $pageTitle ?? 'Edit Photography: ' . $photo->name;
     $subtitle = $title;
 
     // set breadcrumbs

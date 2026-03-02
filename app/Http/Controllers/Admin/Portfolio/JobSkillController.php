@@ -78,7 +78,7 @@ class JobSkillController extends BaseAdminController
             $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Job Skills' : 'Job Skills';
+        $pageTitle = ($this->owner->name  ?? '') . ' job skills';
 
         return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

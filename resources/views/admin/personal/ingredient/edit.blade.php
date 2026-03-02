@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? 'Ingredient: ' . $ingredient->name;
+    $title    = $pageTitle ?? 'Edit Ingredient: ' . $ingredient->name;
     $subtitle = $title;
 
     // set breadcrumbs

@@ -33,7 +33,7 @@ class PublicationController extends BaseAdminController
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Publications' : 'Publications';
+        $pageTitle = ($this->owner->name  ?? '') . ' publications';
 
         return view('admin.portfolio.publication.index', compact('publications', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

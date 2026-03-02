@@ -38,7 +38,7 @@ class RecipeIngredientController extends BaseAdminController
         }
         $recipeIngredients = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Recipe Ingredients' : 'Recipe Ingredients';
+        $pageTitle = ($this->owner->name  ?? '') . ' recipe ingredients';
 
         return view('admin.personal.recipe-ingredient.index', compact('recipeIngredients', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -3,7 +3,7 @@
     use App\Models\System\Owner;
     use App\Models\System\State;
 
-    $title    = $pageTitle ?? (!empty($title) ? $title : 'Contact: ' . $contact->name);
+    $title    = $pageTitle ?? 'Edit Contact: ' . $contact->name ;
     $subtitle = $title;
 
     // set breadcrumbs

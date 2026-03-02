@@ -1,7 +1,7 @@
 @php
     use App\Models\Portfolio\CertificationType;
 
-    $title    = $pageTitle ?? 'Certification: ' . $certification->name;
+    $title    = $pageTitle ?? 'Edit Certification: ' . $certification->name;
     $subtitle = $title;
 
     // set breadcrumbs

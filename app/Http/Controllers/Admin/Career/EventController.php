@@ -38,7 +38,7 @@ class EventController extends BaseAdminController
 
         $events = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Events' : 'Events';
+        $pageTitle = ($this->owner->name  ?? '') . ' events';
 
         return view('admin.career.event.index', compact('events', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

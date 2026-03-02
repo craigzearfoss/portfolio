@@ -2,7 +2,7 @@
     use App\Models\System\Country;
     use App\Models\System\State;
 
-    $title    = $pageTitle ?? (!empty($title) ? $title :'Recruiter: ' . $recruiter->name);
+    $title    = $pageTitle ?? 'Edit Recruiter: ' . $recruiter->name ;
     $subtitle = $title;
 
     // set breadcrumbs

@@ -10,7 +10,7 @@
     use App\Models\System\Owner;
     use App\Models\System\State;
 
-    $title    = $pageTitle ?? (!empty($title) ? $title : 'Application: ' . $application->name);
+    $title    = $pageTitle ?? 'Edit Application: ' . $application->name;
     $subtitle = $title;
 
     // set breadcrumbs

@@ -2,7 +2,7 @@
     use App\Models\System\Owner;
     use App\Models\Portfolio\Video;
 
-    $title    = $pageTitle ?? 'Video: ' . $video->name;
+    $title    = $pageTitle ?? 'Edit Video: ' . $video->name;
     $subtitle = $title;
 
     // set breadcrumbs

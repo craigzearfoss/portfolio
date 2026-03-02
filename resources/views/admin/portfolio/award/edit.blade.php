@@ -1,7 +1,7 @@
 @php
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Award: ' . $award->name;
+    $title    = $pageTitle ?? 'Edit Award: ' . $award->name;
     $subtitle = $title;
 
     // set breadcrumbs

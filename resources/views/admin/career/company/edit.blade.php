@@ -4,7 +4,7 @@
     use App\Models\System\Owner;
     use App\Models\System\State;
 
-    $title    = $pageTitle ?? (!empty($title) ? $title : 'Company: ' . $company->name);
+    $title    = $pageTitle ?? 'Edit Company: ' . $company->name ;
     $subtitle = $title;
 
     // set breadcrumbs

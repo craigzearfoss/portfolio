@@ -5,7 +5,7 @@
     use App\Models\System\Owner;
     use App\Models\System\State;
 
-    $title    = $pageTitle ?? 'Job: ' . $job->name;
+    $title    = $pageTitle ?? 'Edit Job: ' . $job->name;
     $subtitle = $title;
 
     // set breadcrumbs

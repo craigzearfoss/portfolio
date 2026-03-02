@@ -3,7 +3,7 @@
     use App\Models\Portfolio\School;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major;
+    $title    = $pageTitle ?? 'Edit Education: ' . $education->degreeType->name . ' ' . $education->major;
     $subtitle = $title;
 
     // set breadcrumbs

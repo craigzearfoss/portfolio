@@ -4,7 +4,7 @@
     use App\Models\System\State;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? !empty($title) ? $title : 'Reference: ' . $reference->name;
+    $title    = $pageTitle ?? 'Edit Reference: ' . $reference->name ;
     $subtitle = $title;
 
     // set breadcrumbs

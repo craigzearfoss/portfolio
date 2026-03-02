@@ -1,7 +1,8 @@
 @php
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Reading: ' . $reading->title;
+    $title    = $pageTitle ?? 'Edit Reading: ' . $reading->title
+                    . (!empty($reading->author) ? ' by ' . $reading->author : '');
     $subtitle = $title;
 
     // set breadcrumbs

@@ -2,7 +2,7 @@
     use App\Models\Portfolio\Publication;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Publication: ' . $publication->title;
+    $title    = $pageTitle ?? 'Edit Publication: ' . $publication->title;
     $subtitle = $title;
 
     // set breadcrumbs

@@ -4,7 +4,7 @@
     use App\Models\Personal\Unit;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Recipe Ingredient: ' . $recipeIngredient->ingredient->name;
+    $title    = $pageTitle ?? 'Edit Recipe Ingredient: ' . $recipeIngredient->name ;
     $subtitle = $title;
 
     // set breadcrumbs

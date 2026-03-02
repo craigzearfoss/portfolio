@@ -31,7 +31,7 @@ class UserPhoneController extends BaseUserController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootUser() && !empty($owner_id)) ? $this['owner']->name . ' Phones' : 'Phones';
+        $pageTitle = 'User Phone Numbers';
 
         return view('user.system.user-phone.index', compact('userPhones', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -32,7 +32,7 @@ class SkillController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Skills' : 'Skills';
+        $pageTitle = ($this->owner->name  ?? '') . ' skills';
 
         return view('admin.portfolio.skill.index', compact('skills', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

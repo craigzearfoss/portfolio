@@ -33,7 +33,7 @@ class AdminTeamController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Teams' : 'Teams';
+        $pageTitle = ($this->owner->name  ?? '') . ' teams';
 
         return view('admin.system.admin-team.index', compact('adminTeams', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

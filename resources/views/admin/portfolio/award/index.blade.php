@@ -1,7 +1,7 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    $title    = $pageTitle ?? 'Award';
+    $title    = $pageTitle ?? 'Awards';
     $subtitle = $title;
 
     // set breadcrumbs

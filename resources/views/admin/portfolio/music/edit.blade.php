@@ -2,7 +2,7 @@
     use App\Models\Portfolio\Music;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '');
+    $title    = $pageTitle ?? 'Edit Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '');
     $subtitle = $title;
 
     // set breadcrumbs

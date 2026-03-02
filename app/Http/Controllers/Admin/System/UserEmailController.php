@@ -30,7 +30,7 @@ class UserEmailController extends BaseUserController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootUser() && !empty($owner_id)) ? $this['owner']->name . ' Emails' : 'Emails';
+        $pageTitle = 'User Email Addresses';
 
         return view('admin.system.user-email.index', compact('userEmails', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

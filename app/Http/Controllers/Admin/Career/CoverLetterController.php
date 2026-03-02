@@ -33,7 +33,7 @@ class CoverLetterController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Cover Letters' : 'Cover Letters';
+        $pageTitle = ($this->owner->name  ?? '') . ' cover letters';
 
         return view('admin.career.cover-letter.index', compact('coverLetters', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

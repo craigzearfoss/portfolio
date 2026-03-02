@@ -1,7 +1,7 @@
 @php
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Recipe: ' . $recipe->name;
+    $title    = $pageTitle ?? 'Edit Recipe: ' . $recipe->name ;
     $subtitle = $title;
 
     // set breadcrumbs

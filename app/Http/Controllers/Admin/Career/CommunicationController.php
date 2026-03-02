@@ -38,7 +38,7 @@ class CommunicationController extends BaseAdminController
 
         $communications = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($this->owner_id)) ? $this->owner->name . ' Communications' : 'Communications';
+        $pageTitle = ($this->owner->name  ?? '') . ' communications';
 
         return view('admin.career.communication.index', compact('communications', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

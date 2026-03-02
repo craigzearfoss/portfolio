@@ -33,7 +33,7 @@ class AdminEmailController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this['owner']->name . ' Emails' : 'Emails';
+        $pageTitle = ($this->owner->name  ?? '') . ' email addresses';
 
         return view('admin.system.admin-email.index', compact('adminEmails', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

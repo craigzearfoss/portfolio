@@ -39,7 +39,7 @@ class ResourceController extends BaseAdminController
                 ->paginate($perPage)->appends(request()->except('page'));
         }
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Resources' : 'Resources';
+        $pageTitle = 'Resources';
 
         return view('admin.system.resource.index', compact('resources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -33,7 +33,7 @@ class AdminDatabaseController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Databases' : 'Databases';
+        $pageTitle = ($this->owner->name  ?? '') . ' databases';
 
         return view('admin.system.admin-database.index', compact('adminDatabases', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -35,7 +35,7 @@ class CompanyController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($owner_id)) ? $this->owner->name . ' Companies' : 'Companies';
+        $pageTitle = ($this->owner->name  ?? '') . ' companies';
 
         return view('admin.career.company.index', compact('companies', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

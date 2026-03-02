@@ -2,7 +2,7 @@
     use App\Models\System\Country;
     use App\Models\System\State;
 
-    $title    = $pageTitle ?? 'School: ' . $school->name;
+    $title    = $pageTitle ?? 'Edit School: ' . $school->name;
     $subtitle = $title;
 
     // set breadcrumbs

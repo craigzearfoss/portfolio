@@ -2,7 +2,7 @@
     use App\Models\Portfolio\Academy;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Course: ' . $course->name;
+    $title    = $pageTitle ?? 'Edit Course: ' . $course->name;
     $subtitle = $title;
 
     // set breadcrumbs

@@ -2,7 +2,7 @@
     use App\Models\Portfolio\Audio;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? 'Audio: ' . $audio->name;
+    $title    = $pageTitle ?? 'Edit Audio: ' . $audio->name;
     $subtitle = $title;
 
     // set breadcrumbs

@@ -1,7 +1,7 @@
 @php
     use App\Models\Personal\Unit;
 
-    $title    = $pageTitle ?? 'Unit: ' . $unit->name;
+    $title    = $pageTitle ?? 'Edit Unit: ' . $unit->name;
     $subtitle = $title;
 
     // set breadcrumbs
