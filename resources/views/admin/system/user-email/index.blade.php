@@ -1,7 +1,9 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    $title    = $pageTitle ?? (isRootAdmin() ? 'User Emails' : 'Emails');
+    $isRootAdmin = isRootAdmin();
+
+    $title    = $pageTitle ?? $isRootAdmin ? 'User Email Addresses' : 'Email Addresses');
     $subtitle = $title;
 
     // set breadcrumbs
@@ -9,15 +11,15 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => isRootAdmin() ? 'User Emails' : 'Emails' ],
+        [ 'name' => $isRootAdmin ? 'User Email Addresses' : 'Email Addresses' ],
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-email', $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Email',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
                                                                'href' => route('admin.system.user-email.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $user ? [ 'user_id' => $user->id ] : []
                                                                               )
                                                              ])->render();
     }
@@ -27,26 +29,26 @@
 
 @section('content')
 
-    @if(isRootAdmin())
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-team.index') ])
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.user', [ 'action' => route('admin.system.user-email.index') ])
     @endif
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
             @if($pagination_top)
-                {!! $adminTeams->links('vendor.pagination.bulma') !!}
+                {!! $userEmails->links('vendor.pagination.bulma') !!}
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
                     @if(!empty($admin->root))
-                        <th>owner</th>
+                        <th>user</th>
                     @endif
-                    <th>name</th>
-                    <th>abbreviation</th>
-                    <th class="has-text-centered">disabled</th>
+                    <th>email</th>
+                    <th>label</th>
+                    <th class="has-text-centered">public</th>
                     <th>actions</th>
                 </tr>
                 </thead>
@@ -55,11 +57,11 @@
                     <tfoot>
                     <tr>
                         @if(!empty($admin->root))
-                            <th>owner</th>
+                            <th>user</th>
                         @endif
-                        <th>name</th>
-                        <th>abbreviation</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th>email</th>
+                        <th>label</th>
+                        <th class="has-text-centered">public</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -67,52 +69,52 @@
 
                 <tbody>
 
-                @forelse ($adminTeams as $adminTeam)
+                @forelse ($userEmails as $userEmail)
 
-                    <tr data-id="{{ $adminTeam->id }}">
+                    <tr data-id="{{ $userEmail->id }}">
                         @if($admin->root)
-                            <td data-field="owner.username" style="white-space: nowrap;">
-                                @if(!empty($adminTeam->owner))
+                            <td data-field="user.username" style="white-space: nowrap;">
+                                @if(!empty($userEmail->user))
                                     @include('admin.components.link', [
-                                        'name' => $adminTeam->owner->username,
-                                        'href' => route('admin.system.admin.show', $adminTeam->owner)
+                                        'name' => $userEmail->user->username,
+                                        'href' => route('admin.system.user.show', $userEmail->user)
                                     ])
                                 @else
                                     ?
                                 @endif
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! $adminTeam->name !!}
+                        <td data-field="email">
+                            {!! $userEmail->email !!}
                         </td>
-                        <td data-field="abbreviation">
-                            {!! $adminTeam->abbreviation !!}
+                        <td data-field="label">
+                            {!! $userEmail->label !!}
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $adminTeam->disabled ])
+                        <td data-field="public" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $userEmail->public ])
                         </td>
                         <td class="is-1">
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
+                                @if(canRead(PermissionEntityTypes::RESOURCE, $userEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.admin-team.show', $adminTeam->id),
+                                        'href'  => route('admin.system.user-email.show', $userEmail->id),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
+                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $userEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.admin-team.edit', $adminTeam->id),
+                                        'href'  => route('admin.system.user-email.edit', $userEmail->id),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.admin-team.destroy', $adminTeam) !!}" method="POST">
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $userEmail, $admin))
+                                    <form class="delete-resource" action="{!! route('admin.system.user-email.destroy', $userEmail) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [
@@ -131,7 +133,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no teams.</td>
+                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no email addresses.</td>
                     </tr>
 
                 @endforelse
@@ -140,7 +142,7 @@
             </table>
 
             @if($pagination_bottom)
-                {!! $adminTeams->links('vendor.pagination.bulma') !!}
+                {!! $userEmails->links('vendor.pagination.bulma') !!}
             @endif
 
         </div>

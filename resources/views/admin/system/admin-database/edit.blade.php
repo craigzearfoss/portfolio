@@ -8,7 +8,11 @@
     $breadcrumbs = [
         [ 'name' => 'Home',               'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',             'href' => route('admin.system.index') ],
+        [ 'name' => 'System',             'href' => route('admin.system.index',
+                                                          !empty($owner)
+                                                              ? ['owner_id'=>$owner->id]
+                                                              : []
+                                                         )],
         [ 'name' => 'Databases',          'href' => route('admin.system.admin-database.index') ],
         [ 'name' => $adminDatabase->name, 'href' => route('admin.system.admin-database.show', $adminDatabase->id) ],
         [ 'name' => 'Edit' ]

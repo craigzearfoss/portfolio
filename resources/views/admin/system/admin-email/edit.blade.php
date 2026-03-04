@@ -1,15 +1,21 @@
 @php
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? $adminEmail->email;
+    $isRootAdmin = isRootAdmin();
+
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Edit Admin Email: ' . $adminEmail->email : 'Edit Email: ' . $adminEmail->email);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                                  'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                                       'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',                                                'href' => route('admin.system.index', ['owner_id'=>$owner->id]) ],
-        [ 'name' => isRootAdmin() ? 'Admin Email Numbers' : 'Email Numbers', 'href' => route('admin.system.admin-email.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Home',             'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',           'href' => route('admin.system.index',
+                                                        !empty($owner)
+                                                            ? ['owner_id'=>$owner->id]
+                                                            : []
+                                                       )],
+        [ 'name' => isRootAdmin() ? 'Admin Email Addresses' : 'Email Addresses', 'href' => route('admin.system.admin-email.index', ['owner_id'=>$owner->id]) ],
         [ 'name' => $adminEmail->email, 'href' => route('admin.system.admin-email.show', [$adminEmail, 'owner_id'=>$owner->id]) ],
         [ 'name' => 'Edit' ]
     ];
@@ -26,26 +32,21 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin-team.update', array_merge([$adminTeam], request()->all())) }}"
+        <form action="{{ route('admin.system.admin-email.update', array_merge([$adminEmail], request()->all())) }}"
               method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.admin-team.index')
-            ])
-
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $adminTeam->id
+                'value' => referer('admin.system.admin-email.index')
             ])
 
             @if($admin->root)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $adminTeam->owner_id,
+                    'value'    => old('owner_id') ?? $adminEmail->owner_id,
                     'required' => true,
                     'list'     => new Owner()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                     'message'  => $message ?? '',
@@ -53,62 +54,52 @@
             @else
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
-                    'value' => $adminTeam->owner_id
+                    'value' => Auth::guard('admin')->user()->id
                 ])
             @endif
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $adminTeam->name,
+                'name'      => 'email',
+                'value'     => old('email') ?? $adminEmail->email,
                 'required'  => true,
-                'minlength' => 3,
-                'maxlength' => 200,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? $adminTeam->abbreviation,
-                'maxlength' => 20,
+                'name'      => 'label',
+                'value'     => old('label') ?? $adminEmail->label,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $adminTeam->description,
+                'value'   => old('description') ?? $adminEmail->description,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-image-horizontal', [
-                'src'     => old('image') ?? $adminTeam->image,
-                'credit'  => old('image_credit') ?? $adminTeam->image_credit,
-                'source'  => old('image_source') ?? $adminTeam->image_source,
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'id'      => 'inputNotes',
+                'value'   => old('notes') ?? $adminEmail->notes,
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-image-horizontal', [
-                'name'      => 'thumbnail',
-                'src'       => old('thumbnail') ?? $adminTeam->thumbnail,
-                'credit'    => false,
-                'source'    => false,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('is_public')   ?? $adminTeam->public,
-                'readonly'    => old('is_readonly') ?? $adminTeam->is_readonly,
-                'root'        => old('is_root')     ?? $adminTeam->root,
-                'disabled'    => old('is_disabled') ?? $adminTeam->disabled,
-                'demo'        => old('is_demo')     ?? $adminTeam->is_demo,
-                'sequence'    => old('sequence') ?? $adminTeam->sequence,
+                'public'      => old('is_public')   ?? $adminEmail->public,
+                'readonly'    => old('is_readonly') ?? $adminEmail->is_readonly,
+                'root'        => old('is_root')     ?? $adminEmail->root,
+                'disabled'    => old('is_disabled') ?? $adminEmail->disabled,
+                'demo'        => old('is_demo')     ?? $adminEmail->is_demo,
+                'sequence'    => old('sequence') ?? $adminEmail->sequence,
                 'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.system.admin-team.index')
+                'cancel_url' => referer('admin.system.admin-email.index')
             ])
 
         </form>

@@ -8,6 +8,7 @@
     $breadcrumbs = [
         [ 'name' => 'Home',                            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                          'href' => route('admin.system.index') ],
         [ 'name' => 'Resources',                       'href' => route('admin.system.resource.index') ],
         [ 'name' => $resource->database->name . ' db', 'href' => route('admin.system.database.show', $resource->database) ],
         [ 'name' => $resource->name ],

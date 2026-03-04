@@ -1,28 +1,30 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    $title    = $pageTitle ?? (isRootAdmin() ? 'User Email' : 'Email');
+    $isRootAdmin = isRootAdmin();
+
+    $title    = $pageTitle ?? ($isRootAdmin ? 'User Email: ' . $userEmail->email : 'Email: ' . $userEmail->email);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                    'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                         'href' => route('admin.dashboard') ],
-        [ 'name' => isRootAdmin() ? 'User Emails' : 'Emails', 'href' => route('admin.system.user-email.index') ],
-        [ 'name' => isRootAdmin() ? 'User Email' : 'Email' ]
+        [ 'name' => 'Home',                                                    'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                         'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                                  'href' => route('admin.system.index') ],
+        [ 'name' => $isRootAdmin ? 'User Email Addresses' : 'Email Addresses', 'href' => route('admin.system.user-email.index') ],
+        [ 'name' => $isRootAdmin ? 'User Email' : 'Email' ]
     ];
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $adminEmail, $admin)) {
-        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-email.edit', $adminEmail)])->render();
+    if (canUpdate(PermissionEntityTypes::RESOURCE, $userEmail, $admin)) {
+        $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-email.edit', $userEmail)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Email',
-                                                               'href' => route('admin.system.user-email.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
-                                                                              )
-                                                             ])->render();
+    if (canCreate(PermissionEntityTypes::RESOURCE, 'user-email', $admin)) {
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
+                                                                  'href' => route('admin.system.user-email.create',
+                                                                                  [ 'user_id' => $userEmail->user_id ] : []
+                                                                                 ) ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-email.index') ])->render();
 @endphp
@@ -40,115 +42,55 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $adminTeam->id
+                'value' => $userEmail->id
             ])
 
-            @if(!empty($adminTeam->owner))
+            @if(!empty($userEmail->user))
                 @include('admin.components.show-row-link', [
-                    'name' => 'owner',
-                    'label' => $adminTeam->owner->username,
-                    'href' => route('admin.system.admin.show', $adminTeam->owner)
+                    'name' => 'user',
+                    'label' => $userEmail->user->username,
+                    'href' => route('admin.system.user.show', $userEmail->user)
                 ])
             @else
                 @include('admin.components.show-row', [
-                    'name'  => 'owner',
+                    'name'  => 'user',
                     'value' => '?'
                 ])
             @endif
 
             @include('admin.components.show-row', [
-                'name'  => 'name',
-                'value' => $adminTeam->name
+                'name'  => 'email',
+                'value' => $userEmail->email
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'slug',
-                'value' => $adminTeam->slug
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'abbreviation',
-                'value' => $adminTeam->abbreviation
+                'name'  => 'label',
+                'value' => $userEmail->label
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'description',
-                'value' => $adminTeam->description
+                'value' => $userEmail->description
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $userEmail->notes
             ])
 
             @include('admin.components.show-row-visibility', [
-                'resource' => $adminTeam,
+                'resource' => $userEmail,
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'created at',
-                'value' => longDateTime($adminTeam->created_at)
+                'value' => longDateTime($userEmail->created_at)
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'updated at',
-                'value' => longDateTime($adminTeam->updated_at)
+                'value' => longDateTime($userEmail->updated_at)
             ])
-
-            <div class="card p-4">
-
-                <h2 class="subtitle mb-0">
-                    Team Members
-                </h2>
-                <hr class="m-1">
-
-                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                    <thead>
-                    <th>username</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th></th>
-                    </thead>
-                    <tbody>
-
-                    @if(!empty($adminTeam->members))
-
-                        @foreach($adminTeam->members as $member)
-
-                            <tr>
-                                <td>
-                                    {!! $member->username !!}
-                                </td>
-                                <td>
-                                    {!! $member->name !!}
-                                </td>
-                                <td>
-                                    {!! $member->email !!}
-                                </td>
-                                <td>
-                                    <a title="show" class="button is-small px-1 py-0"
-                                       href="{!! route('admin.system.admin.show', $member->id) !!}">
-                                        <i class="fa-solid fa-list"></i>
-                                    </a>
-
-                                    <a title="edit" class="button is-small px-1 py-0"
-                                       href="{!! route('admin.system.admin.edit', $member->id) !!}">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </td>
-                            </tr>
-
-                        @endforeach
-
-                    @else
-
-                        <tr>
-                            <td colspan="3">
-                                No members found.
-                            </td>
-                        </tr>
-
-                    @endif
-
-                    </tbody>
-                </table>
-
-            </div>
 
         </div>
     </div>

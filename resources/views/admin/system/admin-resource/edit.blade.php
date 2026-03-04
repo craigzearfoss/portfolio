@@ -2,14 +2,18 @@
     use App\Models\System\Database;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? $adminResource->database->name . '.' . $adminResource->name . ' Resource';
+    $title    = $pageTitle ?? 'Edit Admin Resource: ' .  $adminResource->database->name . '.' . $adminResource->name;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index',
+                                                       !empty($owner)
+                                                           ? ['owner_id'=>$owner->id]
+                                                           : []
+                                                      )],
         [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
         [ 'name' => $resource->name,   'href' => route('admin.system.resource.show', $resource->id) ],
         [ 'name' => 'Edit' ]

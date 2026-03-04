@@ -6,7 +6,7 @@
 
     $userModel = new User();
 
-    $title    = $pageTitle ?? 'User: ' . $user->name;
+    $title    = $pageTitle ?? 'Edit User: ' . $user->name;
     $subtitle = $title;
 
     // set breadcrumbs

@@ -8,6 +8,11 @@
     $breadcrumbs = [
         [ 'name' => 'Home',                            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                          'href' => route('admin.system.index',
+                                                                       !empty($owner)
+                                                                           ? ['owner_id'=>$owner->id]
+                                                                           : []
+                                                                      )],
     ];
     if (isRootAdmin() && !empty($owner)) {
         $breadcrumbs[] = [ 'name' => $owner->name,                           'href' => route('admin.system.admin.show', $owner) ];

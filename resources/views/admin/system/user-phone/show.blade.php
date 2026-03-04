@@ -1,15 +1,18 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    $title    = $pageTitle ?? (isRootAdmin() ? 'User Phone Numbers' : 'Phone Numbers');
+    $isRootAdmin = isRootAdmin();
+
+    $title    = $pageTitle ?? ($isRootAdmin ? 'User Phone: ' . $adminPhone->phone : 'Phone: ' . $adminPhone->phone);
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',                                    'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard',                         'href' => route('admin.dashboard') ],
-        [ 'name' => isRootAdmin() ? 'User Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.user-phone.index') ],
-        [ 'name' => isRootAdmin() ? 'User Phone Number' : 'Phone' ]
+        [ 'name' => 'System',                                  'href' => route('admin.system.index') ],
+        [ 'name' => $isRootAdmin ? 'User Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.user-phone.index') ],
+        [ 'name' => $isRootAdmin ? 'User Phone Number' : 'Phone' ]
     ];
 
     // set navigation buttons
@@ -20,7 +23,7 @@
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Phone',
                                                                'href' => route('admin.system.user-phone.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               [ 'user_id' => $userPhone->user->id ] : []
                                                                               )
                                                              ])->render();
     }
@@ -40,115 +43,55 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'id',
-                'value' => $adminTeam->id
+                'value' => $userPhone->id
             ])
 
-            @if(!empty($adminTeam->owner))
+            @if(!empty($userPhone->user))
                 @include('admin.components.show-row-link', [
-                    'name' => 'owner',
-                    'label' => $adminTeam->owner->username,
-                    'href' => route('admin.system.admin.show', $adminTeam->owner)
+                    'name' => 'user',
+                    'label' => $userPhone->user->username,
+                    'href' => route('admin.system.user.show', $userPhone->user)
                 ])
             @else
                 @include('admin.components.show-row', [
-                    'name'  => 'owner',
+                    'name'  => 'user',
                     'value' => '?'
                 ])
             @endif
 
             @include('admin.components.show-row', [
-                'name'  => 'name',
-                'value' => $adminTeam->name
+                'name'  => 'phone',
+                'value' => $userPhone->phone
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'slug',
-                'value' => $adminTeam->slug
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'abbreviation',
-                'value' => $adminTeam->abbreviation
+                'name'  => 'label',
+                'value' => $userPhone->label
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'description',
-                'value' => $adminTeam->description
+                'value' => $userPhone->description
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'notes',
+                'value' => $userPhone->notes
             ])
 
             @include('admin.components.show-row-visibility', [
-                'resource' => $adminTeam,
+                'resource' => $userPhone,
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'created at',
-                'value' => longDateTime($adminTeam->created_at)
+                'value' => longDateTime($userPhone->created_at)
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'updated at',
-                'value' => longDateTime($adminTeam->updated_at)
+                'value' => longDateTime($userPhone->updated_at)
             ])
-
-            <div class="card p-4">
-
-                <h2 class="subtitle mb-0">
-                    Team Members
-                </h2>
-                <hr class="m-1">
-
-                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                    <thead>
-                    <th>username</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th></th>
-                    </thead>
-                    <tbody>
-
-                    @if(!empty($adminTeam->members))
-
-                        @foreach($adminTeam->members as $member)
-
-                            <tr>
-                                <td>
-                                    {!! $member->username !!}
-                                </td>
-                                <td>
-                                    {!! $member->name !!}
-                                </td>
-                                <td>
-                                    {!! $member->email !!}
-                                </td>
-                                <td>
-                                    <a title="show" class="button is-small px-1 py-0"
-                                       href="{!! route('admin.system.admin.show', $member->id) !!}">
-                                        <i class="fa-solid fa-list"></i>
-                                    </a>
-
-                                    <a title="edit" class="button is-small px-1 py-0"
-                                       href="{!! route('admin.system.admin.edit', $member->id) !!}">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </td>
-                            </tr>
-
-                        @endforeach
-
-                    @else
-
-                        <tr>
-                            <td colspan="3">
-                                No members found.
-                            </td>
-                        </tr>
-
-                    @endif
-
-                    </tbody>
-                </table>
-
-            </div>
 
         </div>
     </div>

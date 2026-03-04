@@ -1,14 +1,21 @@
 @php
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? (isRootAdmin() ? 'Add New Admin Phone Number' : 'Add New Phone Number');
+    $isRootAdmin = isRootAdmin();
+
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Add New Admin Phone Number' : 'Add New Phone Number');
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',                                                  'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard',                                       'href' => route('admin.dashboard') ],
-        [ 'name' => isRootAdmin() ? 'Admin Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.admin-phone.index') ],
+        [ 'name' => 'Home',                                                 'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',                                      'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',                                               'href' => route('admin.system.index',
+                                                                                            !empty($owner)
+                                                                                                ? ['owner_id'=>$owner->id]
+                                                                                                : []
+                                                                                            )],
+        [ 'name' => $isRootAdmin ? 'Admin Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.admin-phone.index') ],
         [ 'name' => 'Add' ]
     ];
 
@@ -24,12 +31,12 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.system.admin-team.store', request()->all()) }}" method="POST">
+        <form action="{{ route('admin.system.admin-phone.store', request()->all()) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.admin-team.index')
+                'value' => referer('admin.system.admin-phone.index')
             ])
 
             @if($admin->root)
@@ -49,18 +56,17 @@
             @endif
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
+                'name'      => 'phone',
+                'value'     => old('phone') ?? '',
                 'required'  => true,
-                'minlength' => 3,
-                'maxlength' => 200,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? '',
-                'maxlength' => 20,
+                'name'      => 'label',
+                'value'     => old('label') ?? '',
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
@@ -68,6 +74,13 @@
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'id'      => 'inputNotes',
+                'value'   => old('notes') ?? '',
                 'message' => $message ?? '',
             ])
 
@@ -82,8 +95,8 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Create Admin Team',
-                'cancel_url' => referer('admin.system.admin-team.index')
+                'label'      => 'Add Phone Number',
+                'cancel_url' => referer('admin.system.admin-phone.index')
             ])
 
         </form>

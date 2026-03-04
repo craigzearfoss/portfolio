@@ -2,7 +2,7 @@
     use App\Models\System\Owner;
     use App\Models\System\UserTeam;
 
-    $title    = $pageTitle ?? $userGroup->name . ' User Group';
+    $title    = 'Edit User Group: ' . $pageTitle ?? $userGroup->name;
     $subtitle = $title;
 
     // set breadcrumbs

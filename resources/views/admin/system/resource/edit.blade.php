@@ -2,7 +2,7 @@
     use App\Models\System\Database;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? $resource->database->name . '.' . $resource->name .  ' Resource';
+    $title    = $pageTitle ?? 'Edit Resource: ' .  $resource->database->name . '.' . $resource->namecxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
     $subtitle = $title;
 
     // set breadcrumbs

@@ -5,7 +5,7 @@
     use App\Models\System\EmploymentStatus;
     use App\Models\System\State;
 
-    $title    = $pageTitle ?? $owner->name;
+    $title    = $pageTitle ?? 'Edit Admin: ' . $owner->name;
     $subtitle = $title;
 
     // set breadcrumbs

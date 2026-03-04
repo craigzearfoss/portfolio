@@ -1,21 +1,27 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    $title    = $pageTitle ?? (isRootAdmin() ? 'Admin Emails' : 'Emails');
+    $isRootAdmin = isRootAdmin();
+
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Email Addresses' : 'Email Addresses');
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => isRootAdmin() ? 'Admin Emails' : 'Emails' ],
+        [ 'name' => 'System',          'href' => route('admin.system.index',
+                                                       !empty($owner)
+                                                           ? ['owner_id'=>$owner->id]
+                                                           : []
+                                                      )],
+        [ 'name' => $isRootAdmin ? 'Admin Emails' : 'Emails' ],
     ];
 
     // set navigation buttons
     $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-email', $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Email',
+        $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
                                                                'href' => route('admin.system.admin-email.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
@@ -27,7 +33,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-email.index') ])
     @endif
 
@@ -88,7 +94,7 @@
                         <td data-field="label">
                             {!! $adminEmail->label !!}
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
+                        <td data-field="public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $adminEmail->public ])
                         </td>
                         <td class="is-1">
@@ -131,7 +137,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no emails.</td>
+                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no email addresses.</td>
                     </tr>
 
                 @endforelse

@@ -1,15 +1,21 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    $title    = $pageTitle ?? (isRootAdmin() ? 'Admin Phone Numbers' : 'Phone Numbers');
+    $isRootAdmin = isRootAdmin();
+
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Phone Numbers' : 'Phone Numbers');
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => isRootAdmin() ? 'Admin Phone Numbers' : 'Phone Numbers' ],
+        [ 'name' => 'System',          'href' => route('admin.system.index',
+                                                       !empty($owner)
+                                                           ? ['owner_id'=>$owner->id]
+                                                           : []
+                                                      )],
+        [ 'name' => $isRootAdmin ? 'Admin Phone Numbers' : 'Phone Numbers' ],
     ];
 
     // set navigation buttons
@@ -27,15 +33,15 @@
 
 @section('content')
 
-    @if(isRootAdmin())
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-team.index') ])
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.admin-phone', [ 'action' => route('admin.system.admin-phone.index') ])
     @endif
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
             @if($pagination_top)
-                {!! $adminTeams->links('vendor.pagination.bulma') !!}
+                {!! $adminPhones->links('vendor.pagination.bulma') !!}
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
@@ -44,9 +50,9 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th>name</th>
-                    <th>abbreviation</th>
-                    <th class="has-text-centered">disabled</th>
+                    <th>email</th>
+                    <th>label</th>
+                    <th class="has-text-centered">public</th>
                     <th>actions</th>
                 </tr>
                 </thead>
@@ -57,9 +63,9 @@
                         @if(!empty($admin->root))
                             <th>owner</th>
                         @endif
-                        <th>name</th>
-                        <th>abbreviation</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th>email</th>
+                        <th>label</th>
+                        <th class="has-text-centered">public</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -67,52 +73,52 @@
 
                 <tbody>
 
-                @forelse ($adminTeams as $adminTeam)
+                @forelse ($adminPhones as $adminPhone)
 
-                    <tr data-id="{{ $adminTeam->id }}">
+                    <tr data-id="{{ $adminPhone->id }}">
                         @if($admin->root)
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                @if(!empty($adminTeam->owner))
+                                @if(!empty($adminPhone->owner))
                                     @include('admin.components.link', [
-                                        'name' => $adminTeam->owner->username,
-                                        'href' => route('admin.system.admin.show', $adminTeam->owner)
+                                        'name' => $adminPhone->owner->username,
+                                        'href' => route('admin.system.admin.show', $adminPhone->owner)
                                     ])
                                 @else
                                     ?
                                 @endif
                             </td>
                         @endif
-                        <td data-field="name">
-                            {!! $adminTeam->name !!}
+                        <td data-field="phone">
+                            {!! $adminPhone->phone !!}
                         </td>
-                        <td data-field="abbreviation">
-                            {!! $adminTeam->abbreviation !!}
+                        <td data-field="label">
+                            {!! $adminPhone->label !!}
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $adminTeam->disabled ])
+                        <td data-field="public" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $adminPhone->public ])
                         </td>
                         <td class="is-1">
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
+                                @if(canRead(PermissionEntityTypes::RESOURCE, $adminPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.admin-team.show', $adminTeam->id),
+                                        'href'  => route('admin.system.admin-phone.show', $adminPhone->id),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
+                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $adminPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.admin-team.edit', $adminTeam->id),
+                                        'href'  => route('admin.system.admin-phone.edit', $adminPhone->id),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.admin-team.destroy', $adminTeam) !!}" method="POST">
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $adminPhone, $admin))
+                                    <form class="delete-resource" action="{!! route('admin.system.admin-phone.destroy', $adminPhone) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [
@@ -131,7 +137,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no teams.</td>
+                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no phone nuumbers.</td>
                     </tr>
 
                 @endforelse
@@ -140,7 +146,7 @@
             </table>
 
             @if($pagination_bottom)
-                {!! $adminTeams->links('vendor.pagination.bulma') !!}
+                {!! $adminPhones->links('vendor.pagination.bulma') !!}
             @endif
 
         </div>

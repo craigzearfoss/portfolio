@@ -2,14 +2,18 @@
     use App\Models\System\AdminTeam;
     use App\Models\System\Owner;
 
-    $title    = $pageTitle ?? $adminGroup->name .  ' Group';
+    $title    = $pageTitle ??'Edit Admin Group: ' . $adminGroup->name;
     $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index',
+                                                       !empty($owner)
+                                                           ? ['owner_id'=>$owner->id]
+                                                           : []
+                                                      )],
         [ 'name' => 'Groups',          'href' => route('admin.system.admin-group.index') ],
         [ 'name' => $adminGroup->name, 'href' => route('admin.system.admin-group.show', $adminGroup->id) ],
         [ 'name' => 'Edit' ]
