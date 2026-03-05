@@ -23,8 +23,8 @@
     if (canCreate(PermissionEntityTypes::RESOURCE, 'user-email', $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
                                                                   'href' => route('admin.system.user-email.create',
-                                                                                  [ 'user_id' => $userEmail->user_id ] : []
-                                                                                 ) ])->render();
+                                                                                  [ 'user_id' => $userEmail->user_id ])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-email.index') ])->render();
 @endphp

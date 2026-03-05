@@ -22,10 +22,9 @@
     }
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Phone',
-                                                               'href' => route('admin.system.user-phone.create',
-                                                                               [ 'user_id' => $userPhone->user->id ] : []
-                                                                              )
-                                                             ])->render();
+                                                                  'href' => route('admin.system.user-phone.create',
+                                                                                  [ 'user_id' => $userPhone->user->id ])
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.user-phone.index') ])->render();
 @endphp

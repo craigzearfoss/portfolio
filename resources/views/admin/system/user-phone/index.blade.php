@@ -18,7 +18,7 @@
     $navButtons = [];
     if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-email', $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Phone Number',
-                                                               'href' => route('admin.system.user-phone.create', 
+                                                               'href' => route('admin.system.user-phone.create',
                                                                                $user ? [ 'user_id' => $user->id ] : []
                                                                               )
                                                              ])->render();
@@ -30,7 +30,7 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.user-phone', [ 'action' => route('admin.system.user-phone.index') ])
+        @include('admin.components.search-panel.user', [ 'action' => route('admin.system.user-phone.index') ])
     @endif
 
     <div class="floating-div-container">
