@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? (($this->owner->name  ?? '') . ' Personal');
+    $title    = $pageTitle ?? (($owner->name  ?? '') . ' Personal');
     $subtitle = $title;
 
     // set breadcrumbs

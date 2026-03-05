@@ -255,6 +255,28 @@ nav.pagination ul.pagination-list li {
     margin-left: 0;
 }
 
+nav.prev-next-buttons a, nav.prev-next-buttons span {
+    height: 2rem;
+    width: 2rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    padding: 0.1rem !important;
+}
+nav.prev-next-buttons span:hover {
+    border-color: #dbdbdb;
+}
+
+nav.prev-next-buttons a.pagination-next
+nav.prev-next-buttons a.pagination-previous,
+nav.prev-next-buttons a.pagination-next {
+    background-color: #ffffff;
+}
+nav.prev-next-buttons span.pagination-previous,
+nav.prev-next-buttons span.pagination-next {
+    color: #d0d0d0;
+    background-color: #f8f8f8;
+}
+
 /* admin table */
 table.table.admin-table,
 table.table.user-table,

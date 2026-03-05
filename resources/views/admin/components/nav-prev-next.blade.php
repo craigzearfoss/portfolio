@@ -1,4 +1,4 @@
-<nav class="pagination is-small my-1" role="navigation" aria-label="pagination" style="font-size: 16px;">
+<nav class="prev-next-buttons pagination is-small my-1" role="navigation" aria-label="pagination" style="font-size: 16px;">
     @if($prev)
         <a href="{{ $prev }}" class="pagination-previous" title="previous">‹</a>
     @else

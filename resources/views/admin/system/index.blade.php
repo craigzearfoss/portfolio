@@ -1,5 +1,5 @@
 @php
-    $title = $pageTitle ?? (($this->owner->name  ?? '') . ' System');
+    $title = $pageTitle ?? (($owner->name  ?? '') . ' System');
 
     // set breadcrumbs
     $breadcrumbs = [

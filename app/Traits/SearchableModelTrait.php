@@ -164,8 +164,8 @@ trait SearchableModelTrait
         }
 
         return [
-            url()->query($prev, $urlParams),
-            url()->query($next, $urlParams),
+            !empty($prev) ? url()->query($prev, $urlParams) : null,
+            !empty($next) ? url()->query($next, $urlParams) : null,
         ];
     }
 
