@@ -82,7 +82,7 @@
             'name'  => 'location',
             'value' => formatLocation([
                            'street'          => $contact->street,
-                           'street2'         => $company->street2,
+                           'street2'         => $contact->street2,
                            'city'            => $contact->city,
                            'state'           => $contact->state->code ?? '',
                            'zip'             => $contact->zip,

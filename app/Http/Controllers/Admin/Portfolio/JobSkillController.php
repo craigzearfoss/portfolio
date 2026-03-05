@@ -126,10 +126,12 @@ class JobSkillController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
 
-        list($prev, $next) = new JobSkill()->prevAndNextPages($jobSkill->id,
+        list($prev, $next) = new JobSkill()->prevAndNextPages(
+            $jobSkill['id'],
             'admin.portfolio.job-skill.show',
             $this->owner->id ?? null,
-            ['name', 'asc']);
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.job-skill.show', compact('jobSkill', 'prev', 'next'));
     }

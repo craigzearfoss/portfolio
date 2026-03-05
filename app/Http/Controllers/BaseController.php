@@ -12,6 +12,8 @@ use App\Services\MenuService;
 use App\Services\PermissionService;
 use Exception;
 use http\Env;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -95,7 +97,7 @@ class BaseController extends Controller
 
         // set owner_id cookie
         $this->cookieManager->setOwnerId($this->envType, $this->owner->id ?? null);
-        $this->cookieManager->queueOwnerId($this->envType, 60);
+        $this->cookieManager->queueOwnerId($this->envType);
 
         // get the menu service
         $this->menuService = new MenuService(
@@ -183,7 +185,12 @@ class BaseController extends Controller
         return $perPage;
     }
 
-    private function getOwner($currentAdmin, $envType = EnvTypes::GUEST)
+    /**
+     * @param $currentAdmin
+     * @param EnvTypes $envType
+     * @return Collection|Model|object|null
+     */
+    private function getOwner($currentAdmin, EnvTypes $envType = EnvTypes::GUEST)
     {
         $owner = null;
 

@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\Application;
 
     $title    = $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
@@ -95,7 +96,7 @@
                                 @include('admin.components.link', [
                                     'name' => $communication->application->name ?? '',
                                     'href' => route('admin.career.application.show',
-                                                    \App\Models\Career\Application::find($communication->application->id)
+                                                    Application::find($communication->application->id)
                                               )
                                 ])
                             </td>
@@ -149,7 +150,7 @@
 
                                 @if(canRead(PermissionEntityTypes::RESOURCE, $communication, $admin))
                                     <a title="show" class="button is-small px-1 py-0"
-                                       href="{!! route('admin.career.communication.show', $communication->id) !!}">
+                                       href="{!! route('admin.career.communication.show', $communication) !!}">
                                         <i class="fa-solid fa-list"></i>
                                     </a>
                                 @endif
@@ -162,7 +163,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $communication, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.communication.destroy', $communication) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.communication.destroy', $communication) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

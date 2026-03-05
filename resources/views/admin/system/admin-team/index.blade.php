@@ -107,7 +107,7 @@
                                 @if(canRead(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.admin-team.show', $adminTeam->id),
+                                        'href'  => route('admin.system.admin-team.show', $adminTeam),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -115,7 +115,7 @@
                                 @if(canUpdate(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.admin-team.edit', $adminTeam->id),
+                                        'href'  => route('admin.system.admin-team.edit', $adminTeam),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

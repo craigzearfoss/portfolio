@@ -100,7 +100,7 @@
                                 @if(canRead(PermissionEntityTypes::RESOURCE, $userPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.user-phone.show', $userPhone->id),
+                                        'href'  => route('admin.system.user-phone.show', $userPhone),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -108,7 +108,7 @@
                                 @if(canUpdate(PermissionEntityTypes::RESOURCE, $userPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.user-phone.edit', $userPhone->id),
+                                        'href'  => route('admin.system.user-phone.edit', $userPhone),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

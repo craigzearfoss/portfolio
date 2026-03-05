@@ -126,10 +126,12 @@ class JobTaskController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
 
-        list($prev, $next) = new JobTask()->prevAndNextPages($jobTask->id,
+        list($prev, $next) = new JobTask()->prevAndNextPages(
+            $jobTask['id'],
             'admin.portfolio.job-task.show',
             $this->owner->id ?? null,
-            ['name', 'asc']);
+            [ 'name', 'asc' ]
+        );
 
         return view('admin.portfolio.job-task.show', compact('jobTask', 'prev', 'next'));
     }

@@ -35,7 +35,7 @@ class IndexController extends BaseAdminController
                     'database_id'          => $databaseId,
                     EnvTypes::ADMIN->value => 1
                 ])
-                ->orderBy('sequence', 'asc')
+                ->orderBy('sequence')
                 ->get();
 
             } else {
@@ -45,7 +45,7 @@ class IndexController extends BaseAdminController
                     'owner_id'             => $this->owner['id'],
                     EnvTypes::ADMIN->value => 1
                 ])
-                ->orderBy('sequence', 'asc')
+                ->orderBy('sequence')
                 ->get();
             }
         }

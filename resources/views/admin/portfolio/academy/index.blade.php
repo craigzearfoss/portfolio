@@ -87,7 +87,7 @@
 
                                 @if (!empty($academy->link))
                                     @include('admin.components.link-icon', [
-                                        'title'  => $academy->link_name ? $academy->link_name : 'link',
+                                        'title'  => $academy->link_name ?? 'link',
                                         'href'   => $academy->link,
                                         'icon'   => 'fa-external-link',
                                         'target' => '_blank'

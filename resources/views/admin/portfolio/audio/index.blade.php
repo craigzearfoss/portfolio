@@ -1,6 +1,8 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
+    $isRootAdmin = isRootAdmin();
+
     $title    = $pageTitle ?? 'Audio';
     $subtitle = $title;
 
@@ -110,7 +112,7 @@
                                 @if(canRead(PermissionEntityTypes::RESOURCE, $audio, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.portfolio.audio.show', [$admin, $audio->id]),
+                                        'href'  => route('admin.portfolio.audio.show', $audio),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -118,7 +120,7 @@
                                 @if(canUpdate(PermissionEntityTypes::RESOURCE, $audio, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.portfolio.audio.edit', [$admin, $audio->id]),
+                                        'href'  => route('admin.portfolio.audio.edit', $audio),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

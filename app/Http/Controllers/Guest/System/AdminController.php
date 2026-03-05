@@ -61,10 +61,12 @@ class AdminController extends BaseGuestController
             ),
         ];
 
-        list($prev, $next) = new Admin()->prevAndNextPages($admin->id,
+        list($prev, $next) = new Admin()->prevAndNextPages(
+            $admin['id'],
             'guest.admin.show',
             $this->owner ?? null,
-            ['name', 'asc']);
+            ['name', 'asc']
+        );
 
         return view('guest.system.admin.show',
             compact('thisAdmin', 'dbColumns', 'prev', 'next')

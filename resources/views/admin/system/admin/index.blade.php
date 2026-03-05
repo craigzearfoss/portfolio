@@ -122,8 +122,8 @@
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => isRootAdmin()
-                                            ? route('admin.system.admin.profile', $thisAdmin->id)
-                                            : route('admin.system.admin.show', $thisAdmin->id),
+                                            ? route('admin.system.admin.profile', $thisAdmin)
+                                            : route('admin.system.admin.show', $thisAdmin),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif

@@ -107,7 +107,7 @@
                                 @if(canRead(PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.personal.recipe-step.show', $recipeStep->id),
+                                        'href'  => route('admin.personal.recipe-step.show', $recipeStep),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -115,7 +115,7 @@
                                 @if(canUpdate(PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.personal.recipe-step.edit', $recipeStep->id),
+                                        'href'  => route('admin.personal.recipe-step.edit', $recipeStep),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif

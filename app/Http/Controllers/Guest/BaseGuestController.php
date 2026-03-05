@@ -10,6 +10,6 @@ class BaseGuestController extends BaseController
 {
     public function __construct(PermissionService $permissionService)
     {
-        parent::__construct($permissionService, EnvTypes::GUEST);
+        parent::__construct($permissionService);
     }
 }

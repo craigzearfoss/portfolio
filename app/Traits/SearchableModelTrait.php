@@ -105,12 +105,14 @@ trait SearchableModelTrait
      * @param string $route
      * @param Admin|Owner|null $owner
      * @param array $orderBy
+     * @param array $urlParams
      * @return null[]
      */
     public function prevAndNextPages(int              $id,
                                      string           $route,
                                      Admin|Owner|null $owner = null,
-                                     array            $orderBy = ['id', 'asc']): array
+                                     array            $orderBy = ['id', 'asc'],
+                                     array            $urlParams = []): array
     {
         $prev = null;
         $next = null;
@@ -157,7 +159,14 @@ trait SearchableModelTrait
             }
         }
 
-        return [$prev, $next];
+        foreach ($urlParams as $key=>$value) {
+            $urlParams[$key] = urlencode($value);
+        }
+
+        return [
+            url()->query($prev, $urlParams),
+            url()->query($next, $urlParams),
+        ];
     }
 
     /**
@@ -210,16 +219,7 @@ trait SearchableModelTrait
      */
     public function appendAddressFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
     {
-        $query->when(!empty($filters['email']), function ($query) use ($filters) {
-            $email = $filters['email'];
-            $query->orWhere(function ($query) use ($email) {
-                $query->where('email', 'LIKE', '%' . $email . '%')
-                    ->orWhere('email_label', 'LIKE', '%' . $email . '%')
-                    ->orWhere('alt_email', 'LIKE', '%' . $email . '%')
-                    ->orWhere('alt_email_label', 'LIKE', '%' . $email . '%');
-                });
-            })
-            ->when(!empty($filters['city']), function ($query) use ($filters) {
+        $query->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
             })
             ->when(!empty($filters['state_id']), function ($query) use ($filters) {
@@ -297,7 +297,7 @@ trait SearchableModelTrait
      * @param bool $includeDemo
      * @return Builder
      */
-    public function appendEPhoneFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    public function appendPhoneFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
     {
         $query->when(!empty($filters['phone']), function ($query) use ($filters) {
             $phone = $filters['phone'];

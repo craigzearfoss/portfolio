@@ -159,11 +159,7 @@
                                     @if(canRead(PermissionEntityTypes::RESOURCE, $adminResource, $admin))
                                         @include('admin.components.link-icon', [
                                             'title' => 'show',
-                                            'href'  => route('admin.system.admin-resource.show',
-                                                             isRootAdmin() && !empty($owner)
-                                                                 ? [ $adminResource, 'owner_id'=>$owner->id ]
-                                                                 : [ $adminResource ]
-                                                            ),
+                                            'href'  => route('admin.system.admin-resource.show', $adminResource),
                                             'icon'  => 'fa-list'
                                         ])
                                     @endif
@@ -171,11 +167,7 @@
                                     @if(canUpdate(PermissionEntityTypes::RESOURCE, $adminResource, $admin))
                                         @include('admin.components.link-icon', [
                                             'title' => 'edit',
-                                            'href'  => route('admin.system.admin-resource.edit',
-                                                             isRootAdmin() && !empty($owner)
-                                                                 ? [ $adminResource, 'owner_id'=>$owner->id ]
-                                                                 : [ $adminResource ]
-                                                            ),
+                                            'href'  => route('admin.system.admin-resource.edit', $adminResource),
                                             'icon'  => 'fa-pen-to-square'
                                         ])
                                     @endif

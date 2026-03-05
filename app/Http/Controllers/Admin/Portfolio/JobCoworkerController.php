@@ -30,57 +30,40 @@ class JobCoworkerController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        $job = null;
+
         $jobCoworkerModel = new JobCoworker();
 
-        $urlParams = $request->query();
+        $query = $jobCoworkerModel->orderBy('name');
 
-        $job = null;
-        $query = null;
-
+        // get the job id, if one was specified
         if ($jobId = $request->get('job_id')) {
-
             $job = new Job()->findOrFail($jobId);
-
-            if (isRootAdmin()) {
-
-                $query = $jobCoworkerModel->where('job_id', $jobId)
-                    ->orderBy('name');
-                if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = new Owner()->findOrFail($owner_id))) {
-                    $query->where('owner_id', $owner_id);
-                }
-
-            } elseif (!empty($this->owner)) {
-
-                $query = $jobCoworkerModel->where('job_id', $jobId)
-                    ->where('owner_id', $this->owner->id)
-                    ->orderBy('name');
-                $owner = $this->owner;
-                $owner_id = $owner->id;
-            }
-
-            $jobCoworkers = $query->paginate($perPage)->appends(request()->except('page'));
-
-        } else {
-
-            if (isRootAdmin()) {
-
-                $query = $jobCoworkerModel->orderBy('name');
-                if (($owner_id = $urlParams['owner_id'] ?? null) && ($owner = new Owner()->findOrFail($owner_id))) {
-                    $query->where('owner_id', $owner_id);
-                }
-
-            } elseif (!empty($this->owner)) {
-
-                $query = $jobCoworkerModel->where('owner_id', $this->owner->id)
-                    ->orderBy('name');
-                $owner = $this->owner;
-                $owner_id = $owner->id;
-            }
-
-            $jobCoworkers = $query->paginate($perPage)->appends(request()->except('page'));
+            $query->where('job_id', $jobId);
         }
 
-        $pageTitle = ($this->owner->name  ?? '') . ' job coworkers';
+        // get the current owner
+        if ($ownerId = $request->get('owner_id')) {
+            $owner = $jobCoworkerModel->findOrFail($ownerId);
+        } elseif (!empty($this->owner)) {
+            $owner = $this->owner;
+        } else {
+            $owner = null;
+        }
+
+        if (!empty($owner)) {
+            if ($this->isRootAdmin) {
+                $query->where('owner_id', '=', $owner->id);
+            } elseif ($owner['id'] == $this->admin['id']) {
+                $query->where('owner_id', '=', $owner->id);
+            } else {
+                $query->where('owner_id', '=', -1);
+            }
+        }
+
+        $jobCoworkers = $query->paginate($perPage)->appends(request()->except('page'));
+
+        $pageTitle = (isRootAdmin() && !empty($ownerId)) ? $this->owner['name'] . ' Job Coworkers' : 'Job Coworkers';
 
         return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -131,10 +114,12 @@ class JobCoworkerController extends BaseAdminController
     {
         readGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
 
-        list($prev, $next) = new JobCoworker()->prevAndNextPages($jobCoworker->id,
+        list($prev, $next) = new JobCoworker()->prevAndNextPages(
+            $jobCoworker['id'],
             'admin.portfolio.job-coworker.show',
-            $this->owner->id ?? null,
-            ['name', 'asc']);
+            $this->owner ?? null,
+            [ 'name', 'asc' ],
+        );
 
         return view('admin.portfolio.job-coworker.show', compact('jobCoworker', 'prev', 'next'));
     }

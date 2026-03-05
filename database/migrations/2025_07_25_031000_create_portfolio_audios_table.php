@@ -46,11 +46,11 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->text('embed')->nullable();
             $table->string('audio_url')->nullable();
-            $table->string('review_link1`', 500)->nullable();
+            $table->string('review_link1', 500)->nullable();
             $table->string('review_link1_name')->nullable();
-            $table->string('review_link2`', 500)->nullable();
+            $table->string('review_link2', 500)->nullable();
             $table->string('review_link2_name')->nullable();
-            $table->string('review_link3`', 500)->nullable();
+            $table->string('review_link3', 500)->nullable();
             $table->string('review_link3_name')->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

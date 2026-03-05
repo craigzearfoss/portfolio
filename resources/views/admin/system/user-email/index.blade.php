@@ -100,7 +100,7 @@
                                 @if(canRead(PermissionEntityTypes::RESOURCE, $userEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => route('admin.system.user-email.show', $userEmail->id),
+                                        'href'  => route('admin.system.user-email.show', $userEmail),
                                         'icon'  => 'fa-list'
                                     ])
                                 @endif
@@ -108,7 +108,7 @@
                                 @if(canUpdate(PermissionEntityTypes::RESOURCE, $userEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
-                                        'href'  => route('admin.system.user-email.edit', $userEmail->id),
+                                        'href'  => route('admin.system.user-email.edit', $userEmail),
                                         'icon'  => 'fa-pen-to-square'
                                     ])
                                 @endif
