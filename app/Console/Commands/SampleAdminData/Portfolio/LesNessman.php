@@ -88,6 +88,7 @@ class LesNessman extends Command
 
     /**
      * Execute the console command.
+     * @throws Exception
      */
     public function handle(): void
     {

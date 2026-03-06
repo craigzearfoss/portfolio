@@ -22,6 +22,7 @@ return new class extends Migration
 
     /**
      * Run the migrations.
+     * @throws Exception
      */
     public function up(): void
     {

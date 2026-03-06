@@ -86,6 +86,7 @@ class CopySourceImages extends Command
 
     /**
      * Execute the console command.
+     * @throws ReflectionException
      */
     public function handle(): void
     {

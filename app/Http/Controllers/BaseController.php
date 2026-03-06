@@ -126,49 +126,6 @@ class BaseController extends Controller
     }
 
     /**
-     * Sets the following controller class variables and view variables of the same name.
-     *      loggedInAdmin - The admin that is currently logged in.
-     *      admin         - The admin that is currently being viewed.
-     *
-     * @return void
-     * @throws Exception
-     */
-    /*
-    protected function initialize($envType = EnvTypes::GUEST)
-    {
-        $this->envType = $envType;
-
-        $this->admin        = loggedInAdmin();
-        $this->user         = loggedInUser();
-        $this->owner        = $this->getOwner($this->admin, $this->envType);
-        $this->resourceType = $this->getResourceTypeFromRoute();
-
-        // save owner cookie
-        $this->cookieManager->setOwnerId($this->envType, $this->owner->id ?? null);
-        $this->cookieManager->queueOwnerId($this->envType, 60);
-
-        // get the menu service
-        $this->menuService = new MenuService(
-            $this->envType,
-            $this->owner,
-            $this->admin,
-            $this->user,
-        );
-
-        // inject variables into blade templates
-        view()->share('envType', $this->envType);
-        view()->share('admin', $this->admin);
-        view()->share('owner', $this->owner);
-        view()->share('user', $this->user);
-        view()->share('menuService', $this->menuService);
-
-        // inject pagination variables into blade templates
-        view()->share('pagination_bottom', config('app.pagination_bottom'));
-        view()->share('pagination_top', config('app.pagination_top'));
-        view()->share('bottom_column_headings', config('app.bottom_column_headings'));
-    }
-*/
-    /**
      * Returns the number of items per page for pagination. First it checks the
      * PAGINATION_PER_PAGE variable in the .env file. If it is not set then it
      * get the value of the PAGINATION_PER_PAGE class  variable in the controller.
@@ -187,15 +144,17 @@ class BaseController extends Controller
     }
 
     /**
-     * @param $currentAdmin
-     * @param EnvTypes $envType
-     * @return Collection|Model|object|null
+     * Get the current owner.
+     *
+     * @param Admin|Owner|null $currentAdmin
+     * @return Admin|Owner|null
      */
-    private function getOwner($currentAdmin, EnvTypes $envType = EnvTypes::GUEST)
+    private function getOwner(Admin|Owner|null $currentAdmin): Admin|Owner|null
     {
         $owner = null;
+        $envType = !empty($this->envType) ? $this->envType : getEnvType();
 
-        if (($envType == EnvTypes::ADMIN) && !isRootAdmin()) {
+        if (($envType->value == 'admin') && !empty($currentAdmin) && !$currentAdmin['is_root']) {
 
             // this is a non-root admin so they can only view their own resources
             return $currentAdmin;

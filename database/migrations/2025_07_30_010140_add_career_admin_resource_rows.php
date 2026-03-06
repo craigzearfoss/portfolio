@@ -92,9 +92,9 @@ return new class extends Migration
     }
 
     /**
-     * @return null
+     * @return mixed
      */
-    private function getDatabase()
+    private function getDatabase(): mixed
     {
         return new Database()->where('tag', $this->database_tag)->first();
     }

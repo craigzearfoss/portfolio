@@ -100,6 +100,7 @@ class InitSampleAdmin extends Command
 
     /**
      * Execute the console command.
+     * @throws RandomException
      */
     public function handle(): void
     {
@@ -181,6 +182,7 @@ class InitSampleAdmin extends Command
      * @param $adminGroupId
      * @return void
      * @throws RandomException
+     * @throws Exception
      */
     protected function insertAdmin($username, $password, $adminTeamId = null, $adminGroupId = null): void
     {
