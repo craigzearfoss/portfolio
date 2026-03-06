@@ -94,7 +94,7 @@ class IngredientController extends BaseAdminController
      */
     public function edit(Ingredient $ingredient): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $ingredient, $this->admin);
+        updateGate($ingredient, $this->admin);
 
         return view('admin.personal.ingredient.edit', compact('ingredient'));
     }
@@ -110,7 +110,7 @@ class IngredientController extends BaseAdminController
     {
         $ingredient->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $ingredient, $this->admin);
+        updateGate($ingredient, $this->admin);
 
         return redirect()->route('admin.personal.ingredient.show', $ingredient)
             ->with('success', $ingredient->name . ' successfully updated.');

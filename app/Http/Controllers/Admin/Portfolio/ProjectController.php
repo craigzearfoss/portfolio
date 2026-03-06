@@ -94,7 +94,7 @@ class ProjectController extends BaseAdminController
      */
     public function edit(Project $project): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
+        updateGate($project, $this->admin);
 
         return view('admin.portfolio.project.edit', compact('project'));
     }
@@ -110,7 +110,7 @@ class ProjectController extends BaseAdminController
     {
         $project->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
+        updateGate($project, $this->admin);
 
         return redirect()->route('admin.portfolio.project.show', $project)
             ->with('success', $project->name . ' project successfully updated.');

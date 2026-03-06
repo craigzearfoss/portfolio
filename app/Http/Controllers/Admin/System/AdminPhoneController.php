@@ -92,7 +92,7 @@ class AdminPhoneController extends BaseAdminController
      */
     public function edit(AdminPhone $adminPhone): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $adminPhone, $this->admin);
+        updateGate($adminPhone, $this->admin);
 
         return view('admin.system.admin-phone.edit', compact('adminPhone'));
     }
@@ -108,7 +108,7 @@ class AdminPhoneController extends BaseAdminController
     {
         $adminPhone->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $adminPhone, $this->admin);
+        updateGate($adminPhone, $this->admin);
 
         return redirect()->route('admin.system.admin-phone.show', $adminPhone)
             ->with('success', $adminPhone['name'] . ' successfully updated.');

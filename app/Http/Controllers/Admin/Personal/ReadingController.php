@@ -97,7 +97,7 @@ class ReadingController extends BaseAdminController
      */
     public function edit(Reading $reading): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
+        updateGate($reading, $this->admin);
 
         return view('admin.personal.reading.edit', compact('reading'));
     }
@@ -113,7 +113,7 @@ class ReadingController extends BaseAdminController
     {
         $reading->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
+        updateGate($reading, $this->admin);
 
         return redirect()->route('admin.personal.reading.show', $reading)
             ->with('success', $reading->title . ' successfully updated.');

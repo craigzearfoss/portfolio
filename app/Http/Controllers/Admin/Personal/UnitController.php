@@ -94,7 +94,7 @@ class UnitController extends BaseAdminController
      */
     public function edit(Unit $unit): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
+        updateGate($unit, $this->admin);
 
         return view('admin.personal.unit.edit', compact('unit'));
     }
@@ -110,7 +110,7 @@ class UnitController extends BaseAdminController
     {
         $unit->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
+        updateGate($unit, $this->admin);
 
         return redirect()->route('admin.personal.unit.show', $unit)
             ->with('success', $unit->name . ' successfully updated.');

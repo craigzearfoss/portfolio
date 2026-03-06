@@ -90,7 +90,7 @@ class RecruiterController extends BaseAdminController
      */
     public function edit(Recruiter $recruiter): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
+        updateGate($recruiter, $this->admin);
 
         return view('admin.career.recruiter.edit', compact('recruiter'));
     }
@@ -106,7 +106,7 @@ class RecruiterController extends BaseAdminController
     {
         $recruiter->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $$recruiter, $this->admin);
+        updateGate($recruiter, $this->admin);
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
             ->with('success', $recruiter->name . ' successfully updated.');

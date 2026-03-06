@@ -96,7 +96,7 @@ class LinkController extends BaseAdminController
      */
     public function edit(Link $link): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
+        updateGate($link, $this->admin);
 
         return view('admin.portfolio.link.edit', compact('link'));
     }
@@ -112,7 +112,7 @@ class LinkController extends BaseAdminController
     {
         $link->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
+        updateGate($link, $this->admin);
 
         return redirect()->route('admin.portfolio.link.show', $link)
             ->with('success', $link->name . ' link successfully updated.');

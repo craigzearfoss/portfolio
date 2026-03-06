@@ -96,7 +96,7 @@ class AdminResourceController extends BaseAdminController
      */
     public function edit(AdminResource $adminResource): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $adminResource, $this->admin);
+        updateGate($adminResource, $this->admin);
 
         return view('admin.system.admin-resource.edit', compact('adminResource'));
     }

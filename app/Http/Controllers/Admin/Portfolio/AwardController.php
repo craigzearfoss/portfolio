@@ -96,7 +96,7 @@ class AwardController extends BaseAdminController
      */
     public function edit(Award $award): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
+        updateGate($award, $this->admin);
 
         return view('admin.portfolio.award.edit', compact('award'));
     }
@@ -112,7 +112,7 @@ class AwardController extends BaseAdminController
     {
         $award->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
+        updateGate($award, $this->admin);
 
         return redirect()->route('admin.portfolio.award.show', $award)
             ->with('success', $award->name . ' successfully updated.');

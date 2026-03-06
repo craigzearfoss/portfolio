@@ -95,7 +95,7 @@ class VideoController extends BaseAdminController
      */
     public function edit(Video $video): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
+        updateGate($video, $this->admin);
 
         return view('admin.portfolio.video.edit', compact('video'));
     }
@@ -111,7 +111,7 @@ class VideoController extends BaseAdminController
     {
         $video->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
+        updateGate($video, $this->admin);
 
         return redirect()->route('admin.portfolio.video.show', $video)
             ->with('success', $video->name . ' successfully updated.');

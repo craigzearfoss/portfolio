@@ -94,7 +94,7 @@ class MusicController extends BaseAdminController
      */
     public function edit(Music $music): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
+        updateGate($music, $this->admin);
 
         return view('admin.portfolio.music.edit', compact('music'));
     }
@@ -110,7 +110,7 @@ class MusicController extends BaseAdminController
     {
         $music->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
+        updateGate($music, $this->admin);
 
         return redirect()->route('admin.portfolio.music.show', $music)
             ->with('success', $music->name . ' successfully updated.');

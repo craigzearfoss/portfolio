@@ -94,7 +94,7 @@ class IndustryController extends BaseAdminController
      */
     public function edit(Industry $industry): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
+        updateGate($industry, $this->admin);
 
         return view('admin.career.industry.edit', compact('industry'));
     }
@@ -110,7 +110,7 @@ class IndustryController extends BaseAdminController
     {
         $industry->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
+        updateGate($industry, $this->admin);
 
         return redirect()->route('admin.career.industry.show', $industry)
             ->with('success', $industry->name . ' successfully updated.');

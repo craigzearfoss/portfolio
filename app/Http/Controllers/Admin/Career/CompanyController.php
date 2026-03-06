@@ -110,7 +110,7 @@ class CompanyController extends BaseAdminController
      */
     public function edit(Company $company): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+        updateGate($company, $this->admin);
 
         return view('admin.career.company.edit', compact('company'));
     }
@@ -126,7 +126,7 @@ class CompanyController extends BaseAdminController
     {
         $company->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+        updateGate($company, $this->admin);
 
         return redirect()->route('admin.career.company.show', $company)
             ->with('success', $company->name . ' successfully updated.');
@@ -156,7 +156,7 @@ class CompanyController extends BaseAdminController
      */
     public function addContact(Company $company): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+        updateGate($company, $this->admin);
 
         return view('admin.career.company.contact.add', compact('company'));
     }
@@ -172,7 +172,7 @@ class CompanyController extends BaseAdminController
     {
         $company = new Company()->find($companyId);
 
-        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+        updateGate($company, $this->admin);
 
         $data = $request->validated();
 
@@ -208,7 +208,7 @@ class CompanyController extends BaseAdminController
      */
     public function detachContact(Company $company, Contact $contact): RedirectResponse
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+        updateGate($company, $this->admin);
 
         $company->contacts()->detach($contact->id);
 

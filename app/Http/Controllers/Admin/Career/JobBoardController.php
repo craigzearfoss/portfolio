@@ -94,7 +94,7 @@ class JobBoardController extends BaseAdminController
      */
     public function edit(JobBoard $jobBoard): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
+        updateGate($jobBoard, $this->admin);
 
         return view('admin.career.job-board.edit', compact('jobBoard'));
     }
@@ -110,7 +110,7 @@ class JobBoardController extends BaseAdminController
     {
         $jobBoard->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
+        updateGate($jobBoard, $this->admin);
 
         return redirect()->route('admin.career.job-board.show', $jobBoard)
             ->with('success', $jobBoard->name . ' successfully updated.');

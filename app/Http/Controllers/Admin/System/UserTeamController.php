@@ -92,7 +92,7 @@ class UserTeamController extends BaseUserController
      */
     public function edit(UserTeam $userTeam): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
+        updateGate($userTeam, $this->admin);
 
         return view('admin.system.user-team.edit', compact('userTeam'));
     }

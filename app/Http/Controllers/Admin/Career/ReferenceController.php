@@ -95,7 +95,7 @@ class ReferenceController extends BaseAdminController
      */
     public function edit(Reference $reference): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
+        updateGate($reference, $this->admin);
 
         return view('admin.career.reference.edit', compact('reference'));
     }
@@ -111,7 +111,7 @@ class ReferenceController extends BaseAdminController
     {
         $reference->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
+        updateGate($reference, $this->admin);
 
         return redirect()->route('admin.career.reference.show', $reference)
             ->with('success', $reference->name . ' successfully updated.');

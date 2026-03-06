@@ -131,7 +131,7 @@ class ResumeController extends BaseAdminController
     {
         $resume = new Resume()->findOrFail($id);
 
-        updateGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
+        updateGate($resume, $this->admin);
 
         $urlParams = [];
         if ($applicationId = request()->get('application_id')) {
@@ -161,7 +161,7 @@ class ResumeController extends BaseAdminController
 
         $resume->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
+        updateGate($resume, $this->admin);
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

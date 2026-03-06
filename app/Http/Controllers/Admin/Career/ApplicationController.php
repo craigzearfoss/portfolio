@@ -145,7 +145,7 @@ class ApplicationController extends BaseAdminController
      */
     public function edit(Application $application): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
+        updateGate($application, $this->admin);
 
         return view('admin.career.application.edit', compact('application'));
     }
@@ -162,7 +162,7 @@ class ApplicationController extends BaseAdminController
     {
         $application->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
+        updateGate($application, $this->admin);
 
         return redirect()->route('admin.career.application.show', $application)
             ->with('success', 'Application successfully updated.');
@@ -192,7 +192,7 @@ class ApplicationController extends BaseAdminController
      */
     protected function createCoverLetter(Application $application): Application
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
+        updateGate($application, $this->admin);
 
         if (empty($application->coverLetter)) {
             new CoverLetter()->insert([

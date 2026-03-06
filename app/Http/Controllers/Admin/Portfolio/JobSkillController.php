@@ -144,7 +144,7 @@ class JobSkillController extends BaseAdminController
      */
     public function edit(JobSkill $jobSkill): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
+        updateGate($jobSkill, $this->admin);
 
         return view('admin.portfolio.job-skill.edit', compact('jobSkill'));
     }
@@ -160,7 +160,7 @@ class JobSkillController extends BaseAdminController
     {
         $jobSkill->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
+        updateGate($jobSkill, $this->admin);
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
             ->with('success', $jobSkill->name . ' successfully updated.');

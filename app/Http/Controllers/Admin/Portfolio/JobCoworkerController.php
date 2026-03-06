@@ -132,7 +132,7 @@ class JobCoworkerController extends BaseAdminController
      */
     public function edit(JobCoworker $jobCoworker): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
+        updateGate($jobCoworker, $this->admin);
 
         return view('admin.portfolio.job-coworker.edit', compact('jobCoworker'));
     }
@@ -148,7 +148,7 @@ class JobCoworkerController extends BaseAdminController
     {
         $jobCoworker->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
+        updateGate($jobCoworker, $this->admin);
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
             ->with('success', $jobCoworker->name . ' successfully updated.');

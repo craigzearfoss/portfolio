@@ -96,7 +96,7 @@ class ArtController extends BaseAdminController
      */
     public function edit(Art $art): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
+        updateGate($art, $this->admin);
 
         return view('admin.portfolio.art.edit', compact('art'));
     }
@@ -112,7 +112,7 @@ class ArtController extends BaseAdminController
     {
         $art->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
+        updateGate($art, $this->admin);
 
         return redirect()->route('admin.portfolio.art.show', $art)
             ->with('success', $art->name . ' successfully updated.');

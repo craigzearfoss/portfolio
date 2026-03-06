@@ -90,7 +90,7 @@ class AdminDatabaseController extends BaseAdminController
      */
     public function edit(AdminDatabase $adminDatabase): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $adminDatabase, $this->admin);
+        updateGate($adminDatabase, $this->admin);
 
         return view('admin.system.admin-database.edit', compact('adminDatabase'));
     }
@@ -105,7 +105,7 @@ class AdminDatabaseController extends BaseAdminController
     public function update(UpdateAdminDatabasesRequest $request, AdminDatabase $adminDatabase): RedirectResponse
     {
         $adminDatabase->update($request->validated());
-        updateGate(PermissionEntityTypes::RESOURCE, $adminDatabase, $this->admin);
+        updateGate($adminDatabase, $this->admin);
 
         return redirect()->route('admin.system.admin-database.show', $adminDatabase)
             ->with('success', $adminDatabase->name . ' successfully updated.');

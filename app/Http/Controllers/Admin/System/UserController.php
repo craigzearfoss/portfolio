@@ -107,7 +107,7 @@ class UserController extends BaseUserController
      */
     public function edit(User $user): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $user, $this->admin);
+        updateGate($user, $this->admin);
 
         return view('admin.system.user.edit', compact('user'));
     }

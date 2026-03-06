@@ -120,7 +120,7 @@ class EventController extends BaseAdminController
      */
     public function edit(Event $event): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
+        updateGate($event, $this->admin);
 
         return view('admin.career.event.edit', compact('event'));
     }
@@ -145,7 +145,7 @@ class EventController extends BaseAdminController
 
         $event->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
+        updateGate($event, $this->admin);
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

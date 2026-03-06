@@ -95,7 +95,7 @@ class AdminTeamController extends BaseAdminController
      */
     public function edit(AdminTeam $adminTeam): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
+        updateGate($adminTeam, $this->admin);
 
         return view('admin.system.admin-team.edit', compact('adminTeam'));
     }
@@ -111,7 +111,7 @@ class AdminTeamController extends BaseAdminController
     {
         $adminTeam->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
+        updateGate($adminTeam, $this->admin);
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
             ->with('success', $adminTeam->name . ' successfully updated.');

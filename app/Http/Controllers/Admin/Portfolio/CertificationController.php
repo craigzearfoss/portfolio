@@ -95,7 +95,7 @@ class CertificationController extends BaseAdminController
      */
     public function edit(Certification $certification): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
+        updateGate($certification, $this->admin);
 
         return view('admin.portfolio.certification.edit', compact('certification'));
     }
@@ -111,7 +111,7 @@ class CertificationController extends BaseAdminController
     {
         $certification->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
+        updateGate($certification, $this->admin);
 
         return redirect()->route('admin.portfolio.certification.show', $certification)
             ->with('success', $certification->name . ' successfully updated.');

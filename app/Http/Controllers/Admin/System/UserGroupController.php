@@ -92,7 +92,7 @@ class UserGroupController extends BaseUserController
      */
     public function edit(UserGroup $userGroup): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
+        updateGate($userGroup, $this->admin);
 
         return view('admin.system.user-group.edit', compact('userGroup'));
     }

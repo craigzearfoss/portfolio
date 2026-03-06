@@ -120,7 +120,7 @@ class CommunicationController extends BaseAdminController
      */
     public function edit(Communication $communication): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
+        updateGate($communication, $this->admin);
 
         return view('admin.career.communication.edit', compact('communication'));
     }
@@ -146,7 +146,7 @@ class CommunicationController extends BaseAdminController
 
         $communication->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
+        updateGate($communication, $this->admin);
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

@@ -95,7 +95,7 @@ class SkillController extends BaseAdminController
      */
     public function edit(Skill $skill): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
+        updateGate($skill, $this->admin);
 
         return view('admin.portfolio.skill.edit', compact('skill'));
     }
@@ -111,7 +111,7 @@ class SkillController extends BaseAdminController
     {
         $skill->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
+        updateGate($skill, $this->admin);
 
         return redirect()->route('admin.portfolio.skill.show', $skill)
             ->with('success', $skill->name . ' successfully updated.');

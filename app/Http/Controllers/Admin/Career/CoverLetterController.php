@@ -95,7 +95,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function edit(CoverLetter $coverLetter): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
+        updateGate($coverLetter, $this->admin);
 
         return view('admin.career.cover-letter.edit', compact('coverLetter'));
     }
@@ -112,7 +112,7 @@ class CoverLetterController extends BaseAdminController
     {
         $coverLetter->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
+        updateGate($coverLetter, $this->admin);
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover letter successfully updated.');

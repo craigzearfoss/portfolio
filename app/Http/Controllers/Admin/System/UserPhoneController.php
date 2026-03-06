@@ -93,7 +93,7 @@ class UserPhoneController extends BaseUserController
      */
     public function edit(UserPhone $userPhone): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $userPhone, $this->user);
+        updateGate($userPhone, $this->user);
 
         return view('user.system.user-phone.edit', compact('userPhone'));
     }
@@ -109,7 +109,7 @@ class UserPhoneController extends BaseUserController
     {
         $userPhone->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $userPhone, $this->user);
+        updateGate($userPhone, $this->user);
 
         return redirect()->route('user.system.user-phone.show', $userPhone)
             ->with('success', $userPhone['name'] . ' successfully updated.');

@@ -98,7 +98,7 @@ class SchoolController extends BaseAdminController
      */
     public function edit(School $school): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
+        updateGate($school, $this->admin);
 
         return view('admin.portfolio.school.edit', compact('school'));
     }
@@ -114,7 +114,7 @@ class SchoolController extends BaseAdminController
     {
         $school->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $$school, $this->admin);
+        updateGate($school, $this->admin);
 
         return redirect()->route('admin.portfolio.school.show', $school)
             ->with('success', $school->name . ' successfully updated.');

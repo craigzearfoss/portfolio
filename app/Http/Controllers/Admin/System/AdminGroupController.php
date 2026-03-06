@@ -95,7 +95,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function edit(AdminGroup $adminGroup): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
+        updateGate($adminGroup, $this->admin);
 
         return view('admin.system.admin-group.edit', compact('adminGroup'));
     }
@@ -111,7 +111,7 @@ class AdminGroupController extends BaseAdminController
     {
         $adminGroup->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
+        updateGate($adminGroup, $this->admin);
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
             ->with('success', $adminGroup->name . ' successfully updated.');
@@ -125,7 +125,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function destroy(AdminGroup $adminGroup): RedirectResponse
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $adminGroup, $this->admin);
+        updateGate($adminGroup, $this->admin);
 
         $adminGroup->delete();
 

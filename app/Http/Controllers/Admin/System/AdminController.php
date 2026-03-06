@@ -155,7 +155,7 @@ class AdminController extends BaseAdminController
      */
     public function edit(Admin $admin): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $admin, $this->admin);
+        updateGate($admin, $this->admin);
 
         return view('admin.system.admin.edit', compact('admin'));
     }
@@ -171,7 +171,7 @@ class AdminController extends BaseAdminController
     {
         $admin->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $request, $this->admin);
+        updateGate($admin, $this->admin);
 
         // update the owner_id cookie
         if (!empty($this->owner) && ($this->owner->id == $admin->id)) {

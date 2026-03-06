@@ -95,7 +95,7 @@ class PhotographyController extends BaseAdminController
      */
     public function edit(Photography $photo): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
+        updateGate($photo, $this->admin);
 
         return view('admin.portfolio.photography.edit', compact('photo'));
     }
@@ -109,7 +109,7 @@ class PhotographyController extends BaseAdminController
      */
     public function update(UpdatePhotographyRequest $request, Photography $photography): RedirectResponse
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $photo = $photography, $this->admin);
+        updateGate($photo = $photography, $this->admin);
 
         $photography->update($request->validated());
 

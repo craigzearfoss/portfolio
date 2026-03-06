@@ -95,7 +95,7 @@ class AudioController extends BaseAdminController
      */
     public function edit(Audio $audio): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
+        updateGate($audio, $this->admin);
 
         return view('admin.portfolio.audio.edit', compact('audio'));
     }
@@ -111,7 +111,7 @@ class AudioController extends BaseAdminController
     {
         $audio->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
+        updateGate($audio, $this->admin);
 
         return redirect()->route('admin.portfolio.audio.show', $audio)
             ->with('success', $audio->name . ' successfully updated.');

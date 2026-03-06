@@ -98,7 +98,7 @@ class RecipeStepController extends BaseAdminController
      */
     public function edit(RecipeStep $recipeStep): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $recipeStep, $this->admin);
+        updateGate( $recipeStep, $this->admin);
 
         return view('admin.personal.recipe-step.edit', compact('recipeStep'));
     }
@@ -114,7 +114,7 @@ class RecipeStepController extends BaseAdminController
     {
         $recipeStep->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $recipeStep, $this->admin);
+        updateGate($recipeStep, $this->admin);
 
         return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
             ->with('success', 'Recipe step successfully updated.');

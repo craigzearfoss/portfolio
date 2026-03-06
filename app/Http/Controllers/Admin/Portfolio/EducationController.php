@@ -96,7 +96,7 @@ class EducationController extends BaseAdminController
      */
     public function edit(Education $education): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $education, $this->admin);
+        updateGate($education, $this->admin);
 
         return view('admin.portfolio.education.edit', compact('education'));
     }
@@ -113,7 +113,7 @@ class EducationController extends BaseAdminController
     {
         $education->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $education, $this->admin);
+        updateGate($education, $this->admin);
 
         return redirect()->route('admin.portfolio.education.show', $education)
             ->with('success', $education->name . ' education successfully updated.');

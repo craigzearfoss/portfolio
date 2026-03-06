@@ -120,7 +120,7 @@ class NoteController extends BaseAdminController
      */
     public function edit(Note $note): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
+        updateGate($note, $this->admin);
 
         return view('admin.career.note.edit', compact('note'));
     }
@@ -145,7 +145,7 @@ class NoteController extends BaseAdminController
 
         $note->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
+        updateGate($note, $this->admin);
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)

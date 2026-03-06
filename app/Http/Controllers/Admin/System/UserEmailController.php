@@ -92,7 +92,7 @@ class UserEmailController extends BaseUserController
      */
     public function edit(UserEmail $userEmail): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $userEmail, $this->user);
+        updateGate($userEmail, $this->user);
 
         return view('admin.system.user-email.edit', compact('userEmail'));
     }
@@ -108,7 +108,7 @@ class UserEmailController extends BaseUserController
     {
         $userEmail->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $userEmail, $this->user);
+        updateGate($userEmail, $this->user);
 
         return redirect()->route('admin.system.user-email.show', $userEmail)
             ->with('success', $userEmail['name'] . ' successfully updated.');

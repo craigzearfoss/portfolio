@@ -95,7 +95,7 @@ class AdminEmailController extends BaseAdminController
      */
     public function edit(AdminEmail $adminEmail): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $adminEmail, $this->admin);
+        updateGate($adminEmail, $this->admin);
 
         return view('admin.system.admin-email.edit', compact('adminEmail'));
     }
@@ -111,7 +111,7 @@ class AdminEmailController extends BaseAdminController
     {
         $adminEmail->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $adminEmail, $this->admin);
+        updateGate($adminEmail, $this->admin);
 
         return redirect()->route('admin.system.admin-email.show', $adminEmail)
             ->with('success', $adminEmail['name'] . ' successfully updated.');

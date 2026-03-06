@@ -144,7 +144,7 @@ class JobTaskController extends BaseAdminController
      */
     public function edit(JobTask $jobTask): View
     {
-        updateGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
+        updateGate($jobTask, $this->admin);
 
         return view('admin.portfolio.job-task.edit', compact('jobTask'));
     }
@@ -160,7 +160,7 @@ class JobTaskController extends BaseAdminController
     {
         $jobTask->update($request->validated());
 
-        updateGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
+        updateGate($jobTask, $this->admin);
 
         return redirect()->route('admin.portfolio.job-task.show', $jobTask)
             ->with('success', 'Job task successfully updated.');
