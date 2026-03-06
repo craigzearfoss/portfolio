@@ -18,7 +18,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $coverLetter, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.cover-letter.edit', $coverLetter)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'cover-letter', $admin)) {
+    if (canCreate($coverLetter, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.cover-letter.index')])->render();
@@ -118,7 +118,7 @@
                                     'value' => $coverLetter->id
                                 ])
 
-                                @if($admin->root)
+                                @if($admin->is_root)
                                     @include('admin.components.show-row', [
                                         'name'  => 'owner',
                                         'value' => $coverLetter->owner->username

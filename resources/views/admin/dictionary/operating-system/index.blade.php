@@ -2,6 +2,7 @@
     use App\Enums\EnvTypes;
     use App\Enums\PermissionEntityTypes;
     use App\Models\Dictionary\DictionarySection;
+    use App\Models\Dictionary\OperatingSystem;
 
     $title    = 'Dictionary (operating systems)';
     $subtitle = $title;
@@ -16,7 +17,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'operating-system', $admin)) {
+    if (canCreate(OperatingSystem::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Operating System', 'href' => route('admin.dictionary.operating-system.create')])->render();
     }
 @endphp
@@ -76,7 +77,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $operatingSystem, $admin))
+                                @if(canRead($operatingSystem, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.operating-system.show', $operatingSystem),

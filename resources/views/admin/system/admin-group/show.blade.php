@@ -22,7 +22,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $adminGroup, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-group.edit', $adminGroup)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
+    if (canCreate($adminGroup, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
                                                                'href' => route('admin.system.admin-group.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []

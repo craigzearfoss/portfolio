@@ -16,7 +16,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'server', $admin)) {
+    if (canCreate(Server::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Server', 'href' => route('admin.dictionary.server.create')])->render();
     }
 @endphp
@@ -76,7 +76,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $server, $admin))
+                                @if(canRead($server, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.server.show', $server),

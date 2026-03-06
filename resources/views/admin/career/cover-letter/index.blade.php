@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\CoverLetter;
 
     $title    = $pageTitle ?? 'Cover Letters';
     $subtitle = $title;
@@ -14,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'cover-letter', $admin)) {
+    if (canCreate(CoverLetter::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Cover Letter', 'href' => route('admin.career.cover-letter.create')])->render();
     }
 @endphp
@@ -23,7 +24,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.cover-letter.index') ])
     @endif
 
@@ -94,7 +95,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $coverLetter, $admin))
+                                @if(canRead($coverLetter, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.cover-letter.show', $coverLetter),
@@ -126,7 +127,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $coverLetter, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.cover-letter.destroy', $coverLetter) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.cover-letter.destroy', $coverLetter) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

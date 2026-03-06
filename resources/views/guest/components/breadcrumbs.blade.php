@@ -1,4 +1,4 @@
-<ul>
+<ul class="breadcrumbs">
     @foreach ($breadcrumbs as $breadcrumb)
         <li class="is-size-6">
             @if(!empty($breadcrumb['href']))
@@ -7,7 +7,7 @@
                     'href' => $breadcrumb['href'],
                 ])
             @else
-                <a>{!! $breadcrumb['name'] ?? '' !!}</a>
+                <span>{!! $breadcrumb['name'] ?? '' !!}</span>
             @endif
         </li>
     @endforeach

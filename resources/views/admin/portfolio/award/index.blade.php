@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Award;
 
     $title    = $pageTitle ?? 'Awards';
     $subtitle = $title;
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'award', $admin)) {
+    if (canCreate(Award::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Award', 'href' => route('admin.portfolio.award.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.award.index') ])
     @endif
 
@@ -102,7 +103,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $award, $admin))
+                                @if(canRead($award, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.award.show', $award),
@@ -134,7 +135,8 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $award, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.portfolio.award.destroy', $award) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.award.destroy', $award) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

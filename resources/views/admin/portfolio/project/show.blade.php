@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $project, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.project.edit', $project)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'project', $admin)) {
+    if (canCreate($project, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Project', 'href' => route('admin.portfolio.project.create', $owner ?? $admin)])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.project.index')])->render();
@@ -46,7 +46,7 @@
             'value' => $project->id
         ])
 
-        @if($admin->root)
+        @if($admin->is_root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $project->owner->username

@@ -15,7 +15,7 @@
                     @include('admin.components.form-select', [
                         'name'     => 'owner_id',
                         'label'    => 'owner',
-                        'value'    => !empty($owner->root) ? null : ($owner->id ?? null),
+                        'value'    => !empty($owner->is_root) ? null : ($owner->id ?? null),
                         'list'     => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                         'onchange' => "document.getElementById('searchForm').submit()"
                     ])
@@ -27,7 +27,7 @@
                     'name'     => 'title',
                     'value'    => Request::get('title'),
                     'list'     => new Reading()->listOptions(
-                        !empty($owner->root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []),
+                        !empty($owner->is_root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []),
                         'title',
                         'title',
                         true,
@@ -42,7 +42,7 @@
                 @include('admin.components.form-select', [
                     'name'     => 'author',
                     'value'    => Request::get('author'),
-                    'list'     => new Reading()->listOptions(!empty($owner->root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []), 'author', 'author', true, false, [ 'author', 'asc' ]),
+                    'list'     => new Reading()->listOptions(!empty($owner->is_root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []), 'author', 'author', true, false, [ 'author', 'asc' ]),
                     'onchange' => "document.getElementById('searchForm').submit()"
                 ])
             </div>

@@ -18,10 +18,10 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $message, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.message.edit', $message) ])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'message', $admin)) {
+    if (canCreate($message, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Message',
                                                                'href' => route('admin.system.message.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $admin->is_root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
@@ -82,7 +82,7 @@
 
             @include('admin.components.show-row-checkbox', [
                 'name'    => 'root',
-                'checked' => $message->root
+                'checked' => $message->is_root
             ])
 
             @include('admin.components.show-row-checkbox', [

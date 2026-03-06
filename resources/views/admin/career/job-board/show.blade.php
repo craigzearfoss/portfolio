@@ -18,7 +18,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $jobBoard, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.job-board.edit', $jobBoard)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'job-board', $admin)) {
+    if (canCreate($jobBoard, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Board', 'href' => route('admin.career.job-board.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.job-board.index')])->render();

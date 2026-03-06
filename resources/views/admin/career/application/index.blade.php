@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\Application;
 
     $title    = $pageTitle ?? 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : '');
     $subtitle = $title;
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'application', $admin)) {
+    if (canCreate(Application::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.application.index') ])
     @endif
 
@@ -83,24 +84,24 @@
                             <th>owner</th>
                         @endif
                         <th>name</th>
-                        <?php /*
+                            <?php /*
                             <th>company</th>
                             <th>role</th>
                         */ ?>
                         <th>active</th>
                         <th>rating</th>
-                        <?php /*
+                            <?php /*
                             <th>posted</th>
                         */ ?>
                         <th>applied</th>
                         <th>compensation</th>
-                        <?php /*
+                            <?php /*
                             <th>duration</th>
                         */ ?>
                         <th class="has-text-centered">type</th>
                         <th class="has-text-centered">location</th>
                         <th>location</th>
-                        <?php /*
+                            <?php /*
                             <th class="has-text-centered">w2</th>
                             <th class="has-text-centered">relo</th>
                             <th class="has-text-centered">ben</th>
@@ -126,7 +127,7 @@
                         <td data-field="name">
                             {!! $application->name !!}
                         </td>
-                        <?php /*
+                            <?php /*
                         <td data-field="company.name" style="white-space: nowrap;">
                             @if(!empty($application->company))
                                 @include('admin.components.link', [
@@ -147,7 +148,7 @@
                         <td data-field="rating" class="has-text-centered ">
                             @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
                         </td>
-                        <?php /*
+                            <?php /*
                         <td data-field="post_date" style="white-space: nowrap;">
                             {!! !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' !!}
                         </td>
@@ -165,7 +166,7 @@
                                 ])
                             !!}
                         </td>
-                        <?php /*
+                            <?php /*
                         <td data-field="job_duration_id">
                             {!! $application->durationType['name'] ?? '' !!}
                         </td>
@@ -184,7 +185,7 @@
                                 ])
                             !!}
                         </td>
-                        <?php /*
+                            <?php /*
                         <td data-field="w2" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
                         </td>
@@ -208,7 +209,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $application, $admin))
+                                @if(canRead($application, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.application.show', $application),
@@ -240,7 +241,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $application, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.application.destroy', $application) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.application.destroy', $application) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

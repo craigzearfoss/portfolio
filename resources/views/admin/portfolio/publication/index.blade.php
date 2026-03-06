@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Publication;
 
     $title    = $pageTitle ?? 'Publications';
     $subtitle = $title;
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'publication', $admin)) {
+    if (canCreate(Publication::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Publication', 'href' => route('admin.portfolio.publication.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.publication.index') ])
     @endif
 
@@ -107,7 +108,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $publication, $admin))
+                                @if(canRead($publication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.publication.show', $publication),
@@ -139,7 +140,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $publication, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.portfolio.publication.destroy', $publication) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.publication.destroy', $publication) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

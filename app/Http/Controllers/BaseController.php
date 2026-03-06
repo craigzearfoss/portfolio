@@ -91,7 +91,7 @@ class BaseController extends Controller
         $this->envType      = $envType;
         $this->resourceType = $this->getResourceTypeFromRoute();
         $this->admin        = loggedInAdmin();
-        $this->isRootAdmin  = $this->admin->root ?? false;
+        $this->isRootAdmin  = $this->admin->is_root ?? false;
         $this->user         = loggedInUser();
         $this->owner        = $this->getOwner($this->admin);
 
@@ -114,6 +114,7 @@ class BaseController extends Controller
         // inject variables into blade templates
         view()->share('envType', $this->envType);
         view()->share('admin', $this->admin);
+        view()->share('isRootAdmin', $this->isRootAdmin);
         view()->share('owner', $this->owner);
         view()->share('user', $this->user);
         view()->share('menuService', $this->menuService);

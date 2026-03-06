@@ -1,7 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
-
-    $isRootAdmin = isRootAdmin();
+    use App\Models\System\UserEmail;
 
     $title    = $pageTitle ?? ($isRootAdmin ? 'User Email: ' . $userEmail->email : 'Email: ' . $userEmail->email);
     $subtitle = $title;
@@ -20,7 +19,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $userEmail, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-email.edit', $userEmail)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'user-email', $admin)) {
+    if (canCreate($userEmail, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
                                                                   'href' => route('admin.system.user-email.create',
                                                                                   [ 'user_id' => $userEmail->user_id ])

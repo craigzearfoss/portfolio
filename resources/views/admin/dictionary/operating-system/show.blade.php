@@ -18,7 +18,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $operatingSystem, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.operating-system.edit', $operatingSystem)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'operating-system', $admin)) {
+    if (canCreate($operatingSystem, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Operating-System', 'href' => route('admin.dictionary.operating-system.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

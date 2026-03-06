@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Personal\Ingredient;
 
     $title    = $pageTitle ?? 'Ingredients';
     $subtitle = $title;
@@ -14,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'ingredient', $admin)) {
+    if (canCreate(Ingredient::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Ingredient', 'href' => route('admin.personal.ingredient.create')])->render();
     }
 @endphp
@@ -69,7 +70,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $ingredient, $admin))
+                                @if(canRead($ingredient, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.ingredient.show', $ingredient),
@@ -101,7 +102,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $ingredient, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.personal.ingredient.destroy', $ingredient) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.personal.ingredient.destroy', $ingredient) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

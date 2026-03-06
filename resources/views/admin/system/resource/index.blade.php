@@ -30,7 +30,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     <th>database</th>
@@ -52,7 +52,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>database</th>
@@ -77,7 +77,7 @@
                 @forelse ($resources as $resource)
 
                     <tr data-id="{{ $resource->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($resource->owner))
                                     @include('admin.components.link', [
@@ -134,7 +134,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $resource, $admin))
+                                @if(canRead($resource, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.resource.show', $resource),
@@ -158,7 +158,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '15' : '14' }}">There are no resources.</td>
+                        <td colspan="{{ $admin->is_root ? '15' : '14' }}">There are no resources.</td>
                     </tr>
 
                 @endforelse

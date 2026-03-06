@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\System\UserGroup;
 
     $title    = $pageTitle ?? 'User Group: ' . $userGroup->name;
     $subtitle = $title;
@@ -19,7 +20,7 @@
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-group.edit', $userGroup)
                                                               ])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
+    if (canCreate($userGroup, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
                                                                'href' => route('admin.system.user-group.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []

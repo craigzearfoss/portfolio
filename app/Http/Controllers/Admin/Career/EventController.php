@@ -29,7 +29,7 @@ class EventController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = new Event()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $query = new Event()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('created_at', 'desc');
         if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {

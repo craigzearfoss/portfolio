@@ -28,7 +28,7 @@ class CoverLetterController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $coverLetters = new CoverLetter()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $coverLetters = new CoverLetter()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

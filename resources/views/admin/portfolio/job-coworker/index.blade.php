@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\JobCoworker;
 
     $title    = $pageTitle ?? (!empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers');
     $subtitle = $title;
@@ -21,7 +22,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'job-coworker', $admin)) {
+    if (canCreate(JobCoworker::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create')])->render();
     }
 @endphp
@@ -104,7 +105,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $jobCoworker, $admin))
+                                @if(canRead($jobCoworker, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.job-coworker.show', $jobCoworker),
@@ -136,7 +137,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $jobCoworker, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.portfolio.job-coworker.destroy', $jobCoworker) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.job-coworker.destroy', $jobCoworker) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

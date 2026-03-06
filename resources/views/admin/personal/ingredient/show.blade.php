@@ -18,7 +18,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $ingredient, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.ingredient.edit', $ingredient)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'ingredient', $admin)) {
+    if (canCreate($ingredient, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Ingredient', 'href' => route('admin.personal.ingredient.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.ingredient.index')])->render();

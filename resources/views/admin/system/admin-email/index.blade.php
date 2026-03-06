@@ -1,7 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
-
-    $isRootAdmin = isRootAdmin();
+    use App\Models\System\AdminEmail;
 
     $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Email Addresses' : 'Email Addresses');
     $subtitle = $title;
@@ -20,7 +19,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-email', $admin)) {
+    if (canCreate(AdminEmail::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
                                                                'href' => route('admin.system.admin-email.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
@@ -101,7 +100,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $adminEmail, $admin))
+                                @if(canRead($adminEmail, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-email.show', $adminEmail),
@@ -118,7 +117,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $adminEmail, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.admin-email.destroy', $adminEmail) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.system.admin-email.destroy', $adminEmail) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

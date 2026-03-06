@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $publication, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.publication.edit', $publication)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'publication', $admin)) {
+    if (canCreate($publication, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Publication', 'href' => route('admin.portfolio.publication.create', $owner ?? $admin)])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.publication.index')])->render();

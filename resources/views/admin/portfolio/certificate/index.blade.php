@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Certificate;
 
     $title    = $pageTitle ?? 'Certificates';
     $subtitle = $title;
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'certificate', $admin)) {
+    if (canCreate(Certificate::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Certificate', 'href' => route('admin.portfolio.certificate.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.certificate.index') ])
     @endif
 
@@ -87,9 +88,9 @@
                                 {{ $certificate->owner->username }}
                             </td>
                         @endif
-                            <td data-field="name">
-                                {!! $certificate->name !!}{!! !empty($certificate->featured) ? '<span class="featured-splat">*</span>' : '' !!}
-                            </td>
+                        <td data-field="name">
+                            {!! $certificate->name !!}{!! !empty($certificate->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                        </td>
                         <td data-field="academy.name">
                             @if (!empty($certificate->academy))
                                 @include('admin.components.link', [
@@ -117,7 +118,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $certificate, $admin))
+                                @if(canRead($certificate, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.certificate.show', $certificate),
@@ -149,7 +150,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $certificate, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.portfolio.certificate.destroy', $certificate) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.certificate.destroy', $certificate) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

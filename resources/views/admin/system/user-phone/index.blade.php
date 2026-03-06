@@ -1,8 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    $isRootAdmin = isRootAdmin();
-
     $title    = $pageTitle ?? ($isRootAdmin ? 'User Phone Numbers' : 'Phone Numbers');
     $subtitle = $title;
 
@@ -97,7 +95,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $userPhone, $admin))
+                                @if(canRead($userPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.user-phone.show', $userPhone),

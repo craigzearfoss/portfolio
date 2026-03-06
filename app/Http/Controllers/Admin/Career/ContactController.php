@@ -30,7 +30,7 @@ class ContactController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $contacts = new Contact()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $contacts = new Contact()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

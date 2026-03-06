@@ -1,5 +1,5 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    use App\Enums\PermissionEntityTypes;use App\Models\Career\Reference;
 
     $title    = $pageTitle ?? 'References';
     $subtitle = $title;
@@ -9,7 +9,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
@@ -20,7 +20,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'reference', $admin)) {
+    if (canCreate(Reference::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +29,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.reference.index') ])
     @endif
 
@@ -43,7 +43,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -59,7 +59,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -78,7 +78,7 @@
                 @forelse ($references as $reference)
 
                     <tr data-id="{{ $reference->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $reference->owner->username ?? '' }}
                             </td>
@@ -105,7 +105,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $reference, $admin))
+                                @if(canRead($reference, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.reference.show', $reference),
@@ -137,7 +137,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $reference, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.reference.destroy', $reference) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.reference.destroy', $reference) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [
@@ -156,7 +158,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '8' : '7' }}">There are no references.</td>
+                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">There are no references.</td>
                     </tr>
 
                 @endforelse

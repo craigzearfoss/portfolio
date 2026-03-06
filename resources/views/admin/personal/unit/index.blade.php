@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Personal\Unit;
 
     $title    = $pageTitle ?? 'Units';
     $subtitle = $title;
@@ -14,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'unit', $admin)) {
+    if (canCreate(Unit::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Unit', 'href' => route('admin.personal.unit.create')])->render();
     }
 @endphp
@@ -69,7 +70,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $unit, $admin))
+                                @if(canRead($unit, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.unit.show', $unit),
@@ -101,7 +102,8 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $unit, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.personal.unit.destroy', $unit) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.personal.unit.destroy', $unit) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

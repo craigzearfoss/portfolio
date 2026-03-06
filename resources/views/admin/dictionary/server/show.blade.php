@@ -18,7 +18,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $server, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.server.edit', $server)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'server', $admin)) {
+    if (canCreate($server, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Server', 'href' => route('admin.dictionary.server.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.dictionary.index')])->render();

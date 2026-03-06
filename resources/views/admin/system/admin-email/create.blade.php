@@ -1,8 +1,6 @@
 @php
     use App\Models\System\Owner;
 
-    $isRootAdmin = isRootAdmin();
-
     $title    = $pageTitle ?? ($isRootAdmin ? 'Add New Admin Email Address' : 'Add New Email Address');
     $subtitle = $title;
 

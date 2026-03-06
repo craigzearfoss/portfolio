@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\System\UserTeam;
 
     $title    = $pageTitle ?? 'User Team: ' . $userTeam->name;
     $subtitle = $title;
@@ -19,7 +20,7 @@
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-team.edit', $userTeam)
                                                               ])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'user-team', $admin)) {
+    if (canCreate($userTeam, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New User Team',
                                                                'href' => route('admin.system.user-team.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []

@@ -2,6 +2,7 @@
     use App\Enums\EnvTypes;
     use App\Enums\PermissionEntityTypes;
     use App\Models\Dictionary\DictionarySection;
+    use App\Models\Dictionary\Stack;
 
     $title    = 'Dictionary (stacks)';
     $subtitle = $title;
@@ -16,7 +17,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'stack', $admin)) {
+    if (canCreate(Stack::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Stack', 'href' => route('admin.dictionary.stack.create')])->render();
     }
 @endphp
@@ -76,7 +77,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $server, $admin))
+                                @if(canRead($server, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.stack.show', $stack),
@@ -124,7 +125,8 @@
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $stack, $admin))
                                     <form class="delete-resource"
-                                          action="{!! route('admin.dictionary.stack.destroy', $stack) !!}" method="POST">
+                                          action="{!! route('admin.dictionary.stack.destroy', $stack) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

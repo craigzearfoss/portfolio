@@ -2,6 +2,7 @@
     use App\Enums\EnvTypes;
     use App\Enums\PermissionEntityTypes;
     use App\Models\Dictionary\DictionarySection;
+    use App\Models\Dictionary\Framework;
 
     $title    = 'Dictionary (frameworks)';
     $subtitle = $title;
@@ -16,7 +17,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'framework', $admin)) {
+    if (canCreate(Framework::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Framework', 'href' => route('admin.dictionary.framework.create')])->render();
     }
 @endphp
@@ -76,7 +77,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $framework, $admin))
+                                @if(canRead($framework, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.framework.show', $framework),

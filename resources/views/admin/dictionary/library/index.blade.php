@@ -2,6 +2,7 @@
     use App\Enums\EnvTypes;
     use App\Enums\PermissionEntityTypes;
     use App\Models\Dictionary\DictionarySection;
+    use App\Models\Dictionary\Library;
 
     $title    = 'Dictionary (libraries)';
     $subtitle = $title;
@@ -16,7 +17,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'library', $admin)) {
+    if (canCreate(Library::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Library', 'href' => route('admin.dictionary.library.create')])->render();
     }
 @endphp
@@ -76,7 +77,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $library, $admin))
+                                @if(canRead($library, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.library.show', $library),

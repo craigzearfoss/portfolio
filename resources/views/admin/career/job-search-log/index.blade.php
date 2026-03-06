@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\JobSearchLog;
 
     $title    = $pageTitle ?? 'Job Search Log';
     $subtitle = $title;
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'job-search-log', $admin)) {
+    if (canCreate(JobSearchLog::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Log Entry', 'href' => route('admin.career.job-search-log.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.job-search-log.index') ])
     @endif
 
@@ -87,7 +88,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $jobSearchLog, $admin))
+                                @if(canRead($jobSearchLog, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.job-search-log.show', $jobSearchLog),

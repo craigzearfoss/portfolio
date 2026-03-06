@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         // define gate for admin editing a resource
         Gate::define('update-resource', function ($resourceObj, Admin $admin): bool
         {
-            if (!empty($admin->root)) return true;
+            if (!empty($admin->is_root)) return true;
 
             if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
                 return true;
@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
         // define gate for an admin deleting a resource
         Gate::define('delete-resource', function (Admin $admin, $resourceObj): bool
         {
-            if (!empty($admin->root)) return true;
+            if (!empty($admin->is_root)) return true;
 
             if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
                 return true;

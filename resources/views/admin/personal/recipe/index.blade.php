@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Personal\Recipe;
 
     $title    = $pageTitle ?? 'Recipes';
     $subtitle = $title;
@@ -9,7 +10,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Personal',   'href' => route('admin.personal.index', ['owner_id'=>$owner->id]) ];
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe', $admin)) {
+    if (canCreate(Recipe::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe', 'href' => route('admin.personal.recipe.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.personal.recipe.index') ])
     @endif
 
@@ -45,7 +46,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -60,7 +61,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -78,7 +79,7 @@
                 @forelse ($recipes as $recipe)
 
                     <tr data-id="{{ $recipe->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $recipe->owner->username ?? '' }}
                             </td>
@@ -102,7 +103,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $recipe, $admin))
+                                @if(canRead($recipe, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.recipe.show', [$owner, $recipe]),
@@ -134,7 +135,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $recipe, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.personal.recipe.destroy', $recipe) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.personal.recipe.destroy', $recipe) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [
@@ -153,7 +156,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '7' : '6' }}">There are no recipes.</td>
+                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">There are no recipes.</td>
                     </tr>
 
                 @endforelse

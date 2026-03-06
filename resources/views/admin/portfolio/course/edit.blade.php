@@ -10,17 +10,16 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if ($isRootAdmin && !empty($owner)) {
         $breadcrumbs[] = [ 'name' => 'Admins',      'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name,  'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',   'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
         $breadcrumbs[] = [ 'name' => 'Courses',     'href' => route('admin.portfolio.course.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => $course->name, 'href' => route('admin.portfolio.course.show', [$course, 'owner_id'=>$owner->id]) ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Portfolio',   'href' => route('admin.portfolio.index') ];
         $breadcrumbs[] = [ 'name' => 'Courses',     'href' => route('admin.portfolio.course.index') ];
-        $breadcrumbs[] = [ 'name' => $course->name, 'href' => route('admin.portfolio.course.show', $course) ];
     }
+    $breadcrumbs[] = [ 'name' => $course->name, 'href' => route('admin.portfolio.course.show', $course) ];
     $breadcrumbs[] = [ 'name' => 'Edit' ];
 
     // set navigation buttons

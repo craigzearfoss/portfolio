@@ -1,7 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
-
-    $isRootAdmin = isRootAdmin();
+    use App\Models\Portfolio\Audio;
 
     $title    = $pageTitle ?? 'Audio';
     $subtitle = $title;
@@ -22,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'audio', $admin)) {
+    if (canCreate(Audio::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Audio', 'href' => route('admin.portfolio.audio.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -31,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.audio.index') ])
     @endif
 
@@ -109,7 +108,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $audio, $admin))
+                                @if(canRead($audio, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.audio.show', $audio),
@@ -141,7 +140,8 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $audio, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.portfolio.audio.destroy', $audio) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.audio.destroy', $audio) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

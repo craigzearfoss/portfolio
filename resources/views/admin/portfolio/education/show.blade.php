@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $education, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.education.edit', $education)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'education', $admin)) {
+    if (canCreate($education, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Education', 'href' => route('admin.portfolio.education.create', $owner ?? $admin)])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.education.index')])->render();

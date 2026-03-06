@@ -24,7 +24,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-database.index') ])
     @endif
 
@@ -147,7 +147,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $adminDatabase, $admin))
+                                @if(canRead($adminDatabase, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-database.show', $adminDatabase),

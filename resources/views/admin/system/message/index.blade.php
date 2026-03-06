@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\System\Message;
 
     $title    = $pageTitle ?? 'Messages';
     $subtitle = $title;
@@ -14,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'message', $admin)) {
+    if (canCreate(Message::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
     }
 @endphp
@@ -74,7 +75,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $message, $admin))
+                                @if(canRead($message, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.message.show', $message),
@@ -101,7 +102,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.message.destroy', $message) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.system.message.destroy', $message) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

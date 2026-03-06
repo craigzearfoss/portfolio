@@ -37,7 +37,7 @@
                 'value' => referer('admin.personal.recipe-ingredient.index')
             ])
 
-            @if($admin->root)
+            @if($admin->is_root)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

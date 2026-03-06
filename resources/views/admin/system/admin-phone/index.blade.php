@@ -1,7 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
-
-    $isRootAdmin = isRootAdmin();
+    use App\Models\System\AdminPhone;
 
     $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Phone Numbers' : 'Phone Numbers');
     $subtitle = $title;
@@ -20,7 +19,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-email', $admin)) {
+    if (canCreate(AdminPhone::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Phone Number',
                                                                'href' => route('admin.system.admin-phone.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
@@ -50,7 +49,7 @@
                     @if(!empty($admin->root))
                         <th>owner</th>
                     @endif
-                    <th>email</th>
+                    <th>phone</th>
                     <th>label</th>
                     <th class="has-text-centered">public</th>
                     <th>actions</th>
@@ -63,7 +62,7 @@
                         @if(!empty($admin->root))
                             <th>owner</th>
                         @endif
-                        <th>email</th>
+                        <th>phone</th>
                         <th>label</th>
                         <th class="has-text-centered">public</th>
                         <th>actions</th>
@@ -101,7 +100,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $adminPhone, $admin))
+                                @if(canRead($adminPhone, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-phone.show', $adminPhone),
@@ -118,7 +117,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $adminPhone, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.admin-phone.destroy', $adminPhone) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.system.admin-phone.destroy', $adminPhone) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

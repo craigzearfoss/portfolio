@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Course;
 
     $title    = $pageTitle ?? 'Course: ' . $course->name;
     $subtitle = $title;
@@ -9,11 +10,11 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if ($isRootAdmin && !empty($owner)) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
-        $breadcrumbs[] = [ 'name' => 'Courses',    'href' => route('admin.portfolio.course.index', ['owner_id'=>$owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id' => $owner->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Courses',    'href' => route('admin.portfolio.course.index', ['owner_id' => $owner->id]) ];
     } else {
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index') ];
         $breadcrumbs[] = [ 'name' => 'Courses',    'href' => route('admin.portfolio.course.index') ];
@@ -22,11 +23,15 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $course, $admin)) {
+    if (canUpdate($course, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.course.edit', $course)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'course', $admin)) {
-        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course', 'href' => route('admin.portfolio.course.create', $owner ?? $admin)])->render();
+    if (canCreate($course, $admin)) {
+        $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Course',
+                                                                 'href' => route('admin.portfolio.course.create',
+                                                                                 $owner ?? $admin
+                                                                                )
+                                                                ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.course.index')])->render();
 @endphp
@@ -47,7 +52,7 @@
                 'value' => $course->id
             ])
 
-            @if($admin->root)
+            @if($admin->is_root)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $course->owner->username

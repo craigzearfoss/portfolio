@@ -1,5 +1,8 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\System\Admin;
+    use App\Models\System\AdminGroup;
+    use App\Models\System\UserTeam;
 
     $title    = $pageTitle ?? 'Admins';
     $subtitle = $title;
@@ -14,17 +17,17 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
+    if (canCreate(Admin::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin',
                                                                'href' => route('admin.system.admin.create')
                                                              ])->render();
     }
-    if (canRead(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
+    if (canRead(UserTeam::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Teams',
                                                                 'href' => route('admin.system.admin-team.index')
                                                               ])->render();
     }
-    if (canRead(PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
+    if (canRead(AdminGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Groups',
                                                                 'href' => route('admin.system.admin-group.index')
                                                               ])->render();
@@ -118,10 +121,10 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
+                                @if(canRead($thisAdmin, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
-                                        'href'  => isRootAdmin()
+                                        'href'  => $isRootAdmin
                                             ? route('admin.system.admin.profile', $thisAdmin)
                                             : route('admin.system.admin.show', $thisAdmin),
                                         'icon'  => 'fa-list'
@@ -152,7 +155,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.admin.destroy', $thisAdmin) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.system.admin.destroy', $thisAdmin) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

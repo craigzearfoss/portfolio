@@ -11,7 +11,7 @@
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admins',          'href' => route('admin.system.admin.index') ],
     ];
-    if (isRootAdmin()) {
+    if ($isRootAdmin) {
         $breadcrumbs[] = [ 'name' => $thisAdmin->name, 'href' => route('admin.system.admin.profile', $thisAdmin) ];
         $breadcrumbs[] = [ 'name' => 'Profile' ];
     } else {
@@ -23,7 +23,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin', $admin)) {
+    if (canCreate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
                                                                'href' => route('admin.system.admin.create',
                                                                                $admin->is_root ? [ 'owner_id' => $admin->id ] : []

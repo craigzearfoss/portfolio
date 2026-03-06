@@ -9,7 +9,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Career',     'href' => route('admin.career.index', ['owner_id'=>$owner->id]) ];
@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $reference, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.reference.edit', $reference)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'reference', $admin)) {
+    if (canCreate($reference, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reference', 'href' => route('admin.career.reference.create', $owner ?? $admin)])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.reference.index')])->render();
@@ -46,7 +46,7 @@
             'value' => $reference->id
         ])
 
-        @if($admin->root)
+        @if($admin->is_root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $reference->owner->username

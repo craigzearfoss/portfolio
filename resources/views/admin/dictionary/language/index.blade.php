@@ -2,6 +2,7 @@
     use App\Enums\EnvTypes;
     use App\Enums\PermissionEntityTypes;
     use App\Models\Dictionary\DictionarySection;
+    use App\Models\Dictionary\Language;
 
     $title    = 'Dictionary (languages)';
     $subtitle = $title;
@@ -16,7 +17,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'language', $admin)) {
+    if (canCreate(Language::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Language', 'href' => route('admin.dictionary.language.create')])->render();
     }
 @endphp
@@ -76,7 +77,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $language, $admin))
+                                @if(canRead($language, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.language.show', $language),

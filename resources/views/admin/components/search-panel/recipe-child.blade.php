@@ -13,7 +13,7 @@
                     @include('admin.components.form-select', [
                         'name'     => 'owner_id',
                         'label'    => 'owner',
-                        'value'    => !empty($owner->root) ? null : ($owner->id ?? null),
+                        'value'    => !empty($owner->is_root) ? null : ($owner->id ?? null),
                         'list'     => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                         'onchange' => "document.getElementById('searchForm').submit()"
                     ])

@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Job;
 
     $title    = $pageTitle ?? 'Jobs';
     $subtitle = $title;
@@ -9,7 +10,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'job', $admin)) {
+    if (canCreate(Job::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job', 'href' => route('admin.portfolio.job.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.job.index') ])
     @endif
 
@@ -43,16 +44,16 @@
                 </div>
                 <div>
 
-                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>type</th>
-                        <th>value</th>
-                    </tr>
-                    </thead>
+                    <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                        <thead>
+                        <tr>
+                            <th>name</th>
+                            <th>type</th>
+                            <th>value</th>
+                        </tr>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
                         @foreach($resource->settings as $setting)
                             <td>
                                 {!! $setting->name !!}
@@ -64,43 +65,26 @@
                                 {!! nl2br(htmlspecialchars($setting->value)) !!}
                             </td>
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
 
-        @endif
-
-        <div class="card p-4">
-
-            @if($pagination_top)
-                {!! $jobs->links('vendor.pagination.bulma') !!}
             @endif
 
-            <p class="admin-table-caption">* An asterisk indicates a featured job.</p>
+            <div class="card p-4">
 
-            <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if(!empty($admin->root))
-                        <th>owner</th>
-                    @endif
-                    <th>company</th>
-                    <th>logo</th>
-                    <th>role</th>
-                    <th>start date</th>
-                    <th>end date</th>
-                    <th class="has-text-centered">public</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
+                @if($pagination_top)
+                    {!! $jobs->links('vendor.pagination.bulma') !!}
+                @endif
 
-                @if(!empty($bottom_column_headings))
-                    <tfoot>
+                <p class="admin-table-caption">* An asterisk indicates a featured job.</p>
+
+                <table class="table admin-table {{ $adminTableClasses ?? '' }}">
+                    <thead>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>company</th>
@@ -112,114 +96,136 @@
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
                     </tr>
-                    </tfoot>
+                    </thead>
+
+                    @if(!empty($bottom_column_headings))
+                        <tfoot>
+                        <tr>
+                            @if(!empty($admin->is_root))
+                                <th>owner</th>
+                            @endif
+                            <th>company</th>
+                            <th>logo</th>
+                            <th>role</th>
+                            <th>start date</th>
+                            <th>end date</th>
+                            <th class="has-text-centered">public</th>
+                            <th class="has-text-centered">disabled</th>
+                            <th>actions</th>
+                        </tr>
+                        </tfoot>
+                    @endif
+
+                    <tbody>
+
+                    @forelse ($jobs as $job)
+
+                        <tr data-id="{{ $job->id }}">
+                            @if($admin->is_root)
+                                <td data-field="owner.username" style="white-space: nowrap;">
+                                    {{ $job->owner->username }}
+                                </td>
+                            @endif
+                            <td data-field="company">
+                                {!! $job->company !!}{!! !empty($job->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                            </td>
+                            <td data-field="logo_small">
+                                @include('admin.components.image', [
+                                    'src'   => $job->logo_small,
+                                    'alt'   => $job->name,
+                                    'width' => '48px',
+                                ])
+                            </td>
+                            <td data-field="role">
+                                {!! $job->role !!}
+                            </td>
+                            <td data-field="start_month|start_year">
+                                @if(!empty($job->start_month))
+                                    {!! date('M', mktime(0, 0, 0, $job->start_month, 10)) !!}
+                                @endif
+                                {!! $job->start_year !!}
+                            </td>
+                            <td data-field="end_month|end_year">
+                                @if(!empty($job->end_month))
+                                    {!! date('M', mktime(0, 0, 0, $job->end_month, 10)) !!}
+                                @endif
+                                {!! $job->end_year !!}
+                            </td>
+                            <td data-field="public" class="has-text-centered">
+                                @include('admin.components.checkmark', [ 'checked' => $job->is_public ])
+                            </td>
+                            <td data-field="disabled" class="has-text-centered">
+                                @include('admin.components.checkmark', [ 'checked' => $job->is_disabled ])
+                            </td>
+                            <td class="is-1">
+
+                                <div class="action-button-panel">
+
+                                    @if(canRead($job, $admin))
+                                        @include('admin.components.link-icon', [
+                                            'title' => 'show',
+                                            'href'  => route('admin.portfolio.job.show', $job),
+                                            'icon'  => 'fa-list'
+                                        ])
+                                    @endif
+
+                                    @if(canUpdate(PermissionEntityTypes::RESOURCE, $job, $admin))
+                                        @include('admin.components.link-icon', [
+                                            'title' => 'edit',
+                                            'href'  => route('admin.portfolio.job.edit', $job),
+                                            'icon'  => 'fa-pen-to-square'
+                                        ])
+                                    @endif
+
+                                    @if (!empty($job->link))
+                                        @include('admin.components.link-icon', [
+                                            'title'  => !empty($job->link_name) ? $job->link_name : 'link',
+                                            'href'   => $job->link,
+                                            'icon'   => 'fa-external-link',
+                                            'target' => '_blank'
+                                        ])
+                                    @else
+                                        @include('admin.components.link-icon', [
+                                            'title'    => 'link',
+                                            'icon'     => 'fa-external-link',
+                                            'disabled' => true
+                                        ])
+                                    @endif
+
+                                    @if(canDelete(PermissionEntityTypes::RESOURCE, $job, $admin))
+                                        <form class="delete-resource"
+                                              action="{!! route('admin.portfolio.job.destroy', $job) !!}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            @include('admin.components.button-icon', [
+                                                'title' => 'delete',
+                                                'class' => 'delete-btn',
+                                                'icon'  => 'fa-trash'
+                                            ])
+                                        </form>
+                                    @endif
+
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    @empty
+
+                        <tr>
+                            <td colspan="{{ $admin->is_root ? '9' : '8' }}">There are no jobs.</td>
+                        </tr>
+
+                    @endforelse
+
+                    </tbody>
+                </table>
+
+                @if($pagination_bottom)
+                    {!! $jobs->links('vendor.pagination.bulma') !!}
                 @endif
 
-                <tbody>
-
-                @forelse ($jobs as $job)
-
-                    <tr data-id="{{ $job->id }}">
-                        @if($admin->root)
-                            <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $job->owner->username }}
-                            </td>
-                        @endif
-                        <td data-field="company">
-                            {!! $job->company !!}{!! !empty($job->featured) ? '<span class="featured-splat">*</span>' : '' !!}
-                        </td>
-                        <td data-field="logo_small">
-                            @include('admin.components.image', [
-                                'src'   => $job->logo_small,
-                                'alt'   => $job->name,
-                                'width' => '48px',
-                            ])
-                        </td>
-                        <td data-field="role">
-                            {!! $job->role !!}
-                        </td>
-                        <td data-field="start_month|start_year">
-                            @if(!empty($job->start_month)){!! date('M', mktime(0, 0, 0, $job->start_month, 10)) !!} @endif
-                            {!! $job->start_year !!}
-                        </td>
-                        <td data-field="end_month|end_year">
-                            @if(!empty($job->end_month)){!! date('M', mktime(0, 0, 0, $job->end_month, 10)) !!} @endif
-                            {!! $job->end_year !!}
-                        </td>
-                        <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $job->is_public ])
-                        </td>
-                        <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $job->is_disabled ])
-                        </td>
-                        <td class="is-1">
-
-                            <div class="action-button-panel">
-
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $job, $admin))
-                                    @include('admin.components.link-icon', [
-                                        'title' => 'show',
-                                        'href'  => route('admin.portfolio.job.show', $job),
-                                        'icon'  => 'fa-list'
-                                    ])
-                                @endif
-
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $job, $admin))
-                                    @include('admin.components.link-icon', [
-                                        'title' => 'edit',
-                                        'href'  => route('admin.portfolio.job.edit', $job),
-                                        'icon'  => 'fa-pen-to-square'
-                                    ])
-                                @endif
-
-                                @if (!empty($job->link))
-                                    @include('admin.components.link-icon', [
-                                        'title'  => !empty($job->link_name) ? $job->link_name : 'link',
-                                        'href'   => $job->link,
-                                        'icon'   => 'fa-external-link',
-                                        'target' => '_blank'
-                                    ])
-                                @else
-                                    @include('admin.components.link-icon', [
-                                        'title'    => 'link',
-                                        'icon'     => 'fa-external-link',
-                                        'disabled' => true
-                                    ])
-                                @endif
-
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $job, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.portfolio.job.destroy', $job) !!}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        @include('admin.components.button-icon', [
-                                            'title' => 'delete',
-                                            'class' => 'delete-btn',
-                                            'icon'  => 'fa-trash'
-                                        ])
-                                    </form>
-                                @endif
-
-                            </div>
-
-                        </td>
-                    </tr>
-
-                @empty
-
-                    <tr>
-                        <td colspan="{{ $admin->root ? '9' : '8' }}">There are no jobs.</td>
-                    </tr>
-
-                @endforelse
-
-                </tbody>
-            </table>
-
-            @if($pagination_bottom)
-                {!! $jobs->links('vendor.pagination.bulma') !!}
-            @endif
-
+            </div>
         </div>
-    </div>
 
-@endsection
+        @endsection

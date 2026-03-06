@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $award, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.award.edit', $award)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'award', $admin)) {
+    if (canCreate($award, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Award', 'href' => route('admin.portfolio.award.create', $owner ?? $admin)])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.award.index')])->render();

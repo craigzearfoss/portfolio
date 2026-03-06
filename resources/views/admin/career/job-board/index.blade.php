@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\JobBoard;
 
     $title    = $pageTitle ?? 'Job Boards';
     $subtitle = $title;
@@ -14,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'job-board', $admin)) {
+    if (canCreate(JobBoard::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Board', 'href' => route('admin.career.job-board.create')])->render();
     }
 @endphp
@@ -79,7 +80,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $jobBoard, $admin))
+                                @if(canRead($jobBoard, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.job-board.show', $jobBoard),
@@ -111,7 +112,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $jobBoard, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.job-board.destroy', $jobBoard) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.job-board.destroy', $jobBoard) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

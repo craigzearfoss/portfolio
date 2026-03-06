@@ -19,7 +19,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $admin)) {
+    if (canCreate($recipeIngredient, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-ingredient.index')])->render();
@@ -41,7 +41,7 @@
                 'value' => $recipeIngredient->id
             ])
 
-            @if($admin->root)
+            @if($admin->is_root)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $recipeIngredient->owner->username ?? ''

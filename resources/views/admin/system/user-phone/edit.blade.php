@@ -1,8 +1,6 @@
 @php
     use App\Models\System\User;
 
-    $isRootAdmin = isRootAdmin();
-
     $title    = $pageTitle ?? ($isRootAdmin ? 'Edit User Phone: ' . $adminPhone->phone : 'Edit Phone: ' . $adminPhone->phone);
     $subtitle = $title;
 

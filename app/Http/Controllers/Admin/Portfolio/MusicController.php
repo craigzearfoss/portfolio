@@ -28,7 +28,7 @@ class MusicController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = new Music()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $musics = new Music()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

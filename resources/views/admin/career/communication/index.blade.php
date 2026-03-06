@@ -1,6 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
-    use App\Models\Career\Application;
+    use App\Models\Career\Application;use App\Models\Career\Communication;
 
     $title    = $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
@@ -26,7 +26,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
+    if (canCreate(Communication::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
     }
 @endphp
@@ -35,7 +35,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.communication.index') ])
     @endif
 
@@ -117,7 +117,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $communication, $admin))
+                                @if(canRead($communication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.communication.show', $communication),
@@ -148,7 +148,7 @@
                                     ])
                                 @endif
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $communication, $admin))
+                                @if(canRead($communication, $admin))
                                     <a title="show" class="button is-small px-1 py-0"
                                        href="{!! route('admin.career.communication.show', $communication) !!}">
                                         <i class="fa-solid fa-list"></i>

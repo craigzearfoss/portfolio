@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $photo, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.photography.edit', $photo)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'photography', $admin)) {
+    if (canCreate($photo, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Photo', 'href' => route('admin.portfolio.photography.create', ['owner_id'=>$owner->id])])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.photography.index')])->render();

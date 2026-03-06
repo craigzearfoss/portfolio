@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Personal\RecipeIngredient;
 
     $title    = $pageTitle ?? ((!empty($recipeId) && !empty($recipeIngredient->recipe))
         ?  $recipeIngredient->recipe['name'] . ' Ingredients'
@@ -17,7 +18,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $admin)) {
+    if (canCreate(RecipeIngredient::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create', $owner)])->render();
     }
 @endphp
@@ -38,7 +39,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     @if(empty($recipe))
@@ -101,7 +102,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin))
+                                @if(canRead($recipeIngredient, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.recipe-ingredient.show', [$owner, $recipeIngredient]),
@@ -133,7 +134,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.personal.recipe-ingredient.destroy', $recipeIngredient) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.personal.recipe-ingredient.destroy', $recipeIngredient) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

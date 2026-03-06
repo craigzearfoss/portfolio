@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Personal\RecipeStep;
 
     $title    = $pageTitle ?? (!empty($recipe->name) ?  $recipe->name . ' Instructions' : 'Recipe Instructions');
     $subtitle = $title;
@@ -25,7 +26,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe-step', $admin)) {
+    if (canCreate(RecipeStep::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create', $owner)])->render();
     }
 @endphp
@@ -104,7 +105,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
+                                @if(canRead($recipeStep, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.recipe-step.show', $recipeStep),
@@ -121,7 +122,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $recipeStep, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.personal.recipe-step.destroy', $recipeStep) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.personal.recipe-step.destroy', $recipeStep) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

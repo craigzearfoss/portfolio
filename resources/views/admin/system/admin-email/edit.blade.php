@@ -1,8 +1,6 @@
 @php
     use App\Models\System\Owner;
 
-    $isRootAdmin = isRootAdmin();
-
     $title    = $pageTitle ?? ($isRootAdmin ? 'Edit Admin Email: ' . $adminEmail->email : 'Edit Email: ' . $adminEmail->email);
     $subtitle = $title;
 
@@ -15,7 +13,7 @@
                                                             ? ['owner_id'=>$owner->id]
                                                             : []
                                                        )],
-        [ 'name' => isRootAdmin() ? 'Admin Email Addresses' : 'Email Addresses', 'href' => route('admin.system.admin-email.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => $isRootAdmin ? 'Admin Email Addresses' : 'Email Addresses', 'href' => route('admin.system.admin-email.index', ['owner_id'=>$owner->id]) ],
         [ 'name' => $adminEmail->email, 'href' => route('admin.system.admin-email.show', [$adminEmail, 'owner_id'=>$owner->id]) ],
         [ 'name' => 'Edit' ]
     ];

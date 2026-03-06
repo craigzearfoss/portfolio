@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\Resume;
 
     $title    = $pageTitle ??  'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
@@ -29,7 +30,7 @@
                                                        'href' => route('admin.career.resume.preview', $owner),
                                                        'style' => 'background-color: #3e8ed0 !important;'
                                                      ])->render();
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
+    if (canCreate(Resume::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
 @endphp
@@ -38,7 +39,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.resume.index') ])
     @endif
 
@@ -109,7 +110,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $resume, $admin))
+                                @if(canRead($resume, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.resume.show', $resume),
@@ -141,7 +142,8 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $resume, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.resume.destroy', $resume) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.resume.destroy', $resume) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

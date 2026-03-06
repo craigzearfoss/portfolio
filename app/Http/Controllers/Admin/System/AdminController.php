@@ -33,10 +33,10 @@ class AdminController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-         if (empty($this->admin->root)) {
+         if (empty($this->admin->is_root)) {
              return redirect()->route('admin.profile.show');
          } else {
-             $allAdmins = new Admin()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+             $allAdmins = new Admin()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
                  ->orderBy('name')
                  ->paginate($perPage)->appends(request()->except('page'));
          }

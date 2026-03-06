@@ -649,7 +649,7 @@ class MenuService
             }
 /*
                 $url = ($resource->has_owner
-                && (!empty($this->admin) && !empty($this->admin->root))
+                && (!empty($this->admin) && !empty($this->admin->is_root))
                 && !$this->showAll
             )
                 ? route($route, array_merge([$resource], !empty($this->owner) ? [ 'owner_id' => $this->owner->id ] : []))
@@ -657,7 +657,7 @@ class MenuService
 
             if ($this->envType == EnvTypes::ADMIN) {
                 $url = ($resource->has_owner
-                        && (!empty($this->admin) && !empty($this->admin->root))
+                        && (!empty($this->admin) && !empty($this->admin->is_root))
                         && !$this->showAll
                        )
                     ? route($route, [ 'owner_id' => $this->owner->id ])

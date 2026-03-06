@@ -19,7 +19,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $resume, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.resume.edit', $resume)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'resume', $admin)) {
+    if (canCreate($resume, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.resume.index')])->render();

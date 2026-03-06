@@ -1,8 +1,6 @@
 @php
     use App\Models\System\Owner;
 
-    $isRootAdmin = isRootAdmin();
-
     $title    = $pageTitle ?? ($isRootAdmin ? 'Edit Admin Phone: ' . $adminPhone->phone : 'Edit Phone: ' . $adminPhone->phone);
     $subtitle = $title;
 
@@ -15,7 +13,7 @@
                                                                                                  ? ['owner_id'=>$owner->id]
                                                                                                  : []
                                                                                              )],
-        [ 'name' => isRootAdmin() ? 'Admin Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.admin-phone.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => $isRootAdmin ? 'Admin Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.admin-phone.index', ['owner_id'=>$owner->id]) ],
         [ 'name' => $adminPhone->phone, 'href' => route('admin.system.admin-phone.show', [$adminPhone, 'owner_id'=>$owner->id]) ],
         [ 'name' => 'Edit' ]
     ];

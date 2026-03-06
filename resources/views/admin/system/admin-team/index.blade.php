@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\System\UserGroup;
 
     $title    = $pageTitle ?? 'Admin Teams';
     $subtitle = $title;
@@ -18,14 +19,14 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
+    if (canCreate(UserGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Team',
                                                                'href' => route('admin.system.admin-team.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
-    if (canRead(PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
+    if (canRead(UserGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Groups',
                                                                 'href' => route('admin.system.admin-group.index')
                                                               ])->render();
@@ -36,7 +37,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-team.index') ])
     @endif
 
@@ -104,7 +105,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
+                                @if(canRead($adminTeam, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-team.show', $adminTeam),
@@ -121,7 +122,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $adminTeam, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.admin-team.destroy', $adminTeam) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.system.admin-team.destroy', $adminTeam) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

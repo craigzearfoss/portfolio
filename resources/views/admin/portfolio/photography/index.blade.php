@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Photography;
 
     $title    = $pageTitle ?? 'Photography';
     $subtitle = $title;
@@ -21,7 +22,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'photo', $admin)) {
+    if (canCreate(Photography::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Photo',
                                                                'href' => route('admin.portfolio.photography.create',
                                                                                !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
@@ -33,7 +34,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.photography.index') ])
     @endif
 
@@ -106,7 +107,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $photo, $admin))
+                                @if(canRead($photo, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.photography.show', $photo),
@@ -138,7 +139,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $photo, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.portfolio.photography.destroy', $photo) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.photography.destroy', $photo) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

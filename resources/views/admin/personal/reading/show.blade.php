@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $reading, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.reading.edit', $reading)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'reading', $admin)) {
+    if (canCreate($reading, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reading', 'href' => route('admin.personal.reading.create', $owner ?? $admin)])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.reading.index')])->render();
@@ -47,7 +47,7 @@
                 'value' => $reading->id
             ])
 
-            @if($admin->root)
+            @if($admin->is_root)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $reading->owner->username

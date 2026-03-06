@@ -19,7 +19,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $recipeStep, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-step.edit', $recipeStep)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'recipe-step', $admin)) {
+    if (canCreate($recipeStep, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.personal.recipe-step.index')])->render();

@@ -1,5 +1,5 @@
 @php
-    use App\Enums\PermissionEntityTypes;
+    use App\Enums\PermissionEntityTypes;use App\Models\Career\Industry;
 
     $title    = $pageTitle ?? 'Industries';
     $subtitle = $title;
@@ -14,7 +14,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'industry', $admin)) {
+    if (canCreate(Industry::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Industry', 'href' => route('admin.career.industry.create')])->render();
     }
 @endphp
@@ -64,7 +64,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $industry, $admin))
+                                @if(canRead($industry, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.industry.show', $industry),
@@ -96,7 +96,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $industry, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.industry.destroy', $industry) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.industry.destroy', $industry) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

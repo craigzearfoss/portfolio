@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\School;
     use App\Models\System\State;
 
     $title    = $pageTitle ?? 'Schools';
@@ -15,7 +16,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'school', $admin)) {
+    if (canCreate(School::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New School', 'href' => route('admin.portfolio.school.create')])->render();
     }
 @endphp
@@ -87,7 +88,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $school, $admin))
+                                @if(canRead($school, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.school.show', $school),
@@ -120,7 +121,8 @@
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $school, $admin))
                                     <form class="delete-resource"
-                                          action="{!! route('admin.portfolio.school.destroy', $school) !!}" method="POST">
+                                          action="{!! route('admin.portfolio.school.destroy', $school) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

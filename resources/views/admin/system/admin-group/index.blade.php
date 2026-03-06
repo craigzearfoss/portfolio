@@ -1,5 +1,7 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\System\AdminGroup;
+    use App\Models\System\AdminTeam;
 
     $title    = $pageTitle ?? 'Admin Groups';
     $subtitle = $title;
@@ -18,12 +20,12 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-group', $admin)) {
+    if (canCreate(AdminGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
                                                                'href' => route('admin.system.admin-group.create')
                                                              ])->render();
     }
-    if (canRead(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
+    if (canRead(AdminTeam::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'Admin Teams',
                                                                 'href' => route('admin.system.admin-team.index')
                                                               ])->render();
@@ -34,7 +36,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-group.index') ])
     @endif
 
@@ -115,7 +117,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $adminGroup, $admin))
+                                @if(canRead($adminGroup, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.admin-group.show', $adminGroup),
@@ -132,7 +134,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $adminGroup, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.admin-group.destroy', $adminGroup) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.system.admin-group.destroy', $adminGroup) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

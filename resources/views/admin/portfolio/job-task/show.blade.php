@@ -20,7 +20,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $jobTask, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.job-task.edit', $jobTask)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'job-task', $admin)) {
+    if (canCreate($jobTask, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Job Task', 'href' => route('admin.portfolio.job-task.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.job-task.index')])->render();

@@ -1,6 +1,7 @@
 @php
     use App\Enums\EnvTypes;
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Dictionary\Database;
     use App\Models\Dictionary\DictionarySection;
 
     $title    = 'Dictionary (databases)';
@@ -16,7 +17,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'database', $admin)) {
+    if (canCreate(Database::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Database', 'href' => route('admin.dictionary.database.create')])->render();
     }
 @endphp
@@ -76,7 +77,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $database, $admin))
+                                @if(canRead($database, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.database.show', $database),

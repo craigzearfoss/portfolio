@@ -72,7 +72,7 @@
             @include('admin.components.form-visibility-horizontal', [
                 'public'   => old('is_public') ?? $message->is_public,
                 'readonly' => old('is_readonly') ?? $message->is_readonly,
-                'root'     => old('is_root') ?? $message->root,
+                'root'     => old('is_root') ?? $message->is_root,
                 'disabled' => old('is_disabled') ?? $message->is_disabled,
                 'demo'     => old('is_demo') ?? $message->is_demo,
                 'sequence' => old('sequence') ?? $message->sequence,

@@ -24,7 +24,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-resource.index') ])
     @endif
 
@@ -54,11 +54,11 @@
                         <th class="has-text-centered">menu</th>
                         <th class="has-text-centered">menu<br>level</th>
                         <th class="has-text-centered">public</th>
-                        @if(isRootAdmin())
+                        @if($isRootAdmin)
                             <th class="has-text-centered">readonly</th>
                         @endif
                         <th class="has-text-centered">disabled</th>
-                        @if(isRootAdmin())
+                        @if($isRootAdmin)
                             <th class="has-text-centered">demo</th>
                         @endif
                         <th>actions</th>
@@ -82,11 +82,11 @@
                             <th class="has-text-centered">menu</th>
                             <th class="has-text-centered">menu<br>level</th>
                             <th class="has-text-centered">public</th>
-                            @if(isRootAdmin())
+                            @if($isRootAdmin)
                                 <th class="has-text-centered">readonly</th>
                             @endif
                             <th class="has-text-centered">disabled</th>
-                            @if(isRootAdmin())
+                            @if($isRootAdmin)
                                 <th class="has-text-centered">demo</th>
                             @endif
                             <th>actions</th>
@@ -156,7 +156,7 @@
 
                                 <div class="action-button-panel">
 
-                                    @if(canRead(PermissionEntityTypes::RESOURCE, $adminResource, $admin))
+                                    @if(canRead($adminResource, $admin))
                                         @include('admin.components.link-icon', [
                                             'title' => 'show',
                                             'href'  => route('admin.system.admin-resource.show', $adminResource),

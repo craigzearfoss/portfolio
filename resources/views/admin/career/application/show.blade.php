@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $application, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.application.edit', $application)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'application', $admin)) {
+    if (canCreate($application, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Application', 'href' => route('admin.career.application.create', $owner ?? $admin)])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.application.index')])->render();

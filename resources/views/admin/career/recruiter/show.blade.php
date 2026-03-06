@@ -18,7 +18,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $recruiter, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.recruiter.edit', $recruiter)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'recruiter', $admin)) {
+    if (canCreate($recruiter, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Recruiter', 'href' => route('admin.career.recruiter.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.recruiter.index')])->render();

@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Art;
 
     $title    = $pageTitle ?? 'Art';
 
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'art', $admin)) {
+    if (canCreate(Art::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Art',
                                                                'href' => route('admin.portfolio.art.create',
                                                                                !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
@@ -32,7 +33,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.art.index') ])
     @endif
 
@@ -48,7 +49,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -63,7 +64,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -78,88 +79,89 @@
 
                 <tbody>
 
-                    @forelse ($arts as $art)
+                @forelse ($arts as $art)
 
-                        <tr data-id="{{ $art->id }}">
-                            @if($admin->root)
-                                <td data-field="owner.username" style="white-space: nowrap;">
-                                    {{ $art->owner->username }}
-                                </td>
-                            @endif
-                            <td data-field="name">
-                                {!! $art->name !!}{!! !empty($art->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                    <tr data-id="{{ $art->id }}">
+                        @if($isRootAdmin)
+                            <td data-field="owner.username" style="white-space: nowrap;">
+                                {{ $art->owner->username }}
                             </td>
-                            <td data-field="artist">
-                                {!! $art->artist !!}
-                            </td>
-                            <td data-field="year">
-                                {!! $art->year !!}
-                            </td>
-                            <td data-field="public" class="has-text-centered">
-                                @include('admin.components.checkmark', [ 'checked' => $art->is_public ])
-                            </td>
-                            <td data-field="disabled" class="has-text-centered">
-                                @include('admin.components.checkmark', [ 'checked' => $art->is_disabled ])
-                            </td>
-                            <td class="is-1">
+                        @endif
+                        <td data-field="name">
+                            {!! $art->name !!}{!! !empty($art->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                        </td>
+                        <td data-field="artist">
+                            {!! $art->artist !!}
+                        </td>
+                        <td data-field="year">
+                            {!! $art->year !!}
+                        </td>
+                        <td data-field="public" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $art->is_public ])
+                        </td>
+                        <td data-field="disabled" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $art->is_disabled ])
+                        </td>
+                        <td class="is-1">
 
-                                <div class="action-button-panel">
+                            <div class="action-button-panel">
 
-                                    @if(canRead(PermissionEntityTypes::RESOURCE, $art, $admin))
-                                        @include('admin.components.link-icon', [
-                                            'title' => 'show',
-                                            'href'  => route('admin.portfolio.art.show', $art),
-                                            'icon'  => 'fa-list'
+                                @if(canRead($art, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'show',
+                                        'href'  => route('admin.portfolio.art.show', $art),
+                                        'icon'  => 'fa-list'
+                                    ])
+                                @endif
+
+                                @if(canUpdate(App\Enums\PermissionEntityTypes::RESOURCE, $art, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'edit',
+                                        'href'  => route('admin.portfolio.art.edit', $art),
+                                        'icon'  => 'fa-pen-to-square'
+                                    ])
+                                @endif
+
+                                @if (!empty($art->link))
+                                    @include('admin.components.link-icon', [
+                                        'title'  => !empty($art->link_name) ? $art->link_name : 'link',
+                                        'href'   => $art->link,
+                                        'icon'   => 'fa-external-link',
+                                        'target' => '_blank'
+                                    ])
+                                @else
+                                    @include('admin.components.link-icon', [
+                                        'title'    => 'link',
+                                        'icon'     => 'fa-external-link',
+                                        'disabled' => true
+                                    ])
+                                @endif
+
+                                @if(canDelete(PermissionEntityTypes::RESOURCE, $art, $admin))
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.art.destroy', $art) !!}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        @include('admin.components.button-icon', [
+                                            'title' => 'delete',
+                                            'class' => 'delete-btn',
+                                            'icon'  => 'fa-trash'
                                         ])
-                                    @endif
+                                    </form>
+                                @endif
 
-                                    @if(canUpdate(App\Enums\PermissionEntityTypes::RESOURCE, $art, $admin))
-                                        @include('admin.components.link-icon', [
-                                            'title' => 'edit',
-                                            'href'  => route('admin.portfolio.art.edit', $art),
-                                            'icon'  => 'fa-pen-to-square'
-                                        ])
-                                    @endif
+                            </div>
 
-                                    @if (!empty($art->link))
-                                        @include('admin.components.link-icon', [
-                                            'title'  => !empty($art->link_name) ? $art->link_name : 'link',
-                                            'href'   => $art->link,
-                                            'icon'   => 'fa-external-link',
-                                            'target' => '_blank'
-                                        ])
-                                    @else
-                                        @include('admin.components.link-icon', [
-                                            'title'    => 'link',
-                                            'icon'     => 'fa-external-link',
-                                            'disabled' => true
-                                        ])
-                                    @endif
+                        </td>
+                    </tr>
 
-                                    @if(canDelete(PermissionEntityTypes::RESOURCE, $art, $admin))
-                                        <form class="delete-resource" action="{!! route('admin.portfolio.art.destroy', $art) !!}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            @include('admin.components.button-icon', [
-                                                'title' => 'delete',
-                                                'class' => 'delete-btn',
-                                                'icon'  => 'fa-trash'
-                                            ])
-                                        </form>
-                                    @endif
+                @empty
 
-                                </div>
+                    <tr>
+                        <td colspan="{{ $admin->root ? '7' : '6' }}">There is no art.</td>
+                    </tr>
 
-                            </td>
-                        </tr>
-
-                    @empty
-
-                        <tr>
-                            <td colspan="{{ $admin->root ? '7' : '6' }}">There is no art.</td>
-                        </tr>
-
-                    @endforelse
+                @endforelse
 
                 </tbody>
             </table>
@@ -171,4 +173,4 @@
         </div>
     </div>
 
-    @endsection
+@endsection

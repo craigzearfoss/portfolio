@@ -28,7 +28,7 @@ class SkillController extends BaseAdminController
 
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
-        $skills = new Skill()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $skills = new Skill()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

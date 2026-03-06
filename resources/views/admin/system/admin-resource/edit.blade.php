@@ -21,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (isRootAdmin() && !empty($owner)) {
+    if ($isRootAdmin && !empty($owner)) {
         $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-resource.index', [ 'owner_id'=>$owner->id ]) ])->render();
     } else {
         $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-resource.index') ])->render();
@@ -146,7 +146,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.system.resource.index', (isRootAdmin() && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
+                'cancel_url' => referer('admin.system.resource.index', ($isRootAdmin && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
             ])
 
         </form>

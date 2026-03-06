@@ -1,5 +1,8 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\System\User;
+    use App\Models\System\UserGroup;
+    use App\Models\System\UserTeam;
 
     $title    = $pageTitle ?? 'Users';
     $subtitle = $itle;
@@ -14,17 +17,17 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'user', $admin)) {
+    if (canCreate(User::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User',
                                                                'href' => route('admin.system.user.create')
                                                              ])->render();
     }
-    if (canRead(PermissionEntityTypes::RESOURCE, 'user-team', $admin)) {
+    if (canRead(UserTeam::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'User Teams',
                                                                 'href' => route('admin.system.user-team.index')
                                                               ])->render();
     }
-    if (canRead(PermissionEntityTypes::RESOURCE, 'user-group', $admin)) {
+    if (canRead(UserGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-view', [ 'name' => 'User Groups',
                                                                 'href' => route('admin.system.user-group.index')
                                                               ])->render();
@@ -92,7 +95,7 @@
                                 @include('admin.components.link', [
                                     'name' => $thisUser->team->name ?? '',
                                     'href' => route('admin.system.user-team.show',
-                                                    [ $thisUser, \App\Models\System\UserTeam::where('id', $thisUser->team->id)->first() ]
+                                                    [ $thisUser, UserTeam::where('id', $thisUser->team->id)->first() ]
                                               )
                                 ])
                             @endif
@@ -113,7 +116,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $thisUser, $admin))
+                                @if(canRead($thisUser, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.system.user.show', $thisUser),
@@ -145,7 +148,8 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $thisUser, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.system.user.destroy', $thisUser) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.system.user.destroy', $thisUser) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

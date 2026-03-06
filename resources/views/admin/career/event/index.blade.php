@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\Event;
 
     $title    = $pageTitle ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
@@ -25,7 +26,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'event', $admin)) {
+    if (canCreate(Event::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
     }
 @endphp
@@ -34,7 +35,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.event.index') ])
     @endif
 
@@ -99,7 +100,7 @@
                                 @include('admin.components.link', [
                                     'name' => $event->application->name ?? '',
                                     'href' => route('admin.career.application.show',
-                                                    \App\Models\Career\Application::find($event->application->id)
+                                                  Application::find($event->application->id)
                                               )
                                 ])
                             </td>
@@ -126,7 +127,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $event, $admin))
+                                @if(canRead($event, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.event.show', $event),

@@ -20,7 +20,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (isRootAdmin() && !empty($owner)) {
+    if ($isRootAdmin && !empty($owner)) {
         $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-database.index', [ 'owner_id'=>$owner->id ]) ])->render();
     } else {
         $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin-database.index') ])->render();
@@ -41,7 +41,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.system.admin-database.index', (isRootAdmin() && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
+                'value' => referer('admin.system.admin-database.index', ($isRootAdmin && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
             ])
 
             @if($admin->root)
@@ -219,7 +219,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.system.admin-database.index', (isRootAdmin() && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
+                'cancel_url' => referer('admin.system.admin-database.index', ($isRootAdmin && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
             ])
 
         </form>

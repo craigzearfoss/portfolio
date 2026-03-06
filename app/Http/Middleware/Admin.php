@@ -25,7 +25,7 @@ class Admin
         }
 
         // non-root users cannot make changes to the resources of other admins
-        if (empty($admin->root)) {
+        if (empty($admin->is_root)) {
 
             $method = $request->method();
             $owner_id = $request->get('owner_id');

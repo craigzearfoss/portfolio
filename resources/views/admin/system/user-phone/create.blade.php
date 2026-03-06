@@ -1,8 +1,6 @@
 @php
     use App\Models\System\User;
 
-    $isRootAdmin = isRootAdmin();
-
     $title    = $pageTitle ?? ($isRootAdmin ? 'Add New User Phone Number' : 'Add New Phone Number');
     $subtitle = $title;
 

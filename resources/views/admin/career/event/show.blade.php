@@ -30,7 +30,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $event, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.event.edit', $event)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'event', $admin)) {
+    if (canCreate($event, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Event', 'href' => route('admin.career.event.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.event.index')])->render();

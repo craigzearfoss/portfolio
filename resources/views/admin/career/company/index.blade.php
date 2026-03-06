@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\Company;
 
     $title    = $pageTitle ?? 'Companies';
     $subtitle = $title;
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'company', $admin)) {
+    if (canCreate(Company::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Company', 'href' => route('admin.career.company.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.company.index') ])
     @endif
 
@@ -80,9 +81,9 @@
                         <td data-field="name">
                             {!! $company->name !!}
                         </td>
-                            <td data-field="industry.name">
-                                {!! $company->industry->name ?? '' !!}
-                            </td>
+                        <td data-field="industry.name">
+                            {!! $company->industry->name ?? '' !!}
+                        </td>
                         <td data-field="location" style="white-space: nowrap;">
                             {!!
                                 formatLocation([
@@ -95,7 +96,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $company, $admin))
+                                @if(canRead($company, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.company.show', $company),
@@ -127,7 +128,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $company, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.company.destroy', $company) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.company.destroy', $company) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

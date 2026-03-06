@@ -32,7 +32,7 @@ class DatabaseController extends BaseAdminController
         if (empty($this->admin->root)) {
             return redirect()->route('admin.system.admin-database.show', $this->admin);
         } else {
-            $databases = new Database()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            $databases = new Database()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
                 ->orderBy('owner_id')
                 ->orderBy('name')
                 ->paginate($perPage)->appends(request()->except('page'));

@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\Note;
 
     $title    = $pageTitle ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
@@ -25,7 +26,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'note', $admin)) {
+    if (canCreate(Note::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Note', 'href' => route('admin.career.note.create')])->render();
     }
 @endphp
@@ -34,7 +35,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.note.index') ])
     @endif
 
@@ -106,7 +107,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $note, $admin))
+                                @if(canRead($note, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.career.note.show', $note),
@@ -138,7 +139,8 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $note, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.career.note.destroy', $note) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.career.note.destroy', $note) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

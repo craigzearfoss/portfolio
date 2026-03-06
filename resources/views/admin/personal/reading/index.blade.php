@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Personal\Reading;
 
     $title    = $pageTitle ?? 'Readings';
     $subtitle = $title;
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'reading', $admin)) {
+    if (canCreate(Reading::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Reading', 'href' => route('admin.personal.reading.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -123,7 +124,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $reading, $admin))
+                                @if(canRead($reading, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.personal.reading.show', [$owner, $reading->id]),
@@ -155,7 +156,9 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $reading, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.personal.reading.destroy', $reading) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.personal.reading.destroy', $reading) !!}"
+                                          method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [

@@ -30,7 +30,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.communication.edit', $communication)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'communication', $admin)) {
+    if (canCreate($communication, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Communication', 'href' => route('admin.career.communication.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.communication.index')])->render();
@@ -51,7 +51,7 @@
             'value' => $communication->id
         ])
 
-        @if($admin->root)
+        @if($admin->is_root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $communication->owner->username

@@ -33,7 +33,7 @@ class ResourceController extends BaseAdminController
         if (empty($this->admin->root)) {
             return redirect()->route('admin.system.admin-resource.show', $this->admin);
         } else {
-            $resources = new AdminResource()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+            $resources = new AdminResource()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
                 ->orderBy('owner_id')
                 ->orderBy('name')
                 ->paginate($perPage)->appends(request()->except('page'));

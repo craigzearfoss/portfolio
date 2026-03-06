@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Skill;
 
     $title    = $pageTitle ?? 'Skills';
     $subtitle = $title;
@@ -9,7 +10,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && !empty($admin) && $admin->is_root) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
@@ -20,7 +21,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'skill', $admin)) {
+    if (canCreate(Skill::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Skill', 'href' => route('admin.portfolio.skill.create', $owner ?? $admin)])->render();
     }
 @endphp
@@ -29,7 +30,7 @@
 
 @section('content')
 
-    @if(isRootAdmin())
+    @if($isRootAdmin)
         @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.skill.index') ])
     @endif
 
@@ -45,7 +46,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -61,7 +62,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -80,7 +81,7 @@
                 @forelse ($skills as $skill)
 
                     <tr data-id="{{ $skill->id }}">
-                        @if($admin->root)
+                        @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $skill->owner->username ?? '' }}{!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                             </td>
@@ -89,11 +90,11 @@
                             {!! $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' !!}
                         </td>
                         <td data-field="dictionary_category_id">
-                            <?php /* @TODO: fix this
-                            @if(!empty($skill->category->name))
-                                {!! $skill->category->name !!}
-                            @endif
-                            */ ?>
+                                <?php /* @TODO: fix this
+                             * @if(!empty($skill->category->name))
+                             * {!! $skill->category->name !!}
+                             * @endif
+                             */ ?>
                         </td>
                         <td data-field="level" style="white-space: nowrap;">
                             @include('admin.components.star-ratings', [
@@ -115,7 +116,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $skill, $admin))
+                                @if(canRead($skill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.portfolio.skill.show', $skill),
@@ -147,7 +148,8 @@
                                 @endif
 
                                 @if(canDelete(PermissionEntityTypes::RESOURCE, $skill, $admin))
-                                    <form class="delete-resource" action="{!! route('admin.portfolio.skill.destroy', $skill) !!}" method="POST">
+                                    <form class="delete-resource"
+                                          action="{!! route('admin.portfolio.skill.destroy', $skill) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         @include('admin.components.button-icon', [
@@ -166,7 +168,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '8' : '7' }}">There are no skills.</td>
+                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">There are no skills.</td>
                     </tr>
 
                 @endforelse

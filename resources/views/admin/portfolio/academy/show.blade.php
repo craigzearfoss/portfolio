@@ -17,7 +17,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $academy, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.academy.edit', $academy)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'academy', $admin)) {
+    if (canCreate($academy, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Academy', 'href' => route('admin.portfolio.academy.create')])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.portfolio.academy.index')])->render();

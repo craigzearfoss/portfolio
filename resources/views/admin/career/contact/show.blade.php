@@ -25,7 +25,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $contact, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.contact.edit', $contact)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'contact', $admin)) {
+    if (canCreate($contact, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Contact', 'href' => route('admin.career.contact.create', $owner ?? $admin)])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', ['href' => referer('admin.career.contact.index')])->render();
@@ -46,7 +46,7 @@
             'value' => $contact->id
         ])
 
-        @if($admin->root)
+        @if($admin->is_root)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $contact->owner->username

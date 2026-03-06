@@ -1,6 +1,7 @@
 @php
     use App\Enums\EnvTypes;
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Dictionary\Category;
     use App\Models\Dictionary\DictionarySection;
 
     $title    = 'Dictionary (categories)';
@@ -16,7 +17,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'category', $admin)) {
+    if (canCreate(Category::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Category', 'href' => route('admin.dictionary.category.create')])->render();
     }
 @endphp
@@ -76,7 +77,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead(PermissionEntityTypes::RESOURCE, $category, $admin))
+                                @if(canRead($category, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.category.show', $category),

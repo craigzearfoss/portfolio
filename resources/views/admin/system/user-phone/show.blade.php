@@ -1,7 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
-
-    $isRootAdmin = isRootAdmin();
+    use App\Models\System\UserPhone;
 
     $title    = $pageTitle ?? ($isRootAdmin ? 'User Phone: ' . $adminPhone->phone : 'Phone: ' . $adminPhone->phone);
     $subtitle = $title;
@@ -20,7 +19,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $userPhone, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user-phone.edit', $userPhone)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-team', $admin)) {
+    if (canCreate($userPhone, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Phone',
                                                                   'href' => route('admin.system.user-phone.create',
                                                                                   [ 'user_id' => $userPhone->user->id ])

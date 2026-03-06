@@ -28,7 +28,7 @@ class ProjectController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $projects = new Project()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $projects = new Project()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

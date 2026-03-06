@@ -30,7 +30,7 @@ class RecipeIngredientController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = new RecipeIngredient()->searchQuery($request->all(), !empty($this->owner->root) ? null : $this->owner)
+        $query = new RecipeIngredient()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('owner_id')
             ->orderBy('recipe_id');
         if ($recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null) {

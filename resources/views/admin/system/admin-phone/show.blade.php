@@ -1,9 +1,7 @@
 @php
     use App\Enums\PermissionEntityTypes;
 
-    $isRootAdmin = isRootAdmin();
-
-    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Phone: ' . $adminPhone->email : 'Phone: ' . $adminPhone->email);
+    $title    = $pageTitle ?? ($isRootAdmin ? 'Admin Phone: ' . $adminPhone->phone : 'Phone: ' . $adminPhone->phone);
     $subtitle = $title;
 
     // set breadcrumbs
@@ -15,8 +13,8 @@
                                                                                    ? ['owner_id'=>$owner->id]
                                                                                    : []
                                                                               )],
-        [ 'name' => isRootAdmin() ? 'Admin Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.admin-phone.index') ],
-        [ 'name' => isRootAdmin() ? 'Admin Phone Number' : 'Phone' ]
+        [ 'name' => $isRootAdmin ? 'Admin Phone Numbers' : 'Phone Numbers', 'href' => route('admin.system.admin-phone.index') ],
+        [ 'name' => $isRootAdmin ? 'Admin Phone Number' : 'Phone' ]
     ];
 
     // set navigation buttons
@@ -24,7 +22,7 @@
     if (canUpdate(PermissionEntityTypes::RESOURCE, $adminPhone, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-phone.edit', $adminPhone)])->render();
     }
-    if (canCreate(PermissionEntityTypes::RESOURCE, 'admin-phone', $admin)) {
+    if (canCreate($adminPhone, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Phone',
                                                                'href' => route('admin.system.admin-phone.create',
                                                                                $admin->root ? [ 'owner_id' => $admin->id ] : []
