@@ -46,7 +46,7 @@ class AdminTeamController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-team', $this->admin);
+        createGate(AdminTeam::class, $this->admin);
 
         return view('admin.system.admin-team.create');
     }
@@ -59,7 +59,7 @@ class AdminTeamController extends BaseAdminController
      */
     public function store(StoreAdminTeamsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-team', $this->admin);
+        createGate(AdminTeam::class, $this->admin);
 
         $adminTeam = new AdminTeam()->create($request->validated());
 

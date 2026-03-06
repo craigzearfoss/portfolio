@@ -45,7 +45,7 @@ class IngredientController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'ingredient', $this->admin);
+        createGate(Ingredient::class, $this->admin);
 
         return view('admin.personal.ingredient.create');
     }
@@ -58,7 +58,7 @@ class IngredientController extends BaseAdminController
      */
     public function store(StoreIngredientsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'ingredient', $this->admin);
+        createGate(Ingredient::class, $this->admin);
 
         $ingredient = new Ingredient()->create($request->validated());
 

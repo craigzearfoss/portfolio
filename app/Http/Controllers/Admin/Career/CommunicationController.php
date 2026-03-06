@@ -52,7 +52,7 @@ class CommunicationController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'communication', $this->admin);
+        createGate(Communication::class, $this->admin);
 
         $application = !empty($request->application_id)
             ? new Application()->find($request->application_id)
@@ -69,7 +69,7 @@ class CommunicationController extends BaseAdminController
      */
     public function store(StoreCommunicationsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'communication', $this->admin);
+        createGate(Communication::class, $this->admin);
 
         $applicationId = $request->query('application_id');
 

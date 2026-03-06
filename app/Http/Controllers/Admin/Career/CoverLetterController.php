@@ -46,7 +46,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'cover-letter', $this->admin);
+        createGate(CoverLetter::class, $this->admin);
 
         return view('admin.career.cover-letter.create');
     }
@@ -59,7 +59,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function store(StoreCoverLettersRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'cover-letter', $this->admin);
+        createGate(CoverLetter::class, $this->admin);
 
         $coverLetter = new CoverLetter()->create($request->validated());
 

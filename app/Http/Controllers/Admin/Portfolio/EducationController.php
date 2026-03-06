@@ -47,7 +47,7 @@ class EducationController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'education', $this->admin);
+        createGate(Education::class, $this->admin);
 
         return view('admin.portfolio.education.create');
     }
@@ -60,7 +60,7 @@ class EducationController extends BaseAdminController
      */
     public function store(StoreEducationsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'education', $this->admin);
+        createGate(Education::class, $this->admin);
 
         $education = new Education()->create($request->validated());
 

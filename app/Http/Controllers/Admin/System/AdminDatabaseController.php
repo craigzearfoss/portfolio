@@ -46,7 +46,7 @@ class AdminDatabaseController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-database', $this->admin);
+        createGate(AdminDatabase::class, $this->admin);
 
         abort(403, 'Admin databases must be added by site developers.');
     }

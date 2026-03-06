@@ -49,7 +49,7 @@ class SchoolController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'school', $this->admin);
+        createGate(School::class, $this->admin);
 
         return view('admin.portfolio.school.create');
     }
@@ -62,7 +62,7 @@ class SchoolController extends BaseAdminController
      */
     public function store(StoreSchoolsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'school', $this->admin);
+        createGate(School::class, $this->admin);
 
         $school = new School()->create($request->validated());
 

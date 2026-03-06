@@ -52,7 +52,7 @@ class AdminResourceController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-resource', $this->admin);
+        createGate(AdminResource::class, $this->admin);
 
         abort(403, 'Resources must be added by site developers.');
     }

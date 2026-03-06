@@ -54,7 +54,7 @@ class ApplicationController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'application', $this->admin);
+        createGate(Application::class, $this->admin);
 
         $errorMessages = [];
         $urlParams = [];
@@ -99,7 +99,7 @@ class ApplicationController extends BaseAdminController
      */
     public function store(StoreApplicationsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'application', $this->admin);
+        createGate(Application::class, $this->admin);
 
         $application = new Application()->create($request->validated());
 

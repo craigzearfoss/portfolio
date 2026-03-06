@@ -46,7 +46,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-group', $this->admin);
+        createGate(AdminGroup::class, $this->admin);
 
         return view('admin.system.admin-group.create');
     }
@@ -59,7 +59,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function store(StoreAdminGroupsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
+        createGate(AdminGroup::class, $this->admin);
 
         $adminGroup = new AdminGroup()->create($request->validated());
 

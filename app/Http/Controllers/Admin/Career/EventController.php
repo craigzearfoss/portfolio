@@ -52,7 +52,7 @@ class EventController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'event', $this->admin);
+        createGate(Event::class, $this->admin);
 
         $application = ($request->application_id)
             ? new Application()->find($request->application_id)
@@ -69,7 +69,7 @@ class EventController extends BaseAdminController
      */
     public function store(StoreEventsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'event', $this->admin);
+        createGate(Event::class, $this->admin);
 
         $applicationId = $request->query('application_id');
 

@@ -46,7 +46,7 @@ class PhotographyController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'photography', $this->admin);
+        createGate(Photography::class, $this->admin);
 
         return view('admin.portfolio.photography.create');
     }
@@ -59,7 +59,7 @@ class PhotographyController extends BaseAdminController
      */
     public function store(StorePhotographyRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'photography', $this->admin);
+        createGate(Photography::class, $this->admin);
 
         $photo = new Photography()->create($request->validated());
 

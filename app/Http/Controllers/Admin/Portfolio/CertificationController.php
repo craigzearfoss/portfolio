@@ -46,7 +46,7 @@ class CertificationController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'certification', $this->admin);
+        createGate(Certification::class, $this->admin);
 
         return view('admin.portfolio.certification.create');
     }
@@ -59,7 +59,7 @@ class CertificationController extends BaseAdminController
      */
     public function store(StoreCertificationsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'certification', $this->admin);
+        createGate(Certification::class, $this->admin);
 
         $certification = new Certification()->create($request->validated());
 

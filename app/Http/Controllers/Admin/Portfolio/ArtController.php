@@ -46,7 +46,7 @@ class ArtController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
+        createGate(Art::class, $this->admin);
 
         return view('admin.portfolio.art.create');
     }
@@ -60,7 +60,7 @@ class ArtController extends BaseAdminController
      */
     public function store(StoreArtRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
+        createGate(Art::class, $this->admin);
 
         $art = new Art()->create($request->validated());
 

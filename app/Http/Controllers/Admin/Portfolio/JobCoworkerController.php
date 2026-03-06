@@ -77,7 +77,7 @@ class JobCoworkerController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'job-cowroker', $this->admin);
+        createGate(JobCoworker::class, $this->admin);
 
         if ($jobId = $request->query('job_id')) {
             $job = new Job()->find($jobId);
@@ -96,7 +96,7 @@ class JobCoworkerController extends BaseAdminController
      */
     public function store(StoreJobCoworkersRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'jobCoworker', $this->admin);
+        createGate(JobCoworker::class, $this->admin);
 
         $jobCoworker = new JobCoworker()->create($request->validated());
 

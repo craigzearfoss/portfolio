@@ -46,7 +46,7 @@ class AudioController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'audio', $this->admin);
+        createGate(Audio::class, $this->admin);
 
         return view('admin.portfolio.audio.create');
     }
@@ -59,7 +59,7 @@ class AudioController extends BaseAdminController
      */
     public function store(StoreAudiosRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'audio', $this->admin);
+        createGate(Audio::class, $this->admin);
 
         $audio = new Audio()->create($request->validated());
 

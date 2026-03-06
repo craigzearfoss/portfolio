@@ -46,7 +46,7 @@ class AdminEmailController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-email', $this->admin);
+        createGate(AdminEmail::class, $this->admin);
 
         return view('admin.system.admin-email.create');
     }
@@ -59,7 +59,7 @@ class AdminEmailController extends BaseAdminController
      */
     public function store(StoreAdminEmailsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-email', $this->admin);
+        createGate(AdminEmail::class, $this->admin);
 
         $adminEmail = new AdminEmail()->create($request->validated());
 

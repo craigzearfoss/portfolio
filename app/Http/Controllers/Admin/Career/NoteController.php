@@ -52,7 +52,7 @@ class NoteController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'note', $this->admin);
+        createGate(Note::class, $this->admin);
 
         $application = !empty($request->application_id)
             ? new Application()->find($request->application_id)
@@ -69,7 +69,7 @@ class NoteController extends BaseAdminController
      */
     public function store(StoreNotesRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'note', $this->admin);
+        createGate(Note::class, $this->admin);
 
         $applicationId = $request->query('application_id');
 

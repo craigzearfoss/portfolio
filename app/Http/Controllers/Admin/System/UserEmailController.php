@@ -43,7 +43,7 @@ class UserEmailController extends BaseUserController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'user-email', $this->user);
+        createGate(UserEmail::class, $this->user);
 
         return view('admin.system.user-email.create');
     }
@@ -56,7 +56,7 @@ class UserEmailController extends BaseUserController
      */
     public function store(StoreUserEmailsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'user-email', $this->user);
+        createGate(UserEmail::class, $this->user);
 
         $userEmail = new UserEmail()->create($request->validated());
 

@@ -45,7 +45,7 @@ class UserTeamController extends BaseUserController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'user-team', $this->admin);
+        createGate(UserTeam::class, $this->admin);
 
         return view('admin.system.user-team.create');
     }

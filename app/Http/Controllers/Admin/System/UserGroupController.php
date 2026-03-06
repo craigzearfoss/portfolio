@@ -45,7 +45,7 @@ class UserGroupController extends BaseUserController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'user-group', $this->admin);
+        createGate(UserGroup::class, $this->admin);
 
         return view('admin.system.user-group.create');
     }

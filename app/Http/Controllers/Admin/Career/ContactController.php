@@ -48,7 +48,7 @@ class ContactController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'contact', $this->admin);
+        createGate(Contact::class, $this->admin);
 
         return view('admin.career.contact.create');
     }
@@ -61,7 +61,7 @@ class ContactController extends BaseAdminController
      */
     public function store(StoreContactsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'contact', $this->admin);
+        createGate(Contact::class, $this->admin);
 
         $contact = new Contact()->create($request->validated());
 

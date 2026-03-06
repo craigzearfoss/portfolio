@@ -46,7 +46,7 @@ class SkillController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'skill', $this->admin);
+        createGate(Skill::class, $this->admin);
 
         return view('admin.portfolio.skill.create');
     }
@@ -59,7 +59,7 @@ class SkillController extends BaseAdminController
      */
     public function store(StoreSkillsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'skill', $this->admin);
+        createGate(Skill::class, $this->admin);
 
         $skill = new Skill()->create($request->validated());
 

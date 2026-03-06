@@ -43,7 +43,7 @@ class AdminPhoneController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-phone', $this->admin);
+        createGate(AdminPhone::class, $this->admin);
 
         return view('admin.system.admin-phone.create');
     }
@@ -56,7 +56,7 @@ class AdminPhoneController extends BaseAdminController
      */
     public function store(StoreAdminPhonesRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'admin-phone', $this->admin);
+        createGate(AdminPhone::class, $this->admin);
 
         $adminPhone = new AdminPhone()->create($request->validated());
 

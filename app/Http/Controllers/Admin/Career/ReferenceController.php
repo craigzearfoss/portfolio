@@ -46,7 +46,7 @@ class ReferenceController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'reference', $this->admin);
+        createGate(Reference::class, $this->admin);
 
         return view('admin.career.reference.create');
     }
@@ -59,7 +59,7 @@ class ReferenceController extends BaseAdminController
      */
     public function store(StoreReferencesRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'reference', $this->admin);
+        createGate(Reference::class, $this->admin);
 
         $reference = new Reference()->create($request->validated());
 

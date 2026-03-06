@@ -92,7 +92,7 @@ class JobTaskController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'job-task', $this->admin);
+        createGate(JobTask::class, $this->admin);
 
         $jobId = $request->get('job_id');
         $job = !empty($jobId) ? new Job()->find($jobId) : null;
@@ -108,7 +108,7 @@ class JobTaskController extends BaseAdminController
      */
     public function store(StoreJobTasksRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'jobTask', $this->admin);
+        createGate(JobTask::class, $this->admin);
 
         $jobTask = new JobTask()->create($request->validated());
 

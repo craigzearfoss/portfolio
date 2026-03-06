@@ -44,7 +44,7 @@ class UserPhoneController extends BaseUserController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'user-phone', $this->user);
+        createGate(UserPhone::class, $this->user);
 
         return view('user.system.user-phone.create');
     }
@@ -57,7 +57,7 @@ class UserPhoneController extends BaseUserController
      */
     public function store(StoreUserPhonesRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'user-phone', $this->user);
+        createGate(UserPhone::class, $this->user);
 
         $userPhone = new UserPhone()->create($request->validated());
 

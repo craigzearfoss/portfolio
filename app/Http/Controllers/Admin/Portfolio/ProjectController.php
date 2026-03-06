@@ -45,7 +45,7 @@ class ProjectController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'project', $this->admin);
+        createGate(Project::class, $this->admin);
 
         return view('admin.portfolio.project.create');
     }
@@ -58,7 +58,7 @@ class ProjectController extends BaseAdminController
      */
     public function store(StoreProjectsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'project', $this->admin);
+        createGate(Project::class, $this->admin);
 
         $project = new Project()->create($request->validated());
 

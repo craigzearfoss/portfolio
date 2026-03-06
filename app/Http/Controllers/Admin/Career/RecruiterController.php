@@ -41,7 +41,7 @@ class RecruiterController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'recruiter', $this->admin);
+        createGate(Recruiter::class, $this->admin);
 
         return view('admin.career.recruiter.create');
     }
@@ -54,7 +54,7 @@ class RecruiterController extends BaseAdminController
      */
     public function store(StoreRecruitersRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'certificate', $this->admin);
+        createGate(Recruiter::class, $this->admin);
 
         $recruiter = new Recruiter()->create($request->validated());
 

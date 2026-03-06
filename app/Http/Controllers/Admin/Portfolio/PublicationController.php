@@ -46,7 +46,7 @@ class PublicationController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'publication', $this->admin);
+        createGate(Publicication::class, $this->admin);
 
         return view('admin.portfolio.publication.create');
     }
@@ -59,7 +59,7 @@ class PublicationController extends BaseAdminController
      */
     public function store(StorePublicationsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'publication', $this->admin);
+        createGate(Publication::class, $this->admin);
 
         $publication = new Publication()->create($request->validated());
 

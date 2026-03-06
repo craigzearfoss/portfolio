@@ -45,7 +45,7 @@ class JobBoardController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'job-board', $this->admin);
+        createGate(JobBoard::class, $this->admin);
 
         return view('admin.career.job-board.create');
     }
@@ -58,7 +58,7 @@ class JobBoardController extends BaseAdminController
      */
     public function store(StoreJobBoardsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'job-board', $this->admin);
+        createGate(JobBoard::class, $this->admin);
 
         $jobBoard = new JobBoard()->create($request->validated());
 

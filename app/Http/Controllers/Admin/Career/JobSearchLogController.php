@@ -43,7 +43,7 @@ class JobSearchLogController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'job-search-log', $this->admin);
+        createGate(JobSearchLog::class, $this->admin);
 
         return view('admin.career.job-search-log.create');
     }
@@ -56,7 +56,7 @@ class JobSearchLogController extends BaseAdminController
      */
     public function store(StoreJobSearchLogsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'job-search-log', $this->admin);
+        createGate(JobSearchLog::class, $this->admin);
 
         $logEntry = new JobSearchLog()->create($request->validated());
 

@@ -46,7 +46,7 @@ class UserController extends BaseUserController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'user', $this->admin);
+        createGate(User::class, $this->admin);
 
         return view('admin.system.user.create');
     }

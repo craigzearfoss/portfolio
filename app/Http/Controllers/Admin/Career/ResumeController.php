@@ -57,7 +57,7 @@ class ResumeController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'resume', $this->admin);
+        createGate(Resume::class, $this->admin);
 
         $application = !empty($request->application_id)
             ? new Application()->find($request->application_id)
@@ -74,7 +74,7 @@ class ResumeController extends BaseAdminController
      */
     public function store(StoreResumesRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'resume', $this->admin);
+        createGate(Resume::class, $this->admin);
 
         $applicationId = $request->query('application_id');
 

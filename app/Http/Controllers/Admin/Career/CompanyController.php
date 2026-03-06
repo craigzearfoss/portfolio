@@ -49,7 +49,7 @@ class CompanyController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'company', $this->admin);
+        createGate(Company::class, $this->admin);
 
         return view('admin.career.company.create');
     }
@@ -69,7 +69,7 @@ class CompanyController extends BaseAdminController
 
         $company = new Company()->create($request->validated());
 
-        createGate(PermissionEntityTypes::RESOURCE, 'company', $this->admin);
+        createGate(Company::class, $this->admin);
 
         $message = $company->name . ' successfully added.';
         if ($newApplication) {

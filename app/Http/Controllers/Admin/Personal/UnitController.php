@@ -45,7 +45,7 @@ class UnitController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'unit', $this->admin);
+        createGate(Unit::class, $this->admin);
 
         return view('admin.personal.unit.create');
     }
@@ -58,7 +58,7 @@ class UnitController extends BaseAdminController
      */
     public function store(StoreUnitsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'unit', $this->admin);
+        createGate(Unit::class, $this->admin);
 
         $unit = new Unit()->create($request->validated());
 

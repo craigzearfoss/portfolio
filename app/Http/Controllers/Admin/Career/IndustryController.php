@@ -45,7 +45,7 @@ class IndustryController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'industry', $this->admin);
+        createGate(Industry::class, $this->admin);
 
         return view('admin.career.industry.create');
     }
@@ -58,7 +58,7 @@ class IndustryController extends BaseAdminController
      */
     public function store(StoreIndustriesRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'industry', $this->admin);
+        createGate(Industry::class, $this->admin);
 
         $industry = new Industry()->create($request->validated());
 

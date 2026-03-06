@@ -47,7 +47,7 @@ class JobController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'job', $this->admin);
+        createGate(Job::class, $this->admin);
 
         return view('admin.portfolio.job.create');
     }
@@ -60,7 +60,7 @@ class JobController extends BaseAdminController
      */
     public function store(StoreJobsRequest $request): RedirectResponse
     {
-        createGate(PermissionEntityTypes::RESOURCE, 'job', $this->admin);
+        createGate(Job::class, $this->admin);
 
         $job = new Job()->create($request->validated());
 
