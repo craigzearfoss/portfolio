@@ -22,7 +22,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $award, $admin)) {
+    if (canUpdate($award, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.award.edit', $award)])->render();
     }
     if (canCreate($award, $admin)) {

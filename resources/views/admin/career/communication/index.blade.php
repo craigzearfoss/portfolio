@@ -125,7 +125,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin))
+                                @if(canUpdate($communication, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.communication.edit', $communication),
@@ -155,7 +155,7 @@
                                     </a>
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin))
+                                @if(canUpdate($communication, $admin))
                                     <a title="edit" class="button is-small px-1 py-0"
                                        href="{!! route('admin.career.communication.edit', $communication) !!}">
                                         <i class="fa-solid fa-pen-to-square"></i>

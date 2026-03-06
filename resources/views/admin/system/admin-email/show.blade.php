@@ -19,7 +19,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $adminEmail, $admin)) {
+    if (canUpdate($adminEmail, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-email.edit', $adminEmail)])->render();
     }
     if (canCreate($adminEmail, $admin)) {

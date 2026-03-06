@@ -114,7 +114,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $jobSkill, $admin))
+                                @if(canUpdate($jobSkill, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.portfolio.job-skill.edit', $jobSkill),

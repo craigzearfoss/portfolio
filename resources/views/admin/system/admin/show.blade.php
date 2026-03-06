@@ -20,7 +20,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
+    if (canUpdate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin.edit', $thisAdmin) ])->render();
     }
     if (canCreate($thisAdmin, $admin)) {
@@ -30,7 +30,7 @@
                                                                               )
                                                              ])->render();
     }
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $thisAdmin, $admin)) {
+    if (canUpdate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
                                                            'icon'=>'fa-key',
                                                            'href' => route('admin.system.admin.change-password', $thisAdmin)

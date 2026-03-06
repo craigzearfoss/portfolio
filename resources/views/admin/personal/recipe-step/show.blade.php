@@ -16,7 +16,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $recipeStep, $admin)) {
+    if (canUpdate($recipeStep, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.personal.recipe-step.edit', $recipeStep)])->render();
     }
     if (canCreate($recipeStep, $admin)) {

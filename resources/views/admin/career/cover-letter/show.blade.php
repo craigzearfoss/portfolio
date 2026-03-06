@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $coverLetter, $admin)) {
+    if (canUpdate($coverLetter, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.cover-letter.edit', $coverLetter)])->render();
     }
     if (canCreate($coverLetter, $admin)) {

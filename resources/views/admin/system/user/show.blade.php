@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $thisUser, $admin)) {
+    if (canUpdate($thisUser, $admin)) {
         $navButtons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
                                                            'icon'=>'fa-key',
                                                            'href' => route('admin.system.user.change-password', $thisUser)

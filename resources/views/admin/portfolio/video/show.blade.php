@@ -22,7 +22,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $video, $admin)) {
+    if (canUpdate($video, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.video.edit', $video)])->render();
     }
     if (canCreate($video, $admin)) {

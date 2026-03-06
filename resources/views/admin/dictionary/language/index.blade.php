@@ -85,7 +85,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $language, $admin))
+                                @if(canUpdate($language, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.dictionary.language.edit', $language),

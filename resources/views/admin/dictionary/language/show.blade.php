@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $language, $admin)) {
+    if (canUpdate($language, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.dictionary.language.edit', $language)])->render();
     }
     if (canCreate($language, $admin)) {

@@ -16,7 +16,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $resource, $admin)) {
+    if (canUpdate($resource, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.resource.edit', $resource) ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.resource.index') ])->render();

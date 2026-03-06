@@ -27,7 +27,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $communication, $admin)) {
+    if (canUpdate($communication, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.communication.edit', $communication)])->render();
     }
     if (canCreate($communication, $admin)) {

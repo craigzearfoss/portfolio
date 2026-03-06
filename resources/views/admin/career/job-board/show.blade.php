@@ -15,7 +15,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $jobBoard, $admin)) {
+    if (canUpdate($jobBoard, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.career.job-board.edit', $jobBoard)])->render();
     }
     if (canCreate($jobBoard, $admin)) {

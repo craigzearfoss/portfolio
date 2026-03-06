@@ -85,7 +85,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $database, $admin))
+                                @if(canUpdate($database, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.dictionary.database.edit', $database),

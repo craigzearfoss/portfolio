@@ -28,11 +28,11 @@
     // set navigation buttons
     $navButtons = [];
     if ($isRootAdmin && !empty($owner)) {
-        if (canUpdate(PermissionEntityTypes::RESOURCE, $adminResource, $admin)) {
+        if (canUpdate($adminResource, $admin)) {
             $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-resource.edit', [ $adminResource, 'owner_id'=>$owner->id ]) ])->render();
         }
     } else {
-        if (canUpdate(PermissionEntityTypes::RESOURCE, $adminResource, $admin)) {
+        if (canUpdate($adminResource, $admin)) {
             $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-resource.edit', $adminResource) ])->render();
         }
     }

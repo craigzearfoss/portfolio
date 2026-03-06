@@ -103,7 +103,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $coverLetter, $admin))
+                                @if(canUpdate($coverLetter, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.career.cover-letter.edit', $coverLetter),

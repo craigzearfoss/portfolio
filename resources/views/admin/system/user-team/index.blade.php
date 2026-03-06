@@ -99,7 +99,7 @@
                                     ])
                                 @endif
 
-                                @if(canUpdate(PermissionEntityTypes::RESOURCE, $userTeam, $admin))
+                                @if(canUpdate($userTeam, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.user-team.edit', $userTeam),

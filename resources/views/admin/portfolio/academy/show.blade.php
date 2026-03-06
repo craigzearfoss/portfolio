@@ -14,7 +14,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if (canUpdate(PermissionEntityTypes::RESOURCE, $academy, $admin)) {
+    if (canUpdate($academy, $admin)) {
         $navButtons[] = view('admin.components.nav-button-edit', ['href' => route('admin.portfolio.academy.edit', $academy)])->render();
     }
     if (canCreate($academy, $admin)) {
