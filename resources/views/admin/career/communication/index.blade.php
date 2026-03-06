@@ -162,7 +162,7 @@
                                     </a>
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $communication, $admin))
+                                @if(canDelete($communication, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.career.communication.destroy', $communication) !!}"
                                           method="POST">

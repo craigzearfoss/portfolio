@@ -144,7 +144,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $music, $admin))
+                                @if(canDelete($music, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.portfolio.music.destroy', $music) !!}" method="POST">
                                         @csrf

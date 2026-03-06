@@ -123,7 +123,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $framework, $admin))
+                                @if(canDelete($framework, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.dictionary.framework.destroy', $framework) !!}"
                                           method="POST">

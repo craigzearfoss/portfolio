@@ -101,7 +101,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $academy, $admin))
+                                @if(canDelete($academy, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.portfolio.academy.destroy', $academy) !!}"
                                           method="POST">

@@ -133,7 +133,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $recipeIngredient, $admin))
+                                @if(canDelete($recipeIngredient, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.personal.recipe-ingredient.destroy', $recipeIngredient) !!}"
                                           method="POST">

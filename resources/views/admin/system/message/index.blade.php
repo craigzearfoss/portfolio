@@ -91,7 +91,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
+                                @if(canDelete($message, $admin))
                                     @csrf
                                     @method('DELETE')
                                     @include('admin.components.button-icon', [
@@ -101,7 +101,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $message, $admin))
+                                @if(canDelete($message, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.system.message.destroy', $message) !!}"
                                           method="POST">

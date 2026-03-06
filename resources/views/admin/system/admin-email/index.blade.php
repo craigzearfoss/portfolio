@@ -116,7 +116,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $adminEmail, $admin))
+                                @if(canDelete($adminEmail, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.system.admin-email.destroy', $adminEmail) !!}"
                                           method="POST">

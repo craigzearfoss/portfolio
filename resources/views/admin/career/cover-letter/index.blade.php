@@ -126,7 +126,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $coverLetter, $admin))
+                                @if(canDelete($coverLetter, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.career.cover-letter.destroy', $coverLetter) !!}"
                                           method="POST">

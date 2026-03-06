@@ -158,7 +158,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $event, $admin))
+                                @if(canDelete($event, $admin))
                                     <form class="delete-resource" action="{!! route('admin.career.event.destroy', $event) !!}" method="POST">
                                         @csrf
                                         @method('DELETE')

@@ -96,7 +96,7 @@
                                     ])
                                 @endif
 
-                                @if(canDelete(PermissionEntityTypes::RESOURCE, $jobSearchLog, $admin))
+                                @if(canDelete($jobSearchLog, $admin))
                                     <form class="delete-resource"
                                           action="{!! route('admin.career.job-search-log.destroy', $jobSearchLog) !!}"
                                           method="POST">
