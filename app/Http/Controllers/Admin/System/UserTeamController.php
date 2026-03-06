@@ -24,7 +24,7 @@ class UserTeamController extends BaseUserController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'user-team', $this->admin);
+        readGate(UserTeam::class , $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -72,7 +72,7 @@ class UserTeamController extends BaseUserController
      */
     public function show(UserTeam $userTeam): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
+        readGate($userTeam, $this->admin);
 
         list($prev, $next) = $userTeam->prevAndNextPages(
             $userTeam['id'],

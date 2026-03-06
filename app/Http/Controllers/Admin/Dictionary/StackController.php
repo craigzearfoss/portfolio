@@ -25,7 +25,7 @@ class StackController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'stack', $this->admin);
+        readGate(Stack::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -77,7 +77,7 @@ class StackController extends BaseAdminController
      */
     public function show(Stack $stack): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $stack, $this->admin);
+        readGate($stack, $this->admin);
 
         list($prev, $next) = $stack->prevAndNextPages(
             $stack['id'],

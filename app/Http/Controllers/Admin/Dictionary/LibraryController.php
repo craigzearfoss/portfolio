@@ -25,7 +25,7 @@ class LibraryController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'library', $this->admin);
+        readGate(Library::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -77,7 +77,7 @@ class LibraryController extends BaseAdminController
      */
     public function show(Library $library): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $library, $this->admin);
+        readGate($library, $this->admin);
 
         list($prev, $next) = $library->prevAndNextPages(
             $library['id'],

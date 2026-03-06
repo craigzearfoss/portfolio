@@ -24,7 +24,7 @@ class CategoryController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'category', $this->admin);
+        readGate(Category::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -76,7 +76,7 @@ class CategoryController extends BaseAdminController
      */
     public function show(Category $category): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $category, $this->admin);
+        readGate($category, $this->admin);
 
         list($prev, $next) = $category->prevAndNextPages(
             $category['id'],

@@ -24,7 +24,7 @@ class MusicController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'music', $this->admin);
+        readGate(Music::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -74,7 +74,7 @@ class MusicController extends BaseAdminController
      */
     public function show(Music $music): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
+        readGate($music, $this->admin);
 
         list($prev, $next) = $music->prevAndNextPages(
             $music['id'],

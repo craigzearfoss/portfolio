@@ -21,7 +21,7 @@ class UserEmailController extends BaseUserController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'user-email', $this->user);
+        readGate(UserEmail::class, $this->user);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -72,7 +72,7 @@ class UserEmailController extends BaseUserController
      */
     public function show(UserEmail $userEmail): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $userEmail, $this->user);
+        readGate($userEmail, $this->user);
 
         list($prev, $next) = $userEmail->prevAndNextPages(
             $userEmail['id'],

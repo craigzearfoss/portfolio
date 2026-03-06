@@ -25,7 +25,7 @@ class CommunicationController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'communication', $this->admin);
+        readGate(Communication::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -100,7 +100,7 @@ class CommunicationController extends BaseAdminController
      */
     public function show(Communication $communication): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
+        readGate($communication, $this->admin);
 
         list($prev, $next) = $communication->prevAndNextPages(
             $communication['id'],

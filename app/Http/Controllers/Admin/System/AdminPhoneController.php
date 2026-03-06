@@ -21,7 +21,7 @@ class AdminPhoneController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'admin-phone', $this->admin);
+        readGate(AdminPhone::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -72,7 +72,7 @@ class AdminPhoneController extends BaseAdminController
      */
     public function show(AdminPhone $adminPhone): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $adminPhone, $this->admin);
+        readGate($adminPhone, $this->admin);
 
         list($prev, $next) = $adminPhone->prevAndNextPages(
             $adminPhone['id'],

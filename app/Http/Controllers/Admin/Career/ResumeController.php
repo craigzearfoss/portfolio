@@ -29,7 +29,7 @@ class ResumeController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'resume', $this->admin);
+        readGate(Resume::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -106,7 +106,7 @@ class ResumeController extends BaseAdminController
      */
     public function show(Resume $resume): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
+        readGate($resume, $this->admin);
 
         list($prev, $next) = $resume->prevAndNextPages(
             $resume['id'],

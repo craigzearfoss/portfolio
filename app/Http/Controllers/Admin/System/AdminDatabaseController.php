@@ -24,7 +24,7 @@ class AdminDatabaseController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'admin-database', $this->admin);
+        readGate(AdminDatabase::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -70,7 +70,7 @@ class AdminDatabaseController extends BaseAdminController
      */
     public function show(AdminDatabase $adminDatabase): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $adminDatabase, $this->admin);
+        readGate($adminDatabase, $this->admin);
 
         list($prev, $next) = $adminDatabase->prevAndNextPages(
             $adminDatabase['id'],

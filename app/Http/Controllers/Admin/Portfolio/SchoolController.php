@@ -26,7 +26,7 @@ class SchoolController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'school', $this->admin);
+        readGate(School::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -78,7 +78,7 @@ class SchoolController extends BaseAdminController
      */
     public function show(School $school): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
+        readGate($school, $this->admin);
 
         list($prev, $next) = $school->prevAndNextPages(
             $school['id'],

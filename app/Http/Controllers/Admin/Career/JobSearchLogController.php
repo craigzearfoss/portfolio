@@ -21,7 +21,7 @@ class JobSearchLogController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'job-search-log', $this->admin);
+        readGate(JobSearchLog::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -72,7 +72,7 @@ class JobSearchLogController extends BaseAdminController
      */
     public function show(JobSearchLog $jobSearchLog): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $jobSearchLog, $this->admin);
+        readGate($jobSearchLog, $this->admin);
 
         list($prev, $next) = $jobSearchLog->prevAndNextPages(
             $jobSearchLog['id'],

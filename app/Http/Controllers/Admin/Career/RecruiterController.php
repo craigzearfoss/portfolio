@@ -21,7 +21,7 @@ class RecruiterController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'recruiter', $this->admin);
+        readGate(Recruiter::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -70,7 +70,7 @@ class RecruiterController extends BaseAdminController
      */
     public function show(Recruiter $recruiter): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
+        readGate($recruiter, $this->admin);
 
         list($prev, $next) = $recruiter->prevAndNextPages(
             $recruiter['id'],

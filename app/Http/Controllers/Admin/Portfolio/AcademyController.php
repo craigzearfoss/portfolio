@@ -24,7 +24,7 @@ class AcademyController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'academy', $this->admin);
+        readGate(Academy::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -76,7 +76,7 @@ class AcademyController extends BaseAdminController
      */
     public function show(Academy $academy): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $academy, $this->admin);
+        readGate($academy, $this->admin);
 
         list($prev, $next) = $academy->prevAndNextPages(
             $academy['id'],

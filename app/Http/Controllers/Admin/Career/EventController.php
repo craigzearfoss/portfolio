@@ -25,7 +25,7 @@ class EventController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'event', $this->admin);
+        readGate(Event::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -100,7 +100,7 @@ class EventController extends BaseAdminController
      */
     public function show(Event $event): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
+        readGate($event, $this->admin);
 
         list($prev, $next) = $event->prevAndNextPages(
             $event['id'],

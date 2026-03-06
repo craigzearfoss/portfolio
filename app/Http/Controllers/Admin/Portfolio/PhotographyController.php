@@ -25,7 +25,7 @@ class PhotographyController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'photography', $this->admin);
+        readGate(Photography::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -75,7 +75,7 @@ class PhotographyController extends BaseAdminController
      */
     public function show(Photography $photography): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $photo = $photography, $this->admin);
+        readGate($photo = $photography, $this->admin);
 
         list($prev, $next) = $photography->prevAndNextPages(
             $photo['id'],

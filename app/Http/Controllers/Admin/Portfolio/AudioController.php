@@ -24,7 +24,7 @@ class AudioController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'audio', $this->admin);
+        readGate(Audio::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -75,7 +75,7 @@ class AudioController extends BaseAdminController
      */
     public function show(Audio $audio): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
+        readGate($audio, $this->admin);
 
         list($prev, $next) = $audio->prevAndNextPages(
             $audio['id'],

@@ -24,7 +24,7 @@ class LinkController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'link', $this->admin);
+        readGate(Link::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -76,7 +76,7 @@ class LinkController extends BaseAdminController
      */
     public function show(Link $link): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
+        readGate($link, $this->admin);
 
         list($prev, $next) = $link->prevAndNextPages(
             $link['id'],

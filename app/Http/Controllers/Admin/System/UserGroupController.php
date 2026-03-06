@@ -24,7 +24,7 @@ class UserGroupController extends BaseUserController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'user-group', $this->admin);
+        readGate(UserGroup::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -72,7 +72,7 @@ class UserGroupController extends BaseUserController
      */
     public function show(UserGroup $userGroup): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
+        readGate($userGroup, $this->admin);
 
         list($prev, $next) = $userGroup->prevAndNextPages(
             $userGroup['id'],

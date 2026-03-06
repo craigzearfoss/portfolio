@@ -24,7 +24,7 @@ class IndustryController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'industry', $this->admin);
+        readGate(Industry::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -74,7 +74,7 @@ class IndustryController extends BaseAdminController
      */
     public function show(Industry $industry): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
+        readGate($industry, $this->admin);
 
         list($prev, $next) = $industry->prevAndNextPages(
             $industry['id'],

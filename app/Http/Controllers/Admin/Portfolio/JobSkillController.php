@@ -26,7 +26,7 @@ class JobSkillController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'job-skill', $this->admin);
+        readGate(JobSkill::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -124,7 +124,7 @@ class JobSkillController extends BaseAdminController
      */
     public function show(JobSkill $jobSkill): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
+        readGate($jobSkill, $this->admin);
 
         list($prev, $next) = new JobSkill()->prevAndNextPages(
             $jobSkill['id'],

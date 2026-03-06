@@ -27,7 +27,7 @@ class ApplicationController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'application', $this->admin);
+        readGate(Application::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -121,7 +121,7 @@ class ApplicationController extends BaseAdminController
      */
     public function show(Application $application): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
+        readGate($application, $this->admin);
 
         if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);

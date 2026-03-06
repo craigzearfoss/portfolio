@@ -24,7 +24,7 @@ class ArtController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'art', $this->admin);
+        readGate(Art::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -76,7 +76,7 @@ class ArtController extends BaseAdminController
      */
     public function show(Art $art): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
+        readGate($art, $this->admin);
 
         list($prev, $next) = $art->prevAndNextPages(
             $art['id'],

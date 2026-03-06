@@ -25,7 +25,7 @@ class NoteController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'note', $this->admin);
+        readGate(Note::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -100,7 +100,7 @@ class NoteController extends BaseAdminController
      */
     public function show(Note $note): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
+        readGate($note, $this->admin);
 
         list($prev, $next) = $note->prevAndNextPages(
             $note['id'],

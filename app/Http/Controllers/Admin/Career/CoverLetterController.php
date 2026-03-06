@@ -24,7 +24,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'cover-letter', $this->admin);
+        readGate(CoverLetter::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -75,7 +75,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function show(CoverLetter $coverLetter): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
+        readGate($coverLetter, $this->admin);
 
         list($prev, $next) = $coverLetter->prevAndNextPages(
             $coverLetter['id'],

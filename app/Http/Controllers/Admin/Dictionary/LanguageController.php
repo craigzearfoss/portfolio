@@ -25,7 +25,7 @@ class LanguageController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'language', $this->admin);
+        readGate(\Lang::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -77,7 +77,7 @@ class LanguageController extends BaseAdminController
      */
     public function show(Language $language): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $language, $this->admin);
+        readGate($language, $this->admin);
 
         list($prev, $next) = $language->prevAndNextPages(
             $language['id'],

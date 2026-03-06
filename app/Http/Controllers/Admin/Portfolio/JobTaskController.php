@@ -26,7 +26,7 @@ class JobTaskController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'job-task', $this->admin);
+        readGate(JobTask::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -124,7 +124,7 @@ class JobTaskController extends BaseAdminController
      */
     public function show(JobTask $jobTask): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
+        readGate($jobTask, $this->admin);
 
         list($prev, $next) = new JobTask()->prevAndNextPages(
             $jobTask['id'],

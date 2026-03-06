@@ -8,6 +8,7 @@ use App\Http\Requests\Dictionary\StoreDatabasesRequest;
 use App\Http\Requests\Dictionary\UpdateDatabasesRequest;
 use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Database;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -25,7 +26,7 @@ class DatabaseController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'database', $this->admin);
+        readGate(Database::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -77,7 +78,7 @@ class DatabaseController extends BaseAdminController
      */
     public function show(Database $database): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
+        readGate($database, $this->admin);
 
         list($prev, $next) = $database->prevAndNextPages(
             $database['id'],

@@ -25,7 +25,7 @@ class UserController extends BaseUserController
      */
     public function index(Request $request): View|RedirectResponse
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'user', $this->admin);
+        readGate(User::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -85,7 +85,7 @@ class UserController extends BaseUserController
      */
     public function show(User $user): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $user, $this->admin);
+        readGate($user, $this->admin);
 
         $thisUser = $user;
 

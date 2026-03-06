@@ -24,7 +24,7 @@ class CertificationController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'certification', $this->admin);
+        readGate(Certification::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -75,7 +75,7 @@ class CertificationController extends BaseAdminController
      */
     public function show(Certification $certification): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
+        readGate($certification, $this->admin);
 
         list($prev, $next) = $certification->prevAndNextPages(
             $certification['id'],

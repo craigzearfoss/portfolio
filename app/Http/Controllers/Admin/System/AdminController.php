@@ -29,7 +29,7 @@ class AdminController extends BaseAdminController
      */
     public function index(Request $request): View|RedirectResponse
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'admin', $this->admin);
+        readGate(Admin::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -95,7 +95,7 @@ class AdminController extends BaseAdminController
      */
     public function show(Admin $admin): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $admin, $this->admin);
+        readGate($admin, $this->admin);
 
         $thisAdmin = $admin;
 
@@ -118,7 +118,7 @@ class AdminController extends BaseAdminController
      */
     public function profile(Admin $admin): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $admin, $this->admin);
+        readGate($admin, $this->admin);
 
         $thisAdmin = $admin;
 

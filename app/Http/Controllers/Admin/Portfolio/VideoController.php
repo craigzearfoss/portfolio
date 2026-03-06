@@ -24,7 +24,7 @@ class VideoController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'video', $this->admin);
+        readGate(Video::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -75,7 +75,7 @@ class VideoController extends BaseAdminController
      */
     public function show(Video $video): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
+        readGate($video, $this->admin);
 
         list($prev, $next) = $video->prevAndNextPages(
             $video['id'],

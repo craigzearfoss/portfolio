@@ -25,7 +25,7 @@ class FrameworkController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'framework', $this->admin);
+        readGate(Framework::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -77,7 +77,7 @@ class FrameworkController extends BaseAdminController
      */
     public function show(Framework $framework): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $framework, $this->admin);
+        readGate($framework, $this->admin);
 
         list($prev, $next) = $framework->prevAndNextPages(
             $framework['id'],

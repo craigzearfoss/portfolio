@@ -26,7 +26,7 @@ class CompanyController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'company', $this->admin);
+        readGate(Company::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -90,7 +90,7 @@ class CompanyController extends BaseAdminController
      */
     public function show(Company $company): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+        readGate($company, $this->admin);
 
         list($prev, $next) = $company->prevAndNextPages(
             $company['id'],

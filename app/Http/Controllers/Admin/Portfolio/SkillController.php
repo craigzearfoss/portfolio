@@ -24,7 +24,7 @@ class SkillController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'skill', $this->admin);
+        readGate(Skill::class, $this->admin);
 
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
@@ -75,7 +75,7 @@ class SkillController extends BaseAdminController
      */
     public function show(Skill $skill): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
+        readGate($skill, $this->admin);
 
         list($prev, $next) = $skill->prevAndNextPages(
             $skill['id'],

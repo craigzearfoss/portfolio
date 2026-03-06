@@ -24,7 +24,7 @@ class AwardController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'award', $this->admin);
+        readGate(Award::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -76,7 +76,7 @@ class AwardController extends BaseAdminController
      */
     public function show(Award $award): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
+        readGate($award, $this->admin);
 
         list($prev, $next) = $award->prevAndNextPages(
             $award['id'],

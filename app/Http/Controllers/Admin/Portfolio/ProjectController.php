@@ -24,7 +24,7 @@ class ProjectController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'project', $this->admin);
+        readGate(Project::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -74,7 +74,7 @@ class ProjectController extends BaseAdminController
      */
     public function show(Project $project): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
+        readGate($project, $this->admin);
 
         list($prev, $next) = $project->prevAndNextPages(
             $project['id'],

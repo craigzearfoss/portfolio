@@ -24,7 +24,7 @@ class ReferenceController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'reference', $this->admin);
+        readGate(Reference::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -75,7 +75,7 @@ class ReferenceController extends BaseAdminController
      */
     public function show(Reference $reference): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
+        readGate($reference, $this->admin);
 
         list($prev, $next) = $reference->prevAndNextPages(
             $reference['id'],

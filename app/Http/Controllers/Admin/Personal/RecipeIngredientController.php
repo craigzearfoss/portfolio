@@ -26,7 +26,7 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'recipe-ingredient', $this->admin);
+        readGate(RecipeIngredient::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -80,7 +80,7 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function show(RecipeIngredient $recipeIngredient): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $recipeIngredient, $this->admin);
+        readGate($recipeIngredient, $this->admin);
 
         list($prev, $next) = $recipeIngredient->prevAndNextPages(
             $recipeIngredient['id'],

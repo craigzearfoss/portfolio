@@ -25,7 +25,7 @@ class AdminResourceController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'admin-resource', $this->admin);
+        readGate(AdminResource::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -76,7 +76,7 @@ class AdminResourceController extends BaseAdminController
      */
     public function show(AdminResource $adminResource): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $adminResource, $this->admin);
+        readGate($adminResource, $this->admin);
 
         list($prev, $next) = $adminResource->prevAndNextPages(
             $adminResource['id'],

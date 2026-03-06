@@ -24,7 +24,7 @@ class AdminEmailController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'admin-email', $this->admin);
+        readGate(AdminEmail::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -75,7 +75,7 @@ class AdminEmailController extends BaseAdminController
      */
     public function show(AdminEmail $adminEmail): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $adminEmail, $this->admin);
+        readGate($adminEmail, $this->admin);
 
         list($prev, $next) = $adminEmail->prevAndNextPages(
             $adminEmail['id'],

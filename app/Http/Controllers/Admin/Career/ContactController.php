@@ -26,7 +26,7 @@ class ContactController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'contact', $this->admin);
+        readGate(Contact::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -77,7 +77,7 @@ class ContactController extends BaseAdminController
      */
     public function show(Contact $contact): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
+        readGate($contact, $this->admin);
 
         list($prev, $next) = $contact->prevAndNextPages(
             $contact['id'],

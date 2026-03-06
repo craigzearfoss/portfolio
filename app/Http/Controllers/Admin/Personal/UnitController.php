@@ -24,7 +24,7 @@ class UnitController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'unit', $this->admin);
+        readGate(Unit::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -74,7 +74,7 @@ class UnitController extends BaseAdminController
      */
     public function show(Unit $unit): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
+        readGate($unit, $this->admin);
 
         list($prev, $next) = $unit->prevAndNextPages(
             $unit['id'],

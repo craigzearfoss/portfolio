@@ -22,7 +22,7 @@ class UserPhoneController extends BaseUserController
      */
     public function index(Request $request): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, 'user-phone', $this->user);
+        readGate(UserPhone::class, $this->user);
 
         $perPage = $request->query('per_page', $this->perPage());
 
@@ -73,7 +73,7 @@ class UserPhoneController extends BaseUserController
      */
     public function show(UserPhone $userPhone): View
     {
-        readGate(PermissionEntityTypes::RESOURCE, $userPhone, $this->user);
+        readGate($userPhone, $this->user);
 
         list($prev, $next) = $userPhone->prevAndNextPages(
             $userPhone['id'],
