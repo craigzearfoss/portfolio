@@ -125,7 +125,7 @@ class PhotographyController extends BaseAdminController
      */
     public function destroy(Photography $photo): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $photo, $this->admin);
+        deleteGate($photo, $this->admin);
 
         $photo->delete();
 

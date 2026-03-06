@@ -125,7 +125,7 @@ class CertificationController extends BaseAdminController
      */
     public function destroy(Certification $certification): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $certification, $this->admin);
+        deleteGate($certification, $this->admin);
 
         $certification->delete();
 

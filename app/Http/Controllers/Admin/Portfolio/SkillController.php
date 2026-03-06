@@ -125,7 +125,7 @@ class SkillController extends BaseAdminController
      */
     public function destroy(Skill $skill): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $skill, $this->admin);
+        deleteGate($skill, $this->admin);
 
         $skill->delete();
 

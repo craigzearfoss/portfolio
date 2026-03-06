@@ -125,7 +125,7 @@ class AdminTeamController extends BaseAdminController
      */
     public function destroy(AdminTeam $adminTeam): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $adminTeam, $this->admin);
+        deleteGate($adminTeam, $this->admin);
 
         $adminTeam->delete();
 

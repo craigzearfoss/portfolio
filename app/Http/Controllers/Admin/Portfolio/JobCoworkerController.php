@@ -162,7 +162,7 @@ class JobCoworkerController extends BaseAdminController
      */
     public function destroy(JobCoworker $jobCoworker): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $jobCoworker, $this->admin);
+        deleteGate($jobCoworker, $this->admin);
 
         $jobCoworker->delete();
 

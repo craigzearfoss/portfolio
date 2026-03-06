@@ -128,7 +128,7 @@ class RecipeStepController extends BaseAdminController
      */
     public function destroy(RecipeStep $recipeStep): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $recipeStep, $this->admin);
+        deleteGate($recipeStep, $this->admin);
 
         $recipeStep->delete();
 

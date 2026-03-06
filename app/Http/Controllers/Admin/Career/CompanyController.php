@@ -140,7 +140,7 @@ class CompanyController extends BaseAdminController
      */
     public function destroy(Company $company): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $company, $this->admin);
+        deleteGate($company, $this->admin);
 
         $company->delete();
 

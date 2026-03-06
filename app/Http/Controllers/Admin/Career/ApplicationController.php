@@ -176,7 +176,7 @@ class ApplicationController extends BaseAdminController
      */
     public function destroy(Application $application): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $application, $this->admin);
+        deleteGate($application, $this->admin);
 
         $application->delete();
 

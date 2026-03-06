@@ -126,7 +126,7 @@ class CoverLetterController extends BaseAdminController
      */
     public function destroy(CoverLetter $coverLetter): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $coverLetter, $this->admin);
+        deleteGate($coverLetter, $this->admin);
 
         $coverLetter->delete();
 

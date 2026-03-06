@@ -180,7 +180,7 @@ class ResumeController extends BaseAdminController
      */
     public function destroy(Resume $resume): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $resume, $this->admin);
+        deleteGate($resume, $this->admin);
 
         $resume->delete();
 

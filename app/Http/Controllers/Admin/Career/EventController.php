@@ -164,7 +164,7 @@ class EventController extends BaseAdminController
      */
     public function destroy(Event $event): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $event, $this->admin);
+        deleteGate($event, $this->admin);
 
         $event->delete();
 

@@ -120,7 +120,7 @@ class UserTeamController extends BaseUserController
      */
     public function destroy(UserTeam $userTeam): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $userTeam, $this->admin);
+        deleteGate($userTeam, $this->admin);
 
         $userTeam->delete();
 

@@ -125,7 +125,7 @@ class ReferenceController extends BaseAdminController
      */
     public function destroy(Reference $reference): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $reference, $this->admin);
+        deleteGate( $reference, $this->admin);
 
         $reference->delete();
 

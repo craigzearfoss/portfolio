@@ -124,7 +124,7 @@ class ProjectController extends BaseAdminController
      */
     public function destroy(Project $project): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $project, $this->admin);
+        deleteGate($project, $this->admin);
 
         $project->delete();
 

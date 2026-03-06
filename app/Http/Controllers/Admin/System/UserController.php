@@ -135,7 +135,7 @@ class UserController extends BaseUserController
      */
     public function destroy(User $user): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $user, $this->admin);
+        deleteGate($user, $this->admin);
 
         $user->delete();
 

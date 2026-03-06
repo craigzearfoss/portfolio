@@ -125,7 +125,7 @@ class VideoController extends BaseAdminController
      */
     public function destroy(Video $video): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $video, $this->admin);
+        deleteGate($video, $this->admin);
 
         $video->delete();
 

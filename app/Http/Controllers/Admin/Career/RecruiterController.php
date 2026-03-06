@@ -120,7 +120,7 @@ class RecruiterController extends BaseAdminController
      */
     public function destroy(Recruiter $recruiter): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $recruiter, $this->admin);
+        deleteGate($recruiter, $this->admin);
 
         $recruiter->delete();
 

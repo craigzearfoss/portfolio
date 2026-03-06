@@ -133,7 +133,7 @@ class DatabaseController extends BaseAdminController
      */
     public function destroy(Database $database, Request $request): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $database, $this->admin);
+        deleteGate($database, $this->admin);
 
         $database->delete();
 

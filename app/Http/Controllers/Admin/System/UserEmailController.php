@@ -122,7 +122,7 @@ class UserEmailController extends BaseUserController
      */
     public function destroy(UserEmail $userEmail): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $userEmail, $this->user);
+        deleteGate($userEmail, $this->user);
 
         $userEmail->delete();
 

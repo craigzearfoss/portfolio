@@ -126,7 +126,7 @@ class AwardController extends BaseAdminController
      */
     public function destroy(Award $award): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $award, $this->admin);
+        deleteGate($award, $this->admin);
 
         $award->delete();
 

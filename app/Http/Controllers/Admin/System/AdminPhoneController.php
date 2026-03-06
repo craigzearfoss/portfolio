@@ -122,7 +122,7 @@ class AdminPhoneController extends BaseAdminController
      */
     public function destroy(AdminPhone $adminPhone): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $adminPhone, $this->admin);
+        deleteGate($adminPhone, $this->admin);
 
         $adminPhone->delete();
 

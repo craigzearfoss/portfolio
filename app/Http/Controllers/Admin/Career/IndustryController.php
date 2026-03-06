@@ -124,7 +124,7 @@ class IndustryController extends BaseAdminController
      */
     public function destroy(Industry $industry): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $industry, $this->admin);
+        deleteGate($industry, $this->admin);
 
         $industry->delete();
 

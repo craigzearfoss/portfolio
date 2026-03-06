@@ -33,7 +33,7 @@ class UserPhoneController extends BaseUserController
 
         $pageTitle = 'User Phone Numbers';
 
-        return view('user.system.user-phone.index', compact('userPhones', 'pageTitle'))
+        return view('admin.system.user-phone.index', compact('userPhones', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,7 +46,7 @@ class UserPhoneController extends BaseUserController
     {
         createGate(UserPhone::class, $this->user);
 
-        return view('user.system.user-phone.create');
+        return view('admin.system.user-phone.create');
     }
 
     /**
@@ -82,7 +82,7 @@ class UserPhoneController extends BaseUserController
             [ 'name', 'asc' ]
         );
 
-        return view('user.system.user-phone.show', compact('userPhone', 'prev', 'next'));
+        return view('admin.system.user-phone.show', compact('userPhone', 'prev', 'next'));
     }
 
     /**
@@ -95,7 +95,7 @@ class UserPhoneController extends BaseUserController
     {
         updateGate($userPhone, $this->user);
 
-        return view('user.system.user-phone.edit', compact('userPhone'));
+        return view('admin.system.user-phone.edit', compact('userPhone'));
     }
 
     /**
@@ -123,7 +123,7 @@ class UserPhoneController extends BaseUserController
      */
     public function destroy(UserPhone $userPhone): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $userPhone, $this->user);
+        deleteGate($userPhone, $this->user);
 
         $userPhone->delete();
 

@@ -127,7 +127,7 @@ class ReadingController extends BaseAdminController
      */
     public function destroy(Reading $reading): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $reading, $this->admin);
+        deleteGate($reading, $this->admin);
 
         $reading->delete();
 

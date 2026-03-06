@@ -126,7 +126,7 @@ class ArtController extends BaseAdminController
      */
     public function destroy(Art $art): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $art, $this->admin);
+        deleteGate($art, $this->admin);
 
         $art->delete();
 

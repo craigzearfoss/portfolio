@@ -124,7 +124,7 @@ class MusicController extends BaseAdminController
      */
     public function destroy(Music $music): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $music, $this->admin);
+        deleteGate($music, $this->admin);
 
         $music->delete();
 

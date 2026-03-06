@@ -124,7 +124,7 @@ class UnitController extends BaseAdminController
      */
     public function destroy(Unit $unit): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $unit, $this->admin);
+        deleteGate($unit, $this->admin);
 
         $unit->delete();
 

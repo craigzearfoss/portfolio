@@ -124,7 +124,7 @@ class JobBoardController extends BaseAdminController
      */
     public function destroy(JobBoard $jobBoard): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $jobBoard, $this->admin);
+        deleteGate($jobBoard, $this->admin);
 
         $jobBoard->delete();
 

@@ -164,7 +164,7 @@ class NoteController extends BaseAdminController
      */
     public function destroy(Note $note): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $note, $this->admin);
+        deleteGate($note, $this->admin);
 
         $note->delete();
 

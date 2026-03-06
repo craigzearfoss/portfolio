@@ -127,7 +127,7 @@ class ContactController extends BaseAdminController
      */
     public function destroy(Contact $contact): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $contact, $this->admin);
+        deleteGate($contact, $this->admin);
 
         $contact->delete();
 

@@ -174,7 +174,7 @@ class JobTaskController extends BaseAdminController
      */
     public function destroy(JobTask $jobTask): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $jobTask, $this->admin);
+        deleteGate($jobTask, $this->admin);
 
         $jobTask->delete();
 

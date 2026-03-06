@@ -125,7 +125,7 @@ class AudioController extends BaseAdminController
      */
     public function destroy(Audio $audio): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $audio, $this->admin);
+        deleteGate($audio, $this->admin);
 
         $audio->delete();
 

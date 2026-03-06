@@ -46,7 +46,7 @@ class PublicationController extends BaseAdminController
      */
     public function create(): View
     {
-        createGate(Publicication::class, $this->admin);
+        createGate(Publication::class, $this->admin);
 
         return view('admin.portfolio.publication.create');
     }
@@ -125,7 +125,7 @@ class PublicationController extends BaseAdminController
      */
     public function destroy(Publication $publication): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $publication, $this->admin);
+        deleteGate($publication, $this->admin);
 
         $publication->delete();
 

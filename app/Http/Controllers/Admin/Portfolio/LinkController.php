@@ -126,7 +126,7 @@ class LinkController extends BaseAdminController
      */
     public function destroy(Link $link): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $link, $this->admin);
+        deleteGate($link, $this->admin);
 
         $link->delete();
 

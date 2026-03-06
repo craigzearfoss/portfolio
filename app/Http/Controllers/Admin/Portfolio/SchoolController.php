@@ -128,7 +128,7 @@ class SchoolController extends BaseAdminController
      */
     public function destroy(School $school): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $school, $this->admin);
+        deleteGate($school, $this->admin);
 
         $school->delete();
 

@@ -125,7 +125,7 @@ class AdminEmailController extends BaseAdminController
      */
     public function destroy(AdminEmail $adminEmail): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $adminEmail, $this->admin);
+        deleteGate($adminEmail, $this->admin);
 
         $adminEmail->delete();
 

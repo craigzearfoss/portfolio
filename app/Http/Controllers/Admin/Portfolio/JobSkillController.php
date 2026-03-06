@@ -174,7 +174,7 @@ class JobSkillController extends BaseAdminController
      */
     public function destroy(JobSkill $jobSkill): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $jobSkill, $this->admin);
+        deleteGate($jobSkill, $this->admin);
 
         $jobSkill->delete();
 

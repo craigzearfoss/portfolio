@@ -92,7 +92,7 @@ class JobSearchLogController extends BaseAdminController
      */
     public function destroy(JobSearchLog $jobSearchLog): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $jobSearchLog, $this->admin);
+        deleteGate($jobSearchLog, $this->admin);
 
         $jobSearchLog->delete();
 

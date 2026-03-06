@@ -165,7 +165,7 @@ class CommunicationController extends BaseAdminController
      */
     public function destroy(Communication $communication): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $communication, $this->admin);
+        deleteGate($communication, $this->admin);
 
         $communication->delete();
 

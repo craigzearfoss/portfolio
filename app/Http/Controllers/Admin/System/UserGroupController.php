@@ -120,7 +120,7 @@ class UserGroupController extends BaseUserController
      */
     public function destroy(UserGroup $userGroup): RedirectResponse
     {
-        deleteGate(PermissionEntityTypes::RESOURCE, $userGroup, $this->admin);
+        deleteGate($userGroup, $this->admin);
 
         $userGroup->delete();
 
