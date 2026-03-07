@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCompanyContactsRequest;
 use App\Http\Requests\Career\StoreCompaniesRequest;

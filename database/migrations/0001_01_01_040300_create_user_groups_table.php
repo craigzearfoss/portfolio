@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\System\Owner;
 use App\Models\System\UserGroup;
-use App\Models\System\UserTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

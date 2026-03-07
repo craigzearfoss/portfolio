@@ -1,9 +1,5 @@
 <?php
 
-use App\Models\Career\Company;
-use App\Models\Career\CompanyContact;
-use App\Models\Career\Contact;
-use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

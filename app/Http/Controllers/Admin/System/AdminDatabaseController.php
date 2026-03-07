@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminDatabasesRequest;
 use App\Http\Requests\System\UpdateAdminDatabasesRequest;

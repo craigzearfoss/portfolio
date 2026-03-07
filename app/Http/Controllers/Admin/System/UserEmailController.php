@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\System\StoreUserEmailsRequest;
 use App\Http\Requests\System\UpdateUserEmailsRequest;
@@ -11,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class UserEmailController extends BaseUserController
 {
     /**

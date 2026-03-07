@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobCoworkersRequest;
 use App\Http\Requests\Portfolio\UpdateJobCoworkersRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

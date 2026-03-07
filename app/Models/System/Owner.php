@@ -2,7 +2,6 @@
 
 namespace App\Models\System;
 
-use App\Enums\EnvTypes;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
@@ -30,7 +29,6 @@ use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

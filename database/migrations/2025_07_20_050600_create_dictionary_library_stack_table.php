@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Dictionary\Library;
-use App\Models\Dictionary\Stack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

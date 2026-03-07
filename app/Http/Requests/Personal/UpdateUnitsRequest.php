@@ -5,8 +5,10 @@ namespace App\Http\Requests\Personal;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
+/**
+ *
+ */
 class UpdateUnitsRequest extends FormRequest
 {
     use ModelPermissionsTrait;

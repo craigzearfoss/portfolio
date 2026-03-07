@@ -2,12 +2,14 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Portfolio\JobSkill;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class UpdateJobSkillsRequest extends FormRequest
 {
     use ModelPermissionsTrait;

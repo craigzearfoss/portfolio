@@ -39,8 +39,6 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        $ingredientModel = new Ingredient();
-
         $data = [
             ['id'=> 1,   'full_name' => 'acai-berries',                        'name' => 'acai-berries',                     'slug' => 'acai-berries'],
             ['id'=> 2,   'full_name' => 'agave nectar',                        'name' => 'agave nectar',                     'slug' => 'agave-nectar'],

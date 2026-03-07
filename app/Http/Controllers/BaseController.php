@@ -11,9 +11,6 @@ use App\Services\CookieManagerService;
 use App\Services\MenuService;
 use App\Services\PermissionService;
 use Exception;
-use http\Env;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use JetBrains\PhpStorm\NoReturn;
 

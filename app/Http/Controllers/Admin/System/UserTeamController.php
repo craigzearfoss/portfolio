@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\System\StoreUserTeamsRequest;
 use App\Http\Requests\System\UpdateUserTeamsRequest;

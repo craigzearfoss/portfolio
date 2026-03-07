@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreOperatingSystemsRequest;
 use App\Http\Requests\Dictionary\UpdateOperatingSystemsRequest;

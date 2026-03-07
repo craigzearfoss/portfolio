@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipesRequest;
 use App\Http\Requests\Personal\UpdateRecipesRequest;

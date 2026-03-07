@@ -5,8 +5,10 @@ namespace App\Http\Requests\System;
 use App\Models\System\SiteSetting;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class StoreSiteSettingsRequest extends FormRequest
 {
     /**

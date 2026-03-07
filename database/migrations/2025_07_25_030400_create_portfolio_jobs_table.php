@@ -1,9 +1,6 @@
 <?php
 
-use App\Models\Portfolio\JobEmploymentType;
-use App\Models\Portfolio\JobLocationType;
 use App\Models\System\Database;
-use App\Models\System\Owner;
 use App\Models\System\Resource;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -33,7 +30,7 @@ return new class extends Migration
                 . config('app.system_db') . '.databases table.');
         }
 
-        if (!$jobResource = new Resource()->where('database_id', $database->id)->where('table_name', 'jobs')->first()) {
+        if (!new Resource()->where('database_id', $database->id)->where('table_name', 'jobs')->first()) {
             abort(500, 'Resource with name `job` not found in ' . config('system_db') . '.resources table.');
         }
 

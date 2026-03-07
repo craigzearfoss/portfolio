@@ -1,9 +1,5 @@
 <?php
 
-use App\Models\Portfolio\DegreeType;
-use App\Models\Portfolio\Education;
-use App\Models\Portfolio\School;
-use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

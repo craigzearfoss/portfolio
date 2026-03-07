@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\Portfolio\Job;
-use App\Models\Portfolio\JobCoworker;
-use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

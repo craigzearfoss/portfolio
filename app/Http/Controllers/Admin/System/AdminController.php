@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Enums\EnvTypes;
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminsRequest;
 use App\Http\Requests\System\UpdateAdminsRequest;

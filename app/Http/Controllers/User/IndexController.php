@@ -203,7 +203,7 @@ class IndexController extends BaseUserController
      */
     public function reset_password($token, $email): RedirectResponse|View
     {
-        if (!$user = new User()->where('email', $email)->where('token', $token)->first()) {
+        if (!new User()->where('email', $email)->where('token', $token)->first()) {
             return redirect()->route('admin.login')
                 ->with('error', 'Your reset password token is expired. Please try again.');
         } else {

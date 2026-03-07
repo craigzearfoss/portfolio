@@ -19,8 +19,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $dbName = config('app.' . $this->database_tag);
-
         Schema::connection($this->database_tag)->create('admin_databases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('owner_id')

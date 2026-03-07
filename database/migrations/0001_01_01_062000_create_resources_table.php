@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\System\Database;
-use App\Models\System\Owner;
 use App\Models\System\Resource;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

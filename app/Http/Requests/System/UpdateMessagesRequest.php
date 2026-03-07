@@ -5,8 +5,10 @@ namespace App\Http\Requests\System;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
+/**
+ *
+ */
 class UpdateMessagesRequest extends FormRequest
 {
     use ModelPermissionsTrait;

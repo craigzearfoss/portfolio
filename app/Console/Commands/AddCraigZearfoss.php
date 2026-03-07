@@ -15,10 +15,8 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use PHPUnit\Event\Runtime\PHP;
 use function Laravel\Prompts\text;
 
 /**
@@ -216,7 +214,7 @@ class AddCraigZearfoss extends Command
             echo 'group_id: ' . $adminGroupId . PHP_EOL;
             echo 'is_demo:  ' . $this->is_demo . PHP_EOL;
 
-            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+            text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         /* --------------------------------------------------------------------------- */
@@ -230,7 +228,7 @@ class AddCraigZearfoss extends Command
         $this->insertSystemAdminResourceRows($adminId);
 
         // get the name of the init files
-        $initFile = ucfirst(Str::camel($this->username)) . '.php';
+        ucfirst(Str::camel($this->username)) . '.php';
 
         /* --------------------------------------------------------------------------- */
         /* Import into the portfolio database.                                         */

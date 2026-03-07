@@ -197,7 +197,7 @@ class IndexController extends BaseAdminController
      */
     public function reset_password($token, $email): RedirectResponse|View
     {
-        if (!$admin = new Admin()->where('email', $email)->where('token', $token)->first()) {
+        if (!new Admin()->where('email', $email)->where('token', $token)->first()) {
             return redirect()->route('admin.login')
                 ->with('error', 'Your reset password token is expired. Please try again.');
         } else {
@@ -303,7 +303,7 @@ class IndexController extends BaseAdminController
             $realFileExt = explode('.', $filePathParts[count($filePathParts) - 1])[1] ?? '';
 
             if (!empty($realFileName)) {
-                if (!$newFileNameExt = explode('.', $newFileName)[1] ?? false) {
+                if (!explode('.', $newFileName)[1] ?? false) {
                     $newFileName = $newFileName . '.' . $realFileExt;
                 }
             }

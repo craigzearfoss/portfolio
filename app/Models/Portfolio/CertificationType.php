@@ -2,7 +2,6 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Portfolio\Certification;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

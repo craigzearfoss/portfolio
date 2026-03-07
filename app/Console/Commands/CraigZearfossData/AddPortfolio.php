@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\CraigZearfossData;
 
-use App\Http\Requests\System\StoreAdminsRequest;
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
 use App\Models\Portfolio\Award;
@@ -15,7 +14,6 @@ use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\JobTask;
 use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
-use App\Models\Portfolio\Photography;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
@@ -29,7 +27,6 @@ use App\Models\System\Resource;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 /**
@@ -113,7 +110,7 @@ class AddPortfolio extends Command
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
             echo 'demo: ' . $this->is_demo . PHP_EOL;
-            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+            text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         // portfolio

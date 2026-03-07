@@ -5,9 +5,11 @@ namespace Database\Seeders;
 use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ *
+ */
 class CareerCompanyContactSeeder extends Seeder
 {
     /**

@@ -3,10 +3,12 @@
 namespace App\Http\Requests\System;
 
 use App\Models\System\SettingType;
-use Hamcrest\Core\Set;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ *
+ */
 class StoreSettingTypesRequest extends FormRequest
 {
     /**

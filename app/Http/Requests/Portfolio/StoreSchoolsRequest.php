@@ -6,10 +6,11 @@ use App\Models\Portfolio\School;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class StoreSchoolsRequest extends FormRequest
 {
     use ModelPermissionsTrait;

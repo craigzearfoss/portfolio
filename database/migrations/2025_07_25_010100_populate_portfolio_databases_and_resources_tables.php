@@ -89,8 +89,6 @@ return new class extends Migration
             // Note that the parent id refers to the id from the resource table, of the resource_id frm the admin_resources table.
             $resourceId = $resourceModel->withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
 
-            $jobResourceId = null;
-
             $data = [];
 
             $data[] = [

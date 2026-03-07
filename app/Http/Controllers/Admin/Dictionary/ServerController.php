@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreServersRequest;
 use App\Http\Requests\Dictionary\UpdateServersRequest;

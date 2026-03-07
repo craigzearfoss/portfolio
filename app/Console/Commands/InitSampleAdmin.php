@@ -17,7 +17,6 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Random\RandomException;
@@ -165,7 +164,7 @@ class InitSampleAdmin extends Command
                 echo 'If you want to assign a password, re-run the command with the --password option.' . $password . PHP_EOL;
             }
 
-            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+            text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         $this->silent = true;

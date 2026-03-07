@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MessageStoreRequest;
-use App\Models\System\Message;
 use App\Services\PermissionService;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -16,6 +13,9 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+/**
+ *
+ */
 class IndexController extends BaseController
 {
     public function __construct(PermissionService $permissionService, Request $request)
@@ -55,7 +55,7 @@ class IndexController extends BaseController
             $realFileExt = explode('.', $filePathParts[count($filePathParts) - 1])[1] ?? '';
 
             if (!empty($realFileName)) {
-                if (!$newFileNameExt = explode('.', $newFileName)[1] ?? false) {
+                if (!explode('.', $newFileName)[1] ?? false) {
                     $newFileName = $newFileName . '.' . $realFileExt;
                 }
             }

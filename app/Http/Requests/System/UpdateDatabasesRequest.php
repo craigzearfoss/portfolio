@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\System\Database;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;

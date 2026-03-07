@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Enums\PermissionEntityTypes;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobSkillsRequest;
 use App\Http\Requests\Portfolio\UpdateJobSkillsRequest;
@@ -43,7 +42,7 @@ class JobSkillController extends BaseAdminController
 
                 $query = $jobSkillModel->where('job_id', $jobId)
                     ->orderBy('name');
-                if (($owner_id = $request->owner) && ($owner = new Owner()->findOrFail($owner_id))) {
+                if (($owner_id = $request->owner) && (new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
 
@@ -52,8 +51,6 @@ class JobSkillController extends BaseAdminController
                 $query = $jobSkillModel->where('job_id', $jobId)
                     ->where('owner_id', $this->owner->id)
                     ->orderBy('name');
-                $owner = $this->owner;
-                $owner_id = $owner->id;
             }
 
             $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
@@ -63,7 +60,7 @@ class JobSkillController extends BaseAdminController
             if (isRootAdmin()) {
 
                 $query = $jobSkillModel->orderBy('name');
-                if (($owner_id = $request->get('owner_id')) && ($owner = new Owner()->findOrFail($owner_id))) {
+                if (($owner_id = $request->get('owner_id')) && (new Owner()->findOrFail($owner_id))) {
                     $query->where('owner_id', $owner_id);
                 }
 
@@ -71,8 +68,6 @@ class JobSkillController extends BaseAdminController
 
                 $query = $jobSkillModel->where('owner_id', $this->owner->id)
                     ->orderBy('name');
-                $owner = $this->owner;
-                $owner_id = $owner->id;
             }
 
             $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));

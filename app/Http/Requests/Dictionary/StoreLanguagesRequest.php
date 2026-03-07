@@ -6,9 +6,10 @@ use App\Models\Dictionary\Language;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class StoreLanguagesRequest extends FormRequest
 {
     use ModelPermissionsTrait;

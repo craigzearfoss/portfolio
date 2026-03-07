@@ -8,8 +8,6 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
 /**

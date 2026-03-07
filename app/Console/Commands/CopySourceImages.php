@@ -2,20 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Career\Application;
-use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\Resource;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Console\Command;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Schema;
 use ReflectionClass;
 use ReflectionException;
 use Throwable;
@@ -108,7 +102,7 @@ class CopySourceImages extends Command
         echo '    to:   ' . $this->imagesDestPath . PHP_EOL;
         echo '*Note that this will not overwrite existing files.' . PHP_EOL;
 
-        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+        text('Hit Enter to continue or Ctrl-C to cancel');
 
         $this->copyResourcemages();
         $this->copyCoverLetters();
@@ -142,7 +136,7 @@ class CopySourceImages extends Command
 
                 echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $databasePath) . ' ...'. PHP_EOL;
 
-                if ($databaseDefinition = new Database()->where('name', $databaseSlug)->first()) {
+                if (new Database()->where('name', $databaseSlug)->first()) {
 
                     foreach (scandir($databasePath) as $resourceSlug) {
 
@@ -347,7 +341,6 @@ class CopySourceImages extends Command
                                 '',
                                 $destFile
                             );
-                            $urlPath = str_replace(DIRECTORY_SEPARATOR, '/',  $relativeDestPath);
 
                             $coverLetter = $coverLetterModel->withoutGlobalScope(AdminPublicScope::class)
                                 ->find($coverLetterId);

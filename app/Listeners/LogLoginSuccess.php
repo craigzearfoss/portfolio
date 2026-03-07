@@ -2,16 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Models\System\Admin;
 use App\Models\System\LoginAttemptsAdmin;
 use App\Models\System\LoginAttemptsUser;
-use App\Models\System\User;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 
+/**
+ *
+ */
 class LogLoginSuccess
 {
     /**

@@ -1,11 +1,8 @@
 <?php
 
 use App\Models\System\Admin;
-use App\Models\System\AdminTeam;
-use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use function Laravel\Prompts\text;
@@ -122,7 +119,7 @@ return new class extends Migration
         echo '    Root Admin:    ' . $this->rootUsername . ' / ' . $this->rootPassword . PHP_EOL;
         echo '    Default Admin: ' . $this->defaultUsername . ' / ' . $this->defaultPassword . PHP_EOL . PHP_EOL;
 
-        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+        text('Hit Enter to continue or Ctrl-C to cancel');
 
         Schema::connection($this->database_tag)->create('admins', function (Blueprint $table) {
             $table->id();

@@ -14,7 +14,6 @@ use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\JobTask;
 use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
-use App\Models\Portfolio\Photography;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
@@ -28,7 +27,6 @@ use App\Models\System\Resource;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 /**

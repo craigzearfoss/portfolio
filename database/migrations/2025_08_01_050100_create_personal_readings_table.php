@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Personal\Reading;
-use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

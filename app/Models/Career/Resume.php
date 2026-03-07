@@ -138,7 +138,6 @@ class Resume extends Model
             $options[''] = '';
         }
 
-        $selectColumns = self::SEARCH_COLUMNS ?? ['id', 'name'];
         $sortColumn = $orderBy[0] ?? 'name';
         $sortDir = $orderBy[1] ?? 'asc';
 

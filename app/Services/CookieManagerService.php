@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Enums\EnvTypes;
-use http\Env;
 use Illuminate\Support\Facades\Cookie;
 
 /**
@@ -45,8 +44,6 @@ class CookieManagerService
      */
     public function get(EnvTypes $envType, string $name): mixed
     {
-        $cookieName = $envType->value . '-' . $name;
-
         if (empty($name)) {
             return $this->cookies;
         } else {

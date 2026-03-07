@@ -79,7 +79,7 @@ return new class extends Migration
         echo PHP_EOL . 'Record fhe following admin credentials so you don\'t forget them:' . PHP_EOL;
         echo '    Sample User:    ' . $this->sampleUsername . ' / ' . $this->samplePassword . PHP_EOL . PHP_EOL;
 
-        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+        text('Hit Enter to continue or Ctrl-C to cancel');
 
         Schema::connection($this->database_tag)->create('users', function (Blueprint $table) {
             $table->id();

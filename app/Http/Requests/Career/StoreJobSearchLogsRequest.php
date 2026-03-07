@@ -5,8 +5,10 @@ namespace App\Http\Requests\Career;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class StoreJobSearchLogsRequest extends FormRequest
 {
     use ModelPermissionsTrait;

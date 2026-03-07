@@ -5,9 +5,11 @@ namespace App\Http\Requests\Career;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class UpdateCompanyContactsRequest extends FormRequest
 {
     use ModelPermissionsTrait;

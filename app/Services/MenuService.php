@@ -291,7 +291,6 @@ class MenuService
 
             if (!empty($this->admin)) {
 
-                $i = count($menu);
                 $adminDropdownMenu = $this->menuItem([
                     'name' => 'user-dropdown',
                     'title' => $this->admin->username ?? '',
@@ -318,7 +317,7 @@ class MenuService
 
                 if ($this->isRootAdmin) {
 
-                    foreach ($menu as $i => $menuItem) {
+                    foreach ($menu as $menuItem) {
                         if (property_exists($menuItem, 'tag') && ($menuItem->tag === 'db')) {
                             $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'Databases', 'route'=>'admin.system.database.index', 'icon' => 'fa-database' ]);
                             $adminDropdownMenu->children[] = $this->menuItem([ 'title'=>'Resources', 'route'=>'admin.system.resource.index', 'icon' => 'fa-table' ]);
@@ -495,10 +494,9 @@ class MenuService
 
             // append level 2 menu resources
             if (array_key_exists(2, $levelResources)) {
-                foreach ($levelResources[2] as $level2resourceTable=>$level2resource) {//dd([$level2resourceTable, $level2resource]);
-                    foreach ($menu as $databaseName=>$menuItem) {//dd([$databaseName, $menuItem]);
-                        foreach ($menuItem->children as $i=>$childResource) {
-                            //dd([$level2resourceTable, $childResource->database['name'] . '.' .  $childResource->name]);
+                foreach ($levelResources[2] as $level2resource) {
+                    foreach ($menu as $menuItem) {
+                        foreach ($menuItem->children as $childResource) {
                             if ($level2resource->parent_id == $childResource->id) {
                                 $level1Children = array_merge($childResource->children, [ $level2resource ]);
                                 $childResource->children = array_values($level1Children);

@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\System\User;
-use App\Models\System\UserGroup;
 use App\Models\System\UserUserGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

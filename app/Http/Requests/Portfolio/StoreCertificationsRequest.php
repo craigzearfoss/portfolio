@@ -3,12 +3,12 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\Certification;
-use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class StoreCertificationsRequest extends FormRequest
 {
     /**

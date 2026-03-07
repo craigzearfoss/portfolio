@@ -28,7 +28,6 @@ use App\Models\System\Resource;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 /**
@@ -111,7 +110,7 @@ class Demo extends Command
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
             echo 'demo: ' . $this->demo . PHP_EOL;
-            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+            text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         // portfolio
@@ -3184,12 +3183,12 @@ class Demo extends Command
             }
 
             // extra columns
-            foreach ($extraColumns as $name => $value) {
+            foreach ($extraColumns as $name=>$value) {
                 $data[$i][$name] = $value;
             }
 
             if ($addDisclaimer) {
-                foreach ($extraColumns as $name => $value) {
+                foreach ($extraColumns as $value) {
                     $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
                 }
             }

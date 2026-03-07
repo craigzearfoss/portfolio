@@ -1,10 +1,5 @@
 <?php
 
-use App\Models\Personal\Ingredient;
-use App\Models\Personal\Recipe;
-use App\Models\Personal\RecipeIngredient;
-use App\Models\Personal\Unit;
-use App\Models\System\Owner;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

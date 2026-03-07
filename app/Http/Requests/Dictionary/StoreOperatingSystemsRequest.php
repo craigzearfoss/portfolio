@@ -6,9 +6,10 @@ use App\Models\Dictionary\OperatingSystem;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class StoreOperatingSystemsRequest extends FormRequest
 {
     use ModelPermissionsTrait;

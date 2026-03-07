@@ -341,7 +341,7 @@ class Application extends Model
     {
         $company = $this->company['name'] ?? '?company?';
         $role = $this->role ?? '?role?';
-        $date = !empty($this->apply_date)
+        !empty($this->apply_date)
             ? ' [applied: ' . $this->apply_date . ']'
             : (!empty($this->post_date) ? ' [applied: ' . $this->apply_date . ']' : '');
 

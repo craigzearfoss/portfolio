@@ -21,7 +21,6 @@ class JobCoworkerFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->name();
-        $slug = Str::slug($name);
 
         return [
             'owner_id'        => Owner::all()->random()->id,

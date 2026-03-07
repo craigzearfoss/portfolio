@@ -5,10 +5,11 @@ namespace App\Http\Requests\Portfolio;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class UpdateSchoolsRequest extends FormRequest
 {
     use ModelPermissionsTrait;

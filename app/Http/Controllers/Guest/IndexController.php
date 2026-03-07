@@ -67,7 +67,7 @@ class IndexController extends BaseGuestController
      */
     public function storeContactMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
     {
-        $message = new Message()->create($messageStoreRequest->validated());
+        new Message()->create($messageStoreRequest->validated());
 
         return redirect(route('guest.index'))
             ->with('success', 'Your message has been sent. Thank you!.');
