@@ -121,12 +121,11 @@ class ResumeController extends BaseAdminController
      * Show the form for editing the specified resume.
      *
      * @param int $id
-     * @param Request $request
      * @return View
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function edit(int $id, Request $request): View
+    public function edit(int $id): View
     {
         $resume = new Resume()->findOrFail($id);
 

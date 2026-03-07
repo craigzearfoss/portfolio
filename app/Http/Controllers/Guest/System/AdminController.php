@@ -34,7 +34,7 @@ class AdminController extends BaseGuestController
     }
 
     /**
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
+     * Display the specified admin.
      *
      * @param Admin $admin
      * @return View

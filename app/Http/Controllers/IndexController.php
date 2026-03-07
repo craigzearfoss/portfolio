@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class IndexController extends BaseController
 {
-    public function __construct(PermissionService $permissionService, Request $request)
+    public function __construct(PermissionService $permissionService)
     {
         parent::__construct($permissionService);
     }

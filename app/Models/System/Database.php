@@ -138,8 +138,16 @@ class Database extends Model
      */
     public static function getResourceTypes(string|null $dbName = null,
                                             array       $filters = [],
-                                            array       $orderBy = ['seq', 'asc']):  array
+                                            array       $orderBy = ['resources.sequence', 'asc']):  array
     {
+        if (empty($orderBy)) {
+            $orderByColumn = 'resources.sequence';
+            $orderByDirection = 'asc';
+        } else {
+            $orderByColumn = is_array($orderBy) ? $orderBy[0] : 'resources.sequence';
+            $orderByDirection = is_array($orderBy) ? $orderBy[1] ?? 'asc'  : 'asc';
+        }
+
         $query = new Database()->select(
             'resources.*',
             'databases.id as database_id',
@@ -148,7 +156,7 @@ class Database extends Model
             'databases.tag as database_tag'
         )
             ->join('resources', 'resources.database_id', '=', 'databases.id')
-            ->orderBy('resources.sequence');
+            ->orderBy($orderByColumn, $orderByDirection);
 
         if(!empty($dbName)) {
             $query->where('databases.name', $dbName);

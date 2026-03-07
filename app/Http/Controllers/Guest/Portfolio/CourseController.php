@@ -16,17 +16,15 @@ class CourseController extends BaseGuestController
 {
     /**
      * Display a listing of courses.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param Request $request
      * @return View
      */
-    public function index(Admin $admin, Request $request): View
+    public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $courses = new Course()->where('owner_id', $this->owner->id)
+        $courses = new Course()->where('owner_id', $this->owner['id'])
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -36,15 +34,13 @@ class CourseController extends BaseGuestController
 
     /**
      * Display the specified course.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(string $slug): View
     {
-        if (!$course = new Course()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$course = new Course()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

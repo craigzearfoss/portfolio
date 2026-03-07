@@ -13,17 +13,15 @@ class AwardController extends BaseGuestController
 {
     /**
      * Display a listing of awards.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param Request $request
      * @return View
      */
-    public function index(Admin $admin, Request $request): View
+    public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $awards = new Award()->where('owner_id', $this->owner->id)
+        $awards = new Award()->where('owner_id', $this->owner['id'])
             ->orderBy('name')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -34,15 +32,13 @@ class AwardController extends BaseGuestController
 
     /**
      * Display the specified award.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(string $slug): View
     {
-        if (!$award = new Award()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$award = new Award()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

@@ -16,19 +16,17 @@ class IndexController extends BaseGuestController
     /**
      * Display a listing of portfolio resources.
      *
-     * @param Admin|null $admin
-     * @param Request $request
      * @return View
      * @throws Exception
      */
-    public function index(Admin|null $admin, Request $request): View
+    public function index(): View
     {
         if (!empty($this->owner)) {
 
             $databaseId = new Database()->where('tag', 'portfolio_db')->first()->id ?? null;
 
             $portfolios = !empty($databaseId)
-                ? new AdminResource()->ownerResources($this->owner->id, EnvTypes::GUEST, $databaseId)
+                ? new AdminResource()->ownerResources($this->owner['id'], EnvTypes::GUEST, $databaseId)
                 : [];
 
         } else {

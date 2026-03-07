@@ -16,17 +16,15 @@ class MusicController extends BaseGuestController
 {
     /**
      * Display a listing of music.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param Request $request
      * @return View
      */
-    public function index(Admin $admin, Request $request): View
+    public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = new Music()->where('owner_id', $this->owner->id)
+        $musics = new Music()->where('owner_id', $this->owner['id'])
             ->orderBy('name')
             ->orderBy('artist')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -37,15 +35,13 @@ class MusicController extends BaseGuestController
 
     /**
      * Display the specified music.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(string $slug): View
     {
-        if (!$music = new Music()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$music = new Music()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

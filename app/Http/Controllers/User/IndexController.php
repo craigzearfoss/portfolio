@@ -19,10 +19,9 @@ class IndexController extends BaseUserController
     /**
      * Display the user index page.
      *
-     * @param Request $request
      * @return View
      */
-    public function index(Request $request): View
+    public function index(): View
     {
         if (Auth::guard('user')->check()) {
             return view('user.dashboard');
@@ -34,10 +33,9 @@ class IndexController extends BaseUserController
     /**
      * Display the admin dashboard.
      *
-     * @param Request $request
      * @return View
      */
-    public function dashboard(Request $request): View
+    public function dashboard(): View
     {
         return view(themedTemplate('user.dashboard'));
     }

@@ -384,7 +384,7 @@ return new class extends Migration
             ];
 
             $data[] = [
-                'id'          => $resourceId++,
+                'id'          => $resourceId,
                 'parent_id'   => null,
                 'database_id' => $database->id,
                 'name'        => 'resume',

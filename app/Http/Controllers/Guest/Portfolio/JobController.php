@@ -14,17 +14,15 @@ class JobController extends BaseGuestController
 {
     /**
      * Display a listing of jobs.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param Request $request
      * @return View
      */
-    public function index(Admin $admin, Request $request): View
+    public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = new Job()->where('owner_id', $this->owner->id)
+        $jobs = new Job()->where('owner_id', $this->owner['id'])
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -35,15 +33,13 @@ class JobController extends BaseGuestController
 
     /**
      * Display the specified job.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(string $slug): View
     {
-        if (!$job = new Job()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$job = new Job()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
@@ -51,10 +47,9 @@ class JobController extends BaseGuestController
     }
     /**
      * @param Admin $admin
-     * @param Request $request
      * @return View
      */
-    public function resume(Admin $admin, Request $request): View
+    public function resume(Admin $admin): View
     {
         $owner = $admin;
 

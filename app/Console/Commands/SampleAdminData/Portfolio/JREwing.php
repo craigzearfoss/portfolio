@@ -764,9 +764,7 @@ class JREwing extends Command
             }
 
             if ($addDisclaimer) {
-                foreach ($extraColumns as $value) {
-                    $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
-                }
+                $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
             }
         }
 

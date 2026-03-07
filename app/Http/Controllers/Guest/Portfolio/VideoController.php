@@ -16,17 +16,15 @@ class VideoController extends BaseGuestController
 {
     /**
      * Display a listing of videos.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param Request $request
      * @return View
      */
-    public function index(Admin $admin, Request $request): View
+    public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $videos = new Video()->where('owner_id', $this->owner->id)
+        $videos = new Video()->where('owner_id', $this->owner['id'])
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -36,15 +34,13 @@ class VideoController extends BaseGuestController
 
     /**
      * Display the specified video.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(string $slug): View
     {
-        if (!$video = new Video()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$video = new Video()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

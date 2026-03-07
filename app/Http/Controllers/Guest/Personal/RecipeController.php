@@ -17,15 +17,14 @@ class RecipeController extends BaseGuestController
     /**
      * Display a listing of recipes.
      *
-     * @param Admin $admin
      * @param Request $request
      * @return View
      */
-    public function index(Admin $admin, Request $request): View
+    public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipes = new Recipe()->where('owner_id', $this->owner->id)
+        $recipes = new Recipe()->where('owner_id', $this->owner['id'])
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -36,13 +35,12 @@ class RecipeController extends BaseGuestController
     /**
      * Display the specified recipe.
      *
-     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(string $slug): View
     {
-        if (!$recipe = new Recipe()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$recipe = new Recipe()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

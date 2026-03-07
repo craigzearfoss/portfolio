@@ -16,20 +16,17 @@ class IndexController extends BaseGuestController
     /**
      * Display a listing of personal resources.
      * NOTE: $this->owner is set in the BaseController->initialize() method.
-     *
-     * @param Admin|null $admin
-     * @param Request $request
      * @return View
      * @throws Exception
      */
-    public function index(Admin|null $admin, Request $request): View
+    public function index(): View
     {
         if (!empty($this->owner)) {
 
             $databaseId = new Database()->where('tag', 'personal_db')->first()->id ?? null;
 
             $personals = !empty($databaseId)
-                ? new AdminResource()->ownerResources($this->owner->id, EnvTypes::GUEST, $databaseId)
+                ? new AdminResource()->ownerResources($this->owner['id'], EnvTypes::GUEST, $databaseId)
                 : [];
 
         } else {

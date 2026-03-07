@@ -68,10 +68,9 @@ class ProfileController extends BaseUserController
      * Update the new password.
      *
      * @param Request $request
-     * @param User $user
      * @return RedirectResponse|View
      */
-    public function change_password_submit(Request $request, User $user): RedirectResponse|View
+    public function change_password_submit(Request $request): RedirectResponse|View
     {
         $user = Auth::guard('user')->user();
 

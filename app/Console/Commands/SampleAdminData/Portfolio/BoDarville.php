@@ -110,7 +110,7 @@ class BoDarville extends Command
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
             echo 'demo: ' . $this->demo . PHP_EOL;
-            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+            text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
         // portfolio
@@ -792,9 +792,7 @@ class BoDarville extends Command
             }
 
             if ($addDisclaimer) {
-                foreach ($extraColumns as $name => $value) {
-                    $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
-                }
+                $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
             }
         }
 

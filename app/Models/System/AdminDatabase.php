@@ -144,8 +144,16 @@ class AdminDatabase extends Model
     public static function getResourceTypes(int|null    $ownerId,
                                             string|null $dbName = null,
                                             array       $filters = [],
-                                            array       $orderBy = ['sequence', 'asc']):  array
+                                            array       $orderBy = ['admin_resources.sequence', 'asc']):  array
     {
+        if (empty($orderBy)) {
+            $orderByColumn = 'admin_resources.sequence';
+            $orderByDirection = 'asc';
+        } else {
+            $orderByColumn = is_array($orderBy) ? $orderBy[0] : 'admin_resources.sequence';
+            $orderByDirection = is_array($orderBy) ? $orderBy[1] ?? 'asc'  : 'asc';
+        }
+
         if (empty($ownerId)) {
 
             return Database::getResourceTypes($dbName, $filters);
@@ -160,7 +168,7 @@ class AdminDatabase extends Model
                 'admin_databases.tag as database_tag'
         )
                 ->join('admin_resources', 'admin_resources.database_id', '=', 'admin_databases.id')
-                ->orderBy('admin_resources.sequence');
+                ->orderBy($orderByColumn, $orderByDirection);
 
             if (!empty($dbName)) {
                 $query->where('admin_databases.name', $dbName);

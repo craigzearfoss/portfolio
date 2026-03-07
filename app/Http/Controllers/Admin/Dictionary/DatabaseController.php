@@ -126,16 +126,15 @@ class DatabaseController extends BaseAdminController
      * Remove the specified database from storage.
      *
      * @param Database $database
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Database $database, Request $request): RedirectResponse
+    public function destroy(Database $database): RedirectResponse
     {
         deleteGate($database, $this->admin);
 
         $database->delete();
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $database->name . ' deleted successfully.');
+            ->with('success', $database['name'] . ' deleted successfully.');
     }
 }

@@ -16,17 +16,15 @@ class PublicationController extends BaseGuestController
 {
     /**
      * Display a listing of publications.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param Request $request
      * @return View
      */
-    public function index(Admin $admin, Request $request): View
+    public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $publications = new Publication()->where('owner_id', $this->owner->id)
+        $publications = new Publication()->where('owner_id', $this->owner['id'])
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -36,15 +34,13 @@ class PublicationController extends BaseGuestController
 
     /**
      * Display the specified publication.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
      *
-     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(string $slug): View
     {
-        if (!$publication = new Publication()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$publication = new Publication()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

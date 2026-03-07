@@ -43,10 +43,9 @@ class CompanyController extends BaseAdminController
     /**
      * Show the form for creating a new company.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         createGate(Company::class, $this->admin);
 

@@ -19,11 +19,10 @@ class IndexController extends BaseAdminController
     /**
      * Displays all system resource type.
      *
-     * @param Request $request
      * @return View
      * @throws Exception
      */
-    public function index(Request $request): View
+    public function index(): View
     {
         $systems = [];
 
