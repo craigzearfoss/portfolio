@@ -1,11 +1,13 @@
 @php
     use App\Models\Portfolio\Job;
     use App\Models\System\Admin;
+
+    $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
 @endphp
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{!! $action !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
             @if(isRootAdmin())
 
@@ -13,7 +15,7 @@
                     @include('admin.components.form-select', [
                         'name'     => 'owner_id',
                         'label'    => 'owner',
-                        'value'    => !empty($owner->is_root) ? null : ($owner->id ?? null),
+                        'value'    => $owner_id,
                         'list'     => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                         'onchange' => "document.getElementById('searchForm').submit()"
                     ])

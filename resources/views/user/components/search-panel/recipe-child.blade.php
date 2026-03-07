@@ -12,7 +12,7 @@
             @if(isRootAdmin())
 
                 <div class="control">
-                    @include('admin.components.form-select', [
+                    @include('user.components.form-select', [
                         'name'     => 'owner_id',
                         'label'    => 'owner',
                         'value'    => $owner_id,
@@ -36,7 +36,7 @@
                     <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
                 @if(count($recipes) > 1)
                     <div class="control">
-                        @include('admin.components.form-select', [
+                        @include('user.components.form-select', [
                             'name'     => 'recipe_id',
                             'label'    => 'recipe',
                             'value'    => $recipeId,

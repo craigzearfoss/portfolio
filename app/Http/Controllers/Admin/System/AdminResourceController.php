@@ -39,7 +39,9 @@ class AdminResourceController extends BaseAdminController
                 ->paginate($perPage)->appends(request()->except('page'));
         }
 
-        return view('admin.system.admin-resource.index', compact('adminResources'))
+        $pageTitle = 'Admin Resources';
+
+        return view('admin.system.admin-resource.index', compact('adminResources', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

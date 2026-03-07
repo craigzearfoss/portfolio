@@ -25,7 +25,9 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-resource.index') ])
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin-resource.index'),
+                                                          'owner_id' => $owner->id ?? null
+                                                        ])
     @endif
 
     @if(empty(!$owner))
@@ -44,8 +46,7 @@
                             <th>owner</th>
                         @endif
                         <th>database</th>
-                        <th>name</th>
-                        <th>table</th>
+                        <th>resource</th>
                         <th class="has-text-centered">icon</th>
                         <th class="has-text-centered">guest</th>
                         <th class="has-text-centered">user</th>
@@ -72,8 +73,7 @@
                                 <th>owner</th>
                             @endif
                             <th>database</th>
-                            <th>name</th>
-                            <th>table</th>
+                            <th>resource</th>
                             <th class="has-text-centered">icon</th>
                             <th class="has-text-centered">guest</th>
                             <th class="has-text-centered">user</th>
@@ -117,9 +117,6 @@
                             <td data-field="name">
                                 {!! $adminResource->name !!}
                             </td>
-                            <td data-field="table">
-                                {!! $adminResource->table !!}
-                            </td>
                             <td data-field="icon" class="has-text-centered">
                                 @if (!empty($adminResource->icon))
                                     <span class="text-xl">
@@ -147,10 +144,10 @@
                                 {{ $adminResource->menu_level }}
                             </td>
                             <td data-field="public" class="has-text-centered">
-                                @include('admin.components.checkmark', [ 'checked' => $adminResource->public ])
+                                @include('admin.components.checkmark', [ 'checked' => $adminResource->is_public ])
                             </td>
                             <td data-field="disabled" class="has-text-centered">
-                                @include('admin.components.checkmark', [ 'checked' => $adminResource->disabled ])
+                                @include('admin.components.checkmark', [ 'checked' => $adminResource->is_disabled ])
                             </td>
                             <td class="is-1">
 

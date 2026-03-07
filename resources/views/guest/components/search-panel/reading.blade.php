@@ -10,26 +10,14 @@
     <div class="search-container card p-2">
 
         <form id="searchForm"
-              action="{!! $action ?? route('admin.personal.reading.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) !!}"
+              action="{!! $action ?? route('guest.personal.reading.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) !!}"
               method="get">
 
-            @if(isRootAdmin())
-                <div class="control" style="max-width: 28rem;">
-                    @include('admin.components.form-select', [
-                        'name'     => 'owner_id',
-                        'label'    => 'owner',
-                        'value'    => $owner_id,
-                        'list'     => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                        'onchange' => "document.getElementById('searchForm').submit()"
-                    ])
-                </div>
-            @endif
-
             <div class="control" style="max-width: 28rem;">
-                @include('admin.components.form-select', [
+                @include('guest.components.form-select', [
                     'name'     => 'title',
                     'value'    => Request::get('title'),
-                    'list'     => new Reading()->listOptions(
+                    'list'     => $readingModel->listOptions(
                         !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
                         'title',
                         'title',
@@ -42,7 +30,7 @@
             </div>
 
             <div class="control" style="max-width: 28rem;">
-                @include('admin.components.form-select', [
+                @include('guest.components.form-select', [
                     'name'     => 'author',
                     'value'    => Request::get('author'),
                     'list'     => new Reading()->listOptions(
@@ -60,7 +48,7 @@
             <div style="width: 28rem; display: inline-block;">
 
                 <div class="container control" style="width: 8rem;">
-                    @include('admin.components.form-checkbox', [
+                    @include('guest.components.form-checkbox', [
                         'name'     => 'fiction',
                         'value'    => 1,
                         'checked'  => boolval(Request::get('fiction') ?? false),
@@ -70,7 +58,7 @@
                 </div>
 
                 <div class="container control" style="width: 8rem;">
-                    @include('admin.components.form-checkbox', [
+                    @include('guest.components.form-checkbox', [
                         'name'     => 'nonfiction',
                         'value'    => 1,
                         'checked'  => boolval(Request::get('nonfiction') ?? false),
@@ -80,7 +68,7 @@
                 </div>
 
                 <div class="container control" style="width: 8rem;">
-                    @include('admin.components.form-checkbox', [
+                    @include('guest.components.form-checkbox', [
                         'name'     => 'paper',
                         'value'    => 1,
                         'checked'  => boolval(Request::get('paper') ?? false),
@@ -90,7 +78,7 @@
                 </div>
 
                 <div class="container control" style="width: 8rem;">
-                    @include('admin.components.form-checkbox', [
+                    @include('guest.components.form-checkbox', [
                         'name'     => 'audio',
                         'value'    => 1,
                         'checked'  => boolval(Request::get('audio') ?? false),
@@ -100,7 +88,7 @@
                 </div>
 
                 <div class="container control" style="width: 8rem;">
-                    @include('admin.components.form-checkbox', [
+                    @include('guest.components.form-checkbox', [
                         'name'     => 'wishlist',
                         'value'    => 1,
                         'checked'  => boolval(Request::get('wishlist') ?? false),

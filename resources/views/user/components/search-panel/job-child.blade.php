@@ -1,5 +1,5 @@
 @php
-    use App\Models\Personal\Recipe;
+    use App\Models\Portfolio\Job;
     use App\Models\System\Admin;
 
     $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
@@ -7,12 +7,12 @@
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
-        <form id="searchForm" action="{!! $action !!}" method="get">
+        <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
             @if(isRootAdmin())
 
-                <div class="control">
-                    @include('admin.components.form-select', [
+                <div class="control" style="max-width: 28rem;">
+                    @include('user.components.form-select', [
                         'name'     => 'owner_id',
                         'label'    => 'owner',
                         'value'    => $owner_id,
@@ -26,21 +26,21 @@
             @if(!empty($owner))
 
                 @php
-                    $recipes = new Recipe()->listOptions(!empty($owner) ? [ 'owner_id' => $owner->id ] : [], 'id', 'name', true, false, [ 'name', 'asc' ]);
-                    $recipeId = Request::get('recipe_id');
-                    if (!array_key_exists($recipeId, $recipes)) {
-                        $recipeId = null;
+                    $jobs = new Job()->listOptions(!empty($owner) ? [ 'owner_id' => $owner->id ] : [], 'id', 'company', true, false, [ 'company', 'asc' ]);
+                    $jobId = Request::get('job_id');
+                    if (!array_key_exists($jobId, $jobs)) {
+                        $jobId = null;
                     }
                 @endphp
 
                     <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
-                @if(count($recipes) > 1)
+                @if(count($jobs) > 1)
                     <div class="control">
-                        @include('admin.components.form-select', [
-                            'name'     => 'recipe_id',
-                            'label'    => 'recipe',
-                            'value'    => $recipeId,
-                            'list'     => $recipes,
+                        @include('user.components.form-select', [
+                            'name'     => 'job_id',
+                            'label'    => 'job',
+                            'value'    => $jobId,
+                            'list'     => $jobs,
                             'onchange' => "document.getElementById('searchForm').submit()"
                         ])
                     </div>

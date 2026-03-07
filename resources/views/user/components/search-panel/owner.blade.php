@@ -10,7 +10,7 @@
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
             <div class="control" style="max-width: 28rem;">
-                @include('admin.components.form-select', [
+                @include('user.components.form-select', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
                     'value'    => $owner_id,

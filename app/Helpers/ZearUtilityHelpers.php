@@ -271,7 +271,7 @@ if (! function_exists('canRead')) {
      * @return bool
      */
     function canRead($resourceObjectOrClass, Admin|null $admin = null): bool
-    {
+    {//dd($resourceObjectOrClass, $admin);
         if (empty($resourceObjectOrClass)) {
             abort(500, 'canRead(): Argument #1 ($resourceObjectOrClass) cannot be empty');
         }
@@ -284,9 +284,14 @@ if (! function_exists('canRead')) {
             $resourceObject = $resourceObjectOrClass;
         }
 
-        $adminResource = empty($admin)
-            ? new Resource()->where('class', $resourceClass)->first()
-            : new AdminResource()->where('class', $resourceClass)->where('owner_id', $admin['id'])->first();
+        // get the admin resource (Note that is not admin is specified we pull it from the system.resources table.)
+        if (empty($admin) || $admin['is_root']) {
+            $adminResource = new Resource()->where('class', $resourceClass)->first();
+        } else {
+            $adminResource = new Resource()->where('class', $resourceClass)
+                ->where('owner_id', $admin['id'])
+                ->first();
+        }
 
         if (empty($adminResource)) {
             // specified resource does not exist
