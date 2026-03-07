@@ -36,12 +36,13 @@ class ArtController extends BaseGuestController
     /**
      * Display the specified art.
      *
+     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(string $slug): View
+    public function show(Admin $admin, string $slug): View
     {
-        if (!$art = new Art()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
+        if (!$art = new Art()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

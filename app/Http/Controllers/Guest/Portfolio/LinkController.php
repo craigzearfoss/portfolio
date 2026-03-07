@@ -35,12 +35,13 @@ class LinkController extends BaseGuestController
     /**
      * Display the specified link.
      *
+     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(string $slug): View
+    public function show(Admin $admin, string $slug): View
     {
-        if (!$link = new Link()->where('owner_id', $this->owner->id)->where('slug', $slug)->first()) {
+        if (!$link = new Link()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

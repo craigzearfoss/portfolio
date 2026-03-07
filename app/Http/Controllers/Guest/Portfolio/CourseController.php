@@ -35,12 +35,13 @@ class CourseController extends BaseGuestController
     /**
      * Display the specified course.
      *
+     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(string $slug): View
+    public function show(Admin $admin, string $slug): View
     {
-        if (!$course = new Course()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
+        if (!$course = new Course()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

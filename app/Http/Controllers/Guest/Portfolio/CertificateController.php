@@ -35,12 +35,13 @@ class CertificateController extends BaseGuestController
     /**
      * Display the specified certificate.
      *
+     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(string $slug): View
+    public function show(Admin $admin, string $slug): View
     {
-        if (!$certificate = new Certificate()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
+        if (!$certificate = new Certificate()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

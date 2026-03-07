@@ -35,12 +35,13 @@ class EducationController extends BaseGuestController
     /**
      * Display the specified education.
      *
+     * @param Admin $admin
      * @param int $id
      * @return View
      */
-    public function show( int $id): View
+    public function show(Admin $admin, int $id): View
     {
-        if (!$education = new Education()->where('owner_id', $this->owner['id'])->where('id', $id)->first()) {
+        if (!$education = new Education()->where('owner_id', $admin['id'])->where('id', $id)->first()) {
             throw new ModelNotFoundException();
         }
 

@@ -152,7 +152,6 @@ class BaseController extends Controller
         $envType = !empty($this->envType) ? $this->envType : getEnvType();
 
         if (($envType->value == 'admin') && !empty($currentAdmin) && !$currentAdmin['is_root']) {
-
             // this is a non-root admin so they can only view their own resources
             return $currentAdmin;
         }
@@ -204,9 +203,16 @@ class BaseController extends Controller
             }
         }
 
-        if (empty($owner) && ($envType->value == 'admin')) {
+        if (empty($owner)) {
 
-            $owner = $currentAdmin;
+            if ($envType->value == 'guest') {
+                $parameters = Route::current()->parameters();
+                if (!empty($parameters['admin'])) {
+                    return new Admin()->where('label', $parameters['admin'])->first();
+                }
+            } elseif ($envType->value == 'admin') {
+                $owner = $currentAdmin;
+            }
         }
 
         return $owner;

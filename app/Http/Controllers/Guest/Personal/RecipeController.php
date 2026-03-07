@@ -35,12 +35,13 @@ class RecipeController extends BaseGuestController
     /**
      * Display the specified recipe.
      *
+     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(string $slug): View
+    public function show(Admin $admin, string $slug): View
     {
-        if (!$recipe = new Recipe()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
+        if (!$recipe = new Recipe()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

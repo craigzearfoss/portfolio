@@ -33,12 +33,13 @@ class AwardController extends BaseGuestController
     /**
      * Display the specified award.
      *
+     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(string $slug): View
+    public function show(Admin $admin, string $slug): View
     {
-        if (!$award = new Award()->where('owner_id', $this->owner['id'])->where('slug', $slug)->first()) {
+        if (!$award = new Award()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

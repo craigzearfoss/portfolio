@@ -42,7 +42,7 @@ class AdminController extends BaseGuestController
      */
     public function show(Admin $admin): View
     {
-        if (!empty($this->owner) && (!$this->owner['is_public'] || $this->owner['is_disabled'])) {
+        if (!$admin['is_public'] || $admin['is_disabled']) {
             abort(404);
         }
 
@@ -50,12 +50,12 @@ class AdminController extends BaseGuestController
 
         $dbColumns = [
             'Portfolio' => new AdminResource()->ownerResources(
-                $this->owner->id ?? null,
+                $thisAdmin->id ?? null,
                 EnvTypes::GUEST,
                 new Database()->where('tag', 'portfolio_db')->first()->id ?? null
             ),
             'Personal' => new AdminResource()->ownerResources(
-                $this->owner->id,
+                $thisAdmin->id,
                 EnvTypes::GUEST,
                 new Database()->where('tag', 'personal_db')->first()->id ?? null
             ),
@@ -64,7 +64,7 @@ class AdminController extends BaseGuestController
         list($prev, $next) = new Admin()->prevAndNextPages(
             $admin['id'],
             'guest.admin.show',
-            $this->owner ?? null,
+            $thisAdmin,
             ['name', 'asc']
         );
 
