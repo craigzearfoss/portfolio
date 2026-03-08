@@ -69,7 +69,7 @@
                 'value' => $reading->slug
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $reading->featured
             ])
@@ -84,27 +84,27 @@
                 'value' => $reading->is_publication_year
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'fiction',
                 'checked' => $reading->fiction
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'nonfiction',
                 'checked' => $reading->nonfiction
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'paper',
                 'checked' => $reading->paper
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'audio',
                 'checked' => $reading->audio
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'wishlist',
                 'checked' => $reading->wishlist
             ])

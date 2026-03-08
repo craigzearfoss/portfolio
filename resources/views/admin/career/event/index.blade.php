@@ -90,7 +90,7 @@
                 @forelse ($events as $event)
 
                     <tr data-id="{{ $event->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $event->owner->username }}
                             </td>

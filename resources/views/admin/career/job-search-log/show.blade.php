@@ -40,7 +40,7 @@
             'value' => $jobSearchLog->id
         ])
 
-        @if($admin->root)
+        @if($isRootAdmin)
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $jobSearchLog->owner->username

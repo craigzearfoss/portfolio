@@ -1,4 +1,4 @@
-@if (!empty($subtitle) || !empty($selectList) || !empty($prev) || !empty($next) || !empty($butttons))
+@if (!empty($subtitle) || !empty($selectList) || !empty($prev) || !empty($next) || !empty($navButttons))
 
     <section class="hero is-hero-bar">
 
@@ -22,24 +22,18 @@
 
                 @endif
 
-                @if(!empty($prev) || !empty($next) || !empty($buttons))
+                @if(!empty($navButtons))
 
                     <div class="level-right" style="display: inline-block;">
-                        @if(!empty($prev) || !empty($next))
-                            <div style="display: inline-block; float: right;">
-                                @include('guest.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-                            </div>
-                        @elseif (!empty($buttons))
-                            <div class="level-item">
-                                <div class="buttons is-right">
+                        <div class="level-item">
+                            <div class="buttons is-right">
 
-                                    @foreach ($buttons as $button)
-                                        {!! $button !!}
-                                    @endforeach
+                                @foreach ($navButtons as $navButton)
+                                    {!! $navButton !!}
+                                @endforeach
 
-                                </div>
                             </div>
-                        @endif
+                        </div>
                     </div>
 
                 @endif

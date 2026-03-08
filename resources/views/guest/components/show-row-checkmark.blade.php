@@ -18,9 +18,6 @@
     if (!empty($styleArray)) {
         $styles = array_merge($styles, $styleArray);
     }
-
-    $menu       = $menu ?? 0;
-    $menu_level = $menu_level ?? 0;
 @endphp
 <div @if(!empty($classes))
          class="{!! implode(' ', $classes) !!}"
@@ -30,28 +27,11 @@
      @endif
 >
     <div class="column is-2 label">
-        <strong>menu</strong>:
+        @if(!empty($name))
+            <strong>{!! $name !!}</strong>:
+        @endif
     </div>
-    <div class="column left-align is-10 value">
-        <div>
-
-            <div class="floating-div-container settings">
-
-                <div class="show-container card floating-div">
-                    <span>
-                        @include('guest.components.checkbox', [ 'checked' => !empty($menu) ])
-                    </span>
-                    <span><strong>include</strong></span>
-                </div>
-
-                <div class="item show-container card floating-div">
-                    <span><strong>level:</strong></span>
-                    <span>{{ $menu_level }}</span>
-                </div>
-
-            </div>
-
-        </div>
-
+    <div class="column is-10 value">
+        @include('guest.components.checkmark', [ 'checked' => !empty($checked) ])
     </div>
 </div>

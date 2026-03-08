@@ -64,17 +64,17 @@
             'value' => $database->definition
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'open source',
             'checked' => $database->open_source
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'proprietary',
             'checked' => $database->proprietary
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'compiled',
             'checked' => $database->compiled
         ])

@@ -57,7 +57,7 @@
                 ])
             @endif
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $publication->featured
             ])
@@ -92,67 +92,67 @@
                 'value' => $publication->credit
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'freelance',
                 'checked' => $publication->freelance
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'fiction',
                 'checked' => $publication->fiction
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'nonfiction',
                 'checked' => $publication->nonfiction
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'technical',
                 'checked' => $publication->technical
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'research',
                 'checked' => $publication->research
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'poetry',
                 'checked' => $publication->poetry
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'online',
                 'checked' => $publication->online
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'novel',
                 'checked' => $publication->novel
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'book',
                 'checked' => $publication->book
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'textbook',
                 'checked' => $publication->textbook
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'article',
                 'checked' => $publication->article
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'paper',
                 'checked' => $publication->paper
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'pamphlet',
                 'checked' => $publication->pamphlet
             ])

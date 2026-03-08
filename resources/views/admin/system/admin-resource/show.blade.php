@@ -14,7 +14,8 @@
                                                                            : []
                                                                       )],
     ];
-    if ($isRootAdmin && !empty($owner)) {
+
+    if ($isRootAdmin || ($owner->id == $adminResource->owner_id)) {
         $breadcrumbs[] = [ 'name' => $owner->name,                           'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Databases',                            'href' => route('admin.system.admin-database.index', [ 'owner_id'=>$owner->id ]) ];
         $breadcrumbs[] = [ 'name' => $adminResource->database->name . ' db', 'href' => route('admin.system.admin-database.show', [ $adminResource->database, 'owner_id'=>$owner ]) ];
@@ -27,7 +28,7 @@
 
     // set navigation buttons
     $navButtons = [];
-    if ($isRootAdmin && !empty($owner)) {
+    if ($isRootAdmin || ($owner->id == $adminResource->owner_id)) {
         if (canUpdate($adminResource, $admin)) {
             $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.admin-resource.edit', [ $adminResource, 'owner_id'=>$owner->id ]) ])->render();
         }
@@ -55,7 +56,7 @@
                 'value' => $adminResource->id
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $adminResource->owner->username
@@ -126,6 +127,11 @@
             @include('admin.components.show-row-icon', [
                 'name' => 'icon',
                 'icon' => $adminResource->icon
+            ])
+
+            @include('admin.components.show-row-checkbox', [
+                'name'    => 'has owner',
+                'checked' => $adminResource->has_owner,
             ])
 
             @include('admin.components.show-row-environments', [

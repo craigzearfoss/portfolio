@@ -7,15 +7,15 @@
 
     // set breadcrumbs
     $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('guest.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'System',          'href' => route('admin.system.index',
+        [ 'name' => 'Home',               'href' => route('guest.index') ],
+        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',             'href' => route('admin.system.index',
                                                        !empty($owner)
                                                            ? ['owner_id'=>$owner->id]
                                                            : []
                                                       )],
-        [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
-        [ 'name' => $resource->name,   'href' => route('admin.system.resource.show', $resource->id) ],
+        [ 'name' => 'Resources',          'href' => route('admin.system.resource.index') ],
+        [ 'name' => $adminResource->name, 'href' => route('admin.system.resource.show', $adminResource->id) ],
         [ 'name' => 'Edit' ]
     ];
 
@@ -45,60 +45,43 @@
                 'value' => referer('admin.system.resource.index')
             ])
 
-            @include('admin.components.form-text-horizontal', [
-                'name'  => 'id',
-                'value' => $adminResource->id
-            ])
+            @if($isRootAdmin)
 
-            @if($admin->root)
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $adminResource->owner_id,
-                    'required' => true,
-                    'list'     => new Owner()->listOptions([ 'root' => 1 ], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'message'  => $message ?? '',
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'id',
+                    'value' => $adminResource->id
                 ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $adminResource->owner_id
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'  => 'owner',
+                    'value' =>  $adminResource->owner['username']
                 ])
+
             @endif
 
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-text-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $adminResource->name,
-                'unique'    => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
+                'value'     => $adminResource->name,
             ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'resource_database_id',
-                'label'    => 'database',
-                'value'    => old('resource_db_id') ?? $adminResource->database_id,
-                'required' => true,
-                'list'     => new Database()->listOptions([]),
-                'message'  => $message ?? '',
-            ])
+            @if($isRootAdmin)
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'table',
-                'value'     => old('table') ?? $adminResource->table,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-text-horizontal', [
+                    'name'      => 'database',
+                    'value'     => $adminResource->database['name'] ?? '?',
+                ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'class',
-                'value'     => old('class') ?? $adminResource->class,
-                'unique'    => true,
-                'maxlength' => 255,
-                'disabled'  => true,
-                'message'   => $message ?? '',
-            ])
+                @include('admin.components.form-text-horizontal', [
+                    'name'      => 'table',
+                    'value'     => $adminResource->table_name,
+                ])
+
+                @include('admin.components.form-text-horizontal', [
+                    'name'      => 'class',
+                    'value'     => $adminResource->class,
+                ])
+
+            @endif
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'title',
@@ -122,6 +105,25 @@
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
+
+            @if ($isRootAdmin)
+
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label" for="has_owner">has owner</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control ">
+                                <span>
+                                    @include('admin.components.checkbox', [ 'checked' => $adminResource->has_owner ])
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            @endif
 
             @include('admin.components.form-environments-horizontal', [
                 'guest'  => old('guest')  ?? $adminResource->guest,

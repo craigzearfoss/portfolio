@@ -93,7 +93,7 @@
                                     'value' => $recipe->slug
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'featured',
                                     'checked' => $recipe->featured
                                 ])
@@ -113,57 +113,57 @@
                                     'value' => $recipe->author
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'prep time',
                                     'checked' => !empty($recipe->prep_time) ? ($recipe->prep_time . ' minutes') : ''
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'total time',
                                     'checked' => !empty($recipe->total_time) ? ($recipe->total_time . ' minutes') : ''
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'main',
                                     'checked' => $recipe->main
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'side',
                                     'checked' => $recipe->side
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'dessert',
                                     'checked' => $recipe->dessert
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'appetizer',
                                     'checked' => $recipe->appetizer
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'beverage',
                                     'checked' => $recipe->beverage
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'breakfast',
                                     'checked' => $recipe->breakfast
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'lunch',
                                     'checked' => $recipe->lunch
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'dinner',
                                     'checked' => $recipe->dinner
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'snack',
                                     'checked' => $recipe->snack
                                 ])

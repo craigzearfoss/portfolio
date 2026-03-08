@@ -80,7 +80,7 @@
                 @forelse ($recipeSteps as $recipeStep)
 
                     <tr data-id="{{ $recipeStep->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $recipeStep->owner->username ?? '' }}
                             </td>

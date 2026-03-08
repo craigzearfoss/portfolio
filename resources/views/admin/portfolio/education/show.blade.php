@@ -47,7 +47,7 @@
                 'value' => $education->id
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $education->owner->username
@@ -84,7 +84,7 @@
                 'value' => (!empty($education->enrollment_month) ? date('F', mktime(0, 0, 0, $education->enrollment_month, 10)) : '') . ' ' . $education->enrollment_year
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'graduated',
                 'checked' => $education->graduated
             ])
@@ -94,7 +94,7 @@
                 'value' => (!empty($education->graduation_month) ? date('F', mktime(0, 0, 0, $education->graduation_month, 10)) : '') . ' ' . $education->graduation_year
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'currently enrolled',
                 'checked' => $education->currently_enrolled
             ])

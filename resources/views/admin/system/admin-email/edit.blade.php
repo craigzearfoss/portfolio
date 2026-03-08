@@ -40,7 +40,7 @@
                 'value' => referer('admin.system.admin-email.index')
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',

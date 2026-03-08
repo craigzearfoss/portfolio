@@ -79,7 +79,7 @@
                     : ''
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $music->featured
             ])
@@ -107,17 +107,17 @@
                 </div>
             </div>
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $music->featured
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'collection',
                 'checked' => $music->collection
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'track',
                 'checked' => $music->track
             ])

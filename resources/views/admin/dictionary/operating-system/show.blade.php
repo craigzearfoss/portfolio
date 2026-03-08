@@ -64,17 +64,17 @@
             'value' => $operatingSystem->definition
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'open source',
             'checked' => $operatingSystem->open_source
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'proprietary',
             'checked' => $operatingSystem->proprietary
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'compiled',
             'checked' => $operatingSystem->compiled
         ])

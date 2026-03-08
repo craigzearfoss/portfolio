@@ -99,7 +99,7 @@
                     @forelse ($adminResources as $adminResource)
 
                         <tr data-id="{{ $adminResource->id }}">
-                            @if($admin->root)
+                            @if($isRootAdmin)
                                 <td data-field="owner.username" style="white-space: nowrap;">
                                     @if(!empty($adminResource->owner))
                                         @include('admin.components.link', [
@@ -143,12 +143,22 @@
                             <td data-field="menu_level" class="has-text-centered">
                                 {{ $adminResource->menu_level }}
                             </td>
-                            <td data-field="public" class="has-text-centered">
+                            <td data-field="is_public" class="has-text-centered">
                                 @include('admin.components.checkmark', [ 'checked' => $adminResource->is_public ])
                             </td>
-                            <td data-field="disabled" class="has-text-centered">
+                            @if($isRootAdmin)
+                                <td data-field="is_readonly" class="has-text-centered">
+                                    @include('admin.components.checkmark', [ 'checked' => $adminResource->is_readonly ])
+                                </td>
+                            @endif
+                            <td data-field="is_disabled" class="has-text-centered">
                                 @include('admin.components.checkmark', [ 'checked' => $adminResource->is_disabled ])
                             </td>
+                            @if($isRootAdmin)
+                                <td data-field="is_demo" class="has-text-centered">
+                                    @include('admin.components.checkmark', [ 'checked' => $adminResource->is_demo ])
+                                </td>
+                            @endif
                             <td class="is-1">
 
                                 <div class="action-button-panel">

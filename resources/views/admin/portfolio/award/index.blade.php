@@ -79,7 +79,7 @@
                 @forelse ($awards as $award)
 
                     <tr data-id="{{ $award->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $award->owner->username ?? '' }}
                             </td>

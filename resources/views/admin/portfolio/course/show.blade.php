@@ -69,7 +69,7 @@
                 'value' => $course->slug
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $course->featured
             ])
@@ -84,7 +84,7 @@
                 'value' => $course->year
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'completed',
                 'checked' => $course->completed
             ])

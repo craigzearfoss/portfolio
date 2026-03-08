@@ -32,7 +32,7 @@
     <div class="column is-2 label">
         <strong>menu</strong>:
     </div>
-    <div class="column is-10 value">
+    <div class="column left-align is-10 value">
         <div>
 
             <div class="floating-div-container settings">
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="item show-container card floating-div">
-                    <span><strong>sequence:</strong></span>
+                    <span><strong>level:</strong></span>
                     <span>{{ $menu_level }}</span>
                 </div>
 

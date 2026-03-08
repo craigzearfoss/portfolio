@@ -61,22 +61,22 @@
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'local',
             'checked' => $recruiter->local
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'regional',
             'checked' => $recruiter->regional
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'national',
             'checked' => $recruiter->national
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'international',
             'checked' => $recruiter->international
         ])

@@ -197,7 +197,7 @@
                 'resource' => $thisAdmin,
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'requires re-login',
                 'checked' => $thisAdmin->requires_relogin
             ])

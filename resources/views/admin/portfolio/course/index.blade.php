@@ -83,7 +83,7 @@
                 @forelse ($courses as $course)
 
                     <tr data-id="{{ $course->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $course->owner->username ?? '' }}
                             </td>

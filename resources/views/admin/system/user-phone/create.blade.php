@@ -33,7 +33,7 @@
                 'value' => referer('admin.system.user-phone.index')
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'user_id',
                     'label'    => 'user',

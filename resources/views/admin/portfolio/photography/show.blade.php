@@ -47,7 +47,7 @@
                 'value' => $photo->id
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $photo->owner->username
@@ -69,7 +69,7 @@
                 'value' => $photo->slug
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $photo->featured
             ])

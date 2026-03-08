@@ -76,7 +76,7 @@
                 @forelse ($jobTasks as $jobTask)
 
                     <tr data-id="{{ $jobTask->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $jobTask->owner->username ?? '' }}
                             </td>

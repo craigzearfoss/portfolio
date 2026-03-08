@@ -44,7 +44,7 @@
                 'value' => referer('admin.system.admin-database.index', ($isRootAdmin && !empty($owner)) ? [ 'owner_id'=>$owner->id ] : [])
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
 
                 @include('admin.components.form-text-horizontal', [
                     'name'  => 'id',

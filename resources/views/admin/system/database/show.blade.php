@@ -37,7 +37,7 @@
                 'value' => $database->id
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $database->owner->username

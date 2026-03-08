@@ -42,7 +42,7 @@
                 'value' => $jobTask->id
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $jobTask->owner->username

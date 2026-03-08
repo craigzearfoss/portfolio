@@ -83,7 +83,7 @@
                 @forelse ($photos as $photo)
 
                     <tr data-id="{{ $photo->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {!! $photo->owner->username !!}
                             </td>

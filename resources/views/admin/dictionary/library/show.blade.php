@@ -64,17 +64,17 @@
             'value' => $library->definition ?? ''
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'open source',
             'checked' => $library->open_source
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'proprietary',
             'checked' => $library->proprietary
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'compiled',
             'checked' => $library->compiled
         ])

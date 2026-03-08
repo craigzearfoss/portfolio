@@ -49,7 +49,7 @@
             'value' => $jobBoard->slug
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'primary',
             'checked' => $jobBoard->primary
         ])
@@ -59,22 +59,22 @@
             'value' => implode(', ', $jobBoard->coverageAreas ?? [])
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'local',
             'checked' => $jobBoard->local
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'regional',
             'checked' => $jobBoard->regional
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'national',
             'checked' => $jobBoard->national
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('admin.components.show-row-checkmark', [
             'name'    => 'international',
             'checked' => $jobBoard->international
         ])

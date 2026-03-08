@@ -75,7 +75,7 @@
                 @forelse ($adminPhones as $adminPhone)
 
                     <tr data-id="{{ $adminPhone->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 @if(!empty($adminPhone->owner))
                                     @include('admin.components.link', [

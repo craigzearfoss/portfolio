@@ -64,7 +64,7 @@
                 'value' => $certificate->slug
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $certificate->featured
             ])

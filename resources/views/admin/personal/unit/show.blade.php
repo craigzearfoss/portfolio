@@ -78,7 +78,7 @@
                 'external' => true,
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'     => 'sequence',
                 'checked' => $unit->sequence,
             ])

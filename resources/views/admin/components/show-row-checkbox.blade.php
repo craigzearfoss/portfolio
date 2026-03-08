@@ -32,6 +32,10 @@
         @endif
     </div>
     <div class="column is-10 value">
-        @include('admin.components.checkmark', [ 'checked' => !empty($checked) ])
+        @if ($checked)
+            <i class="fa-solid fa-check-square"></i>
+        @else
+            <i class="fa-solid fa-square"></i>
+        @endif
     </div>
 </div>

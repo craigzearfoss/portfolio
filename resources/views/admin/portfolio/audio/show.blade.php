@@ -47,7 +47,7 @@
                 'value' => $audio->id
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $audio->owner->username
@@ -74,7 +74,7 @@
                     : ''
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $audio->featured
             ])
@@ -84,22 +84,22 @@
                 'value' => $audio->summary
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'full episode',
                 'checked' => $audio->full_episode
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'clip',
                 'checked' => $audio->clip
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'podcast',
                 'checked' => $audio->podcast
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'source recording',
                 'checked' => $audio->source_recording
             ])

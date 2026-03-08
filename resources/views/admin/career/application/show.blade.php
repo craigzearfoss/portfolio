@@ -150,7 +150,7 @@
                                     'value' => $application->rating
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'active',
                                     'checked' => $application->active
                                 ])
@@ -202,27 +202,27 @@
                                     'value' => $application->bonus
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'w2',
                                     'checked' => $application->w2
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'relocation',
                                     'checked' => $application->relocation
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'benefits',
                                     'checked' => $application->benefits
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'vacation',
                                     'checked' => $application->vacation
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'health',
                                     'checked' => $application->health
                                 ])

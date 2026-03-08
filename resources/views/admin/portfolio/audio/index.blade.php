@@ -79,7 +79,7 @@
                 @forelse ($audios as $audio)
 
                     <tr data-id="{{ $audio->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $audio->owner->username ?? '' }}
                             </td>

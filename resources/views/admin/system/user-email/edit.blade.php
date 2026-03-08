@@ -36,7 +36,7 @@
                 'value' => referer('admin.system.user-email.index')
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'user_id',
                     'label'    => 'user',

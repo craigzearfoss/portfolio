@@ -44,7 +44,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if($admin->root)
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th>name</th>

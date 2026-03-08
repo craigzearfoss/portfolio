@@ -110,7 +110,7 @@
                                     'value' => $resume->name
                                 ])
 
-                                @include('admin.components.show-row-checkbox', [
+                                @include('admin.components.show-row-checkmark', [
                                     'name'    => 'primary',
                                     'checked' => $resume->primary
                                 ])

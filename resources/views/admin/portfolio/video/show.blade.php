@@ -74,7 +74,7 @@
                     : ''
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $video->featured
             ])
@@ -84,22 +84,22 @@
                 'value' => $video->summary
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'full episode',
                 'checked' => $video->full_episode
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'clip',
                 'checked' => $video->clip
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'public access',
                 'checked' => $video->is_public_access
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'source recording',
                 'checked' => $video->source_recording
             ])

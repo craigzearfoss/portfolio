@@ -15,6 +15,9 @@ div.field.is-horizontal div.field-label label.label {
 .show-container .columns .column {
     padding: 0.1em  0.5em 0.1em 0.5em;
 }
+.show-container .columns .column.left-align {
+    margin-left: -0.6rem !important;
+}
 
 .show-container table tr td {
     padding: .1em .4em !important;
@@ -266,7 +269,7 @@ nav.prev-next-buttons span:hover {
     border-color: #dbdbdb;
 }
 
-nav.prev-next-buttons a.pagination-next
+nav.prev-next-buttons a.pagination-next,
 nav.prev-next-buttons a.pagination-previous,
 nav.prev-next-buttons a.pagination-next {
     background-color: #ffffff;

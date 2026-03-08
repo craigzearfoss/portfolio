@@ -75,7 +75,7 @@
                 @forelse ($userGroups as $userGroup)
 
                     <tr data-id="{{ $userGroup->id }}">
-                        @if($admin->root)
+                        @if($isRootAdmin)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $userGroup->owner->username ?? '' }}
                             </td>

@@ -47,7 +47,7 @@
                 'value' => $award->id
             ])
 
-            @if($admin->root)
+            @if($isRootAdmin)
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $award->owner->username
@@ -74,7 +74,7 @@
                 'value' => $award->slug
             ])
 
-            @include('admin.components.show-row-checkbox', [
+            @include('admin.components.show-row-checkmark', [
                 'name'    => 'featured',
                 'checked' => $award->featured
             ])
