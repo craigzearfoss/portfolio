@@ -9,7 +9,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && $isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index',
                                                                     !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
@@ -158,7 +158,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '7' : '6' }}">There is no art.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">There is no art.</td>
                     </tr>
 
                 @endforelse

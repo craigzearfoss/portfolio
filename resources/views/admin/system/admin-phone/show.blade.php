@@ -25,7 +25,7 @@
     if (canCreate($adminPhone, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Phone',
                                                                'href' => route('admin.system.admin-phone.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }

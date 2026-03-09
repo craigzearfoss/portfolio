@@ -11,7 +11,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && $isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admins',         'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name,     'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',      'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
@@ -230,11 +230,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('is_public')   ?? $education->is_public,
-                'readonly'    => old('is_readonly') ?? $education->is_readonly,
-                'root'        => old('is_root')     ?? $education->root,
-                'disabled'    => old('is_disabled') ?? $education->is_disabled,
-                'demo'        => old('is_demo')     ?? $education->is_demo,
+                'is_public'   => old('is_public')   ?? $education->is_public,
+                'is_readonly' => old('is_readonly') ?? $education->is_readonly,
+                'is_root'     => old('is_root')     ?? $education->root,
+                'is_disabled' => old('is_disabled') ?? $education->is_disabled,
+                'is_emo'      => old('is_demo')     ?? $education->is_demo,
                 'sequence'    => old('sequence') ?? $education->sequence,
                 'message'     => $message ?? '',
             ])

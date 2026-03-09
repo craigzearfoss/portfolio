@@ -42,7 +42,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>user</th>
                     @endif
                     <th>email</th>
@@ -55,7 +55,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>user</th>
                         @endif
                         <th>email</th>
@@ -134,7 +134,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no phone numbers.</td>
+                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">There are no phone numbers.</td>
                     </tr>
 
                 @endforelse

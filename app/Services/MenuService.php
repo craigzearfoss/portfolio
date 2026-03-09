@@ -353,7 +353,7 @@ class MenuService
 
                 if (Route::has($route)) {
                     if ($this->envType == EnvTypes::ADMIN) {
-                        $url = (!empty($this->admin->root) && !$this->showAll)
+                        $url = (!empty($this->admin->is_root) && !$this->showAll)
                             ? route($route, [ 'owner_id' => $this->owner->id ])
                             : route($route);
                     } else {
@@ -696,7 +696,7 @@ class MenuService
             case EnvTypes::ADMIN:
                 if (empty($this->admin)) {
                     return false;
-                } elseif(!empty($this->admin->root)) {
+                } elseif(!empty($this->admin->is_root)) {
                     // root admins can see every menu item
                     return true;
                 } elseif (empty($menuItem->admin)) {

@@ -137,13 +137,13 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'   => old('is_public')   ?? $adminResource->public,
-                'readonly' => old('is_readonly') ?? $adminResource->is_readonly,
-                'root'     => old('is_root')     ?? $adminResource->root,
-                'disabled' => old('is_disabled') ?? $adminResource->disabled,
-                'demo'     => old('is_demo')     ?? $adminResource->is_demo,
-                'sequence' => old('sequence') ?? $adminResource->sequence,
-                'message'  => $message ?? '',
+                'is_public'   => old('is_public')   ?? $adminResource->is_public,
+                'is_readonly' => old('is_readonly') ?? $adminResource->is_readonly,
+                'is_root'     => old('is_root')     ?? $adminResource->is_root,
+                'is_disabled' => old('is_disabled') ?? $adminResource->is_disabled,
+                'is_demo'     => old('is_demo')     ?? $adminResource->is_demo,
+                'sequence'    => old('sequence') ?? $adminResource->sequence,
+                'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

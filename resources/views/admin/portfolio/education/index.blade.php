@@ -10,7 +10,7 @@
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
     ];
-    if (!empty($owner) && !empty($admin) && $admin->root) {
+    if (!empty($owner) && $isRootAdmin) {
         $breadcrumbs[] = [ 'name' => 'Admins',     'href' => route('admin.system.admin.index') ];
         $breadcrumbs[] = [ 'name' => $owner->name, 'href' => route('admin.system.admin.show', $owner) ];
         $breadcrumbs[] = [ 'name' => 'Portfolio',  'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ];
@@ -46,7 +46,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th class="has-text-centered">degree<br>type</th>
@@ -64,7 +64,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th class="has-text-centered">degree<br>type</th>
@@ -171,7 +171,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '10' : '9' }}">There is no education.</td>
+                        <td colspan="{{ $isRootAdmin ? '10' : '9' }}">There is no education.</td>
                     </tr>
 
                 @endforelse

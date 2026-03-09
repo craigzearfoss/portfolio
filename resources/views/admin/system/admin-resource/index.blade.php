@@ -42,7 +42,7 @@
                 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                     <thead>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>database</th>
@@ -69,7 +69,7 @@
                     @if(!empty($bottom_column_headings))
                         <tfoot>
                         <tr>
-                            @if(!empty($admin->root))
+                            @if($isRootAdmin)
                                 <th>owner</th>
                             @endif
                             <th>database</th>
@@ -187,7 +187,7 @@
                     @empty
 
                         <tr>
-                            <td colspan="{{ $admin->root ? '15' : '12' }}">There are no resources.</td>
+                            <td colspan="{{ $isRootAdmin ? '15' : '12' }}">There are no resources.</td>
                         </tr>
 
                     @endforelse

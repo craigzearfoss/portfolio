@@ -178,11 +178,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('is_public')   ?? $certificate->is_public,
-                'readonly'    => old('is_readonly') ?? $certificate->is_readonly,
-                'root'        => old('is_root')     ?? $certificate->root,
-                'disabled'    => old('is_disabled') ?? $certificate->is_disabled,
-                'demo'        => old('is_demo')     ?? $certificate->is_demo,
+                'is_public'   => old('is_public')   ?? $certificate->is_public,
+                'is_readonly' => old('is_readonly') ?? $certificate->is_readonly,
+                'is_root'     => old('is_root')     ?? $certificate->root,
+                'is_disabled' => old('is_disabled') ?? $certificate->is_disabled,
+                'is_demo'     => old('is_demo')     ?? $certificate->is_demo,
                 'sequence'    => old('sequence') ?? $certificate->sequence,
                 'message'     => $message ?? '',
             ])

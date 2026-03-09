@@ -110,12 +110,10 @@ class AdminResourceController extends BaseAdminController
      */
     public function update(UpdateAdminResourcesRequest $request, AdminResource $adminResource): RedirectResponse
     {
-        //@TODO:
-        die('@TODO: ???? AdminResourceController->update()');
         $adminResource->update($request->validated());
 
         return redirect()->route('admin.system.admin-resource.show', $adminResource)
-            ->with('success', $adminResource->name . ' successfully updated.');
+            ->with('success', $adminResource['name'] . ' successfully updated.');
     }
 
     /**

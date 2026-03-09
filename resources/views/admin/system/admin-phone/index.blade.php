@@ -22,7 +22,7 @@
     if (canCreate(AdminPhone::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add Phone Number',
                                                                'href' => route('admin.system.admin-phone.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
@@ -46,7 +46,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th>phone</th>
@@ -59,7 +59,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>phone</th>
@@ -138,7 +138,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no phone nuumbers.</td>
+                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">There are no phone nuumbers.</td>
                     </tr>
 
                 @endforelse

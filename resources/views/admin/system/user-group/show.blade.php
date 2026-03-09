@@ -23,7 +23,7 @@
     if (canCreate($userGroup, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
                                                                'href' => route('admin.system.user-group.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }

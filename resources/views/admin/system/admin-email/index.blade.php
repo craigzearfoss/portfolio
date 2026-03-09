@@ -22,7 +22,7 @@
     if (canCreate(AdminEmail::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Email',
                                                                'href' => route('admin.system.admin-email.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
@@ -46,7 +46,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th>email</th>
@@ -59,7 +59,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>email</th>
@@ -138,7 +138,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no email addresses.</td>
+                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">There are no email addresses.</td>
                     </tr>
 
                 @endforelse

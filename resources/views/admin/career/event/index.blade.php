@@ -49,7 +49,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     @if(!empty($event->application))
@@ -68,7 +68,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         @if(!empty($event->application))
@@ -179,7 +179,7 @@
 
                     <tr>
                         @php
-                            $colspan = $admin->root ? '8' : '7';
+                            $colspan = $isRootAdmin ? '8' : '7';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
                         <td colspan="{{ $colspan }}">There are no events.</td>

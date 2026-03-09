@@ -50,7 +50,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -64,7 +64,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -155,7 +155,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '6' : '5' }}">There are no groups.</td>
+                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">There are no groups.</td>
                     </tr>
 
                 @endforelse

@@ -19,7 +19,7 @@
     if (canCreate(UserGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New User Group',
                                                                'href' => route('admin.system.user-group.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
@@ -44,7 +44,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -58,7 +58,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -149,7 +149,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '6' : '5' }}">There are no user groups.</td>
+                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">There are no user groups.</td>
                     </tr>
 
                 @endforelse

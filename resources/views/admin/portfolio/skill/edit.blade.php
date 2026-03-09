@@ -189,11 +189,11 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'public'      => old('is_public')   ?? $skill->is_public,
-                'readonly'    => old('is_readonly') ?? $skill->is_readonly,
-                'root'        => old('is_root')     ?? $skill->root,
-                'disabled'    => old('is_disabled') ?? $skill->is_disabled,
-                'demo'        => old('is_demo')     ?? $skill->is_demo,
+                'is_public'   => old('is_public')   ?? $skill->is_public,
+                'is_readonly' => old('is_readonly') ?? $skill->is_readonly,
+                'is_root'     => old('is_root')     ?? $skill->root,
+                'is_disabled' => old('is_disabled') ?? $skill->is_disabled,
+                'is_demo'     => old('is_demo')     ?? $skill->is_demo,
                 'sequence'    => old('sequence') ?? $skill->sequence,
                 'message'     => $message ?? '',
             ])

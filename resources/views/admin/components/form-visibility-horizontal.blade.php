@@ -1,10 +1,17 @@
 @php
-$class   = !empty($class) ? $class : '';
-if (!empty($style)) {
-    $style = is_array($style) ? implode('; ', $style) . ';' : $style;
-} else {
-    $style = '';
-}
+    $is_public ?? false;
+    $is_readonly ?? false;
+    $is_root ?? false;
+    $is_disabled ?? false;
+    $is_demo ?? false;
+    $sequence ?? 0;
+
+    $class   = !empty($class) ? $class : '';
+    if (!empty($style)) {
+        $style = is_array($style) ? implode('; ', $style) . ';' : $style;
+    } else {
+        $style = '';
+    }
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">

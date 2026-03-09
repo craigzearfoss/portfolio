@@ -47,7 +47,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     @if(empty($recipeId))
@@ -62,7 +62,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         @if(empty($recipeId))
@@ -144,7 +144,7 @@
 
                     <tr>
                         @php
-                            $cols = $admin->root ? '4' : '3';
+                            $cols = $isRootAdmin ? '4' : '3';
                             if (!empty($recipeId)) $cols++;
                         @endphp
                         <td colspan="{{ $cols }}">There are no recipe steps.</td>

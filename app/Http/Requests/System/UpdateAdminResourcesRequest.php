@@ -40,6 +40,8 @@ class UpdateAdminResourcesRequest extends FormRequest
      */
     public function rules(): array
     {
+        $adminResourceId = $this->route()->parameter('admin_resource')->id;
+
         return [
             'admin_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
             'resource_id'    => [
@@ -47,8 +49,8 @@ class UpdateAdminResourcesRequest extends FormRequest
                 'integer',
                 'exists:system_db.admin_databases,id',
                 Rule::unique('system_db.admin_resources', 'resource_id')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('resource_id', $this->resource_id);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('resource_id', $this['resource_id']);
                 }),
             ],
             'database_id'    => [
@@ -56,7 +58,7 @@ class UpdateAdminResourcesRequest extends FormRequest
                 'integer',
                 'exists:system_db.databases,id',
                 Rule::unique('system_db.admin_resources', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
+                    return $query->where('owner_id', $this['owner_id'])
                         ->where('resource_id', $this->database_id);
                 }),
             ],
@@ -70,14 +72,18 @@ class UpdateAdminResourcesRequest extends FormRequest
                         ->whereNot('id', $this->resource->id);
                 })
             ],
-            'parent_id'      => ['integer', Rule::in(new Resource()->where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
+            'parent_id'      => [
+                'integer',
+                Rule::in(new Resource()->where('id', '!=', $this['id'])->get()->pluck('id')->toArray()),
+                'nullable'
+            ],
             'table_name'     => [
                 'filled',
                 'string',
                 'max:50',
                 Rule::unique('system_db.admin_resources', 'table_name')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
-                        ->where('table_name', $this->table_name)
+                        ->where('table_name', $this['table_name'])
                         ->whereNot('id', $this->resource->id);
                 })
             ],

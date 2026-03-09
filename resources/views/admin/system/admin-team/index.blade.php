@@ -22,7 +22,7 @@
     if (canCreate(UserGroup::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Team',
                                                                'href' => route('admin.system.admin-team.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
@@ -51,7 +51,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -64,7 +64,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -143,7 +143,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '5' : '4' }}">There are no teams.</td>
+                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">There are no teams.</td>
                     </tr>
 
                 @endforelse

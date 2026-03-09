@@ -39,7 +39,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->is_root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     @if(empty($recipe))
@@ -55,7 +55,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         @if(empty($recipe))
@@ -156,7 +156,7 @@
 
                     <tr>
                         @php
-                            $cols = $admin->root ? '5' : '4';
+                            $cols = $isRootAdmin ? '5' : '4';
                             if (!empty($recipe)) $cols++;
                         @endphp
                         <td colspan="{{ $cols }}">There are no recipe ingredients.</td>

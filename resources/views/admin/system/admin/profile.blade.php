@@ -24,7 +24,7 @@
     if (canCreate($thisAdmin, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Admin',
                                                                'href' => route('admin.system.admin.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }
@@ -158,7 +158,7 @@
                                     @include('admin.components.link', [
                                         'name'  => $resource->plural,
                                         'href'  => route('admin.'.$resource->database['name'].'.'.$resource->name.'.index',
-                                                         $admin->root && !empty($owner) ? [ 'owner_id' => $owner ] : []
+                                                         $isRootAdmin && !empty($owner) ? [ 'owner_id' => $owner ] : []
                                                    ),
                                         'class' => 'list-item',
                                         'style' => [

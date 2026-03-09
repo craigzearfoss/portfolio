@@ -25,7 +25,7 @@
     if (canCreate($adminGroup, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Create New Admin Group',
                                                                'href' => route('admin.system.admin-group.create',
-                                                                               $admin->root ? [ 'owner_id' => $admin->id ] : []
+                                                                               $isRootAdmin ? [ 'owner_id' => $admin->id ] : []
                                                                               )
                                                              ])->render();
     }

@@ -50,7 +50,7 @@
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
                 <thead>
                 <tr>
-                    @if(!empty($admin->is_root))
+                    @if($isRootAdmin)
                         <th>owner</th>
                     @endif
                     <th>name</th>
@@ -65,7 +65,7 @@
                 @if(!empty($bottom_column_headings))
                     <tfoot>
                     <tr>
-                        @if(!empty($admin->root))
+                        @if($isRootAdmin)
                             <th>owner</th>
                         @endif
                         <th>name</th>
@@ -165,7 +165,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->root ? '7' : '6' }}">There are no courses.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">There are no courses.</td>
                     </tr>
 
                 @endforelse
