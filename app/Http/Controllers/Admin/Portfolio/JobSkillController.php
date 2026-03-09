@@ -40,16 +40,16 @@ class JobSkillController extends BaseAdminController
 
             if (isRootAdmin()) {
 
-                $query = $jobSkillModel->where('job_id', $jobId)
+                $query = $jobSkillModel->where('job_id', '=', $jobId)
                     ->orderBy('name');
                 if (($owner_id = $request->owner) && (new Owner()->findOrFail($owner_id))) {
-                    $query->where('owner_id', $owner_id);
+                    $query->where('owner_id', '=', $owner_id);
                 }
 
             } elseif (!empty($this->owner)) {
 
-                $query = $jobSkillModel->where('job_id', $jobId)
-                    ->where('owner_id', $this->owner->id)
+                $query = $jobSkillModel->where('job_id', '=', $jobId)
+                    ->where('owner_id', '=', $this->owner->id)
                     ->orderBy('name');
             }
 
@@ -61,12 +61,12 @@ class JobSkillController extends BaseAdminController
 
                 $query = $jobSkillModel->orderBy('name');
                 if (($owner_id = $request->get('owner_id')) && (new Owner()->findOrFail($owner_id))) {
-                    $query->where('owner_id', $owner_id);
+                    $query->where('owner_id', '=', $owner_id);
                 }
 
             } elseif (!empty($this->owner)) {
 
-                $query = $jobSkillModel->where('owner_id', $this->owner->id)
+                $query = $jobSkillModel->where('owner_id', '=', $this->owner->id)
                     ->orderBy('name');
             }
 

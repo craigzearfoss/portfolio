@@ -24,7 +24,7 @@ class PublicationController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $publications = new Publication()->where('owner_id', $this->owner['id'])
+        $publications = new Publication()->where('owner_id', '=', $this->owner['id'])
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -41,7 +41,9 @@ class PublicationController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$publication = new Publication()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
+        if (!$publication = new Publication()->where('owner_id', '=', $admin['id'])
+            ->where('slug', '=', $slug)->first()
+        ) {
             throw new ModelNotFoundException();
         }
 

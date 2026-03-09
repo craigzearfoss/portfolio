@@ -39,7 +39,9 @@ class SkillController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$skill = new Skill()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
+        if (!$skill = new Skill()->where('owner_id', '=', $admin['id'])
+            ->where('slug', '=', $slug)->first()
+        ) {
             throw new ModelNotFoundException();
         }
 

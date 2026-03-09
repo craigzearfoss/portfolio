@@ -24,7 +24,7 @@ class LinkController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $links = new Link()->where('owner_id', $this->owner->id)
+        $links = new Link()->where('owner_id', '=', $this->owner->id)
             ->orderBy('sequence')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -41,7 +41,9 @@ class LinkController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$link = new Link()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
+        if (!$link = new Link()->where('owner_id', '=', $admin['id'])
+            ->where('slug', '=', $slug)->first()
+        ) {
             throw new ModelNotFoundException();
         }
 

@@ -37,7 +37,7 @@ class JobCoworkerController extends BaseAdminController
         // get the job id, if one was specified
         if ($jobId = $request->get('job_id')) {
             $job = new Job()->findOrFail($jobId);
-            $query->where('job_id', $jobId);
+            $query->where('job_id', '=', $jobId);
         }
 
         // get the current owner

@@ -118,7 +118,7 @@ class Country extends Model
      */
     public static function getName(string $abbreviation): string
     {
-        return new Country()->where(ctype_digit($abbreviation) ? 'm49' : 'iso_alpha3', $abbreviation)->first()->name ?? $abbreviation;
+        return new Country()->where(ctype_digit($abbreviation) ? 'm49' : 'iso_alpha3', '=', $abbreviation)->first()->name ?? $abbreviation;
     }
 
     /**

@@ -82,7 +82,7 @@ class DictionarySection extends Model
         $query = new DictionarySection()->select('id', 'name', 'slug', 'plural', 'table_name');
             //->orderBy($orderBy[0], $orderBy[1] ?? 'asc');
         foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
+            $query = $query->where($column, '=', $value);
         }
 
         foreach ($query->get() as $dictionarySection) {
@@ -126,7 +126,7 @@ class DictionarySection extends Model
         if (!empty($slug)) {
 
             // Get the dictionary for a specific section.
-            if (!$dictionarySection = $dictionarySectionModel->where('slug', $slug)->first()) {
+            if (!$dictionarySection = $dictionarySectionModel->where('slug', '=', $slug)->first()) {
                 return [];
             }
 

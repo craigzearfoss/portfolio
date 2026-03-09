@@ -24,7 +24,7 @@ class EducationController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $educations = new Education()->where('owner_id', $this->owner['id'])
+        $educations = new Education()->where('owner_id', '=', $this->owner['id'])
             ->orderBy('graduation_year')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -41,7 +41,9 @@ class EducationController extends BaseGuestController
      */
     public function show(Admin $admin, int $id): View
     {
-        if (!$education = new Education()->where('owner_id', $admin['id'])->where('id', $id)->first()) {
+        if (!$education = new Education()->where('owner_id', '=', $admin['id'])
+            ->where('id', '=', $id)->first()
+        ) {
             throw new ModelNotFoundException();
         }
 

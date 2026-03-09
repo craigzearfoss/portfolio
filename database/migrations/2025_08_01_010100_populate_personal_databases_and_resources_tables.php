@@ -77,7 +77,7 @@ return new class extends Migration
 
         $databaseModel->insert($data);
 
-        if (!$database = $databaseModel->where('database', $dbName)->first()) {
+        if (!$database = $databaseModel->where('database', '=', $dbName)->first()) {
 
             throw new Exception($dbName . 'database not found.');
 

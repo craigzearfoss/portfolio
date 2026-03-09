@@ -132,7 +132,7 @@ return new class extends Migration
      */
     private function getDatabase()
     {
-        return new Database()->where('tag', $this->database_tag)->first();
+        return new Database()->where('tag', '=', $this->database_tag)->first();
     }
 
     /**
@@ -144,6 +144,6 @@ return new class extends Migration
             return [];
         }
 
-        return new Resource()->where('database_id', $database->id)->get();
+        return new Resource()->where('database_id', '=', $database->id)->get();
     }
 };

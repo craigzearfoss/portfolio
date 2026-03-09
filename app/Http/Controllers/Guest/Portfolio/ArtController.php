@@ -24,7 +24,7 @@ class ArtController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $arts = new Art()->where('owner_id', $this->owner['id'])
+        $arts = new Art()->where('owner_id', '=', $this->owner['id'])
             ->orderBy('name')
             ->orderBy('artist')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -42,7 +42,9 @@ class ArtController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$art = new Art()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
+        if (!$art = new Art()->where('owner_id', '=', $admin['id'])
+            ->where('slug', '=', $slug)->first()
+        ) {
             throw new ModelNotFoundException();
         }
 

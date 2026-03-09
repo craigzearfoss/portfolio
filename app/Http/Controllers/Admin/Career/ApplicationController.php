@@ -34,7 +34,7 @@ class ApplicationController extends BaseAdminController
             ->orderBy('owner_id')
             ->orderBy('created_at', 'desc');
         if ($resume = $request->resume_id ? new Resume()->findOrFail($request->resume_id) : null) {
-            $query->where('resume_id', $resume->id);
+            $query->where('resume_id', '=', $resume->id);
         }
 
         $applications = $query->paginate($perPage)->appends(request()->except('page'));

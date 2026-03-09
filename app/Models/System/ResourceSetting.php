@@ -84,7 +84,7 @@ class ResourceSetting extends Model
      */
     public static function getSetting(int $resource_id, string $name):mixed
     {
-        if (!$setting = new ResourceSetting()->where('resource_id', $resource_id)
+        if (!$setting = new ResourceSetting()->where('resource_id', '=', $resource_id)
             ->where('name', $name)
             ->first()
         ) {

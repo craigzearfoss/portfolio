@@ -34,7 +34,7 @@ class IndexController extends BaseAdminController
 
         if (Auth::guard('admin')->check()) {
 
-            $owners = new Admin()->where('is_disabled', 0)
+            $owners = new Admin()->where('is_disabled', '=', 0)
                 ->orderBy('username')
                 ->paginate($perPage)->appends(request()->except('page'));
 
@@ -56,7 +56,7 @@ class IndexController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $owners = new Admin()->where('is_disabled', 0)
+        $owners = new Admin()->where('is_disabled', '=', 0)
             ->orderBy('username')->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('admin.dashboard'), compact('owners'));
@@ -158,7 +158,7 @@ class IndexController extends BaseAdminController
             ]);
 
             $email = $request->email ?? '';
-            if (!$admin =  new Admin()->where('email', $email)->first()) {
+            if (!$admin =  new Admin()->where('email', '=', $email)->first()) {
                 return view(themedTemplate('admin.forgot-password'))
                     ->withErrors('Admin with provided email does not exist.');
             }
@@ -197,7 +197,7 @@ class IndexController extends BaseAdminController
      */
     public function reset_password($token, $email): RedirectResponse|View
     {
-        if (!new Admin()->where('email', $email)->where('token', $token)->first()) {
+        if (!new Admin()->where('email', '=', $email)->where('token', '=', $token)->first()) {
             return redirect()->route('admin.login')
                 ->with('error', 'Your reset password token is expired. Please try again.');
         } else {
@@ -219,7 +219,7 @@ class IndexController extends BaseAdminController
             'password' => ['required', 'confirmed', Password::defaults()->letters()->numbers()->symbols()],
         ]);
 
-        if (!$admin = new Admin()->where('email', $email)->where('token', $token)->first()) {
+        if (!$admin = new Admin()->where('email', '=', $email)->where('token', '=', $token)->first()) {
             return redirect()->back()->with('error', 'Your reset password token is expired. Please try again.');
         }
 

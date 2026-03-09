@@ -37,7 +37,7 @@ class ResumeController extends BaseAdminController
             ->orderBy('name', 'desc');
         if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
             $query->leftJoin(config('app.career_db').'.applications', 'applications.resume_id', '=', 'resumes.id')
-                ->where('applications.id', $application->id);
+                ->where('applications.id', '=', $application->id);
         }
 
         $resumes = $query->paginate($perPage)->appends(request()->except('page'));

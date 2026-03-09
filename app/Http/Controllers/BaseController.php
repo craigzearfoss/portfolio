@@ -208,7 +208,7 @@ class BaseController extends Controller
             if ($envType->value == 'guest') {
                 $parameters = Route::current()->parameters();
                 if (!empty($parameters['admin'])) {
-                    return new Admin()->where('label', $parameters['admin'])->first();
+                    return new Admin()->where('label', '=', $parameters['admin'])->first();
                 }
             } elseif ($envType->value == 'admin') {
                 $owner = $currentAdmin;

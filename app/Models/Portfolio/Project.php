@@ -120,8 +120,8 @@ class Project extends Model
             ->when(!empty($filters['repository']), function ($query) use ($filters) {
                 $repository = $filters['repository'];
                 $query->orWhere(function ($query) use ($repository) {
-                    $query->where('repository_url', 'LIKE', '%' . $repository . '%')
-                        ->orWhere('repository_name', 'LIKE', '%' . $repository . '%');
+                    $query->where('repository_url', 'like', '%' . $repository . '%')
+                        ->orWhere('repository_name', 'like', '%' . $repository . '%');
                 });
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {

@@ -89,9 +89,9 @@ return new class extends Migration
         $adminModel = new Admin();
 
         // add admin_team_id values admins
-        $adminModel->where('username', 'root')->update(['admin_team_id' => 1]);
-        $adminModel->where('username', 'default')->update(['admin_team_id' => 2]);
-        $adminModel->where('username', 'demo')->update(['admin_team_id' => 2]);
+        $adminModel->where('username', '=', 'root')->update(['admin_team_id' => 1]);
+        $adminModel->where('username', '=', 'default')->update(['admin_team_id' => 2]);
+        $adminModel->where('username', '=', 'demo')->update(['admin_team_id' => 2]);
     }
 
     /**

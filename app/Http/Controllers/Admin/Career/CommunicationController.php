@@ -32,7 +32,7 @@ class CommunicationController extends BaseAdminController
             ->orderBy('owner_id')
             ->orderBy('date', 'desc');
         if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
-            $query->where('application_id', $application->id);
+            $query->where('application_id', '=', $application->id);
         }
 
         $communications = $query->paginate($perPage)->appends(request()->except('page'));

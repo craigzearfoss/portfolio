@@ -590,8 +590,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if ($portfolioDatabase = new Database()->where('name', 'portfolio')->first()) {
-            new Resource()->where('database_id', $portfolioDatabase->id)->delete();
+        if ($portfolioDatabase = new Database()->where('name', '=', 'portfolio')->first()) {
+            new Resource()->where('database_id', '=', $portfolioDatabase->id)->delete();
             $portfolioDatabase->delete();
         }
     }

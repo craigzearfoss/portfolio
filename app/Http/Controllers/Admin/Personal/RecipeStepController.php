@@ -32,7 +32,7 @@ class RecipeStepController extends BaseAdminController
             ->orderBy('owner_id')
             ->orderBy('recipe_id');
         if ($recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null) {
-            $query->where('recipe_id', $recipe->id);
+            $query->where('recipe_id', '=', $recipe->id);
         }
         $recipeSteps = $query->paginate($perPage)->appends(request()->except('page'));
 

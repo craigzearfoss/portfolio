@@ -24,8 +24,8 @@ class CategoryController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $categories = new Category()->where('name', '!=', 'other')
-            ->where('is_public', true)
-            ->where('is_disabled', false)
+            ->where('is_public', '=', true)
+            ->where('is_disabled', '=', false)
             ->where('name', '!=', 'other')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -42,7 +42,7 @@ class CategoryController extends BaseGuestController
      */
     public function show(string $slug): View
     {
-        if (!$category = new Category()->where('slug', $slug)->first()) {
+        if (!$category = new Category()->where('slug', '=', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

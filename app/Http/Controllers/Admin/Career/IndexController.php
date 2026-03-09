@@ -26,7 +26,7 @@ class IndexController extends BaseAdminController
     {
         $careers = [];
 
-        if ($databaseId = new Database()->where('tag', 'career_db')->first()->id ?? null) {
+        if ($databaseId = new Database()->where('tag', '=', 'career_db')->first()->id ?? null) {
 
             if (isRootAdmin() || empty($this->owner)) {
 

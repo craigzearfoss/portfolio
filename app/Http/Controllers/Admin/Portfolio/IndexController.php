@@ -26,7 +26,7 @@ class IndexController extends BaseAdminController
     {
         $portfolios = [];
 
-        if ($databaseId = new Database()->where('tag', 'portfolio_db')->first()->id ?? null) {
+        if ($databaseId = new Database()->where('tag', '=', 'portfolio_db')->first()->id ?? null) {
 
             if (isRootAdmin() || empty($this->owner)) {
 

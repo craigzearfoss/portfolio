@@ -25,7 +25,7 @@ class IndexController extends BaseAdminController
         $words = DictionarySection::words(null, $perPage);
 
         new Resource()->select('resources.*')
-            ->where('databases.name', 'dictionary')
+            ->where('databases.name', '=', 'dictionary')
             ->join('databases', 'databases.id', '=', 'resources.database_id')
             ->orderBy('resources.plural')
             ->get();

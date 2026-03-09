@@ -64,7 +64,7 @@ return new class extends Migration
             $table->unique(['database_id', 'table_name'], 'database_id_table_name_unique');
         });
 
-        if (!$database = new Database()->where('tag', $this->database_tag)->first()) {
+        if (!$database = new Database()->where('tag', '=', $this->database_tag)->first()) {
 
             throw new Exception('Database tag \'' . $this->database_tag . '\'not found.');
 

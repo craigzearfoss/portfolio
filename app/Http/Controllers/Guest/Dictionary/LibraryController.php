@@ -24,8 +24,8 @@ class LibraryController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $libraries = new Library()->where('name', '!=', 'other')
-            ->where('is_public', true)
-            ->where('is_disabled', false)
+            ->where('is_public', '=', true)
+            ->where('is_disabled', '=', false)
             ->where('name', '!=', 'other')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -42,7 +42,7 @@ class LibraryController extends BaseGuestController
      */
     public function show(string $slug): View
     {
-        if (!$library = new Library()->where('slug', $slug)->first()) {
+        if (!$library = new Library()->where('slug', '=', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

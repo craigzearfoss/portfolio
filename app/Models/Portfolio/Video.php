@@ -164,12 +164,12 @@ class Video extends Model
             ->when(!empty($filters['review']), function ($query) use ($filters) {
                 $review = $filters['review'];
                 $query->orWhere(function ($query) use ($review) {
-                    $query->where('review_link1', 'LIKE', '%' . $review . '%')
-                        ->orWhere('review_link1_name', 'LIKE', '%' . $review . '%')
-                        ->where('review_link2', 'LIKE', '%' . $review . '%')
-                        ->orWhere('review_link2_name', 'LIKE', '%' . $review . '%')
-                        ->where('review_link3', 'LIKE', '%' . $review . '%')
-                        ->orWhere('review_link3_name', 'LIKE', '%' . $review . '%');
+                    $query->where('review_link1', 'like', '%' . $review . '%')
+                        ->orWhere('review_link1_name', 'like', '%' . $review . '%')
+                        ->where('review_link2', 'like', '%' . $review . '%')
+                        ->orWhere('review_link2_name', 'like', '%' . $review . '%')
+                        ->where('review_link3', 'like', '%' . $review . '%')
+                        ->orWhere('review_link3_name', 'like', '%' . $review . '%');
                 });
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {

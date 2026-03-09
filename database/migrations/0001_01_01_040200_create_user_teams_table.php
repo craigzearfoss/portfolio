@@ -89,8 +89,8 @@ return new class extends Migration
         $userModel = new User();
 
         // add admin_team_id values admins
-        $userModel->where('username', 'sample')->update(['user_team_id' => 2]);
-        $userModel->where('username', 'demo')->update(['user_team_id' => 2]);
+        $userModel->where('username', '=', 'sample')->update(['user_team_id' => 2]);
+        $userModel->where('username', '=', 'demo')->update(['user_team_id' => 2]);
     }
 
     /**

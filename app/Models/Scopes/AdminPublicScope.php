@@ -31,7 +31,7 @@ class AdminPublicScope implements Scope
                     return false;
                 } else {
                     if (Schema::connection($model->connection)->hasColumn($model->table, 'owner_id')) {
-                        $builder->where($model->getTable() . '.owner_id', $admin->id);
+                        $builder->where($model->getTable() . '.owner_id', '=', $admin->id);
                     }
                 }
             }
@@ -39,7 +39,7 @@ class AdminPublicScope implements Scope
         } else {
 
             // this is a user or guest route
-            $builder->where('is_public', true)->where('is_disabled', false);
+            $builder->where('is_public', true)->where('is_disabled', '=', false);
         }
 
         return $builder;

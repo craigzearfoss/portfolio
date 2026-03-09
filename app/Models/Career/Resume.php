@@ -161,7 +161,7 @@ class Resume extends Model
                         throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
-                    $query = $query->where($col, $value);
+                    $query = $query->where($col, '=', $value);
                 }
             }
         }

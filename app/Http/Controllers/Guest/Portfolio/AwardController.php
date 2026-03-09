@@ -21,7 +21,7 @@ class AwardController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $awards = new Award()->where('owner_id', $this->owner['id'])
+        $awards = new Award()->where('owner_id', '=', $this->owner['id'])
             ->orderBy('name')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -39,7 +39,9 @@ class AwardController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$award = new Award()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
+        if (!$award = new Award()->where('owner_id', '=', $admin['id'])
+            ->where('slug', '=', $slug)->first()
+        ) {
             throw new ModelNotFoundException();
         }
 

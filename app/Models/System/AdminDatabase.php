@@ -171,23 +171,23 @@ class AdminDatabase extends Model
                 ->orderBy($orderByColumn, $orderByDirection);
 
             if (!empty($dbName)) {
-                $query->where('admin_databases.name', $dbName);
+                $query->where('admin_databases.name', '=', $dbName);
             }
 
             if (isset($filters['is_public'])) {
-                $query->where('admin_resources.is_public', $filters['is_public'] ? 1 : 0);
+                $query->where('admin_resources.is_public', '=', $filters['is_public'] ? 1 : 0);
             }
 
             if (isset($filters['is_readonly'])) {
-                $query->where('admin_resources.is_readonly', $filters['is_readonly'] ? 1 : 0);
+                $query->where('admin_resources.is_readonly', '=', $filters['is_readonly'] ? 1 : 0);
             }
 
             if (isset($filters['is_root'])) {
-                $query->where('admin_resources.is_root', $filters['is_root'] ? 1 : 0);
+                $query->where('admin_resources.is_root', '=', $filters['is_root'] ? 1 : 0);
             }
 
             if (isset($filters['is_disabled'])) {
-                    $query->where('admin_resources.is_disabled', $filters['is_disabled'] ? 1 : 0);
+                    $query->where('admin_resources.is_disabled', '=', $filters['is_disabled'] ? 1 : 0);
             }
 
             return $query->get()->toArray();
@@ -221,12 +221,12 @@ class AdminDatabase extends Model
         $query = new AdminDatabase()->orderBy($sortField, $sortDir);
 
         if (!empty($ownerId)) {
-            $query->where('admin_databases.owner_id', $ownerId);
+            $query->where('admin_databases.owner_id', '=', $ownerId);
         }
 
         // apply env type filter
         if (!empty($envType)) {
-            $query->where('admin_databases.'.$envType->value, 1);
+            $query->where('admin_databases.'.$envType->value, '=', 1);
         }
 
         // Apply filters to the query.
@@ -249,7 +249,7 @@ class AdminDatabase extends Model
                         throw new Exception('Invalid admin_databases filter column: ' . $col . ' ' . $operator);
                     }
                 } else {
-                    $query = $query->where($col, $value);
+                    $query = $query->where($col, '=', $value);
                 }
             }
         }
@@ -265,7 +265,7 @@ class AdminDatabase extends Model
     public function resources(): HasMany
     {
         return $this->hasMany(AdminResource::class, 'database_id')
-            ->where('owner_id', $this->owner()->id)
+            ->where('owner_id', '=', $this->owner()->id)
             ->orderBy('name');
     }
 }

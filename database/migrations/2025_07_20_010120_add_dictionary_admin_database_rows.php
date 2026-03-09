@@ -68,7 +68,8 @@ return new class extends Migration
         $dictionaryDatabase = $this->getDatabase();
 
         if (!empty($ownerIds) && !empty($dictionaryDatabase)) {
-            new AdminDatabase()->whereIn('owner_id', $ownerIds)->where('database_id', $dictionaryDatabase->id)->delete();
+            new AdminDatabase()->whereIn('owner_id', $ownerIds)
+                ->where('database_id', '=', $dictionaryDatabase->id)->delete();
         }
     }
 
@@ -82,6 +83,6 @@ return new class extends Migration
 
     private function getDatabase()
     {
-        return new Database()->where('tag', $this->database_tag)->first();
+        return new Database()->where('tag', '=', $this->database_tag)->first();
     }
 };

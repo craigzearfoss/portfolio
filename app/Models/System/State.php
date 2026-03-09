@@ -142,7 +142,7 @@ class State extends Model
      */
     public static function getName(string $code): string
     {
-        return new State()->where('code', $code)->first()->name ?? $code;
+        return new State()->where('code', '=', $code)->first()->name ?? $code;
     }
 
     /**

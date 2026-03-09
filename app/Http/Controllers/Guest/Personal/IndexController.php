@@ -23,7 +23,7 @@ class IndexController extends BaseGuestController
     {
         if (!empty($this->owner)) {
 
-            $databaseId = new Database()->where('tag', 'personal_db')->first()->id ?? null;
+            $databaseId = new Database()->where('tag', '=', 'personal_db')->first()->id ?? null;
 
             $personals = !empty($databaseId)
                 ? new AdminResource()->ownerResources($this->owner['id'], EnvTypes::GUEST, $databaseId)

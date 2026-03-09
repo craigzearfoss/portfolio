@@ -61,7 +61,7 @@ if (! function_exists('dbName')) {
      * @return string|null
      */
     function dbName(string $dbTag): string|null  {
-        if ($database = new Database()->where('tag', $dbTag)->first()) {
+        if ($database = new Database()->where('tag', '=', $dbTag)->first()) {
             return $database->name;
         } else {
             return null;
@@ -249,7 +249,7 @@ if (! function_exists('canCreate')) {
             return false;
         } elseif (!empty($admin->is_root)) {
             return true;
-        } elseif (!$resourceObject = new AdminResource()->where('class', $resourceClass)->first()) {
+        } elseif (!$resourceObject = new AdminResource()->where('class', '=', $resourceClass)->first()) {
             return false;
         } else {
             if($resourceObject->is_root) {
@@ -286,10 +286,10 @@ if (! function_exists('canRead')) {
 
         // get the admin resource (Note that is not admin is specified we pull it from the system.resources table.)
         if (empty($admin) || $admin['is_root']) {
-            $adminResource = new Resource()->where('class', $resourceClass)->first();
+            $adminResource = new Resource()->where('class', '=', $resourceClass)->first();
         } else {
-            $adminResource = new Resource()->where('class', $resourceClass)
-                ->where('owner_id', $admin['id'])
+            $adminResource = new Resource()->where('class', '=', $resourceClass)
+                ->where('owner_id', '=', $admin['id'])
                 ->first();
         }
 
@@ -335,8 +335,8 @@ if (! function_exists('canUpdate')) {
         } elseif ($resourceObject->is_root) {
             return false;
         } else {
-            $adminResource = new AdminResource()->where('owner_id', $admin['id'])
-                ->where('class', get_class($resourceObject))->first();
+            $adminResource = new AdminResource()->where('owner_id', '=', $admin['id'])
+                ->where('class', '=', get_class($resourceObject))->first();
             if (empty($adminResource)) {
                 return false;
             } elseif ($adminResource->admin && !$adminResource->is_root) {
@@ -368,8 +368,8 @@ if (! function_exists('canDelete')) {
         } elseif ($resourceObject->is_root) {
             return false;
         } else {
-            $adminResource = new AdminResource()->where('owner_id', $admin['id'])
-                ->where('class', get_class($resourceObject))->first();
+            $adminResource = new AdminResource()->where('owner_id', '=', $admin['id'])
+                ->where('class', '=', get_class($resourceObject))->first();
             if (empty($adminResource)) {
                 return false;
             } elseif ($adminResource->admin && !$adminResource->is_root) {
@@ -713,11 +713,15 @@ if (! function_exists('uniqueSlug')) {
             if (!empty($ownerId)) {
 
                 if (empty($database)) {
-                    while (DB::table($tableName)->where('owner_id', $ownerId)->where('slug', $slug)->count()) {
+                    while (DB::table($tableName)->where('owner_id', '=', $ownerId)
+                        ->where('slug', '=', $slug)->count()
+                    ) {
                         $slug = $slug . '-1';
                     }
                 } else {
-                    while (DB::connection($database)->table($tableName)->where('owner_id', $ownerId)->where('slug', $slug)->count()) {
+                    while (DB::connection($database)->table($tableName)->where('owner_id', '=', $ownerId)
+                        ->where('slug', '=', $slug)->count()
+                    ) {
                         $slug = $slug . '-1';
                     }
                 }
@@ -725,11 +729,11 @@ if (! function_exists('uniqueSlug')) {
             } else {
 
                 if (empty($database)) {
-                    while (DB::table($tableName)->where('slug', $slug)->count()) {
+                    while (DB::table($tableName)->where('slug', '=', $slug)->count()) {
                         $slug = $slug . '-1';
                     }
                 } else {
-                    while (DB::connection($database)->table($tableName)->where('slug', $slug)->count()) {
+                    while (DB::connection($database)->table($tableName)->where('slug', '=', $slug)->count()) {
                         $slug = $slug . '-1';
                     }
                 }

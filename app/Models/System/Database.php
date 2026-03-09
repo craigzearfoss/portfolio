@@ -159,23 +159,23 @@ class Database extends Model
             ->orderBy($orderByColumn, $orderByDirection);
 
         if(!empty($dbName)) {
-            $query->where('databases.name', $dbName);
+            $query->where('databases.name', '=', $dbName);
         }
 
         if (isset($filters['is_public'])) {
-            $query->where('resources.is_public', $filters['is_public'] ? 1 : 0);
+            $query->where('resources.is_public', '=', $filters['is_public'] ? 1 : 0);
         }
 
         if (isset($filters['is_readonly'])) {
-            $query->where('resources.is_readonly', $filters['is_readonly'] ? 1 : 0);
+            $query->where('resources.is_readonly', '=', $filters['is_readonly'] ? 1 : 0);
         }
 
         if (isset($filters['is_root'])) {
-            $query->where('resources.is_root', $filters['is_root'] ? 1 : 0);
+            $query->where('resources.is_root', '=', $filters['is_root'] ? 1 : 0);
         }
 
         if (isset($filters['is_disabled'])) {
-            $query->where('resources.is_disabled', $filters['is_disabled'] ? 1 : 0);
+            $query->where('resources.is_disabled', '=', $filters['is_disabled'] ? 1 : 0);
         }
 
         return $query->get()->toArray();
@@ -208,12 +208,12 @@ class Database extends Model
         $query = new Database()->orderBy($sortField, $sortDir);
 
         if (!empty($ownerId)) {
-            $query->where('databases.owner_id', $ownerId);
+            $query->where('databases.owner_id', '=', $ownerId);
         }
 
         // apply env type filter
         if (!empty($envType)) {
-            $query->where('databases.'.$envType->value, 1);
+            $query->where('databases.'.$envType->value, '=', 1);
         }
 
         // Apply filters to the query.
@@ -236,7 +236,7 @@ class Database extends Model
                         throw new Exception('Invalid databases filter column: ' . $col . ' ' . $operator);
                     }
                 } else {
-                    $query = $query->where($col, $value);
+                    $query = $query->where($col, '=', $value);
                 }
             }
         }

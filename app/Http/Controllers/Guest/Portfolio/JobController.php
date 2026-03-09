@@ -22,7 +22,7 @@ class JobController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = new Job()->where('owner_id', $this->owner['id'])
+        $jobs = new Job()->where('owner_id', '=', $this->owner['id'])
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -40,7 +40,9 @@ class JobController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$job = new Job()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
+        if (!$job = new Job()->where('owner_id', '=', $admin['id'])
+            ->where('slug', '=', $slug)->first()
+        ) {
             throw new ModelNotFoundException();
         }
 

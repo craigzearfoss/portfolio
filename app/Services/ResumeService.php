@@ -47,33 +47,33 @@ class ResumeService {
     {
         $this->admin = $admin;
 
-        $this->awards = new Award()->where('owner_id', $this->admin->id)
-            ->where('is_public', 1)
-            ->where('is_disabled', 0)
+        $this->awards = new Award()->where('owner_id', '=', $this->admin->id)
+            ->where('is_public', '=', 1)
+            ->where('is_disabled', '=', 0)
             ->orderBy('year')
             ->get();
 
-        $this->certificates = new Certificate()->where('owner_id', $this->admin->id)
-            ->where('is_public', 1)
-            ->where('is_disabled', 0)
+        $this->certificates = new Certificate()->where('owner_id', '=', $this->admin->id)
+            ->where('is_public', '=', 1)
+            ->where('is_disabled', '=', 0)
             ->orderBy('received', 'desc')
             ->get();
 
-        $this->educations = new Education()->where('owner_id', $this->admin->id)
-            ->where('is_public', 1)
-            ->where('is_disabled', 0)
+        $this->educations = new Education()->where('owner_id', '=', $this->admin->id)
+            ->where('is_public', '=', 1)
+            ->where('is_disabled', '=', 0)
             ->orderBy('graduation_year', 'desc')->orderBy('graduation_month', 'desc')
             ->orderBy('enrollment_year', 'desc')->orderBy('enrollment_month', 'desc')
             ->get();
 
-        $this->jobs = new Job()->where('owner_id', $this->admin->id)
+        $this->jobs = new Job()->where('owner_id', '=', $this->admin->id)
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->get();
 
-        $this->skills = new Skill()->where('owner_id', $this->admin->id)
-            ->where('is_public', 1)
-            ->where('is_disabled', 0)
+        $this->skills = new Skill()->where('owner_id', '=', $this->admin->id)
+            ->where('is_public', '=', 1)
+            ->where('is_disabled', '=', 0)
             ->orderBy('sequence')
             ->get();
     }

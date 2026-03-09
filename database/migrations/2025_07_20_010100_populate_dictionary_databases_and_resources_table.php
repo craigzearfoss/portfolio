@@ -74,7 +74,7 @@ return new class extends Migration
 
         $databaseModel->insert($data);
 
-        if (!$database = $databaseModel->where('database', $dbName)->first()) {
+        if (!$database = $databaseModel->where('database', '=', $dbName)->first()) {
 
             abort(500, $dbName . 'database not found.');
 
@@ -280,8 +280,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if ($dictionaryDatabase = new Database()->where('name', 'dictionary')->first()) {
-            new Resource()->where('database_id', $dictionaryDatabase->id)->delete();
+        if ($dictionaryDatabase = new Database()->where('name', '=', 'dictionary')->first()) {
+            new Resource()->where('database_id', '=', $dictionaryDatabase->id)->delete();
             $dictionaryDatabase->delete();
         }
     }

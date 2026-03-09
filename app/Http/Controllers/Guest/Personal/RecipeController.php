@@ -24,7 +24,7 @@ class RecipeController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipes = new Recipe()->where('owner_id', $this->owner['id'])
+        $recipes = new Recipe()->where('owner_id', '=', $this->owner['id'])
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
@@ -41,7 +41,9 @@ class RecipeController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$recipe = new Recipe()->where('owner_id', $admin['id'])->where('slug', $slug)->first()) {
+        if (!$recipe = new Recipe()->where('owner_id', '=', $admin['id'])
+            ->where('slug', '=', $slug)->first()
+        ) {
             throw new ModelNotFoundException();
         }
 

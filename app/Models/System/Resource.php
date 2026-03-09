@@ -198,14 +198,14 @@ class Resource extends Model
             'resources.*']
         )
         ->join('admins', 'admins.id', 'resources.owner_id')
-        ->join('databases', 'databases.id', 'resources.database_id')
-        ->where('resources.'.$envType->value, 1)
-        ->where('resources.owner_id', $ownerId)
+        ->join('databases', 'databases.id', '=', 'resources.database_id')
+        ->where('resources.'.$envType->value, '=', 1)
+        ->where('resources.owner_id', '=', $ownerId)
         ->orderBy($sortField, $sortDir);
 
         // apply database filter
         if (!empty($databaseId)) {
-            $query->where('resources.database_id', $databaseId);
+            $query->where('resources.database_id', '=', $databaseId);
         }
 
         // Apply filters to the query.
@@ -231,7 +231,7 @@ class Resource extends Model
                     }
                 } else {
 
-                    $query = $query->where($col, $value);
+                    $query = $query->where($col, '=', $value);
                 }
             }
         }
@@ -293,8 +293,8 @@ class Resource extends Model
     public function getResourceByName(string $databaseName, string $resourceName): ?Resource
     {
         return new self()->join('databases', 'databases.id', '=', 'resources.database_id')
-            ->where('databases.name', $databaseName)
-            ->where('resources.name', $resourceName)
+            ->where('databases.name', '=', $databaseName)
+            ->where('resources.name', '=', $resourceName)
             ->first(DB::Raw(implode(', ', [
                 'databases.name as database_name',
                 'databases.tag as database_tag',

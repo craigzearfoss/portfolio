@@ -68,7 +68,8 @@ return new class extends Migration
         $personalDatabase = $this->getDatabase();
 
         if (!empty($ownerIds) && !empty($personalDatabase)) {
-            new AdminDatabase()->whereIn('owner_id', $ownerIds)->where('database_id', $personalDatabase->id)->delete();
+            new AdminDatabase()->whereIn('owner_id', $ownerIds)
+                ->where('database_id', '=', $personalDatabase->id)->delete();
         }
     }
 
@@ -82,6 +83,6 @@ return new class extends Migration
 
     private function getDatabase()
     {
-        return new Database()->where('tag', $this->database_tag)->first();
+        return new Database()->where('tag', '=', $this->database_tag)->first();
     }
 };

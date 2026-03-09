@@ -71,7 +71,7 @@ trait SearchableModelTrait
                         throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
-                    $query = $query->where($col, $value);
+                    $query = $query->where($col, '=', $value);
                 }
             }
         }
@@ -140,7 +140,7 @@ trait SearchableModelTrait
         $query = $tableModel->select('id')->orderBy($orderByColumn, $orderByDirection);
 
         if (!empty($ownerId) && Schema::hasColumn($tableNameWithPrefix, 'owner_id')) {
-            $query->where('owner_id', $ownerId);
+            $query->where('owner_id', '=', $ownerId);
         }
 
         $ids = $query->get()->pluck('id')->toArray();

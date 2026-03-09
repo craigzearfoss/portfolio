@@ -24,8 +24,8 @@ class DatabaseController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $databases = new Database()->where('name', '!=', 'other')
-            ->where('is_public', true)
-            ->where('is_disabled', false)
+            ->where('is_public', '=', true)
+            ->where('is_disabled', '=', false)
             ->where('name', '!=', 'other')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -42,7 +42,7 @@ class DatabaseController extends BaseGuestController
      */
     public function show(string $slug): View
     {
-        if (!$database = new Database()->where('slug', $slug)->first()) {
+        if (!$database = new Database()->where('slug', '=', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
