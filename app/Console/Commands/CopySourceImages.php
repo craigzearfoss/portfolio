@@ -136,7 +136,7 @@ class CopySourceImages extends Command
 
                 echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $databasePath) . ' ...'. PHP_EOL;
 
-                if (new Database()->where('name', $databaseSlug)->first()) {
+                if (new Database()->where('name', '=', $databaseSlug)->first()) {
 
                     foreach (scandir($databasePath) as $resourceSlug) {
 
@@ -149,7 +149,7 @@ class CopySourceImages extends Command
                             echo PHP_EOL . 'Processing ' . str_replace(base_path(), '', $resourcePath) . ' ...'
                                 . PHP_EOL;
 
-                            if ($resourceDefinition = new Resource()->where('name', $resourceSlug)->first()) {
+                            if ($resourceDefinition = new Resource()->where('name', '=', $resourceSlug)->first()) {
 
                                 try {
                                     $reflectionClass = new ReflectionClass($resourceDefinition->class);
@@ -170,6 +170,7 @@ class CopySourceImages extends Command
                                             in_array($resourceDefinition->name, ['admin', 'user'])
                                                 ? 'username'
                                                 : 'slug',
+                                            '=',
                                             $slug
                                         );
 
@@ -271,7 +272,7 @@ class CopySourceImages extends Command
 
             $usernamePath = $this->imagesSrcPath . $DS . $username;
 
-            if (!$admin = new Admin()->where('username', $username)->first()) {
+            if (!$admin = new Admin()->where('username', '=', $username)->first()) {
                 echo 'Admin ' . $username . ' not found.' . PHP_EOL;
                 continue;
             }
@@ -282,7 +283,7 @@ class CopySourceImages extends Command
 
                 $coverLetterQuery = $coverLetterModel->withoutGlobalScope(AdminPublicScope::class)
                     ->select(['id', 'slug'])
-                    ->where('cover_letters.owner_id', $admin->id);
+                    ->where('cover_letters.owner_id', '=', $admin->id);
 
                 $coverLetters = [];
                 foreach ($coverLetterQuery->get() as $coverLetter) {
@@ -380,7 +381,7 @@ class CopySourceImages extends Command
 
             $usernamePath = $this->imagesSrcPath . $DS . $username;
 
-            if (!$admin = new Admin()->where('username', $username)->first()) {
+            if (!$admin = new Admin()->where('username', '=', $username)->first()) {
                 echo 'Admin ' . $username . ' not found.' . PHP_EOL;
                 continue;
             }
@@ -391,7 +392,7 @@ class CopySourceImages extends Command
 
                 $resumeQuery = $resumeModel->withoutGlobalScope(AdminPublicScope::class)
                     ->select(['id', 'slug'])
-                    ->where('resumes.owner_id', $admin->id);
+                    ->where('resumes.owner_id', '=', $admin->id);
 
                 $resumes = [];
                 foreach ($resumeQuery->get() as $resume) {

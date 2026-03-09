@@ -79,14 +79,14 @@ class SamMalone extends Command
         $this->silent = $this->option('silent');
 
         // get the database id
-        if (!$database = new Database()->where('tag', self::DB_TAG)->first()) {
+        if (!$database = new Database()->where('tag', '=', self::DB_TAG)->first()) {
             echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', '=', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -318,7 +318,7 @@ class SamMalone extends Command
     {
         echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = new Database()->where('tag', self::DB_TAG)->first()) {
+        if ($database = new Database()->where('tag', '=', self::DB_TAG)->first()) {
 
             $data = [];
 
@@ -354,8 +354,9 @@ class SamMalone extends Command
     {
         echo self::USERNAME . ": Inserting $tableName table into System\\AdminResource ...\n";
 
-        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table_name', $tableName)->first()) {
-
+        if ($resource = new Resource()->where('database_id', '=', $this->databaseId)
+            ->where('table_name', '=', $tableName)->first()
+        ) {
             $data = [];
 
             $dataRow = [];
@@ -381,7 +382,7 @@ class SamMalone extends Command
 
     protected function getDatabase()
     {
-        return new Database()->where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', '=', self::DB_TAG)->first();
     }
 
     /**
@@ -394,7 +395,7 @@ class SamMalone extends Command
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return new Resource()->where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', '=', $database->id)->get();
         }
     }
 }

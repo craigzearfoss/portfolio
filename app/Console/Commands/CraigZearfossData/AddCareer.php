@@ -109,14 +109,14 @@ class AddCareer extends Command
         $this->silent = $this->option('silent');
 
         // get the database id
-        if (!$database = new Database()->where('tag', self::DB_TAG)->first()) {
+        if (!$database = new Database()->where('tag', '=', self::DB_TAG)->first()) {
             echo PHP_EOL . 'Database tag `' .self::DB_TAG . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = new Admin()->where('username', self::USERNAME)->first()) {
+        if (!$admin = new Admin()->where('username', '=', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -153,7 +153,7 @@ class AddCareer extends Command
         // get companies
         $companyQuery = new Company()->withoutGlobalScope(AdminPublicScope::class)
             ->select(['id', 'slug'])
-            ->where('owner_id', $this->adminId);
+            ->where('owner_id', '=', $this->adminId);
 
         $companies = [];
         foreach ($companyQuery->get() as $company) {
@@ -1250,7 +1250,7 @@ EOD,
         $this->applications = [];
         $query = $applicationModel->withoutGlobalScope(AdminPublicScope::class)
             ->selectRaw('applications.id as application_id, companies.slug as company_slug')
-            ->where('applications.owner_id', $this->adminId)
+            ->where('applications.owner_id', '=', $this->adminId)
             ->join(config('app.career_db').'.companies', 'companies.id', '=', 'company_id')
             ->orderBy('companies.slug');
         foreach ($query->get() as $row) {
@@ -1835,7 +1835,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
-        $idahoNationLabId = new Company()->where('name', 'Idaho National Laboratory')->first()->id ?? null;
+        $idahoNationLabId = new Company()->where('name', '=', 'Idaho National Laboratory')->first()->id ?? null;
 
         $data = [
             [ 'name' => 'Kevin Hemsley',         'slug' => 'kevin-hemsley',         'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => $idahoNationLabId, 'street' => null,                      'street2' => null,  'city' => 'Rigby',         'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 526-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 317-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
@@ -1889,7 +1889,7 @@ EOD,
 
         $this->resumes = [];
         foreach($resumeModel->withoutGlobalScope(AdminPublicScope::class)->select(['id', 'slug'])
-                    ->where('owner_id', $this->adminId)->get() as $resume) {
+                    ->where('owner_id', '=', $this->adminId)->get() as $resume) {
             $this->resumes[$resume->slug] = $resume->id;
         }
     }
@@ -1947,7 +1947,7 @@ EOD,
     {
         echo self::USERNAME . ": Inserting into System\\AdminDatabase ...\n";
 
-        if ($database = new Database()->where('tag', self::DB_TAG)->first()) {
+        if ($database = new Database()->where('tag', '=', self::DB_TAG)->first()) {
 
             $data = [];
 
@@ -1985,8 +1985,9 @@ EOD,
     {
         echo self::USERNAME . ": Inserting $tableName table into System\\AdminResource ...\n";
 
-        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table_name', $tableName)->first()) {
-
+        if ($resource = new Resource()->where('database_id', '=', $this->databaseId)
+            ->where('table_name', '=', $tableName)->first()
+        ) {
             $data = [];
 
             $dataRow = [];
@@ -2015,7 +2016,7 @@ EOD,
      */
     protected function getDatabase()
     {
-        return new Database()->where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', '=', self::DB_TAG)->first();
     }
 
     /**
@@ -2028,7 +2029,7 @@ EOD,
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return new Resource()->where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', '=', $database->id)->get();
         }
     }
 }

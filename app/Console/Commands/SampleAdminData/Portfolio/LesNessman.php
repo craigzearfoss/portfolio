@@ -839,8 +839,9 @@ class LesNessman extends Command
     {
         echo self::USERNAME . ": Inserting $tableName table into System\\AdminResource ...\n";
 
-        if ($resource = new Resource()->where('database_id', $this->databaseId)->where('table_name', $tableName)->first()) {
-
+        if ($resource = new Resource()->where('database_id', '=', $this->databaseId)
+            ->where('table_name', '=', $tableName)->first()
+        ) {
             $data = [];
 
             $dataRow = [];
@@ -869,7 +870,7 @@ class LesNessman extends Command
      */
     protected function getDatabase()
     {
-        return new Database()->where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', '=', self::DB_TAG)->first();
     }
 
     /**
@@ -882,7 +883,7 @@ class LesNessman extends Command
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return new Resource()->where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', '=', $database->id)->get();
         }
     }
 }

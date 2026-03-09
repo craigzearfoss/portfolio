@@ -1,6 +1,6 @@
 @php
-    $menu = $menu?? 0;
-    $menu_level = $menu_level = 0;
+    $menu = $menu ?? 0;
+    $menu_level = $menu_level ?? 0;
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
@@ -31,7 +31,7 @@
                                 <select id="inputMenu_level" name="menu_level" required>
                                     @for($i=0; $i<=5; $i++)
                                         <option value="{{ $i }}"
-                                                @if($i == old('menu_level') ?? $menu_level) selected @endif
+                                            {{ ($i == (old('menu_level') ?? $menu_level)) ? 'selected' : '' }}
                                         >
                                             {{ $i }}
                                         </option>

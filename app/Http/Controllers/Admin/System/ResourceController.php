@@ -24,20 +24,15 @@ class ResourceController extends BaseAdminController
      */
     public function index(Request $request): View|RedirectResponse
     {
-        if (!isRootAdmin()) {
+        if (!$this->isRootAdmin) {
             abort(403, 'Not authorized.');
         }
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        if (!$this->isRootAdmin) {
-            return redirect()->route('admin.system.admin-resource.show', $this->admin);
-        } else {
-            $resources = new AdminResource()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
-                ->orderBy('owner_id')
-                ->orderBy('name')
-                ->paginate($perPage)->appends(request()->except('page'));
-        }
+        $resources = new AdminResource()->searchQuery($request->all(), null)
+            ->orderBy('sequence')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Resources';
 
@@ -74,7 +69,7 @@ class ResourceController extends BaseAdminController
      */
     public function show(Resource $resource): View
     {
-        if (!isRootAdmin()) {
+        if (!$this->isRootAdmin) {
             abort(403, 'Not authorized.');
         }
 
@@ -96,7 +91,7 @@ class ResourceController extends BaseAdminController
      */
     public function edit(Resource $resource): View
     {
-        if (!isRootAdmin()) {
+        if (!$this->isRootAdmin) {
             abort(403, 'Not authorized.');
         }
 
@@ -112,7 +107,7 @@ class ResourceController extends BaseAdminController
      */
     public function update(UpdateResourcesRequest $request, Resource $resource): RedirectResponse
     {
-        if (!isRootAdmin()) {
+        if (!$this->isRootAdmin) {
             abort(403, 'Not authorized.');
         }
 

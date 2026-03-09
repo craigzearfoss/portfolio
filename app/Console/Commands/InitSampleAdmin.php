@@ -192,9 +192,9 @@ class InitSampleAdmin extends Command
 
         if ($username == 'demo') {
 
-            $adminId = new Admin()->withoutGlobalScope(AdminPublicScope::class)->where('username', $username)->first()->id;
-            $adminTeamId = new AdminTeam()->withoutGlobalScope(AdminPublicScope::class)->where('name', 'Demo Admin Team')->first()->id;
-            $adminGroupId = new AdminGroup()->withoutGlobalScope(AdminPublicScope::class)->where('name', 'Demo Admin Group')->first()->id;
+            $adminId = new Admin()->withoutGlobalScope(AdminPublicScope::class)->where('username', '=', $username)->first()->id;
+            $adminTeamId = new AdminTeam()->withoutGlobalScope(AdminPublicScope::class)->where('name', '=', 'Demo Admin Team')->first()->id;
+            $adminGroupId = new AdminGroup()->withoutGlobalScope(AdminPublicScope::class)->where('name', '=', 'Demo Admin Group')->first()->id;
 
         } else {
 
@@ -206,11 +206,11 @@ class InitSampleAdmin extends Command
             if (empty($adminTeamId)) {
                 // default to the Demo Admin Team
                 $adminTeamId = DB::connection(self::DB_TAG)->table('admin_teams')
-                    ->where('name', 'Demo Admin Team')->first()->id;
+                    ->where('name', '=', 'Demo Admin Team')->first()->id;
             } else {
                 // verify the specified team exists
                 if (DB::connection(self::DB_TAG)->table('admin_teams')
-                        ->where('id', $adminTeamId)->count() == 0
+                        ->where('id', '=', $adminTeamId)->count() == 0
                 ) {
                     $errors[] = "Admin team id `$adminTeamId` does not exist.";
                 }
@@ -223,11 +223,11 @@ class InitSampleAdmin extends Command
                 if (empty($adminGroupId)) {
                     // default to the Demo Admin Group
                     $adminGroupId = DB:: connection(self::DB_TAG)->table('admin_groups')
-                        ->where('name', 'Demo Admin Group')->first()->id;
+                        ->where('name', '=', 'Demo Admin Group')->first()->id;
                 } else {
                     // verify the specified group exists
                     if (!$group = DB::connection(self::DB_TAG)->table('admin_groups')
-                        ->where('id', $adminGroupId)->first()
+                        ->where('id', '=', $adminGroupId)->first()
                     ) {
                         $errors[] = "Admin group id `$adminGroupId` does not exist.";
                     } elseif ($group->admin_team_id != $adminTeamId) {
@@ -515,7 +515,7 @@ class InitSampleAdmin extends Command
      */
     protected function getDatabase()
     {
-        return new Database()->where('tag', self::DB_TAG)->first();
+        return new Database()->where('tag', '=', self::DB_TAG)->first();
     }
 
     /**
@@ -528,7 +528,7 @@ class InitSampleAdmin extends Command
         if (!$database = $this->getDatabase()) {
             return [];
         } else {
-            return new Resource()->where('database_id', $database->id)->get();
+            return new Resource()->where('database_id', '=', $database->id)->get();
         }
     }
 }
