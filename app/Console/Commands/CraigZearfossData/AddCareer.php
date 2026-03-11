@@ -1977,8 +1977,6 @@ EOD,
                 } else {
                     $dataRow[$key] = $value;
                 }
-
-
             }
 
             $dataRow['created_at']  = now();
@@ -1998,12 +1996,12 @@ EOD,
      * @param array $keyValuePairs
      * @return void
      */
-    protected function insertSystemAdminResource(int $ownerId, string $tableName, array $keyValuePairs= []): void
+    protected function insertSystemAdminResource(int $ownerId, string $tableName, array $keyValuePairs = []): void
     {
         echo self::USERNAME . ": Inserting $tableName table into System\\AdminResource ...\n";
 
         if ($resource = new Resource()->where('database_id', '=', $this->databaseId)
-            ->where('table_name', $tableName)->first()
+            ->where('table_name', '=', $tableName)->first()
         ) {
             if (!$resource->is_root || $this->admin['is_root']) {
 
@@ -2065,7 +2063,7 @@ EOD,
 
         foreach ($this->ownerlessTableNames as $tableName) {
             $resource = Resource::where('database_id', '=', $this->databaseId)
-                ->where('table_name', $tableName)->first();
+                ->where('table_name', '=', $tableName)->first();
 
             $data = [];
             $dataRow = [];
@@ -2098,11 +2096,11 @@ EOD,
         echo self::USERNAME . ": Adding parent ids to System\\AdminResource ...\n";
 
         // get an array of base resource ids by id
-        $resources = Resource::where('database_id', $this->databaseId)->get()->keyBy('id')->toArray();
+        $resources = Resource::where('database_id', '=', $this->databaseId)->get()->keyBy('id')->toArray();
 
         // get the admin resources for the database and this owner
-        $currentResources = AdminResource::where('database_id', $this->databaseId)
-            ->where('owner_id', $this->adminId)->get();
+        $currentResources = AdminResource::where('database_id', '=', $this->databaseId)
+            ->where('owner_id', '=', $this->adminId)->get();
 
         // create an array mapping the admin resource ids to the base resource ids
         $currentIds = [];
@@ -2113,7 +2111,6 @@ EOD,
         // add the parent ids to the admin ids
         foreach ($currentResources as $currentResource) {
             if (!empty($resources[$currentResource->resource_id]['parent_id'])) {
-echo 'RESOURCE ID: ' . $currentResource->resource_id . PHP_EOL;
                 $baseParentId = $resources[$currentResource->resource_id]['parent_id'];
                 $thisAdminResource = AdminResource::find($currentResource['id']);
                 $thisAdminResource->parent_id = $currentIds[$baseParentId];

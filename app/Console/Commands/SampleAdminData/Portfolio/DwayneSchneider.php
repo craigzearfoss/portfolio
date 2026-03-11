@@ -14,6 +14,7 @@ use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\JobTask;
 use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
+use App\Models\Portfolio\Photography;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
@@ -47,7 +48,7 @@ class DwayneSchneider extends Command
     /**
      * @var int
      */
-    protected int $demo = 1;
+    protected int $is_demo = 1;
 
     /**
      * @var int
@@ -65,9 +66,23 @@ class DwayneSchneider extends Command
     protected int|null $adminId = null;
 
     /**
+     * @var Admin|null
+     */
+    protected Admin|null $admin = null;
+
+    /**
      * @var array
      */
     protected array $jobId = [];
+
+    /**
+     * @var array
+     */
+    protected array $ownerlessTableNames = [
+        'academies',
+        'certifications',
+        'schools',
+    ];
 
     /**
      * The name and signature of the console command.
@@ -90,8 +105,8 @@ class DwayneSchneider extends Command
      */
     public function handle(): void
     {
-        $this->demo   = $this->option('demo');
-        $this->silent = $this->option('silent');
+        $this->is_demo = $this->option('demo');
+        $this->silent  = $this->option('silent');
 
         // get the database id
         if (!$database = new Database()->where('tag', '=', self::DB_TAG)->first()) {
@@ -101,15 +116,15 @@ class DwayneSchneider extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = new Admin()->where('username', '=', self::USERNAME)->first()) {
+        if (!$this->admin = new Admin()->where('username', '=', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
-        $this->adminId = $admin->id;
+        $this->adminId = $this->admin->id;
 
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
-            echo 'demo: ' . $this->demo . PHP_EOL;
+            echo 'demo: ' . $this->is_demo . PHP_EOL;
             text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
@@ -127,10 +142,13 @@ class DwayneSchneider extends Command
         $this->insertPortfolioJobTasks();
         $this->insertPortfolioLinks();
         $this->insertPortfolioMusic();
+        $this->insertPortfolioPhotography();
         $this->insertPortfolioProjects();
         $this->insertPortfolioPublications();
         $this->insertPortfolioSkills();
         $this->insertPortfolioVideos();
+        $this->addOwnerlessTables();
+        $this->addParentIds();
     }
 
     /**
@@ -163,7 +181,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'art');
         }
     }
@@ -202,7 +220,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'audios');
         }
     }
@@ -232,7 +250,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'awards');
         }
     }
@@ -263,7 +281,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'certificates');
         }
     }
@@ -300,7 +318,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'courses');
         }
     }
@@ -352,7 +370,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'education');
         }
     }
@@ -396,7 +414,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'jobs');
         }
     }
@@ -426,7 +444,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
         }
     }
@@ -451,7 +469,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_skills');
         }
     }
@@ -475,7 +493,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'job_tasks');
         }
     }
@@ -523,8 +541,42 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'links');
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function insertPortfolioPhotography(): void
+    {
+        echo self::USERNAME . ": Inserting into Portfolio\\Photography ...\n";
+
+        $data = [
+            /*
+            [
+                'owner_id'          => $this->adminId,
+                'name'              => null,
+                'slug'              => null,
+                'featured'          => 0,
+                'summary'           => null,
+                'year'              => null,
+                'credit'            => null,
+                'model'             => null,
+                'location'          => null,
+                'copyright'         => null,
+                'link'              => null,
+                'link_name'         => null,
+                'image'             => null,
+                'is_public'            => 1,
+            ]
+            */
+        ];
+
+        if (!empty($data)) {
+            new Photography()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
+            //$this->insertSystemAdminResource($this->adminId, 'audio');
         }
     }
 
@@ -581,7 +633,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'music');
         }
     }
@@ -612,7 +664,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'projects');
         }
     }
@@ -662,7 +714,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'publications');
         }
     }
@@ -697,7 +749,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'skills');
         }
     }
@@ -735,7 +787,7 @@ class DwayneSchneider extends Command
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->demo], boolval($this->demo)));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
             $this->insertSystemAdminResource($this->adminId, 'videos');
         }
     }
@@ -770,7 +822,7 @@ class DwayneSchneider extends Command
             }
 
             // extra columns
-            foreach ($extraColumns as $name=>$value) {
+            foreach ($extraColumns as $name => $value) {
                 $data[$i][$name] = $value;
             }
 
@@ -823,35 +875,42 @@ class DwayneSchneider extends Command
      *
      * @param int $ownerId
      * @param string $tableName
+     * @param array $keyValuePairs
      * @return void
      */
-    protected function insertSystemAdminResource(int $ownerId, string $tableName): void
+    protected function insertSystemAdminResource(int $ownerId, string $tableName, array $keyValuePairs = []): void
     {
         echo self::USERNAME . ": Inserting $tableName table into System\\AdminResource ...\n";
 
         if ($resource = new Resource()->where('database_id', '=', $this->databaseId)
             ->where('table_name', '=', $tableName)->first()
         ) {
-            $data = [];
+            if (!$resource->is_root || $this->admin['is_root']) {
 
-            $dataRow = [];
+                $data = [];
+                $dataRow = [];
 
-            foreach($resource->toArray() as $key => $value) {
-                if ($key === 'id') {
-                    $dataRow['resource_id'] = $value;
-                } elseif ($key === 'owner_id') {
-                    $dataRow['owner_id'] = $ownerId;
-                } else {
-                    $dataRow[$key] = $value;
+                foreach ($resource->toArray() as $key => $value) {
+                    if (array_key_exists($key, $keyValuePairs)) {
+                        $dataRow[$key] = $keyValuePairs[$key];
+                    } elseif ($key === 'id') {
+                        $dataRow['resource_id'] = $value;
+                    } elseif ($key === 'owner_id') {
+                        $dataRow['owner_id'] = $ownerId;
+                    } elseif ($key === 'parent_id') {
+                        $dataRow['parent_id'] = null;
+                    } else {
+                        $dataRow[$key] = $value;
+                    }
                 }
+
+                $dataRow['created_at'] = now();
+                $dataRow['updated_at'] = now();
+
+                $data[] = $dataRow;
+
+                new AdminResource()->insert($data);
             }
-
-            $dataRow['created_at']  = now();
-            $dataRow['updated_at']  = now();
-
-            $data[] = $dataRow;
-
-            new AdminResource()->insert($data);
         }
     }
 
@@ -874,6 +933,72 @@ class DwayneSchneider extends Command
             return [];
         } else {
             return new Resource()->where('database_id', '=', $database->id)->get();
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function addOwnerlessTables(): void
+    {
+        echo self::USERNAME . ": Adding ownerless tables ...\n";
+
+        foreach ($this->ownerlessTableNames as $tableName) {
+            $resource = Resource::where('database_id', '=', $this->databaseId)
+                ->where('table_name', '=',  $tableName)->first();
+
+            $data = [];
+            $dataRow = [];
+            foreach($resource->toArray() as $key => $value) {
+                if ($key === 'id') {
+                    $dataRow['resource_id'] = $value;
+                } elseif ($key === 'owner_id') {
+                    $dataRow['owner_id'] = $this->adminId;
+                } elseif ($key === 'parent_id') {
+                    $dataRow['parent_id'] = null;
+                } else {
+                    $dataRow[$key] = $value;
+                }
+            }
+
+            $dataRow['created_at']  = now();
+            $dataRow['updated_at']  = now();
+
+            $data[] = $dataRow;
+
+            new AdminResource()->insert($data);
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function addParentIds(): void
+    {
+        echo self::USERNAME . ": Adding parent ids to System\\AdminResource ...\n";
+
+        // get an array of base resource ids by id
+        $resources = Resource::where('database_id', '=', $this->databaseId)->get()->keyBy('id')->toArray();
+
+        // get the admin resources for the database and this owner
+        $currentResources = AdminResource::where('database_id', '=', $this->databaseId)
+            ->where('owner_id', '=', $this->adminId)->get();
+
+        // create an array mapping the admin resource ids to the base resource ids
+        $currentIds = [];
+        foreach ($currentResources as $currentResource) {
+            $currentIds[$currentResource->resource_id] = $currentResource['id'];
+        }
+
+        // add the parent ids to the admin ids
+        foreach ($currentResources as $currentResource) {
+            if (!empty($resources[$currentResource->resource_id]['parent_id'])) {
+                $baseParentId = $resources[$currentResource->resource_id]['parent_id'];
+                $thisAdminResource = AdminResource::find($currentResource['id']);
+                $thisAdminResource->parent_id = $currentIds[$baseParentId];
+                $thisAdminResource->save();
+            }
+            $currentIds[$currentResource['id']] = $currentResource->resource_id;
         }
     }
 }

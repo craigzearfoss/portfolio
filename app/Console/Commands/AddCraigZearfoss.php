@@ -228,7 +228,7 @@ class AddCraigZearfoss extends Command
 
         /* --------------------------------------------------------------------------- */
         /* Import into the system database.                                            */
-        /* Note that the demo-admin is added in the initial migration.                 */
+        /* Note that the demo-admin was added in the initial migration.                */
         /* --------------------------------------------------------------------------- */
         $this->insertSystemAdmin($adminId, $adminTeamId);
         $this->insertSystemAdminAdminTeams($adminId, $adminTeamId);
@@ -382,6 +382,7 @@ class AddCraigZearfoss extends Command
                 $dataRow = [];
 
                 foreach ($database->toArray() as $key => $value) {
+
                     if ($key === 'id') {
                         $dataRow['database_id'] = $value;
                     } elseif ($key === 'owner_id') {

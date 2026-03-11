@@ -33,11 +33,6 @@ class InitSampleAdmin extends Command
     const string DB_TAG = 'system_db';
 
     /**
-     * @var int|null
-     */
-    protected int|null $adminId = null;
-
-    /**
      * @var int
      */
     protected int $is_demo = 1;
@@ -244,17 +239,20 @@ class InitSampleAdmin extends Command
 
         /* --------------------------------------------------------------------------- */
         /* Import into the system database.                                            */
-        /* Note that the demo admin was added in the initial migration.                */
+        /* Note that the demo-admin was added in the initial migration.                */
         /* --------------------------------------------------------------------------- */
         if ($username != 'demo') {
 
             echo PHP_EOL . "Importing Portfolio data for $username ..." . PHP_EOL;
 
             $this->insertSystemAdmin($username, $password, $adminId, $adminTeamId);
-            $this->insertSystemAdminAdminTeams($username, $adminId, $adminTeamId);
-            $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
-            $this->insertSystemAdminDatabaseRows($adminId, $username);
-            $this->insertSystemAdminResourceRows($adminId, $username);
+
+            $admin = Admin::find($adminId);
+
+            $this->insertSystemAdminAdminTeams($admin, $adminTeamId);
+            $this->insertSystemAdminAdminGroups($admin, $adminGroupId);
+            $this->insertSystemAdminDatabaseRows($admin);
+            $this->insertSystemAdminResourceRows($admin);
         }
 
         // get the name of the init files
@@ -297,18 +295,17 @@ class InitSampleAdmin extends Command
     /**
      * Add an admin to an admin group.
      *
-     * @param string $username
-     * @param int $adminId
+     * @param Admin $admin
      * @param int $adminGroupId
      * @return void
      */
-    protected function insertSystemAdminAdminGroups(string $username, int $adminId, int $adminGroupId): void
+    protected function insertSystemAdminAdminGroups(Admin $admin, int $adminGroupId): void
     {
-        echo $username. ": Inserting into System\\AdminAdminGroup ...\n";
+        echo $admin['username'] . ": Inserting into System\\AdminAdminGroup ...\n";
 
         $data = [
             [
-                'admin_id'       => $adminId,
+                'admin_id'       => $admin['id'],
                 'admin_group_id' => $adminGroupId,
             ]
         ];
@@ -321,18 +318,17 @@ class InitSampleAdmin extends Command
     /**
      * Add an admin to an admin team.
      *
-     * @param string $username
-     * @param int $adminId
+     * @param Admin $admin
      * @param int $adminTeamId
      * @return void
      */
-    protected function insertSystemAdminAdminTeams(string $username, int $adminId, int $adminTeamId): void
+    protected function insertSystemAdminAdminTeams(Admin $admin, int $adminTeamId): void
     {
-        echo $username . ": Inserting into System\\AdminAdminTeam ...\n";
+        echo $admin['username'] . ": Inserting into System\\AdminAdminTeam ...\n";
 
         $data = [
             [
-                'admin_id'      => $adminId,
+                'admin_id'      => $admin['id'],
                 'admin_team_id' => $adminTeamId,
             ]
         ];
@@ -398,14 +394,13 @@ class InitSampleAdmin extends Command
     /**
      * Insert system database entries into the admin_databases table.
      *
-     * @param int $ownerId
-     * @param string $username
+     * @param Admin $admin
      * @return void
      * @throws Exception
      */
-    protected function insertSystemAdminDatabaseRows(int $ownerId, string $username): void
+    protected function insertSystemAdminDatabaseRows(Admin $admin): void
     {
-        echo $username . ": Inserting into System\\AdminDatabase ...\n";
+        echo $admin['username'] . ": Inserting into System\\AdminDatabase ...\n";
 
         if ($databases = new Database()->whereIn('tag', [self::DB_TAG, 'dictionary_db'])->get()) {
 
@@ -419,7 +414,7 @@ class InitSampleAdmin extends Command
                     if ($key === 'id') {
                         $dataRow['database_id'] = $value;
                     } elseif ($key === 'owner_id') {
-                        $dataRow['owner_id'] = $ownerId;
+                        $dataRow['owner_id'] = $admin['id'];
                     } else {
                         $dataRow[$key] = $value;
                     }
@@ -438,39 +433,40 @@ class InitSampleAdmin extends Command
     /**
      * Insert system database resource entries into the admin_resources table.
      *
-     * @param int $ownerId
-     * @param string $username
+     * @param Admin $admin
      * @return void
      */
-    protected function insertSystemAdminResourceRows(int $ownerId, string $username): void
+    protected function insertSystemAdminResourceRows(Admin $admin): void
     {
-        echo $username . ": Inserting into System\\AdminResource ...\n";
-
-        $data = [];
+        echo $admin['username'] . ": Inserting into System\\AdminResource ...\n";
 
         if ($resources = $this->getDbResources()) {
 
             foreach ($resources as $resource) {
 
-                $dataRow = [];
+                if (!$resource->is_root || $this->admin['is_root']) {
 
-                foreach($resource->toArray() as $key => $value) {
-                    if ($key === 'id') {
-                        $dataRow['resource_id'] = $value;
-                    } elseif ($key === 'owner_id') {
-                        $dataRow['owner_id'] = $ownerId;
-                    } else {
-                        $dataRow[$key] = $value;
+                    $data = [];
+                    $dataRow = [];
+
+                    foreach ($resource->toArray() as $key => $value) {
+                        if ($key === 'id') {
+                            $dataRow['resource_id'] = $value;
+                        } elseif ($key === 'owner_id') {
+                            $dataRow['owner_id'] = $admin['id'];
+                        } else {
+                            $dataRow[$key] = $value;
+                        }
                     }
+
+                    $dataRow['created_at'] = now();
+                    $dataRow['updated_at'] = now();
+
+                    $data[] = $dataRow;
+
+                    new AdminResource()->insert($data);
                 }
-
-                $dataRow['created_at']  = now();
-                $dataRow['updated_at']  = now();
-
-                $data[] = $dataRow;
             }
-
-            new AdminResource()->insert($data);
         }
     }
 
