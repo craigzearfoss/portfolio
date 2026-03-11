@@ -20,50 +20,63 @@ return new class extends Migration
     public function up(): void
     {
         $ownerIds = $this->getAdminIds();
-        $portfolioResources = $this->getDbResources();
+        $resources = $this->getDbResources();
 
-        if (!empty($ownerIds) && !empty($portfolioResources) && empty($portfolioResources->root)) {
-
-            $data = [];
+        if (!empty($ownerIds) && !empty($resources)) {
 
             foreach ($ownerIds as $ownerId) {
 
-                foreach ($portfolioResources as $portfolioResource) {
-                    $data[] = [
-                        'parent_id'      => $portfolioResource->parent_id,
+                $currentIds = [];
+                $parentIds = [];
+
+                foreach ($resources as $resource) {
+                    $data = [
+                        'parent_id'      => null,
                         'owner_id'       => $ownerId,
-                        'resource_id'    => $portfolioResource->id,
-                        'database_id'    => $portfolioResource->database_id,
-                        'name'           => $portfolioResource->name,
-                        'table_name'     => $portfolioResource->table_name,
-                        'class'          => $portfolioResource->class,
-                        'title'          => $portfolioResource->title,
-                        'plural'         => $portfolioResource->plural,
-                        'has_owner'      => $portfolioResource->has_owner,
-                        'guest'          => $portfolioResource->guest,
-                        'user'           => $portfolioResource->user,
-                        'admin'          => $portfolioResource->admin,
-                        'menu'           => $portfolioResource->menu,
-                        'menu_level'     => $portfolioResource->menu_level,
-                        'menu_collapsed' => $portfolioResource->menu_collapsed,
-                        'icon'           => $portfolioResource->icon,
-                        'is_public'      => $portfolioResource->is_public,
-                        'is_readonly'    => $portfolioResource->is_readonly,
-                        'is_root'        => $portfolioResource->is_root,
-                        'is_disabled'    => $portfolioResource->is_disabled,
-                        'is_demo'        => $portfolioResource->is_demo,
-                        'sequence'       => $portfolioResource->sequence,
+                        'resource_id'    => $resource->id,
+                        'database_id'    => $resource->database_id,
+                        'name'           => $resource->name,
+                        'table_name'     => $resource->table_name,
+                        'class'          => $resource->class,
+                        'title'          => $resource->title,
+                        'plural'         => $resource->plural,
+                        'has_owner'      => $resource->has_owner,
+                        'guest'          => $resource->guest,
+                        'user'           => $resource->user,
+                        'admin'          => $resource->admin,
+                        'menu'           => $resource->menu,
+                        'menu_level'     => $resource->menu_level,
+                        'menu_collapsed' => $resource->menu_collapsed,
+                        'icon'           => $resource->icon,
+                        'is_public'      => $resource->is_public,
+                        'is_readonly'    => $resource->is_readonly,
+                        'is_root'        => $resource->is_root,
+                        'is_disabled'    => $resource->is_disabled,
+                        'is_demo'        => $resource->is_demo,
+                        'sequence'       => $resource->sequence,
+                        'created_at'     => now(),
+                        'updated_at'     => now(),
                     ];
+
+                    $insertedId = AdminResource::insertGetId($data);
+
+                    $currentIds[$resource->id] = $insertedId;
+
+                    if (!empty($resource->parent_id)) {
+                        $parentIds[$insertedId] = $resource->parent_id;
+                    }
+                }
+
+                // add the admin resource parent ids for the admin
+                if (!empty($parentIds)) {
+                    foreach ($parentIds as $insertedId=>$baseParentId) {
+                        $newParentId = $currentIds[$baseParentId];
+                        $insertedAdminResource = AdminResource::find($insertedId);
+                        $insertedAdminResource->parent_id = $newParentId;
+                        $insertedAdminResource->save();
+                    }
                 }
             }
-
-            // add timestamps
-            for ($i = 0; $i < count($data); $i++) {
-                $data[$i]['created_at'] = now();
-                $data[$i]['updated_at'] = now();
-            }
-
-            new AdminResource()->insert($data);
         }
     }
 
@@ -74,10 +87,10 @@ return new class extends Migration
     {
         $ownerIds = $this->getAdminIds();
 
-        if ($portfolioResources = $this->getDbResources()) {
-            if (!empty($ownerIds) && !empty($portfolioResources)) {
+        if ($resources = $this->getDbResources()) {
+            if (!empty($ownerIds) && !empty($resources)) {
                 new AdminResource()->whereIn('owner_id', $ownerIds)
-                    ->whereIn('resource_id', $portfolioResources->pluck('id'))
+                    ->whereIn('resource_id', $resources->pluck('id'))
                     ->delete();
             }
         }

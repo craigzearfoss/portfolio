@@ -60,6 +60,11 @@ class AddCareer extends Command
     protected int|null $adminId = null;
 
     /**
+     * @var Admin|null
+     */
+    protected Admin|null $admin = null;
+
+    /**
      * @var array
      */
     protected array $applicationId = [];
@@ -85,6 +90,15 @@ class AddCareer extends Command
     protected array $resumes = [];
 
     /**
+     * @var array
+     */
+    protected array $ownerlessTableNames = [
+        'industries',
+        'job_boards',
+        'recruiters',
+    ];
+
+    /**
      * The name and signature of the console command.
      *
      * @var string
@@ -105,8 +119,8 @@ class AddCareer extends Command
      */
     public function handle(): void
     {
-        $this->is_demo   = $this->option('demo');
-        $this->silent = $this->option('silent');
+        $this->is_demo = $this->option('demo');
+        $this->silent  = $this->option('silent');
 
         // get the database id
         if (!$database = new Database()->where('tag', '=', self::DB_TAG)->first()) {
@@ -116,11 +130,11 @@ class AddCareer extends Command
         $this->databaseId = $database->id;
 
         // get the admin
-        if (!$admin = new Admin()->where('username', '=', self::USERNAME)->first()) {
+        if (!$this->admin = new Admin()->where('username', '=', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
-        $this->adminId = $admin->id;
+        $this->adminId = $this->admin->id;
 
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
@@ -141,6 +155,8 @@ class AddCareer extends Command
         $this->insertCareerNotes();
         $this->insertCareerApplicationSkill();
         $this->insertCareerCompanyContacts();
+        $this->addOwnerlessTables();
+        $this->addParentIds();
     }
 
     /**
@@ -1244,8 +1260,8 @@ EOD,
                 $dataArray = [$dataArray];
                 $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->is_demo]));
             }
-            $this->insertSystemAdminResource($this->adminId, 'applications');
         }
+        $this->insertSystemAdminResource($this->adminId, 'applications', [ 'public' => !empty($data) ]);
 
         $this->applications = [];
         $query = $applicationModel->withoutGlobalScope(AdminPublicScope::class)
@@ -1282,8 +1298,8 @@ EOD,
 
         if (!empty($data)) {
             new ApplicationSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'application_skills');
         }
+        $this->insertSystemAdminResource($this->adminId, 'application_skills', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -1419,8 +1435,8 @@ EOD,
 
         if (!empty($data)) {
             $companyModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'companies');
         }
+        $this->insertSystemAdminResource($this->adminId, 'companies', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -1500,8 +1516,8 @@ EOD,
 
         if (!empty($data)) {
             $contactModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'contacts');
         }
+        $this->insertSystemAdminResource($this->adminId, 'contacts', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -1525,8 +1541,8 @@ EOD,
 
         if (!empty($data)) {
             new Communication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'communications');
         }
+        $this->insertSystemAdminResource($this->adminId, 'communications', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -1773,8 +1789,8 @@ EOD,
 
         if (!empty($data)) {
             new CoverLetter()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'cover_letters');
         }
+        $this->insertSystemAdminResource($this->adminId, 'cover_letters', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -1799,8 +1815,8 @@ EOD,
 
         if (!empty($data)) {
             new Event()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'events');
         }
+        $this->insertSystemAdminResource($this->adminId, 'events', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -1824,8 +1840,8 @@ EOD,
 
         if (!empty($data)) {
             new Note()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'notes');
         }
+        $this->insertSystemAdminResource($this->adminId, 'notes', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -1852,8 +1868,8 @@ EOD,
 
         if (!empty($data)) {
             new Reference()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'references');
         }
+        $this->insertSystemAdminResource($this->adminId, 'references', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -1884,8 +1900,8 @@ EOD,
 
         if (!empty($data)) {
             $resumeModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'resumes');
         }
+        $this->insertSystemAdminResource($this->adminId, 'resumes', [ 'public' => !empty($data) ]);
 
         $this->resumes = [];
         foreach($resumeModel->withoutGlobalScope(AdminPublicScope::class)->select(['id', 'slug'])
@@ -1979,35 +1995,42 @@ EOD,
      *
      * @param int $ownerId
      * @param string $tableName
+     * @param array $keyValuePairs
      * @return void
      */
-    protected function insertSystemAdminResource(int $ownerId, string $tableName): void
+    protected function insertSystemAdminResource(int $ownerId, string $tableName, array $keyValuePairs= []): void
     {
         echo self::USERNAME . ": Inserting $tableName table into System\\AdminResource ...\n";
 
         if ($resource = new Resource()->where('database_id', '=', $this->databaseId)
-            ->where('table_name', '=', $tableName)->first()
+            ->where('table_name', $tableName)->first()
         ) {
-            $data = [];
+            if (!$resource->is_root || $this->admin['is_root']) {
 
-            $dataRow = [];
+                $data = [];
+                $dataRow = [];
 
-            foreach($resource->toArray() as $key => $value) {
-                if ($key === 'id') {
-                    $dataRow['resource_id'] = $value;
-                } elseif ($key === 'owner_id') {
-                    $dataRow['owner_id'] = $ownerId;
-                } else {
-                    $dataRow[$key] = $value;
+                foreach ($resource->toArray() as $key => $value) {
+                    if (array_key_exists($key, $keyValuePairs)) {
+                        $dataRow[$key] = $keyValuePairs[$key];
+                    } elseif ($key === 'id') {
+                        $dataRow['resource_id'] = $value;
+                    } elseif ($key === 'owner_id') {
+                        $dataRow['owner_id'] = $ownerId;
+                    } elseif ($key === 'parent_id') {
+                        $dataRow['parent_id'] = null;
+                    } else {
+                        $dataRow[$key] = $value;
+                    }
                 }
+
+                $dataRow['created_at'] = now();
+                $dataRow['updated_at'] = now();
+
+                $data[] = $dataRow;
+
+                new AdminResource()->insert($data);
             }
-
-            $dataRow['created_at']  = now();
-            $dataRow['updated_at']  = now();
-
-            $data[] = $dataRow;
-
-            new AdminResource()->insert($data);
         }
     }
 
@@ -2030,6 +2053,73 @@ EOD,
             return [];
         } else {
             return new Resource()->where('database_id', '=', $database->id)->get();
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function addOwnerlessTables(): void
+    {
+        echo self::USERNAME . ": Adding ownerless tables ...\n";
+
+        foreach ($this->ownerlessTableNames as $tableName) {
+            $resource = Resource::where('database_id', '=', $this->databaseId)
+                ->where('table_name', $tableName)->first();
+
+            $data = [];
+            $dataRow = [];
+            foreach($resource->toArray() as $key => $value) {
+                if ($key === 'id') {
+                    $dataRow['resource_id'] = $value;
+                } elseif ($key === 'owner_id') {
+                    $dataRow['owner_id'] = $this->adminId;
+                } elseif ($key === 'parent_id') {
+                    $dataRow['parent_id'] = null;
+                } else {
+                    $dataRow[$key] = $value;
+                }
+            }
+
+            $dataRow['created_at']  = now();
+            $dataRow['updated_at']  = now();
+
+            $data[] = $dataRow;
+
+            new AdminResource()->insert($data);
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function addParentIds(): void
+    {
+        echo self::USERNAME . ": Adding parent ids to System\\AdminResource ...\n";
+
+        // get an array of base resource ids by id
+        $resources = Resource::where('database_id', $this->databaseId)->get()->keyBy('id')->toArray();
+
+        // get the admin resources for the database and this owner
+        $currentResources = AdminResource::where('database_id', $this->databaseId)
+            ->where('owner_id', $this->adminId)->get();
+
+        // create an array mapping the admin resource ids to the base resource ids
+        $currentIds = [];
+        foreach ($currentResources as $currentResource) {
+            $currentIds[$currentResource->resource_id] = $currentResource['id'];
+        }
+
+        // add the parent ids to the admin ids
+        foreach ($currentResources as $currentResource) {
+            if (!empty($resources[$currentResource->resource_id]['parent_id'])) {
+echo 'RESOURCE ID: ' . $currentResource->resource_id . PHP_EOL;
+                $baseParentId = $resources[$currentResource->resource_id]['parent_id'];
+                $thisAdminResource = AdminResource::find($currentResource['id']);
+                $thisAdminResource->parent_id = $currentIds[$baseParentId];
+                $thisAdminResource->save();
+            }
+            $currentIds[$currentResource['id']] = $currentResource->resource_id;
         }
     }
 }

@@ -69,7 +69,7 @@
             ])
 
             @include('admin.components.show-row', [
-                'name'  => 'name',
+                'name'  => $isRootAdmin ? 'resource name' : 'resource',
                 'value' => $adminResource->name
             ])
 
@@ -82,16 +82,16 @@
             @else
                 @include('admin.components.show-row', [
                     'name'  => 'parent',
-                    'value' => ''
+                    'value' => '<i>None</i>'
                 ])
             @endif
-
-            <div class="columns">
-                <div class="column is-2"><strong>children</strong>:</div>
-                <div class="column is-10 pl-0">
-                    @if(!empty($adminResource->children))
+@php dd($adminResource->children); @endphp
+            @if(!empty($adminResource->children()))
+                <div class="columns">
+                    <div class="column is-2"><strong>children</strong>:</div>
+                    <div class="column is-10 pl-0">
                         <ol>
-                            @foreach($adminResource->children as $child)
+                            @foreach($adminResource->children() as $child)
                                 <li>
                                     @include('admin.components.link', [
                                         'name' => $child->name,
@@ -100,19 +100,28 @@
                                 </li>
                             @endforeach
                         </ol>
-                    @endif
+                    </div>
                 </div>
-            </div>
+            @else
+                @include('admin.components.show-row', [
+                    'name'  => 'children',
+                    'value' => '<i>None</i>'
+                ])
+            @endif
 
-            @include('admin.components.show-row', [
-                'name'  => 'table',
-                'value' => $adminResource->table
-            ])
+            @if($isRootAdmin)
 
-            @include('admin.components.show-row', [
-                'name'  => 'class',
-                'value' => $adminResource->class
-            ])
+                @include('admin.components.show-row', [
+                    'name'  => 'table',
+                    'value' => $adminResource->table_name
+                ])
+
+                @include('admin.components.show-row', [
+                    'name'  => 'class',
+                    'value' => $adminResource->class
+                ])
+
+            @endif
 
             @include('admin.components.show-row', [
                 'name'  => 'title',

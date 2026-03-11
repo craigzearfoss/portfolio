@@ -288,11 +288,11 @@ if (! function_exists('canRead')) {
         if (empty($admin) || $admin['is_root']) {
             $adminResource = new Resource()->where('class', '=', $resourceClass)->first();
         } else {
-            $adminResource = new Resource()->where('class', '=', $resourceClass)
+            $adminResource = new AdminResource()->where('class', '=', $resourceClass)
                 ->where('owner_id', '=', $admin['id'])
                 ->first();
         }
-
+//dd($adminResource);
         if (empty($adminResource)) {
             // specified resource does not exist
             return false;
@@ -303,12 +303,16 @@ if (! function_exists('canRead')) {
             if ($admin['is_root']) {
                 // root admins can read resources of all owners
                 return true;
+            } elseif (empty($resourceObject)) {
+                return true;
             } elseif (!empty($resourceObject) && ($resourceObject->owner_id == $admin['id'])) {
                 // non-root users can only view their own resources
                 return true;
             } else {
                 return false;
             }
+        } elseif (empty($resourceObject)) {
+            return true;
         } else {
             return false;
         }

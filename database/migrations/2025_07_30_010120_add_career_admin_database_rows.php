@@ -68,7 +68,7 @@ return new class extends Migration
         $careerDatabase = $this->getDatabase();
 
         if (!empty($ownerIds) && !empty($careerDatabase)) {
-            new AdminDatabase()->whereIn('owner_id', '=', $ownerIds)->where('database_id', $careerDatabase->id)->delete();
+            new AdminDatabase()->whereIn('owner_id', $ownerIds)->where('database_id', $careerDatabase->id)->delete();
         }
     }
 

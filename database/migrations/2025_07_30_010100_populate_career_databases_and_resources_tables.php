@@ -353,7 +353,7 @@ return new class extends Migration
                 'icon'        => 'fa-handshake',
                 'is_public'   => false,
                 'is_readonly' => false,
-                'is_root'     => true,
+                'is_root'     => false,
                 'is_disabled' => false,
                 'is_demo'     => false,
                 'sequence'    => $database->sequence + 110,

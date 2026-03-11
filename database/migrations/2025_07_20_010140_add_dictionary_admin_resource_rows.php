@@ -20,50 +20,63 @@ return new class extends Migration
     public function up(): void
     {
         $ownerIds = $this->getAdminIds();
-        $dictionaryResources = $this->getDbResources();
+        $resources = $this->getDbResources();
 
-        if (!empty($ownerIds) && !empty($dictionaryResources) && empty($dictionaryResources->root)) {
-
-            $data = [];
+        if (!empty($ownerIds) && !empty($resources) && empty($resources->root)) {
 
             foreach ($ownerIds as $ownerId) {
 
-                foreach ($dictionaryResources as $dictionaryResource) {
-                    $data[] = [
-                        'parent_id'      => $dictionaryResource->parent_id,
+                $currentIds = [];
+                $parentIds = [];
+
+                foreach ($resources as $resource) {
+                    $data = [
+                        'parent_id'      => null,
                         'owner_id'       => $ownerId,
-                        'resource_id'    => $dictionaryResource->id,
-                        'database_id'    => $dictionaryResource->database_id,
-                        'name'           => $dictionaryResource->name,
-                        'table_name'     => $dictionaryResource->table_name,
-                        'class'          => $dictionaryResource->class,
-                        'title'          => $dictionaryResource->title,
-                        'plural'         => $dictionaryResource->plural,
-                        'has_owner'      => $dictionaryResource->has_owner,
-                        'guest'          => $dictionaryResource->guest,
-                        'user'           => $dictionaryResource->user,
-                        'admin'          => $dictionaryResource->admin,
-                        'menu'           => $dictionaryResource->menu,
-                        'menu_level'     => $dictionaryResource->menu_level,
-                        'menu_collapsed' => $dictionaryResource->menu_collapsed,
-                        'icon'           => $dictionaryResource->icon,
-                        'is_public'      => $dictionaryResource->is_public,
-                        'is_readonly'    => $dictionaryResource->is_readonly,
-                        'is_root'        => $dictionaryResource->is_root,
-                        'is_disabled'    => $dictionaryResource->is_disabled,
-                        'is_demo'        => $dictionaryResource->is_demo,
-                        'sequence'       => $dictionaryResource->sequence,
+                        'resource_id'    => $resource->id,
+                        'database_id'    => $resource->database_id,
+                        'name'           => $resource->name,
+                        'table_name'     => $resource->table_name,
+                        'class'          => $resource->class,
+                        'title'          => $resource->title,
+                        'plural'         => $resource->plural,
+                        'has_owner'      => $resource->has_owner,
+                        'guest'          => $resource->guest,
+                        'user'           => $resource->user,
+                        'admin'          => $resource->admin,
+                        'menu'           => $resource->menu,
+                        'menu_level'     => $resource->menu_level,
+                        'menu_collapsed' => $resource->menu_collapsed,
+                        'icon'           => $resource->icon,
+                        'is_public'      => $resource->is_public,
+                        'is_readonly'    => $resource->is_readonly,
+                        'is_root'        => $resource->is_root,
+                        'is_disabled'    => $resource->is_disabled,
+                        'is_demo'        => $resource->is_demo,
+                        'sequence'       => $resource->sequence,
+                        'created_at'     => now(),
+                        'updated_at'     => now(),
                     ];
+
+                    $insertedId = AdminResource::insertGetId($data);
+
+                    $currentIds[$resource->id] = $insertedId;
+
+                    if (!empty($resource->parent_id)) {
+                        $parentIds[$insertedId] = $resource->parent_id;
+                    }
+                }
+
+                // add the admin resource parent ids for the admin
+                if (!empty($parentIds)) {
+                    foreach ($parentIds as $insertedId=>$baseParentId) {
+                        $newParentId = $currentIds[$baseParentId];
+                        $insertedAdminResource = AdminResource::find($insertedId);
+                        $insertedAdminResource->parent_id = $newParentId;
+                        $insertedAdminResource->save();
+                    }
                 }
             }
-
-            // add timestamps
-            for ($i = 0; $i < count($data); $i++) {
-                $data[$i]['created_at'] = now();
-                $data[$i]['updated_at'] = now();
-            }
-
-            new AdminResource()->insert($data);
         }
     }
 
@@ -74,10 +87,10 @@ return new class extends Migration
     {
         $ownerIds = $this->getAdminIds();
 
-        if ($dictionaryResources = $this->getDbResources()) {
-            if (!empty($ownerIds) && !empty($dictionaryResources)) {
+        if ($resources = $this->getDbResources()) {
+            if (!empty($ownerIds) && !empty($resources)) {
                 new AdminResource()->whereIn('owner_id', $ownerIds)
-                    ->whereIn('resource_id', $dictionaryResources->pluck('id'))
+                    ->whereIn('resource_id', $resources->pluck('id'))
                     ->delete();
             }
         }

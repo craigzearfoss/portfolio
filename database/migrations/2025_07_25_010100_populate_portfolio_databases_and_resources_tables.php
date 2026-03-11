@@ -310,7 +310,7 @@ return new class extends Migration
 
             $data[] = [
                 'id'          => $resourceId++,
-                'parent_id'   => null,
+                'parent_id'   => $jobResourceId,
                 'database_id' => $database->id,
                 'name'        => 'job-coworker',
                 'table_name'  => 'job_coworkers',

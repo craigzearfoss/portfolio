@@ -74,10 +74,17 @@ class AddCraigZearfoss extends Command
      * @var int|null
      */
     protected int|null $adminId = null;
+
+    /**
+     * @var Admin|null
+     */
+    protected Admin|null $admin = null;
+
     /**
      * @var int
      */
     protected int $is_demo = 1;
+
     /**
      * @var int
      */
@@ -87,10 +94,12 @@ class AddCraigZearfoss extends Command
      * @var array
      */
     protected array $ids = [];
+
     /**
      * @var array
      */
     protected array $companyIds = [];
+
     /**
      * @var array
      */
@@ -351,6 +360,7 @@ class AddCraigZearfoss extends Command
         if (!empty($data)) {
             new Admin()->insert($this->additionalColumns($data, true, null, ['is_demo' => $this->is_demo]));
         }
+        $this->admin = Admin::find($adminId);
     }
 
     /**
@@ -401,31 +411,33 @@ class AddCraigZearfoss extends Command
     {
         echo $this->username . ": Inserting into System\\AdminResource ...\n";
 
-        $data = [];
-
         if ($resources = $this->getDbResources()) {
 
             foreach ($resources as $resource) {
 
-                $dataRow = [];
+                if (!$resource->is_root || $this->admin['is_root']) {
 
-                foreach($resource->toArray() as $key => $value) {
-                    if ($key === 'id') {
-                        $dataRow['resource_id'] = $value;
-                    } elseif ($key === 'owner_id') {
-                        $dataRow['owner_id'] = $ownerId;
-                    } else {
-                        $dataRow[$key] = $value;
+                    $data = [];
+                    $dataRow = [];
+
+                    foreach ($resource->toArray() as $key => $value) {
+                        if ($key === 'id') {
+                            $dataRow['resource_id'] = $value;
+                        } elseif ($key === 'owner_id') {
+                            $dataRow['owner_id'] = $ownerId;
+                        } else {
+                            $dataRow[$key] = $value;
+                        }
                     }
+
+                    $dataRow['created_at'] = now();
+                    $dataRow['updated_at'] = now();
+
+                    $data[] = $dataRow;
+
+                    new AdminResource()->insert($data);
                 }
-
-                $dataRow['created_at']  = now();
-                $dataRow['updated_at']  = now();
-
-                $data[] = $dataRow;
             }
-
-            new AdminResource()->insert($data);
         }
     }
 

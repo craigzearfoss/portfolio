@@ -20,50 +20,63 @@ return new class extends Migration
     public function up(): void
     {
         $ownerIds = $this->getAdminIds();
-        $careerResources = $this->getDbResources();
+        $resources = $this->getDbResources();
 
-        if (!empty($ownerIds) && !empty($careerResources)) {
-
-            $data = [];
+        if (!empty($ownerIds) && !empty($resources)) {
 
             foreach ($ownerIds as $ownerId) {
 
-                foreach ($careerResources as $careerResource) {
-                    $data[] = [
-                        'parent_id'      => $careerResource->parent_id,
+                $currentIds = [];
+                $parentIds = [];
+
+                foreach ($resources as $resource) {
+                    $data = [
+                        'parent_id'      => null,
                         'owner_id'       => $ownerId,
-                        'resource_id'    => $careerResource->id,
-                        'database_id'    => $careerResource->database_id,
-                        'name'           => $careerResource->name,
-                        'table_name'     => $careerResource->table_name,
-                        'class'          => $careerResource->class,
-                        'title'          => $careerResource->title,
-                        'plural'         => $careerResource->plural,
-                        'has_owner'      => $careerResource->has_owner,
-                        'guest'          => $careerResource->guest,
-                        'user'           => $careerResource->user,
-                        'admin'          => $careerResource->admin,
-                        'menu'           => $careerResource->menu,
-                        'menu_level'     => $careerResource->menu_level,
-                        'menu_collapsed' => $careerResource->menu_collapsed,
-                        'icon'           => $careerResource->icon,
-                        'is_public'      => $careerResource->is_public,
-                        'is_readonly'    => $careerResource->is_readonly,
-                        'is_root'        => $careerResource->is_root,
-                        'is_disabled'    => $careerResource->is_disabled,
-                        'is_demo'        => $careerResource->is_demo,
-                        'sequence'       => $careerResource->sequence,
+                        'resource_id'    => $resource->id,
+                        'database_id'    => $resource->database_id,
+                        'name'           => $resource->name,
+                        'table_name'     => $resource->table_name,
+                        'class'          => $resource->class,
+                        'title'          => $resource->title,
+                        'plural'         => $resource->plural,
+                        'has_owner'      => $resource->has_owner,
+                        'guest'          => $resource->guest,
+                        'user'           => $resource->user,
+                        'admin'          => $resource->admin,
+                        'menu'           => $resource->menu,
+                        'menu_level'     => $resource->menu_level,
+                        'menu_collapsed' => $resource->menu_collapsed,
+                        'icon'           => $resource->icon,
+                        'is_public'      => $resource->is_public,
+                        'is_readonly'    => $resource->is_readonly,
+                        'is_root'        => $resource->is_root,
+                        'is_disabled'    => $resource->is_disabled,
+                        'is_demo'        => $resource->is_demo,
+                        'sequence'       => $resource->sequence,
+                        'created_at'     => now(),
+                        'updated_at'     => now(),
                     ];
+
+                    $insertedId = AdminResource::insertGetId($data);
+
+                    $currentIds[$resource->id] = $insertedId;
+
+                    if (!empty($resource->parent_id)) {
+                        $parentIds[$insertedId] = $resource->parent_id;
+                    }
+                }
+
+                // add the admin resource parent ids for the admin
+                if (!empty($parentIds)) {
+                    foreach ($parentIds as $insertedId=>$baseParentId) {
+                        $newParentId = $currentIds[$baseParentId];
+                        $insertedAdminResource = AdminResource::find($insertedId);
+                        $insertedAdminResource->parent_id = $newParentId;
+                        $insertedAdminResource->save();
+                    }
                 }
             }
-
-            // add timestamps
-            for ($i = 0; $i < count($data); $i++) {
-                $data[$i]['created_at'] = now();
-                $data[$i]['updated_at'] = now();
-            }
-
-            new AdminResource()->insert($data);
         }
     }
 
@@ -74,10 +87,10 @@ return new class extends Migration
     {
         $ownerIds = $this->getAdminIds();
 
-        if ($careerResources = $this->getDbResources()) {
-            if (!empty($ownerIds) && !empty($careerResources)) {
+        if ($resources = $this->getDbResources()) {
+            if (!empty($ownerIds) && !empty($resources)) {
                 new AdminResource()->whereIn('owner_id', $ownerIds)
-                    ->whereIn('resource_id', $careerResources->pluck('id'))
+                    ->whereIn('resource_id', $resources->pluck('id'))
                     ->delete();
             }
         }

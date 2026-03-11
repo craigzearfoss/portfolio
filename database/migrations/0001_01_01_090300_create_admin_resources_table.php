@@ -2,8 +2,9 @@
 
 use App\Models\System\Admin;
 use App\Models\System\Database;
-use App\Models\System\Resource;
 use App\Models\System\AdminResource;
+use App\Models\System\Owner;
+use App\Models\System\Resource;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('resources', 'id')
+                ->constrained('admin_resources', 'id')
                 ->onDelete('cascade');
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
@@ -65,17 +66,77 @@ return new class extends Migration
         });
 
         $ownerIds = $this->getAdminIds();
-        $systemResources = $this->getDbResources();
+        $resources = $this->getDbResources();
 
-        if (!empty($ownerIds) && !empty($systemResources)) {
-
-            $data = [];
+        if (!empty($ownerIds) && !empty($resources)) {
 
             foreach ($ownerIds as $ownerId) {
 
+                $owner = Owner::find($ownerId);
+
+                $currentIds = [];
+                $parentIds = [];
+
+                foreach ($resources as $resource) {
+
+                    if (!$resource->is_root || $owner->is_root) {
+
+                        $data = [
+                            'parent_id' => null,
+                            'owner_id' => $ownerId,
+                            'resource_id' => $resource->id,
+                            'database_id' => $resource->database_id,
+                            'name' => $resource->name,
+                            'table_name' => $resource->table_name,
+                            'class' => $resource->class,
+                            'title' => $resource->title,
+                            'plural' => $resource->plural,
+                            'has_owner' => $resource->has_owner,
+                            'guest' => $resource->guest,
+                            'user' => $resource->user,
+                            'admin' => $resource->admin,
+                            'menu' => $resource->menu,
+                            'menu_level' => $resource->menu_level,
+                            'menu_collapsed' => $resource->menu_collapsed,
+                            'icon' => $resource->icon,
+                            'is_public' => $resource->is_public,
+                            'is_readonly' => $resource->is_readonly,
+                            'is_root' => $resource->is_root,
+                            'is_disabled' => $resource->is_disabled,
+                            'is_demo' => $resource->is_demo,
+                            'sequence' => $resource->sequence,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+
+                        $insertedId = AdminResource::insertGetId($data);
+
+                        $currentIds[$resource->id] = $insertedId;
+
+                        if (!empty($resource->parent_id)) {
+                            $parentIds[$insertedId] = $resource->parent_id;
+                        }
+                    }
+                }
+
+                // add the admin resource parent ids for the admin
+                if (!empty($parentIds)) {
+                    foreach ($parentIds as $insertedId=>$baseParentId) {
+                        $newParentId = $currentIds[$baseParentId];
+                        $insertedAdminResource = AdminResource::find($insertedId);
+                        $insertedAdminResource->parent_id = $newParentId;
+                        $insertedAdminResource->save();
+                    }
+                }
+
+
+                /*
+                $currentIds = [];
+                $parentIds = [];
+
                 foreach ($systemResources as $systemResource) {
-                    $data[] = [
-                        'parent_id'      => $systemResource->parent_id,
+                    $data = [
+                        'parent_id'      => null,
                         'owner_id'       => $ownerId,
                         'resource_id'    => $systemResource->id,
                         'database_id'    => $systemResource->database_id,
@@ -98,17 +159,30 @@ return new class extends Migration
                         'is_disabled'    => $systemResource->is_disabled,
                         'is_demo'        => $systemResource->is_demo,
                         'sequence'       => $systemResource->sequence,
+                        'created_at'     => now(),
+                        'updated_at'     => now(),
                     ];
+
+                    $insertedId = AdminResource::insertGetId($data);
+
+                    $currentIds[$systemResource->id] = $insertedId;
+
+                    if (!empty($systemResource->parent_id)) {
+                        $parentIds[$insertedId] = $systemResource->parent_id;
+                    }
                 }
-            }
 
-            // add timestamps
-            for ($i = 0; $i < count($data); $i++) {
-                $data[$i]['created_at'] = now();
-                $data[$i]['updated_at'] = now();
+                // add the admin resource parent ids for the admin
+                if (!empty($parentIds)) {
+                    foreach ($parentIds as $insertedId=>$baseParentId) {
+                        $newParentId = $currentIds[$baseParentId];
+                        $insertedAdminResource = AdminResource::find($insertedId);
+                        $insertedAdminResource->parent_id = $newParentId;
+                        $insertedAdminResource->save();
+                    }
+                }
+                */
             }
-
-            new AdminResource()->insert($data);
         }
     }
 
@@ -129,8 +203,9 @@ return new class extends Migration
     }
 
     /**
+     * @return mixed
      */
-    private function getDatabase()
+    private function getDatabase(): mixed
     {
         return new Database()->where('tag', '=', $this->database_tag)->first();
     }

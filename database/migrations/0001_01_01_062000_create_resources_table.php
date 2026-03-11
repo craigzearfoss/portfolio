@@ -70,6 +70,8 @@ return new class extends Migration
 
         } else {
 
+            $resourceModel = new Resource();
+
             /** -----------------------------------------------------
              * Add system resources.
              ** ----------------------------------------------------- */
@@ -451,7 +453,27 @@ return new class extends Migration
                 $data[$i]['owner_id'] = $this->rootAdminId;
             }
 
-            new Resource()->insert($data);
+            $resourceModel->insert($data);
+
+            /**
+             * add parent ids
+             */
+
+            // admins - emails and phones
+            $parentResourceRow = Resource::where('table_name', 'admins')->first();
+            foreach (['admin_emails', 'admin_phones'] as $tableName) {
+                $thisResource = Resource::where('table_name', $tableName)->first();
+                $thisResource->parent_id = $parentResourceRow->id;
+                $thisResource->save();
+            }
+
+            // users - emails and phones
+            $parentResourceRow = Resource::where('table_name', 'users')->first();
+            foreach (['user_emails', 'user_phones'] as $tableName) {
+                $thisResource = Resource::where('table_name', $tableName)->first();
+                $thisResource->parent_id = $parentResourceRow->id;
+                $thisResource->save();
+            }
         }
     }
 
