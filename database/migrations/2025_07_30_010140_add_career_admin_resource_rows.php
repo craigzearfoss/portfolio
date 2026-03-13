@@ -99,9 +99,14 @@ return new class extends Migration
     /**
      * @return array
      */
-    private function getAdminIds():array
+    private function getAdminIds(): array
     {
-        return Admin::all()->pluck('id')->toArray();
+        if (!$database = $this->getDatabase()) {
+            return [];
+        }
+
+        return Admin::whereIn('username', ['root', 'default'])
+            ->get()->pluck('id')->toArray();
     }
 
     /**
@@ -121,6 +126,6 @@ return new class extends Migration
             return [];
         }
 
-        return new Resource()->where('database_id', '=', $database->id)->get();
+        return Resource::where('database_id', '=', $database->id)->get();
     }
 };

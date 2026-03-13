@@ -325,7 +325,6 @@ class AddPortfolio extends Command
                 'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
                 'link'            => null,
                 'link_name'       => null,
                 'description'     => null,
@@ -361,6 +360,7 @@ class AddPortfolio extends Command
                 'link'            => 'https://coursera.org/verify/professional-cert/HGL8U7MSRWFL',
                 'link_name'       => 'Coursera verification',
                 'description'     => '<p class="menu-label">Includes the following courses:</p><ul class="menu-list"><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
+                'is_public'          => 1,
             ],
         ];
 

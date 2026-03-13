@@ -38,11 +38,6 @@ return new class extends Migration
                 'admin_id'       => 2,
                 'admin_group_id' => 1,
             ],
-            [
-                'id'             => 3,
-                'admin_id'       => 3,
-                'admin_group_id' => 2,
-            ],
         ];
 
         new AdminAdminGroup()->insert($data);

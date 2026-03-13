@@ -237,7 +237,7 @@ return new class extends Migration
             . DIRECTORY_SEPARATOR . $this->demoLabel . DIRECTORY_SEPARATOR;
         $imagePath =  $imageDir . generateEncodedFilename($this->demoLabel, 'image') . '.png';
         $thumbnailPath = $imageDir . generateEncodedFilename($this->demoLabel, 'thumbnail') . '.png';
-
+/*
         $data[] = [
             'id'                => 3,
             //'admin_team_id'     => null,
@@ -258,7 +258,7 @@ return new class extends Migration
             'is_disabled'       => false,
             'is_demo'           => true,
         ];
-
+*/
         // add timestamps
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();

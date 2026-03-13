@@ -414,29 +414,45 @@ class AddCraigZearfoss extends Command
 
         if ($resources = $this->getDbResources()) {
 
+            $currentIds = [];
+            $parentIds = [];
+
             foreach ($resources as $resource) {
 
                 if (!$resource->is_root || $this->admin['is_root']) {
 
                     $data = [];
-                    $dataRow = [];
 
                     foreach ($resource->toArray() as $key => $value) {
                         if ($key === 'id') {
-                            $dataRow['resource_id'] = $value;
+                            $data['resource_id'] = $value;
                         } elseif ($key === 'owner_id') {
-                            $dataRow['owner_id'] = $ownerId;
+                            $data['owner_id'] = $ownerId;
                         } else {
-                            $dataRow[$key] = $value;
+                            $data[$key] = $value;
                         }
                     }
 
-                    $dataRow['created_at'] = now();
-                    $dataRow['updated_at'] = now();
+                    $data['created_at'] = now();
+                    $data['updated_at'] = now();
 
-                    $data[] = $dataRow;
+                    $insertedId =  new AdminResource()->insertGetId($data);
 
-                    new AdminResource()->insert($data);
+                    $currentIds[$resource->id] = $insertedId;
+
+                    if (!empty($resource->parent_id)) {
+                        $parentIds[$insertedId] = $resource->parent_id;
+                    }
+                }
+            }
+
+            // add the admin resource parent ids for the admin
+            if (!empty($parentIds)) {
+                foreach ($parentIds as $insertedId=>$baseParentId) {
+                    $newParentId = $currentIds[$baseParentId];
+                    $insertedAdminResource = AdminResource::find($insertedId);
+                    $insertedAdminResource->parent_id = $newParentId;
+                    $insertedAdminResource->save();
                 }
             }
         }

@@ -58,7 +58,7 @@ return new class extends Migration
             ],
             [
                 'id'           => 2,
-                'owner_id'     => 3,
+                'owner_id'     => 1,
                 'name'         => 'Demo Admin Team',
                 'slug'         => 'demo-admin-team',
                 'abbreviation' => 'DEAT',

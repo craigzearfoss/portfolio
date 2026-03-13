@@ -128,60 +128,6 @@ return new class extends Migration
                         $insertedAdminResource->save();
                     }
                 }
-
-
-                /*
-                $currentIds = [];
-                $parentIds = [];
-
-                foreach ($systemResources as $systemResource) {
-                    $data = [
-                        'parent_id'      => null,
-                        'owner_id'       => $ownerId,
-                        'resource_id'    => $systemResource->id,
-                        'database_id'    => $systemResource->database_id,
-                        'name'           => $systemResource->name,
-                        'table_name'     => $systemResource->table_name,
-                        'class'          => $systemResource->class,
-                        'title'          => $systemResource->title,
-                        'plural'         => $systemResource->plural,
-                        'has_owner'      => $systemResource->has_owner,
-                        'guest'          => $systemResource->guest,
-                        'user'           => $systemResource->user,
-                        'admin'          => $systemResource->admin,
-                        'menu'           => $systemResource->menu,
-                        'menu_level'     => $systemResource->menu_level,
-                        'menu_collapsed' => $systemResource->menu_collapsed,
-                        'icon'           => $systemResource->icon,
-                        'is_public'      => $systemResource->is_public,
-                        'is_readonly'    => $systemResource->is_readonly,
-                        'is_root'        => $systemResource->is_root,
-                        'is_disabled'    => $systemResource->is_disabled,
-                        'is_demo'        => $systemResource->is_demo,
-                        'sequence'       => $systemResource->sequence,
-                        'created_at'     => now(),
-                        'updated_at'     => now(),
-                    ];
-
-                    $insertedId = AdminResource::insertGetId($data);
-
-                    $currentIds[$systemResource->id] = $insertedId;
-
-                    if (!empty($systemResource->parent_id)) {
-                        $parentIds[$insertedId] = $systemResource->parent_id;
-                    }
-                }
-
-                // add the admin resource parent ids for the admin
-                if (!empty($parentIds)) {
-                    foreach ($parentIds as $insertedId=>$baseParentId) {
-                        $newParentId = $currentIds[$baseParentId];
-                        $insertedAdminResource = AdminResource::find($insertedId);
-                        $insertedAdminResource->parent_id = $newParentId;
-                        $insertedAdminResource->save();
-                    }
-                }
-                */
             }
         }
     }

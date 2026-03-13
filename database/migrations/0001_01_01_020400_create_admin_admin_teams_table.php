@@ -35,13 +35,13 @@ return new class extends Migration
             ],
             [
                 'id'            => 2,
-                'admin_id'      => 2,
-                'admin_team_id' => 1,
+                'admin_id'      => 1,
+                'admin_team_id' => 2,
             ],
             [
                 'id'            => 3,
-                'admin_id'      => 3,
-                'admin_team_id' => 2,
+                'admin_id'      => 2,
+                'admin_team_id' => 1,
             ],
         ];
 

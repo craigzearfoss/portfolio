@@ -139,9 +139,9 @@ class LaverneDeFazio extends Command
         ];
 
         if (!empty($data)) {
-            new Reading()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'readings');
+            new Reading()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'readings', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -151,10 +151,8 @@ class LaverneDeFazio extends Command
     {
         echo self::USERNAME . ": Inserting into Personal\\Recipe ...\n";
 
-        $recipeModel = new Recipe();
-
         $this->recipeId = [];
-        $maxId = $recipeModel->withoutGlobalScope(AdminPublicScope::class)->max('id');
+        $maxId = new Recipe()->withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->recipeId[$i] = ++$maxId;
         }
@@ -168,9 +166,9 @@ class LaverneDeFazio extends Command
         ];
 
         if (!empty($data)) {
-            new Recipe()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'recipes');
+            new Recipe()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'recipes', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -231,8 +229,8 @@ class LaverneDeFazio extends Command
 
         if (!empty($data)) {
             new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients');
         }
+        $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -263,8 +261,8 @@ class LaverneDeFazio extends Command
 
         if (!empty($data)) {
             new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            $this->insertSystemAdminResource($this->adminId, 'recipe_steps');
         }
+        $this->insertSystemAdminResource($this->adminId, 'recipe_steps', [ 'public' => !empty($data) ]);
     }
 
     /**

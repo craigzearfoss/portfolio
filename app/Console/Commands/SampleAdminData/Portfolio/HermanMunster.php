@@ -171,19 +171,19 @@ class HermanMunster extends Command
                 'year'        => 2025,
                 'featured'    => 0,
                 'is_public'      => 1,
-                'image'   => null,
                 'link_name'   => null,
                 'link'        => null,
                 'notes'       => null,
                 'description' => null,
+                'image'       => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'art');
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'art', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -220,9 +220,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'audios');
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'audios', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -240,17 +240,22 @@ class HermanMunster extends Command
                 'category'        => null,
                 'nominated_work'  => null,
                 'featured'        => 0,
+                'summary'         => null,
+                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
+                'link'            => null,
+                'link_name'       => null,
+                'description'     => null,
                 'is_public'          => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'awards');
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'awards', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -272,6 +277,8 @@ class HermanMunster extends Command
                 'year'            => 2023,
                 'received'        => '0000-00-00',
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'description'     => null,
                 'is_public'          => 1,
             ],
@@ -279,9 +286,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'certificates');
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'certificates', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -316,16 +323,16 @@ class HermanMunster extends Command
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'courses');
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'courses', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -375,9 +382,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'education');
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'education', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -414,14 +421,14 @@ class HermanMunster extends Command
                 'longitude'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'is_public'                 => 1,
+                'is_public'              => 1,
             ],
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'jobs');
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'jobs', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -437,9 +444,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'job_coworkers');
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'job_coworkers', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -462,9 +469,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'job_skils');
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'job_skills', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -486,9 +493,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'job_tasks');
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'job_tasks', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -544,9 +551,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'links');
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'links', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -641,9 +648,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'music');
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'music', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -672,9 +679,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'projects');
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'projects', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -716,15 +723,15 @@ class HermanMunster extends Command
                 'description'       => null,
                 'link'              => null,
                 'link_name'         => null,
-                'is_public'            => 1,
+                'is_public'         => 1,
             ]
             */
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'publications');
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'publications', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -754,9 +761,9 @@ class HermanMunster extends Command
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'skills');
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'skills', [ 'public' => !empty($data) ]);
     }
 
     /**
@@ -786,15 +793,15 @@ class HermanMunster extends Command
                 'link'             => null,
                 'link_name'        => null,
                 'description'      => null,
-                'is_public'           => 1,
+                'is_public'        => 1,
             ],
             */
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
-            $this->insertSystemAdminResource($this->adminId, 'videos');
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
+        $this->insertSystemAdminResource($this->adminId, 'videos', [ 'public' => !empty($data) ]);
     }
 
     /**

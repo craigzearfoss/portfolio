@@ -92,12 +92,16 @@ class InitSampleAdmin extends Command
      */
     protected $description = 'This will populate the databases with initial data for a sample admin (or all sample admins).';
 
+    protected $siteCompany = null;
+
     /**
      * Execute the console command.
      * @throws RandomException
      */
     public function handle(): void
     {
+        $this->siteCompany = config('app.name');
+
         $username      = $this->argument('username');
         $password      = $this->option('password');
         $adminTeamId   = $this->option('team_id');
@@ -185,49 +189,40 @@ class InitSampleAdmin extends Command
 
         $errors = [];
 
-        if ($username == 'demo') {
+        // get the next available admin id
+        $adminId = new Admin()->withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
 
-            $adminId = new Admin()->withoutGlobalScope(AdminPublicScope::class)->where('username', '=', $username)->first()->id;
-            $adminTeamId = new AdminTeam()->withoutGlobalScope(AdminPublicScope::class)->where('name', '=', 'Demo Admin Team')->first()->id;
-            $adminGroupId = new AdminGroup()->withoutGlobalScope(AdminPublicScope::class)->where('name', '=', 'Demo Admin Group')->first()->id;
-
+        // get/validate the team id (Every admin must belong to a team.)
+        if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);
+        if (empty($adminTeamId)) {
+            // default to the Demo Admin Team
+            $adminTeamId = DB::connection(self::DB_TAG)->table('admin_teams')
+                ->where('name', '=', 'Demo Admin Team')->first()->id;
         } else {
-
-            // get the next available admin id
-            $adminId = new Admin()->withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
-
-            // get/validate the team id (Every admin must belong to a team.)
-            if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);
-            if (empty($adminTeamId)) {
-                // default to the Demo Admin Team
-                $adminTeamId = DB::connection(self::DB_TAG)->table('admin_teams')
-                    ->where('name', '=', 'Demo Admin Team')->first()->id;
-            } else {
-                // verify the specified team exists
-                if (DB::connection(self::DB_TAG)->table('admin_teams')
-                        ->where('id', '=', $adminTeamId)->count() == 0
-                ) {
-                    $errors[] = "Admin team id `$adminTeamId` does not exist.";
-                }
+            // verify the specified team exists
+            if (DB::connection(self::DB_TAG)->table('admin_teams')
+                    ->where('id', '=', $adminTeamId)->count() == 0
+            ) {
+                $errors[] = "Admin team id `$adminTeamId` does not exist.";
             }
+        }
 
-            if (empty($errors)) {
+        if (empty($errors)) {
 
-                // get/validate the group id (Every admin must belong to a group.)
-                if (!empty($adminGroupId)) $adminGroupId = intval($adminGroupId);
-                if (empty($adminGroupId)) {
-                    // default to the Demo Admin Group
-                    $adminGroupId = DB:: connection(self::DB_TAG)->table('admin_groups')
-                        ->where('name', '=', 'Demo Admin Group')->first()->id;
-                } else {
-                    // verify the specified group exists
-                    if (!$group = DB::connection(self::DB_TAG)->table('admin_groups')
-                        ->where('id', '=', $adminGroupId)->first()
-                    ) {
-                        $errors[] = "Admin group id `$adminGroupId` does not exist.";
-                    } elseif ($group->admin_team_id != $adminTeamId) {
-                        $errors[] = "Admin group id `$adminGroupId` does not belong to the admin team `$adminTeamId`.";
-                    }
+            // get/validate the group id (Every admin must belong to a group.)
+            if (!empty($adminGroupId)) $adminGroupId = intval($adminGroupId);
+            if (empty($adminGroupId)) {
+                // default to the Demo Admin Group
+                $adminGroupId = DB:: connection(self::DB_TAG)->table('admin_groups')
+                    ->where('name', '=', 'Demo Admin Group')->first()->id;
+            } else {
+                // verify the specified group exists
+                if (!$group = DB::connection(self::DB_TAG)->table('admin_groups')
+                    ->where('id', '=', $adminGroupId)->first()
+                ) {
+                    $errors[] = "Admin group id `$adminGroupId` does not exist.";
+                } elseif ($group->admin_team_id != $adminTeamId) {
+                    $errors[] = "Admin group id `$adminGroupId` does not belong to the admin team `$adminTeamId`.";
                 }
             }
         }
@@ -239,21 +234,17 @@ class InitSampleAdmin extends Command
 
         /* --------------------------------------------------------------------------- */
         /* Import into the system database.                                            */
-        /* Note that the demo-admin was added in the initial migration.                */
         /* --------------------------------------------------------------------------- */
-        if ($username != 'demo') {
+        echo PHP_EOL . "Importing Portfolio data for $username ..." . PHP_EOL;
 
-            echo PHP_EOL . "Importing Portfolio data for $username ..." . PHP_EOL;
+        $this->insertSystemAdmin($username, $password, $adminId, $adminTeamId);
 
-            $this->insertSystemAdmin($username, $password, $adminId, $adminTeamId);
+        $admin = Admin::find($adminId);
 
-            $admin = Admin::find($adminId);
-
-            $this->insertSystemAdminAdminTeams($admin, $adminTeamId);
-            $this->insertSystemAdminAdminGroups($admin, $adminGroupId);
-            $this->insertSystemAdminDatabaseRows($admin);
-            $this->insertSystemAdminResourceRows($admin);
-        }
+        $this->insertSystemAdminAdminTeams($admin, $adminTeamId);
+        $this->insertSystemAdminAdminGroups($admin, $adminGroupId);
+        $this->insertSystemAdminDatabaseRows($admin);
+        $this->insertSystemAdminResourceRows($admin);
 
         // get the name of the init files
         $initFile = ucfirst(Str::camel($username)) . '.php';
@@ -375,7 +366,7 @@ class InitSampleAdmin extends Command
                 'label'             => self::USER_DATA[$username]['label'],
                 'email'             => self::USER_DATA[$username]['email'],
                 'role'              => self::USER_DATA[$username]['role'] ,
-                'employer'          => self::USER_DATA[$username]['employer'],
+                'employer'          => self::USER_DATA[$username]['employer'] ?? $this->siteCompany,
                 'email_verified_at' => now(),
                 'is_public'         => true,
                 'status'            => 1,
@@ -442,29 +433,45 @@ class InitSampleAdmin extends Command
 
         if ($resources = $this->getDbResources()) {
 
+            $currentIds = [];
+            $parentIds = [];
+
             foreach ($resources as $resource) {
 
-                if (!$resource->is_root || $this->admin['is_root']) {
+                if (!$resource->is_root || $admin['is_root']) {
 
                     $data = [];
-                    $dataRow = [];
 
                     foreach ($resource->toArray() as $key => $value) {
                         if ($key === 'id') {
-                            $dataRow['resource_id'] = $value;
+                            $data['resource_id'] = $value;
                         } elseif ($key === 'owner_id') {
-                            $dataRow['owner_id'] = $admin['id'];
+                            $data['owner_id'] = $admin['id'];
                         } else {
-                            $dataRow[$key] = $value;
+                            $data[$key] = $value;
                         }
                     }
 
-                    $dataRow['created_at'] = now();
-                    $dataRow['updated_at'] = now();
+                    $data['created_at'] = now();
+                    $data['updated_at'] = now();
 
-                    $data[] = $dataRow;
+                    $insertedId =  new AdminResource()->insertGetId($data);
 
-                    new AdminResource()->insert($data);
+                    $currentIds[$resource->id] = $insertedId;
+
+                    if (!empty($resource->parent_id)) {
+                        $parentIds[$insertedId] = $resource->parent_id;
+                    }
+                }
+            }
+
+            // add the admin resource parent ids for the admin
+            if (!empty($parentIds)) {
+                foreach ($parentIds as $insertedId=>$baseParentId) {
+                    $newParentId = $currentIds[$baseParentId];
+                    $insertedAdminResource = AdminResource::find($insertedId);
+                    $insertedAdminResource->parent_id = $newParentId;
+                    $insertedAdminResource->save();
                 }
             }
         }

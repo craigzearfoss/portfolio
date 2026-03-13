@@ -61,7 +61,7 @@ return new class extends Migration
             ],
             [
                 'id'            => 2,
-                'owner_id'      => 3,
+                'owner_id'      => 1,
                 'admin_team_id' => 2,
                 'name'          => 'Demo Admin Group',
                 'slug'          => 'demo-admin-group',
