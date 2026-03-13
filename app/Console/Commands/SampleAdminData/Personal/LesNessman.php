@@ -146,7 +146,7 @@ class LesNessman extends Command
         if (!empty($data)) {
             new Reading()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'readings', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'readings', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -173,7 +173,7 @@ class LesNessman extends Command
         if (!empty($data)) {
             new Recipe()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'recipes', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'recipes', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -235,7 +235,7 @@ class LesNessman extends Command
         if (!empty($data)) {
             new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -267,7 +267,7 @@ class LesNessman extends Command
         if (!empty($data)) {
             new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'recipe_steps', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'recipe_steps', [ 'is_public' => !empty($data) ]);
     }
 
     /**

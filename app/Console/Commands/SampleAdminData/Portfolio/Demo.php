@@ -265,7 +265,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'art', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'art', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -350,7 +350,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'audios', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'audios', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -383,7 +383,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'awards', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'awards', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -414,7 +414,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'certificates', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'certificates', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -1585,7 +1585,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'courses', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'courses', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -1654,7 +1654,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'education', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'education', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -1837,7 +1837,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'jobs', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'jobs', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -1878,7 +1878,7 @@ class Demo extends Command
         if (!empty($data)) {
             new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'job_coworkers', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'job_coworkers', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -1903,7 +1903,7 @@ class Demo extends Command
         if (!empty($data)) {
             new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'job_skills', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'job_skills', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -1931,7 +1931,7 @@ class Demo extends Command
         if (!empty($data)) {
             new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'job_tasks', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'job_tasks', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -1951,7 +1951,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'links', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'links', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -2108,7 +2108,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'music', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'music', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -2214,7 +2214,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'projects', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'projects', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -2393,7 +2393,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'publications', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'publications', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -2404,51 +2404,51 @@ class Demo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Symfony',           'slug' => 'symfony',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 1,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Vue.js',            'slug' => 'vue-js',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'jQuery',            'slug' => 'jquery',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'React',             'slug' => 'react',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'JavaScript',        'slug' => 'javascript',        'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'PHP',               'slug' => 'php',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'SQL',               'slug' => 'sql',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Powershell',        'slug' => 'powershell',        'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'BASH',              'slug' => 'bash',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 6,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'DOS',               'slug' => 'dos',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 6,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'MySQL',             'slug' => 'mysql',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'MariaDB',           'slug' => 'mariadb',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Postgres',          'slug' => 'postgres',          'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'MongoDB',           'slug' => 'mongodb',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Elasticsearch',     'slug' => 'elasticsearch',     'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 3,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Linux',             'slug' => 'linux',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Ubuntu',            'slug' => 'ubuntu',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Windows',           'slug' => 'windows',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'macOS',             'slug' => 'macos',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 4,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Apache2',           'slug' => 'apache2',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 26,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Nginx',             'slug' => 'nginx',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 26,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Git',               'slug' => 'git',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 34,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'JIRA',              'slug' => 'jira',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 34,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'HTML5',             'slug' => 'html5',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'CSS3',              'slug' => 'css3',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'DOM',               'slug' => 'dom',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'JSX',               'slug' => 'jsx',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Ajax',              'slug' => 'ajax',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Twitter Bootstrap', 'slug' => 'twitter-bootstrap', 'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Bulma',             'slug' => 'bulma',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 4,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'JSON',              'slug' => 'json',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'REST',              'slug' => 'rest',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 16,  'level' => 9,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 7,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 19,  'level' => 4,  'years' => 20,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 6,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 8,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 3,  'years' => 3,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Symfony',           'slug' => 'symfony',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 1,  'years' => 5,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Vue.js',            'slug' => 'vue-js',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 8,  'years' => 5,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'jQuery',            'slug' => 'jquery',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 10, 'years' => 4,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'React',             'slug' => 'react',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 3,  'years' => 12,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JavaScript',        'slug' => 'javascript',        'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 9,  'years' => 10,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'PHP',               'slug' => 'php',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 7,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'SQL',               'slug' => 'sql',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 9,  'years' => 2,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Powershell',        'slug' => 'powershell',        'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 3,  'years' => 3,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'BASH',              'slug' => 'bash',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 6,  'years' => 4,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'DOS',               'slug' => 'dos',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 6,  'years' => 6,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MySQL',             'slug' => 'mysql',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 9,  'years' => 8,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MariaDB',           'slug' => 'mariadb',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 9,  'years' => 8,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Postgres',          'slug' => 'postgres',          'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 8,  'years' => 4,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'MongoDB',           'slug' => 'mongodb',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 3,  'years' => 3,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Elasticsearch',     'slug' => 'elasticsearch',     'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 8,   'level' => 3,  'years' => 1,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Linux',             'slug' => 'linux',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 8,  'years' => 2,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ubuntu',            'slug' => 'ubuntu',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 7,  'years' => 6,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Windows',           'slug' => 'windows',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 8,  'years' => 4,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'macOS',             'slug' => 'macos',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 17,  'level' => 4,  'years' => 4,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Apache2',           'slug' => 'apache2',           'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 26,  'level' => 8,  'years' => 2,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Nginx',             'slug' => 'nginx',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 26,  'level' => 7,  'years' => 2,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Git',               'slug' => 'git',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 34,  'level' => 8,  'years' => 4,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JIRA',              'slug' => 'jira',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 34,  'level' => 7,  'years' => 3,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'HTML5',             'slug' => 'html5',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 7,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'CSS3',              'slug' => 'css3',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 6,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'DOM',               'slug' => 'dom',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 4,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JSX',               'slug' => 'jsx',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 5,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Ajax',              'slug' => 'ajax',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 8,  'years' => 9,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Twitter Bootstrap', 'slug' => 'twitter-bootstrap', 'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 7,  'years' => 5,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Bulma',             'slug' => 'bulma',             'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 11,  'level' => 4,  'years' => 3,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'JSON',              'slug' => 'json',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 10, 'years' => 4,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'REST',              'slug' => 'rest',              'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 16,  'level' => 9,  'years' => 5,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 7,  'years' => 5,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 12,  'level' => 7,  'years' => 5,  'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 19,  'level' => 4,  'years' => 6,  'start_year' => null, 'is_public' => 1 ],
             //[ 'name' => '',                  'slug' => '',                  'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => 1,   'level' => 5,  'years' => null, 'start_year' => null, 'is_public' => 1 ],
         ];
 
         if (!empty($data)) {
             new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'skills', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'skills', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -3164,7 +3164,7 @@ class Demo extends Command
         if (!empty($data)) {
             new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'videos', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'videos', [ 'is_public' => !empty($data) ]);
     }
 
     /**

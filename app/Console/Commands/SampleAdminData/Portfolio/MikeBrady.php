@@ -182,7 +182,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'art', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'art', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -221,7 +221,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'audios', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'audios', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -254,7 +254,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'awards', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'awards', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -287,7 +287,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'certificates', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'certificates', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -328,7 +328,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'courses', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'courses', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -363,7 +363,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'education', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'education', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -407,7 +407,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'jobs', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'jobs', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -436,7 +436,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'job_coworkers', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'job_coworkers', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -461,7 +461,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'job_skills', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'job_skills', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -485,7 +485,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'job_tasks', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'job_tasks', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -543,7 +543,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'links', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'links', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -654,7 +654,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'music', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'music', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -685,7 +685,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'projects', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'projects', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -735,7 +735,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'publications', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'publications', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -746,9 +746,9 @@ class MikeBrady extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
-            [ 'name' => 'architecture', 'slug' => 'architecture', 'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'drafting',     'slug' => 'drafting',     'version' => null, 'featured' => 0, 'type_id' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
-            [ 'name' => 'common sense', 'slug' => 'common-sense', 'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'architecture', 'slug' => 'architecture', 'version' => null, 'featured' => 1, 'type_id' => 1, 'dictionary_category_id' => null, 'level' => 10, 'years' => 8, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'drafting',     'slug' => 'drafting',     'version' => null, 'featured' => 0, 'type_id' => 1, 'dictionary_category_id' => null, 'level' => 9,  'years' => 7, 'start_year' => null, 'is_public' => 1 ],
+            [ 'name' => 'common sense', 'slug' => 'common-sense', 'version' => null, 'featured' => 0, 'type_id' => 0, 'dictionary_category_id' => null, 'level' => 8,  'years' => 4, 'start_year' => null, 'is_public' => 1 ],
             /*
             [
                 'name'                   => '',
@@ -768,7 +768,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'skills', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'skills', [ 'is_public' => !empty($data) ]);
     }
 
     /**
@@ -806,7 +806,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
-        $this->insertSystemAdminResource($this->adminId, 'videos', [ 'public' => !empty($data) ]);
+        $this->insertSystemAdminResource($this->adminId, 'videos', [ 'is_public' => !empty($data) ]);
     }
 
     /**
