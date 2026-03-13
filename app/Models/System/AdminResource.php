@@ -211,13 +211,18 @@ class AdminResource extends Model
         )
             ->join('admins', 'admins.id', 'admin_resources.owner_id')
             ->join('databases', 'databases.id', 'admin_resources.database_id')
-            ->where('admin_resources.'.$envType->value, 1)
-            ->where('admin_resources.owner_id', $ownerId)
+            ->where('admin_resources.'.$envType->value, '=', true)
+            ->where('admin_resources.owner_id', '=', $ownerId)
             ->orderBy($sortField, $sortDir);
+
+        // apply envType
+        if ($envType == EnvTypes::GUEST) {
+            $query->where('admin_resources.is_public', '=', true);
+        }
 
         // apply database filter
         if (!empty($databaseId)) {
-            $query->where('admin_resources.database_id', $databaseId);
+            $query->where('admin_resources.database_id', '=', $databaseId);
         }
 
         // Apply filters to the query.
@@ -243,7 +248,7 @@ class AdminResource extends Model
                     }
                 } else {
 
-                    $query = $query->where($col, $value);
+                    $query = $query->where($col, '=', $value);
                 }
             }
         }

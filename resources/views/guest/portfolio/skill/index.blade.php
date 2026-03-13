@@ -34,7 +34,7 @@
                     <th>name</th>
                     <th>category</th>
                     <th>level (out of 10)</th>
-                    <th>years</th>
+                    <th class="has-text-centered">years</th>
                 </tr>
                 </thead>
                 <?php /*
@@ -43,7 +43,7 @@
                     <th>name</th>
                     <th>category</th>
                     <th>level (out of 10)</th>
-                    <th>years</th>
+                    <th class="has-text-centered">years</th>
                 </tr>
                 </tr>
                 </tfoot>

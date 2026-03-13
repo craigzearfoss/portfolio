@@ -42,12 +42,12 @@
             'value' => nl2br($framework->definition)
         ])
 
-        @include('guest.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkmark', [
             'name'    => 'open source',
             'checked' => $framework->open_source
         ])
 
-        @include('guest.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkmark', [
             'name'    => 'proprietary',
             'checked' => $framework->proprietary
         ])

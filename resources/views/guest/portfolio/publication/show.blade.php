@@ -109,98 +109,98 @@
         @endif
 
         @if(!empty($publication->freelance))
-        @include('guest.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkmark', [
             'name'    => 'freelance',
             'checked' => $publication->freelance
         ])
         @endif
 
         @if(!empty($publication->fiction))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'fiction',
                 'checked' => $publication->fiction
             ])
         @endif
 
         @if(!empty($publication->nonfiction))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'nonfiction',
                 'checked' => $publication->nonfiction
             ])
         @endif
 
         @if(!empty($publication->technical))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'technical',
                 'checked' => $publication->technical
             ])
         @endif
 
         @if(!empty($publication->research))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'research',
                 'checked' => $publication->research
             ])
         @endif
 
         @if(!empty($publication->poetry))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'poetry',
                 'checked' => $publication->poetry
             ])
         @endif
 
         @if(!empty($publication->online))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'online',
                 'checked' => $publication->online
             ])
         @endif
 
         @if(!empty($publication->novel))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'novel',
                 'checked' => $publication->novel
             ])
         @endif
 
         @if(!empty($publication->book))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'book',
                 'checked' => $publication->book
             ])
         @endif
 
         @if(!empty($publication->textbook))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'textbook',
                 'checked' => $publication->textbook
             ])
         @endif
 
         @if(!empty($publication->story))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'story',
                 'checked' => $publication->story
             ])
         @endif
 
         @if(!empty($publication->article))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'article',
                 'checked' => $publication->article
             ])
         @endif
 
         @if(!empty($publication->paper))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'paper',
                 'checked' => $publication->paper
             ])
         @endif
 
         @if(!empty($publication->pamphlet))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'pamphlet',
                 'checked' => $publication->pamphlet
             ])

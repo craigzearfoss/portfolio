@@ -46,17 +46,17 @@
             'value' => $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction': '')
         ])
 
-        @include('guest.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkmark', [
             'name'    => 'paper',
             'checked' => $reading->paper
         ])
 
-        @include('guest.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkmark', [
             'name'    => 'audio',
             'checked' => $reading->audio
         ])
 
-        @include('guest.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkmark', [
             'name'    => 'wish list',
             'checked' => $reading->wishlist
         ])

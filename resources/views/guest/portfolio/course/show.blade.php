@@ -52,7 +52,7 @@
             ])
         @endif
 
-        @include('guest.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkmark', [
             'name'    => 'completed',
             'checked' => $course->completed
         ])

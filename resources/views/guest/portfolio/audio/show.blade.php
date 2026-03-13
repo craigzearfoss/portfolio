@@ -73,28 +73,28 @@
         @endif
 
         @if(!empty($audio->full_episode))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'full episode',
                 'checked' => $audio->full_episode
             ])
         @endif
 
         @if(!empty($audio->clip))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'clip',
                 'checked' => $audio->clip
             ])
         @endif
 
         @if(!empty($audio->podcast))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'podcast',
                 'checked' => $audio->podcast
             ])
         @endif
 
         @if(!empty($audio->source_recording))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'source recording',
                 'checked' => $audio->source_recording
             ])

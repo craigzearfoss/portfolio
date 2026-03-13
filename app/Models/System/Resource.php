@@ -208,6 +208,11 @@ class Resource extends Model
             $query->where('resources.database_id', '=', $databaseId);
         }
 
+        // apply envType
+        if ($envType == EnvTypes::GUEST) {
+            $query->where('resources.is_public', '=', true);
+        }
+
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
 

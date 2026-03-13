@@ -74,28 +74,28 @@
         @endif
 
         @if(!empty($video->full_episode))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'full episode',
                 'checked' => $video->full_episode
             ])
         @endif
 
         @if(!empty($video->clip))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'clip',
                 'checked' => $video->clip
             ])
         @endif
 
         @if(!empty($video->public_access))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'public access',
                 'checked' => $video->public_access
             ])
         @endif
 
         @if(!empty($video->source_recording))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'source recording',
                 'checked' => $video->source_recording
             ])

@@ -81,14 +81,14 @@
         @endif
 
         @if(!empty($music->collection))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'collection',
                 'checked' => $music->collection
             ])
         @endif
 
         @if(!empty($music->track))
-            @include('guest.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkmark', [
                 'name'    => 'track',
                 'checked' => $music->track
             ])
