@@ -136,8 +136,8 @@
                 'is_root'     => old('is_root')     ?? 0,
                 'is_disabled' => old('is_disabled') ?? 0,
                 'is_demo'     => old('is_demo')     ?? 0,
-                'sequence'    => old('sequence') ?? 0,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? 0,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit', [

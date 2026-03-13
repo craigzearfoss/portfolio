@@ -89,7 +89,7 @@ class Company extends Model
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'industry_id', 'street', 'street2', 'city', 'state_id',
         'zip', 'country_id', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
         'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'demo' ];
+        'is_disabled', 'is_demo' ];
 
     /**
      *

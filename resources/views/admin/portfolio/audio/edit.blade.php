@@ -252,8 +252,8 @@
                 'is_root'     => old('is_root')     ?? $audio->root,
                 'is_disabled' => old('is_disabled') ?? $audio->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $audio->is_demo,
-                'sequence'    => old('sequence') ?? $audio->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $audio->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

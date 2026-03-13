@@ -158,8 +158,8 @@
                 'is_root'     => old('is_root')     ?? $category->root,
                 'is_disabled' => old('is_disabled') ?? $category->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $category->is_demo,
-                'sequence'    => old('sequence') ?? $category->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $category->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

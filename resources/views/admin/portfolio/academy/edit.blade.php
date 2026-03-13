@@ -99,8 +99,8 @@
                 'is_root'     => old('is_root')     ?? $academy->root,
                 'is_disabled' => old('is_disabled') ?? $academy->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $academy->is_demo,
-                'sequence'    => old('sequence') ?? $academy->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $academy->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

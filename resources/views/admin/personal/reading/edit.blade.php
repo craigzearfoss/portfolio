@@ -224,8 +224,8 @@
                 'is_root'     => old('is_root')     ?? $reading->root,
                 'is_disabled' => old('is_disabled') ?? $reading->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $reading->is_demo,
-                'sequence'    => old('sequence') ?? $reading->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $reading->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

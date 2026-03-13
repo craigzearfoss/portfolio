@@ -158,8 +158,8 @@
                 'is_root'     => old('is_root')     ?? $operatingSystem->root,
                 'is_disabled' => old('is_disabled') ?? $operatingSystem->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $operatingSystem->is_demo,
-                'sequence'    => old('sequence') ?? $operatingSystem->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $operatingSystem->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

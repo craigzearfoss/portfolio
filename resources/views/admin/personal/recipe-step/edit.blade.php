@@ -105,8 +105,8 @@
                 'is_root'     => old('is_root')     ?? $recipeStep->root,
                 'is_disabled' => old('is_disabled') ?? $recipeStep->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $recipeStep->is_demo,
-                'sequence'    => old('sequence') ?? $recipeStep->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $recipeStep->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

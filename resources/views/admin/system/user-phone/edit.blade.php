@@ -82,13 +82,13 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $userPhone->public,
+                'is_public'   => old('is_public')   ?? $userPhone->is_public,
                 'is_readonly' => old('is_readonly') ?? $userPhone->is_readonly,
                 'is_root'     => old('is_root')     ?? $userPhone->root,
-                'is_disabled' => old('is_disabled') ?? $userPhone->disabled,
+                'is_disabled' => old('is_disabled') ?? $userPhone->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $userPhone->is_demo,
-                'sequence'    => old('sequence') ?? $userPhone->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $userPhone->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

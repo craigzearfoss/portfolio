@@ -82,18 +82,18 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $userEmail->public,
+                'is_public'   => old('is_public')   ?? $userEmail->is_public,
                 'is_readonly' => old('is_readonly') ?? $userEmail->is_readonly,
                 'is_root'     => old('is_root')     ?? $userEmail->root,
-                'is_disabled' => old('is_disabled') ?? $userEmail->disabled,
+                'is_disabled' => old('is_disabled') ?? $userEmail->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $userEmail->is_demo,
-                'sequence'    => old('sequence') ?? $userEmail->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $userEmail->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.systemuser-email.index')
+                'cancel_url' => referer('admin.system.user-email.index')
             ])
 
         </form>

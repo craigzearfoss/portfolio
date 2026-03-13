@@ -90,8 +90,8 @@
                 'is_root'     => old('is_root')     ?? $ingredient->root,
                 'is_disabled' => old('is_disabled') ?? $ingredient->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $ingredient->is_demo,
-                'sequence'    => old('sequence') ?? $ingredient->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $ingredient->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

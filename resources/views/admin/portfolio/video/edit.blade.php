@@ -252,8 +252,8 @@
                 'is_root'     => old('is_root')     ?? $video->root,
                 'is_disabled' => old('is_disabled') ?? $video->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $video->is_demo,
-                'sequence'    => old('sequence') ?? $video->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $video->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

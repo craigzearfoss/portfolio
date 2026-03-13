@@ -53,7 +53,7 @@ class EventController extends BaseAdminController
     {
         createGate(Event::class, $this->admin);
 
-        $application = ($request->application_id)
+        $application = $request->application_id
             ? new Application()->find($request->application_id)
             : null;
 
@@ -81,10 +81,11 @@ class EventController extends BaseAdminController
 
         $event = new Event()->create($request->validated());
 
-        if (!empty($application)) {
+        if ($referer = $request->query('referer')) {
+            return redirect($referer)->with('success', 'Event successfully added.');
+        } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
                 ->with('success', 'Event successfully added.');
-
         } else {
             return redirect()->route('admin.career.event.show', $event)
                 ->with('success', 'Event successfully added.');
@@ -105,7 +106,7 @@ class EventController extends BaseAdminController
             $event['id'],
             'admin.career.event.show',
             $this->owner ?? null,
-            [ 'post_date', 'asc' ]
+            [ 'date', 'asc' ]
         );
 
         return view('admin.career.event.show', compact('event', 'prev', 'next'));

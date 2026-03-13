@@ -202,8 +202,8 @@
                 'is_root'     => old('is_root')     ?? $owner->is_root,
                 'is_disabled' => old('is_disabled') ?? $owner->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $owner->is_demo,
-                'sequence'    => old('sequence') ?? $owner->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $owner->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [

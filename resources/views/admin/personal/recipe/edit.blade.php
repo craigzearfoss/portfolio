@@ -268,8 +268,8 @@
                 'is_root'     => old('is_root')     ?? $recipe->root,
                 'is_disabled' => old('is_disabled') ?? $recipe->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $recipe->is_demo,
-                'sequence'    => old('sequence') ?? $recipe->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $recipe->sequence,
+                'message'     => $message           ?? '',
             ])
 
             <div class="card p-4">

@@ -8,13 +8,13 @@
     // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Events',           'href' => route('admin.career.event.index', ['application_id' => $application->id]) ],
-            [ 'name' => 'Event',            'href' => route('admin.career.event.show', $event, ['application_id' => $application->id]) ],
+            [ 'name' => 'Home',               'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
+            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Events',             'href' => route('admin.career.event.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Event',              'href' => route('admin.career.event.show', $event, ['application_id' => $application->id]) ],
             [ 'name' => 'Edit' ]
         ];
     } else {
@@ -46,7 +46,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.career.event.index')
+                'value' => request()->query('referer') ?? referer('admin.career.event.index')
             ])
 
             @include('admin.components.form-text-horizontal', [
@@ -89,7 +89,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
                 'name'    => 'date',
-                'value'   => old('timestamp') ?? $event->date,
+                'value'   => old('date') ?? $event->date,
                 'message' => $message ?? '',
             ])
 
@@ -115,8 +115,8 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-link-$event', [
-                'link' => old('link') ?? $application->link,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $event->link,
                 'name' => old('link_name') ?? $event->link_name,
                 'message'   => $message ?? '',
             ])
@@ -137,13 +137,13 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public') ?? $event->is_public,
+                'is_public'   => old('is_public')   ?? $event->is_public,
                 'is_readonly' => old('is_readonly') ?? $event->is_readonly,
-                'is_root'     => old('is_root') ?? $event->root,
+                'is_root'     => old('is_root')     ?? $event->root,
                 'is_disabled' => old('is_disabled') ?? $event->is_disabled,
-                'is_demo'     => old('is_demo') ?? $event->is_demo,
-                'sequence'    => old('sequence') ?? $event->sequence,
-                'message'     => $message ?? '',
+                'is_demo'     => old('is_demo')     ?? $event->is_demo,
+                'sequence'    => old('sequence')    ?? $event->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

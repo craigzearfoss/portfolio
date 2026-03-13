@@ -183,8 +183,8 @@
                 'is_root'     => old('is_root')     ?? $certificate->root,
                 'is_disabled' => old('is_disabled') ?? $certificate->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $certificate->is_demo,
-                'sequence'    => old('sequence') ?? $certificate->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $certificate->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

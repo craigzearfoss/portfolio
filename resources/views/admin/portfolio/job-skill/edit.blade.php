@@ -154,8 +154,8 @@
                 'is_root'     => old('is_root')     ?? $jobSkill->root,
                 'is_disabled' => old('is_disabled') ?? $jobSkill->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $jobSkill->is_demo,
-                'sequence'    => old('sequence') ?? $jobSkill->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $jobSkill->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

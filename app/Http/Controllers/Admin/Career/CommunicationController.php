@@ -53,7 +53,7 @@ class CommunicationController extends BaseAdminController
     {
         createGate(Communication::class, $this->admin);
 
-        $application = !empty($request->application_id)
+        $application = $request->application_id
             ? new Application()->find($request->application_id)
             : null;
 
@@ -81,10 +81,11 @@ class CommunicationController extends BaseAdminController
 
         $communication = new Communication()->create($request->validated());
 
-        if (!empty($application)) {
+        if ($referer = $request->query('referer')) {
+            return redirect($referer)->with('success', 'Communication successfully added.');
+        } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
                 ->with('success', 'Communication successfully added.');
-
         } else {
             return redirect()->route('admin.career.communication.show', $communication)
                 ->with('success', 'Communication successfully added.');
@@ -147,7 +148,9 @@ class CommunicationController extends BaseAdminController
 
         updateGate($communication, $this->admin);
 
-        if (!empty($application)) {
+        if ($referer = $request->query('referer')) {
+            return redirect($referer)->with('success', 'Communication successfully updated.');
+        } elseif (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
                 ->with('success', 'Communication successfully updated.');
         } else {

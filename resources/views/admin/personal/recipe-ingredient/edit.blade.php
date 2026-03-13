@@ -131,8 +131,8 @@
                 'is_root'     => old('is_root')     ?? $recipeIngredient->root,
                 'is_disabled' => old('is_disabled') ?? $recipeIngredient->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $recipeIngredient->is_demo,
-                'sequence'    => old('sequence') ?? $recipeIngredient->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $recipeIngredient->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

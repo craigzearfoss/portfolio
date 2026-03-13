@@ -9,13 +9,13 @@
     // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Communications',   'href' => route('admin.career.communication.index', ['application_id' => $application]) ],
-            [ 'name' => 'Communication',    'href' => route('admin.career.communication.show', $communication, ['application_id' => $application->id])],
+            [ 'name' => 'Home',               'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
+            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Communications',     'href' => route('admin.career.communication.index', ['application_id' => $application]) ],
+            [ 'name' => 'Communication',      'href' => route('admin.career.communication.show', $communication, ['application_id' => $application->id])],
             [ 'name' => 'Edit' ]
         ];
     } else {
@@ -48,7 +48,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.career.communication.index')
+                'value' => request()->query('referer') ?? referer('admin.career.communication.index')
             ])
 
             @include('admin.components.form-text-horizontal', [
@@ -56,7 +56,7 @@
                 'value' => $communication->id
             ])
 
-            @if($admin->is_root)
+            @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -98,14 +98,14 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'to',
-                'value'     => old('to') ?? $event->to,
+                'value'     => old('to') ?? $communication->to,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'from',
-                'value'     => old('from') ?? $event->from,
+                'value'     => old('from') ?? $communication->from,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -113,7 +113,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
                 'name'    => 'date',
-                'value'   => old('timestamp') ?? $communication->date,
+                'value'   => old('date') ?? $communication->date,
                 'message' => $message ?? '',
             ])
 
@@ -132,13 +132,13 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public') ?? $communication->is_public,
+                'is_public'   => old('is_public')   ?? $communication->is_public,
                 'is_readonly' => old('is_readonly') ?? $communication->is_readonly,
-                'is_root'     => old('is_root') ?? $communication->root,
+                'is_root'     => old('is_root')     ?? $communication->root,
                 'is_disabled' => old('is_disabled') ?? $communication->is_disabled,
-                'is_demo'     => old('is_demo') ?? $communication->is_demo,
-                'sequence'    => old('sequence') ?? $communication->sequence,
-                'message'     => $message ?? '',
+                'is_demo'     => old('is_demo')     ?? $communication->is_demo,
+                'sequence'    => old('sequence')    ?? $communication->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

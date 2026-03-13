@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\Application;
     use App\Models\Career\Event;
 
     $title    = $pageTitle ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
@@ -8,11 +9,11 @@
     // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Home',               'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
+            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
             [ 'name' => 'Events' ]
         ];
     } else {

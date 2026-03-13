@@ -9,12 +9,12 @@
     // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Communications',   'href' => route('admin.career.communication.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Home',               'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
+            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Communications',     'href' => route('admin.career.communication.index', ['application_id' => $application->id]) ],
             [ 'name' => 'Add' ]
         ];
     } else {
@@ -47,7 +47,7 @@
                 'value' => referer('admin.career.communication.index')
             ])
 
-            @if($admin->is_root)
+            @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -104,7 +104,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
                 'name'    => 'date',
-                'value'   => old('timestamp') ?? '',
+                'value'   => old('date') ?? '',
                 'message' => $message ?? '',
             ])
 
@@ -128,8 +128,8 @@
                 'is_root'     => old('is_root')     ?? 0,
                 'is_disabled' => old('is_disabled') ?? 0,
                 'is_demo'     => old('is_demo')     ?? 0,
-                'sequence'    => old('sequence') ?? 0,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? 0,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

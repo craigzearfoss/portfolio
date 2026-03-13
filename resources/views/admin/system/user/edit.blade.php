@@ -202,11 +202,11 @@
             @include('admin.components.form-visibility-horizontal', [
                 'is_public'   => old('is_public')   ?? $user->is_public,
                 'is_readonly' => old('is_readonly') ?? $user->is_readonly,
-                'is_root'     => old('is_root')     ?? $user->is_root,
+                'is_root'     => old('is_root')     ?? $user->root,
                 'is_disabled' => old('is_disabled') ?? $user->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $user->is_demo,
-                'sequence'    => old('sequence') ?? $user->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $user->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

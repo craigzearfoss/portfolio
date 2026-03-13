@@ -110,8 +110,8 @@
                 'is_root'     => old('is_root')     ?? $userTeam->root,
                 'is_disabled' => old('is_disabled') ?? $userTeam->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $userTeam->is_demo,
-                'sequence'    => old('sequence') ?? $userTeam->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $userTeam->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

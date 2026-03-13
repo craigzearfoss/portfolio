@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Career\Application;
 
     $title    = $pageTitle ?? 'Note' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
@@ -7,12 +8,12 @@
     // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Notes',            'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Home',               'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
+            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Notes',              'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
             [ 'name' => 'Note' ]
         ];
     } else {
@@ -60,14 +61,15 @@
 
         @php
             $application = !empty($note->application_id)
-                ? \App\Models\Career\Application::find($note->application_id)
+                ? Application::find($note->application_id)
                 : null;
         @endphp
-        @include('admin.components.show-row', [
-            'name'  => 'application_id',
-            'value' => !empty($application)
+        @include('admin.components.show-row-link', [
+            'name'  => 'application',
+            'label' => $application
                 ? ($application->company['name'] ?? '') . ' - ' . ($application->role) . ' [' . ($application->apply_date) . ']'
-                : ''
+                : '',
+            'href' => route('admin.career.application.show', $application)
         ])
 
         @include('admin.components.show-row', [

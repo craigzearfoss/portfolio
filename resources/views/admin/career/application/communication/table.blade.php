@@ -7,6 +7,7 @@
     <th>subject</th>
     <th>date</th>
     <th>time</th>
+    <th>actions</th>
     </thead>
     <tbody>
 
@@ -24,6 +25,49 @@
             </td>
             <td>
                 {!! $communication->time !!}
+            </td>
+            <td class="is-1">
+
+                <div class="action-button-panel">
+
+                    @if(canRead($communication, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'show',
+                            'href'  => route('admin.career.communication.show', [
+                                                   $communication,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-list'
+                        ])
+                    @endif
+
+                    @if(canUpdate($communication, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'edit',
+                            'href'  => route('admin.career.communication.edit', [
+                                                   $communication,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-pen-to-square'
+                        ])
+                    @endif
+
+                    @if(canDelete($communication, $admin))
+                        <form class="delete-resource"
+                              action="{!! route('admin.career.communication.destroy', $communication) !!}"
+                              method="POST">
+                            @csrf
+                            @method('DELETE')
+                            @include('admin.components.button-icon', [
+                                'title' => 'delete',
+                                'class' => 'delete-btn',
+                                'icon'  => 'fa-trash'
+                            ])
+                        </form>
+                    @endif
+
+                </div>
+
             </td>
         </tr>
 

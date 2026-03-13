@@ -124,8 +124,8 @@
                 'is_root'     => old('is_root')     ?? $jobTask->root,
                 'is_disabled' => old('is_disabled') ?? $jobTask->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $jobTask->is_demo,
-                'sequence'    => old('sequence') ?? $jobTask->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $jobTask->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

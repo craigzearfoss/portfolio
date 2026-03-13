@@ -8,13 +8,13 @@
     // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-            [ 'name' => 'Notes',            'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
-            [ 'name' => 'Note',             'href' => route('admin.career.note.show', $note, ['application_id' => $application->id]) ],
+            [ 'name' => 'Home',               'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
+            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Notes',              'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Note',               'href' => route('admin.career.note.show', $note, ['application_id' => $application->id]) ],
             [ 'name' => 'Edit' ]
         ];
     } else {
@@ -54,7 +54,7 @@
                 'value' => $note->id
             ])
 
-            @if($admin->is_root)
+            @if($isRootAdmin)
                 @include('admin.components.form-select-horizontal', [
                 'name'     => 'owner_id',
                 'label'    => 'owner',
@@ -94,13 +94,13 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public') ?? $note->is_public,
+                'is_public'   => old('is_public')   ?? $note->is_public,
                 'is_readonly' => old('is_readonly') ?? $note->is_readonly,
-                'is_root'     => old('is_root') ?? $note->is_root,
+                'is_root'     => old('is_root')     ?? $note->is_root,
                 'is_disabled' => old('is_disabled') ?? $note->is_disabled,
-                'is_demo'     => old('is_demo') ?? $note->is_demo,
-                'sequence'    => old('sequence') ?? $note->sequence,
-                'message'     => $message ?? '',
+                'is_demo'     => old('is_demo')     ?? $note->is_demo,
+                'sequence'    => old('sequence')    ?? $note->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

@@ -91,8 +91,8 @@
                 'is_root'     => old('is_root')     ?? $adminPhone->root,
                 'is_disabled' => old('is_disabled') ?? $adminPhone->disabled,
                 'is_demo'     => old('is_demo')     ?? $adminPhone->is_demo,
-                'sequence'    => old('sequence') ?? $adminPhone->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $adminPhone->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

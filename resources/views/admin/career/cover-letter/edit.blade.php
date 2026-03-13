@@ -121,8 +121,8 @@
                 'is_root'     => old('is_root')     ?? $coverLetter->root,
                 'is_disabled' => old('is_disabled') ?? $coverLetter->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $coverLetter->is_demo,
-                'sequence'    => old('sequence') ?? $coverLetter->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $coverLetter->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

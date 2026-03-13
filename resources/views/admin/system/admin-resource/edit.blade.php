@@ -142,8 +142,8 @@
                 'is_root'     => old('is_root')     ?? $adminResource->is_root,
                 'is_disabled' => old('is_disabled') ?? $adminResource->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $adminResource->is_demo,
-                'sequence'    => old('sequence') ?? $adminResource->sequence,
-                'message'     => $message ?? '',
+                'sequence'    => old('sequence')    ?? $adminResource->sequence,
+                'message'     => $message           ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
