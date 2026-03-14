@@ -4,6 +4,7 @@
 <table class="table admin-table skill-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
+    <th>category</th>
     <th>actions</th>
     </thead>
     <tbody>
@@ -14,21 +15,52 @@
             <td data-field="name">
                 {!! $skill->name !!}
             </td>
-            <td class="is-1" style="white-space: nowrap;">
+            <td data-field="dictionary_category_id">
+                 @if(!empty($skill->category->name))
+                     {!! $skill->category->name !!}
+                 @endif
+            </td>
+            <td class="is-1">
 
-                <a title="show" class="button is-small px-1 py-0"
-                       href="{!! route('admin.portfolio.job-skill.show', $skill) !!}">
-                    <i class="fa-solid fa-list"></i>
-                </a>
+                <div class="action-button-panel">
 
-                <a title="edit" class="button is-small px-1 py-0"
-                   href="{!! route('admin.portfolio.job-skill.edit', $skill) !!}">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </a>
+                    @if(canRead($skill, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'show',
+                            'href'  => route('admin.portfolio.job-skill.show', [
+                                                   $skill,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-list'
+                        ])
+                    @endif
 
-                <button title="remove" type="submit" class="button is-small px-1 py-0">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
+                    @if(canUpdate($skill, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'edit',
+                            'href'  => route('admin.portfolio.job-skill.edit', [
+                                                   $skill,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-pen-to-square'
+                        ])
+                    @endif
+
+                    @if(canDelete($skill, $admin))
+                        <form class="delete-resource"
+                              action="{!! route('admin.portfolio.job-skill.destroy', $skill) !!}"
+                              method="POST">
+                            @csrf
+                            @method('DELETE')
+                            @include('admin.components.button-icon', [
+                                'title' => 'delete',
+                                'class' => 'delete-btn',
+                                'icon'  => 'fa-trash'
+                            ])
+                        </form>
+                    @endif
+
+                </div>
 
             </td>
         </tr>

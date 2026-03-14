@@ -6,7 +6,7 @@
 
     <h3 class="is-size-5 title mb-3">
 
-        Events
+        Coworkers
 
         <span style="display: inline-flex; float: right;">
 
@@ -14,7 +14,7 @@
                 'name'  => 'Add an event',
                 'href'  => route('admin.career.event.create', ['application_id' => $application->id]),
                 'class' => 'button is-primary is-small px-1 py-0',
-                'title' => 'add event',
+                'title' => 'add an event',
                 'icon'  => 'fa-plus'
             ])
 

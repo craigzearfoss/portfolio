@@ -33,31 +33,47 @@
             <td data-field="email">
                 {!! $coworker->email !!}
             </td>
-            <td class="is-1" style="white-space: nowrap;">
+            <td class="is-1">
 
-                <a title="show" class="button is-small px-1 py-0"
-                       href="{!! route('admin.portfolio.job-coworker.show', $coworker) !!}">
-                    <i class="fa-solid fa-list"></i>
-                </a>
+                <div class="action-button-panel">
 
-                <a title="edit" class="button is-small px-1 py-0"
-                   href="{!! route('admin.portfolio.job-coworker.edit', $coworker) !!}">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </a>
+                    @if(canRead($coworker, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'show',
+                            'href'  => route('admin.portfolio.job-coworker.show', [
+                                                   $coworker,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-list'
+                        ])
+                    @endif
 
-                @if (!empty($coworker->link))
-                    <a title="{!! !empty($coworker->link_name) ? $coworker->link_name : 'link' ?? '' !!}"
-                       class="button is-small px-1 py-0"
-                       href="{!! $coworker->link !!}"
-                       target="_blank"
-                    >
-                        <i class="fa-solid fa-external-link"></i>
-                    </a>
-                @else
-                    <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                        <i class="fa-solid fa-external-link"></i>
-                    </a>
-                @endif
+                    @if(canUpdate($coworker, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'edit',
+                            'href'  => route('admin.portfolio.job-coworker.edit', [
+                                                   $coworker,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-pen-to-square'
+                        ])
+                    @endif
+
+                    @if(canDelete($coworker, $admin))
+                        <form class="delete-resource"
+                              action="{!! route('admin.portfolio.job-coworker.destroy', $coworker) !!}"
+                              method="POST">
+                            @csrf
+                            @method('DELETE')
+                            @include('admin.components.button-icon', [
+                                'title' => 'delete',
+                                'class' => 'delete-btn',
+                                'icon'  => 'fa-trash'
+                            ])
+                        </form>
+                    @endif
+
+                </div>
 
             </td>
         </tr>

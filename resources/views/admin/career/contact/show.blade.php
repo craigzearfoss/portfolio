@@ -46,7 +46,7 @@
                             <li class="is-active" data-target="overview">
                                 <a>Overview</a>
                             </li>
-                            <li data-target="contacts">
+                            <li data-target="companies">
                                 <a>Companies</a>
                             </li>
                         </ul>
@@ -188,7 +188,7 @@
                             </div>
                         </div>
 
-                        <div id="contacts" class="is-hidden">
+                        <div id="companies" class="is-hidden">
 
                             @include('admin.career.contact.company.panel', [
                                 'companies' => $contact->companies ?? [],

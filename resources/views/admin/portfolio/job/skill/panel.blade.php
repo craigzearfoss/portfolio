@@ -2,30 +2,30 @@
     $skils = $skills ?? [];
     $addLink = $links['add'] ?? null
 @endphp
-<div class="floating-div-container">
-    <div class="show-container card floating-div">
+<div class="card p-4">
 
-        <h2 class="subtitle">
+    <h3 class="is-size-5 title mb-3">
 
-            Skills
+        Skills
 
-            @if(!empty($job))
+        <span style="display: inline-flex; float: right;">
 
-                @include('admin.components.link', [
-                    'name'  => 'Add a Skill',
-                    'href'  => route('admin.portfolio.job-skill.create', ['job_id' => $job->id]),
-                    'class' => 'button is-primary is-small px-1 py-0',
-                    'title' => 'add a skill',
-                    'icon'  => 'fa-plus'
-                ])
+            @include('admin.components.link', [
+                'name'  => 'Add a Skill',
+                'href'  => route('admin.portfolio.job-skill.create', ['job_id' => $job->id]),
+                'class' => 'button is-primary is-small px-1 py-0',
+                'title' => 'add a skill',
+                'icon'  => 'fa-plus'
+            ])
 
-            @endif
+        </span>
 
-        </h2>
+    </h3>
 
-        @include('admin.portfolio.job.skill.table', [
-            'skills' => $skills ?? []
-        ])
+    <hr class="navbar-divider">
 
-    </div>
+    @include('admin.portfolio.job.skill.table', [
+        'skills' => $skills ?? []
+    ])
+
 </div>

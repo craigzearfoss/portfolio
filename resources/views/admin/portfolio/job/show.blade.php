@@ -35,146 +35,197 @@
 
 @section('content')
 
-    <div class="floating-div-container">
-        <div class="show-container card floating-div">
+    <section class="section">
+        <div class="container show-container">
+            <div class="columns is-12 is-variable">
+                <div class="column is-12-tablet">
 
-            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+                    <!-- tabbed content -->
+                    <div class="tabs is-boxed mb-0">
+                        <ul style="border-bottom-width: 0 !important;">
+                            <li class="is-active" data-target="overview">
+                                <a>Overview</a>
+                            </li>
+                            <li data-target="coworkers">
+                                <a>Coworkers</a>
+                            </li>
+                            <li data-target="tasks">
+                                <a>Tasks</a>
+                            </li>
+                            <li data-target="skills">
+                                <a>Skills</a>
+                            </li>
+                        </ul>
+
+                        <div class="m-2" style="display: inline-block; position: absolute; top: -6px; right: 0;">
+                            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+                        </div>
+
+                    </div>
+
+                    <div class="px-2" id="tab-content">
+
+                        <div id="overview">
+
+                            <div class="card p-4">
+
+                                <h3 class="is-size-5 title mb-3">Overview</h3>
+
+                                <hr class="navbar-divider">
+                                <div style="height: 12px; margin: 0; padding: 0;"></div>
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'id',
+                                    'value' => $job->id
+                                ])
+
+                                @if($admin->is_root)
+                                    @include('admin.components.show-row', [
+                                        'name'  => 'owner',
+                                        'value' => $job->owner->username
+                                    ])
+                                @endif
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'company',
+                                    'value' => $job->company
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'role',
+                                    'value' => $job->role
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'slug',
+                                    'value' => $job->slug
+                                ])
+
+                                @include('admin.components.show-row-checkmark', [
+                                    'name'    => 'featured',
+                                    'checked' => $job->featured
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'summary',
+                                    'value' => $job->summary
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'start',
+                                    'value' => (!empty($job->start_month) ? date('F', mktime(0, 0, 0, $job->start_month, 10)) : '') . ' ' . $job->start_year
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'end',
+                                    'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'employment type',
+                                    'value' => $job->employmentType['name'] ?? ''
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'employment location',
+                                    'value' => $job->locationType->name ?? ''
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'location',
+                                    'value' => formatLocation([
+                                                   'street'          => $job->street,
+                                                   'street2'         => $job->street2,
+                                                   'city'            => $job->city,
+                                                   'state'           => $job->state->code ?? '',
+                                                   'zip'             => $job->zip,
+                                                   'country'         => $job->country->iso_alpha3 ?? '',
+                                                   'streetSeparator' => '<br>',
+                                               ])
+                                ])
+
+                                @include('admin.components.show-row-coordinates', [
+                                    'resource' => $job
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'notes',
+                                    'value' => $job->notes
+                                ])
+
+                                @include('admin.components.show-row-link', [
+                                    'name'   => !empty($job->link_name) ? $job->link_name : 'link',
+                                    'href'   => $job->link,
+                                    'target' => '_blank'
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'description',
+                                    'value' => $job->description
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'disclaimer',
+                                    'value' => view('admin.components.disclaimer', [
+                                                    'value' => $job->disclaimer
+                                               ])
+                                ])
+
+                                @include('admin.components.show-row-images', [
+                                    'resource' => $job,
+                                    'download' => true,
+                                    'external' => true,
+                                ])
+
+                                @include('admin.components.show-row-visibility', [
+                                    'resource' => $job,
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'created at',
+                                    'value' => longDateTime($job->created_at)
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'updated at',
+                                    'value' => longDateTime($job->updated_at)
+                                ])
+
+                            </div>
+                        </div>
+
+                        <div id="coworkers" class="is-hidden">
+
+                            @include('admin.portfolio.job.coworker.panel', [
+                                'coworkers' => $job->coworkers ?? [],
+                                'job'  => $job
+                            ])
+
+                        </div>
+
+                        <div id="tasks" class="is-hidden">
+
+                            @include('admin.portfolio.job.task.panel', [
+                                'tasks' => $job->tasks ?? [],
+                                'job'   => $job
+                            ])
+
+                        </div>
+
+                        <div id="skills" class="is-hidden">
+
+                            @include('admin.portfolio.job.skill.panel', [
+                                'skills' => $job->skills ?? [],
+                                'job'    => $job
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
-            @include('admin.components.show-row', [
-                'name'  => 'id',
-                'value' => $job->id
-            ])
-
-            @if($admin->is_root)
-                @include('admin.components.show-row', [
-                    'name'  => 'owner',
-                    'value' => $job->owner->username
-                ])
-            @endif
-
-            @include('admin.components.show-row', [
-                'name'  => 'company',
-                'value' => $job->company
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'role',
-                'value' => $job->role
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'slug',
-                'value' => $job->slug
-            ])
-
-            @include('admin.components.show-row-checkmark', [
-                'name'    => 'featured',
-                'checked' => $job->featured
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'summary',
-                'value' => $job->summary
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'start',
-                'value' => (!empty($job->start_month) ? date('F', mktime(0, 0, 0, $job->start_month, 10)) : '') . ' ' . $job->start_year
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'end',
-                'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'employment type',
-                'value' => $job->employmentType['name'] ?? ''
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'employment location',
-                'value' => $job->locationType->name ?? ''
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'location',
-                'value' => formatLocation([
-                               'street'          => $job->street,
-                               'street2'         => $job->street2,
-                               'city'            => $job->city,
-                               'state'           => $job->state->code ?? '',
-                               'zip'             => $job->zip,
-                               'country'         => $job->country->iso_alpha3 ?? '',
-                               'streetSeparator' => '<br>',
-                           ])
-            ])
-
-            @include('admin.components.show-row-coordinates', [
-                'resource' => $job
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'notes',
-                'value' => $job->notes
-            ])
-
-            @include('admin.components.show-row-link', [
-                'name'   => !empty($job->link_name) ? $job->link_name : 'link',
-                'href'   => $job->link,
-                'target' => '_blank'
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'description',
-                'value' => $job->description
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'disclaimer',
-                'value' => view('admin.components.disclaimer', [
-                                'value' => $job->disclaimer
-                           ])
-            ])
-
-            @include('admin.components.show-row-images', [
-                'resource' => $job,
-                'download' => true,
-                'external' => true,
-            ])
-
-            @include('admin.components.show-row-visibility', [
-                'resource' => $job,
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'created at',
-                'value' => longDateTime($job->created_at)
-            ])
-
-            @include('admin.components.show-row', [
-                'name'  => 'updated at',
-                'value' => longDateTime($job->updated_at)
-            ])
-
-            @include('admin.portfolio.job.coworker.panel', [
-                'coworkers' => $job->coworkers ?? [],
-                'job'  => $job
-            ])
-
-            @include('admin.portfolio.job.task.panel', [
-                'tasks' => $job->tasks ?? [],
-                'job'   => $job
-            ])
-
-            @include('admin.portfolio.job.skill.panel', [
-                'skills' => $job->skills ?? [],
-                'job'    => $job
-            ])
-
         </div>
-    </div>
+
+    </section>
 
 @endsection

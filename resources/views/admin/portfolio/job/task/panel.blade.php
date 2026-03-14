@@ -2,30 +2,30 @@
     $coworkers = $coworkers ?? [];
     $addLink = $links['add'] ?? null
 @endphp
-<div class="floating-div-container">
-    <div class="show-container card floating-div">
+<div class="card p-4">
 
-        <h2 class="subtitle">
+    <h3 class="is-size-5 title mb-3">
 
-            Tasks
+        Tasks
 
-            @if(!empty($job))
+        <span style="display: inline-flex; float: right;">
 
-                @include('admin.components.link', [
-                    'name'  => 'Add a Task',
-                    'href'  => route('admin.portfolio.job-task.create', ['job_id' => $job->id]),
-                    'class' => 'button is-primary is-small px-1 py-0',
-                    'title' => 'add a task',
-                    'icon'  => 'fa-plus'
-                ])
+            @include('admin.components.link', [
+                'name'  => 'Add a Task',
+                'href'  => route('admin.portfolio.job-task.create', ['job_id' => $job->id]),
+                'class' => 'button is-primary is-small px-1 py-0',
+                'title' => 'add a task',
+                'icon'  => 'fa-plus'
+            ])
 
-            @endif
+        </span>
 
-        </h2>
+    </h3>
 
-        @include('admin.portfolio.job.task.table', [
-            'tasks' => $tasks ?? []
-        ])
+    <hr class="navbar-divider">
 
-    </div>
+    @include('admin.portfolio.job.task.table', [
+        'tasks' => $tasks ?? []
+    ])
+
 </div>
