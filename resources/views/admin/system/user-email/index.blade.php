@@ -89,8 +89,8 @@
                         <td data-field="label">
                             {!! $userEmail->label !!}
                         </td>
-                        <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $userEmail->public ])
+                        <td data-field="is_public" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $userEmail->is_public ])
                         </td>
                         <td class="is-1">
 

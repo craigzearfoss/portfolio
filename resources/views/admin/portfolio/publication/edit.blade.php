@@ -310,9 +310,9 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $publication->public,
+                'is_public'   => old('is_public')   ?? $publication->is_public,
                 'is_readonly' => old('is_readonly') ?? $publication->is_readonly,
-                'is_root'     => old('is_root')     ?? $publication->root,
+                'is_root'     => old('is_root')     ?? $publication->is_root,
                 'is_disabled' => old('is_disabled') ?? $publication->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $publication->is_demo,
                 'sequence'    => old('sequence')    ?? $publication->sequence,

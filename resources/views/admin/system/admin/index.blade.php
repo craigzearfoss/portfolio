@@ -111,10 +111,10 @@
                         <td data-field="status">
                             {!! \App\Models\System\User::statusName($thisAdmin->status) ?? '' !!}
                         </td>
-                        <td data-field="root" class="has-text-centered">
+                        <td data-field="is_root" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $thisAdmin->is_root ])
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $thisAdmin->is_disabled ])
                         </td>
                         <td class="is-1">

@@ -118,10 +118,10 @@
                         <td data-field="location" style="white-space: nowrap;">
                             {!! $event->location !!}
                         </td>
-                        <td data-field="public" class="has-text-centered">
+                        <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $event->is_public ])
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $event->is_disabled ])
                         </td>
                         <td class="is-1">

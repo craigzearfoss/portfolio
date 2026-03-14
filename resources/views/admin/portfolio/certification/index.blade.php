@@ -70,10 +70,10 @@
                         <td data-field="abbreviation">
                             {!! $certification->certificationType->name ?? '' !!}
                         </td>
-                        <td data-field="public" class="has-text-centered">
+                        <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $certification->is_public ])
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $certification->is_disabled ])
                         </td>
                         <td class="is-1">

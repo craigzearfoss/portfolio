@@ -83,10 +83,10 @@
                         <td data-field="name">
                             {!! $link->name !!}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="public" class="has-text-centered">
+                        <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $link->is_public ])
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $link->is_disabled ])
                         </td>
                         <td class="is-1">

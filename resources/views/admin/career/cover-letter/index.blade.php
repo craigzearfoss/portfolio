@@ -88,7 +88,7 @@
                         <td data-field="application.active" data-field="" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $coverLetter->application->active ?? 0 ])
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $coverLetter->is_disabled ])
                         </td>
                         <td class="is-1">

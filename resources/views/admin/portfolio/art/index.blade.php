@@ -96,10 +96,10 @@
                         <td data-field="year">
                             {!! $art->year !!}
                         </td>
-                        <td data-field="public" class="has-text-centered">
+                        <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $art->is_public ])
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $art->is_disabled ])
                         </td>
                         <td class="is-1">

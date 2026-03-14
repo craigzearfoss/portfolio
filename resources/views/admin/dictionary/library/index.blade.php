@@ -67,10 +67,10 @@
                         <td data-field="abbreviation">
                             {!! $library->abbreviation !!}
                         </td>
-                        <td data-field="public" class="has-text-centered">
+                        <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $library->is_public ])
                         </td>
-                        <td data-field="disabled" class="py-0 has-text-centered">
+                        <td data-field="is_disabled" class="py-0 has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $library->is_disabled ])
                         </td>
                         <td class="is-1">

@@ -137,11 +137,11 @@
                         <td data-field="menu_level" class="has-text-centered">
                             {{ $adminDatabase->menu_level }}
                         </td>
-                        <td data-field="public" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $adminDatabase->public ])
+                        <td data-field="is_public" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $adminDatabase->is_public ])
                         </td>
-                        <td data-field="disabled" class="has-text-centered">
-                            @include('admin.components.checkmark', [ 'checked' => $adminDatabase->disabled ])
+                        <td data-field="is_disabled" class="has-text-centered">
+                            @include('admin.components.checkmark', [ 'checked' => $adminDatabase->is_disabled ])
                         </td>
                         <td class="is-1">
 

@@ -33,7 +33,7 @@ class UserController extends BaseGuestController
      */
     public function show(User $user): Factory|View|\Illuminate\View\View
     {
-        if (!$user->public || $user->disabled) {
+        if (!$user['is_public'] || $user['is_disabled']) {
             abort(404);
         }
         return view(themedTemplate('guest.system.user.show'), compact('user'));

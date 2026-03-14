@@ -170,9 +170,9 @@
             ])
 
             @include('admin.components.form-visibility-horizontal', [
-                'is_public'   => old('is_public')   ?? $award->public,
+                'is_public'   => old('is_public')   ?? $award->is_public,
                 'is_readonly' => old('is_readonly') ?? $award->is_readonly,
-                'is_root'     => old('is_root')     ?? $award->root,
+                'is_root'     => old('is_root')     ?? $award->is_root,
                 'is_disabled' => old('is_disabled') ?? $award->is_disabled,
                 'is_demo'     => old('is_demo')     ?? $award->is_demo,
                 'sequence'    => old('sequence')    ?? $award->sequence,
