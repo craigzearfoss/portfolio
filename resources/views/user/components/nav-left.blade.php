@@ -39,7 +39,7 @@
                 @include('user.components.form-select-nolabel', [
                     'value'    => !empty($admin->label) ? $admin->label : '',
                     'list'     => $adminModel->listOptions(
-                        [ 'public' => 1 ],
+                        [ 'is_public' => 1 ],
                         'label',
                         'name',
                         true,
