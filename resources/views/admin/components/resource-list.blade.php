@@ -25,7 +25,7 @@
 
             @php $currentLevel = $resource->menu_level @endphp
 
-            <li class="list-item">
+            <li class="list-item ml-0">
 
                 @include('admin.components.link', [
                     'name'  => $resource->plural,
@@ -33,6 +33,7 @@
                                    ? route('admin.'.$resourceType.'.'.$resource->name.'.index', (isRootAdmin() ? [ 'owner_id' => $owner->id ?? '' ] : []))
                                    : null,
                     'class' => 'list-item',
+                    'icon'  => $resource->icon
                 ])
 
         @endforeach

@@ -40,9 +40,9 @@ class StoreCoverLettersRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('career_db.resumes', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('date', $this->date)
-                        ->where('name', $this->name);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('date', $this['date'])
+                        ->where('name', $this['name']);
                 })
             ],
             'slug'         => [
@@ -50,9 +50,9 @@ class StoreCoverLettersRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('career_db.resumes', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('date', $this->date)
-                        ->where('slug', $this->slug);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('date', $this['date'])
+                        ->where('slug', $this['slug']);
                 })
             ],
             'date'              => ['date', 'nullable'],

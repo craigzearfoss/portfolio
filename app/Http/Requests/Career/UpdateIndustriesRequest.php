@@ -29,9 +29,9 @@ class UpdateIndustriesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id],
-            'slug'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id],
-            'abbreviation' => ['filled', 'string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id],
+            'name'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,name,'.$this['industry']->id],
+            'slug'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,slug,'.$this['industry']->id],
+            'abbreviation' => ['filled', 'string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this['industry']->id],
         ];
     }
 

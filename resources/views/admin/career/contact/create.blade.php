@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\Company;
     use App\Models\Career\Contact;
     use App\Models\System\Country;
     use App\Models\System\Owner;
@@ -69,14 +70,14 @@
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'salutation',
-                'value'   => old('salutation') ?? $contact->salutation,
+                'value'   => old('salutation') ?? '',
                 'list'    => new Contact()->salutationListOptions(true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'title',
-                'value'     => old('role') ?? $contact->title,
+                'name'      => 'role',
+                'value'     => old('role') ?? '',
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
@@ -84,6 +85,14 @@
             @include('admin.components.form-input-horizontal', [
                 'name'    => 'title',
                 'value'   => old('title') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'company_id',
+                'label'   => 'company',
+                'value'   => old('company_id') ?? request()->query('company_id') ?? '',
+                'list'    => new Company()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
                 'message' => $message ?? '',
             ])
 

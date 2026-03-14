@@ -35,15 +35,14 @@
 
 @section('content')
 
-    <div class="floating-div-container">
-        <div class="show-container card floating-div">
-
+    <section class="section">
+        <div class="container show-container">
             <div class="columns is-12 is-variable">
                 <div class="column is-12-tablet">
 
                     <!-- tabbed content -->
-                    <div class="tabs is-boxed mb-2">
-                        <ul>
+                    <div class="tabs is-boxed mb-0">
+                        <ul style="border-bottom-width: 0 !important;">
                             <li class="is-active" data-target="overview">
                                 <a>Overview</a>
                             </li>
@@ -55,7 +54,7 @@
                             </li>
                         </ul>
 
-                        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
+                        <div class="m-2" style="display: inline-block; position: absolute; top: -6px; right: 0;">
                             @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
                         </div>
 
@@ -309,6 +308,7 @@
 
             </div>
         </div>
-    </div>
+
+    </section>
 
 @endsection

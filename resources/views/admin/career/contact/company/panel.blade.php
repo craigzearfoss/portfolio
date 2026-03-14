@@ -4,11 +4,11 @@
 @endphp
 <div class="card p-4">
 
-    <h2 class="subtitle">
+    <h3 class="is-size-5 title mb-3">
 
         Companies
 
-        @if(!empty($contact))
+        <span style="display: inline-flex; float: right;">
 
             @include('admin.components.link', [
                 'name'  => 'Add a Company',
@@ -18,12 +18,14 @@
                 'icon'  => 'fa-plus'
             ])
 
-        @endif
+        </span>
 
-    </h2>
+    </h3>
+
+    <hr class="navbar-divider">
 
     @include('admin.career.contact.company.table', [
-        'companies' => $companies ?? []
+        'companies' => $companies
     ])
 
 </div>

@@ -40,8 +40,8 @@ class StoreReferencesRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('career_db.references', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('name', $this['name']);
                 })
             ],
             'slug'            => [
@@ -49,8 +49,8 @@ class StoreReferencesRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('career_db.references', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('slug', $this['slug']);
                 })
             ],
             'title'           => ['string', 'max:100', 'nullable'],

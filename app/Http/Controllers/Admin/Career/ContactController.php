@@ -7,6 +7,7 @@ use App\Http\Requests\Career\StoreCompanyContactsRequest;
 use App\Http\Requests\Career\StoreContactsRequest;
 use App\Http\Requests\Career\UpdateContactsRequest;
 use App\Models\Career\Company;
+use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -62,7 +63,22 @@ class ContactController extends BaseAdminController
     {
         createGate(Contact::class, $this->admin);
 
-        $contact = new Contact()->create($request->validated());
+        $error = null;
+
+        if ($companyId = $request->get('company_id')) {
+            if (!$company = Company::find($companyId)) {
+                $error = 'Company ' . $companyId . ' not found';
+            }
+        }
+
+        if ($contact = empty($error) ? new Contact()->create($request->validated()) : null) {
+            CompanyContact::insert([
+                'owner_id'   => $contact->owner_id,
+                'contact_id' => $contact->id,
+                'company_id' => $companyId,
+                'active'     => true,
+            ]);
+        }
 
         return redirect()->route('admin.career.contact.show', $contact)
             ->with('success', $contact->name . ' successfully added.');

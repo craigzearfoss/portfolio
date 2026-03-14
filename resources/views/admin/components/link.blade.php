@@ -1,5 +1,7 @@
 @php
     $download = isset($download) && boolval($download);
+    $icon = !empty($icon)
+        ? '<i class="fa ' . $icon . '"></i>' : '';
 @endphp
 @if (!empty($href) || !empty($name))
 
@@ -11,17 +13,17 @@
             onclick="{!! $onclick !!}"
         @endif
     >
-        @if(!empty($icon))<i class="fa-solid {!! $icon !!}"></i> @endif
-        {!! $name ?? $href ?? '' !!}
-    </a>
+    {!! $icon !!}
+    {!! $name ?? $href ?? '' !!}
+</a>
 
-    @if ($download && !empty($href))
-        <a class="text-xl"
-           title="download"
-           href="{!! $href !!}"
-           download="resume"
-           <?php /* onclick="downloadFile('{!! $href !!}', '{!! basename($href) !!}');" */ ?>
-        ><i class="fa-solid fa-download"></i></a>
-    @endif
+@if ($download && !empty($href))
+    <a class="text-xl"
+       title="download"
+       href="{!! $href !!}"
+       download="resume"
+       <?php /* onclick="downloadFile('{!! $href !!}', '{!! basename($href) !!}');" */ ?>
+    ><i class="fa-solid fa-download"></i></a>
+@endif
 
 @endif

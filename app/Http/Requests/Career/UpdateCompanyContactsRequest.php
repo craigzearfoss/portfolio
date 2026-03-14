@@ -41,8 +41,8 @@ class UpdateCompanyContactsRequest extends FormRequest
                 'integer',
                 'exists:career_db.companies,id',
                 Rule::unique('career_db.company_contact', 'contact_id')->where(function ($query) {
-                    return $query->where('company_id', $this->company_id)
-                        ->where('owner_id', $this->owner_id);
+                    return $query->where('company_id', $this['company_id'])
+                        ->where('owner_id', $this['owner_id']);
                 }),
             ],
             'contact_id' => ['filled', 'integer', 'exists:career_db.contacts,id'],

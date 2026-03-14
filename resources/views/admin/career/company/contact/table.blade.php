@@ -15,36 +15,56 @@
 
         <tr>
             <td>
-                @include('admin.components.link', [
-                    'name' => $contact->name,
-                    'href' => route('admin.career.contact.show', $contact)
-                ])
+                {!! $contact->name !!}
             </td>
             <td>
-                {{ $contact->phone ?? '' }}
+                {{ $contact->phone }}
             </td>
             <td>
-                {{ $contact->email ?? '' }}
+                {{ $contact->email }}
             </td>
-            <td class="is-1" style="white-space: nowrap;">
-                <form action="{{ route('admin.career.company.contact.detach', [
-                        $contact->pivot->company_id,
-                        $contact->pivot->contact_id
-                    ]) }}"
-                      method="POST"
-                >
+            <td class="is-1">
 
-                    <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.career.contact.show', $contact) }}">
-                        <i class="fa-solid fa-list"></i>
-                    </a>
+                <div class="action-button-panel">
 
-                    @csrf
-                    @method('DELETE')
-                    <button title="remove" type="submit" class="button is-small px-1 py-0">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </form>
+                    @if(canRead($contact, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'show',
+                            'href'  => route('admin.career.contact.show', [
+                                                   $contact,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-list'
+                        ])
+                    @endif
+
+                    @if(canUpdate($contact, $admin))
+                        @include('admin.components.link-icon', [
+                            'title' => 'edit',
+                            'href'  => route('admin.career.contact.edit', [
+                                                   $contact,
+                                                   'referer' => url()->current()
+                                             ]),
+                            'icon'  => 'fa-pen-to-square'
+                        ])
+                    @endif
+
+                    @if(canDelete($contact, $admin))
+                        <form class="delete-resource"
+                              action="{!! route('admin.career.contact.destroy', $contact) !!}"
+                              method="POST">
+                            @csrf
+                            @method('DELETE')
+                            @include('admin.components.button-icon', [
+                                'title' => 'delete',
+                                'class' => 'delete-btn',
+                                'icon'  => 'fa-trash'
+                            ])
+                        </form>
+                    @endif
+
+                </div>
+
             </td>
         </tr>
 

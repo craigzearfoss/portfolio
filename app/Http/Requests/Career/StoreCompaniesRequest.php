@@ -39,8 +39,8 @@ class StoreCompaniesRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('career_db.companies', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('name', $this['name']);
                 })
             ],
             'slug'            => [
@@ -48,8 +48,8 @@ class StoreCompaniesRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('career_db.companies', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('slug', $this['slug']);
                 })
             ],
             'industry_id'     => ['required', 'integer', 'exists:career_db.industries,id'],
@@ -116,7 +116,7 @@ class StoreCompaniesRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.companies', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'career_db.companies', $this['owner_id'])
             ]);
         }
     }

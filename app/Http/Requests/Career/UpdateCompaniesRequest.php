@@ -44,7 +44,7 @@ class UpdateCompaniesRequest extends FormRequest
                 'max:255',
                 Rule::unique('career_db.companies', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name)
+                        ->where('name', $this['name'])
                         ->whereNot('id', $this->company->id);
                 })
             ],
