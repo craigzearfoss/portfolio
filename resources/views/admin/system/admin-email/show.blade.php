@@ -51,7 +51,7 @@
             @if(!empty($adminEmail->owner))
                 @include('admin.components.show-row-link', [
                     'name' => 'owner',
-                    'label' => $adminEmail->ower->username,
+                    'label' => $adminEmail->owner->username,
                     'href' => route('admin.system.admin.show', $adminEmail->owner)
                 ])
             @else

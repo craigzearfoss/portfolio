@@ -21,8 +21,49 @@
 
 @section('content')
 
-    <div class="floating-div-container">
-        <div class="show-container card floating-div">
+    <section class="section">
+        <div class="container show-container">
+            <div class="columns is-12 is-variable">
+                <div class="column is-12-tablet">
+
+                    <!-- tabbed content -->
+                    <div class="tabs is-boxed mb-0">
+                        <ul style="border-bottom-width: 0 !important;">
+                            <li class="is-active" data-target="overview">
+                                <a>Overview</a>
+                            </li>
+                            <li data-target="emails">
+                                <a>Emails</a>
+                            </li>
+                            <li data-target="phones">
+                                <a>Phones</a>
+                            </li>
+                            <li data-target="teams">
+                                <a>Teams</a>
+                            </li>
+                            <li data-target="groups">
+                                <a>Groups</a>
+                            </li>
+                        </ul>
+
+                        @if($isRootAdmin)
+                            <div class="m-2" style="display: inline-block; position: absolute; top: -6px; right: 0;">
+                                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+                            </div>
+                        @endif
+
+                    </div>
+
+                    <div class="px-2" id="tab-content">
+
+                        <div id="overview">
+
+                            <div class="card p-4">
+
+                                <h3 class="is-size-5 title mb-3">Overview</h3>
+
+                                <hr class="navbar-divider">
+                                <div style="height: 12px; margin: 0; padding: 0;"></div>
 
             @include('admin.components.show-row', [
                 'name'  => 'username',
@@ -65,7 +106,51 @@
                 'external' => true,
             ])
 
+
+                            </div>
+                        </div>
+
+                        <div id="phones" class="is-hidden">
+
+                            @include('admin.profile.phone.panel', [
+                                'phones' => $admin->phones ?? [],
+                                'admin'  => $admin
+                            ])
+
+                        </div>
+
+                        <div id="emails" class="is-hidden">
+
+                            @include('admin.profile.email.panel', [
+                                'emails' => $admin->emails ?? [],
+                                'admin'  => $admin
+                            ])
+
+                        </div>
+
+                        <div id="teams" class="is-hidden">
+<?php /*
+                            @include('admin.career.system.admin-team.panel', [
+                                'companies' => $contact->companies ?? [],
+                                'contact'   => $contact
+                            ])
+*/ ?>
+                        </div>
+
+                        <div id="groups" class="is-hidden">
+
+                            @include('admin.profile.group.panel', [
+                                'groups' => $admin->groups ?? [],
+                                'admin'  => $admin
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+
+    </section>
 
 @endsection

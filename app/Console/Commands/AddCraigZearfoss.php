@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
+use App\Models\System\AdminEmail;
 use App\Models\System\AdminAdminGroup;
+use App\Models\System\AdminPhone;
 use App\Models\System\AdminAdminTeam;
 use App\Models\System\AdminDatabase;
 use App\Models\System\AdminResource;
@@ -233,6 +235,8 @@ class AddCraigZearfoss extends Command
         $this->insertSystemAdmin($adminId, $adminTeamId);
         $this->insertSystemAdminAdminTeams($adminId, $adminTeamId);
         $this->insertSystemAdminAdminGroups($adminId, $adminGroupId);
+        $this->insertSystemAdminEmails($adminId);
+        $this->insertSystemAdminPhones($adminId);
         $this->insertSystemAdminDatabaseRows($adminId);
         $this->insertSystemAdminResourceRows($adminId);
 
@@ -274,7 +278,49 @@ class AddCraigZearfoss extends Command
     }
 
     /**
-     * Add an admin to an admin group.
+     * Add admin emails.
+     *
+     * @param int $adminId
+     * @return void
+     */
+    protected function insertSystemAdminEmails(int $adminId): void
+    {
+        echo $this->username. ": Inserting into System\\AdminEmail ...\n";
+
+        $data = [
+            [
+                'owner_id'    => $adminId,
+                'email'       => 'craigzearfoss@yahoo.com',
+                'label'       => 'Yahoo',
+                'is_disabled' => false,
+            ],
+            [
+                'owner_id'    => $adminId,
+                'email'       => 'craigzearfoss@gmail.com',
+                'label'       => 'Gmail',
+                'is_disabled' => false,
+            ],
+            [
+                'owner_id'    => $adminId,
+                'email'       => 'craigzearfoss@hotmail.com',
+                'label'       => 'Hotmail',
+                'is_disabled' => false,
+            ],
+            [
+                'owner_id'    => $adminId,
+                'email'       => 'craigzearfoss@yahoo.com',
+                'label'       => 'INL work',
+                'is_disabled' => true,
+            ],
+        ];
+
+        if (!empty($data)) {
+            new AdminEmail()->insert($data);
+        }
+    }
+
+    /**
+     * Add admin to an admin group.
      *
      * @param int $adminId
      * @param int $adminGroupId
@@ -297,7 +343,31 @@ class AddCraigZearfoss extends Command
     }
 
     /**
-     * Add an admin to an admin team.
+     * Add admin phones.
+     *
+     * @param int $adminId
+     * @return void
+     */
+    protected function insertSystemAdminPhones(int $adminId): void
+    {
+        echo $this->username. ": Inserting into System\\AdminPhone ...\n";
+
+        $data = [
+            [
+                'owner_id'    => $adminId,
+                'phone'       => '(305) 469-6083',
+                'label'       => 'cell',
+                'is_disabled' => false,
+            ],
+        ];
+
+        if (!empty($data)) {
+            new AdminPhone()->insert($data);
+        }
+    }
+
+    /**
+     * Add admin to an admin team.
      *
      * @param int $adminId
      * @param int $adminTeamId

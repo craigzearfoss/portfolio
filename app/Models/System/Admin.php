@@ -27,6 +27,10 @@ use App\Models\Portfolio\Music;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
+use App\Models\System\AdminEmail;
+use App\Models\System\AdminGroup;
+use App\Models\System\AdminPhone;
+use App\Models\System\AdminTeam;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -406,6 +410,16 @@ class Admin extends Authenticatable
     }
 
     /**
+     * Get all the system admin emails for the admin.
+     *
+     * @return HasMany
+     */
+    public function emails(): HasMany
+    {
+        return $this->hasMany(AdminEmail::class, 'owner_id')->orderBy('email');
+    }
+
+    /**
      * Get the system employment status that owns the admin.
      *
      * @return BelongsTo
@@ -494,6 +508,16 @@ class Admin extends Authenticatable
     public function notes(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Note::class, 'owner_id');
+    }
+
+    /**
+     * Get all the system admin phones for the admin.
+     *
+     * @return HasMany
+     */
+    public function phones(): HasMany
+    {
+        return $this->hasMany(AdminPhone::class, 'owner_id')->orderBy('phone');
     }
 
     /**
