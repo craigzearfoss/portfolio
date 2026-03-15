@@ -16,5 +16,23 @@
     },
     "dependencies": {
         "bulma": "^1.0.4"
-    }
+    },
+    "name": "cdz",
+    "version": "1.0.0",
+    "description": "``` cd /path/to/your/project php artisan key:generate ```",
+    "main": "vite.config.js",
+    "directories": {
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/craigzearfoss/portfolio.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/craigzearfoss/portfolio/issues"
+    },
+    "homepage": "https://github.com/craigzearfoss/portfolio#readme"
 }

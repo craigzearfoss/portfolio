@@ -75,6 +75,11 @@ class MenuService
     protected Admin|Owner|null $owner = null;
 
     /**
+     * @var int
+     */
+    protected int $publicAdminCount = 0;
+
+    /**
      * @var bool|Repository|Application|mixed|object|null
      */
     protected bool $adminsEnabled = true;
@@ -144,6 +149,9 @@ class MenuService
         $this->adminsEnabled    = config('app.admins_enabled');
         $this->usersEnabled     = config('app.users_enabled');
 
+        $this->publicAdminCount = new Admin()->where('is_public', '=', true)
+            ->where('is_disabled', '=', false)->count();
+
         if (!in_array($this->envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
             throw new Exception('Invalid current ENV type');
         }
@@ -174,20 +182,9 @@ class MenuService
             $this->databases = new Database()->ownerDatabases(null, $this->envType, $filters);
             $this->resources = new Resource()->ownerResources($this->envType, null, $filters);
         } else {
-
             $this->databases = new AdminDatabase()->ownerDatabases($this->owner->id ?? null, $this->envType, $filters);
             $this->resources = new AdminResource()->ownerResources($this->owner->id ?? null, $this->envType, null, $filters);
         }
-        /*
-        foreach($this->databases as $database) {
-            echo '<li>' . $database->owner_id . ' / ' . $database->name . '</li>';
-        }
-        echo '<hr>';
-        foreach($this->resources as $resource) {
-            echo '<li>' . $resource->owner_id . ' / ' . $resource->name . '</li>';
-        }
-        dd($this->resources[8]);
-        */
     }
 
     /**
@@ -271,7 +268,8 @@ class MenuService
 
         $menu = $this->getResourceMenu();
 
-        if ($this->envType == EnvTypes::GUEST) {
+        if (($this->envType == EnvTypes::GUEST) && ($this->publicAdminCount > 1)) {
+            /// only show candidates menu option if there are more than one public, non-disabled admins
             $menu[] = $this->menuItem(['title'=>'Candidates', 'route' => 'guest.admin.index', 'icon' => 'fa-dashboard' ]);
         }
 
@@ -464,8 +462,11 @@ class MenuService
         // Create the array of menu items.
         $menu = [];
 
-        if (in_array($this->currentRouteName, [ 'guest.index', 'guest.admin.index' ])) {
-            // on home page and dashboard do not display resource menu item
+        if (in_array($this->currentRouteName, [ 'guest.index', 'guest.admin.index' ])
+            && ($this->publicAdminCount > 1)
+        ) {
+            // on home page and dashboard do not display resource menu item,
+            // unless there is only one public, non-disabled admin
             return $menu;
         }
 

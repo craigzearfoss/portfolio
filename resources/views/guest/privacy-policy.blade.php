@@ -4,10 +4,12 @@
     $title    = $pageTitle ?? 'Privacy Policy';
     $subtitle = false;
 
-    $breadcrumbs = [
-        [ 'name' => 'Home', 'href' => route('guest.index')],
-        [ 'name' => 'Privacy Policy']
-    ];
+    $breadcrumbs = $publicAdminCount < 2
+        ? []
+        : [
+            [ 'name' => 'Home', 'href' => route('guest.index')],
+            [ 'name' => 'Privacy Policy']
+          ];
 
     $navButtons = [];
 @endphp

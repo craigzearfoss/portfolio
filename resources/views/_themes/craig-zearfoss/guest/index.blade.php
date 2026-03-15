@@ -13,10 +13,10 @@
 
 @section('content')
 
-    <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }}</h2>
+    <h2 class="title p-2 mb-2">Craig Zearfoss Portfolio</h2>
 
     @if ($featuredAdmin)
-        @include('guest.components.featured-admin', ['admin' => $featuredAdmin])
+        @include('guest.components.featured-admin', ['featuredAdmin' => $featuredAdmin])
     @endif
 
     <div class="column p-4 mt-2">

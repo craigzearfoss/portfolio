@@ -3,14 +3,16 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    $breadcrumbs = [
-        [ 'name' => 'Home',       'href' => route('guest.index') ],
-        [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
-        [ 'name' => 'Award',      'href' => route('guest.portfolio.award.index', $owner) ],
-        [ 'name' => $award->name ],
-    ];
+    $breadcrumbs = $publicAdminCount < 2
+        ? []
+        : [
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Award',      'href' => route('guest.portfolio.award.index', $owner) ],
+            [ 'name' => $award->name ],
+          ];
 
     // set navigation buttons
     $navButtons = [
@@ -96,7 +98,7 @@
                 'width'        => '300px',
                 'download'     => true,
                 'external'     => true,
-                'filename'     => generateDownloadFilename($award)
+                'filename'     => generateDownloadFilename($award),
                 'image_credit' => $award->image_credit,
                 'image_source' => $award->image_source,
             ])

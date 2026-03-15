@@ -45,6 +45,11 @@ class BaseController extends Controller
     protected int|null $owner_id = null;
 
     /**
+     * @var int
+     */
+    protected int $publicAdminCount = 0;
+
+    /**
      * @var User|null
      */
     protected User|null $user = null;
@@ -85,12 +90,15 @@ class BaseController extends Controller
 
         $this->cookieManager = new CookieManagerService();
 
-        $this->envType      = $envType;
-        $this->resourceType = $this->getResourceTypeFromRoute();
-        $this->admin        = loggedInAdmin();
-        $this->isRootAdmin  = $this->admin->is_root ?? false;
-        $this->user         = loggedInUser();
-        $this->owner        = $this->getOwner($this->admin);
+        $this->envType          = $envType;
+        $this->resourceType     = $this->getResourceTypeFromRoute();
+        $this->admin            = loggedInAdmin();
+        $this->isRootAdmin      = $this->admin->is_root ?? false;
+        $this->user             = loggedInUser();
+        $this->owner            = $this->getOwner($this->admin);
+        $this->publicAdminCount = new Admin()->where('is_public', '=', true)
+            ->where('is_disabled', '=', false)
+            ->count();
 
         // set owner_id cookie
         $this->cookieManager->setOwnerId($this->envType, $this->owner->id ?? null);
@@ -113,6 +121,7 @@ class BaseController extends Controller
         view()->share('admin', $this->admin);
         view()->share('isRootAdmin', $this->isRootAdmin);
         view()->share('owner', $this->owner);
+        view()->share('publicAdminCount', $this->publicAdminCount);
         view()->share('user', $this->user);
         view()->share('menuService', $this->menuService);
 
@@ -206,10 +215,17 @@ class BaseController extends Controller
         if (empty($owner)) {
 
             if ($envType->value == 'guest') {
+
                 $parameters = Route::current()->parameters();
                 if (!empty($parameters['admin'])) {
+
                     return new Admin()->where('label', '=', $parameters['admin'])->first();
+
+                } elseif ($featuredAdminUsername = config('app.featured_admin')) {
+
+                    return new Admin()->where('username', '=', $featuredAdminUsername)->first();
                 }
+
             } elseif ($envType->value == 'admin') {
                 $owner = $currentAdmin;
             }

@@ -4,10 +4,12 @@
     $title    = $pageTitle ?? 'Terms & Conditions';
     $subtitle = false;
 
-    $breadcrumbs = [
-        [ 'name' => 'Home', 'href' => route('guest.index')],
-        [ 'name' => 'Terms & Conditions']
-    ];
+    $breadcrumbs = $publicAdminCount < 2
+        ? []
+        : [
+            [ 'name' => 'Home', 'href' => route('guest.index')],
+            [ 'name' => 'Terms & Conditions']
+          ];
 
     $navButtons = [];
 @endphp

@@ -2,11 +2,11 @@
     use App\Models\System\AdminDatabase;
 @endphp
 
-@if($admin)
+@if($featuredAdmin)
 
     @php
         $portfolioResourceTypes = AdminDatabase::getResourceTypes(
-            $admin->id,
+            $featuredAdmin->id,
             'portfolio',
             [
                 'is_public'   => 1,
@@ -15,7 +15,7 @@
         );
 
         $personalResourceTypes = AdminDatabase::getResourceTypes(
-            $admin->id,
+            $featuredAdmin->id,
             'personal',
             [
                 'is_public'   => 1,
@@ -23,6 +23,16 @@
             ],
         );
     @endphp
+
+
+
+
+
+
+
+
+
+
 
     <div class="card column p-4 mb-2">
 
@@ -32,10 +42,10 @@
 
                 @include('guest.components.image', [
                     'name'     => 'image',
-                    'src'      => $admin->image,
-                    'alt'      => $admin->name,
+                    'src'      => $featuredAdmin->image,
+                    'alt'      => $featuredAdmin->name,
                     'width'    => '200px',
-                    'filename' => generateDownloadFilename($admin)
+                    'filename' => generateDownloadFilename($featuredAdmin)
                 ])
 
                 <div class="show-container p-4">
@@ -44,7 +54,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('guest.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('guest.resume', $admin),
+                                'href'   => route('guest.resume', $featuredAdmin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
@@ -52,24 +62,24 @@
                         </span>
                     </div>
 
-                    @if(!empty($admin->role))
+                    @if(!empty($featuredAdmin->role))
                         @include('guest.components.show-row', [
                             'name'  => 'role',
-                            'value' => $admin->role ?? ''
+                            'value' => $featuredAdmin->role ?? ''
                         ])
                     @endif
 
-                    @if(!empty($admin->employer))
+                    @if(!empty($featuredAdmin->employer))
                         @include('guest.components.show-row', [
                             'name'  => 'employer',
-                            'value' => '<br>' . $admin->employer ?? ''
+                            'value' => '<br>' . $featuredAdmin->employer ?? ''
                         ])
                     @endif
 
-                    @if(!empty($admin->bio))
+                    @if(!empty($featuredAdmin->bio))
                         @include('guest.components.show-row', [
                             'name'  => 'bio',
-                            'value' => $admin->bio ?? ''
+                            'value' => $featuredAdmin->bio
                         ])
                     @endif
 
@@ -91,7 +101,7 @@
                                 <li>
                                     @include('guest.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.portfolio.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => route('guest.portfolio.'.$resourceType['name'].'.index', $featuredAdmin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>
@@ -115,7 +125,7 @@
                                 <li>
                                     @include('guest.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.personal.'.$resourceType['name'].'.index', $admin),
+                                        'href'  => route('guest.personal.'.$resourceType['name'].'.index', $featuredAdmin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

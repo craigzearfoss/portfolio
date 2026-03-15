@@ -3,13 +3,15 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    $breadcrumbs = [
-        [ 'name' => 'Home',       'href' => route('guest.index') ],
-        [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
-        [ 'name' => 'Publications' ],
-    ];
+    $breadcrumbs = $publicAdminCount < 2
+        ? []
+        : [
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Publications' ],
+          ];
 
     // set navigation buttons
     $navButtons = [];

@@ -3,14 +3,16 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    $breadcrumbs = [
-        [ 'name' => 'Home',       'href' => route('guest.index') ],
-        [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
-        [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
-        [ 'name' => 'Music',      'href' => route('guest.portfolio.music.index', $owner) ],
-        [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ],
-    ];
+    $breadcrumbs = $publicAdminCount < 2
+        ? []
+        : [
+            [ 'name' => 'Home',       'href' => route('guest.index') ],
+            [ 'name' => 'Candidates', 'href' => route('guest.admin.index') ],
+            [ 'name' => $owner->name, 'href' => route('guest.admin.show', $owner)],
+            [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index', $owner) ],
+            [ 'name' => 'Music',      'href' => route('guest.portfolio.music.index', $owner) ],
+            [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ],
+          ];
 
     // set navigation buttons
     $navButtons = [

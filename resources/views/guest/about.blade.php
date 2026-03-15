@@ -4,10 +4,12 @@
     $title    = $pagTitle ?? 'About Us';
     $subtitle = false;
 
-    $breadcrumbs = [
-        [ 'name' => 'Home', 'href' => route('guest.index')],
-        [ 'name' => 'About Us']
-    ];
+    $breadcrumbs = $publicAdminCount < 2
+        ? []
+        : [
+            [ 'name' => 'Home', 'href' => route('guest.index')],
+            [ 'name' => 'About Us']
+          ];
 
     $navButtons = [];
 @endphp
