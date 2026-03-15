@@ -1,19 +1,28 @@
 @php
     $envType = getEnvType();
 
-    $breadcrumbs = [];
-    $breadcrumbs[] = [ 'name' => 'Home',       'href' => route('admin.index') ];
-    if ($envType->value == 'admin') {
-        $breadcrumbs[] = [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ];
-        $breadcrumbs[] = [ 'name' => 'Career',           'href' => route('admin.career.index') ];
-        $breadcrumbs[] = [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index') ];
-        $breadcrumbs[] = [ 'name' => $title ?? 'Preview'];
+    $title    = $pageTitle ?? 'Resume';
+    $subtitle = $title;
+
+    // set breadcrumbs
+    if ($publicAdminCount < 2) {
+        $breadcrumbs = [];
     } else {
-        $breadcrumbs[] = [ 'name' => 'Candidates',       'href' => route('guest.admin.index') ];
-        $breadcrumbs[] = [ 'name' => $owner->name,       'href' => route('guest.admin.show', $owner) ];
-        $breadcrumbs[] = [ 'name' => $title ?? 'Resume'];
+        $breadcrumbs = [];
+        $breadcrumbs[] = [ 'name' => 'Home',       'href' => route('admin.index') ];
+        if ($envType->value == 'admin') {
+            $breadcrumbs[] = [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ];
+            $breadcrumbs[] = [ 'name' => 'Career',           'href' => route('admin.career.index') ];
+            $breadcrumbs[] = [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index') ];
+            $breadcrumbs[] = [ 'name' => $title ?? 'Preview'];
+        } else {
+            $breadcrumbs[] = [ 'name' => 'Candidates',       'href' => route('guest.admin.index') ];
+            $breadcrumbs[] = [ 'name' => $owner->name,       'href' => route('guest.admin.show', $owner) ];
+            $breadcrumbs[] = [ 'name' => $title ?? 'Resume'];
+        }
     }
 @endphp
+
 @extends($envType->value . '.layouts.default', [
     'title'            => $pageTitle ?? $owner->name . ' resume',
     'breadcrumbs'      => $breadcrumbs,

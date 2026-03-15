@@ -506,8 +506,6 @@ class MenuService
                     }
                 }
             }
-
-            return array_values($menu);
         }
 
         // should we have a resume link at the top of the menu?
