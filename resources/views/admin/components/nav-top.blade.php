@@ -12,12 +12,12 @@
                 'name'   => false,
                 'href'   => false,
                 'class'  => 'is-hidden-desktop jb-aside-mobile-toggle',
-                'icon'   => '<span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>'
+                //'icon'   => '<span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>'
             ])
 
             <div class="navbar-item has-control">
 
-                <span class="mr-4" style=" font-size: 1.5em; font-weight: 800;">
+                <span class="mr-4 has-text-dark" style=" font-size: 1.5em; font-weight: 800;">
                     {{ config('app.name') }} Admin Area
                 </span>
 
@@ -39,7 +39,7 @@
                 'name'       => false,
                 'href'       => false,
                 'class'      => 'is-hidden-desktop jb-navbar-menu-toggle',
-                'icon'       => '<span class="icon"><i class="mdi mdi-dots-vertical"></i></span>',
+                //'icon'       => '<span class="icon"><i class="mdi mdi-dots-vertical"></i></span>',
                 'dataTarget' => 'navbar-menu'
             ])
 
