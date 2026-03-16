@@ -20,7 +20,7 @@
     @forelse ($candidates as $candidate)
 
         <tr data-id="{{ $candidate->id }}">
-            <td data-field="thumbnail" style="width: 40px; padding: 1px;">
+            <td data-field="thumbnail" style="width: 6rem;">
                 @if(!empty($candidate->thumbnail))
                     @include('guest.components.link', [
                         'name' => view('guest.components.image', [
