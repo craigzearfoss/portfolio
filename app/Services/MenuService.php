@@ -467,7 +467,7 @@ class MenuService
         // Create the array of menu items.
         $menu = [];
 
-        if (!$this->singleAdminMode) {
+        if ($this->singleAdminMode) {
             // on home page and dashboard do not display resource menu item,
             // unless there is only one public, non-disabled admin
             return $menu;

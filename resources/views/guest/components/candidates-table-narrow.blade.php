@@ -56,4 +56,6 @@
     </tbody>
 </table>
 
-{!! $candidates->links('vendor.pagination.bulma') !!}
+@if(!empty($links))
+    {!! $candidates->links('vendor.pagination.bulma') !!}
+@endif

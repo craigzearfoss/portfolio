@@ -189,7 +189,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Art()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'art', [ 'is_public' => !empty($data) ]);
     }
@@ -228,7 +228,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Audio()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'audios', [ 'is_public' => !empty($data) ]);
     }
@@ -266,7 +266,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Award()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'awards', [ 'is_public' => !empty($data) ]);
     }
@@ -299,7 +299,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Certificate()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'certificates', [ 'is_public' => !empty($data) ]);
     }
@@ -334,7 +334,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Course()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'courses', [ 'is_public' => !empty($data) ]);
     }
@@ -420,7 +420,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Education()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'education', [ 'is_public' => !empty($data) ]);
     }
@@ -464,7 +464,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Job()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'jobs', [ 'is_public' => !empty($data) ]);
     }
@@ -487,7 +487,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new JobCoworker()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'job_coworkers', [ 'is_public' => !empty($data) ]);
     }
@@ -512,7 +512,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new JobSkill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'job_skills', [ 'is_public' => !empty($data) ]);
     }
@@ -536,7 +536,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new JobTask()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'job_tasks', [ 'is_public' => !empty($data) ]);
     }
@@ -604,7 +604,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Link()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'links', [ 'is_public' => !empty($data) ]);
     }
@@ -688,7 +688,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Music()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'music', [ 'is_public' => !empty($data) ]);
     }
@@ -719,7 +719,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Project()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'projects', [ 'is_public' => !empty($data) ]);
     }
@@ -769,7 +769,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Publication()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'publications', [ 'is_public' => !empty($data) ]);
     }
@@ -807,7 +807,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Skill()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'skills', [ 'is_public' => !empty($data) ]);
     }
@@ -845,7 +845,7 @@ class HikaruSulu extends Command
         ];
 
         if (!empty($data)) {
-            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Video()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'videos', [ 'is_public' => !empty($data) ]);
     }

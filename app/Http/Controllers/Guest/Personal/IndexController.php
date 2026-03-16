@@ -26,7 +26,11 @@ class IndexController extends BaseGuestController
             $databaseId = new Database()->where('tag', '=', 'personal_db')->first()->id ?? null;
 
             $personals = !empty($databaseId)
-                ? new AdminResource()->ownerResources($this->owner['id'], EnvTypes::GUEST, $databaseId)
+                ? new AdminResource()->ownerResources($this->owner['id'],
+                                              EnvTypes::GUEST,
+                                                      $databaseId,
+                                                      [ 'is_public' => true, 'is_disabled' =>false ]
+                                                     )
                 : [];
 
         } else {

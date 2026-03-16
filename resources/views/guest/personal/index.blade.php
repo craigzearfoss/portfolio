@@ -20,8 +20,10 @@
 
 @section('content')
 
-    @if($disclaimerMessage = config('app.demo_disclaimer'))
-        @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+    @if($owner->is_demo)
+        @if($disclaimerMessage = config('app.demo_disclaimer'))
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+        @endif
     @endif
 
     <div class="container">
@@ -39,6 +41,7 @@
                                         ? route('guest.'.$personal->database['name'] . '.' . $personal->name . '.index', $owner)
                                         : '',
                         'class' => 'list-item ml-4',
+                        'style' => 'color: #363636;',
                         'icon'  => $personal->icon,
                     ])
                 </li>

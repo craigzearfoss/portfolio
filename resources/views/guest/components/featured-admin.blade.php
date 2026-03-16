@@ -23,21 +23,25 @@
         );
     @endphp
 
-    <div class="floating-div-container">
+    <div class="floating-div">
 
-        <div class="show-container card floating-div">
+        <div class="show-container card p-2 pl-4 pr-4 mb-2" style="width: auto;">
 
-            @include('guest.components.image', [
-                'name'     => 'image',
-                'src'      => $featuredAdmin->image,
-                'alt'      => $featuredAdmin->name,
-                'width'    => '200px',
-                'filename' => generateDownloadFilename($featuredAdmin)
-            ])
+            <h2 class="title is-size-5 p-2 mb-0">{{ $title ?? 'Featured Candidate' }}</h2>
 
-            <div class="show-container p-4">
+            <div class="show-container floating-div">
 
-                <div class="columns">
+                @include('guest.components.image', [
+                    'name'     => 'image',
+                    'src'      => $featuredAdmin->image,
+                    'alt'      => $featuredAdmin->name,
+                    'width'    => '200px',
+                    'filename' => generateDownloadFilename($featuredAdmin)
+                ])
+
+                <div class="show-container p-2">
+
+                    <div class="columns">
                         <span class="column is-12 has-text-centered">
                             @include('guest.components.link', [
                                 'name'   => 'Resume',
@@ -47,61 +51,70 @@
                                 'title'  => 'Resume',
                             ])
                         </span>
+                    </div>
+
+                    <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
+                        {!! $featuredAdmin->name !!}
+                    </p>
+
+                    @if(!empty($featuredAdmin->role))
+                        <p class="has-text-centered has-text-weight-semibold mb-0">
+                            {!! $featuredAdmin->role !!}
+                        </p>
+                    @endif
+
+                    @if(!empty($featuredAdmin->employer))
+                        <p class="has-text-centered has-text-weight-medium mb-0">
+                            {!! $featuredAdmin->employer !!}
+                            @if($featuredAdmin->employment_status_id == 6)
+                                (contracting)
+                            @endif
+                        </p>
+
+                    @elseif($featuredAdmin->employment_status_id == 7)
+                        <p class="has-text-centered mb-0">self-employed</p>
+                    @endif
+
+                    @if(in_array($featuredAdmin->employment_status_id, [2, 3, 4]))
+                        <p class="has-text-centered m-1">
+                            <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
+                                Open to Work
+                            </span>
+                        </p>
+
+                    @endif
+
+                    @if(!empty($featuredAdmin->bio))
+                        <p>
+                            {!! $featuredAdmin->bio !!}
+                        </p>
+                    @endif
+
                 </div>
 
-
-                @if(!empty($featuredAdmin->role))
-                    <p class="has-text-centered has-text-weight-bold mb-0">{!! $featuredAdmin->role !!}</p>
-                @endif
-
-                @if(!empty($featuredAdmin->employer))
-                    <p class="has-text-centered has-text-weight-semibold mb-0">
-                        {!! $featuredAdmin->employer !!}
-                        @if($featuredAdmin->employment_status_id == 6)
-                            (contracting)
-                        @endif
-                    </p>
-
-                @elseif($featuredAdmin->employment_status_id == 7)
-                    <p class="has-text-centered mb-0">self-employed</p>
-                @endif
-
-                @if(in_array($featuredAdmin->employment_status_id, [2, 3, 4]))
-                    <p class="has-text-centered m-1">
-                        <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
-                            Open to Work
-                        </span>
-                    </p>
-
-                @endif
-
-                @if(!empty($featuredAdmin->bio))
-                    <p>{!! $featuredAdmin->bio !!}</p>
-                @endif
-
             </div>
+
+            @foreach($resourcesByDatabase as $database)
+
+                <div class="show-container card floating-div">
+
+                    <h2 class="has-text-weight-bold">{{ ucfirst($database['name']) }}</h2>
+
+                    <div class="list is-hoverable">
+
+                        @include('guest.components.resource-list', [
+                            'resourceType' => dbName('portfolio_db'),
+                            'resources'    => $database['resources'],
+                            'admin'        => $featuredAdmin,
+                        ])
+
+                    </div>
+
+                </div>
+
+            @endforeach
 
         </div>
-
-        @foreach($resourcesByDatabase as $database)
-
-            <div class="show-container card floating-div">
-
-                <h2 class="has-text-weight-bold">{{ $database['name'] }}</h2>
-
-                <div class="list is-hoverable">
-
-                    @include('guest.components.resource-list', [
-                        'resourceType' => dbName('portfolio_db'),
-                        'resources'    => $database['resources'],
-                        'admin'        => $featuredAdmin,
-                    ])
-
-                </div>
-
-            </div>
-
-        @endforeach
 
     </div>
 

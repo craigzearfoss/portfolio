@@ -13,48 +13,46 @@
 
 @section('content')
 
-    <div class="floating-div-container" style=" max-width: 100% !important;">
+    <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }}!</h2>
 
-        <div class="column has-text-centered">
-            <h2 class="title p-2 mb-2">Welcome to {{ config('app.name') }} Admin!</h2>
-        </div>
+    <div class="floating-div-container">
 
-        <div class="show-container card floating-div" style="max-width: 60rem;">
+        @if ($featuredAdmin)
+            @include('guest.components.featured-admin', [
+                'featuredAdmin' => $featuredAdmin,
+                'title'         => 'Featured Candidate',
+            ])
+        @endif
 
-            <h2 class="subtitle">About This Site</h2>
-            <p>
-                This project is multi-user website for managing a job search.
-                It allows you to track your applications, record your communications, and manage your cover letters and resumes.
-            </p>
-            <p>
-                In addition, it serves as a single point to track of your jobs, coworkers, references, projects, skills, hobbies, and much more.
-                You can also choose which information you want to make publicly available so you can customize what you present to potential employers.
-            </p>
-            <p>
-                This project is in an early development stage.
-                If you would like to learn more about it visit the About Page for more information.
-            </p>
-            <p>
-                This project was created by <strong>Craig Zearfoss</strong> who can be found on LinkedIn at
-                <strong><a href="https://www.linkedin.com/in/craig-zearfoss/" target="_blank">https://www.linkedin.com/in/craig-zearfoss/</a></strong>
-                or on his personal page at <strong><a href="https://zearfoss.com" target="_blank">https://zearfoss.com</a></strong>
-            </p>
-            <p>
-                Feel free to contact Craig about this project or if you have potential employment opportunities for him.
-            </p>
-            <p>
-                Thanks. <i>– Craig Zearfoss</i>
-            </p>
+        <div class="card floating-div p-2" style="height: 500px; max-width: 40rem; overflow-y: scroll;">
 
-        </div>
-
-        <div class="show-container card floating-div" style="max-width: 40rem;">
-
-            <h4 class="title is-size-4 mb-2">Candidates</h4>
-            @include('guest.components.candidates-table-narrow', ['candidates' => $admins])
+            <h4 class="title is-size-5 mb-2">
+                Candidates
+                <span class="is-pulled-right">
+                    @include('guest.components.link', [
+                        'name' => 'All',
+                        'href' => route('guest.admin.index')
+                    ])
+                </span>
+            </h4>
+            @include('guest.components.candidates-table-narrow', [
+                'candidates' => $admins,
+                'links'      => false,
+            ])
 
         </div>
 
     </div>
+
+    <div class="floating-div-container" style=" max-width: 100% !important;">
+        @include('guest.components.partials.site-intro')
+    </div>
+
+
+
+
+
+
+
 
 @endsection

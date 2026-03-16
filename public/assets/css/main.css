@@ -352,7 +352,7 @@ table.table.guest-table {
 }
 
 div.floating-div-container {
-    max-width: 60rem !important;
+    max-width: 80rem !important;
 }
 div.floating-div-container div.floating-div {
     display: inline-block;

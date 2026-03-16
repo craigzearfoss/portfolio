@@ -3,7 +3,7 @@
     $resources = $resources ?? [];
     $currentLevel = 1;
 @endphp
-@if(!empty($resource))
+@if(empty($resources))
 
     <h2>No {{ $resourceType }} resources found.</h2>
 

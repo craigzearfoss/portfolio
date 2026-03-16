@@ -40,7 +40,7 @@
                     class="{{ implode(' ' , $class) }}"
                 @endif
                 @if (!empty($style))
-                    style="{{ implode(' ' , $class) }}"
+                    style="{{ implode(' ' , $style) }}"
                 @endif
                 @if (!empty($onclick))
                     onclick="{!! $onclick !!}"

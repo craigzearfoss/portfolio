@@ -90,7 +90,7 @@ class AddCraigZearfoss extends Command
     /**
      * @var int
      */
-    protected int $is_demo = 1;
+    protected int $is_demo = 0;
 
     /**
      * @var int
