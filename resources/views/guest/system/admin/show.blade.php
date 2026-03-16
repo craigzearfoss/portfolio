@@ -36,18 +36,17 @@
                     'width'    => '300px',
                     'download' => false,
                     'external' => false,
+                ])
+
+                <span class="bottom-right-span m-4 pb-2 pr-4">
+                    @include('guest.components.link', [
+                        'name'   => '<i class="fa fa-file-text" aria-hidden="true"></i>Resume',
+                        'href'   => route('guest.resume', $owner),
+                        'class'  => 'button is-primary is-small px-1 py-0',
+                        'style'  => 'font-size: 1rem;',
+                        'title'  => 'Resume',
                     ])
-
-                    <span class="bottom-right-span m-4 pb-2 pr-4">
-                        @include('guest.components.link', [
-                            'name'   => '<i class="fa fa-file-text" aria-hidden="true"></i>Resume',
-                            'href'   => route('guest.resume', $owner),
-                            'class'  => 'button is-primary is-small px-1 py-0',
-                            'style'  => 'font-size: 1rem;',
-                            'title'  => 'Resume',
-                        ])
-                    </span>
-
+                </span>
 
             </div>
             <div class="m-2 mt-3">

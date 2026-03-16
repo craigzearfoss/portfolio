@@ -143,6 +143,10 @@ trait SearchableModelTrait
             $query->where('owner_id', '=', $ownerId);
         }
 
+        if ($envType == EnvTypes::GUEST) {
+            $query->where('is_public', true)
+                ->where('is_disabled', false);
+        }
         $ids = $query->get()->pluck('id')->toArray();
         if (false !== $key = array_search($id, $ids)) {
             if ($prevId = array_key_exists($key - 1, $ids) ? $ids[$key - 1] : null) {

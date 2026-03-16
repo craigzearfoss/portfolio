@@ -29,6 +29,9 @@ div.field.is-horizontal div.field-label label.label {
 .show-container ul li {
     margin-left: 2em;
 }
+.show-container ul li.list-item {
+    margin-left: 0.5em;
+}
 
 /* edit container */
 .edit-container .input,
@@ -265,17 +268,15 @@ nav.prev-next-buttons a, nav.prev-next-buttons span {
     font-weight: 800;
     padding: 0.1rem !important;
 }
-nav.prev-next-buttons span:hover {
-    border-color: #dbdbdb;
-}
 
-nav.prev-next-buttons a.pagination-next,
-nav.prev-next-buttons a.pagination-previous,
-nav.prev-next-buttons a.pagination-next {
+nav.pagination a.pagination-next,
+nav.pagination a.pagination-previous,
+nav.pagination a.pagination-next {
     background-color: #ffffff;
+    color: #363636;
 }
-nav.prev-next-buttons span.pagination-previous,
-nav.prev-next-buttons span.pagination-next {
+nav.pagination span.pagination-previous,
+nav.pagination span.pagination-next {
     color: #d0d0d0;
     background-color: #f8f8f8;
 }

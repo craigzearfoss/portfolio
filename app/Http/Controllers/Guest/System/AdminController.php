@@ -24,7 +24,7 @@ class AdminController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $admin = null;
-        $candidates = new Admin()->where('is_public', '=', 1)
+        $candidates = new Admin()->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
