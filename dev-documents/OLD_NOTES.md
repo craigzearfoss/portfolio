@@ -62,7 +62,7 @@ composer update
 
 cd your-app
 sudo apt install npm
-sudoi npm install
+sudo npm install
 sudo npm run build
 sudo npm install bulma
 
