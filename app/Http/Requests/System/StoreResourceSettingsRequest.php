@@ -35,8 +35,8 @@ class StoreResourceSettingsRequest extends FormRequest
                 'min:3',
                 'max:200',
                 Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('name', $this['name']);
                 })
             ],
             'setting_type_id' => ['filled', 'integer', 'exists:system_db.setting_types,id'],

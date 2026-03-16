@@ -57,7 +57,7 @@ class UpdateAdminsRequest extends FormRequest
                 'min:6',
                 'max:200',
                 'alpha_dash',
-                'unique:admins,label,'.$this->admin->id,
+                'unique:admins,label,'.$this['admin']->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'salutation'       => ['string', 'max:20', 'nullable'],
@@ -108,7 +108,7 @@ class UpdateAdminsRequest extends FormRequest
             $ruleArray = array_merge($ruleArray, [ 'root' => ['integer', 'between:0,1'] ]);
         }
 
-        if (Auth::guard('admin')->user()->root && ($this->id !== Auth::guard('admin')->user()->id)) {
+        if (Auth::guard('admin')->user()->root && ($this['id'] !== Auth::guard('admin')->user()->id)) {
             // Only root admins can disable other admins, but not themselves.
             $ruleArray = array_merge($ruleArray, [ 'is_disabled' => ['integer', 'between:0,1'] ]);
         }

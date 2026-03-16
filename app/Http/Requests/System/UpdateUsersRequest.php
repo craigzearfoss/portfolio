@@ -65,7 +65,7 @@ class UpdateUsersRequest extends FormRequest
                 'min:6',
                 'max:200',
                 'alpha_dash',
-                'unique:users,label,'.$this->user->id,
+                'unique:users,label,'.$this['user']->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'salutation'        => ['string', 'max:20', 'nullable'],

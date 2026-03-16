@@ -30,7 +30,7 @@
 
         <div class="control ml-2 mt-2">
 
-            @if(\App\Models\System\Admin::where('is_public', 1)->count() > 1)
+            @if(!config('app.single_admin_mode'))
 
                 <div class="has-text-light">candidates</div>
 

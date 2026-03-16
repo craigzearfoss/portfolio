@@ -128,9 +128,9 @@ class StoreAdminsRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'username' => Str::lower($this->username),
-            'label'    => Str::lower($this->label),
-            'email'    => Str::lower($this->email),
+            'username' => Str::lower($this['username']),
+            'label'    => Str::lower($this['label']),
+            'email'    => Str::lower($this['email']),
         ]);
 
         // if the account is disabled then force current session to logout

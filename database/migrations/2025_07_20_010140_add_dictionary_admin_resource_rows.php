@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
 use App\Models\System\Database;
 use App\Models\System\AdminResource;
 use App\Models\System\Resource;
@@ -19,6 +20,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        $adminDatabaseId = AdminDatabase::firstWhere('tag', $this->database_tag)->id;
+
         $ownerIds = $this->getAdminIds();
         $resources = $this->getDbResources();
 
@@ -31,31 +34,32 @@ return new class extends Migration
 
                 foreach ($resources as $resource) {
                     $data = [
-                        'parent_id'      => null,
-                        'owner_id'       => $ownerId,
-                        'resource_id'    => $resource->id,
-                        'database_id'    => $resource->database_id,
-                        'name'           => $resource->name,
-                        'table_name'     => $resource->table_name,
-                        'class'          => $resource->class,
-                        'title'          => $resource->title,
-                        'plural'         => $resource->plural,
-                        'has_owner'      => $resource->has_owner,
-                        'guest'          => $resource->guest,
-                        'user'           => $resource->user,
-                        'admin'          => $resource->admin,
-                        'menu'           => $resource->menu,
-                        'menu_level'     => $resource->menu_level,
-                        'menu_collapsed' => $resource->menu_collapsed,
-                        'icon'           => $resource->icon,
-                        'is_public'      => $resource->is_public,
-                        'is_readonly'    => $resource->is_readonly,
-                        'is_root'        => $resource->is_root,
-                        'is_disabled'    => $resource->is_disabled,
-                        'is_demo'        => $resource->is_demo,
-                        'sequence'       => $resource->sequence,
-                        'created_at'     => now(),
-                        'updated_at'     => now(),
+                        'parent_id'         => null,
+                        'owner_id'          => $ownerId,
+                        'resource_id'       => $resource->id,
+                        'database_id'       => $resource->database_id,
+                        'admin_database_id' => $adminDatabaseId,
+                        'name'              => $resource->name,
+                        'table_name'        => $resource->table_name,
+                        'class'             => $resource->class,
+                        'title'             => $resource->title,
+                        'plural'            => $resource->plural,
+                        'has_owner'         => $resource->has_owner,
+                        'guest'             => $resource->guest,
+                        'user'              => $resource->user,
+                        'admin'             => $resource->admin,
+                        'menu'              => $resource->menu,
+                        'menu_level'        => $resource->menu_level,
+                        'menu_collapsed'    => $resource->menu_collapsed,
+                        'icon'              => $resource->icon,
+                        'is_public'         => $resource->is_public,
+                        'is_readonly'       => $resource->is_readonly,
+                        'is_root'           => $resource->is_root,
+                        'is_disabled'       => $resource->is_disabled,
+                        'is_demo'           => $resource->is_demo,
+                        'sequence'          => $resource->sequence,
+                        'created_at'        => now(),
+                        'updated_at'        => now(),
                     ];
 
                     $insertedId = AdminResource::insertGetId($data);

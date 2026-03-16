@@ -172,14 +172,14 @@ class Resource extends Model
      * @param EnvTypes|null $envType
      * @param int|null $databaseId
      * @param array $filters
-     * @param array $orderBy
+     * @param array|null $orderBy - if null then sorted by database.sequence and then resource.sequence
      * @return Collection
      * @throws Exception
      */
     public function ownerResources(EnvTypes|null $envType = EnvTypes::GUEST,
                                    int|null      $databaseId = null,
                                    array         $filters = [],
-                                   array         $orderBy = [ 'sequence' => 'asc' ]): Collection
+                                   array|null         $orderBy = null): Collection
     {
         $ownerId = 1;   // this is id of the primary root admin who owns all resources
 

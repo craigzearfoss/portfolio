@@ -36,61 +36,74 @@ class StoreAdminResourcesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
-            'resource_id'    => [
+            'owner_id'          => ['required', 'integer', 'exists:system_db.admins,id'],
+            'resource_id'       => [
                 'filled',
                 'integer',
                 'exists:system_db.admin_databases,id',
                 Rule::unique('system_db.admin_resources', 'resource_id')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('resource_id', $this->resource_id);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('resource_id', $this['resource_id']);
                 }),
             ],
-            'database_id'    => [
+            'database_id'       => [
                 'filled',
                 'integer',
                 'exists:system_db.databases,id',
                 Rule::unique('system_db.admin_resources', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('resource_id', $this->database_id);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('database_id', $this['database_id']);
                 }),
             ],
-            'name'           => [
+            'admin_database_id' => [
+                'filled',
+                'integer',
+                'exists:system_db.admin_databases,id',
+                Rule::unique('system_db.admin_resources', 'admin_database_id')->where(function ($query) {
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('admin_database_id', $this['admin_database_id']);
+                }),
+            ],
+            'name'              => [
                 'filled',
                 'string',
                 'max:50',
                 Rule::unique('system_db.admin_resources', 'name')->where(function ($query) {
-                    return $query->where('database_id', $this->database_id)
-                        ->where('name', $this->name);
+                    return $query->where('database_id', $this['database_id'])
+                        ->where('name', $this['name']);
                 })
             ],
-            'parent_id'      => ['integer', Rule::in(new Resource()->where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
-            'table_name'     => [
+            'parent_id'         => [
+                'integer',
+                Rule::in(new Resource()->where('id', '!=', $this['id'])->all()->pluck('id')->toArray()),
+                'nullable'
+            ],
+            'table_name'        => [
                 'filled',
                 'string',
                 'max:50',
                 Rule::unique('system_db.admin_resources', 'table_name')->where(function ($query) {
-                    return $query->where('database_id', $this->database_id)
-                        ->where('table_name', $this->table_name);
+                    return $query->where('database_id', $this['database_id'])
+                        ->where('table_name', $this['table_name']);
                 })
             ],
-            'class'          => ['filled', 'string', 'max:255'],
-            'title'          => ['filled', 'string', 'max:50'],
-            'plural'         => ['filled', 'string', 'max:50'],
-            'has_owner'      => ['integer', 'between:0,1'],
-            'guest'          => ['integer', 'between:0,1'],
-            'user'           => ['integer', 'between:0,1'],
-            'admin'          => ['integer', 'between:0,1'],
-            'menu'           => ['integer', 'between:0,1'],
-            'menu_level'     => ['integer'],
-            'menu_collapsed' => ['integer', 'between:0,1'],
-            'icon'           => ['string', 'max:50', 'nullable'],
-            'is_public'      => ['integer', 'between:0,1'],
-            'is_readonly'    => ['integer', 'between:0,1'],
-            'is_root'        => ['integer', 'between:0,1'],
-            'is_disabled'    => ['integer', 'between:0,1'],
-            'is_demo'        => ['integer', 'between:0,1'],
-            'sequence'       => ['integer', 'min:0', 'nullable'],
+            'class'             => ['filled', 'string', 'max:255'],
+            'title'             => ['filled', 'string', 'max:50'],
+            'plural'            => ['filled', 'string', 'max:50'],
+            'has_owner'         => ['integer', 'between:0,1'],
+            'guest'             => ['integer', 'between:0,1'],
+            'user'              => ['integer', 'between:0,1'],
+            'admin'             => ['integer', 'between:0,1'],
+            'menu'              => ['integer', 'between:0,1'],
+            'menu_level'        => ['integer'],
+            'menu_collapsed'    => ['integer', 'between:0,1'],
+            'icon'              => ['string', 'max:50', 'nullable'],
+            'is_public'         => ['integer', 'between:0,1'],
+            'is_readonly'       => ['integer', 'between:0,1'],
+            'is_root'           => ['integer', 'between:0,1'],
+            'is_disabled'       => ['integer', 'between:0,1'],
+            'is_demo'           => ['integer', 'between:0,1'],
+            'sequence'          => ['integer', 'min:0', 'nullable'],
         ];
     }
 

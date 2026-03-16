@@ -25,6 +25,11 @@ use stdClass;
 class MenuService
 {
     /**
+     * @var bool
+     */
+    protected bool $singleAdminMode = false;
+
+    /**
      * @var EnvTypes|null
      */
     protected EnvTypes|null $envType = null;
@@ -128,16 +133,13 @@ class MenuService
                                 User|null     $user = null,
                                 string|null   $currentRouteName = null)
     {
+        $this->singleAdminMode  = config('app.single_admin_mode');
         $this->envType          = $envType ?? getEnvType();
         $this->owner            = $owner;
         $this->admin            = !empty($admin) ? $admin : loggedInAdmin();
         $this->user             = !empty($user) ? $user : loggedInUser();
         $this->currentRouteName = !empty($currentRouteName) ? $currentRouteName : Route::currentRouteName();
         $this->showAll          = false;
-
-        if (request()->has('debug-menu')) {
-            $this->ddDebug();
-        }
 
         // in the admin area root admins get to see all menu items
         if (($this->envType == EnvTypes::ADMIN) && !empty($this->admin->is_root)) {
@@ -151,6 +153,10 @@ class MenuService
 
         $this->publicAdminCount = new Admin()->where('is_public', '=', true)
             ->where('is_disabled', '=', false)->count();
+
+        if (request()->has('debug-menu')) {
+            $this->ddDebug();
+        }
 
         if (!in_array($this->envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
             throw new Exception('Invalid current ENV type');
@@ -169,7 +175,6 @@ class MenuService
         } else {
             $filters = [
                 'menu'                => 1,
-                $this->envType->value => true,
                 'is_public'           => true,
                 'is_disabled'         => false
             ];
@@ -268,7 +273,7 @@ class MenuService
 
         $menu = $this->getResourceMenu();
 
-        if (($this->envType == EnvTypes::GUEST) && ($this->publicAdminCount > 1)) {
+        if (!$this->singleAdminMode) {
             /// only show candidates menu option if there are more than one public, non-disabled admins
             $menu[] = $this->menuItem(['title'=>'Candidates', 'route' => 'guest.admin.index', 'icon' => 'fa-dashboard' ]);
         }
@@ -462,9 +467,7 @@ class MenuService
         // Create the array of menu items.
         $menu = [];
 
-        if (in_array($this->currentRouteName, [ 'guest.index', 'guest.admin.index' ])
-            && ($this->publicAdminCount > 1)
-        ) {
+        if (!$this->singleAdminMode) {
             // on home page and dashboard do not display resource menu item,
             // unless there is only one public, non-disabled admin
             return $menu;
@@ -747,12 +750,14 @@ class MenuService
         }
 
         dd([
-            'envType'      => $this->envType->value,
-            'owner'        => $this->owner,
-            'admin'        => $this->admin,
-            'user'         => $this->user,
-            'currentRoute' => $this->currentRouteName,
-            'showAll'      => $this->showAll
+            'singleAdminMode'  => $this->singleAdminMode,
+            'envType'          => $this->envType->value,
+            'owner'            => $this->owner,
+            'admin'            => $this->admin,
+            'user'             => $this->user,
+            'currentRoute'     => $this->currentRouteName,
+            'showAll'          => $this->showAll,
+            'publicAdminCount' => $this->publicAdminCount,
         ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\System\Admin;
+use App\Models\System\AdminDatabase;
 use App\Models\System\Database;
 use App\Models\System\AdminResource;
 use App\Models\System\Owner;
@@ -37,6 +38,9 @@ return new class extends Migration
             $table->foreignId('database_id')
                 ->constrained('databases', 'id')
                 ->onDelete('cascade');
+            $table->foreignId('admin_database_id')
+                ->constrained('admin_databases', 'id')
+                ->onDelete('cascade');
             $table->string('name', 50);
             $table->string('table_name', 50)->index('table_name_idx');
             $table->string('class');
@@ -60,10 +64,14 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->unique(['owner_id', 'resource_id'], 'owner_id_resource_id_unique');
-            $table->unique(['owner_id', 'resource_id', 'table_name'], 'owner_id_resource_id_table_name_unique');
-            $table->unique(['owner_id', 'resource_id', 'class'], 'owner_id_resource_id_class_unique');
-            $table->unique(['owner_id', 'resource_id', 'title'], 'owner_id_resource_id_title_unique');
+            $table->unique(['owner_id', 'resource_id', 'admin_database_id', 'name'], 'owner_resource_admindb_name_unique');
+            $table->unique(['owner_id', 'resource_id', 'admin_database_id', 'table_name'], 'owner_resource_admindb_table_unique');
+            $table->unique(['owner_id', 'resource_id', 'admin_database_id', 'class'], 'owner_resource_admindb_class_unique');
+            $table->unique(['owner_id', 'resource_id', 'admin_database_id', 'title'], 'owner_resource_admindb_title_unique');
+            $table->unique(['owner_id', 'resource_id', 'admin_database_id', 'plural'], 'owner_resource_admindb_plural_unique');
         });
+
+        $adminDatabaseId = AdminDatabase::firstWhere('tag', $this->database_tag)->id;
 
         $ownerIds = $this->getAdminIds();
         $resources = $this->getDbResources();
@@ -82,31 +90,32 @@ return new class extends Migration
                     if (!$resource->is_root || $owner->is_root) {
 
                         $data = [
-                            'parent_id' => null,
-                            'owner_id' => $ownerId,
-                            'resource_id' => $resource->id,
-                            'database_id' => $resource->database_id,
-                            'name' => $resource->name,
-                            'table_name' => $resource->table_name,
-                            'class' => $resource->class,
-                            'title' => $resource->title,
-                            'plural' => $resource->plural,
-                            'has_owner' => $resource->has_owner,
-                            'guest' => $resource->guest,
-                            'user' => $resource->user,
-                            'admin' => $resource->admin,
-                            'menu' => $resource->menu,
-                            'menu_level' => $resource->menu_level,
-                            'menu_collapsed' => $resource->menu_collapsed,
-                            'icon' => $resource->icon,
-                            'is_public' => $resource->is_public,
-                            'is_readonly' => $resource->is_readonly,
-                            'is_root' => $resource->is_root,
-                            'is_disabled' => $resource->is_disabled,
-                            'is_demo' => $resource->is_demo,
-                            'sequence' => $resource->sequence,
-                            'created_at' => now(),
-                            'updated_at' => now(),
+                            'parent_id'         => null,
+                            'owner_id'          => $ownerId,
+                            'resource_id'       => $resource->id,
+                            'database_id'       => $resource->database_id,
+                            'admin_database_id' => $adminDatabaseId,
+                            'name'              => $resource->name,
+                            'table_name'        => $resource->table_name,
+                            'class'             => $resource->class,
+                            'title'             => $resource->title,
+                            'plural'            => $resource->plural,
+                            'has_owner'         => $resource->has_owner,
+                            'guest'             => $resource->guest,
+                            'user'              => $resource->user,
+                            'admin'             => $resource->admin,
+                            'menu'              => $resource->menu,
+                            'menu_level'        => $resource->menu_level,
+                            'menu_collapsed'    => $resource->menu_collapsed,
+                            'icon'              => $resource->icon,
+                            'is_public'         => $resource->is_public,
+                            'is_readonly'       => $resource->is_readonly,
+                            'is_root'           => $resource->is_root,
+                            'is_disabled'       => $resource->is_disabled,
+                            'is_demo'           => $resource->is_demo,
+                            'sequence'          => $resource->sequence,
+                            'created_at'        => now(),
+                            'updated_at'        => now(),
                         ];
 
                         $insertedId = AdminResource::insertGetId($data);

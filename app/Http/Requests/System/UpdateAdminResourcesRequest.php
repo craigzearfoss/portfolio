@@ -43,8 +43,8 @@ class UpdateAdminResourcesRequest extends FormRequest
         $adminResourceId = $this->route()->parameter('admin_resource')->id;
 
         return [
-            'admin_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'resource_id'    => [
+            'admin_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'resource_id'       => [
                 'filled',
                 'integer',
                 'exists:system_db.admin_databases,id',
@@ -53,16 +53,27 @@ class UpdateAdminResourcesRequest extends FormRequest
                         ->where('resource_id', $this['resource_id']);
                 }),
             ],
-            'database_id'    => [
+            'database_id'       => [
                 'filled',
                 'integer',
                 'exists:system_db.databases,id',
                 Rule::unique('system_db.admin_resources', 'database_id')->where(function ($query) {
                     return $query->where('owner_id', $this['owner_id'])
-                        ->where('resource_id', $this->database_id);
+                        ->where('database_id', $this->database_id)
+                        ->whereNot('id', $this->resource->id);
                 }),
             ],
-            'name'           => [
+            'admin_database_id' => [
+                'filled',
+                'integer',
+                'exists:system_db.admin_databases,id',
+                Rule::unique('system_db.admin_resources', 'admin_database_id')->where(function ($query) {
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('admin_database_id', $this->admin_database_id)
+                        ->whereNot('id', $this->resource->id);
+                }),
+            ],
+            'name'              => [
                 'filled',
                 'string',
                 'max:50',
@@ -72,12 +83,12 @@ class UpdateAdminResourcesRequest extends FormRequest
                         ->whereNot('id', $this->resource->id);
                 })
             ],
-            'parent_id'      => [
+            'parent_id'         => [
                 'integer',
                 Rule::in(new Resource()->where('id', '!=', $this['id'])->get()->pluck('id')->toArray()),
                 'nullable'
             ],
-            'table_name'     => [
+            'table_name'        => [
                 'filled',
                 'string',
                 'max:50',
@@ -87,23 +98,23 @@ class UpdateAdminResourcesRequest extends FormRequest
                         ->whereNot('id', $this->resource->id);
                 })
             ],
-            'class'          => ['filled', 'string', 'max:255'],
-            'title'          => ['filled', 'string', 'max:50'],
-            'plural'         => ['filled', 'string', 'max:50'],
-            'has_owner'      => ['integer', 'between:0,1'],
-            'guest'          => ['integer', 'between:0,1'],
-            'user'           => ['integer', 'between:0,1'],
-            'admin'          => ['integer', 'between:0,1'],
-            'menu'           => ['integer', 'between:0,1'],
-            'menu_level'     => ['integer'],
-            'menu_collapsed' => ['integer', 'between:0,1'],
-            'icon'           => ['string', 'max:50', 'nullable'],
-            'is_public'      => ['integer', 'between:0,1'],
-            'is_readonly'    => ['integer', 'between:0,1'],
-            'is_root'        => ['integer', 'between:0,1'],
-            'is_disabled'    => ['integer', 'between:0,1'],
-            'is_demo'        => ['integer', 'between:0,1'],
-            'sequence'       => ['integer', 'min:0', 'nullable'],
+            'class'             => ['filled', 'string', 'max:255'],
+            'title'             => ['filled', 'string', 'max:50'],
+            'plural'            => ['filled', 'string', 'max:50'],
+            'has_owner'         => ['integer', 'between:0,1'],
+            'guest'             => ['integer', 'between:0,1'],
+            'user'              => ['integer', 'between:0,1'],
+            'admin'             => ['integer', 'between:0,1'],
+            'menu'              => ['integer', 'between:0,1'],
+            'menu_level'        => ['integer'],
+            'menu_collapsed'    => ['integer', 'between:0,1'],
+            'icon'              => ['string', 'max:50', 'nullable'],
+            'is_public'         => ['integer', 'between:0,1'],
+            'is_readonly'       => ['integer', 'between:0,1'],
+            'is_root'           => ['integer', 'between:0,1'],
+            'is_disabled'       => ['integer', 'between:0,1'],
+            'is_demo'           => ['integer', 'between:0,1'],
+            'sequence'          => ['integer', 'min:0', 'nullable'],
         ];
     }
 

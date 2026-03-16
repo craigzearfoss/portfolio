@@ -50,6 +50,11 @@ class RickyRicardo extends Command
     /**
      * @var int|null
      */
+    protected int|null $adminDatabaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
     /**
@@ -356,8 +361,6 @@ class RickyRicardo extends Command
 
         if ($database = new Database()->where('tag', '=', self::DB_TAG)->first()) {
 
-            $data = [];
-
             $dataRow = [];
 
             foreach($database->toArray() as $key => $value) {
@@ -373,9 +376,7 @@ class RickyRicardo extends Command
             $dataRow['created_at']  = now();
             $dataRow['updated_at']  = now();
 
-            $data[] = $dataRow;
-
-            new AdminDatabase()->insert($data);
+            $this->adminDatabaseId = new AdminDatabase()->insertGetId($dataRow);
         }
     }
 
@@ -412,6 +413,8 @@ class RickyRicardo extends Command
                         $dataRow[$key] = $value;
                     }
                 }
+
+                $dataRow['admin_database_id'] = $this->adminDatabaseId;
 
                 $dataRow['created_at'] = now();
                 $dataRow['updated_at'] = now();
@@ -469,6 +472,8 @@ class RickyRicardo extends Command
                     $dataRow[$key] = $value;
                 }
             }
+
+            $dataRow['admin_database_id'] = $this->adminDatabaseId;
 
             $dataRow['created_at']  = now();
             $dataRow['updated_at']  = now();

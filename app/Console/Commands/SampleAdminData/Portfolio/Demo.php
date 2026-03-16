@@ -63,6 +63,11 @@ class Demo extends Command
     /**
      * @var int|null
      */
+    protected int|null $adminDatabaseId = null;
+
+    /**
+     * @var int|null
+     */
     protected int|null $adminId = null;
 
     /**
@@ -129,8 +134,7 @@ class Demo extends Command
         }
 
         // portfolio
-        // Note that admin_databases and admin_resources rows were already added for the demo admin in the migrations.
-        //$this->insertSystemAdminDatabase($this->adminId);
+        $this->insertSystemAdminDatabase($this->adminId);
         $this->insertPortfolioArt();
         $this->insertPortfolioAudios();
         $this->insertPortfolioAwards();
@@ -3222,8 +3226,6 @@ class Demo extends Command
 
         if ($database = new Database()->where('tag', '=', self::DB_TAG)->first()) {
 
-            $data = [];
-
             $dataRow = [];
 
             foreach($database->toArray() as $key => $value) {
@@ -3239,9 +3241,7 @@ class Demo extends Command
             $dataRow['created_at']  = now();
             $dataRow['updated_at']  = now();
 
-            $data[] = $dataRow;
-
-            new AdminDatabase()->insert($data);
+            $this->adminDatabaseId = new AdminDatabase()->insertGetId($dataRow);
         }
     }
 
@@ -3278,6 +3278,8 @@ class Demo extends Command
                         $dataRow[$key] = $value;
                     }
                 }
+
+                $dataRow['admin_database_id'] = $this->adminDatabaseId;
 
                 $dataRow['created_at'] = now();
                 $dataRow['updated_at'] = now();
@@ -3335,6 +3337,8 @@ class Demo extends Command
                     $dataRow[$key] = $value;
                 }
             }
+
+            $dataRow['admin_database_id'] = $this->adminDatabaseId;
 
             $dataRow['created_at']  = now();
             $dataRow['updated_at']  = now();

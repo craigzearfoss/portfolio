@@ -37,8 +37,8 @@ class StoreResourcesRequest extends FormRequest
                 'integer',
                 'exists:system_db.databases,id',
                 Rule::unique('system_db.resources', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('resource_id', $this->database_id);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('resource_id', $this['database_id']);
                 }),
             ],
             'name'           => [
@@ -46,18 +46,22 @@ class StoreResourcesRequest extends FormRequest
                 'string',
                 'max:50',
                 Rule::unique('system_db.resources', 'name')->where(function ($query) {
-                    return $query->where('database_id', $this->database_id)
-                        ->where('name', $this->name);
+                    return $query->where('database_id', $this['database_id'])
+                        ->where('name', $this['name']);
                 })
             ],
-            'parent_id'      => ['integer', Rule::in(new Resource()->where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
+            'parent_id'      => [
+                'integer',
+                Rule::in(new Resource()->where('id', '!=', $this['id'])->all()->pluck('id')->toArray()),
+                'nullable'
+            ],
             'table_name'     => [
                 'required',
                 'string',
                 'max:50',
                 Rule::unique('system_db.resources', 'table_name')->where(function ($query) {
-                    return $query->where('database_id', $this->database_id)
-                        ->where('table', $this->table_name);
+                    return $query->where('database_id', $this['database_id'])
+                        ->where('table', $this['table_name']);
                 })
             ],
             'class'          => ['required', 'string', 'max:255'],

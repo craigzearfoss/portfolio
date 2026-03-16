@@ -38,8 +38,8 @@ class StoreAdminTeamsRequest extends FormRequest
                 'min:3',
                 'max:100',
                 Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('name', $this['name']);
                 })
             ],
             'slug'          => [
@@ -48,8 +48,8 @@ class StoreAdminTeamsRequest extends FormRequest
                 'min:3',
                 'max:100',
                 Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('slug', $this['slug']);
                 })
             ],
             'abbreviation'  => [
@@ -57,8 +57,8 @@ class StoreAdminTeamsRequest extends FormRequest
                 'string',
                 'max:20',
                 Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('abbreviation', $this->abbreviation);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('abbreviation', $this['abbreviation']);
                 }),
                 'nullable',
             ],
@@ -101,7 +101,7 @@ class StoreAdminTeamsRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.admin_teams', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'system_db.admin_teams', $this['owner_id'])
             ]);
         }
     }

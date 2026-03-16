@@ -16,8 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class AdminResource extends Model
 {
@@ -43,6 +42,7 @@ class AdminResource extends Model
         'owner_id',
         'resource_id',
         'database_id',
+        'admin_database_id',
         'name',
         'table_name',
         'class',
@@ -67,9 +67,9 @@ class AdminResource extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'resource_id', 'database_id', 'name', 'table_name',
-        'class', 'title', 'plural', 'guest', 'user', 'admin', 'menu', 'menu_level', 'menu_collapsed', 'icon', 'is_public',
-        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'resource_id', 'database_id', 'admin_database_id',
+        'name', 'table_name', 'class', 'title', 'plural', 'guest', 'user', 'admin', 'menu', 'menu_level',
+        'menu_collapsed', 'icon', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -177,7 +177,7 @@ class AdminResource extends Model
      * @param EnvTypes|null $envType
      * @param int|null $databaseId
      * @param array $filters
-     * @param array $orderBy
+     * @param array|null $orderBy - if null then sorted by database.sequence and then resource.sequence
      * @return Collection
      * @throws Exception
      */
@@ -185,7 +185,7 @@ class AdminResource extends Model
                                    EnvTypes|null $envType = EnvTypes::GUEST,
                                    int|null      $databaseId = null,
                                    array         $filters = [],
-                                   array         $orderBy = [ 'sequence' => 'asc' ]): Collection
+                                   array|null    $orderBy = ['sequence', 'asc']): Collection
     {
         if (empty($ownerId)) {
             return new Resource()->ownerResources($envType, $databaseId, $filters, $orderBy);
@@ -195,6 +195,7 @@ class AdminResource extends Model
             throw new Exception('ENV type ' . $envType->value . ' not supported');
         }
 
+        // set sort order
         $sortField = $orderBy[0] ?? 'sequence';
         $sortDir   = $orderBy[1] ?? 'asc';
         if (!str_starts_with($sortField, 'admin_resources.')) $sortField = 'admin_resources.'.$sortField;
@@ -204,21 +205,16 @@ class AdminResource extends Model
                 DB::raw("admins.name AS 'admin_name'"),
                 DB::raw("admins.username AS 'admin_username'"),
                 DB::raw("admins.label AS 'admin_label'"),
-                DB::raw("databases.name AS 'database_name'"),
-                DB::raw("databases.database AS 'database_database'"),
-                DB::raw("databases.tag AS 'database_tag'"),
+                DB::raw("admin_databases.name AS 'database_name'"),
+                DB::raw("admin_databases.database AS 'database_database'"),
+                DB::raw("admin_databases.tag AS 'database_tag'"),
                 'admin_resources.*']
         )
             ->join('admins', 'admins.id', 'admin_resources.owner_id')
-            ->join('databases', 'databases.id', 'admin_resources.database_id')
+            ->join('admin_databases', 'admin_databases.id', 'admin_resources.admin_database_id')
             ->where('admin_resources.'.$envType->value, '=', true)
             ->where('admin_resources.owner_id', '=', $ownerId)
             ->orderBy($sortField, $sortDir);
-
-        // apply envType
-        if ($envType == EnvTypes::GUEST) {
-            $query->where('admin_resources.is_public', '=', true);
-        }
 
         // apply database filter
         if (!empty($databaseId)) {
@@ -255,15 +251,11 @@ class AdminResource extends Model
 
         // add the route name to all the resources
         $rootAdmin = new Admin()->find(1);
-
         $resources = $query->get();
-/*
-for($i=0; $i<count($resources); $i++) {
-    echo '<li>' . $i . ') ' . $resources[$i]->owner_id ?? '*' . '</li>';
-}        die;
-*/
+
         for ($i=0; $i<count($resources); $i++) {
 
+            // add the route name to all the resources
             $routeName = $envType->value
                 . '.' . str_replace('_', '-', $resources[$i]->database_name)
                 . '.' . $resources[$i]->name
@@ -291,10 +283,10 @@ for($i=0; $i<count($resources); $i++) {
             $resources[$i]->owner = empty($resources[$i]->owner_id)
                 ? null
                 : [
-                    'id' => $resources[$i]->owner_id,
-                    'name' => $resources[$i]->admin_name,
+                    'id'       => $resources[$i]->owner_id,
+                    'name'     => $resources[$i]->admin_name,
                     'username' => $resources[$i]->admin_username,
-                    'label' => $resources[$i]->admin_label,
+                    'label'    => $resources[$i]->admin_label,
                 ];
             unset($resources[$i]->admin_name);
             unset($resources[$i]->admin_username);
@@ -302,10 +294,10 @@ for($i=0; $i<count($resources); $i++) {
 
             // add database array to resource
             $resources[$i]->database = [
-                'id' => $resources[$i]->database_id,
-                'name' => $resources[$i]->database_name,
+                'id'       => $resources[$i]->database_id,
+                'name'     => $resources[$i]->database_name,
                 'database' => $resources[$i]->database_database,
-                'tag' => $resources[$i]->database_tag,
+                'tag'      => $resources[$i]->database_tag,
             ];
             unset($resources[$i]->database_name);
             unset($resources[$i]->database_database);
@@ -313,6 +305,38 @@ for($i=0; $i<count($resources); $i++) {
         }
 
         return $resources;
+    }
+
+    /**
+     * Returns the resources for specified owner.
+     *
+     * @param int|null $ownerId
+     * @param EnvTypes|null $envType
+     * @param int|null $databaseId
+     * @param array $filters
+     * @param array|null $orderBy - if null then sorted by database.sequence and then resource.sequence
+     * @return array
+     * @throws Exception
+     */
+    public function ownerResourcesByDatabase(int|null      $ownerId,
+                                   EnvTypes|null $envType = EnvTypes::GUEST,
+                                   int|null      $databaseId = null,
+                                   array         $filters = [],
+                                   array|null    $orderBy = null): array
+    {
+        $resources = $this->ownerResources($ownerId, $envType, $databaseId, $filters, $orderBy);
+
+        $returnArray = [];
+        foreach ($resources as $resource) {
+            if (!array_key_exists($resource->database_id, $returnArray)) {
+                $returnArray[$resource->database_id] = $resource->database;
+                $returnArray[$resource->database_id]['resources'] = [$resource];
+            } else {
+                $returnArray[$resource->database_id]['resources'][] = $resource;
+            }
+        }
+
+        return array_values($returnArray);
     }
 
     /**

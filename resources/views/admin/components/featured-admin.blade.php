@@ -2,11 +2,11 @@
     use App\Models\System\AdminDatabase;
 @endphp
 
-@if($owner)
+@if($featuredAdmin)
 
     @php
         $portfolioResourceTypes = AdminDatabase::getResourceTypes(
-            $owner->id,
+            $featuredAdmin->id,
             'portfolio',
             [
                 'is_public'   => 1,
@@ -15,7 +15,7 @@
         );
 
         $personalResourceTypes = AdminDatabase::getResourceTypes(
-            $owner->id,
+            $featuredAdmin->id,
             'personal',
             [
                 'is_public'   => 1,
@@ -32,10 +32,10 @@
 
                 @include('admin.components.image', [
                     'name'     => 'image',
-                    'src'      => $owner->image,
-                    'alt'      => $owner->name,
+                    'src'      => $featuredAdmin->image,
+                    'alt'      => $featuredAdmin->name,
                     'width'    => '200px',
-                    'filename' => generateDownloadFilename($owner)
+                    'filename' => generateDownloadFilename($featuredAdmin)
                 ])
 
                 <div class="show-container p-4">
@@ -44,7 +44,7 @@
                         <span class="column is-12 has-text-centered">
                             @include('admin.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('admin.career.resume.preview', $owner),
+                                'href'   => route('admin.career.resume.preview', $featuredAdmin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
@@ -52,24 +52,24 @@
                         </span>
                     </div>
 
-                    @if(!empty($owner->role))
+                    @if(!empty($featuredAdmin->role))
                         @include('admin.components.show-row', [
                             'name'  => 'role',
-                            'value' => $owner->role ?? ''
+                            'value' => $featuredAdmin->role
                         ])
                     @endif
 
-                    @if(!empty($owner->employer))
+                    @if(!empty($featuredAdmin->employer))
                         @include('admin.components.show-row', [
                             'name'  => 'employer',
-                            'value' => '<br>' . $owner->employer ?? ''
+                            'value' => '<br>' . $featuredAdmin->employer
                         ])
                     @endif
 
-                    @if(!empty($owner->bio))
+                    @if(!empty($featuredAdmin->bio))
                         @include('admin.components.show-row', [
                             'name'  => 'bio',
-                            'value' => $owner->bio ?? ''
+                            'value' => $featuredAdmin->bio
                         ])
                     @endif
 
@@ -91,7 +91,7 @@
                                 <li>
                                     @include('admin.components.link', [
                                         'name'  => $resourceType['plural'],
-                                        'href'  => 'admin.portfolio.'.$resourceType['name'].'.index', $owner),
+                                        'href'  => 'admin.portfolio.'.$resourceType['name'].'.index', $featuredAdmin),
                                     'class' => 'pt-1 pb-1',
                                     ])
                                 </li>
@@ -116,7 +116,7 @@
                                     @include('admin.components.link', [
                                         'name'  => $resourceType['plural'],
                                         'href'  => 'admin.system.'.$resourceType['name'].'.index'),
-                                    'class' => 'pt-1 pb-1',
+                                        'class' => 'pt-1 pb-1',
                                     ])
                                 </li>
                             @endif

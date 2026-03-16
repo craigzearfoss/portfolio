@@ -37,8 +37,8 @@ class StoreTagsRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('system_db.tags', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('name', $this['name']);
                 })
             ],
             'resource_id'            => ['integer', 'exists:system_db.resources,id', 'nullable'],

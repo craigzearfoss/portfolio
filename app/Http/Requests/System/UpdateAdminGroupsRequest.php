@@ -56,7 +56,7 @@ class UpdateAdminGroupsRequest extends FormRequest
                 'max:100',
                 Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug)
+                        ->where('slug', $this['slug'])
                         ->whereNot('id', $this->admin_group->id);
                 })
             ],

@@ -38,6 +38,11 @@ class AddCraigZearfoss extends Command
         'image' => 'image', 'thumbnail', 'profile', 'logo', 'logo_small'];
 
     /**
+     * @var int|null
+     */
+    protected int|null $adminDatabaseId = null;
+
+    /**
      * @var string username
      */
     protected string $username = 'czearfoss';
@@ -470,6 +475,9 @@ class AddCraigZearfoss extends Command
                 new AdminDatabase()->insert($data);
             }
         }
+
+        $this->adminDatabaseId = AdminDatabase::where('tag', self::DB_TAG)
+            ->where('owner_id', $ownerId)->first()->id;
     }
 
     /**
@@ -502,6 +510,8 @@ class AddCraigZearfoss extends Command
                             $data[$key] = $value;
                         }
                     }
+
+                    $data['admin_database_id'] = $this->adminDatabaseId;
 
                     $data['created_at'] = now();
                     $data['updated_at'] = now();

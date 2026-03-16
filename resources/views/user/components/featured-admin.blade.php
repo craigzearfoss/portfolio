@@ -2,11 +2,11 @@
     use App\Models\System\AdminDatabase;
 @endphp
 
-@if($$user)
+@if($user)
 
     @php
         $portfolioResourceTypes = AdminDatabase::getResourceTypes(
-            $admin->id,
+            $user->id,
             'portfolio',
             [
                 'is_public'   => 1,
@@ -15,7 +15,7 @@
         );
 
         $personalResourceTypes = AdminDatabase::getResourceTypes(
-            $admin->id,
+            $user->id,
             'personal',
             [
                 'is_public'   => 1,
@@ -32,8 +32,8 @@
 
                 @include('user.components.image', [
                     'name'     => 'image',
-                    'src'      => $admin->image,
-                    'alt'      => $admin->name,
+                    'src'      => $user->image,
+                    'alt'      => $user->name,
                     'width'    => '200px',
                     'filename' => generateDownloadFilename($admin)
                 ])
@@ -52,21 +52,21 @@
                         </span>
                     </div>
 
-                    @if(!empty($admin->role))
+                    @if(!empty($user->role))
                         @include('user.components.show-row', [
                             'name'  => 'role',
                             'value' => $admin->role ?? ''
                         ])
                     @endif
 
-                    @if(!empty($admin->employer))
+                    @if(!empty($user->employer))
                         @include('user.components.show-row', [
                             'name'  => 'employer',
-                            'value' => '<br>' . $admin->employer ?? ''
+                            'value' => '<br>' . $user->employer ?? ''
                         ])
                     @endif
 
-                    @if(!empty($admin->bio))
+                    @if(!empty($user->bio))
                         @include('user.components.show-row', [
                             'name'  => 'bio',
                             'value' => $admin->bio ?? ''
@@ -76,56 +76,6 @@
                 </div>
 
             </div>
-
-            <div class="column is-two-thirds pt-0">
-
-                <div>
-
-                    <h1 class="title is-size-5 mt-2 mb-0">Portfolio</h1>
-
-                    <ul class="menu-list ml-4 mb-2">
-
-                        @foreach ($portfolioResourceTypes as $resourceType)
-
-                            @if(Route::has('user.admin.portfolio.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('user.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => route('user.portfolio.'.$resourceType['name'].'.index', $admin),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-                <div>
-
-                    <h1 class="title is-size-5 mt-2 mb-0">Personal</h1>
-
-                    <ul class="menu-list ml-4 mb-2">
-
-                        @foreach ($personalResourceTypes as $resourceType)
-
-                            @if(Route::has('user.admin.personal.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('user.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => route('user.personal.'.$resourceType['name'].'.index', $admin),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
 
             </div>
 

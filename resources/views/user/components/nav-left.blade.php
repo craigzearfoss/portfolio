@@ -3,9 +3,9 @@
 
     $adminModel = new Admin();
 
-    $admin            = $admin ?? null;
-    $user             = $user ?? null;
-    $owner            = $owner ?? null;
+    $admin = $admin ?? null;
+    $user  = $user ?? null;
+    $owner = $owner ?? null;
 @endphp
 @if($menuItems = $menuService->leftMenu())
 
@@ -37,15 +37,8 @@
                 <div class="has-text-light">candidates</div>
 
                 @include('user.components.form-select-nolabel', [
-                    'value'    => !empty($admin->label) ? $admin->label : '',
-                    'list'     => $adminModel->listOptions(
-                        [ 'is_public' => 1 ],
-                        'label',
-                        'name',
-                        true,
-                        false,
-                        [ 'name', 'asc' ]
-                    ),
+                    'value'    => !empty($owner->label) ? $owner->label : '',
+                    'list'     => new Owner()->listOptions([ 'is_public' => 1 ], 'label', 'name', true, false, ['name', 'asc']),
                     'style'    => 'font-size: 1.1rem; font-weight: 700',
                     'onchange' => "document.location.href='/'+this.value;"
                 ])

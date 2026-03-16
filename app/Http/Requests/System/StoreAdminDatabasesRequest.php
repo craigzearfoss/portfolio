@@ -41,8 +41,8 @@ class StoreAdminDatabasesRequest extends FormRequest
                 'integer',
                 'exists:system_db.admin_databases,id',
                 Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('database_id', $this->database_id);
+                    return $query->where('owner_id', $this['owner_id'])
+                        ->where('database_id', $this['database_id']);
                 }),
             ],
             'name'           => ['required', 'string', 'max:50', 'unique:'.Database::class],

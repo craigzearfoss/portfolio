@@ -30,9 +30,11 @@
                 @include('guest.components.link', [
                     'name'  => $resource->plural,
                     'href'  => Route::has('guest.'.$resourceType.'.'.$resource->name.'.index')
-                                   ? route('guest.'.$resourceType.'.'.$resource->name.'.index', (isRootAdmin() ? [ 'owner_id' => $owner->id ?? '' ] : []))
+                                   ? route('guest.'.$resourceType.'.'.$resource->name.'.index', $admin)
                                    : null,
                     'class' => 'list-item',
+                    'style' => 'color: #4a4a4a',
+                    'icon'  => $resource->icon
                 ])
 
         @endforeach

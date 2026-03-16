@@ -431,6 +431,9 @@ class InitSampleAdmin extends Command
     {
         echo $admin['username'] . ": Inserting into System\\AdminResource ...\n";
 
+        $adminDatabaseId = AdminDatabase::where('tag', self::DB_TAG)
+            ->where('owner_id', $admin['id'])->first()->id;
+
         if ($resources = $this->getDbResources()) {
 
             $currentIds = [];
@@ -451,6 +454,8 @@ class InitSampleAdmin extends Command
                             $data[$key] = $value;
                         }
                     }
+
+                    $data['admin_database_id'] = $adminDatabaseId;
 
                     $data['created_at'] = now();
                     $data['updated_at'] = now();
