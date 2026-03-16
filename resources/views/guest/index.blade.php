@@ -32,7 +32,7 @@
             </p>
             <p>
                 This project is in an early development stage.
-                If you would like to learn more about it visit the About Page for more information.
+                If you would like to learn more about it visit the <strong><a href="/about" target="blank">About Page</a></strong> for more information.
             </p>
             <p>
                 This project was created by <strong>Craig Zearfoss</strong> who can be found on LinkedIn at
