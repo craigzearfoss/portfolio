@@ -31,6 +31,10 @@
             ])
         </li>
 
+        @php
+            $currentMenuLevel = $resource->menu_level;
+        @endphp
+
     @empty
 
         <li class="list-item">No {{ $resourceType }} resources found.</li>
