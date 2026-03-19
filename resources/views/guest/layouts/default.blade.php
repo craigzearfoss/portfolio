@@ -43,7 +43,7 @@
         ])
 
         @include('guest.components.subtitle-bar', [
-            'title'      => $title ?? '',
+            'title'      => $subtitle ?? '',
             'selectList' => $navSelectList ?? '',
             'buttons'    => $navButtons ?? [],
             'prev'       => $prev ?? null,

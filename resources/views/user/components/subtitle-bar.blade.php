@@ -1,3 +1,10 @@
+@php
+    $subtitle   = $subtitle ?? null;
+    $selectList = $selectList ?? null;
+    $prev       = $prev ?? null;
+    $next       = $next ?? null;
+    $buttons    = $buttons ?? [];
+@endphp
 @if (!empty($subtitle) || !empty($selectList) || !empty($prev) || !empty($next) || !empty($butttons))
 
     <section class="hero is-hero-bar">
@@ -27,7 +34,7 @@
                     <div class="level-right" style="display: inline-block;">
                         @if(!empty($prev) || !empty($next))
                             <div style="display: inline-block; float: right;">
-                                @include('guest.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
+                                @include('user.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
                             </div>
                         @elseif (!empty($buttons))
                             <div class="level-item">

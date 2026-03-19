@@ -123,14 +123,14 @@ class AdminController extends BaseAdminController
 
         $dbColumns = [
             'Portfolio' => new AdminResource()->ownerResources(
-                $this->owner->id ?? null,
+                $this->owner ?? null,
                 EnvTypes::ADMIN,
-                new Database()->where('tag', '=', 'portfolio_db')->first()->id ?? null
+                'portfolio_db'
             ),
             'Personal' => new AdminResource()->ownerResources(
-                $this->owner->id,
+                $this->owner ?? null,
                 EnvTypes::ADMIN,
-                new Database()->where('tag', '=', 'personal_db')->first()->id ?? null
+                'personal_db'
             ),
         ];
 

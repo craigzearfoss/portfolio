@@ -1,34 +1,35 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\System\AdminDatabase;
+    use App\Models\System\AdminResource;
+    use App\Models\System\Database;
 @endphp
 
 @if($featuredAdmin)
 
     @php
-        $portfolioResourceTypes = AdminDatabase::getResourceTypes(
-            $featuredAdmin->id,
-            'portfolio',
-            [
-                'is_public'   => 1,
-                'is_disabled' => 0,
-            ],
-        );
+        $filters = [
+            'has_owner'   => true,
+            'menu'        => 1,
+            'is_public'   => true,
+            'is_disabled' => false,
+        ];
 
-        $personalResourceTypes = AdminDatabase::getResourceTypes(
-            $featuredAdmin->id,
-            'personal',
-            [
-                'is_public'   => 1,
-                'is_disabled' => 0,
-            ],
+        $resourcesByDatabase = new AdminResource()->ownerResourcesByDatabase(
+            $featuredAdmin,
+            EnvTypes::GUEST,
+            null,
+            $filters
         );
     @endphp
 
-    <div class="card column p-4 mb-2">
+    <div class="floating-div">
 
-        <div class="columns">
+        <div class="show-container card p-2 pl-4 pr-4 mb-2" style="width: auto;">
 
-            <div class="column is-one-third pt-0">
+            <h2 class="title is-size-5 p-2 mb-0">{{ $title ?? 'Featured Candidate' }}</h2>
+
+            <div class="show-container floating-div">
 
                 @include('admin.components.image', [
                     'name'     => 'image',
@@ -38,13 +39,13 @@
                     'filename' => generateDownloadFilename($featuredAdmin)
                 ])
 
-                <div class="show-container p-4">
+                <div class="show-container p-2">
 
                     <div class="columns">
                         <span class="column is-12 has-text-centered">
                             @include('admin.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('admin.career.resume.preview', $featuredAdmin),
+                                'href'   => route('admin.resume', $featuredAdmin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
@@ -52,84 +53,69 @@
                         </span>
                     </div>
 
+                    <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
+                        {!! $featuredAdmin->name !!}
+                    </p>
+
                     @if(!empty($featuredAdmin->role))
-                        @include('admin.components.show-row', [
-                            'name'  => 'role',
-                            'value' => $featuredAdmin->role
-                        ])
+                        <p class="has-text-centered has-text-weight-semibold mb-0">
+                            {!! $featuredAdmin->role !!}
+                        </p>
                     @endif
 
                     @if(!empty($featuredAdmin->employer))
-                        @include('admin.components.show-row', [
-                            'name'  => 'employer',
-                            'value' => '<br>' . $featuredAdmin->employer
-                        ])
+                        <p class="has-text-centered has-text-weight-medium mb-0">
+                            {!! $featuredAdmin->employer !!}
+                            @if($featuredAdmin->employment_status_id == 6)
+                                (contracting)
+                            @endif
+                        </p>
+
+                    @elseif($featuredAdmin->employment_status_id == 7)
+                        <p class="has-text-centered mb-0">self-employed</p>
+                    @endif
+
+                    @if(in_array($featuredAdmin->employment_status_id, [2, 3, 4]))
+                        <p class="has-text-centered m-1">
+                            <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
+                                Open to Work
+                            </span>
+                        </p>
+
                     @endif
 
                     @if(!empty($featuredAdmin->bio))
-                        @include('admin.components.show-row', [
-                            'name'  => 'bio',
-                            'value' => $featuredAdmin->bio
-                        ])
+                        <p>
+                            {!! $featuredAdmin->bio !!}
+                        </p>
                     @endif
 
                 </div>
 
             </div>
 
-            <div class="column is-two-thirds pt-0">
+            @foreach($resourcesByDatabase as $database)
 
-                <div>
+                <div class="show-container card floating-div">
 
-                    <h1 class="title is-size-5 mt-2 mb-0">Portfolio</h1>
+                    <h2 class="has-text-weight-bold">{{ $database['title'] }}</h2>
 
-                    <ul class="menu-list ml-4 mb-2">
+                    <div class="list is-hoverable">
 
-                        @foreach ($portfolioResourceTypes as $resourceType)
+                        @include('admin.components.resource-list', [
+                            'resourceType' => dbName('portfolio_db'),
+                            'resources'    => $database['resources'],
+                            'admin'        => $featuredAdmin,
+                        ])
 
-                            @if(Route::has('admin.admin.portfolio.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('admin.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => 'admin.portfolio.'.$resourceType['name'].'.index', $featuredAdmin),
-                                    'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
+                    </div>
 
                 </div>
 
-                <div>
-
-                    <h1 class="title is-size-5 mt-2 mb-0">Personal</h1>
-
-                    <ul class="menu-list ml-4 mb-2">
-
-                        @foreach ($personalResourceTypes as $resourceType)
-
-                            @if(Route::has('admin.admin.personal.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('admin.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => 'admin.system.'.$resourceType['name'].'.index'),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-            </div>
+            @endforeach
 
         </div>
 
     </div>
-@endif
+
+ @endif

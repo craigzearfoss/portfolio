@@ -1,3 +1,10 @@
+@php
+    $subtitle   = $subtitle ?? null;
+    $selectList = $selectList ?? null;
+    $prev       = $prev ?? null;
+    $next       = $next ?? null;
+    $buttons    = $buttons ?? [];
+@endphp
 @if (!empty($subtitle) || !empty($selectList) || !empty($prev) || !empty($next) || !empty($butttons))
 
     <section class="hero is-hero-bar">
@@ -49,4 +56,3 @@
     </section>
 
 @endif
-

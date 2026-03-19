@@ -23,15 +23,12 @@ class IndexController extends BaseGuestController
     {
         if (!empty($this->owner)) {
 
-            $databaseId = new Database()->where('tag', '=', 'personal_db')->first()->id ?? null;
-
-            $personals = !empty($databaseId)
-                ? new AdminResource()->ownerResources($this->owner['id'],
-                                              EnvTypes::GUEST,
-                                                      $databaseId,
-                                                      [ 'is_public' => true, 'is_disabled' =>false ]
-                                                     )
-                : [];
+            $personals = new AdminResource()->ownerResources(
+                $this->owner,
+                EnvTypes::GUEST,
+                'personal_db',
+                [ 'is_public' => true, 'is_disabled' =>false ]
+            );
 
         } else {
 

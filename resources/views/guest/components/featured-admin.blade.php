@@ -16,7 +16,7 @@
         ];
 
         $resourcesByDatabase = new AdminResource()->ownerResourcesByDatabase(
-            $featuredAdmin->id,
+            $featuredAdmin,
             EnvTypes::GUEST,
             null,
             $filters
@@ -98,7 +98,7 @@
 
                 <div class="show-container card floating-div">
 
-                    <h2 class="has-text-weight-bold">{{ ucfirst($database['name']) }}</h2>
+                    <h2 class="has-text-weight-bold">{{ $database['title'] }}</h2>
 
                     <div class="list is-hoverable">
 
@@ -117,121 +117,5 @@
         </div>
 
     </div>
-
-
-
-
-
-
-<?php /*
-    <div class="card column p-4 mb-2">
-
-        <div class="columns">
-
-            <div class="column is-one-third pt-0">
-
-                @include('guest.components.image', [
-                    'name'     => 'image',
-                    'src'      => $featuredAdmin->image,
-                    'alt'      => $featuredAdmin->name,
-                    'width'    => '200px',
-                    'filename' => generateDownloadFilename($featuredAdmin)
-                ])
-
-                <div class="show-container p-4">
-
-                    <div class="columns">
-                        <span class="column is-12 has-text-centered">
-                            @include('guest.components.link', [
-                                'name'   => 'Resume',
-                                'href'   => route('guest.resume', $featuredAdmin),
-                                'class'  => 'button is-primary is-small px-1 py-0',
-                                'target' => '_blank',
-                                'title'  => 'Resume',
-                            ])
-                        </span>
-                    </div>
-
-                    @if(!empty($featuredAdmin->role))
-                        @include('guest.components.show-row', [
-                            'name'  => 'role',
-                            'value' => $featuredAdmin->role ?? ''
-                        ])
-                    @endif
-
-                    @if(!empty($featuredAdmin->employer))
-                        @include('guest.components.show-row', [
-                            'name'  => 'employer',
-                            'value' => '<br>' . $featuredAdmin->employer ?? ''
-                        ])
-                    @endif
-
-                    @if(!empty($featuredAdmin->bio))
-                        @include('guest.components.show-row', [
-                            'name'  => 'bio',
-                            'value' => $featuredAdmin->bio
-                        ])
-                    @endif
-
-                </div>
-
-            </div>
-
-            <div class="column is-two-thirds pt-0">
-
-                <div>
-
-                    <h1 class="title is-size-5 mt-2 mb-0">Portfolio</h1>
-
-                    <ul class="menu-list ml-4 mb-2">
-
-                        @foreach ($portfolioResourceTypes as $resourceType)
-
-                            @if(Route::has('guest.admin.portfolio.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('guest.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.portfolio.'.$resourceType['name'].'.index', $featuredAdmin),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-                <div>
-
-                    <h1 class="title is-size-5 mt-2 mb-0">Personal</h1>
-
-                    <ul class="menu-list ml-4 mb-2">
-
-                        @foreach ($personalResourceTypes as $resourceType)
-
-                            @if(Route::has('guest.admin.personal.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('guest.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => route('guest.personal.'.$resourceType['name'].'.index', $featuredAdmin),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-*/ ?>
 
  @endif
