@@ -232,6 +232,13 @@ div.action-button-panel form.delete-resource {
     display: inline;
 }
 
+ul.menu-list li.list-item a {
+    padding: 0.5rem 0.5rem;
+}
+ul.menu-list li.list-item a:hover {
+    background-color: #d0d0d0 !important;
+}
+
 nav#navbar-main {
     height: 1.25rem;
 }

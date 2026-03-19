@@ -38,7 +38,7 @@
     @endif
 >
     @if (!empty($icon))
-        <i class="fa-solid {{ $icon }}"></i>
+        <i class="fa {{ $icon }}"></i>
     @endif
     {!! $name ?? '' !!}
 </button>

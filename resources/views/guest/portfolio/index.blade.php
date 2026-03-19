@@ -26,32 +26,19 @@
         @endif
     @endif
 
-    <div class="container">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <ul class="menu-list" style="width: 20rem;">
+            <div class="list is-hoverable">
 
-            @foreach ($portfolios as $i=>$portfolio)
+                @include('guest.components.resource-list', [
+                    'resourceType' => dbName('portfolio_db'),
+                    'resources'    => $portfolios
+                ])
 
-                @if($portfolio->has_owner)
+            </div>
 
-                <li>
-                    @include('admin.components.link', [
-                        'name'  => $portfolio->plural,
-                        'href'  => Route::has('guest.'.$portfolio->database['name'] . '.' . $portfolio->name . '.index')
-                                        ? route('guest.'.$portfolio->database['name'] . '.' . $portfolio->name . '.index', $owner)
-                                        : '',
-                        'class' => 'list-item ml-4',
-                        'style' => 'color: #363636;',
-                        'icon'  => $portfolio->icon,
-                    ])
-                </li>
-
-                @endif
-
-            @endforeach
-
-        </ul>
-
+        </div>
     </div>
 
 @endsection

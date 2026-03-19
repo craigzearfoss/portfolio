@@ -12,5 +12,5 @@
        onclick="{!! $onclick !!}"
   @endif
 >
-    <i class="fa-solid {!! !empty($icon) ? $icon : 'fa-circle' !!}"></i>
+    <i class="fa {!! !empty($icon) ? $icon : 'fa-circle' !!}"></i>
 </button>

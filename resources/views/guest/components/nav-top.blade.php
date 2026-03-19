@@ -62,7 +62,7 @@
                                 }
                                 $name .= '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
                                 if (!empty($menuItem->icon)) {
-                                    $name .= '<span class="text-xl"><i class="fa-solid '.$menuItem->icon.'"></i>';
+                                    $name .= '<span class="text-xl"><i class="fa '.$menuItem->icon.'"></i>';
                                 }
                             @endphp
 

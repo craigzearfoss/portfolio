@@ -21,7 +21,7 @@
         @endif
     >
         @if (!empty($icon))
-            <i class="fa-solid {{ $icon }}"></i>
+            <i class="fa {{ $icon }}"></i>
         @endif
         {!! $name ?? $href ?? '' !!}
 </a>
@@ -32,7 +32,7 @@
        href="{!! $href !!}"
        download="resume"
        <?php /* onclick="downloadFile('{!! $href !!}', '{!! basename($href) !!}');" */ ?>
-    ><i class="fa-solid fa-download"></i></a>
+    ><i class="fa fa-download"></i></a>
 @endif
 
 @endif

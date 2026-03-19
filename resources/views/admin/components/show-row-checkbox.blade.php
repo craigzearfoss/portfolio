@@ -33,9 +33,9 @@
     </div>
     <div class="column is-10 value">
         @if ($checked)
-            <i class="fa-solid fa-check-square"></i>
+            <i class="fa fa-check-square"></i>
         @else
-            <i class="fa-solid fa-square"></i>
+            <i class="fa fa-square"></i>
         @endif
     </div>
 </div>

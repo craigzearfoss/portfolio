@@ -7,5 +7,5 @@
        style="color: gray; cursor: default;"
    @endif
 >
-    <i class="fa-solid fa-download"></i>
+    <i class="fa fa-download"></i>
 </a>

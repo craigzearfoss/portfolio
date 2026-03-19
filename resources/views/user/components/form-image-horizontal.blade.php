@@ -9,7 +9,7 @@
            href="{$src}"
        target="_blank"
     >
-        <i class="fa-solid fa-eye"></i>
+        <i class="fa fa-eye"></i>
     </a>
     EOD;
     }
@@ -31,7 +31,7 @@
                    href="{{ $src ?? '' }}"
                    target="_blank"
                 >
-                    <i class="fa-solid fa-eye"></i>
+                    <i class="fa fa-eye"></i>
                 </a>
             @endif
         </label>

@@ -13,17 +13,14 @@
                 <ul class="menu-list m-0 ml-2" data-menu-level="{{ $currentMenuLevel }}" style="max-width: 20em; border-left: 0;">
         @elseif($resource->menu_level < $currentMenuLevel)
             </ul>
-            <li class="list-item">
-        @else
-            <li class="list-item">
         @endif
 
         <li class="list-item">
 
             @include('guest.components.link', [
                 'name'  => $resource->plural,
-                'href'  => Route::has('guest.'.$resourceType.'.'.$resource->name.'.index')
-                               ? route('guest.'.$resourceType.'.'.$resource->name.'.index', $admin)
+                'href'  => Route::has('admin.'.$resourceType.'.'.$resource->name.'.index')
+                               ? route('admin.'.$resourceType.'.'.$resource->name.'.index', $admin)
                                : null,
                 'class' => 'list-item',
                 'style' => 'color: #4a4a4a',

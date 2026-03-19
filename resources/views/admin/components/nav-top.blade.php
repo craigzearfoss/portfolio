@@ -64,7 +64,7 @@
                                     }
                                     $avatarElems[] = '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
                                     if (!empty($menuItem->icon)) {
-                                        $avatarElems[] = '<span class="text-xl"><i class="fa-solid '.$menuItem->icon.'"></i>';
+                                        $avatarElems[] = '<span class="text-xl"><i class="fa '.$menuItem->icon.'"></i>';
                                     }
                                 @endphp
 

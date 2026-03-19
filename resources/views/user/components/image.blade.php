@@ -41,7 +41,7 @@
                     data-url="{!! $imageUrl !!}"
                     data-filename="{!! $filename ?? '' !!}"
                 >
-                    <i class="fa-solid fa-download"></i>
+                    <i class="fa fa-download"></i>
                 </a>
             @endif
             @if (!empty($external))
@@ -50,7 +50,7 @@
                    title="{{ $title ?? 'open file in a new window' }}"
                    target="_blank"
                 >
-                    <i class="fa-solid fa-external-link"></i>
+                    <i class="fa fa-external-link"></i>
                 </a>
             @endif
 

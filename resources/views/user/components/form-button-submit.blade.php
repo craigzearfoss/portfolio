@@ -20,7 +20,7 @@
     @endif
 >
     @if (!empty($icon))
-        <i class="fa-solid fa-close"></i>
+        <i class="fa fa-close"></i>
     @endif
     Cancel
 </a>
@@ -50,7 +50,7 @@
     @endif
 >
     @if (!empty($icon))
-        <i class="fa-solid {{ $icon }}"></i>
+        <i class="fa {{ $icon }}"></i>
     @endif
     {!! $label ?? 'Submit' !!}
 </button>
