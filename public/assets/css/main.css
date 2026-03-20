@@ -523,7 +523,18 @@ div.property-list div.value {
         display: none !important;
     }
 }
-
+@media screen and (max-width: 1300px) {
+    .hide-at-1300 {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 1400px) {
+    .hide-at-1400 { display: none !important; }
+    .show-at-1400 { display: block !important; }
+}
+@media screen and (min-width: 1400px) {
+    .show-at-1400 { display: none !important; }
+}
 /* Hamburger menu styles */
 a.hamburger-icon {
     display: none !important;

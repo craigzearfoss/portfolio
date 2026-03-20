@@ -1,6 +1,7 @@
 @php
     use App\Enums\PermissionEntityTypes;
     use App\Models\Career\Application;
+    use App\Models\Career\Company;
 
     $title    = $pageTitle ?? 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : '');
     $subtitle = $title;
@@ -50,32 +51,24 @@
                     @if(!empty($admin->is_root))
                         <th>owner</th>
                     @endif
-                    <th>name</th>
-                    <?php /*
-                        <th>company</th>
-                        <th>role</th>
-                    */ ?>
-                    <th>active</th>
-                    <th>rating</th>
-                    <?php /*
-                        <th>posted</th>
-                    */ ?>
+                    <th style="display: none;">name</th>
+                    <th>company</th>
+                    <th>role</th>
+                    <th class="has-text-centered hide-at-1400">active</th>
+                    <th class="hide-at-1024">rating</th>
+                    <th style="display: none;">posted</th>
                     <th>applied</th>
-                    <th>compensation</th>
-                    <?php /*
-                        <th>duration</th>
-                    */ ?>
-                    <th class="has-text-centered">type</th>
-                    <th class="has-text-centered">location</th>
-                    <th>location</th>
-                    <?php /*
-                        <th class="has-text-centered">w2</th>
-                        <th class="has-text-centered">relo</th>
-                        <th class="has-text-centered">ben</th>
-                        <th class="has-text-centered">vac</th>
-                        <th class="has-text-centered">health</th>
-                        <th>source</th>
-                    */ ?>
+                    <th class="hide-at-1024">compensation</th>
+                    <th style="display: none;">duration</th>
+                    <th class="has-text-centered hide-at-1300">type</th>
+                    <th class="has-text-centered hide-at-1300">office</th>
+                    <th class="hide-at-1400">location</th>
+                    <th class="has-text-centered" style="display: none;">w2</th>
+                    <th class="has-text-centered" style="display: none;">relo</th>
+                    <th class="has-text-centered" style="display: none;">ben</th>
+                    <th class="has-text-centered" style="display: none;">vac</th>
+                    <th class="has-text-centered" style="display: none;">health</th>
+                    <th style="display: none;">source</th>
                     <th>actions</th>
                 </tr>
                 </thead>
@@ -86,32 +79,24 @@
                         @if(!empty($admin->is_root))
                             <th>owner</th>
                         @endif
-                        <th>name</th>
-                            <?php /*
-                            <th>company</th>
-                            <th>role</th>
-                        */ ?>
-                        <th>active</th>
-                        <th>rating</th>
-                            <?php /*
-                            <th>posted</th>
-                        */ ?>
+                        <th style="display: none;">name</th>
+                        <th>company</th>
+                        <th>role</th>
+                        <th class="has-text-centered hide-at-1400">active</th>
+                        <th class="hide-at-1024">rating</th>
+                        <th style="display: none;">posted</th>
                         <th>applied</th>
-                        <th>compensation</th>
-                            <?php /*
-                            <th>duration</th>
-                        */ ?>
-                        <th class="has-text-centered">type</th>
-                        <th class="has-text-centered">location</th>
-                        <th>location</th>
-                            <?php /*
-                            <th class="has-text-centered">w2</th>
-                            <th class="has-text-centered">relo</th>
-                            <th class="has-text-centered">ben</th>
-                            <th class="has-text-centered">vac</th>
-                            <th class="has-text-centered">health</th>
-                            <th>source</th>
-                        */ ?>
+                        <th class="hide-at-1024">compensation</th>
+                        <th style="display: none;">duration</th>
+                        <th class="has-text-centered hide-at-1300">type</th>
+                        <th class="has-text-centered hide-at-1300">office</th>
+                        <th class="hide-at-1400">location</th>
+                        <th class="has-text-centered" style="display: none;">w2</th>
+                        <th class="has-text-centered" style="display: none;">relo</th>
+                        <th class="has-text-centered" style="display: none;">ben</th>
+                        <th class="has-text-centered" style="display: none;">vac</th>
+                        <th class="has-text-centered" style="display: none;">health</th>
+                        <th style="display: none;">source</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -127,39 +112,36 @@
                                 {{ $application->owner->username }}
                             </td>
                         @endif
-                        <td data-field="name">
+                        <td data-field="name" style="display: none;">
                             {!! $application->name !!}
                         </td>
-                            <?php /*
-                        <td data-field="company.name" style="white-space: nowrap;">
+                        <td data-field="company.name">
                             @if(!empty($application->company))
                                 @include('admin.components.link', [
                                     'name' => $application->company->name ?? '',
                                     'href' => route('admin.career.company.show',
-                                                    \App\Models\Career\Company::find($application->company->id
-                                              )
+                                                    Company::find($application->company->id)
+                                                   )
                                 ])
                             @endif
                         </td>
                         <td data-field="role">
-                            {!! $application->role !!}
+                            {{ $application->role }}
                         </td>
-                        */ ?>
-                        <td data-field="active" class="has-text-centered">
+                        <td data-field="active" class="has-text-centered hide-at-1400">
                             @include('admin.components.checkmark', [ 'checked' => $application->active ])
                         </td>
-                        <td data-field="rating" class="has-text-centered ">
-                            @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
+                        <td data-field="rating" class="has-text-centered hide-at-1024 ">
+                            <span class="hide-at-1400">@include('admin.components.star-ratings', [ 'rating' => $application->rating ])</span>
+                            <span class="show-at-1400">{{ $application->rating }}</span>
                         </td>
-                            <?php /*
-                        <td data-field="post_date" style="white-space: nowrap;">
+                        <td data-field="post_date" style="white-space: nowrap; display: none;">
                             {!! !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' !!}
                         </td>
-                        */ ?>
                         <td data-field="apply_date" style="white-space: nowrap;">
                             {!! !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' !!}
                         </td>
-                        <td data-field="compensation" style="white-space: nowrap;">
+                        <td data-field="compensation" class="hide-at-1024">
                             {!!
                                 formatCompensation([
                                     'min'   => $application->compensation_min,
@@ -169,18 +151,16 @@
                                 ])
                             !!}
                         </td>
-                            <?php /*
-                        <td data-field="job_duration_id">
+                        <td data-field="job_duration_id" style="display: none;">
                             {!! $application->durationType['name'] ?? '' !!}
                         </td>
-                        */ ?>
-                        <td data-field="job_employment_type_id" class="has-text-centered" style="white-space: nowrap;">
+                        <td data-field="job_employment_type_id" class="has-text-centered hide-at-1300">
                             {!! $application->employmentType->name ?? '' !!}
                         </td>
-                        <td data-field="job_location_type_id" class="has-text-centered">
+                        <td data-field="job_location_type_id" class="has-text-centered hide-at-1300">
                             {!! $application->locationType->name ?? '' !!}
                         </td>
-                        <td data-field="location">
+                        <td data-field="location" class="hide-at-1400">
                             {!!
                                 formatLocation([
                                     'city'    => $application->city,
@@ -188,26 +168,24 @@
                                 ])
                             !!}
                         </td>
-                            <?php /*
-                        <td data-field="w2" class="has-text-centered">
+                        <td data-field="w2" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
                         </td>
-                        <td data-field="relocation" class="has-text-centered">
+                        <td data-field="relocation" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $application->relocation ])
                         </td>
-                        <td data-field="benefits" class="has-text-centered">
+                        <td data-field="benefits" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $application->benefits ])
                         </td>
-                        <td data-field="vacation" class="has-text-centered">
+                        <td data-field="vacation" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $application->vacation ])
                         </td>
-                        <td data-field="health" class="has-text-centered">
+                        <td data-field="health" class="has-text-centered" style="display: none;">
                             @include('admin.components.checkmark', [ 'checked' => $application->health ])
                         </td>
-                        <td data-field="job_board_id">
-                            {!! $application->jobBoard->name ?? '' }}
+                        <td data-field="job_board_id" style="display: none;">
+                            {{ $application->jobBoard->name ?? '' }}
                         </td>
-                        */ ?>
                         <td class="is-1">
 
                             <div class="action-button-panel">
