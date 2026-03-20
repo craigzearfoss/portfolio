@@ -27,28 +27,43 @@
     <div id="app">
 
         @include('admin.components.nav-top', [
-            'menuService'      => $menuService,
-            'admin'            => $admin,
-            'user'             => $user,
-            'owner'            => $owner,
+            'menuService' => $menuService,
+            'admin'       => $admin,
+            'user'        => $user,
+            'owner'       => $owner,
         ])
 
         @include('admin.components.nav-left', [
-            'menuService'      => $menuService,
-            'admin'            => $admin,
-            'user'             => $user,
-            'owner'            => $owner,
+            'menuService' => $menuService,
+            'admin'       => $admin,
+            'user'        => $user,
+            'owner'       => $owner,
         ])
 
-        @include('admin.components.title-bar', [
-            'title'       => $title,
+        <div class="hamburger-nav">
+            <div id="hamburger-menu-container">
+
+                @include('admin.components.partials.left-menu-contents', [
+                    'menuService' => $menuService ?? null,
+                    'admin'       => $admin ?? null,
+                    'user'        => $user ?? null,
+                    'owner'       => $owner ?? null,
+                ])
+
+            </div>
+        </div>
+
+        @include('guest.components.title-bar', [
+            'title'       => $title ?? '',
             'breadcrumbs' => $breadcrumbs ?? []
         ])
 
         @include('admin.components.subtitle-bar', [
-            'title'      => $title,
+            'title'      => $subtitle ?? '',
             'selectList' => $navSelectList ?? '',
-            'buttons'    => $navButtons,
+            'buttons'    => $navButtons ?? [],
+            'prev'       => $prev ?? null,
+            'next'       => $next ?? null,
         ])
 
         <section class="is-main-section">

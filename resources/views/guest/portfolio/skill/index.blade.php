@@ -34,18 +34,18 @@
                 <thead>
                 <tr>
                     <th>name</th>
-                    <th>category</th>
+                    <th class="hide-at-600">category</th>
                     <th>level (out of 10)</th>
-                    <th class="has-text-centered">years</th>
+                    <th class="has-text-centered hide-at-480">years</th>
                 </tr>
                 </thead>
                 <?php /*
                 <tfoot>
                 <tr>
                     <th>name</th>
-                    <th>category</th>
+                    <th class="hide-at-600">category</th>
                     <th>level (out of 10)</th>
-                    <th class="has-text-centered">years</th>
+                    <th class="has-text-centered hide-at-480">years</th>
                 </tr>
                 </tr>
                 </tfoot>
@@ -58,10 +58,10 @@
                         <td>
                             <strong>{!! $skill->name !!}</strong>
                         </td>
-                        <td>
+                        <td class="hide-at-600">
                             {!! $skill->category->name ?? '' !!}
                         </td>
-                        <td data-field="level" style="white-space: nowrap;" class="is">
+                        <td data-field="level" style="white-space: nowrap;" class="font-size-12px-at-480 font-size-14px-at-600">
                             @if(!empty($skill->level))
                                 @include('guest.components.star-ratings', [
                                     'rating' => $skill->level,
@@ -69,7 +69,7 @@
                                 ])
                             @endif
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-480">
                             {!! $skill->years !!}
                         </td>
                     </tr>

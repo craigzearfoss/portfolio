@@ -8,12 +8,9 @@
     <nav id="navbar-main" class="navbar admin is-fixed-top">
         <div class="navbar-brand">
 
-            @include('admin.components.nav-link-top', [
-                'name'   => false,
-                'href'   => false,
-                'class'  => 'is-hidden-desktop jb-aside-mobile-toggle',
-                //'icon'   => '<span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>'
-            ])
+            <a class="hamburger-icon" href="javascript:void(0);" onclick="toggleHamburgerMenu()">
+                <i class="fa fa-bars m-2"></i>
+            </a>
 
             <div class="navbar-item has-control">
 

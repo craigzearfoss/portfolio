@@ -35,7 +35,7 @@
                 <tr>
                     <th>name</th>
                     <th>academy</th>
-                    <th>instructor</th>
+                    <th class="hide-at-480">instructor</th>
                     <th style="white-space: nowrap;">completion date</th>
                 </tr>
                 </thead>
@@ -44,7 +44,7 @@
                 <tr>
                     <th>name</th>
                     <th>academy</th>
-                    <th>instructor</th>
+                    <th class="hide-at-480">instructor</th>
                     <th style="white-space: nowrap;">completion date</th>
                 </tr>
                 </tr>
@@ -73,7 +73,7 @@
                                 ])
                             @endif
                         </td>
-                        <td>
+                        <td class="hide-at-480">
                             {!! $course->instructor !!}
                         </td>
                         <td>

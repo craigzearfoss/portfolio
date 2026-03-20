@@ -36,8 +36,8 @@
                     <th>name</th>
                     <th>artist</th>
                     <th>year</th>
-                    <th>label</th>
-                    <th>cat#</th>
+                    <th class="hide-at-480">label</th>
+                    <th class="hide-at-600">cat#</th>
                 </tr>
                 </thead>
                 <?php /*
@@ -46,8 +46,8 @@
                     <th>name</th>
                     <th>artist</th>
                     <th>year</th>
-                    <th>label</th>
-                    <th>cat#</th>
+                    <th class="hide-at-480">label</th>
+                    <th class="hide-at-600">cat#</th>
                 </tr>
                 </tfoot>
                 */ ?>
@@ -69,10 +69,10 @@
                         <td data-field="year">
                             {!! $music->year !!}
                         </td>
-                        <td data-field="label">
+                        <td data-field="label" class="hide-at-480">
                             {!! $music->label !!}
                         </td>
-                        <td data-field="catalog_number">
+                        <td data-field="catalog_number" class="hide-at-600">
                             {!! $music->catalog_number !!}
                         </td>
                     </tr>

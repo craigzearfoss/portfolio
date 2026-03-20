@@ -36,7 +36,7 @@
                     <th>title</th>
                     <th>publication</th>
                     <?php /* <th>publisher</th> */ ?>
-                    <th>year</th>
+                    <th class="has-text-centered">year</th>
                 </tr>
                 </thead>
                 <?php /*

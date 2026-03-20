@@ -36,7 +36,7 @@
                     <th>name</th>
                     <th>year</th>
                     <th>show</th>
-                    <th>company</th>
+                    <th class="hide-at-480">company</th>
                 </tr>
                 </thead>
                 <?php /*
@@ -45,7 +45,7 @@
                     <th>name</th>
                     <th>year</th>
                     <th>show</th>
-                    <th>company</th>
+                    <th class="hide-at-480">company</th>
                 </tr>
                 </tfoot>
                 */ ?>
@@ -67,7 +67,7 @@
                         <td data-field="show">
                             {!! $video->show !!}
                         </td>
-                        <td data-field="company">
+                        <td data-field="company" class="hide-at-480">
                             {!! $video->company !!}
                         </td>
                     </tr>

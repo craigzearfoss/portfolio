@@ -201,7 +201,7 @@ div.field.is-horizontal div.field-label label.label {
 }
 ul.menu p.menu-label.menu-label-left {
     margin-top: 6px;
-    margin-bottom: 2px !important;
+    margin-bottom: 0 !important;
 }
 ul.menu p.menu-label a,
 ul.menu p.menu-label span {
@@ -210,6 +210,13 @@ ul.menu p.menu-label span {
 
 ul.menu-list li {
     list-style: none;
+}
+ul.menu-list a {
+    color: white;
+}
+ul.menu-list a:hover {
+    background-color: #ddd;
+    color: black;
 }
 
 .tabs-content li {
@@ -482,4 +489,92 @@ div.property-list div.label {
 }
 div.property-list div.value {
     padding-left: 1.2rem !important;
+}
+
+@media screen and (max-width: 480px) {
+    .hide-at-480 {
+        display: none !important;
+    }
+    .font-size-12px-at-480 {
+        font-size: 12px !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .hide-at-600 {
+        display: none !important;
+    }
+    .font-size-14px-at-600 {
+        font-size: 12px !important;
+    }
+}
+@media screen and (max-width: 750px) {
+    .hide-at-750 {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 900px) {
+    .hide-at-900 {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .hide-at-1024 {
+        display: none !important;
+    }
+}
+
+/* Hamburger menu styles */
+a.hamburger-icon {
+    display: none !important;
+    color: #363636 !important;
+}
+a.hamburger-icon i.fa {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+}
+@media screen and (max-width: 1023px) {
+    a.hamburger-icon {
+        display: inline-block !important;
+    }
+}
+.hamburger-nav {
+    overflow: hidden;
+    background-color: #2e323a;
+    position: relative;
+}
+
+.hamburger-nav #hamburger-menu-container {
+    display: none;
+}
+
+.hamburger-nav a {
+    color: white;
+    padding: 03rem;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+}
+
+.hamburger-nav a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.hamburger-nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.active {
+    background-color: #04AA6D;
+    color: white;
+}
+#hamburger-menu-container {
+    display: none;
+    z-index: 1000;
 }

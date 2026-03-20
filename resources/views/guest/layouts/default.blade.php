@@ -24,18 +24,31 @@
     <div id="app">
 
         @include('guest.components.nav-top', [
-            'menuService' => $menuService ?? null,
-            'admin'       => $admin ?? null,
-            'user'        => $user ?? null,
-            'owner'       => $owner ?? null,
+            'menuService' => $menuService,
+            'admin'       => $admin,
+            'user'        => $user,
+            'owner'       => $owner,
         ])
 
         @include('guest.components.nav-left', [
-            'menuService' => $menuService ?? null,
-            'admin'       => $admin ?? null,
-            'user'        => $user ?? null,
-            'owner'       => $owner ?? null,
+            'menuService' => $menuService,
+            'admin'       => $admin,
+            'user'        => $user,
+            'owner'       => $owner,
         ])
+
+        <div class="hamburger-nav">
+            <div id="hamburger-menu-container">
+
+                @include('guest.components.partials.left-menu-contents', [
+                    'menuService' => $menuService ?? null,
+                    'admin'       => $admin ?? null,
+                    'user'        => $user ?? null,
+                    'owner'       => $owner ?? null,
+                ])
+
+            </div>
+        </div>
 
         @include('guest.components.title-bar', [
             'title'       => $title ?? '',

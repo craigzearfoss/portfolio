@@ -36,7 +36,7 @@
                     <th>name</th>
                     <th>language</th>
                     <th>year</th>
-                    <th>repository</th>
+                    <th class="hide-at-600">repository</th>
                 </tr>
                 </thead>
                 <?php /*
@@ -45,7 +45,7 @@
                     <th>name</th>
                     <th>language</th>
                     <th>year</th>
-                    <th>repository</th>
+                    <th class="hide-at-600">repository</th>
                 </tr>
                 </tfoot>
                 */ ?>
@@ -70,7 +70,7 @@
                         <td data-field="year">
                             {!! $project->year !!}
                         </td>
-                        <td data-field="year">
+                        <td data-field="year" class="hide-at-600">
                             @if(!empty($project->repository_url))
                                 @include('guest.components.link', [
                                     'name'   => $project->repository_name,
