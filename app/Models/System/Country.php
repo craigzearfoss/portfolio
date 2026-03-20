@@ -63,7 +63,9 @@ class Country extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
-        return new self()->when(isset($filters['id']), function ($query) use ($filters) {
+        $filters = $this->removeEmptyFilters($filters);
+
+        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {

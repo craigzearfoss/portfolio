@@ -11,6 +11,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class IndexController extends BaseGuestController
 {
     /**
@@ -27,7 +30,7 @@ class IndexController extends BaseGuestController
                 $this->owner,
                 EnvTypes::GUEST,
                 'portfolio_db',
-                [ 'is_public' => true, 'is_disabled' =>false ]
+                [ 'menu' => true, 'is_public' => true, 'is_disabled' =>false ]
             );
 
         } else {

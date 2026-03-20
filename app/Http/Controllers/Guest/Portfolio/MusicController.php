@@ -24,7 +24,7 @@ class MusicController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = new Music()->where('owner_id', $this->owner['id'])
+        $musics = new Music()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('name')
             ->orderBy('artist')
             ->paginate($perPage)->appends(request()->except('page'));

@@ -31,12 +31,12 @@ class DatabaseController extends BaseAdminController
 
         if (!$this->isRootAdmin) {
             return redirect()->route('admin.system.admin-database.show', $this->admin);
-        } else {
-            $databases = new Database()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
-                ->orderBy('owner_id')
-                ->orderBy('name')
-                ->paginate($perPage)->appends(request()->except('page'));
         }
+
+        $databases = new Database()->searchQuery($request->all())
+            ->orderBy('owner_id')
+            ->orderBy('name')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Databases';
 

@@ -27,7 +27,7 @@ class IndustryController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $industries = new Industry()->searchQuery($request->all())
+        $industries = new Industry()->searchQuery(request()->except('id'))
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

@@ -266,7 +266,7 @@ class MenuService
 
         $menu = $this->getResourceMenu();
 
-        if (!$this->singleAdminMode) {
+        if (($this->envType == EnvTypes::GUEST) && !$this->singleAdminMode) {
             /// only show candidates menu option if there are more than one public, non-disabled admins
             $menu[] = $this->menuItem(['title'=>'Candidates', 'route' => 'guest.admin.index', 'icon' => 'fa-dashboard' ]);
         }

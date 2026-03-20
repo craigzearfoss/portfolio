@@ -28,7 +28,7 @@ class StackController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $stacks = new Category()->searchQuery($request->all())
+        $stacks = new Category()->searchQuery(request()->except('id'))
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

@@ -31,7 +31,10 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.application.index') ])
+        @include('admin.components.search-panel.career-application', [ 'action'     => route('admin.career.application.index'),
+                                                                       'owner_id'   => $owner->id ?? null,
+                                                                       'company_id' => request()->query('admin_database_id'),
+                                                                     ])
     @endif
 
     <div class="floating-div-container">

@@ -311,7 +311,7 @@ table.table.user-table tbody th, table.user-table tbody td,
 table.table.guest-table thead th, table.guest-table thead td,
 table.table.guest-table tbody th, table.guest-table tbody td {
     padding: 0.1em 0.2em;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     width: 1%;
     cursor: default
 }

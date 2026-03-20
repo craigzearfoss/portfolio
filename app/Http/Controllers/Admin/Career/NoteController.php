@@ -28,14 +28,12 @@ class NoteController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = new Note()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        $notes = new Note()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('owner_id')
-            ->orderBy('created_at', 'desc');
-        if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
-            $query->where('application_id', '=', $application->id);
-        }
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $notes = $query->paginate($perPage)->appends(request()->except('page'));
+        $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' notes';
 

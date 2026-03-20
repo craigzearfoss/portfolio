@@ -29,7 +29,7 @@ class LanguageController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $languages = new Category()->searchQuery($request->all())
+        $languages = new Category()->searchQuery(request()->except('id'))
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

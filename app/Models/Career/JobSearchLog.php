@@ -82,6 +82,8 @@ class JobSearchLog extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
                 unset($filters['owner_id']);
@@ -91,7 +93,7 @@ class JobSearchLog extends Model
 
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
-            })->when(isset($filters['owner_id']), function ($query) use ($filters) {
+            })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['message']), function ($query) use ($filters) {

@@ -38,6 +38,10 @@
 
 @section('content')
 
+    @if($isRootAdmin)
+        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin.index') ])
+    @endif
+
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 

@@ -24,7 +24,7 @@ class EducationController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $educations = new Education()->where('owner_id', '=', $this->owner['id'])
+        $educations = new Education()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('graduation_year')
             ->paginate($perPage)->appends(request()->except('page'));
 

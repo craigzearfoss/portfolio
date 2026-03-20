@@ -27,7 +27,7 @@ class CourseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $courses = new Course()->searchQuery($request->all(), $this->isRootAdmin ? null : $this->owner)
+        $courses = new Course()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

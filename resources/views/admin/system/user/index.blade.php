@@ -5,7 +5,7 @@
     use App\Models\System\UserTeam;
 
     $title    = $pageTitle ?? 'Users';
-    $subtitle = $itle;
+    $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [

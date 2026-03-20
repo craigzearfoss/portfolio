@@ -29,7 +29,7 @@ class AdminEmailController extends BaseAdminController
 
         $adminEmails = new AdminEmail()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('owner_id')
-            ->orderBy('name')
+            ->orderBy('email')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' email addresses';

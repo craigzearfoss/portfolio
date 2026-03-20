@@ -22,7 +22,7 @@ class JobController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = new Job()->where('owner_id', '=', $this->owner['id'])
+        $jobs = new Job()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));

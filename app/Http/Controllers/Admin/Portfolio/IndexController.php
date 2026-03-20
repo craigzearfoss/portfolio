@@ -17,36 +17,28 @@ use Illuminate\View\View;
 class IndexController extends BaseAdminController
 {
     /**
-     * Displays all personal resource type.
+     * Display a listing of portfolio resources.
      *
      * @return View
      * @throws Exception
      */
     public function index(): View
     {
-        $portfolios = [];
+        if (isRootAdmin() || empty($this->owner)) {
 
-        if ($databaseId = new Database()->where('tag', '=', 'portfolio_db')->first()->id ?? null) {
+             $portfolios = new Resource()->ownerResources(
+                EnvTypes::ADMIN,
+                'portfolio_db',
+                []
+            );
 
-            if (isRootAdmin() || empty($this->owner)) {
+        } else {
 
-                $portfolios = new Resource()->searchQuery([
-                    'database_id'          => $databaseId,
-                    EnvTypes::ADMIN->value => 1
-                ])
-                ->orderBy('sequence')
-                ->get();
-
-            } else {
-
-                $portfolios = new AdminResource()->searchQuery([
-                    'database_id'          => $databaseId,
-                    'owner_id'             => $this->owner['id'],
-                    EnvTypes::ADMIN->value => 1
-                ])
-                ->orderBy('sequence')
-                ->get();
-            }
+            $portfolios = new AdminResource()->ownerResources(
+                $this->owner,
+                EnvTypes::ADMIN,
+                'portfolio_db'
+             );
         }
 
         return view('admin.portfolio.index', compact('portfolios'));

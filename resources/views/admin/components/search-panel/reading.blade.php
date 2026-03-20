@@ -2,28 +2,19 @@
     use App\Models\Personal\Reading;
     use App\Models\System\Admin;
 
-    $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $readingModel = new Reading();
+
+    $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
 @endphp
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
 
         <form id="searchForm"
-              action="{!! $action ?? route('admin.personal.reading.index', !empty($owner) ? ['owner_id'=>$owner->id] : []) !!}"
+              action="{!! $action ?? route('admin.personal.reading.index', !empty($owner) ? ['owner_id'=>$owner->id ] : []) !!}"
               method="get">
 
-            @if(isRootAdmin())
-                <div class="control" style="max-width: 28rem;">
-                    @include('admin.components.form-select', [
-                        'name'     => 'owner_id',
-                        'label'    => 'owner',
-                        'value'    => $owner_id,
-                        'list'     => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                        'onchange' => "document.getElementById('searchForm').submit()"
-                    ])
-                </div>
-            @endif
+            @include('admin.components.search-panel.controls.owner', [ 'owner_id' => $owner_id])
 
             <div class="control" style="max-width: 28rem;">
                 @include('admin.components.form-select', [

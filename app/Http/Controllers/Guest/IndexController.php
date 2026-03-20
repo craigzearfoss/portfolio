@@ -24,7 +24,7 @@ class IndexController extends BaseGuestController
         $adminModel = new Admin();
 
         $admin = null;
-        $admins = $adminModel->where('is_public', '=', 1)
+        $admins = $adminModel->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->orderBy('name')->paginate($perPage)->appends(request()->except('page'));
 

@@ -27,7 +27,7 @@ class JobController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = new Job()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        $jobs = new Job()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('owner_id')
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')

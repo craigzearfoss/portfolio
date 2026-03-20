@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Route;
 
 /**
  * @mixin Eloquent
@@ -81,8 +82,10 @@ class Database extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['database']), function ($query) use ($filters) {
@@ -253,5 +256,23 @@ class Database extends Model
     {
         return $this->hasMany(Resource::class, 'database_id')
             ->orderBy('name');
+    }
+
+
+    /**
+     * Return a Database object for the dictionary.
+     *
+     * @return Database
+     */
+    public function getDictionaryDatabase(): Database
+    {
+        $dictionaryDatabase = new Database()->firstWhere('tag', 'dictionary_db');
+
+        $dictionaryDatabase['route'] = 'guest.dictionary.index';
+        $dictionaryDatabase['url'] = route($dictionaryDatabase->route);
+        $dictionaryDatabase['active'] = getRouteBase($dictionaryDatabase['route']) === getRouteBase(Route::currentRouteName());
+        $dictionaryDatabase['resources'] = [];
+
+        return $dictionaryDatabase;
     }
 }

@@ -32,15 +32,15 @@
 
         <div class="control ml-2 mt-2">
 
-            @if($adminModel->where('is_public', 1)->count() > 1)
+            @if(!config('app.single_admin_mode'))
 
                 <div class="has-text-light">candidates</div>
 
                 @include('user.components.form-select-nolabel', [
                     'value'    => !empty($owner->label) ? $owner->label : '',
-                    'list'     => new Owner()->listOptions([ 'is_public' => 1 ], 'label', 'name', true, false, ['name', 'asc']),
+                    'list'     => new Owner()->listOptions([ 'is_public' => 1, 'is_disabled' => false ], 'label', 'name', true, false, ['name', 'asc']),
                     'style'    => 'font-size: 1.1rem; font-weight: 700',
-                    'onchange' => "document.location.href='/'+this.value;"
+                    'onchange' => 'loadSelectedAdmin(this.value, \'/#adminId#\')'
                 ])
 
             @endif

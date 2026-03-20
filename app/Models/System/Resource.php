@@ -156,14 +156,16 @@ class Resource extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
                 $query->where('parent_id', '=', intval($filters['parent_id']));
             })
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
-            ->when(isset($filters['database_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['database_id']), function ($query) use ($filters) {
                 $query->where('database_id', '=', intval($filters['database_id']));
             })
             ->when(!empty($filters['table_name']), function ($query) use ($filters) {
@@ -266,9 +268,9 @@ class Resource extends Model
 
         // get column names for select
         $selectColumns = [];
-        foreach (self::OWNER_PROPERTIES as $field => $name) {
-            $selectColumns[] =  DB::raw("admins.$name AS '$field'");
-        }
+//        foreach (self::OWNER_PROPERTIES as $field => $name) {
+//            $selectColumns[] =  DB::raw("admins.$name AS '$field'");
+//        }
         foreach (self::DATABASE_PROPERTIES as $field => $name) {
             $selectColumns[] =  DB::raw("databases.$name AS '$field'");
         }
@@ -328,7 +330,7 @@ class Resource extends Model
 
         for ($i=0; $i<count($resources); $i++) {
             $this->appendRouteFieldToResource($resources[$i], $envType, $owner);
-            $this->appendOwnerFieldToResource($resources[$i], $envType, $owner);
+            $this->appendOwnerFieldToResource($resources[$i], $owner);
             $this->appendDatabaseFieldToResource($resources[$i], $envType, $owner);
         }
 
@@ -358,9 +360,9 @@ class Resource extends Model
 
         foreach ($resources as $resource) {
 
-            if (!in_array($resource->admin_database_id, $databaseIds)) {
+            if (!in_array($resource->database_id, $databaseIds)) {
 
-                $databaseIds[] = $resource->admin_database_id;
+                $databaseIds[] = $resource->database_id;
 
                 $database = new Database()->find($resource->database_id);
                 $this->appendRouteFieldToDatabase($database, $envType);
@@ -464,27 +466,17 @@ class Resource extends Model
     /**
      * Add the "owner" property to a resource from a query result.
      *
-     * @param Resource $resource
-     * @param EnvTypes|null    $envType
-     * @param Admin|Owner|null $owner
+     * @param Resource    $resource
+     * @param Admin|Owner $owner
      * @return void
      */
     protected function appendOwnerFieldToResource(
-        Resource         &$resource,
-        EnvTypes|null    $envType = EnvTypes::GUEST,
-        Admin|Owner|null $owner = null): void
+        Resource    &$resource,
+        Admin|Owner $owner): void
     {
-        if (empty($owner)) {
-
-            $owner = new Admin();
-
-            foreach (self::OWNER_PROPERTIES as $field => $name) {
-                $owner->$name = $resource[$field] ?? null;
-                unset($resource[$field]);
-            }
+        if ($resource['has_owner']) {
+            $resource->owner = $owner;
         }
-
-        $resource->owner = $owner;
     }
 
     /**

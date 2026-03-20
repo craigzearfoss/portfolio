@@ -19,7 +19,7 @@
             $featuredAdmin,
             EnvTypes::GUEST,
             null,
-            $filters
+            [ 'has_owner' => true ]
         );
     @endphp
 
@@ -70,7 +70,6 @@
                                 (contracting)
                             @endif
                         </p>
-
                     @elseif($featuredAdmin->employment_status_id == 7)
                         <p class="has-text-centered mb-0">self-employed</p>
                     @endif
@@ -81,7 +80,6 @@
                                 Open to Work
                             </span>
                         </p>
-
                     @endif
 
                     @if(!empty($featuredAdmin->bio))
@@ -96,21 +94,25 @@
 
             @foreach($resourcesByDatabase as $database)
 
-                <div class="show-container card floating-div">
+                @if (!empty($database['resources']))
 
-                    <h2 class="has-text-weight-bold">{{ $database['title'] }}</h2>
+                    <div class="show-container card floating-div">
 
-                    <div class="list is-hoverable">
+                        <h2 class="has-text-weight-bold">{{ $database['title'] }}</h2>
 
-                        @include('guest.components.resource-list', [
-                            'resourceType' => dbName('portfolio_db'),
-                            'resources'    => $database['resources'],
-                            'admin'        => $featuredAdmin,
-                        ])
+                        <div class="list is-hoverable">
+
+                            @include('guest.components.resource-list', [
+                                'resourceType' => dbName('portfolio_db'),
+                                'resources'    => $database['resources'],
+                                'admin'        => $featuredAdmin,
+                            ])
+
+                        </div>
 
                     </div>
 
-                </div>
+                @endif
 
             @endforeach
 

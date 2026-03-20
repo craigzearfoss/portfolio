@@ -24,7 +24,7 @@ class PublicationController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $publications = new Publication()->where('owner_id', '=', $this->owner['id'])
+        $publications = new Publication()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 

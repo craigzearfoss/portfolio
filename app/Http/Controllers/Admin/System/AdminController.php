@@ -34,11 +34,11 @@ class AdminController extends BaseAdminController
 
          if (empty($this->admin->is_root)) {
              return redirect()->route('admin.profile.show');
-         } else {
-             $allAdmins = new Admin()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
-                 ->orderBy('name')
-                 ->paginate($perPage)->appends(request()->except('page'));
          }
+
+         $allAdmins = new Admin()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+             ->orderBy('name')
+             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Admins';
 

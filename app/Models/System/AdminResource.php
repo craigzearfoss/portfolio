@@ -158,20 +158,19 @@ class AdminResource extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
                 $query->where('parent_id', '=', intval($filters['parent_id']));
             })
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
-            ->when(isset($filters['resource_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
                 $query->where('resource_id', '=', intval($filters['resource_id']));
             })
-            ->when(isset($filters['database_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['database_id']), function ($query) use ($filters) {
                 $query->where('database_id', '=', intval($filters['database_id']));
             })
-            ->when(isset($filters['admin_database_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['admin_database_id']), function ($query) use ($filters) {
                 $query->where('admin_database_id', '=', intval($filters['admin_database_id']));
             })
             ->when(!empty($filters['table_name']), function ($query) use ($filters) {
@@ -386,8 +385,11 @@ class AdminResource extends Model
         }
 
         foreach ($adminDatabases as $adminDatabase) {
-            $adminDatabase->resources = Collection::make($adminResourcesByAdminDatabaseId[$adminDatabase->id]);
+            $adminDatabase->resources = Collection::make($adminResourcesByAdminDatabaseId[$adminDatabase['id']]);
         }
+
+        // add dictionary item
+        $adminDatabases[] = new  Database()->getDictionaryDatabase();
 
         return $adminDatabases;
     }
@@ -461,29 +463,25 @@ class AdminResource extends Model
     /**
      * Add the "route" and "active" fields to an admin resource from a query result.
      *
-     * @param AdminDatabase $adminDatabase
-     * @param EnvTypes|null $envType
-     * @param Admin|Owner|null $admin
+     * @param AdminDatabase    $adminDatabase
+     * @param EnvTypes|null    $envType
+     * @param Admin|Owner|null $owner
      * @return void
      */
     protected function appendRouteFieldToDatabase(
         AdminDatabase    &$adminDatabase,
         EnvTypes|null    $envType = EnvTypes::GUEST,
-        Admin|Owner|null $admin = null): void
+        Admin|Owner|null $owner = null): void
     {
-        if (empty($admin)) {
-            $admin = new Admin()->find(1);
-        }
-
         $url = null;
 
         $routeName = $envType->value . '.' . str_replace('_', '-', $adminDatabase->name) . '.index';
 
         if (Route::has($routeName)) {
-            if ($envType === EnvTypes::ADMIN) {
-                $url = Route::has($routeName) ? route($routeName) : null;
+            if ($envType == EnvTypes::GUEST) {
+                $url = route($routeName, $owner);
             } else {
-                $url = route($routeName, $admin);
+                $url = route($routeName);
             }
         }
 
@@ -513,10 +511,10 @@ class AdminResource extends Model
             . '.index';
 
         if (Route::has($routeName)) {
-            if ($envType === EnvTypes::ADMIN) {
-                $url = Route::has($routeName) ? route($routeName) : null;
+            if ($envType == EnvTypes::GUEST) {
+                $url = route($routeName, $owner);
             } else {
-                $url = route($routeName, !empty($owner) ? [ $owner ] : []);
+                $url = route($routeName);
             }
         }
 
@@ -546,6 +544,10 @@ class AdminResource extends Model
                 $owner->$name = $adminResource[$field] ?? null;
                 unset($adminResource[$field]);
             }
+        }
+
+        foreach (self::OWNER_PROPERTIES as $field => $name) {
+            unset($adminResource[$field]);
         }
 
         $adminResource->owner = $owner;

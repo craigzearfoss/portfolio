@@ -28,7 +28,7 @@ class ServerController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $servers = new Category()->searchQuery($request->all())
+        $servers = new Category()->searchQuery(request()->except('id'))
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

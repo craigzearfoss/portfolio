@@ -28,7 +28,7 @@ class FrameworkController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $frameworks = new Category()->searchQuery($request->all())
+        $frameworks = new Category()->searchQuery(request()->except('id'))
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

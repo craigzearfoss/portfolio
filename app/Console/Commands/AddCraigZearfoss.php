@@ -73,9 +73,9 @@ class AddCraigZearfoss extends Command
     protected string $role = 'Senior Software Developer';
 
     /**
-     * @var string email
+     * @var string|null email
      */
-    protected string $employer = 'Idaho National Laboratory';
+    protected string|null $employer = null;
 
     /**
      * @var int|null
@@ -121,7 +121,7 @@ class AddCraigZearfoss extends Command
                             {--team_id= : The id of the admin team for czearfoss}
                             {--password= : The password for czearfoss}
                             {--group_id= : The id of the admin group for czearfoss}
-                            {--demo=1 : Make czearfoss a demo admin}';
+                            {--demo=0 : Make czearfoss a demo admin}';
 
     /**
      * The console command description.
@@ -313,7 +313,7 @@ class AddCraigZearfoss extends Command
             ],
             [
                 'owner_id'    => $adminId,
-                'email'       => 'craigzearfoss@yahoo.com',
+                'email'       => 'craig.zearfoss@inl.gov',
                 'label'       => 'INL work',
                 'is_disabled' => true,
             ],
@@ -413,22 +413,23 @@ class AddCraigZearfoss extends Command
 
         $data = [
             [
-                'id'                => $adminId,
-                'admin_team_id'     => $adminTeamId,
-                'username'          => $this->username,
-                'password'          => Hash::make($this->password),
-                'name'              => $this->adminName,
-                'label'             => $this->label,
-                'email'             => $this->email,
-                'role'              => $this->role,
-                'employer'          => $this->employer,
-                'email_verified_at' => now(),
-                'is_public'         => true,
-                'status'            => 1,
-                'token'             => '',
-                'is_root'           => false,
-                'image'             => $imagePath,
-                'thumbnail'         => $thumbnailPath,
+                'id'                   => $adminId,
+                'admin_team_id'        => $adminTeamId,
+                'username'             => $this->username,
+                'password'             => Hash::make($this->password),
+                'name'                 => $this->adminName,
+                'label'                => $this->label,
+                'email'                => $this->email,
+                'role'                 => $this->role,
+                'employer'             => $this->employer,
+                'employment_status_id' => 4,
+                'email_verified_at'    => now(),
+                'is_public'            => true,
+                'status'               => 1,
+                'token'                => '',
+                'is_root'              => false,
+                'image'                => $imagePath,
+                'thumbnail'            => $thumbnailPath,
             ]
         ];
 

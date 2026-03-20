@@ -60,14 +60,16 @@ class ResourceSetting extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         return new self()->getSearchQuery($filters)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
-            ->when(isset($filters['resource_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
                 $query->where('resource_id', '=', intval($filters['resource_id']));
             })
-            ->when(isset($filters['setting_type_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['setting_type_id']), function ($query) use ($filters) {
                 $query->where('setting_type_id', '=', intval($filters['setting_type_id']));
             })
             ->when(!empty($filters['value']), function ($query) use ($filters) {

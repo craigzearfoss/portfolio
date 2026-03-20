@@ -95,6 +95,8 @@ class Photography extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', boolval(['featured']));

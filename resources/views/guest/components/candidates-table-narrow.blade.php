@@ -1,3 +1,6 @@
+@php
+    $numCandidates = 8;
+@endphp
 <table class="table guest-table is-size-6 {{ $guestTableClasses ?? '' }}">
     <thead>
     <tr>
@@ -17,7 +20,7 @@
         */ ?>
     <tbody>
 
-    @forelse ($candidates as $candidate)
+    @forelse ($candidates as $i=>$candidate)
 
         <tr data-id="{{ $candidate->id }}">
             <td data-field="thumbnail" style="width: 6rem;">
@@ -45,6 +48,7 @@
             </td>
         </tr>
 
+        @php if ($i >= $numCandidates - 1) break; @endphp
     @empty
 
         <tr>

@@ -19,9 +19,7 @@
 
             @include('guest.components.link', [
                 'name'  => $resource->plural,
-                'href'  => Route::has('admin.'.$resourceType.'.'.$resource->name.'.index')
-                               ? route('admin.'.$resourceType.'.'.$resource->name.'.index', $admin)
-                               : null,
+                'href'  => $resource->url,
                 'class' => 'list-item',
                 'style' => 'color: #4a4a4a',
                 'icon'  => $resource->icon

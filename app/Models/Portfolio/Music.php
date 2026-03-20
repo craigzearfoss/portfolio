@@ -104,6 +104,8 @@ class Music extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(isset($filters['parent_id']), function ($query) use ($filters) {
                 $query->where('parent_id', '=', intval($filters['parent_id']));

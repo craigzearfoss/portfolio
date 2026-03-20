@@ -17,11 +17,11 @@ class SkillController extends BaseGuestController
      * @param Request $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
-        $skills = new Skill()->where('owner_id', $this->owner['id'])
+        $skills = new Skill()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('level', 'desc')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

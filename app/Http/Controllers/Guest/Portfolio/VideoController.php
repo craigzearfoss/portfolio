@@ -24,7 +24,7 @@ class VideoController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $videos = new Video()->where('owner_id', '=', $this->owner['id'])
+        $videos = new Video()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

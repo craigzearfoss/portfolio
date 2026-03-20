@@ -32,7 +32,7 @@
             <div class="container">
 
                 @include('guest.components.image', [
-                    'src'      => $thisAdmin->image,
+                    'src'      => $owner->image,
                     'width'    => '300px',
                     'download' => false,
                     'external' => false,
@@ -51,39 +51,34 @@
             </div>
             <div class="m-2 mt-3">
 
-                @include('guest.components.show-row', [
-                    'name'  => 'name',
-                    'value' => $thisAdmin->name
-                ])
+                <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
+                    {!! $owner->name !!}
+                </p>
 
-                @include('guest.components.show-row', [
-                    'name'  => 'role',
-                    'value' => $thisAdmin->role
-                ])
-
-                @include('guest.components.show-row', [
-                    'name'  => 'employer',
-                    'value' => $thisAdmin->employer
-                ])
-
-                @if(!empty($thisAdmin->employmentStatus))
-                    @include('guest.components.show-row', [
-                        'name'  => 'status',
-                        'value' => $thisAdmin->employmentStatus->name ?? ''
-                    ])
+                @if(!empty($owner->role))
+                    <p class="has-text-centered has-text-weight-semibold mb-0">
+                        {!! $owner->role !!}
+                    </p>
                 @endif
 
-                @if(!empty($thisAdmin->phone))
-                    @include('guest.components.show-row', [
-                        'name'  => 'phone',
-                        'value' => $thisAdmin->phone
-                    ])
+                @if(!empty($owner->employer))
+                    <p class="has-text-centered has-text-weight-medium mb-0">
+                        {!! $owner->employer !!}
+                        @if($owner->employment_status_id == 6)
+                            (contracting)
+                        @endif
+                    </p>
+                @elseif($owner->employment_status_id == 7)
+                    <p class="has-text-centered mb-0">self-employed</p>
                 @endif
 
-                @include('guest.components.show-row', [
-                    'name'  => 'email',
-                    'value' => $thisAdmin->email
-                ])
+                @if(in_array($owner->employment_status_id, [2, 3, 4]))
+                    <p class="has-text-centered m-1">
+                        <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
+                            Open to Work
+                        </span>
+                    </p>
+                @endif
 
             </div>
 

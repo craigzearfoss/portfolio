@@ -146,17 +146,21 @@ class Application extends Model
                                        array  $orderBy = ['company_name', 'asc']): array
     {
         $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
+        if ($includeBlank !== false) {
+            $options[!is_bool($includeBlank) ? $includeBlank : ''] = '';
         }
 
-        $selectColumns = ['applications.id', 'applications.owner_id', 'role', 'apply_date', 'post_date',
-            DB::raw('`companies`.`id` AS company_id'), DB::raw('`companies`.`name` AS company_name')
-        ];
+        $selectColumns = !empty($valueColumn) && !empty($labelColumn)
+            ? [$valueColumn, $labelColumn]
+            : self::SEARCH_COLUMNS;
+//        $selectColumns = ['applications.id', 'applications.owner_id', 'role', 'apply_date', 'post_date',
+//            DB::raw('`companies`.`id` AS company_id'), DB::raw('`companies`.`name` AS company_name')
+//        ];
+
         $sortColumn = $orderBy[0] ?? 'name';
         $sortDir = $orderBy[1] ?? 'asc';
 
-        $query = new Application()->select($selectColumns)
+        $query = new Application()->distinct()->select($selectColumns)
             ->join('companies','companies.id', 'applications.company_id')
             ->orderBy($sortColumn, $sortDir);
 
@@ -213,6 +217,8 @@ class Application extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
                 unset($filters['owner_id']);
@@ -222,7 +228,7 @@ class Application extends Model
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
-            })->when(isset($filters['owner_id']), function ($query) use ($filters) {
+            })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['company_id']), function ($query) use ($filters) {

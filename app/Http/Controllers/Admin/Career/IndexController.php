@@ -17,36 +17,27 @@ use Illuminate\View\View;
 class IndexController extends BaseAdminController
 {
     /**
-     * Displays all career resource type.
+     * Display a listing of career resources.
      *
      * @return View
      * @throws Exception
      */
     public function index(): View
     {
-        $careers = [];
+        if (isRootAdmin()) {
 
-        if ($databaseId = new Database()->where('tag', '=', 'career_db')->first()->id ?? null) {
+            $careers = new Resource()->ownerResources(
+                EnvTypes::ADMIN,
+                'career_db'
+            );
 
-            if (isRootAdmin() || empty($this->owner)) {
+        } else {
 
-                $careers = new Resource()->searchQuery([
-                    'database_id'          => $databaseId,
-                    EnvTypes::ADMIN->value => 1
-                ])
-                ->orderBy('sequence')
-                ->get();
-
-            } else {
-
-                $careers = new AdminResource()->searchQuery([
-                    'database_id'          => $databaseId,
-                    'owner_id'             => $this->owner['id'],
-                    EnvTypes::ADMIN->value => 1
-                ])
-                ->orderBy('sequence')
-                ->get();
-            }
+            $careers = new AdminResource()->ownerResources(
+                $this->owner,
+                EnvTypes::ADMIN,
+                'career_db'
+            );
         }
 
         return view('admin.career.index', compact('careers'));

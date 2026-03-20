@@ -11,11 +11,14 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class IndexController extends BaseGuestController
 {
     /**
      * Display a listing of personal resources.
-     * NOTE: $this->owner is set in the BaseController->initialize() method.
+     *
      * @return View
      * @throws Exception
      */
@@ -27,7 +30,7 @@ class IndexController extends BaseGuestController
                 $this->owner,
                 EnvTypes::GUEST,
                 'personal_db',
-                [ 'is_public' => true, 'is_disabled' =>false ]
+                [ 'menu' => true, 'is_public' => true, 'is_disabled' => false ]
             );
 
         } else {

@@ -97,6 +97,8 @@ class Reading extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
                 unset($filters['owner_id']);
@@ -111,6 +113,9 @@ class Reading extends Model
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
                 $query->where('title', 'like', '%' . $filters['title'] . '%');
+            })
+            ->when(!empty($filters['author']), function ($query) use ($filters) {
+                $query->where('author', 'like', '%' . $filters['author'] . '%');
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', 'like', '%' . $filters['featured'] . '%');

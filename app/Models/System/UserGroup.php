@@ -77,6 +77,8 @@ class UserGroup extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         if (!empty($user)) {
             if (array_key_exists('user_id', $filters)) {
                 unset($filters['user_id']);
@@ -84,13 +86,13 @@ class UserGroup extends Model
             $filters['user_id'] = $user->id;
         }
 
-        $query = new self()->when(isset($filters['id']), function ($query) use ($filters) {
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
-            ->when(isset($filters['user_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['user_id']), function ($query) use ($filters) {
                 $query->where('user_id', '=', intval($filters['user_id']));
             })
-            ->when(isset($filters['user_team_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['user_team_id']), function ($query) use ($filters) {
                 $query->where('user_team_id', '=', intval($filters['user_team_id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {

@@ -27,7 +27,7 @@ class CategoryController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $categories = new Category()->searchQuery($request->all())
+        $categories = new Category()->searchQuery(request()->except('id'))
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
