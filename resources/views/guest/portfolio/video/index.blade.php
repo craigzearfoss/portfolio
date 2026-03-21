@@ -38,7 +38,7 @@
                 <thead>
                 <tr>
                     <th>name</th>
-                    <th>year</th>
+                    <th class="hide-at-360">year</th>
                     <th>show</th>
                     <th class="hide-at-480">company</th>
                 </tr>
@@ -47,7 +47,7 @@
                 <tfoot>
                 <tr>
                     <th>name</th>
-                    <th>year</th>
+                    <th class="hide-at-360">year</th>
                     <th>show</th>
                     <th class="hide-at-480">company</th>
                 </tr>
@@ -65,7 +65,7 @@
                                 'class' => $video->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="year" class="has-text-centered">
+                        <td data-field="year" class="has-text-centered hide-at-360">
                             {!! $video->year !!}
                         </td>
                         <td data-field="show">

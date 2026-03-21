@@ -490,6 +490,10 @@ div.property-list div.value {
     padding-left: 1.2rem !important;
 }
 
+@media screen and (max-width: 360px) {
+    .hide-at-360 { display: none !important; }
+    .show-at-360 { display: block !important; }
+}
 @media screen and (max-width: 480px) {
     .hide-at-480 { display: none !important; }
     .show-at-480 { display: block !important; }
