@@ -31,6 +31,12 @@
         <table>
             <tbody>
 
+            @if(!empty($video->embed))
+                <tr>
+                    <td colspan="2">{!! $video->embed !!}</td>
+                </tr>
+            @endif
+
             @if(!empty($video->name))
                 <tr>
                     <th>name:</th>
@@ -158,12 +164,6 @@
                 <tr>
                     <th>location:</th>
                     <td>{{ $video->location }}</td>
-                </tr>
-            @endif
-
-            @if(!empty($video->embed))
-                <tr>
-                    <td colspan="2">{!! $video->embed !!}</td>
                 </tr>
             @endif
 
