@@ -46,12 +46,6 @@
                             </li>
                         </ul>
 
-                        @if($isRootAdmin)
-                            <div class="m-2" style="display: inline-block; position: absolute; top: -6px; right: 0;">
-                                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-                            </div>
-                        @endif
-
                     </div>
 
                     <div class="px-2" id="tab-content">

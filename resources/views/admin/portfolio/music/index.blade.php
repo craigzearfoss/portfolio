@@ -44,23 +44,26 @@
             <p class="admin-table-caption">* An asterisk indicates a featured music.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if(!empty($admin->is_root))
-                        <th>owner</th>
-                    @endif
-                    <th>name</th>
-                    <th>artist</th>
-                    <th class="hide-at-900">year</th>
-                    <th class="hide-at-750">label</th>
-                    <th class="hide-at-900">cat#</th>
-                    <th class="has-text-centered hide-at-1024">public</th>
-                    <th class="has-text-centered hide-at-1024">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if(!empty($admin->is_root))
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>artist</th>
+                        <th class="hide-at-900">year</th>
+                        <th class="hide-at-750">label</th>
+                        <th class="hide-at-900">cat#</th>
+                        <th class="has-text-centered hide-at-1024">public</th>
+                        <th class="has-text-centered hide-at-1024">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         @if(!empty($admin->is_root))

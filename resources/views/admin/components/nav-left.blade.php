@@ -30,16 +30,15 @@
 
         <div class="control ml-2 mt-2">
 
-                <div class="has-text-light">admins</div>
+            <?php /*
+            <div class="has-text-light">admins</div>
 
-                @include('admin.components.form-select-nolabel', [
-                    'value'    => $owner->id ?? '',
-                    'list'     => new Owner()->listOptions([], 'id', 'name', true, false, ['name', 'asc']),
-                    'style'    => 'font-size: 1.1rem; font-weight: 700',
-                    'onchange' => 'loadSelectedAdmin(this.value, \'/admin/admin/#adminId#/profile\')'
-                ])
-
-            @endif
+            @include('admin.components.form-select-nolabel', [
+                'value'    => $owner->id ?? '',
+                'list'     => new Owner()->listOptions([], 'id', 'name', true, false, ['name', 'asc']),
+                'style'    => 'font-size: 1.1rem; font-weight: 700',
+                'onchange' => 'loadSelectedAdmin(this.value, \'/admin/admin/#adminId#/profile\')'
+            ])
             */ ?>
 
         </div>

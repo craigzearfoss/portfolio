@@ -47,19 +47,22 @@
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if(!empty($admin->is_root))
-                        <th>owner</th>
-                    @endif
-                    @if(!empty($application))
-                        <th>application</th>
-                    @endif
-                    <th>subject</th>
-                    <th>created at</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if(!empty($admin->is_root))
+                            <th>owner</th>
+                        @endif
+                        @if(!empty($application))
+                            <th>application</th>
+                        @endif
+                        <th>subject</th>
+                        <th>created at</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
 
                 @if(!empty($bottom_column_headings))
                     <tfoot>

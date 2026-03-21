@@ -42,19 +42,22 @@
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if($admin->is_root)
-                        <th>owner</th>
-                    @endif
-                    <th>name</th>
-                    <th>industry</th>
-                    <th>location</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if($admin->is_root)
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>industry</th>
+                        <th>location</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         @if(!empty($admin->is_root))

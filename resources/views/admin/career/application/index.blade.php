@@ -46,34 +46,37 @@
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if(!empty($admin->is_root))
-                        <th>owner</th>
-                    @endif
-                    <th style="display: none;">name</th>
-                    <th>company</th>
-                    <th>role</th>
-                    <th class="has-text-centered hide-at-1400">active</th>
-                    <th class="hide-at-1024">rating</th>
-                    <th style="display: none;">posted</th>
-                    <th>applied</th>
-                    <th class="hide-at-1024">compensation</th>
-                    <th style="display: none;">duration</th>
-                    <th class="has-text-centered hide-at-1300">type</th>
-                    <th class="has-text-centered hide-at-1300">office</th>
-                    <th class="hide-at-1400">location</th>
-                    <th class="has-text-centered" style="display: none;">w2</th>
-                    <th class="has-text-centered" style="display: none;">relo</th>
-                    <th class="has-text-centered" style="display: none;">ben</th>
-                    <th class="has-text-centered" style="display: none;">vac</th>
-                    <th class="has-text-centered" style="display: none;">health</th>
-                    <th style="display: none;">source</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if(!empty($admin->is_root))
+                            <th>owner</th>
+                        @endif
+                        <th style="display: none;">name</th>
+                        <th>company</th>
+                        <th>role</th>
+                        <th class="has-text-centered hide-at-1400">active</th>
+                        <th class="hide-at-1024">rating</th>
+                        <th style="display: none;">posted</th>
+                        <th>applied</th>
+                        <th class="hide-at-1024">compensation</th>
+                        <th style="display: none;">duration</th>
+                        <th class="has-text-centered hide-at-1300">type</th>
+                        <th class="has-text-centered hide-at-1300">office</th>
+                        <th class="hide-at-1400">location</th>
+                        <th class="has-text-centered" style="display: none;">w2</th>
+                        <th class="has-text-centered" style="display: none;">relo</th>
+                        <th class="has-text-centered" style="display: none;">ben</th>
+                        <th class="has-text-centered" style="display: none;">vac</th>
+                        <th class="has-text-centered" style="display: none;">health</th>
+                        <th style="display: none;">source</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         @if(!empty($admin->is_root))

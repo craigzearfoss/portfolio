@@ -48,19 +48,22 @@
             <p class="admin-table-caption">* An asterisk indicates a featured course.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if($isRootAdmin)
-                        <th>owner</th>
-                    @endif
-                    <th>name</th>
-                    <th>academy</th>
-                    <th class="has-text-centered">completion<br>date</th>
-                    <th class="has-text-centered">public</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if($isRootAdmin)
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>academy</th>
+                        <th class="has-text-centered">completion<br>date</th>
+                        <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
 
                 @if(!empty($bottom_column_headings))
                     <tfoot>

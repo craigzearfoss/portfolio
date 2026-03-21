@@ -36,21 +36,24 @@
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if($admin->is_root)
-                        <th>owner</th>
-                    @endif
-                    <th>company</th>
-                    <th>role</th>
-                    <th style="white-space: nowrap;">apply date</th>
-                    <th class="has-text-centered">active</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if($admin->is_root)
+                            <th>owner</th>
+                        @endif
+                        <th>company</th>
+                        <th>role</th>
+                        <th style="white-space: nowrap;">apply date</th>
+                        <th class="has-text-centered">active</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         @if(!empty($admin->is_root))
