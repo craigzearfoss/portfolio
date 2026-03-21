@@ -30,117 +30,116 @@
 
         <div class="show-container floating-div card" style="max-width: 40rem;">
 
-            @include('guest.components.show-row', [
-                'name'  => 'name',
-                'value' => $recipe->name
-            ])
+            <table>
+                <tbody>
 
-            <?php /*
-            @include('guest.components.show-row-checkbox', [
-                'name'    => 'featured',
-                'checked' => $recipe->featured
-            ])
-            */ ?>
+                @if(!empty($recipe->name))
+                    <tr>
+                        <th>name:</th>
+                        <td>{{ $recipe->name }}</td>
+                    </tr>
+                @endif
 
-            @if(!empty($recipe->summary))
-                @include('guest.components.show-row', [
-                    'name'  => 'summary',
-                    'value' => $recipe->summary
-                ])
-            @endif
+                @if(!empty($recipe->summary))
+                    <tr>
+                        <th>summary:</th>
+                        <td>{!! $recipe->summary !!}</td>
+                    </tr>
+               @endif
 
-            @if(!empty($recipe->source))
-                @include('guest.components.show-row', [
-                    'name'  => 'source',
-                    'value' => $recipe->source
-                ])
-            @endif
+                @if(!empty($recipe->source))
+                    <tr>
+                        <th>source:</th>
+                        <td>{{ $recipe->source }}</td>
+                    </tr>
+               @endif
 
-            @if(!empty($recipe->author))
-                @include('guest.components.show-row', [
-                    'name'  => 'author',
-                    'value' => $recipe->author
-                ])
-            @endif
+                @if(!empty($recipe->author))
+                    <tr>
+                        <th>author:</th>
+                        <td>{{ $recipe->author }}</td>
+                    </tr>
+               @endif
 
-            @if(!empty($recipe->prep_time))
-                @include('guest.components.show-row', [
-                    'name'  => 'prep time',
-                    'value' => $recipe->prep_time . ' minutes'
-                ])
-            @endif
+                @if(!empty($recipe->prep_time))
+                    <tr>
+                        <th>prep time:</th>
+                        <td>{{ $recipe->prep_time }} minutes</td>
+                    </tr>
+               @endif
 
-            @if(!empty($recipe->total_time))
-                @include('guest.components.show-row', [
-                    'name'  => 'total time',
-                    'value' => $recipe->total_time . ' minutes'
-                ])
-            @endif
+                @if(!empty($recipe->total_time))
+                    <tr>
+                        <th>total time:</th>
+                        <td>{{ $recipe->total_time }} minutes</td>
+                    </tr>
+                @endif
 
-            @php
-            $types = $recipe->types();
-            @endphp
-            @if(!empty($types))
-                @include('guest.components.show-row', [
-                    'name'  => 'type',
-                    'value' => implode(', ', $types)
-                ])
-            @endif
+                @php
+                    $types = $recipe->types();
+                @endphp
+                @if(!empty($types))
 
-            @php
-                $meals = $recipe->meals();
-            @endphp
-            @if(!empty($meals))
-                @include('guest.components.show-row', [
-                    'name'  => 'meal',
-                    'value' => implode(', ', $meals)
-                ])
-            @endif
+                @endif
+                <tr>
+                    <th>type:</th>
+                    <td>{{ implode(', ', $types) }}</td>
+                </tr>
 
-            @if(!empty($recipe->link))
-                @include('guest.components.show-row-link', [
-                    'name'   => !empty($recipe->link_name) ? $recipe->link_name : 'link',
-                    'href'   => $recipe->link,
-                    'target' => '_blank'
-                ])
-            @endif
+                @php
+                    $meals = $recipe->meals();
+                @endphp
+                @if(!empty($meals))
+                    <tr>
+                        <th>meal:</th>
+                        <td>{{ implode(', ', $meals) }}</td>
+                    </tr>
+                @endif
 
-            @if(!empty($recipe->description ))
-                @include('guest.components.show-row', [
-                    'name'  => 'description',
-                    'value' => nl2br($recipe->description)
-                ])
-            @endif
+                @if(!empty($recipe->link))
+                    <tr>
+                        <th>{{ !empty($recipe->link_name) ? $recipe->link_name : 'link' }}:</th>
+                        <td>
+                            @include('guest.components.link', [
+                                'name'   => !empty($recipe->link_name) ? $recipe->link_name : 'link',
+                                'href'   => $recipe->link,
+                                'target' => '_blank'
+                            ])
+                        </td>
+                    </tr>
+                @endif
 
-            @if(!empty($recipe->image))
-                @include('guest.components.show-row-image', [
-                    'name'         => 'image',
-                    'src'          => $recipe->image,
-                    'alt'          => $recipe->name,
-                    'width'        => '300px',
-                    'download'     => true,
-                    'external'     => true,
-                    'filename'     => generateDownloadFilename($recipe),
-                    'image_credit' => $recipe->image_credit,
-                    'image_source' => $recipe->image_source,
-                ])
-            @endif
+                @if(!empty($recipe->description))
+                    <tr>
+                        <th>description:</th>
+                        <td>{!! $recipe->description !!}</td>
+                    </tr>
+                @endif
 
-            @if(!empty($recipe->thumbnail))
-                @include('guest.components.show-row-image', [
-                    'name'     => 'thumbnail',
-                    'src'      => $recipe->thumbnail . ' thumbnail',
-                    'alt'      => $recipe->name,
-                    'width'    => '40px',
-                    'download' => true,
-                    'external' => true,
-                    'filename' => generateDownloadFilename($recipe, '-thumbnail')
-                ])
-            @endif
+                @if(!empty($recipe->image))
+                    <tr>
+                        <td colspan="2">
+                            @include('guest.components.image-credited', [
+                                'name'         => 'image',
+                                'src'          => $recipe->image,
+                                'alt'          => $recipe->name,
+                                'width'        => '300px',
+                                'download'     => true,
+                                'external'     => true,
+                                'filename'     => generateDownloadFilename($recipe),
+                                'image_credit' => $recipe->image_credit,
+                                'image_source' => $recipe->image_source,
+                            ])
+                        </td>
+                    </tr>
+                @endif
+
+                </tbody>
+            </table>
 
         </div>
 
-        <div class="show-container floating-div card" style="max-width: 40rem;">
+        <div class="show-container floating-div card" style="max-width: 30rem;">
 
             <h2 class="subtitle mb-1">
                 Ingredients
@@ -163,13 +162,9 @@
 
             </ul>
 
-
         </div>
-    </div>
 
-    <div class="floating-div-container">
-
-        <div class="show-container card floating-div" style="max-width: 80rem;">
+        <div class="show-container card floating-div">
 
             <h2 class="subtitle mb-1">
                 Instructions
@@ -181,11 +176,11 @@
                 @foreach($recipe->steps as $step)
 
                     <tr>
-                        <td>
+                        <td style="width: 6px;">
                             {!! $step->step !!}
                         </td>
-                        <td>
-                            {!! nl2br($step->description) !!}
+                        <td style="width: auto; max-width: 60rem;">
+                            {!! $step->description !!}
                         </td>
                     </tr>
 
