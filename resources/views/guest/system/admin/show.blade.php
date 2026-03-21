@@ -52,24 +52,27 @@
             <div class="m-2 mt-3">
 
                 <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
-                    {!! $owner->name !!}
+                    <strong>{!! $owner->name !!}</strong>
                 </p>
 
                 @if(!empty($owner->role))
                     <p class="has-text-centered has-text-weight-semibold mb-0">
-                        {!! $owner->role !!}
+                        <strong>{!! $owner->role !!}</strong>
                     </p>
                 @endif
 
                 @if(!empty($owner->employer))
                     <p class="has-text-centered has-text-weight-medium mb-0">
-                        {!! $owner->employer !!}
-                        @if($owner->employment_status_id == 6)
-                            (contracting)
-                        @endif
+                        <strong>{!! $owner->employer !!}
+                            @if($owner->employment_status_id == 6)
+                                (contracting)
+                            @endif
+                        </strong>
                     </p>
                 @elseif($owner->employment_status_id == 7)
-                    <p class="has-text-centered mb-0">self-employed</p>
+                    <p class="has-text-centered mb-0">
+                        <strong>self-employed</strong>
+                    </p>
                 @endif
 
                 @if(in_array($owner->employment_status_id, [2, 3, 4]))

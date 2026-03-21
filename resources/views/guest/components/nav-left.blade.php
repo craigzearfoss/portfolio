@@ -9,7 +9,7 @@
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
-            <div class="aside-tools-label has-text-left" style="width: 100%;">
+            <div class="aside-tools-label has-text-left has-text-centered" style="width: 100%;">
 
                 @include('guest.components.button-home', [
                     'name'     => 'Home',
@@ -17,7 +17,7 @@
                     'selected' => true,
                 ])
 
-                <span>&nbsp;&nbsp;&nbsp;</span>
+                <span style="display: inline-block; background-color: #00dd00; width: 3px;"></span>
 
                 @include('guest.components.button-home', [
                     'name'     => 'Admin',

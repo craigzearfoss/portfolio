@@ -28,176 +28,189 @@
 
     <div class="show-container card p-4">
 
-        @include('guest.components.show-row', [
-            'name'  => 'name',
-            'value' => $audio->name
-        ])
+        <table>
+            <tbody>
 
-        @if(!empty($audio->parent))
-            @include('guest.components.show-row', [
-                'name'  => 'parent',
-                'value' => view('guest.components.link', [
-                                'name' => $audio->parent->name,
-                                'href' => route('guest.portfolio.audio.show', [$owner, $audio->parent->slug])
-                           ])
-            ])
-        @endif
+            @if(!empty($audio->name))
+                <tr>
+                    <th>name:</th>
+                    <td>{{ $audio->name }}</td>
+                </tr>
+            @endif
 
-        <?php /*
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $audio->featured
-        ])
-        */
-        ?>
+            @if(!empty($audio->parent))
+                <tr>
+                    <th>parent:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name' => $audio->parent->name,
+                            'href' => route('guest.portfolio.audio.show', [$owner, $audio->parent->slug])
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $audio->summary ?? ''
-        ])
+            @if(!empty($audio->summary))
+                <tr>
+                    <th>summary:</th>
+                    <td>{{ $audio->summary }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->children))
-            <div class="columns">
-                <div class="column is-2"><strong>children</strong>:</div>
-                <div class="column is-10 pl-0">
-                    <ol>
-                        @foreach($audio->children as $child)
-                            <li>
-                                @include('guest.components.link', [
-                                    'name' => $child->name,
-                                    'href' => route('guest.portfolio.audio.show', [$owner, $child->slug])
-                                ])
-                            </li>
-                        @endforeach
-                    </ol>
-                </div>
-            </div>
-        @endif
+            @if(!empty($audio->children) && (count($audio->children) > 0))
+                <tr>
+                    <th>children:</th>
+                    <td>
+                        <ol>
+                            @foreach($audio->children as $child)
+                                <li>
+                                    @include('guest.components.link', [
+                                        'name' => $child->name,
+                                        'href' => route('guest.portfolio.audio.show', [$owner, $child->slug])
+                                    ])
+                                </li>
+                            @endforeach
+                        </ol>
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->full_episode))
-            @include('guest.components.show-row-checkmark', [
-                'name'    => 'full episode',
-                'checked' => $audio->full_episode
-            ])
-        @endif
+            @if(!empty($audio->full_episode))
+                <th>clip:</th>
+                <td>
+                    @include('guest.components.checkmark', [
+                        'name'    => 'full episode',
+                        'checked' => $audio->full_episode
+                    ])
+                </td>
+            @endif
 
-        @if(!empty($audio->clip))
-            @include('guest.components.show-row-checkmark', [
-                'name'    => 'clip',
-                'checked' => $audio->clip
-            ])
-        @endif
+            @if(!empty($audio->clip))
+                <th>clip:</th>
+                <td>
+                    @include('guest.components.checkmark', [
+                        'name'    => 'clip',
+                        'checked' => $audio->clip
+                    ])
+                </td>
+            @endif
 
-        @if(!empty($audio->podcast))
-            @include('guest.components.show-row-checkmark', [
-                'name'    => 'podcast',
-                'checked' => $audio->podcast
-            ])
-        @endif
+            @if(!empty($audio->podcast))
+                <th>podcast:</th>
+                <td>
+                    @include('guest.components.checkmark', [
+                        'name'    => 'podcast',
+                        'checked' => $audio->podcast
+                    ])
+                </td>
+            @endif
 
-        @if(!empty($audio->source_recording))
-            @include('guest.components.show-row-checkmark', [
-                'name'    => 'source recording',
-                'checked' => $audio->source_recording
-            ])
-        @endif
+            @if(!empty($audio->source_recording))
+                <th>source recording:</th>
+                <td>
+                    @include('guest.components.checkmark', [
+                        'name'    => 'source_recording',
+                        'checked' => $audio->source_recording
+                    ])
+                </td>
+            @endif
 
-        @if(!empty($audio->date))
-            @include('guest.components.show-row', [
-                'name'  => 'date',
-                'value' => longDate($audio->date)
-            ])
-        @endif
+            @if(!empty($audio->date))
+                <tr>
+                    <th>date:</th>
+                    <td>{{ longDate($audio->date) }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->year))
-            @include('guest.components.show-row', [
-                'name'  => 'year',
-                'value' => $audio->year
-            ])
-        @endif
+            @if(!empty($audio->year))
+                <tr>
+                    <th>year:</th>
+                    <td>{{ $audio->year }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->company))
-            @include('guest.components.show-row', [
-                'name'  => 'company',
-                'value' => $audio->company
-            ])
-        @endif
+            @if(!empty($audio->company))
+                <tr>
+                    <th>company:</th>
+                    <td>{{ $audio->company }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->credit))
-            @include('guest.components.show-row', [
-                'name'  => 'credit',
-                'value' => $audio->credit
-            ])
-        @endif
+            @if(!empty($audio->credit))
+                <tr>
+                    <th>credit:</th>
+                    <td>{{ $audio->credit }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->show))
-            @include('guest.components.show-row', [
-                'name'  => 'show',
-                'value' => $audio->show
-            ])
-        @endif
+            @if(!empty($audio->show))
+                <tr>
+                    <th>show:</th>
+                    <td>{{ $audio->show }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->location))
-            @include('guest.components.show-row', [
-                'name'  => 'location',
-                'value' => $audio->location
-            ])
-        @endif
+            @if(!empty($audio->location))
+                <tr>
+                    <th>location:</th>
+                    <td>{{ $audio->location }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->embed))
-            @include('guest.components.show-row', [
-                'name'   => 'embed',
-                'value'  => $audio->embed,
-            ])
-        @endif
+            @if(!empty($audio->embed))
+                <tr>
+                    <th>embed:</th>
+                    <td>{{ $audio->embed }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->audio_url))
-            @include('guest.components.show-row', [
-                'name'  => 'audio url',
-                'value' => $audio->audio_url,
-            ])
-        @endif
+            @if(!empty($audio->audio_url))
+                <tr>
+                    <th>audio url:</th>
+                    <td>{{ $audio->audio_url }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->link))
-            @include('guest.components.show-row-link', [
-                'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
-                'href'   => $audio->link,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($audio->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.image-credited', [
+                            'name'         => 'image',
+                            'src'          => $audio->image,
+                            'alt'          => $audio->name,
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($audio),
+                            'image_credit' => $audio->image_credit,
+                            'image_source' => $audio->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->description ))
-            @include('guest.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($audio->description)
-            ])
-        @endif
+            @if(!empty($audio->link))
+                <tr>
+                    <th>link:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
+                            'href'   => $audio->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->image))
-            @include('guest.components.show-row-image', [
-                'name'         => 'image',
-                'src'          => $audio->image,
-                'alt'          => $audio->name,
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => generateDownloadFilename($audio),
-                'image_credit' => $audio->image_credit,
-                'image_source' => $audio->image_source,
-            ])
-        @endif
+            @if(!empty($audio->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $audio->description !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($audio->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $audio->thumbnail . ' thumbnail',
-                'alt'      => $audio->name,
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($audio, '-thumbnail')
-            ])
-        @endif
+            </tbody>
+        </table>
 
     </div>
 

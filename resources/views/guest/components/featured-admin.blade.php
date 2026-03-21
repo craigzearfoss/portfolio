@@ -54,30 +54,33 @@
                     </div>
 
                     <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
-                        {!! $featuredAdmin->name !!}
+                        <strong>{!! $featuredAdmin->name !!}</strong>
                     </p>
 
                     @if(!empty($featuredAdmin->role))
                         <p class="has-text-centered has-text-weight-semibold mb-0">
-                            {!! $featuredAdmin->role !!}
+                            <strong>{!! $featuredAdmin->role !!}</strong>
                         </p>
                     @endif
 
                     @if(!empty($featuredAdmin->employer))
                         <p class="has-text-centered has-text-weight-medium mb-0">
-                            {!! $featuredAdmin->employer !!}
-                            @if($featuredAdmin->employment_status_id == 6)
-                                (contracting)
-                            @endif
+                            <strong>{!! $featuredAdmin->employer !!}
+                                @if($featuredAdmin->employment_status_id == 6)
+                                    (contracting)
+                                @endif
+                            </strong>
                         </p>
                     @elseif($featuredAdmin->employment_status_id == 7)
-                        <p class="has-text-centered mb-0">self-employed</p>
+                        <p class="has-text-centered mb-0">
+                            <strong>self-employed</strong>
+                        </p>
                     @endif
 
                     @if(in_array($featuredAdmin->employment_status_id, [2, 3, 4]))
                         <p class="has-text-centered m-1">
                             <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
-                                Open to Work
+                                <strong>Open to Work</strong>
                             </span>
                         </p>
                     @endif

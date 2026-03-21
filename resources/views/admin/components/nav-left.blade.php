@@ -9,15 +9,15 @@
 
     <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
         <div class="aside-tools">
-            <div class="aside-tools-label has-text-left" style="width: 100%;">
+            <div class="aside-tools-label has-text-left has-text-centered" style="width: 100%;">
 
                 @include('admin.components.button-home', [
                     'name'     => 'Home',
                     'href'     => route('guest.index'),
-                    'selected' => false,
+                    'selected' => true,
                 ])
 
-                <span>&nbsp;&nbsp;&nbsp;</span>
+                <span style="display: inline-block; background-color: #00dd00; width: 3px;"></span>
 
                 @include('admin.components.button-home', [
                     'name'     => 'Admin',
@@ -29,10 +29,6 @@
         </div>
 
         <div class="control ml-2 mt-2">
-
-            <?php /*
-            // @TODO: Do whe want to have an admin select list.
-            @if($isRootAdmin)
 
                 <div class="has-text-light">admins</div>
 

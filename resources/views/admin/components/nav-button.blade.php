@@ -6,7 +6,7 @@
     $name = $name ?? '';
 
     // get classes
-    $class = !empty($class) 
+    $class = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class)) : ['is-small is-dark my-0'];
     if ($active ?? false) $class[] = 'has-text-white';
     $class = implode(' ', $class);
@@ -17,7 +17,7 @@
         : '';
 
     // get icon
-    $icon = ($icon === false)
+    $icon = empty($icon)
         ? ''
         : (!str_contains($icon, '<') ? '<i class="fa ' . $icon . '"></i>' : $icon);
 @endphp

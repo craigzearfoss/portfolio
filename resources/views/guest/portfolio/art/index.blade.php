@@ -35,7 +35,7 @@
                 <tr>
                     <th>name</th>
                     <th>artist</th>
-                    <th>year</th>
+                    <th class="has-text-centered">year</th>
                 </tr>
                 </thead>
                 <?php /*
@@ -43,7 +43,7 @@
                 <tr>
                     <th>name</th>
                     <th>artist</th>
-                    <th>year</th>
+                    <th class="has-text-centered">year</th>
                 </tr>
                 </tr>
                 </tfoot>
