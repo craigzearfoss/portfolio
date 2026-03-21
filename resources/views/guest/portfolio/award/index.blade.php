@@ -35,27 +35,31 @@
             @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>category</th>
-                    <th>nominated work</th>
-                    <th>year</th>
-                    <th>organization</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>category</th>
-                    <th>nominated work</th>
-                    <th>year</th>
-                    <th>organization</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>category</th>
+                        <th>nominated work</th>
+                        <th>year</th>
+                        <th>organization</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>category</th>
+                        <th>nominated work</th>
+                        <th>year</th>
+                        <th>organization</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($awards as $award)

@@ -35,24 +35,29 @@
             @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>language</th>
-                    <th>year</th>
-                    <th class="hide-at-600">repository</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>language</th>
-                    <th>year</th>
-                    <th class="hide-at-600">repository</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings))
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>language</th>
+                        <th>year</th>
+                        <th class="hide-at-600">repository</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>language</th>
+                        <th>year</th>
+                        <th class="hide-at-600">repository</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($projects as $project)

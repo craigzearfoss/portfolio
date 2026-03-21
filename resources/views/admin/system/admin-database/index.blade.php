@@ -36,29 +36,32 @@
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if($isRootAdmin)
-                        <th>owner</th>
-                    @endif
-                    <th>name</th>
-                    <th>database</th>
-                    <th>tag</th>
-                    <th>title</th>
-                    <th class="has-text-centered">icon</th>
-                    <th class="has-text-centered">guest</th>
-                    <th class="has-text-centered">user</th>
-                    <th class="has-text-centered">admin</th>
-                    <th class="has-text-centered">sequence</th>
-                    <th class="has-text-centered">menu</th>
-                    <th class="has-text-centered">menu<br>level</th>
-                    <th class="has-text-centered">public</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if($isRootAdmin)
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>database</th>
+                        <th>tag</th>
+                        <th>title</th>
+                        <th class="has-text-centered">icon</th>
+                        <th class="has-text-centered">guest</th>
+                        <th class="has-text-centered">user</th>
+                        <th class="has-text-centered">admin</th>
+                        <th class="has-text-centered">sequence</th>
+                        <th class="has-text-centered">menu</th>
+                        <th class="has-text-centered">menu<br>level</th>
+                        <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)

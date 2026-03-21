@@ -128,6 +128,7 @@ class BaseController extends Controller
         // inject pagination variables into blade templates
         view()->share('pagination_bottom', config('app.pagination_bottom'));
         view()->share('pagination_top', config('app.pagination_top'));
+        view()->share('top_column_headings', config('app.top_column_headings'));
         view()->share('bottom_column_headings', config('app.bottom_column_headings'));
     }
 

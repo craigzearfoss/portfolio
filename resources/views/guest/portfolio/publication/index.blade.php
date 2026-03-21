@@ -35,24 +35,29 @@
             @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>title</th>
-                    <th>publication</th>
-                    <?php /* <th>publisher</th> */ ?>
-                    <th class="has-text-centered">year</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>title</th>
-                    <th>publication</th>
-                    <th>publisher</th>
-                    <th>year</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>publication</th>
+                        <?php /* <th>publisher</th> */ ?>
+                        <th class="has-text-centered">year</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>title</th>
+                        <th>publication</th>
+                        <th>publisher</th>
+                        <th>year</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($publications as $publication)

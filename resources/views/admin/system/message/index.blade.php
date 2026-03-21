@@ -32,17 +32,20 @@
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>subject</th>
-                    <th>created at</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>subject</th>
+                        <th>created at</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>name</th>

@@ -35,23 +35,27 @@
             @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>type</th>
-                    <th>meal</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>type</th>
-                    <th>meal</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>type</th>
+                        <th>meal</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>type</th>
+                        <th>meal</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($recipes as $recipe)

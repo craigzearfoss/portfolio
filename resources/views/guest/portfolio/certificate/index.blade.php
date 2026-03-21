@@ -35,29 +35,33 @@
             @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>academy</th>
-                    <th>organization</th>
-                    <th>year</th>
-                    <th>received</th>
-                    <th>expiration</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>academy</th>
-                    <th>organization</th>
-                    <th>year</th>
-                    <th>received</th>
-                    <th>expiration</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>academy</th>
+                        <th>organization</th>
+                        <th>year</th>
+                        <th>received</th>
+                        <th>expiration</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>academy</th>
+                        <th>organization</th>
+                        <th>year</th>
+                        <th>received</th>
+                        <th>expiration</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($certificates as $certificate)

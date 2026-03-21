@@ -89,19 +89,22 @@
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>type</th>
-                    <th>id</th>
-                    <th>username</th>
-                    <th>action</th>
-                    <th>ip address</th>
-                    <th>success</th>
-                    <th>datetime</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>type</th>
+                        <th>id</th>
+                        <th>username</th>
+                        <th>action</th>
+                        <th>ip address</th>
+                        <th>success</th>
+                        <th>datetime</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>type</th>

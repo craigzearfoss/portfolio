@@ -54,28 +54,33 @@
             @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>title</th>
-                    <th>author</th>
-                    <th class="has-text-centered hide-at-480">type</th>
-                    <th class="has-text-centered hide-at-600">paper</th>
-                    <th class="has-text-centered hide-at-600">audio</th>
-                    <th class="has-text-centered hide-at-600">wish list</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>title</th>
-                    <th>author</th>
-                    <th class="has-text-centered hide-at-480">type</th>
-                    <th class="has-text-centered hide-at-600">paper</th>
-                    <th class="has-text-centered hide-at-600">audio</th>
-                    <th class="has-text-centered hide-at-600">wish list</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>author</th>
+                        <th class="has-text-centered hide-at-480">type</th>
+                        <th class="has-text-centered hide-at-600">paper</th>
+                        <th class="has-text-centered hide-at-600">audio</th>
+                        <th class="has-text-centered hide-at-600">wish list</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>title</th>
+                        <th>author</th>
+                        <th class="has-text-centered hide-at-480">type</th>
+                        <th class="has-text-centered hide-at-600">paper</th>
+                        <th class="has-text-centered hide-at-600">audio</th>
+                        <th class="has-text-centered hide-at-600">wish list</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($readings as $reading)

@@ -62,6 +62,7 @@ return [
     'site_cookie_name'        => env('SITE_COOKIE_NAME', 'portfolioz'),
     'system_db'               => env('SYSTEM_DB_DATABASE'),
     'theme'                   => env('APP_THEME'),
+    'top_column_headings'     => boolval(env('APP_TOP_COLUMN_HEADINGS', 1)),
     'upload_doc_accept'       => !empty(trim(env('APP_UPLOAD_DOC_ACCEPT', '')))
         ? explode('|', trim(env('APP_UPLOAD_DOC_ACCEPT', '')))
         : [],

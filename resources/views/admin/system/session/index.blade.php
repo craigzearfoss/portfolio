@@ -22,18 +22,21 @@
         <div class="show-container card floating-div">
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>user_id</th>
-                    <th>admin_id</th>
-                    <th>ip_address</th>
-                    <th>last_activity</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>user_id</th>
+                        <th>admin_id</th>
+                        <th>ip_address</th>
+                        <th>last_activity</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>id</th>

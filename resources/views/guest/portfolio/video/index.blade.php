@@ -35,24 +35,29 @@
             @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th class="hide-at-360">year</th>
-                    <th>show</th>
-                    <th class="hide-at-480">company</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th class="hide-at-360">year</th>
-                    <th>show</th>
-                    <th class="hide-at-480">company</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th class="has-text-centered hide-at-480">year</th>
+                        <th>show</th>
+                        <th class="hide-at-480">company</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th class="has-text-centered hide-at-480">year</th>
+                        <th>show</th>
+                        <th class="hide-at-480">company</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($videos as $video)
@@ -65,7 +70,7 @@
                                 'class' => $video->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="year" class="has-text-centered hide-at-360">
+                        <td data-field="year" class="has-text-centered hide-at-480">
                             {!! $video->year !!}
                         </td>
                         <td data-field="show">
