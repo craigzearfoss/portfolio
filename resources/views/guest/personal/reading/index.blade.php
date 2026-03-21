@@ -49,7 +49,9 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
-            {!! $readings->links('vendor.pagination.bulma') !!}
+            @if($pagination_top)
+                {!! $readings->links('vendor.pagination.bulma') !!}
+            @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
                 <thead>
@@ -114,7 +116,9 @@
                 </tbody>
             </table>
 
-            {!! $readings->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $readings->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

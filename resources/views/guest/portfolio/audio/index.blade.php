@@ -30,6 +30,10 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $audios->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
                 <thead>
                 <tr>
@@ -83,7 +87,9 @@
                 </tbody>
             </table>
 
-            {!! $audios->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $audios->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

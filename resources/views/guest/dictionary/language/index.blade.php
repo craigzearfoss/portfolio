@@ -35,7 +35,9 @@
 
     <div class="card p-4">
 
-        {!! $languages->links('vendor.pagination.bulma') !!}
+        @if($pagination_top)
+            {!! $languages->links('vendor.pagination.bulma') !!}
+        @endif
 
         <ul>
 
@@ -58,7 +60,9 @@
 
         </ul>
 
-        {!! $languages->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $languages->links('vendor.pagination.bulma') !!}
+            @endif
 
     </div>
 
