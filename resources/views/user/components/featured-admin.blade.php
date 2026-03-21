@@ -8,18 +8,16 @@
 @if($featuredAdmin)
 
     @php
-        $filters = [
-            'has_owner'   => true,
-            'menu'        => 1,
-            'is_public'   => true,
-            'is_disabled' => false,
-        ];
-
         $resourcesByDatabase = new AdminResource()->ownerResourcesByDatabase(
             $featuredAdmin,
             EnvTypes::GUEST,
             null,
-            $filters
+            [
+                'has_owner'   => true,
+                'menu'        => 1,
+                'is_public'   => true,
+                'is_disabled' => false,
+            ]
         );
     @endphp
 
@@ -39,14 +37,15 @@
                     'filename' => generateDownloadFilename($featuredAdmin)
                 ])
 
-                <div class="show-container p-2">
+                <div class="show-container" style="width: 200px; margin-top: -42px;">
 
                     <div class="columns">
-                        <span class="column is-12 has-text-centered">
+                        <span class="column is-12 has-text-right">
                             @include('guest.components.link', [
                                 'name'   => 'Resume',
                                 'href'   => route('guest.resume', $featuredAdmin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
+                                'style'  => 'margin-right: 8px;',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
                             ])
@@ -54,34 +53,35 @@
                     </div>
 
                     <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
-                        {!! $featuredAdmin->name !!}
+                        <strong>{!! $featuredAdmin->name !!}</strong>
                     </p>
 
                     @if(!empty($featuredAdmin->role))
                         <p class="has-text-centered has-text-weight-semibold mb-0">
-                            {!! $featuredAdmin->role !!}
+                            <strong>{!! $featuredAdmin->role !!}</strong>
                         </p>
                     @endif
 
                     @if(!empty($featuredAdmin->employer))
                         <p class="has-text-centered has-text-weight-medium mb-0">
-                            {!! $featuredAdmin->employer !!}
-                            @if($featuredAdmin->employment_status_id == 6)
-                                (contracting)
-                            @endif
+                            <strong>{!! $featuredAdmin->employer !!}
+                                @if($featuredAdmin->employment_status_id == 6)
+                                    (contracting)
+                                @endif
+                            </strong>
                         </p>
-
                     @elseif($featuredAdmin->employment_status_id == 7)
-                        <p class="has-text-centered mb-0">self-employed</p>
+                        <p class="has-text-centered mb-0">
+                            <strong>self-employed</strong>
+                        </p>
                     @endif
 
                     @if(in_array($featuredAdmin->employment_status_id, [2, 3, 4]))
                         <p class="has-text-centered m-1">
                             <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
-                                Open to Work
+                                <strong>Open to Work</strong>
                             </span>
                         </p>
-
                     @endif
 
                     @if(!empty($featuredAdmin->bio))
@@ -96,21 +96,25 @@
 
             @foreach($resourcesByDatabase as $database)
 
-                <div class="show-container card floating-div">
+                @if (!empty($database['resources']))
 
-                    <h2 class="has-text-weight-bold">{{ $database['title'] }}</h2>
+                    <div class="show-container card floating-div">
 
-                    <div class="list is-hoverable">
+                        <h2 class="has-text-weight-bold">{{ $database['title'] }}</h2>
 
-                        @include('guest.components.resource-list', [
-                            'resourceType' => dbName('portfolio_db'),
-                            'resources'    => $database['resources'],
-                            'admin'        => $featuredAdmin,
-                        ])
+                        <div class="list is-hoverable">
+
+                            @include('user.components.resource-list', [
+                                'resourceType' => dbName('portfolio_db'),
+                                'resources'    => $database['resources'],
+                                'admin'        => $featuredAdmin,
+                            ])
+
+                        </div>
 
                     </div>
 
-                </div>
+                @endif
 
             @endforeach
 

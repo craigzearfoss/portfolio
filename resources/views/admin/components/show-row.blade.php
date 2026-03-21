@@ -26,7 +26,7 @@
          style="{!! implode(' ', $styles) !!}"
      @endif
 >
-    <div class="column is-2 label">
+    <div class="column is-2 label" style="min-width: 6rem;">
         @if(!empty($name))
             <strong>{!! $name !!}</strong>:
         @endif

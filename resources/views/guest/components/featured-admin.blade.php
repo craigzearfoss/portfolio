@@ -8,18 +8,16 @@
 @if($featuredAdmin)
 
     @php
-        $filters = [
-            'has_owner'   => true,
-            'menu'        => 1,
-            'is_public'   => true,
-            'is_disabled' => false,
-        ];
-
         $resourcesByDatabase = new AdminResource()->ownerResourcesByDatabase(
             $featuredAdmin,
             EnvTypes::GUEST,
             null,
-            [ 'has_owner' => true ]
+            [
+                'has_owner'   => true,
+                'menu'        => 1,
+                'is_public'   => true,
+                'is_disabled' => false,
+            ]
         );
     @endphp
 
@@ -39,14 +37,15 @@
                     'filename' => generateDownloadFilename($featuredAdmin)
                 ])
 
-                <div class="show-container p-2">
+                <div class="show-container" style="width: 200px; margin-top: -42px;">
 
                     <div class="columns">
-                        <span class="column is-12 has-text-centered">
+                        <span class="column is-12 has-text-right">
                             @include('guest.components.link', [
                                 'name'   => 'Resume',
                                 'href'   => route('guest.resume', $featuredAdmin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
+                                'style'  => 'margin-right: 8px;',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
                             ])

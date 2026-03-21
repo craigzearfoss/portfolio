@@ -938,3 +938,16 @@ if (! function_exists('calledFunction')) {
         calledFunction();
     }
 }
+
+if (! function_exists('appTimestamp')) {
+    /**
+     * Returns the value of the APP_TIMESTAMP setting from the .env file which is appended as a parameter to urls
+     * for JavaScript and CSS files to force the browser to reload them and not use the cache.
+     *
+     * @return string
+     */
+    function appTimestamp(): string
+    {
+        return config('app.app_timestamp');
+    }
+}

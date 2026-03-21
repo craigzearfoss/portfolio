@@ -8,7 +8,7 @@
     // get classes
     $class = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class)) : ['is-small is-dark my-0'];
-    if ($active ?? false) $class[] = 'has-text-white';
+    if ($active ?? false) $class[] = 'has-text-primary';
     $class = implode(' ', $class);
 
     // get styles

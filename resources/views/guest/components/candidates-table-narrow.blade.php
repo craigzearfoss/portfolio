@@ -1,15 +1,24 @@
 @php
     $numCandidates = 8;
 @endphp
+
+@if(!empty($candidates) && $pagination_top)
+    {!! $candidates->links('vendor.pagination.bulma') !!}
+@endif
+
 <table class="table guest-table is-size-6 {{ $guestTableClasses ?? '' }}">
-    <thead>
-    <tr>
-        <th></th>
-        <th>name</th>
-        <th>employer / role</th>
-    </tr>
-    </thead>
-    <?php /*
+
+    @if($top_column_headings)
+        <thead>
+        <tr>
+            <th></th>
+            <th>name</th>
+            <th>employer / role</th>
+        </tr>
+        </thead>
+    @endif
+
+    @if($bottom_column_headings)
         <tfoot>
         <tr>
             <th></th>
@@ -17,7 +26,8 @@
             <th>employer / role</th>
         </tr>
         </tfoot>
-        */ ?>
+    @endif
+
     <tbody>
 
     @forelse ($candidates as $i=>$candidate)
@@ -60,6 +70,6 @@
     </tbody>
 </table>
 
-@if(!empty($links))
+@if(!empty($candidates) && $pagination_bottom)
     {!! $candidates->links('vendor.pagination.bulma') !!}
 @endif

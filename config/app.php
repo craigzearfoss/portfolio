@@ -23,6 +23,7 @@ return [
     'contactable'             => boolval(env('APP_CONTACTABLE', false)),
     'copyright'               => env('APP_COPYRIGHT', ''),
     'coverLetter_dir'         => env('COVER_LETTER_DIR', ''),
+    'app_timestamp'           => env('APP_TIMESTAMP', ''),
     'database'                => env('DB_DATABASE'),
     'date_format_long'        => env('APP_DATE_FORMAT_LONG', 'F j, Y'),
     'date_format_short'       => env('APP_DATE_FORMAT_SHORT', 'm/d/Y'),

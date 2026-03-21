@@ -92,22 +92,12 @@
                         @else
 
                             @php
-                                switch ($menuItem->tag) {
-                                    case 'dictionary_db':
-                                        $hideClass = 'hide-at-1400';
-                                        break;
-                                    case 'user_login':
-                                    case 'admin_login':
-                                        $hideClass = 'hide-at-1300';
-                                        break;
-                                    case 'personal_db':
-                                    case 'portfolio_db':
-                                        $hideClass = 'hide-at-1200';
-                                        break;
-                                    default:
-                                        $hideClass = '';
-                                        break;
-                                }
+                                $hideClass = match ($menuItem->tag) {
+                                    'dictionary_db'               => 'hide-at-1400',
+                                    'user_login', 'admin_login'   => 'hide-at-1300',
+                                    'personal_db', 'portfolio_db' => 'hide-at-1200',
+                                    default => '',
+                                };
                             @endphp
 
                             <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable {{ $hideClass }}">
@@ -142,7 +132,7 @@
 
                     @endforeach
 
-                    <div class="aside-tools-label has-text-left ml-2 mr-2 mt-3" style="width: auto; float: right;">
+                    <div class="right-home-admin-button-container aside-tools-label has-text-left ml-2 mr-2 mt-3 show-at-1024" style="width: auto; float: right;">
 
                         @include('guest.components.button-home', [
                             'name'     => 'Home',

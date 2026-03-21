@@ -17,7 +17,7 @@
 
     <!-- Bulma is included -->
     <link rel="stylesheet" href="{{ asset('assets/bulma/css/main.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}?{{ appTimestamp() }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fontawesome-free-7.0.0-web/css/all.min.css') }}">
 
@@ -36,9 +36,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/style.css') }}">
 */ ?>
 
-    <?php /* <script src="{{ asset('assets/jquery/jquery-4.0.0.min.js') }}"></script> */ ?>
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('assets/development-only/main.js') }}"></script>
+    <script src="{{ asset('assets/development-only/main.js') }}?{{ appTimestamp() }}"></script>
 
     @if(config('app.recaptcha_enabled'))
         <script src="https://www.google.com/recaptcha/api.js"></script>

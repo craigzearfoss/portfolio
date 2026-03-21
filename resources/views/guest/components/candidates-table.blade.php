@@ -1,15 +1,23 @@
 <div class="card p-4">
 
+    @if(!empty($candidates) && $pagination_top)
+        {!! $candidates->links('vendor.pagination.bulma') !!}
+    @endif
+
     <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-        <thead>
-        <tr>
-            <th></th>
-            <th>name</th>
-            <th>role</th>
-            <th>employer</th>
-        </tr>
-        </thead>
-        <?php /*
+
+        @if($top_column_headings)
+            <thead>
+            <tr>
+                <th></th>
+                <th>name</th>
+                <th>role</th>
+                <th>employer</th>
+            </tr>
+            </thead>
+        @endif
+
+        @if($bottom_column_headings)
             <tfoot>
             <tr>
                 <th></th>
@@ -18,7 +26,8 @@
                 <th>employer</th>
             </tr>
             </tfoot>
-            */ ?>
+        @endif
+
         <tbody>
 
         @forelse ($candidates as $candidate)
@@ -62,6 +71,8 @@
         </tbody>
     </table>
 
-    {!! $candidates->links('vendor.pagination.bulma') !!}
+    @if(!empty($candidates) && $pagination_bottom)
+        {!! $candidates->links('vendor.pagination.bulma') !!}
+    @endif
 
 </div>
