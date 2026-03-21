@@ -41,7 +41,7 @@
             @if(!empty($project->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $project->summary }}</td>
+                    <td>{!! $project->summary !!}</td>
                 </tr>
             @endif
 

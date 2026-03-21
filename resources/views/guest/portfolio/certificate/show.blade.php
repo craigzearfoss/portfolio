@@ -41,7 +41,7 @@
             @if(!empty($certificate->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $certificate->summary }}</td>
+                    <td>{!! $certificate->summary !!}</td>
                 </tr>
             @endif
 

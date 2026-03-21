@@ -55,7 +55,7 @@
             @if(!empty($award->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $award->summary }}</td>
+                    <td>{!! $award->summary !!}</td>
                 </tr>
             @endif
 

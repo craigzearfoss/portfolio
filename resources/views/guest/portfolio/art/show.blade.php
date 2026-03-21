@@ -52,7 +52,7 @@
             @if(!empty($art->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $art->summary }}</td>
+                    <td>{!! $art->summary !!}</td>
                 </tr>
             @endif
 

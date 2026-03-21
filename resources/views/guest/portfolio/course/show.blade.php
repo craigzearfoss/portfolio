@@ -41,7 +41,7 @@
             @if(!empty($course->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $course->summary }}</td>
+                    <td>{!! $course->summary !!}</td>
                 </tr>
             @endif
 

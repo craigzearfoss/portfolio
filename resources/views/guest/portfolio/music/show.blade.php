@@ -60,7 +60,7 @@
             @if(!empty($music->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $music->summary }}</td>
+                    <td>{!! $music->summary !!}</td>
                 </tr>
             @endif
 

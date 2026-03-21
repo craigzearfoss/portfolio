@@ -53,7 +53,7 @@
             @if(!empty($publication->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $publication->summary }}</td>
+                    <td>{!! $publication->summary !!}</td>
                 </tr>
             @endif
 

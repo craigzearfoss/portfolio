@@ -41,7 +41,7 @@
             @if(!empty($link->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $link->summary }}</td>
+                    <td>{!! $link->summary !!}</td>
                 </tr>
             @endif
 

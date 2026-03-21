@@ -53,7 +53,7 @@
             @if(!empty($audio->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $audio->summary }}</td>
+                    <td>{!! $audio->summary !!}</td>
                 </tr>
             @endif
 

@@ -41,7 +41,7 @@
             @if(!empty($photo->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $photo->summary }}</td>
+                    <td>{!! $photo->summary !!}</td>
                 </tr>
             @endif
 
