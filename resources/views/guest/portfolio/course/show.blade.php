@@ -28,7 +28,6 @@
 
     <div class="show-container card p-4">
 
-
         <table>
             <tbody>
 
@@ -41,7 +40,7 @@
 
             @if(!empty($course->summary))
                 <tr>
-                    <th>name:</th>
+                    <th>summary:</th>
                     <td>{{ $course->summary }}</td>
                 </tr>
             @endif
@@ -58,7 +57,6 @@
                     <th>completed:</th>
                     <td>
                         @include('guest.components.checkmark', [
-                            'name'    => 'completed',
                             'checked' => $course->completed
                         ])
                     </td>
@@ -129,9 +127,9 @@
                 </tr>
             @endif
 
-            @if(!empty($course->sponsor))
+            @if(!empty($course->link))
                 <tr>
-                    <th>link:</th>
+                    <th>{{ !empty($course->link_name) ? $course->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.show-row-link', [
                             'name'   => $course->link_name,
@@ -149,7 +147,7 @@
                 </tr>
             @endif
 
-            @if(!empty($course->description))
+            @if(!empty($course->image))
                 <tr>
                     <td colspan="2">
                         @include('guest.components.image-credited', [

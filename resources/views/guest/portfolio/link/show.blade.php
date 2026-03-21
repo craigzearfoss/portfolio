@@ -28,73 +28,76 @@
 
     <div class="show-container card p-4">
 
-        @include('guest.components.show-row', [
-            'name'  => 'name',
-            'value' => $link->name
-        ])
+        <table>
+            <tbody>
 
-        <?php /*
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $link->featured
-        ])
-        */ ?>
+            @if(!empty($link->name))
+                <tr>
+                    <th>name:</th>
+                    <td>{{ $link->name }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($link->summary))
-            @include('guest.components.show-row', [
-                'name'  => 'summary',
-                'value' => $link->summary
-            ])
-        @endif
+            @if(!empty($link->summary))
+                <tr>
+                    <th>summary:</th>
+                    <td>{{ $link->summary }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($link->url))
-            @include('guest.components.show-row-link', [
-                'name'   => 'url',
-                'href'   => $link->url,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($link->url))
+                <tr>
+                    <th>url:</th>
+                    <td>
+                        @include('guest.components.show-row-link', [
+                            'name'   => 'url',
+                            'href'   => $link->url,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($link->link))
-            @include('guest.components.show-row-link', [
-                'name'   => !empty($link->link_name) ? $link->link_name : 'link',
-                'href'   => $link->link,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($link->link))
+                <tr>
+                    <th>{{ !empty($link->link_name) ? $link->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.show-row-link', [
+                            'name'   => $link->link,
+                            'href'   => $link->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($link->description))
-            @include('guest.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($link->description)
-            ])
-        @endif
+            @if(!empty($link->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $link->description !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($link->image))
-            @include('guest.components.show-row-image-credited', [
-                'name'         => 'image',
-                'src'          => $link->image,
-                'alt'          => $link->name,
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => generateDownloadFilename($link),
-                'image_credit' => $link->image_credit,
-                'image_source' => $link->image_source,
-            ])
-        @endif
+            @if(!empty($link->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.show-row-image-credited', [
+                            'name'         => 'image',
+                            'src'          => $link->image,
+                            'alt'          => $link->name,
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($link),
+                            'image_credit' => $link->image_credit,
+                            'image_source' => $link->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($link->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $link->thumbnail,
-                'alt'      => $link->name . '-thumbnail',
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($link, '-thumbnail')
-            ])
-        @endif
+            </tbody>
+        </table>
 
     </div>
 

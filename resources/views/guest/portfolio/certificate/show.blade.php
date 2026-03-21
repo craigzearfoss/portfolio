@@ -74,7 +74,7 @@
 
             @if(!empty($certificate->certificate_url))
                 <tr>
-                    <th>year:</th>
+                    <th>certificate url:</th>
                     <td>
                         @include('guest.components.image', [
                             'name'     => 'certificate url',
@@ -90,7 +90,7 @@
 
             @if(!empty($certificate->link))
                 <tr>
-                    <th>year:</th>
+                    <th>{{ !empty($certificate->link_name) ? $certificate->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
                             'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',

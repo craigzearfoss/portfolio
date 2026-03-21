@@ -28,95 +28,96 @@
 
     <div class="show-container card p-4">
 
-        @include('guest.components.show-row', [
-            'name'  => 'name',
-            'value' => $project->name
-        ])
+        <table>
+            <tbody>
 
-        <?php /*
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $project->featured
-        ])
-        */ ?>
+            @if(!empty($project->name))
+                <tr>
+                    <th>name:</th>
+                    <td>{{ $project->name }}</td>
+                </tr>
+           @endif
 
-        @if(!empty($project->summary ))
-            @include('guest.components.show-row', [
-                'name'  => 'summary',
-                'value' => $project->summary
-            ])
-        @endif
+            @if(!empty($project->summary))
+                <tr>
+                    <th>summary:</th>
+                    <td>{{ $project->summary }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($project->year))
-            @include('guest.components.show-row', [
-                'name'  => 'year',
-                'value' => $project->year
-            ])
-        @endif
+            @if(!empty($project->year))
+                <tr>
+                    <th>year:</th>
+                    <td>{{ $project->year }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($project->language))
-            @include('guest.components.show-row', [
-                'name'  => 'language',
-                'value' => $project->language
-            ])
-        @endif
+            @if(!empty($project->language))
+                <tr>
+                    <th>language:</th>
+                    <td>{{ $project->language }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($project->language_version))
-            @include('guest.components.show-row', [
-                'name'  => 'language version',
-                'value' => $project->language_version
-            ])
-        @endif
+            @if(!empty($project->language_version))
+                <tr>
+                    <th>language version:</th>
+                    <td>{{ $project->language_version }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($project->repository_url))
-            @include('guest.components.show-row-link', [
-                'name'   => 'repository',
-                'label'  => $project->repository_url,
-                'href'   => $project->repository_url,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($project->repository_url))
+                <tr>
+                    <th>repository:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => $project->repository_url,
+                            'href'   => $project->repository_url,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($project->link))
-            @include('guest.components.show-row-link', [
-                'name'   => !empty($project->link_name) ? $project->link_name : 'link',
-                'href'   => $project->link,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($project->link))
+                <tr>
+                    <th>{{ !empty($project->link_name) ? $project->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'href'   => $project->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($project->description ))
-            @include('guest.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($project->description)
-            ])
-        @endif
+            @if(!empty($project->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $project->description !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($project->image))
-            @include('guest.components.show-row-image', [
-                'name'         => 'image',
-                'src'          => $project->image,
-                'alt'          => $project->name,
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => generateDownloadFilename($project),
-                'image_credit' => $project->image_credit,
-                'image_source' => $project->image_source,
-            ])
-        @endif
+            @if(!empty($project->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.image-credited', [
+                            'name'         => 'image',
+                            'src'          => $project->image,
+                            'alt'          => $project->name . (!empty($project->artist) ? ', ' . $project->artist : ''),
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($project),
+                            'image_credit' => $project->image_credit,
+                            'image_source' => $project->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($project->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $project->thumbnail . ' thumbnail',
-                'alt'      => $project->name,
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($project, '-thumbnail')
-            ])
-        @endif
+            </tbody>
+        </table>
 
     </div>
 

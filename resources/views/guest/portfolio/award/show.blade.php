@@ -80,6 +80,26 @@
                 </tr>
             @endif
 
+            @if(!empty($award->link))
+                <tr>
+                    <th>{{ !empty($award->link_name) ? $award->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => !empty($award->link_name) ? $award->link_name : 'link',
+                            'href'   => $award->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
+
+            @if(!empty($award->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $award->description !!}</td>
+                </tr>
+            @endif
+
             @if(!empty($award->image))
                 <tr>
                     <td colspan="2">
@@ -95,26 +115,6 @@
                             'image_source' => $award->image_source,
                         ])
                     </td>
-                </tr>
-            @endif
-
-            @if(!empty($award->link))
-                <tr>
-                    <th>link:</th>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'   => !empty($award->link_name) ? $award->link_name : 'link',
-                            'href'   => $award->link,
-                            'target' => '_blank'
-                        ])
-                    </td>
-                </tr>
-            @endif
-
-            @if(!empty($award->description))
-                <tr>
-                    <th>description:</th>
-                    <td>{!! $award->description !!}</td>
                 </tr>
             @endif
 

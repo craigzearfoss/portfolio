@@ -79,7 +79,6 @@
                 <th>clip:</th>
                 <td>
                     @include('guest.components.checkmark', [
-                        'name'    => 'full episode',
                         'checked' => $audio->full_episode
                     ])
                 </td>
@@ -89,7 +88,6 @@
                 <th>clip:</th>
                 <td>
                     @include('guest.components.checkmark', [
-                        'name'    => 'clip',
                         'checked' => $audio->clip
                     ])
                 </td>
@@ -99,7 +97,6 @@
                 <th>podcast:</th>
                 <td>
                     @include('guest.components.checkmark', [
-                        'name'    => 'podcast',
                         'checked' => $audio->podcast
                     ])
                 </td>
@@ -109,7 +106,6 @@
                 <th>source recording:</th>
                 <td>
                     @include('guest.components.checkmark', [
-                        'name'    => 'source_recording',
                         'checked' => $audio->source_recording
                     ])
                 </td>
@@ -171,6 +167,26 @@
                 </tr>
             @endif
 
+            @if(!empty($audio->link))
+                <tr>
+                    <th>{{ !empty($audio->link_name) ? $audio->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
+                            'href'   => $audio->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
+
+            @if(!empty($audio->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $audio->description !!}</td>
+                </tr>
+            @endif
+
             @if(!empty($audio->image))
                 <tr>
                     <td colspan="2">
@@ -186,26 +202,6 @@
                             'image_source' => $audio->image_source,
                         ])
                     </td>
-                </tr>
-            @endif
-
-            @if(!empty($audio->link))
-                <tr>
-                    <th>link:</th>
-                    <td>
-                        @include('guest.components.link', [
-                            'name'   => !empty($audio->link_name) ? $audio->link_name : 'link',
-                            'href'   => $audio->link,
-                            'target' => '_blank'
-                        ])
-                    </td>
-                </tr>
-            @endif
-
-            @if(!empty($audio->description))
-                <tr>
-                    <th>description:</th>
-                    <td>{!! $audio->description !!}</td>
                 </tr>
             @endif
 

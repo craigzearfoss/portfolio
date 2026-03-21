@@ -24,7 +24,6 @@
 
 @section('content')
 
-
     @if($owner->is_demo)
         @if($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
@@ -84,7 +83,7 @@
 
             @if(!empty($art->link))
                 <tr>
-                    <th>link:</th>
+                    <th>{{ !empty($art->link_name) ? $art->link_name : 'link' }}:</th>
                     <td>
                         @include('guest.components.link', [
                             'name'   => !empty($art->link_name) ? $art->link_name : 'link',
