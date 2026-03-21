@@ -60,9 +60,18 @@
 
                     <tr>
                         <td data-field="major">
-                            {{ $education->major }}
-                            @if(!empty($education->minor)) {
-                                ({{ $education->minor }} minor)
+                            @if($education->featured)
+                                <strong>
+                                    {{ $education->major }}
+                                    @if(!empty($education->minor)) {
+                                        ({{ $education->minor }} minor)
+                                    @endif
+                                </strong>
+                            @else
+                                {{ $education->major }}
+                                @if(!empty($education->minor)) {
+                                    ({{ $education->minor }} minor)
+                                @endif
                             @endif
                         </td>
                         <td data-field="degreeType.name">

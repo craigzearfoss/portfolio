@@ -56,7 +56,11 @@
 
                     <tr>
                         <td>
-                            <strong>{!! $skill->name !!}</strong>
+                            @if($skill->featured)
+                                <strong>{!! $skill->name !!}</strong>
+                            @else
+                                {!! $skill->name !!}
+                            @endif
                         </td>
                         <td class="hide-at-600">
                             {!! $skill->category->name ?? '' !!}
