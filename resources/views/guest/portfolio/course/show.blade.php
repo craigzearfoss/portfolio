@@ -72,8 +72,8 @@
 
             @if(!empty($course->duration_hours))
                 <tr>
-                    <th>duration hours:</th>
-                    <td>{{ $course->duration_hours }}</td>
+                    <th>duration:</th>
+                    <td>{{ $course->duration_hours }} {{ $course->duration_hour ? 'hour' : 'hours' }}</td>
                 </tr>
             @endif
 
