@@ -163,8 +163,7 @@
 
             @if(!empty($video->embed))
                 <tr>
-                    <th>embed:</th>
-                    <td>{!! $video->embed !!}</td>
+                    <td colspan="2">{!! $video->embed !!}</td>
                 </tr>
             @endif
 
