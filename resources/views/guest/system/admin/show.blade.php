@@ -102,12 +102,13 @@
 
                                 @if(!empty($resource->url))
 
-                                    <li>
+                                    <li class="list-item">
                                         @include('guest.components.link', [
                                             'name'  => $resource->plural,
                                             'href'  => $resource->url,
                                             'class' => 'list-item',
                                             'style' => [
+                                                'color: #4a4a4a',
                                                 'padding: 0.2rem',
                                                 'white-space: nowrap',
                                                 'margin-left: ' . (12 * ($resource->menu_level - 1)) . 'px',
