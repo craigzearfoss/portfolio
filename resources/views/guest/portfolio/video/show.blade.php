@@ -53,7 +53,7 @@
             @if(!empty($video->summary))
                 <tr>
                     <th>summary:</th>
-                    <td>{{ $video->summary }}</td>
+                    <td>{!! !$video->summary !!}</td>
                 </tr>
             @endif
 
