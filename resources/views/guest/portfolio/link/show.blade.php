@@ -50,7 +50,7 @@
                     <th>url:</th>
                     <td>
                         @include('guest.components.link', [
-                            'name'   => 'url',
+                            'name'   => $link->url,
                             'href'   => $link->url,
                             'target' => '_blank'
                         ])
