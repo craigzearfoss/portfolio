@@ -40,8 +40,8 @@
                     <thead>
                     <tr>
                         <th>name</th>
-                        <th>credit</th>
-                        <th>year</th>
+                        <th class="hide-at-480">credit</th>
+                        <th class="has-text-centered hide-at-750">year</th>
                     </tr>
                     </thead>
                 @endif
@@ -50,8 +50,8 @@
                     <tfoot>
                     <tr>
                         <th>name</th>
-                        <th>credit</th>
-                        <th>year</th>
+                        <th class="hide-at-480">credit</th>
+                        <th class="has-text-centered hide-at-750">year</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -68,10 +68,10 @@
                                 'class' => $photo->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td>
+                        <td class="hide-at-480">
                             {!! $photo->credit !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-750">
                             {!! $photo->year !!}
                         </td>
                     </tr>

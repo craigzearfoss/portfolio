@@ -41,8 +41,8 @@
                     <tr>
                         <th>name</th>
                         <th class="has-text-centered hide-at-480">year</th>
-                        <th>show</th>
-                        <th class="hide-at-480">company</th>
+                        <th class="hide-at-600">show</th>
+                        <th class="hide-at-1200">company</th>
                     </tr>
                     </thead>
                 @endif
@@ -52,8 +52,8 @@
                     <tr>
                         <th>name</th>
                         <th class="has-text-centered hide-at-480">year</th>
-                        <th>show</th>
-                        <th class="hide-at-480">company</th>
+                        <th class="hide-at-600">show</th>
+                        <th class="hide-at-1200">company</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -73,10 +73,10 @@
                         <td data-field="year" class="has-text-centered hide-at-480">
                             {!! $video->year !!}
                         </td>
-                        <td data-field="show">
+                        <td data-field="show" class="hide-at-600">
                             {!! $video->show !!}
                         </td>
-                        <td data-field="company" class="hide-at-480">
+                        <td data-field="company" class="hide-at-1200">
                             {!! $video->company !!}
                         </td>
                     </tr>

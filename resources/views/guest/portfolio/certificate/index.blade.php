@@ -41,10 +41,10 @@
                     <tr>
                         <th>name</th>
                         <th>academy</th>
-                        <th>organization</th>
-                        <th>year</th>
-                        <th>received</th>
-                        <th>expiration</th>
+                        <th class="hide-at-900">organization</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="has-text-centered hide-at-1200">received</th>
+                        <th class="has-text-centered hide-at-750">expiration</th>
                     </tr>
                     </thead>
                 @endif
@@ -54,10 +54,10 @@
                     <tr>
                         <th>name</th>
                         <th>academy</th>
-                        <th>organization</th>
-                        <th>year</th>
-                        <th>received</th>
-                        <th>expiration</th>
+                        <th class="hide-at-900">organization</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="has-text-centered hide-at-1200">received</th>
+                        <th class="has-text-centered hide-at-750">expiration</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -85,16 +85,16 @@
                                 ])
                             @endif
                         </td>
-                        <td class="has-text-centered">
+                        <td class="hide-at-900">
                             {!! $certificate->organization !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-600">
                             {!! $certificate->year !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-1200">
                             {!! shortDate($certificate->received) !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-750">
                             {!! shortDate($certificate->expiration) !!}
                         </td>
                     </tr>

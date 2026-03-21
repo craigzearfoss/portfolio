@@ -40,9 +40,9 @@
                     <thead>
                     <tr>
                         <th>name</th>
-                        <th>language</th>
-                        <th>year</th>
-                        <th class="hide-at-600">repository</th>
+                        <th class="has-text-centered">language</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="hide-at-1024">repository</th>
                     </tr>
                     </thead>
                 @endif
@@ -51,9 +51,9 @@
                     <tfoot>
                     <tr>
                         <th>name</th>
-                        <th>language</th>
-                        <th>year</th>
-                        <th class="hide-at-600">repository</th>
+                        <th class="has-text-centered">language</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="hide-at-1024">repository</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -70,16 +70,16 @@
                                 'class' => $project->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="language">
+                        <td data-field="language" class="has-text-centered">
                             {!! !empty($project->language)
                                 ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                                 : ''
                             !!}
                         </td>
-                        <td data-field="year">
+                        <td data-field="year" class="has-text-centered hide-at-600">
                             {!! $project->year !!}
                         </td>
-                        <td data-field="year" class="hide-at-600">
+                        <td data-field="year" class="hide-at-1024">
                             @if(!empty($project->repository_url))
                                 @include('guest.components.link', [
                                     'name'   => $project->repository_name,

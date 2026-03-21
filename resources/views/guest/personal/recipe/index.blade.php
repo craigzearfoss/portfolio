@@ -41,7 +41,7 @@
                     <tr>
                         <th>name</th>
                         <th>type</th>
-                        <th>meal</th>
+                        <th class="hide-at-600">meal</th>
                     </tr>
                     </thead>
                 @endif
@@ -51,7 +51,7 @@
                     <tr>
                         <th>name</th>
                         <th>type</th>
-                        <th>meal</th>
+                        <th class="hide-at-600">meal</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -71,7 +71,7 @@
                         <td data-field="types">
                             {{ implode(', ', $recipe->types()) }}
                         </td>
-                        <td data-field="meals">
+                        <td data-field="meals" class="hide-at-600">
                             {{ implode(', ', $recipe->meals()) }}
                         </td>
                     </tr>

@@ -41,7 +41,7 @@
                     <tr>
                         <th>name</th>
                         <th>artist</th>
-                        <th class="has-text-centered">year</th>
+                        <th class="has-text-centered hide-at-480">year</th>
                     </tr>
                     </thead>
                 @endif
@@ -51,7 +51,7 @@
                     <tr>
                         <th>name</th>
                         <th>artist</th>
-                        <th class="has-text-centered">year</th>
+                        <th class="has-text-centered hide-at-480">year</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -71,7 +71,7 @@
                         <td>
                             {!! $art->artist !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-480">
                             {!! $art->year !!}
                         </td>
                     </tr>

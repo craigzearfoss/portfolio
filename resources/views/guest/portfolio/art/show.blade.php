@@ -35,6 +35,24 @@
         <table>
             <tbody>
 
+            @if(!empty($art->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.image-credited', [
+                            'name'         => 'image',
+                            'src'          => $art->image,
+                            'alt'          => $art->name . (!empty($art->artist) ? ', ' . $art->artist : ''),
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($art),
+                            'image_credit' => $art->image_credit,
+                            'image_source' => $art->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
+
             @if(!empty($art->name))
                 <tr>
                     <th>name:</th>
@@ -60,24 +78,6 @@
                 <tr>
                     <th>year:</th>
                     <td>{{ $art->year }}</td>
-                </tr>
-            @endif
-
-            @if(!empty($art->image))
-                <tr>
-                    <td colspan="2">
-                        @include('guest.components.image-credited', [
-                            'name'         => 'image',
-                            'src'          => $art->image,
-                            'alt'          => $art->name . (!empty($art->artist) ? ', ' . $art->artist : ''),
-                            'width'        => '300px',
-                            'download'     => true,
-                            'external'     => true,
-                            'filename'     => generateDownloadFilename($art),
-                            'image_credit' => $art->image_credit,
-                            'image_source' => $art->image_source,
-                        ])
-                    </td>
                 </tr>
             @endif
 

@@ -31,24 +31,29 @@
         <div class="show-container card floating-div">
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>major</th>
-                    <th>degree</th>
-                    <th>school</th>
-                    <th class="has-text-centered">graduated</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>major</th>
-                    <th>degree</th>
-                    <th>school</th>
-                    <th class="has-text-centered">graduated</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>major</th>
+                        <th>degree</th>
+                        <th>school</th>
+                        <th class="has-text-centered hide-at-480">graduated</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>major</th>
+                        <th>degree</th>
+                        <th>school</th>
+                        <th class="has-text-centered hide-at-480">graduated</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($educations as $education)
@@ -66,7 +71,7 @@
                         <td data-field="school.name">
                             {!! $education->school->name ?? '' !!}
                         </td>
-                        <td data-field="graduation_month|graduation_year" class="has-text-centered">
+                        <td data-field="graduation_month|graduation_year" class="has-text-centered hide-at-480">
                             {{ $education->graduation_year }}
                             @if(!empty($education->currently_enrolled))
                                 (currently enrolled)

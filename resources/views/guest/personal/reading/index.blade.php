@@ -60,10 +60,10 @@
                     <tr>
                         <th>title</th>
                         <th>author</th>
-                        <th class="has-text-centered hide-at-480">type</th>
-                        <th class="has-text-centered hide-at-600">paper</th>
-                        <th class="has-text-centered hide-at-600">audio</th>
-                        <th class="has-text-centered hide-at-600">wish list</th>
+                        <th class="has-text-centered hide-at-600">type</th>
+                        <th class="has-text-centered hide-at-900">paper</th>
+                        <th class="has-text-centered hide-at-900">audio</th>
+                        <th class="has-text-centered hide-at-900">wish list</th>
                     </tr>
                     </thead>
                 @endif
@@ -73,10 +73,10 @@
                     <tr>
                         <th>title</th>
                         <th>author</th>
-                        <th class="has-text-centered hide-at-480">type</th>
-                        <th class="has-text-centered hide-at-600">paper</th>
-                        <th class="has-text-centered hide-at-600">audio</th>
-                        <th class="has-text-centered hide-at-600">wish list</th>
+                        <th class="has-text-centered hide-at-600">type</th>
+                        <th class="has-text-centered hide-at-900">paper</th>
+                        <th class="has-text-centered hide-at-900">audio</th>
+                        <th class="has-text-centered hide-at-900">wish list</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -96,16 +96,16 @@
                         <td>
                             {{ $reading->author }}
                         </td>
-                        <td class="has-text-centered hide-at-480">
+                        <td class="has-text-centered hide-at-600">
                             {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}
                         </td>
-                        <td class="has-text-centered hide-at-600">
+                        <td class="has-text-centered hide-at-900">
                             @include('guest.components.checkmark', [ 'checked' => $reading->paper ])
                         </td>
-                        <td class="has-text-centered hide-at-600">
+                        <td class="has-text-centered hide-at-900">
                             @include('guest.components.checkmark', [ 'checked' => $reading->audio ])
                         </td>
-                        <td class="has-text-centered hide-at-600">
+                        <td class="has-text-centered hide-at-900">
                             @include('guest.components.checkmark', [ 'checked' => $reading->wishlist ])
                         </td>
                     </tr>

@@ -41,9 +41,9 @@
                     <tr>
                         <th>name</th>
                         <th>artist</th>
-                        <th>year</th>
-                        <th class="hide-at-480">label</th>
-                        <th class="hide-at-600">cat#</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="hide-at-750">label</th>
+                        <th class="hide-at-900">cat#</th>
                     </tr>
                     </thead>
                 @endif
@@ -53,9 +53,9 @@
                     <tr>
                         <th>name</th>
                         <th>artist</th>
-                        <th>year</th>
-                        <th class="hide-at-480">label</th>
-                        <th class="hide-at-600">cat#</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="hide-at-750">label</th>
+                        <th class="hide-at-900">cat#</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -75,13 +75,13 @@
                         <td data-field="artist">
                             {!! $music->artist !!}
                         </td>
-                        <td data-field="year">
+                        <td data-field="year" class="has-text-centered hide-at-600">
                             {!! $music->year !!}
                         </td>
-                        <td data-field="label" class="hide-at-480">
+                        <td data-field="label" class="hide-at-750">
                             {!! $music->label !!}
                         </td>
-                        <td data-field="catalog_number" class="hide-at-600">
+                        <td data-field="catalog_number" class="hide-at-900">
                             {!! $music->catalog_number !!}
                         </td>
                     </tr>

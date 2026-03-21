@@ -42,8 +42,8 @@
                         <th>name</th>
                         <th>category</th>
                         <th>nominated work</th>
-                        <th>year</th>
-                        <th>organization</th>
+                        <th class="has-text-centered">year</th>
+                        <th class="hide-at-1300">organization</th>
                     </tr>
                     </thead>
                 @endif
@@ -54,8 +54,8 @@
                         <th>name</th>
                         <th>category</th>
                         <th>nominated work</th>
-                        <th>year</th>
-                        <th>organization</th>
+                        <th class="has-text-centered">year</th>
+                        <th class="hide-at-1300">organization</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -87,7 +87,7 @@
                         <td class="has-text-centered">
                             {!! $award->year !!}
                         </td>
-                        <td>
+                        <td class="hide-at-1300">
                             {!! $award->organization !!}
                         </td>
                     </tr>

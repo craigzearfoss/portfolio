@@ -40,9 +40,9 @@
                     <thead>
                     <tr>
                         <th>title</th>
-                        <th>publication</th>
-                        <?php /* <th>publisher</th> */ ?>
-                        <th class="has-text-centered">year</th>
+                        <th class="hide-at-480">publication</th>
+                        <th class="hide-at-1200">publisher</th>
+                        <th class="has-text-centered hide-at-750">year</th>
                     </tr>
                     </thead>
                 @endif
@@ -51,9 +51,9 @@
                     <tfoot>
                     <tr>
                         <th>title</th>
-                        <th>publication</th>
-                        <th>publisher</th>
-                        <th>year</th>
+                        <th class="hide-at-480">publication</th>
+                        <th class="hide-at-1200">publisher</th>
+                        <th class="hide-at-750">year</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -70,15 +70,13 @@
                                 'class' => $publication->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="publication_name">
+                        <td data-field="publication_name" class="hide-at-480">
                             {!! $publication->publication_name !!}
                         </td>
-                        <?php /*
-                        <td data-field="publisher">
+                        <td data-field="publisher" class="hide-at-1200">
                             {!! $publication->publisher !!}
                         </td>
-                        */ ?>
-                        <td data-field="publication_year" class="has-text-centered">
+                        <td data-field="publication_year" class="has-text-centered hide-at-750">
                             {!! $publication->publication_year !!}
                         </td>
                     </tr>

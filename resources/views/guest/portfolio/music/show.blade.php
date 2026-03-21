@@ -31,6 +31,12 @@
         <table>
             <tbody>
 
+            @if(!empty($music->embed))
+                <tr>
+                    <td colspan="2">{!! $music->embed !!}</td>
+                </tr>
+            @endif
+
             @if(!empty($music->name))
                 <tr>
                     <th>name:</th>
@@ -129,13 +135,6 @@
                 <tr>
                     <th>release date:</th>
                     <td>{{ longDate($music->release_date) }}</td>
-                </tr>
-            @endif
-
-            @if(!empty($music->embed))
-                <tr>
-                    <th>embed:</th>
-                    <td>{{ $music->embed }}</td>
                 </tr>
             @endif
 
