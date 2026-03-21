@@ -156,7 +156,7 @@
                 <tr>
                     <th>{{ !empty($music->link_name) ? $music->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.show-row-link', [
+                        @include('guest.components.link', [
                             'href'   => $music->link,
                             'target' => '_blank'
                         ])
@@ -174,7 +174,7 @@
             @if(!empty($music->image))
                 <tr>
                     <td colspan="2">
-                        @include('guest.components.show-row-image-credited', [
+                        @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $music->image,
                             'alt'          => $music->name,

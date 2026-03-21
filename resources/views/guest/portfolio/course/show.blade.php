@@ -131,7 +131,7 @@
                 <tr>
                     <th>{{ !empty($course->link_name) ? $course->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.show-row-link', [
+                        @include('guest.components.link', [
                             'name'   => $course->link_name,
                             'href'   => $course->link,
                             'target' => '_blank'

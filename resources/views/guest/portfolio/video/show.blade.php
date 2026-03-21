@@ -184,7 +184,7 @@
                 <tr>
                     <th>{{ !empty($video->link_name) ? $video->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.show-row-link', [
+                        @include('guest.components.link', [
                             'name'   => $video->link_name,
                             'href'   => $video->link,
                             'target' => '_blank'

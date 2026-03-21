@@ -49,7 +49,7 @@
                 <tr>
                     <th>url:</th>
                     <td>
-                        @include('guest.components.show-row-link', [
+                        @include('guest.components.link', [
                             'name'   => 'url',
                             'href'   => $link->url,
                             'target' => '_blank'
@@ -62,7 +62,7 @@
                 <tr>
                     <th>{{ !empty($link->link_name) ? $link->link_name : 'link' }}:</th>
                     <td>
-                        @include('guest.components.show-row-link', [
+                        @include('guest.components.link', [
                             'name'   => $link->link,
                             'href'   => $link->link,
                             'target' => '_blank'
@@ -81,7 +81,7 @@
             @if(!empty($link->image))
                 <tr>
                     <td colspan="2">
-                        @include('guest.components.show-row-image-credited', [
+                        @include('guest.components.image-credited', [
                             'name'         => 'image',
                             'src'          => $link->image,
                             'alt'          => $link->name,
