@@ -44,7 +44,7 @@ class AdminPhone extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'owner_id', 'phone', 'label', 'description', 'notes', 'is_public', 'is_readonly', 
+    const array SEARCH_COLUMNS = [ 'owner_id', 'phone', 'label', 'description', 'notes', 'is_public', 'is_readonly',
         'is_root', 'is_disabled', 'is_demo' ];
 
     /**
@@ -62,6 +62,8 @@ class AdminPhone extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         if (!empty($owner)) {
             if (array_key_exists('owner_id', $filters)) {
                 unset($filters['owner_id']);

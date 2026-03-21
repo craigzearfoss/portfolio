@@ -83,6 +83,8 @@ class Note extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         if (!empty($owner)) {
             if (isset($filters['owner_id'])) {
                 unset($filters['owner_id']);

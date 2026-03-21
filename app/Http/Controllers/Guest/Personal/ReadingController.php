@@ -24,7 +24,7 @@ class ReadingController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $readings = new Reading()->searchQuery($request->all(), $this->owner)
+        $readings = new Reading()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 

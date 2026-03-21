@@ -28,7 +28,7 @@ class LibraryController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $libraries = new Category()->searchQuery($request->all())
+        $libraries = new Category()->searchQuery(request()->except('id'))
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

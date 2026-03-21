@@ -32,34 +32,9 @@ class JobCoworkerController extends BaseAdminController
 
         $jobCoworkerModel = new JobCoworker();
 
-        $query = $jobCoworkerModel->orderBy('name');
-
-        // get the job id, if one was specified
-        if ($jobId = $request->get('job_id')) {
-            $job = new Job()->findOrFail($jobId);
-            $query->where('job_id', '=', $jobId);
-        }
-
-        // get the current owner
-        if ($ownerId = $request->get('owner_id')) {
-            $owner = $jobCoworkerModel->findOrFail($ownerId);
-        } elseif (!empty($this->owner)) {
-            $owner = $this->owner;
-        } else {
-            $owner = null;
-        }
-
-        if (!empty($owner)) {
-            if ($this->isRootAdmin) {
-                $query->where('owner_id', '=', $owner->id);
-            } elseif ($owner['id'] == $this->admin['id']) {
-                $query->where('owner_id', '=', $owner->id);
-            } else {
-                $query->where('owner_id', '=', -1);
-            }
-        }
-
-        $jobCoworkers = $query->paginate($perPage)->appends(request()->except('page'));
+        $jobCoworkers = $jobCoworkerModel->searchQuery(request()->except('id'), $this->owner ?? null)
+            ->orderBy('name')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = (isRootAdmin() && !empty($ownerId)) ? $this->owner['name'] . ' Job Coworkers' : 'Job Coworkers';
 

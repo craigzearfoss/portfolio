@@ -27,7 +27,7 @@ class EducationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $educations = new Education()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        $educations = new Education()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('owner_id')
             ->orderBy('enrollment_year', 'desc')
             ->orderBy('enrollment_month', 'desc')

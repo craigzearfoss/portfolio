@@ -49,31 +49,38 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
-            {!! $readings->links('vendor.pagination.bulma') !!}
+            @if($pagination_top)
+                {!! $readings->links('vendor.pagination.bulma') !!}
+            @endif
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>title</th>
-                    <th>author</th>
-                    <th class="has-text-centered">type</th>
-                    <th class="has-text-centered">paper</th>
-                    <th class="has-text-centered">audio</th>
-                    <th class="has-text-centered">wish list</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>title</th>
-                    <th>author</th>
-                    <th class="has-text-centered">type</th>
-                    <th class="has-text-centered">paper</th>
-                    <th class="has-text-centered">audio</th>
-                    <th class="has-text-centered">wish list</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>author</th>
+                        <th class="has-text-centered hide-at-600">type</th>
+                        <th class="has-text-centered hide-at-900">paper</th>
+                        <th class="has-text-centered hide-at-900">audio</th>
+                        <th class="has-text-centered hide-at-900">wish list</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>title</th>
+                        <th>author</th>
+                        <th class="has-text-centered hide-at-600">type</th>
+                        <th class="has-text-centered hide-at-900">paper</th>
+                        <th class="has-text-centered hide-at-900">audio</th>
+                        <th class="has-text-centered hide-at-900">wish list</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($readings as $reading)
@@ -89,16 +96,16 @@
                         <td>
                             {{ $reading->author }}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-600">
                             {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-900">
                             @include('guest.components.checkmark', [ 'checked' => $reading->paper ])
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-900">
                             @include('guest.components.checkmark', [ 'checked' => $reading->audio ])
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-900">
                             @include('guest.components.checkmark', [ 'checked' => $reading->wishlist ])
                         </td>
                     </tr>
@@ -114,7 +121,9 @@
                 </tbody>
             </table>
 
-            {!! $readings->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $readings->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

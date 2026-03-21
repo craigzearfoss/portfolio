@@ -28,79 +28,111 @@
 
     <div class="show-container card p-4">
 
-        @include('guest.components.show-row', [
-            'name'  => 'title',
-            'value' => $reading->title
-        ])
+        <table>
+            <tbody>
 
-        @include('guest.components.show-row', [
-            'name'  => 'author',
-            'value' => $reading->author ?? ''
-        ])
+            @if(!empty($reading->title))
+                <tr>
+                    <th>title:</th>
+                    <td>{{ $reading->title }}</td>
+                </tr>
+            @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'publication year',
-            'value' => $reading->publication_year
-        ])
+            @if(!empty($reading->author))
+                <tr>
+                    <th>author:</th>
+                    <td>{{ $reading->author }}</td>
+                </tr>
+           @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'type',
-            'value' => $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction': '')
-        ])
+            @if(!empty($reading->publication_year))
+                <tr>
+                    <th>year:</th>
+                    <td>{{ $reading->publication_year }}</td>
+                </tr>
+            @endif
 
-        @include('guest.components.show-row-checkmark', [
-            'name'    => 'paper',
-            'checked' => $reading->paper
-        ])
+            <tr>
+                <th>type:</th>
+                <td>{{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction': '') }}</td>
+            </tr>
 
-        @include('guest.components.show-row-checkmark', [
-            'name'    => 'audio',
-            'checked' => $reading->audio
-        ])
+            @if(!empty($reading->paper))
+                <tr>
+                    <th>paper:</th>
+                    <td>
+                        @include('guest.components.checkmark', [
+                            'name'    => 'paper',
+                            'checked' => $reading->paper
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @include('guest.components.show-row-checkmark', [
-            'name'    => 'wish list',
-            'checked' => $reading->wishlist
-        ])
+            @if(!empty($reading->audio))
+                <tr>
+                    <th>audio:</th>
+                    <td>
+                        @include('guest.components.checkmark', [
+                            'name'    => 'audio',
+                            'checked' => $reading->audio
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($reading->link))
-            @include('guest.components.show-row-link', [
-                'name'   => !empty($reading->link_name) ? $reading->link_name : 'link',
-                'href'   => $reading->link,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($reading->wishlist))
+                <tr>
+                    <th>wishlist:</th>
+                    <td>
+                        @include('guest.components.checkmark', [
+                            'name'    => 'wishlist',
+                            'checked' => $reading->wishlist
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($reading->description)
-        ])
+            @if(!empty($reading->link))
+                <tr>
+                    <th>{{ !empty($reading->link_name) ? $reading->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => !empty($reading->link_name) ? $reading->link_name : 'link',
+                            'href'   => $reading->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($reading->image))
-            @include('guest.components.show-row-image', [
-                'name'         => 'image',
-                'src'          => $reading->image,
-                'alt'          => $reading->title . (!empty($reading->author) ? ', ' . $reading->author : ''),
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => generateDownloadFilename($reading),
-                'image_credit' => $reading->image_credit,
-                'image_source' => $reading->image_source,
-            ])
-        @endif
+            @if(!empty($reading->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $reading->description !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($reading->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $reading->thumbnail,
-                'alt'      => $reading->title . (!empty($reading->author) ? ', ' . $reading->author : '') . ' thumbnail',
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($reading, '-thumbnail'),
-            ])
-        @endif
+            @if(!empty($reading->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.image-credited', [
+                            'name'         => 'image',
+                            'src'          => $reading->image,
+                            'alt'          => $reading->name,
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($reading),
+                            'image_credit' => $reading->image_credit,
+                            'image_source' => $reading->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
+
+            </tbody>
+        </table>
 
     </div>
 

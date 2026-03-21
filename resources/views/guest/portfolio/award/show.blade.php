@@ -28,93 +28,98 @@
 
     <div class="show-container p-4">
 
-        @include('guest.components.show-row', [
-            'name'  => 'name',
-            'value' => $award->name
-        ])
+        <table>
+            <tbody>
 
-        @if(!empty($award->category))
-            @include('guest.components.show-row', [
-                'name'  => 'category',
-                'value' => $award->category
-            ])
-        @endif
+            @if(!empty($award->name))
+                <tr>
+                    <th>name:</th>
+                    <td>{{ $award->name }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($award->nominated_work))
-            @include('guest.components.show-row', [
-                'name'  => 'nominated work',
-                'value' => $award->nominated_work
-            ])
-        @endif
+            @if(!empty($award->category))
+                <tr>
+                    <th>category:</th>
+                    <td>{{ $award->category }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($award->summary))
-            @include('guest.components.show-row', [
-                'name'  => 'summary',
-                'value' => $award->summary
-            ])
-        @endif
+            @if(!empty($award->nominated_work))
+                <tr>
+                    <th>nominated work:</th>
+                    <td>{{ $award->nominated_work }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($award->year))
-            @include('guest.components.show-row', [
-                'name'  => 'year',
-                'value' => $award->year
-            ])
-        @endif
+            @if(!empty($award->summary))
+                <tr>
+                    <th>summary:</th>
+                    <td>{!! $award->summary !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($award->received))
-            @include('guest.components.show-row', [
-                'name'  => 'date received',
-                'value' => $award->received
-            ])
-        @endif
+            @if(!empty($award->year))
+                <tr>
+                    <th>year:</th>
+                    <td>{{ $award->year }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($award->organization))
-            @include('guest.components.show-row', [
-                'name'  => 'organization',
-                'value' => $award->organization
-            ])
-        @endif
+            @if(!empty($award->received))
+                <tr>
+                    <th>date received:</th>
+                    <td>{{ $award->received }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($award->link))
-            @include('guest.components.show-row-link', [
-                'name'   => !empty($award->link_name) ? $award->link_name : 'link',
-                'href'   => $award->link,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($award->organization))
+                <tr>
+                    <th>organization:</th>
+                    <td>{{ $award->organization }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($award->description))
-            @include('guest.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($award->description)
-            ])
-        @endif
+            @if(!empty($award->link))
+                <tr>
+                    <th>{{ !empty($award->link_name) ? $award->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => !empty($award->link_name) ? $award->link_name : 'link',
+                            'href'   => $award->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($award->image))
-            @include('guest.components.show-row-image-credited', [
-                'name'         => 'image',
-                'src'          => $award->image,
-                'alt'          => $award->name . ', ' . (!empty($award->year) ? ' - ' . $award->year : ''),
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => generateDownloadFilename($award),
-                'image_credit' => $award->image_credit,
-                'image_source' => $award->image_source,
-            ])
-        @endif
+            @if(!empty($award->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $award->description !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($award->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $award->thumbnail,
-                'alt'      => $award->name . ', ' . (!empty($award->year) ? ' - ' . $award->year : '') . ' thumbnail',
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($award, '-thumbnail')
-            ])
-        @endif
+            @if(!empty($award->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.image-credited', [
+                            'name'         => 'image',
+                            'src'          => $award->image,
+                            'alt'          => $award->name . (!empty($award->artist) ? ', ' . $award->artist : ''),
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($award),
+                            'image_credit' => $award->image_credit,
+                            'image_source' => $award->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
+
+            </tbody>
+        </table>
 
     </div>
 

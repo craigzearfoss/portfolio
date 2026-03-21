@@ -134,8 +134,8 @@ class Resume extends Model
         $other = null;
 
         $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
+        if ($includeBlank !== false) {
+            $options[!is_bool($includeBlank) ? $includeBlank : ''] = '';
         }
 
         $sortColumn = $orderBy[0] ?? 'name';
@@ -196,10 +196,9 @@ class Resume extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
             ->when(!empty($filters['date']), function ($query) use ($filters) {
                 $query->where('date', '=', $filters['date']);
             })

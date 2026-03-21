@@ -44,23 +44,26 @@
             <p class="admin-table-caption">* An asterisk indicates a featured music.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if(!empty($admin->is_root))
-                        <th>owner</th>
-                    @endif
-                    <th>name</th>
-                    <th>artist</th>
-                    <th>year</th>
-                    <th>label</th>
-                    <th>cat#</th>
-                    <th class="has-text-centered">public</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if(!empty($admin->is_root))
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>artist</th>
+                        <th class="hide-at-900">year</th>
+                        <th class="hide-at-750">label</th>
+                        <th class="hide-at-900">cat#</th>
+                        <th class="has-text-centered hide-at-1024">public</th>
+                        <th class="has-text-centered hide-at-1024">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         @if(!empty($admin->is_root))
@@ -68,11 +71,11 @@
                         @endif
                         <th>name</th>
                         <th>artist</th>
-                        <th>year</th>
-                        <th>label</th>
-                        <th>cat#</th>
-                        <th class="has-text-centered">public</th>
-                        <th class="has-text-centered">disabled</th>
+                        <th class="hide-at-900">year</th>
+                        <th class="hide-at-750">label</th>
+                        <th class="hide-at-900">cat#</th>
+                        <th class="has-text-centered hide-at-1024">public</th>
+                        <th class="has-text-centered hide-at-1024">disabled</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -94,19 +97,19 @@
                         <td data-field="artist">
                             {!! $music->artist !!}
                         </td>
-                        <td data-field="year">
+                        <td data-field="year" class="hide-at-900">
                             {!! $music->year !!}
                         </td>
-                        <td data-field="label">
+                        <td data-field="label" class="hide-at-750">
                             {!! $music->label !!}
                         </td>
-                        <td data-field="catalog_number">
+                        <td data-field="catalog_number" class="hide-at-900">
                             {!! $music->catalog_number !!}
                         </td>
-                        <td data-field="is_public" class="has-text-centered">
+                        <td data-field="is_public" class="has-text-centered hide-at-1024">
                             @include('admin.components.checkmark', [ 'checked' => $music->is_public ])
                         </td>
-                        <td data-field="is_disabled" class="has-text-centered">
+                        <td data-field="is_disabled" class="has-text-centered hide-at-1024">
                             @include('admin.components.checkmark', [ 'checked' => $music->is_disabled ])
                         </td>
                         <td class="is-1">

@@ -30,25 +30,34 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $publications->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>title</th>
-                    <th>publication</th>
-                    <?php /* <th>publisher</th> */ ?>
-                    <th>year</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>title</th>
-                    <th>publication</th>
-                    <th>publisher</th>
-                    <th>year</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>title</th>
+                        <th class="hide-at-480">publication</th>
+                        <th class="hide-at-1200">publisher</th>
+                        <th class="has-text-centered hide-at-750">year</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>title</th>
+                        <th class="hide-at-480">publication</th>
+                        <th class="hide-at-1200">publisher</th>
+                        <th class="hide-at-750">year</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($publications as $publication)
@@ -61,15 +70,13 @@
                                 'class' => $publication->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="publication_name">
+                        <td data-field="publication_name" class="hide-at-480">
                             {!! $publication->publication_name !!}
                         </td>
-                        <?php /*
-                        <td data-field="publisher">
+                        <td data-field="publisher" class="hide-at-1200">
                             {!! $publication->publisher !!}
                         </td>
-                        */ ?>
-                        <td data-field="publication_year" class="has-text-centered">
+                        <td data-field="publication_year" class="has-text-centered hide-at-750">
                             {!! $publication->publication_year !!}
                         </td>
                     </tr>
@@ -85,7 +92,9 @@
                 </tbody>
             </table>
 
-            {!! $publications->links('vendor.pagination.bulma') !!}
+                @if($pagination_bottom)
+                    {!! $publications->links('vendor.pagination.bulma') !!}
+                @endif
 
         </div>
     </div>

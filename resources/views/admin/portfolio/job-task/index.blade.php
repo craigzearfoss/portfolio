@@ -43,20 +43,23 @@
             <p class="admin-table-caption">* An asterisk indicates a featured job task.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if($isRootAdmin)
-                        <th>owner</th>
-                    @endif
-                    <th>company</th>
-                    <th>summary</th>
-                    <th class="has-text-centered">public</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if($isRootAdmin)
+                            <th>owner</th>
+                        @endif
+                        <th>company</th>
+                        <th>summary</th>
+                        <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)

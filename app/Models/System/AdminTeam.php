@@ -76,6 +76,8 @@ class AdminTeam extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', '=', $filters['name']);

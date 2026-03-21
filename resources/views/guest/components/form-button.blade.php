@@ -22,7 +22,7 @@
         class="{{ implode(' ' , $class) }}"
     @endif
     @if (!empty($style))
-        style="{{ implode(' ' , $class) }}"
+        style="{{ implode(' ' , $style) }}"
     @endif
     @if (!empty($onclick))
         onclick="{!! $onclick !!}"
@@ -35,7 +35,7 @@
     @endif
 >
     @if (!empty($icon))
-        <i class="fa-solid {{ $icon }}"></i>
+        <i class="fa {{ $icon }}"></i>
     @endif
     {!! $label ?? 'Submit' !!}
 </button>

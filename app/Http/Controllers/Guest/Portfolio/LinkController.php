@@ -24,7 +24,7 @@ class LinkController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $links = new Link()->where('owner_id', '=', $this->owner->id)
+        $links = new Link()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('sequence')
             ->paginate($perPage)->appends(request()->except('page'));
 

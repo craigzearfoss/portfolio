@@ -16,7 +16,7 @@ if (!empty($style)) {
                        href="{{ $image }}"
                    target="_blank"
                 >
-                    <i class="fa-solid fa-eye"></i>
+                    <i class="fa fa-eye"></i>
                 </a>
             @endif
         </label>

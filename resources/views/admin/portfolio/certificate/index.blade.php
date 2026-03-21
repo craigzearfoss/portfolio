@@ -44,21 +44,24 @@
             <p class="admin-table-caption">* An asterisk indicates a featured certificate.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if(!empty($admin->is_root))
-                        <th>owner</th>
-                    @endif
-                    <th>name</th>
-                    <th>academy</th>
-                    <th>year</th>
-                    <th>received</th>
-                    <th>expiration</th>
-                    <th class="has-text-centered">public</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if(!empty($admin->is_root))
+                            <th>owner</th>
+                        @endif
+                        <th>name</th>
+                        <th>academy</th>
+                        <th>year</th>
+                        <th>received</th>
+                        <th>expiration</th>
+                        <th class="has-text-centered">public</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
 
                 @if(!empty($bottom_column_headings))
                     <tfoot>

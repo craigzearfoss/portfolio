@@ -35,7 +35,9 @@
 
     <div class="card p-4">
 
-        {!! $servers->links('vendor.pagination.bulma') !!}
+        @if($pagination_top)
+            {!! $servers->links('vendor.pagination.bulma') !!}
+        @endif
 
         <ul>
 
@@ -58,7 +60,9 @@
 
         </ul>
 
-        {!! $servers->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $servers->links('vendor.pagination.bulma') !!}
+            @endif
 
     </div>
 

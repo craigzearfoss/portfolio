@@ -21,7 +21,7 @@ class PhotographyController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $photos = new Photography()->where('owner_id', '=', $this->owner['id'])
+        $photos = new Photography()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

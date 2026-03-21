@@ -24,7 +24,7 @@ class RecipeController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipes = new Recipe()->where('owner_id', '=', $this->owner['id'])
+        $recipes = new Recipe()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

@@ -28,134 +28,145 @@
 
     <div class="show-container card p-4">
 
-        @include('guest.components.show-row', [
-            'name'  => 'name',
-            'value' => $course->name
-        ])
+        <table>
+            <tbody>
 
-        <?php /*
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $course->featured
-        ])
-        */ ?>
+            @if(!empty($course->name))
+                <tr>
+                    <th>name:</th>
+                    <td>{{ $course->name }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($course->summary))
-            @include('guest.components.show-row', [
-                'name'  => 'summary',
-                'value' => $course->summary
-            ])
-        @endif
+            @if(!empty($course->summary))
+                <tr>
+                    <th>summary:</th>
+                    <td>{!! $course->summary !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($course->summary))
-            @include('guest.components.show-row', [
-                'name'  => 'year',
-                'value' => $course->year
-            ])
-        @endif
+            @if(!empty($course->year))
+                <tr>
+                    <th>year:</th>
+                    <td>{{ $course->year }}</td>
+                </tr>
+            @endif
 
-        @include('guest.components.show-row-checkmark', [
-            'name'    => 'completed',
-            'checked' => $course->completed
-        ])
+            @if(!empty($course->completed))
+                <tr>
+                    <th>completed:</th>
+                    <td>
+                        @include('guest.components.checkmark', [
+                            'checked' => $course->completed
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($course->date))
-            @include('guest.components.show-row', [
-                'name'  => 'completion date',
-                'value' => longDate($course->completion_date)
-            ])
-        @endif
+            @if(!empty($course->completion_date))
+                <tr>
+                    <th>completion date:</th>
+                    <td>{{ longDate($course->completion_date) }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($course->duration_hours))
-            @include('guest.components.show-row', [
-                'name'  => 'duration hours',
-                'value' => $course->duration_hours
-            ])
-        @endif
+            @if(!empty($course->duration_hours))
+                <tr>
+                    <th>duration:</th>
+                    <td>{{ $course->duration_hours }} {{ $course->duration_hour ? 'hour' : 'hours' }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($course->academy))
-            @include('guest.components.show-row', [
-                'name' => 'academy',
-                'value' => view('guest.components.link', [
-                                'name' => $course->academy['name'],
-                                'href' => $course->academy['link'],
-                                'target' =>'_blank'
-                            ])
-            ])
-        @endif
+            @if(!empty($course->academy))
+                <tr>
+                    <th>academy:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name' => $course->academy['name'],
+                            'href' => $course->academy['link'],
+                            'target' =>'_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($course->school))
-            @include('guest.components.show-row', [
-                'name'  => 'school',
-                'value' => $course->school
-            ])
-        @endif
+            @if(!empty($course->school))
+                <tr>
+                    <th>school:</th>
+                    <td>{{ $course->school }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($course->instructor))
-            @include('guest.components.show-row', [
-                'name'  => 'instructor',
-                'value' => $course->instructor
-            ])
-        @endif
+            @if(!empty($course->instructor))
+                <tr>
+                    <th>instructor:</th>
+                    <td>{{ $course->instructor }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($course->sponsor))
-            @include('guest.components.show-row', [
-                'name'  => 'sponsor',
-                'value' => $course->sponsor
-            ])
-        @endif
+            @if(!empty($course->sponsor))
+                <tr>
+                    <th>sponsor:</th>
+                    <td>{{ $course->sponsor }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($course->certificate_url))
-            @include('guest.components.show-row-image', [
-                'name'     => 'certificate url',
-                'src'      => imageUrl($course->certificate_url),
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($course)
-            ])
-        @endif
+            @if(!empty($course->certificate_url))
+                <tr>
+                    <th>certificate url:</th>
+                    <td>
+                        @include('guest.components.image', [
+                            'name'     => 'certificate url',
+                            'src'      => imageUrl($course->certificate_url),
+                            'width'    => '300px',
+                            'download' => true,
+                            'external' => true,
+                            'filename' => generateDownloadFilename($course)
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($course->link))
-            @include('guest.components.show-row-link', [
-                'name'   => $course->link_name,
-                'href'   => $course->link,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($course->link))
+                <tr>
+                    <th>{{ !empty($course->link_name) ? $course->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => $course->link_name,
+                            'href'   => $course->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($course->description))
-            @include('guest.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($course->description)
-            ])
-        @endif
+            @if(!empty($course->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $course->description !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($course->image))
-            @include('guest.components.show-row-image-credited', [
-                'name'         => 'image',
-                'src'          => $course->image,
-                'alt'          => $course->name,
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => generateDownloadFilename($course, '-thumbnail'),
-                'image_credit' => $course->image_credit,
-                'image_source' => $course->image_source,
-            ])
-        @endif
+            @if(!empty($course->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.image-credited', [
+                            'name'         => 'image',
+                            'src'          => $course->image,
+                            'alt'          => $course->name,
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($course),
+                            'image_credit' => $course->image_credit,
+                            'image_source' => $course->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($course->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $course->thumbnail,
-                'alt'      => $course->name . ', ' . ' thumbnail',
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($course, '-thumbnail')
-            ])
-        @endif
+            </tbody>
+        </table>
 
     </div>
 

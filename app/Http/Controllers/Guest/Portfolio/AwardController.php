@@ -21,7 +21,7 @@ class AwardController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $awards = new Award()->where('owner_id', '=', $this->owner['id'])
+        $awards = new Award()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('name')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

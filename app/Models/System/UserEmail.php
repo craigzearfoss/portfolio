@@ -62,6 +62,8 @@ class UserEmail extends Model
      */
     public function searchQuery(array $filters = [], User|null $user = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         if (!empty($user)) {
             if (array_key_exists('user_id', $filters)) {
                 unset($filters['user_id']);

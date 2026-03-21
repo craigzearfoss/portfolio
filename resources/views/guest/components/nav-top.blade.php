@@ -8,12 +8,9 @@
     <nav id="navbar-main" class="navbar guest is-fixed-top">
         <div class="navbar-brand">
 
-            @include('guest.components.nav-link-top', [
-                'name'   => false,
-                'href'   => false,
-                'class'  => 'is-hidden-desktop jb-aside-mobile-toggle',
-                //'icon'   => '<span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>'
-            ])
+            <a class="hamburger-icon" href="javascript:void(0);" onclick="toggleHamburgerMenu()">
+                <i class="fa fa-bars m-2"></i>
+            </a>
 
             <div class="navbar-item has-control">
 
@@ -25,7 +22,7 @@
                     <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
                         Demo Mode
                     </span>
-                @elseif(boolval(config('app.readonly')))
+                @elseif(config('app.readonly'))
                     <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
                         Site is Read-only
                     </span>
@@ -56,18 +53,18 @@
                         <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
 
                             @php
-                                $name = '';
+                                $avatarElems = [];
                                 if (!empty($menuItem->thumbnail)) {
-                                    $name .= '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
+                                    $avatarElems[] = '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
                                 }
-                                $name .= '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
+                                $avatarElems[] = '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
                                 if (!empty($menuItem->icon)) {
-                                    $name .= '<span class="text-xl"><i class="fa-solid '.$menuItem->icon.'"></i>';
+                                    $avatarElems[] = '<span class="text-xl"><i class="fa '.$menuItem->icon.'"></i>';
                                 }
                             @endphp
 
                             @include('guest.components.nav-link-top', [
-                                'name'       => $name,
+                                'name'       => implode('', $avatarElems),
                                 'href'       => false,
                                 'class'      => 'navbar-link is-arrowless',
                                 'icon'       => false
@@ -92,13 +89,22 @@
 
                     @else
 
-                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
+                        @php
+                            $hideClass = match ($menuItem->tag) {
+                                'dictionary_db'               => 'hide-at-1400',
+                                'user_login', 'admin_login'   => 'hide-at-1300',
+                                'personal_db', 'portfolio_db' => 'hide-at-1200',
+                                default => '',
+                            };
+                        @endphp
+
+                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable {{ $hideClass }}">
 
                             @include('guest.components.nav-link-top', [
                                 'name'   => $menuItem->title,
                                 'href'   => $menuItem->url ?? false,
                                 'class'  => 'navbar-link is-arrowless',
-                                'icon'   => ''
+                                'icon'   => false
                             ])
 
                             @if(!empty($menuItem->children))
@@ -124,8 +130,29 @@
 
                 @endforeach
 
+                <div class="right-home-admin-button-container aside-tools-label has-text-left ml-2 mr-2 mt-3 show-at-1024" style="width: auto; float: right;">
+
+                    @include('guest.components.button-home', [
+                        'name'     => 'Home',
+                        'href'     => route('guest.index'),
+                        'selected' => true,
+                    ])
+
+                    <span style="display: inline-block; background-color: red; width: 2px;"></span>
+
+                    @include('guest.components.button-home', [
+                        'name'     => 'Admin',
+                        'href'     => route('admin.dashboard'),
+                        'selected' => false,
+                        'style'    => 'background: #2e323a;'
+                    ])
+
+                </div>
+
             </div>
+
         </div>
+
     </nav>
 
 @endif

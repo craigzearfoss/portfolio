@@ -30,25 +30,34 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $videos->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>year</th>
-                    <th>show</th>
-                    <th>company</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>year</th>
-                    <th>show</th>
-                    <th>company</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th class="has-text-centered hide-at-480">year</th>
+                        <th class="hide-at-600">show</th>
+                        <th class="hide-at-1200">company</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th class="has-text-centered hide-at-480">year</th>
+                        <th class="hide-at-600">show</th>
+                        <th class="hide-at-1200">company</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($videos as $video)
@@ -61,13 +70,13 @@
                                 'class' => $video->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="year" class="has-text-centered">
+                        <td data-field="year" class="has-text-centered hide-at-480">
                             {!! $video->year !!}
                         </td>
-                        <td data-field="show">
+                        <td data-field="show" class="hide-at-600">
                             {!! $video->show !!}
                         </td>
-                        <td data-field="company">
+                        <td data-field="company" class="hide-at-1200">
                             {!! $video->company !!}
                         </td>
                     </tr>
@@ -83,7 +92,9 @@
                 </tbody>
             </table>
 
-            {!! $videos->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $videos->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

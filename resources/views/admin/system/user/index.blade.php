@@ -5,7 +5,7 @@
     use App\Models\System\UserTeam;
 
     $title    = $pageTitle ?? 'Users';
-    $subtitle = $itle;
+    $subtitle = $title;
 
     // set breadcrumbs
     $breadcrumbs = [
@@ -46,21 +46,24 @@
             @endif
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th style="white-space: nowrap;">user name</th>
-                    <th>label</th>
-                    <th>team</th>
-                    <th>email</th>
-                    <th class="has-text-centered">verified</th>
-                    <th>status</th>
-                    <th class="has-text-centered">disabled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th style="white-space: nowrap;">user name</th>
+                        <th>label</th>
+                        <th>team</th>
+                        <th>email</th>
+                        <th class="has-text-centered">verified</th>
+                        <th>status</th>
+                        <th class="has-text-centered">disabled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         <th>name</th>

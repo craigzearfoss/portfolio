@@ -24,106 +24,110 @@
 
 @section('content')
 
+    @include('guest.components.disclaimer', [ 'value' => $certificate->disclaimer ])
+
     <div class="show-container card p-4">
 
-        @include('guest.components.disclaimer', [ 'value' => $certificate->disclaimer ])
+        <table>
+            <tbody>
 
-        @include('guest.components.show-row', [
-            'name'  => 'name',
-            'value' => $certificate->name
-        ])
+            @if(!empty($certificate->name))
+                <tr>
+                    <th>name:</th>
+                    <td>{{ $certificate->name }}</td>
+                </tr>
+           @endif
 
-        <?php /*
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $certificate->featured
-        ])
-        */ ?>
+            @if(!empty($certificate->summary))
+                <tr>
+                    <th>summary:</th>
+                    <td>{!! $certificate->summary !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($certificate->summary))
-            @include('guest.components.show-row', [
-                'name'  => 'summary',
-                'value' => $certificate->summary
-            ])
-        @endif
+            @if(!empty($certificate->organization))
+                <tr>
+                    <th>organization:</th>
+                    <td>{{ $certificate->organization }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($certificate->organization))
-            @include('guest.components.show-row', [
-                'name'  => 'organization',
-                'value' => $certificate->organization
-            ])
-        @endif
+            @if(!empty($certificate->year))
+                <tr>
+                    <th>year:</th>
+                    <td>{{ $certificate->year }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($certificate->year))
-            @include('guest.components.show-row', [
-                'name'  => 'year',
-                'value' => $certificate->year
-            ])
-        @endif
+            @if(!empty($certificate->academy))
+                <tr>
+                    <th>academy:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => $certificate->academy['name'],
+                            'href'   => $certificate->academy['link'],
+                            'target' => '_blank',
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($certificate->link))
-            @include('guest.components.show-row', [
-                'name'  => 'academy',
-                'value' => view('guest.components.show-row', [
-                                'name'   => $certificate->academy['name'],
-                                'href'   => $certificate->academy['link'],
-                                'target' => '_blank',
-                            ]),
-                'raw'   => true
-            ])
-        @endif
+            @if(!empty($certificate->certificate_url))
+                <tr>
+                    <th>certificate url:</th>
+                    <td>
+                        @include('guest.components.image', [
+                            'name'     => 'certificate url',
+                            'src'      => imageUrl($certificate->certificate_url),
+                            'width'    => '300px',
+                            'download' => true,
+                            'external' => true,
+                            'filename' => generateDownloadFilename($certificate)
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($certificate->certificate_url))
-            @include('guest.components.show-row-image', [
-                'name'     => 'certificate url',
-                'src'      => imageUrl($certificate->certificate_url),
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($certificate)
-            ])
-        @endif
+            @if(!empty($certificate->link))
+                <tr>
+                    <th>{{ !empty($certificate->link_name) ? $certificate->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
+                            'href'   => $certificate->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($certificate->link))
-            @include('guest.components.show-row-link', [
-                'name'   => !empty($certificate->link_name) ? $certificate->link_name : 'link',
-                'href'   => $certificate->link,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($certificate->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $certificate->description !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($certificate->description ))
-            @include('guest.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($certificate->description)
-            ])
-        @endif
+            @if(!empty($certificate->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.image-credited', [
+                            'name'         => 'image',
+                            'src'          => $certificate->image,
+                            'alt'          => $certificate->name,
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($certificate),
+                            'image_credit' => $certificate->image_credit,
+                            'image_source' => $certificate->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($certificate->image))
-            @include('guest.components.show-row-image', [
-                'name'         => 'image',
-                'src'          => $certificate->image,
-                'alt'          => $certificate->name,
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => generateDownloadFilename($certificate),
-                'image_credit' => $certificate->image_credit,
-                'image_source' => $certificate->image_source,
-            ])
-        @endif
-
-        @if(!empty($certificate->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $certificate->thumbnail,
-                'alt'      => $certificate->name . ' thumbnail',
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => generateDownloadFilename($certificate, '-thumbnail')
-            ])
-        @endif
+            </tbody>
+        </table>
 
     </div>
 

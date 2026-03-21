@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? (($owner->name  ?? '') . ' Portfolio');
+    $title    = $pageTitle ?? ($isRootAdmin ? ($owner->name  ?? '') : '') . ' Portfolio';
     $subtitle = $title;
 
     // set breadcrumbs

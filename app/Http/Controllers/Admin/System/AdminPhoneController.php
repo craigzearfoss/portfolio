@@ -26,7 +26,7 @@ class AdminPhoneController extends BaseAdminController
 
         $adminPhones = new AdminPhone()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
             ->orderBy('owner_id')
-            ->orderBy('name')
+            ->orderBy('phone')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' phone numbers';

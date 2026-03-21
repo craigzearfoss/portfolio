@@ -128,6 +128,7 @@ class BaseController extends Controller
         // inject pagination variables into blade templates
         view()->share('pagination_bottom', config('app.pagination_bottom'));
         view()->share('pagination_top', config('app.pagination_top'));
+        view()->share('top_column_headings', config('app.top_column_headings'));
         view()->share('bottom_column_headings', config('app.bottom_column_headings'));
     }
 
@@ -159,6 +160,7 @@ class BaseController extends Controller
     {
         $owner = null;
         $envType = !empty($this->envType) ? $this->envType : getEnvType();
+        $ownerIdSpecified = false;
 
         if (($envType->value == 'admin') && !empty($currentAdmin) && !$currentAdmin['is_root']) {
             // this is a non-root admin so they can only view their own resources
@@ -167,67 +169,69 @@ class BaseController extends Controller
 
         // get the "owner_id" url parameter, if there is one
         if (request()->exists('owner_id')) {
+
+            $ownerIdSpecified = true;
             $owner_id = request()->query('owner_id');
-            if (request()->query('owner_id') === '*') {
-                $owner_id = '*';
+
+            if (empty($owner_id) || in_array($owner_id, ['*', 'all'])) {
+                $owner_id = null;
             } else {
                 $owner_id = intval($owner_id);
+                $owner = Admin::findOrFail($owner_id);
             }
-            request()->query->remove('owner_id');
-        } else {
-            $owner_id = null;
+
+            if (!$this->isRootAdmin) {
+                request()->query->remove('owner_id');
+                }
         }
 
-        if (!empty($owner_id)) {
+        if (!$ownerIdSpecified) {
 
-            if ($owner_id !== '*') {
-                $owner = new Admin()->find($owner_id);
-            }
+            if ($admin = Route::current()->parameter('admin')) {
 
-        } elseif ($admin = Route::current()->parameter('admin')) {
+                if (!empty($admin)) {
+                    if (is_string($admin)) {
+                        $owner = new Admin()->find($admin);
+                    } else {
+                        $owner = $admin;
+                    }
+                }
 
-            if (!empty($admin)) {
-                if (is_string($admin)) {
-                    $owner = new Admin()->find($admin);
-                } else {
-                    $owner = $admin;
+            } elseif (!in_array(Route::currentRouteName(), [
+                'guest.index',
+                'guest.admin.index',
+                'admin.index',
+                'admin.dashboard',
+                'admin.system.admin.index',
+            ])) {
+
+                if ($owner_id = $this->cookieManager->getOwnerId($this->envType)) {
+
+                    $owner = new Admin()->find($owner_id);
+
+                } elseif (!empty($currentAdmin)) {
+
+                    $owner = $currentAdmin;
                 }
             }
 
-        } elseif (!in_array(Route::currentRouteName(), [
-            'guest.index',
-            'guest.admin.index',
-            'admin.index',
-            'admin.dashboard',
-            'admin.system.admin.index',
-        ])) {
+            if (empty($owner)) {
 
-            if ($owner_id = $this->cookieManager->getOwnerId($this->envType)) {
+                if ($envType->value == 'guest') {
 
-                $owner = new Admin()->find($owner_id);
+                    $parameters = Route::current()->parameters();
+                    if (!empty($parameters['admin'])) {
 
-            } elseif (!empty($currentAdmin)) {
+                        return new Admin()->where('label', '=', $parameters['admin'])->first();
 
-                $owner = $currentAdmin;
-            }
-        }
+                    } elseif ($featuredAdminUsername = config('app.featured_admin')) {
 
-        if (empty($owner)) {
+                        return new Admin()->where('username', '=', $featuredAdminUsername)->first();
+                    }
 
-            if ($envType->value == 'guest') {
-
-                $parameters = Route::current()->parameters();
-                if (!empty($parameters['admin'])) {
-
-                    return new Admin()->where('label', '=', $parameters['admin'])->first();
-
-                } elseif ($featuredAdminUsername = config('app.featured_admin')) {
-
-                    return new Admin()->where('username', '=', $featuredAdminUsername)->first();
+                } elseif ($envType->value == 'admin') {
+                    $owner = $currentAdmin;
                 }
-
-            } elseif ($envType->value == 'admin') {
-                $owner = $currentAdmin;
             }
         }
 

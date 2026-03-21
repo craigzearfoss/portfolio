@@ -1,0 +1,53 @@
+@php
+    $download = $download ?? false;
+    $external = $external ?? false;
+
+    $classes = !empty($class)
+        ? (is_array($class) ? $class : explode(' ', $class))
+        : [];
+    $classes[] ='property-list';
+    $classes[] ='columns';
+
+    $styles = !empty($style)
+        ? (is_array($style) ? $style : explode(';', $style))
+        : [];
+
+    // get styles for defined properties
+    $styleArray = [];
+    if (!empty($width)) $styleArray[] = 'width: '. $width . ';';
+    if (!empty($minWidth)) $styleArray[] = 'min-width: '. $minWidth . ';';
+    if (!empty($display)) $styleArray[] = 'display: '. $display . ';';
+    if (!empty($whiteSpace)) $styleArray[] = 'white-space: '. $whiteSpace . ';';
+    if (!empty($styleArray)) {
+        $styles = array_merge($styles, $styleArray);
+    }
+@endphp
+<div>
+    <div style="display: inline-block;">
+        @include('guest.components.image', [
+            'name'     => 'image',
+            'src'      => $src,
+            'filename' => $filename ?? null,
+            'alt'      => $alt ?? null,
+            'width'    => $width ?? null,
+            'height'   => $height ?? null,
+            'class'    => $class ?? [],
+            'style'    => $style ?? [],
+            'onclick'  => $onclick ?? null,
+            'download' => $download,
+            'external' => $external,
+        ])
+    </div>
+    <div class="has-text-right">
+        @if(!empty($image_credit))
+            <span class="mr-2">
+                <i>credit: {{ $image_credit ?? '' }}</i>
+            </span>
+        @endif
+        @if(!empty($image_credit))
+            <span>
+                <i> source: {{ $image_source ?? '' }}</i>
+            </span>
+        @endif
+    </div>
+</div>

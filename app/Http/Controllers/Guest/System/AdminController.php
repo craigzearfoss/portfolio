@@ -24,7 +24,7 @@ class AdminController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $admin = null;
-        $candidates = new Admin()->where('is_public', '=', 1)
+        $candidates = new Admin()->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
@@ -50,14 +50,14 @@ class AdminController extends BaseGuestController
 
         $dbColumns = [
             'Portfolio' => new AdminResource()->ownerResources(
-                $thisAdmin->id ?? null,
+                $thisAdmin,
                 EnvTypes::GUEST,
-                new Database()->where('tag', '=', 'portfolio_db')->first()->id ?? null
+                'portfolio_db'
             ),
             'Personal' => new AdminResource()->ownerResources(
-                $thisAdmin->id,
+                $thisAdmin,
                 EnvTypes::GUEST,
-                new Database()->where('tag', '=', 'personal_db')->first()->id ?? null
+                'personal_db'
             ),
         ];
 

@@ -32,46 +32,9 @@ class JobSkillController extends BaseAdminController
         $jobSkillModel = new JobSkill();
 
         $job = null;
-        $query = null;
-
-        if ($jobId = $request->get('job_id')) {
-
-            $job = new Job()->findOrFail($jobId);
-
-            if (isRootAdmin()) {
-
-                $query = $jobSkillModel->where('job_id', '=', $jobId)
-                    ->orderBy('name');
-                if (($owner_id = $request->owner) && (new Owner()->findOrFail($owner_id))) {
-                    $query->where('owner_id', '=', $owner_id);
-                }
-
-            } elseif (!empty($this->owner)) {
-
-                $query = $jobSkillModel->where('job_id', '=', $jobId)
-                    ->where('owner_id', '=', $this->owner->id)
-                    ->orderBy('name');
-            }
-
-            $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
-
-        } else {
-
-            if (isRootAdmin()) {
-
-                $query = $jobSkillModel->orderBy('name');
-                if (($owner_id = $request->get('owner_id')) && (new Owner()->findOrFail($owner_id))) {
-                    $query->where('owner_id', '=', $owner_id);
-                }
-
-            } elseif (!empty($this->owner)) {
-
-                $query = $jobSkillModel->where('owner_id', '=', $this->owner->id)
-                    ->orderBy('name');
-            }
-
-            $jobSkills = $query->paginate($perPage)->appends(request()->except('page'));
-        }
+        $jobSkills = $jobSkillModel->searchQuery(request()->except('id'), $this->owner ?? null)
+            ->orderBy('name')
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' job skills';
 

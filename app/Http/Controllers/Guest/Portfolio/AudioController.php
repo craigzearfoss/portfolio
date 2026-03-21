@@ -24,7 +24,7 @@ class AudioController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $audios = new Audio()->where('owner_id', $this->owner['id'])
+        $audios = new Audio()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

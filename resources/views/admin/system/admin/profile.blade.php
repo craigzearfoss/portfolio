@@ -162,9 +162,10 @@
                                                    ),
                                         'class' => 'list-item',
                                         'style' => [
-                                            'padding: 0.2rem',
-                                            'white-space: nowrap',
-                                            'margin-left: ' . (12 * ($resource->menu_level - 1)) . 'px',
+                                            'color: #4a4a4a;',
+                                            'padding: 0.2rem;',
+                                            'white-space: nowrap;',
+                                            'margin-left: ' . (12 * ($resource->menu_level - 1)) . 'px;',
                                         ],
                                     ])
                                 </li>

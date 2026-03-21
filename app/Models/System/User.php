@@ -139,6 +139,8 @@ class User extends Authenticatable
      */
     public function searchQuery(array $filters = [], UserModel|null $user = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })

@@ -20,35 +20,25 @@
 
 @section('content')
 
-    @if($disclaimerMessage = config('app.demo_disclaimer'))
-        @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+    @if($owner->is_demo)
+        @if($disclaimerMessage = config('app.demo_disclaimer'))
+            @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
+        @endif
     @endif
 
-    <div class="container">
+    <div class="floating-div-container">
+        <div class="show-container card floating-div">
 
-        <ul class="menu-list" style="width: 20rem;">
+            <div class="list is-hoverable">
 
-            @foreach($personals as $personal)
+                @include('guest.components.resource-list', [
+                    'resourceType' => dbName('personal_db'),
+                    'resources'    => $personals
+                ])
 
-                @if($personal->has_owner && !in_array($personal->name, [ 'ingredient', 'recipe-ingredient', 'recipe-step' ]))
+            </div>
 
-                <li>
-                    @include('admin.components.link', [
-                        'name'  => $personal->plural,
-                        'href'  => Route::has('guest.'.$personal->database['name'] . '.' . $personal->name . '.index')
-                                        ? route('guest.'.$personal->database['name'] . '.' . $personal->name . '.index', $owner)
-                                        : '',
-                        'class' => 'list-item ml-4',
-                        'icon'  => $personal->icon,
-                    ])
-                </li>
-
-                @endif
-
-            @endforeach
-
-        </ul>
-
+        </div>
     </div>
 
 @endsection

@@ -24,7 +24,6 @@
 
 @section('content')
 
-
     @if($owner->is_demo)
         @if($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
@@ -33,77 +32,77 @@
 
     <div class="show-container p-4">
 
-        @include('guest.components.show-row', [
-            'name'  => 'name',
-            'value' => $art->name
-        ])
+        <table>
+            <tbody>
 
-        @include('guest.components.show-row', [
-            'name'  => 'artist',
-            'value' => $art->artist
-        ])
+            @if(!empty($art->image))
+                <tr>
+                    <td colspan="2">
+                        @include('guest.components.image-credited', [
+                            'name'         => 'image',
+                            'src'          => $art->image,
+                            'alt'          => $art->name . (!empty($art->artist) ? ', ' . $art->artist : ''),
+                            'width'        => '300px',
+                            'download'     => true,
+                            'external'     => true,
+                            'filename'     => generateDownloadFilename($art),
+                            'image_credit' => $art->image_credit,
+                            'image_source' => $art->image_source,
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        <?php /*
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $art->featured
-        ])
-        */ ?>
+            @if(!empty($art->name))
+                <tr>
+                    <th>name:</th>
+                    <td>{{ $art->name }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($art->summary))
-            @include('guest.components.show-row', [
-                'name'  => 'summary',
-                'value' => $art->summary
-            ])
-        @endif
+            @if(!empty($art->artist))
+                <tr>
+                    <th>artist:</th>
+                    <td>{{ $art->artist }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($art->year))
-            @include('guest.components.show-row', [
-                'name'    => 'year',
-                'value' => $art->year
-            ])
-        @endif
+            @if(!empty($art->summary))
+                <tr>
+                    <th>summary:</th>
+                    <td>{!! $art->summary !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($art->image))
-            @include('guest.components.show-row-image-credited', [
-                'name'         => 'image',
-                'src'          => $art->image,
-                'alt'          => $art->name . (!empty($art->artist) ? ', ' . $art->artist : ''),
-                'width'        => '300px',
-                'download'     => true,
-                'external'     => true,
-                'filename'     => generateDownloadFilename($art),
-                'image_credit' => $art->image_credit,
-                'image_source' => $art->image_source,
-            ])
-        @endif
+            @if(!empty($art->year))
+                <tr>
+                    <th>year:</th>
+                    <td>{{ $art->year }}</td>
+                </tr>
+            @endif
 
-        @if(!empty($art->thumbnail))
-            @include('guest.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $art->thumbnail,
-                'alt'      => $art->name . (!empty($art->artist) ? ', ' . $art->artist : '') . ' thumbnail',
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename'     => generateDownloadFilename($art, '-thumbnail'),
-            ])
-        @endif
+            @if(!empty($art->link))
+                <tr>
+                    <th>{{ !empty($art->link_name) ? $art->link_name : 'link' }}:</th>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => !empty($art->link_name) ? $art->link_name : 'link',
+                            'href'   => $art->link,
+                            'target' => '_blank'
+                        ])
+                    </td>
+                </tr>
+            @endif
 
-        @if(!empty($art->link))
-            @include('guest.components.show-row-link', [
-                'name'   => !empty($art->link_name) ? $art->link_name : 'link',
-                'href'   => $art->link,
-                'target' => '_blank'
-            ])
-        @endif
+            @if(!empty($art->description))
+                <tr>
+                    <th>description:</th>
+                    <td>{!! $art->description !!}</td>
+                </tr>
+            @endif
 
-        @if(!empty($art->description))
-            @include('guest.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($art->description)
-            ])
-        @endif
+            </tbody>
+        </table>
 
     </div>
 

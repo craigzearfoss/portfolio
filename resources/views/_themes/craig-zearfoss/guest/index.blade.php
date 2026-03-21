@@ -1,4 +1,4 @@
-@php
+d@php
     $title    = $pageTitle ?? ($featuredAdmin ? $featuredAdmin->name : config('add.name'));
     $subtitle = false;
 

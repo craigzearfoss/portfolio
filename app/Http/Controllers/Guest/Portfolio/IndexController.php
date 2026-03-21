@@ -11,6 +11,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class IndexController extends BaseGuestController
 {
     /**
@@ -23,11 +26,12 @@ class IndexController extends BaseGuestController
     {
         if (!empty($this->owner)) {
 
-            $databaseId = new Database()->where('tag', '=', 'portfolio_db')->first()->id ?? null;
-
-            $portfolios = !empty($databaseId)
-                ? new AdminResource()->ownerResources($this->owner['id'], EnvTypes::GUEST, $databaseId)
-                : [];
+            $portfolios = new AdminResource()->ownerResources(
+                $this->owner,
+                EnvTypes::GUEST,
+                'portfolio_db',
+                [ 'menu' => true, 'is_public' => true, 'is_disabled' =>false ]
+            );
 
         } else {
 

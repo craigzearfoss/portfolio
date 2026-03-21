@@ -11,7 +11,9 @@
         'border-radius: 10px',
     ];
     if (!empty($selected)) {
-        $styles[] ='background-color: #727c8f';
+        $styles[] ='background-color: #727c8f;';
+    } else {
+        $styles[] ='background-color: #2e323a;';
     }
 @endphp
 <a href="{{ $href ?? route('guest.index') }}"

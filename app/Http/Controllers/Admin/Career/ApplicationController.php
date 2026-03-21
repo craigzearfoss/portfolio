@@ -30,14 +30,12 @@ class ApplicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = new Application()->searchQuery(request()->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        $applications = new Application()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('owner_id')
-            ->orderBy('created_at', 'desc');
-        if ($resume = $request->resume_id ? new Resume()->findOrFail($request->resume_id) : null) {
-            $query->where('resume_id', '=', $resume->id);
-        }
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage)->appends(request()->except('page'));
 
-        $applications = $query->paginate($perPage)->appends(request()->except('page'));
+        $resume = $request->resume_id ? new Resume()->findOrFail($request->resume_id) : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' applications';
 

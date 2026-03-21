@@ -30,23 +30,32 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $audios->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>type</th>
-                    <th>year</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>type</th>
-                    <th>year</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th class="hide-at-600">type</th>
+                        <th class="hide-at-480">year</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th class="hide-at-600">type</th>
+                        <th class="hide-at-480">year</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($audios as $audio)
@@ -59,7 +68,7 @@
                                 'class' => $audio->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="clip|podcast">
+                        <td data-field="clip|podcast" class="hide-at-600">
                             @php
                                 $types = [];
                                 if ($audio->podcast) $types[] = 'podcast';
@@ -67,7 +76,7 @@
                             @endphp
                             {!! implode(', ', $types) !!}
                         </td>
-                        <td data-field="year">
+                        <td data-field="year" class="hide-at-480">
                             {!! $audio->year !!}
                         </td>
                     </tr>
@@ -83,7 +92,9 @@
                 </tbody>
             </table>
 
-            {!! $audios->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $audios->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

@@ -1,43 +1,39 @@
 @php
     $resourceType = $resourceType ?? '';
     $resources = $resources ?? [];
-    $currentLevel = 1;
+    $currentMenuLevel = 1;
 @endphp
-@if(!empty($resource))
 
-    <h2>No {{ $resourceType }} resources found.</h2>
+<ul class="menu-list" data-menu-level="{{ $currentMenuLevel }}" style="max-width: 20em;">
 
-@else
+    @forelse ($resources as $i=>$resource)
 
-    <ul class="menu-list" data-menu-level="{{ $currentLevel }}" style="max-width: 20em;">
-
-        @foreach($resources as $i=>$resource)
-
-            @if($resource->menu_level > $currentLevel)
-                <li class="list-item">
-                    <ul class="menu-list m-0 ml-2" data-menu-level="{{ $currentLevel }}" style="max-width: 20em; border-left: 0;">
-            @elseif($resource->menu_level < $currentLevel)
-                </ul>
-                <li class="list-item">
-            @else
-                <li class="list-item">
-            @endif
-
-            @php $currentLevel = $resource->menu_level @endphp
-
+        @if($resource->menu_level > $currentMenuLevel)
             <li class="list-item">
+                <ul class="menu-list m-0 ml-2" data-menu-level="{{ $currentMenuLevel }}" style="max-width: 20em; border-left: 0;">
+        @elseif($resource->menu_level < $currentMenuLevel)
+            </ul>
+        @endif
 
-                @include('admin.components.link', [
-                    'name'  => $resource->plural,
-                    'href'  => Route::has('admin.'.$resourceType.'.'.$resource->name.'.index')
-                                   ? route('admin.'.$resourceType.'.'.$resource->name.'.index', (isRootAdmin() ? [ 'owner_id' => $owner->id ?? '' ] : []))
-                                   : null,
-                    'class' => 'list-item',
-                ])
+        <li class="list-item">
 
-        @endforeach
-
+            @include('guest.components.link', [
+                'name'  => $resource->plural,
+                'href'  => $resource->url,
+                'class' => 'list-item',
+                'style' => 'color: #4a4a4a',
+                'icon'  => $resource->icon
+            ])
         </li>
-    </ul>
 
-@endif
+        @php
+            $currentMenuLevel = $resource->menu_level;
+        @endphp
+
+    @empty
+
+        <li class="list-item">No {{ $resourceType }} resources found.</li>
+
+    @endforelse
+
+</ul>

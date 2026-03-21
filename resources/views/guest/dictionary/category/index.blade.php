@@ -36,7 +36,9 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
-            {!! $categories->links('vendor.pagination.bulma') !!}
+            @if($pagination_top)
+                {!! $categories->links('vendor.pagination.bulma') !!}
+            @endif
 
             <ul>
 
@@ -59,7 +61,9 @@
 
             </ul>
 
-            {!! $categories->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $categories->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

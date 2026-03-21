@@ -30,24 +30,32 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $recipes->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>type</th>
-                    <th>meal</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>type</th>
-                    <th>meal</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>type</th>
+                        <th class="hide-at-600">meal</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>type</th>
+                        <th class="hide-at-600">meal</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($recipes as $recipe)
@@ -63,7 +71,7 @@
                         <td data-field="types">
                             {{ implode(', ', $recipe->types()) }}
                         </td>
-                        <td data-field="meals">
+                        <td data-field="meals" class="hide-at-600">
                             {{ implode(', ', $recipe->meals()) }}
                         </td>
                     </tr>
@@ -79,7 +87,9 @@
                 </tbody>
             </table>
 
-            {!! $recipes->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $recipes->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

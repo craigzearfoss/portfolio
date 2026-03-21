@@ -30,28 +30,36 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $awards->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>category</th>
-                    <th>nominated work</th>
-                    <th>year</th>
-                    <th>organization</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>category</th>
-                    <th>nominated work</th>
-                    <th>year</th>
-                    <th>organization</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>category</th>
+                        <th>nominated work</th>
+                        <th class="has-text-centered">year</th>
+                        <th class="hide-at-1300">organization</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>category</th>
+                        <th>nominated work</th>
+                        <th class="has-text-centered">year</th>
+                        <th class="hide-at-1300">organization</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($awards as $award)
@@ -79,7 +87,7 @@
                         <td class="has-text-centered">
                             {!! $award->year !!}
                         </td>
-                        <td>
+                        <td class="hide-at-1300">
                             {!! $award->organization !!}
                         </td>
                     </tr>
@@ -95,7 +103,9 @@
                 </tbody>
             </table>
 
-            {!! $awards->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $awards->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

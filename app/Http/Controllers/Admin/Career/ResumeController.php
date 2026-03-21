@@ -32,9 +32,10 @@ class ResumeController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = new Resume()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        $query = new Resume()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('owner_id')
             ->orderBy('name', 'desc');
+
         if ($application = $request->application_id ? new Application()->findOrFail($request->application_id) : null) {
             $query->leftJoin(config('app.career_db').'.applications', 'applications.resume_id', '=', 'resumes.id')
                 ->where('applications.id', '=', $application->id);

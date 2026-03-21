@@ -37,6 +37,8 @@
 
     </div>
 
+    <script src="{{ asset('assets/js/main.js') }}?{{ appTimestamp() }}"></script>
+
     {!! CookieConsent::scripts() !!}
 
 </body>

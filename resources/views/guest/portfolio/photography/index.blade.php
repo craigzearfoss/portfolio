@@ -30,23 +30,32 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $photos->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>credit</th>
-                    <th>year</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>credit</th>
-                    <th>year</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th class="hide-at-480">credit</th>
+                        <th class="has-text-centered hide-at-750">year</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th class="hide-at-480">credit</th>
+                        <th class="has-text-centered hide-at-750">year</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($photos as $photo)
@@ -59,10 +68,10 @@
                                 'class' => $photo->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td>
+                        <td class="hide-at-480">
                             {!! $photo->credit !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-750">
                             {!! $photo->year !!}
                         </td>
                     </tr>
@@ -78,7 +87,9 @@
                 </tbody>
             </table>
 
-            {!! $photos->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $photos->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

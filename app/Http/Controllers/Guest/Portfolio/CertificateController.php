@@ -24,7 +24,7 @@ class CertificateController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $certificates = new Certificate()->where('owner_id', '=', $this->owner['id'])
+        $certificates = new Certificate()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

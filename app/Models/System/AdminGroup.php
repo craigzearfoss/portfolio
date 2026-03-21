@@ -76,8 +76,10 @@ class AdminGroup extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['admin_team_id']), function ($query) use ($filters) {
+            ->when(!empty($filters['admin_team_id']), function ($query) use ($filters) {
                 $query->where('admin_team_id', '=', intval($filters['admin_team_id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {

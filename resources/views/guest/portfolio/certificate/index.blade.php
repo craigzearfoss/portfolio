@@ -30,30 +30,38 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $certificates->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>academy</th>
-                    <th>organization</th>
-                    <th>year</th>
-                    <th>received</th>
-                    <th>expiration</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>academy</th>
-                    <th>organization</th>
-                    <th>year</th>
-                    <th>received</th>
-                    <th>expiration</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>academy</th>
+                        <th class="hide-at-900">organization</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="has-text-centered hide-at-1200">received</th>
+                        <th class="has-text-centered hide-at-750">expiration</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>academy</th>
+                        <th class="hide-at-900">organization</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="has-text-centered hide-at-1200">received</th>
+                        <th class="has-text-centered hide-at-750">expiration</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($certificates as $certificate)
@@ -77,16 +85,16 @@
                                 ])
                             @endif
                         </td>
-                        <td class="has-text-centered">
+                        <td class="hide-at-900">
                             {!! $certificate->organization !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-600">
                             {!! $certificate->year !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-1200">
                             {!! shortDate($certificate->received) !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-750">
                             {!! shortDate($certificate->expiration) !!}
                         </td>
                     </tr>
@@ -102,7 +110,9 @@
                 </tbody>
             </table>
 
-            {!! $certificates->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $certificates->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

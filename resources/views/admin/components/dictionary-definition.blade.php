@@ -23,7 +23,7 @@
        href="{!! $word->link !!}"
        target="_blank"
     >
-        <i class="fa-solid fa-external-link"></i>
+        <i class="fa fa-external-link"></i>
     </a>
 @endif
 
@@ -34,6 +34,6 @@
        href="{!! $word->wikipedia !!}"
        target="_blank"
     >
-        <i class="fa-solid fa-wikipedia-w"></i>
+        <i class="fa fa-wikipedia-w"></i>
     </a>
 @endif

@@ -44,24 +44,27 @@
             <p class="admin-table-caption">* An asterisk indicates a featured education.</p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    @if($isRootAdmin)
-                        <th>owner</th>
-                    @endif
-                    <th class="has-text-centered">degree<br>type</th>
-                    <th>major</th>
-                    <th>minor</th>
-                    <th>school</th>
-                    <th class="has-text-centered">enrollment<br>date</th>
-                    <th>graduated</th>
-                    <th class="has-text-centered">graduation<br>date</th>
-                    <th class="has-text-centered">currently<br>enrolled</th>
-                    <th>actions</th>
-                </tr>
-                </thead>
 
-                @if(!empty($bottom_column_headings))
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        @if($isRootAdmin)
+                            <th>owner</th>
+                        @endif
+                        <th class="has-text-centered">degree<br>type</th>
+                        <th>major</th>
+                        <th>minor</th>
+                        <th>school</th>
+                        <th class="has-text-centered">enrollment<br>date</th>
+                        <th>graduated</th>
+                        <th class="has-text-centered">graduation<br>date</th>
+                        <th class="has-text-centered">currently<br>enrolled</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
                     <tfoot>
                     <tr>
                         @if($isRootAdmin)

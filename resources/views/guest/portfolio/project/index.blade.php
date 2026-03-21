@@ -30,25 +30,34 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $projects->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>language</th>
-                    <th>year</th>
-                    <th>repository</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>language</th>
-                    <th>year</th>
-                    <th>repository</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings))
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th class="has-text-centered">language</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="hide-at-1024">repository</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th class="has-text-centered">language</th>
+                        <th class="has-text-centered hide-at-600">year</th>
+                        <th class="hide-at-1024">repository</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($projects as $project)
@@ -61,16 +70,16 @@
                                 'class' => $project->featured ? 'has-text-weight-bold' : ''
                             ])
                         </td>
-                        <td data-field="language">
+                        <td data-field="language" class="has-text-centered">
                             {!! !empty($project->language)
                                 ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                                 : ''
                             !!}
                         </td>
-                        <td data-field="year">
+                        <td data-field="year" class="has-text-centered hide-at-600">
                             {!! $project->year !!}
                         </td>
-                        <td data-field="year">
+                        <td data-field="year" class="hide-at-1024">
                             @if(!empty($project->repository_url))
                                 @include('guest.components.link', [
                                     'name'   => $project->repository_name,
@@ -92,7 +101,9 @@
                 </tbody>
             </table>
 
-            {!! $projects->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $projects->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

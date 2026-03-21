@@ -30,24 +30,32 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $arts->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>artist</th>
-                    <th>year</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>artist</th>
-                    <th>year</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>artist</th>
+                        <th class="has-text-centered hide-at-480">year</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>artist</th>
+                        <th class="has-text-centered hide-at-480">year</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($arts as $art)
@@ -63,7 +71,7 @@
                         <td>
                             {!! $art->artist !!}
                         </td>
-                        <td class="has-text-centered">
+                        <td class="has-text-centered hide-at-480">
                             {!! $art->year !!}
                         </td>
                     </tr>
@@ -79,7 +87,9 @@
                 </tbody>
             </table>
 
-            {!! $arts->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $arts->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

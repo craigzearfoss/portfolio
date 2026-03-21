@@ -116,6 +116,8 @@ class Company extends Model
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
+        $filters = $this->removeEmptyFilters($filters);
+
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['industry_id']), function ($query) use ($filters) {
                 $query->where('industry_id', '=', intval($filters['industry_id']));

@@ -30,26 +30,34 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
+            @if($pagination_top)
+                {!! $courses->links('vendor.pagination.bulma') !!}
+            @endif
+
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>academy</th>
-                    <th>instructor</th>
-                    <th style="white-space: nowrap;">completion date</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>name</th>
-                    <th>academy</th>
-                    <th>instructor</th>
-                    <th style="white-space: nowrap;">completion date</th>
-                </tr>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>academy</th>
+                        <th class="hide-at-480">instructor</th>
+                        <th style="white-space: nowrap;">completion date</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>name</th>
+                        <th>academy</th>
+                        <th class="hide-at-480">instructor</th>
+                        <th style="white-space: nowrap;">completion date</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($courses as $course)
@@ -73,7 +81,7 @@
                                 ])
                             @endif
                         </td>
-                        <td>
+                        <td class="hide-at-480">
                             {!! $course->instructor !!}
                         </td>
                         <td>
@@ -92,7 +100,9 @@
                 </tbody>
             </table>
 
-            {!! $courses->links('vendor.pagination.bulma') !!}
+            @if($pagination_bottom)
+                {!! $courses->links('vendor.pagination.bulma') !!}
+            @endif
 
         </div>
     </div>

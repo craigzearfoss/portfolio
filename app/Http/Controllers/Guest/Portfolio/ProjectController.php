@@ -24,7 +24,7 @@ class ProjectController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $projects = new Project()->where('owner_id', '=', $this->owner['id'])
+        $projects = new Project()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('sequence')
             ->paginate($perPage)->appends(request()->except('page'));
 

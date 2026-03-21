@@ -1,4 +1,11 @@
-@if (!empty($subtitle) || !empty($selectList) || !empty($prev) || !empty($next) || !empty($navButttons))
+@php
+    $subtitle   = $subtitle ?? null;
+    $selectList = $selectList ?? null;
+    $prev       = $prev ?? null;
+    $next       = $next ?? null;
+    $buttons    = $buttons ?? [];
+@endphp
+@if (!empty($subtitle) || !empty($selectList) || !empty($prev) || !empty($next) || !empty($butttons))
 
     <section class="hero is-hero-bar">
 
@@ -22,18 +29,24 @@
 
                 @endif
 
-                @if(!empty($navButtons))
+                @if(!empty($prev) || !empty($next) || !empty($buttons))
 
                     <div class="level-right" style="display: inline-block;">
-                        <div class="level-item">
-                            <div class="buttons is-right">
-
-                                @foreach ($navButtons as $navButton)
-                                    {!! $navButton !!}
-                                @endforeach
-
+                        @if(!empty($prev) || !empty($next))
+                            <div style="display: inline-block; float: right;">
+                                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
                             </div>
-                        </div>
+                        @elseif (!empty($buttons))
+                            <div class="level-item">
+                                <div class="buttons is-right">
+
+                                    @foreach ($buttons as $button)
+                                        {!! $button !!}
+                                    @endforeach
+
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                 @endif
@@ -43,4 +56,3 @@
     </section>
 
 @endif
-

@@ -1,34 +1,33 @@
 @php
+    use App\Enums\EnvTypes;
     use App\Models\System\AdminDatabase;
+    use App\Models\System\AdminResource;
+    use App\Models\System\Database;
 @endphp
 
 @if($featuredAdmin)
 
     @php
-        $portfolioResourceTypes = AdminDatabase::getResourceTypes(
-            $featuredAdmin->id,
-            'portfolio',
+        $resourcesByDatabase = new AdminResource()->ownerResourcesByDatabase(
+            $featuredAdmin,
+            EnvTypes::GUEST,
+            null,
             [
-                'is_public'   => 1,
-                'is_disabled' => 0,
-            ],
-        );
-
-        $personalResourceTypes = AdminDatabase::getResourceTypes(
-            $featuredAdmin->id,
-            'personal',
-            [
-                'is_public'   => 1,
-                'is_disabled' => 0,
-            ],
+                'has_owner'   => true,
+                'menu'        => 1,
+                'is_public'   => true,
+                'is_disabled' => false,
+            ]
         );
     @endphp
 
-    <div class="card column p-4 mb-2">
+    <div class="floating-div">
 
-        <div class="columns">
+        <div class="show-container card p-2 pl-4 pr-4 mb-2" style="width: auto;">
 
-            <div class="column is-one-third pt-0">
+            <h2 class="title is-size-5 p-2 mb-0">{{ $title ?? 'Featured Candidate' }}</h2>
+
+            <div class="show-container floating-div">
 
                 @include('admin.components.image', [
                     'name'     => 'image',
@@ -38,98 +37,89 @@
                     'filename' => generateDownloadFilename($featuredAdmin)
                 ])
 
-                <div class="show-container p-4">
+                <div class="show-container" style="width: 200px; margin-top: -42px;">
 
                     <div class="columns">
-                        <span class="column is-12 has-text-centered">
+                        <span class="column is-12 has-text-right">
                             @include('admin.components.link', [
                                 'name'   => 'Resume',
-                                'href'   => route('admin.career.resume.preview', $featuredAdmin),
+                                'href'   => route('admin.resume', $featuredAdmin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
+                                'style'  => 'margin-right: 8px;',
                                 'target' => '_blank',
                                 'title'  => 'Resume',
                             ])
                         </span>
                     </div>
 
+                    <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
+                        <strong>{!! $featuredAdmin->name !!}</strong>
+                    </p>
+
                     @if(!empty($featuredAdmin->role))
-                        @include('admin.components.show-row', [
-                            'name'  => 'role',
-                            'value' => $featuredAdmin->role
-                        ])
+                        <p class="has-text-centered has-text-weight-semibold mb-0">
+                            <strong>{!! $featuredAdmin->role !!}</strong>
+                        </p>
                     @endif
 
                     @if(!empty($featuredAdmin->employer))
-                        @include('admin.components.show-row', [
-                            'name'  => 'employer',
-                            'value' => '<br>' . $featuredAdmin->employer
-                        ])
+                        <p class="has-text-centered has-text-weight-medium mb-0">
+                            <strong>{!! $featuredAdmin->employer !!}
+                                @if($featuredAdmin->employment_status_id == 6)
+                                    (contracting)
+                                @endif
+                            </strong>
+                        </p>
+                    @elseif($featuredAdmin->employment_status_id == 7)
+                        <p class="has-text-centered mb-0">
+                            <strong>self-employed</strong>
+                        </p>
+                    @endif
+
+                    @if(in_array($featuredAdmin->employment_status_id, [2, 3, 4]))
+                        <p class="has-text-centered m-1">
+                            <span class="has-background-success has-text-weight-semibold has-text-warning p-1 pl-2 pr-2">
+                                <strong>Open to Work</strong>
+                            </span>
+                        </p>
                     @endif
 
                     @if(!empty($featuredAdmin->bio))
-                        @include('admin.components.show-row', [
-                            'name'  => 'bio',
-                            'value' => $featuredAdmin->bio
-                        ])
+                        <p>
+                            {!! $featuredAdmin->bio !!}
+                        </p>
                     @endif
 
                 </div>
 
             </div>
 
-            <div class="column is-two-thirds pt-0">
+            @foreach($resourcesByDatabase as $database)
 
-                <div>
+                @if (!empty($database['resources']))
 
-                    <h1 class="title is-size-5 mt-2 mb-0">Portfolio</h1>
+                    <div class="show-container card floating-div">
 
-                    <ul class="menu-list ml-4 mb-2">
+                        <h2 class="has-text-weight-bold">{{ $database['title'] }}</h2>
 
-                        @foreach ($portfolioResourceTypes as $resourceType)
+                        <div class="list is-hoverable">
 
-                            @if(Route::has('admin.admin.portfolio.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('admin.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => 'admin.portfolio.'.$resourceType['name'].'.index', $featuredAdmin),
-                                    'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
+                            @include('admin.components.resource-list', [
+                                'resourceType' => dbName('portfolio_db'),
+                                'resources'    => $database['resources'],
+                                'admin'        => $featuredAdmin,
+                            ])
 
-                        @endforeach
+                        </div>
 
-                    </ul>
+                    </div>
 
-                </div>
+                @endif
 
-                <div>
-
-                    <h1 class="title is-size-5 mt-2 mb-0">Personal</h1>
-
-                    <ul class="menu-list ml-4 mb-2">
-
-                        @foreach ($personalResourceTypes as $resourceType)
-
-                            @if(Route::has('admin.admin.personal.'.$resourceType['name'].'.index'))
-                                <li>
-                                    @include('admin.components.link', [
-                                        'name'  => $resourceType['plural'],
-                                        'href'  => 'admin.system.'.$resourceType['name'].'.index'),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-            </div>
+            @endforeach
 
         </div>
 
     </div>
-@endif
+
+ @endif

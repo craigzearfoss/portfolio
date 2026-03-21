@@ -24,7 +24,7 @@ class CourseController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $courses = new Course()->where('owner_id', '=', $this->owner['id'])
+        $courses = new Course()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

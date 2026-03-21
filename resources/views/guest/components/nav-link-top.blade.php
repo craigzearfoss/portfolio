@@ -1,4 +1,6 @@
 @php
+    $name = $name ?? '';
+
     // get classes
     $classes = !empty($class)
         ? is_array($class) ? $class : explode(';', $class)
@@ -23,9 +25,11 @@
             style="{!! implode('; ', $styles) !!}"
         @endif
     >
-        <span class="icon">
-            {!! !empty($icon) ? '<i class="fa ' . $icon . '"></i>' : '' !!}
-        </span>
+        @if(!empty($icon))
+            <span class="icon">
+                {{ '<i class="fa ' . $icon . '"></i>' }}
+            </span>
+        @endif
         <span>
             {!! $name ?? '' !!}
         </span>

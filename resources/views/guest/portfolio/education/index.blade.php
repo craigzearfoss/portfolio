@@ -31,33 +31,47 @@
         <div class="show-container card floating-div">
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
-                <thead>
-                <tr>
-                    <th>major</th>
-                    <th>degree</th>
-                    <th>school</th>
-                    <th class="has-text-centered">graduated</th>
-                </tr>
-                </thead>
-                <?php /*
-                <tfoot>
-                <tr>
-                    <th>major</th>
-                    <th>degree</th>
-                    <th>school</th>
-                    <th class="has-text-centered">graduated</th>
-                </tr>
-                </tfoot>
-                */ ?>
+
+                @if($top_column_headings)
+                    <thead>
+                    <tr>
+                        <th>major</th>
+                        <th>degree</th>
+                        <th>school</th>
+                        <th class="has-text-centered hide-at-480">graduated</th>
+                    </tr>
+                    </thead>
+                @endif
+
+                @if($bottom_column_headings)
+                    <tfoot>
+                    <tr>
+                        <th>major</th>
+                        <th>degree</th>
+                        <th>school</th>
+                        <th class="has-text-centered hide-at-480">graduated</th>
+                    </tr>
+                    </tfoot>
+                @endif
+
                 <tbody>
 
                 @forelse ($educations as $education)
 
                     <tr>
                         <td data-field="major">
-                            {{ $education->major }}
-                            @if(!empty($education->minor)) {
-                                ({{ $education->minor }} minor)
+                            @if($education->featured)
+                                <strong>
+                                    {{ $education->major }}
+                                    @if(!empty($education->minor)) {
+                                        ({{ $education->minor }} minor)
+                                    @endif
+                                </strong>
+                            @else
+                                {{ $education->major }}
+                                @if(!empty($education->minor)) {
+                                    ({{ $education->minor }} minor)
+                                @endif
                             @endif
                         </td>
                         <td data-field="degreeType.name">
@@ -66,7 +80,7 @@
                         <td data-field="school.name">
                             {!! $education->school->name ?? '' !!}
                         </td>
-                        <td data-field="graduation_month|graduation_year" class="has-text-centered">
+                        <td data-field="graduation_month|graduation_year" class="has-text-centered hide-at-480">
                             {{ $education->graduation_year }}
                             @if(!empty($education->currently_enrolled))
                                 (currently enrolled)

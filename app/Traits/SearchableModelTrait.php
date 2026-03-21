@@ -21,7 +21,7 @@ trait SearchableModelTrait
      * @param array    $filters
      * @param string   $valueColumn
      * @param string   $labelColumn
-     * @param bool     $includeBlank
+     * @param mixed    $includeBlank
      * @param bool     $includeOther
      * @param array    $orderBy
      * @param EnvTypes $envType
@@ -31,7 +31,7 @@ trait SearchableModelTrait
     public function listOptions(array  $filters = [],
                                 string $valueColumn = 'id',
                                 string $labelColumn = 'name',
-                                bool   $includeBlank = false,
+                                mixed  $includeBlank = false,
                                 bool   $includeOther = false,
                                 array  $orderBy = self::SEARCH_ORDER_BY,
                                 EnvTypes $envType = EnvTypes::GUEST): array
@@ -39,11 +39,14 @@ trait SearchableModelTrait
         $other = null;
 
         $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
+        if ($includeBlank !== false) {
+            $options[!is_bool($includeBlank) ? $includeBlank : ''] = '';
         }
 
-        $selectColumns = self::SEARCH_COLUMNS ?? [$valueColumn, $labelColumn];
+        $selectColumns = !empty($valueColumn) && !empty($labelColumn)
+            ? [$valueColumn, $labelColumn]
+            : self::SEARCH_COLUMNS;
+
         $sortColumn = $orderBy[0] ?? 'name';
         $sortDir = $orderBy[1] ?? 'asc';
 
@@ -51,7 +54,7 @@ trait SearchableModelTrait
             $query = new self()->withoutGlobalScope(AdminPublicScope::class)
                 ->select($selectColumns)->orderBy($sortColumn, $sortDir);
         } else {
-            $query = new self()->select($selectColumns)->orderBy($sortColumn, $sortDir);
+            $query = new self()->distinct()->select($selectColumns)->orderBy($sortColumn, $sortDir);
         }
 
         // Apply filters to the query.
@@ -143,6 +146,10 @@ trait SearchableModelTrait
             $query->where('owner_id', '=', $ownerId);
         }
 
+        if ($envType == EnvTypes::GUEST) {
+            $query->where('is_public', true)
+                ->where('is_disabled', false);
+        }
         $ids = $query->get()->pluck('id')->toArray();
         if (false !== $key = array_search($id, $ids)) {
             if ($prevId = array_key_exists($key - 1, $ids) ? $ids[$key - 1] : null) {
@@ -343,5 +350,20 @@ trait SearchableModelTrait
         }
 
         return $query;
+    }
+
+    /**
+     * Removes empty values from a $filters array like when owner_id=0.
+     *
+     * @param array $filters
+     * @return array
+     */
+    public function removeEmptyFilters(array $filters): array
+    {
+        if (array_key_exists('owner_id', $filters) && empty($filters['owner_id'])) {
+            unset($filters['owner_id']);
+        }
+
+        return $filters;
     }
 }

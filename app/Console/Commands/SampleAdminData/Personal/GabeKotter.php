@@ -165,7 +165,7 @@ class GabeKotter extends Command
         ];
 
         if (!empty($data)) {
-            new Reading()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Reading()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'readings', [ 'is_public' => !empty($data) ]);
     }
@@ -192,7 +192,7 @@ class GabeKotter extends Command
         ];
 
         if (!empty($data)) {
-            new Recipe()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new Recipe()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'recipes', [ 'is_public' => !empty($data) ]);
     }
@@ -254,7 +254,7 @@ class GabeKotter extends Command
         ];
 
         if (!empty($data)) {
-            new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new RecipeIngredient()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'recipe_ingredients', [ 'is_public' => !empty($data) ]);
     }
@@ -286,7 +286,7 @@ class GabeKotter extends Command
         ];
 
         if (!empty($data)) {
-            new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo]));
+            new RecipeStep()->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], true));
         }
         $this->insertSystemAdminResource($this->adminId, 'recipe_steps', [ 'is_public' => !empty($data) ]);
     }
