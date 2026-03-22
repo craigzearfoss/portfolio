@@ -28,20 +28,6 @@
             ])
         @endif
 
-        <div class="card floating-div p-2" style="height: 500px; max-width: 40rem; overflow-y: scroll;">
-
-            <h4 class="title is-size-5 mb-2">
-                Candidates
-                <span class="is-pulled-right">
-                    @include('guest.components.link', [
-                        'name' => 'All',
-                        'href' => route('guest.admin.index')
-                    ])
-                </span>
-            </h4>
-
-        </div>
-
     </div>
 
     @if(config('app.include_site_intro'))
