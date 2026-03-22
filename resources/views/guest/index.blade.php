@@ -44,15 +44,10 @@
 
     </div>
 
-    <div class="floating-div-container" style=" max-width: 100% !important;">
-        @include('guest.components.partials.site-intro')
-    </div>
-
-
-
-
-
-
-
+    @if(config('app.include_site_intro'))
+        <div class="floating-div-container" style=" max-width: 100% !important;">
+            @include('guest.components.partials.site-intro')
+        </div>
+    @endif
 
 @endsection
