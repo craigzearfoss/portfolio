@@ -1,5 +1,5 @@
 @if(!empty($value))
-    <article class="message is-danger" style="display: inline-block;">
+    <article class="site-disclaimer message is-danger">
         <div class="message-body p-1">
             {!! $value !!}
         </div>

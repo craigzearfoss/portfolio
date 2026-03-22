@@ -982,7 +982,7 @@ if (! function_exists('filteredBreadcrumbs')) {
      */
     function filteredBreadcrumbs(array $breadcrumbs,  Admin|Owner|null $owner = null): array
     {
-        if (empty($owner)) {
+        if (empty($owner) || !config('app.single_admin_mode')) {
             return $breadcrumbs;
         }
 

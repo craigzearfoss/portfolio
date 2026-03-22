@@ -107,6 +107,7 @@
                                             'name'  => $resource->plural,
                                             'href'  => $resource->url,
                                             'class' => 'list-item',
+                                            'icon'  => $resource->icon,
                                             'style' => [
                                                 'color: #4a4a4a',
                                                 'padding: 0.2rem',

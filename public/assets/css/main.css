@@ -585,3 +585,10 @@ a.hamburger-icon i.fa {
     display: none;
     z-index: 1000;
 }
+
+.site-disclaimer, .site-disclaimer.message.is-danger, .site-disclaimer.message.is-info,
+.site-disclaimer.message.is-success, .site-disclaimer.message.is-warning {
+    display: inline-block;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
