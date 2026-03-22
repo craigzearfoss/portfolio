@@ -47,6 +47,7 @@ return [
     'google_tag'              => env('GOOGLE_TAG', ''),
     'guest_table_classes'     => explode('|', env('GUEST_TABLE_CLASSES', '')),
     'image_dir'               => env('IMAGE_DIR', ''),
+    'include_site_intro'      => boolval(env('APP_INCLUDE_SITE_INTRO', false)),
     'name'                    => env('APP_NAME', 'My Portfolio'),
     'open_enrollment'         => boolval(env('APP_OPEN_ENROLLMENT', false)),
     'owner'                   => env('APP_OWNER', ''),
