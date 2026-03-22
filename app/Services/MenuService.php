@@ -521,11 +521,6 @@ class MenuService
         // Create the array of menu items.
         $menu = [];
 
-        if ($this->singleAdminMode) {
-            // On home page and dashboard do not display resource menu item.
-            return $menu;
-        }
-
         foreach ($this->resourcesByDatabase as $database) {
 
             $database = $this->getDatabaseMenuItem($database);
