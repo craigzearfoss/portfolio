@@ -1,4 +1,6 @@
 @php
+    use App\Enums\EnvTypes;
+
     $admin = $admin ?? null;
     $user  = $user ?? null;
     $owner = $owner ?? null;
@@ -14,8 +16,16 @@
 
             <div class="navbar-item has-control">
 
-                <span class="mr-4 has-text-dark" style=" font-size: 1.5em; font-weight: 800;">
-                    {{ config('app.name') }}
+                <span class="mr-4 has-text-dark">
+                    @if(!empty($envType) && $envType === EnvTypes::GUEST)
+                        @include('guest.components.link', [
+                            'name'  => config('app.name'),
+                            'href'  => route('guest.index'),
+                            'class' => 'header-page-title guest',
+                        ])
+                    @else
+                        {{ config('app.name') }}
+                    @endif
                 </span>
 
                 @if(isDemo())
@@ -47,10 +57,11 @@
 
                 @foreach($menuItems as $menuItem)
 
-                    <?php /* user dropdown menu at the top right */ ?>
+                        <?php /* user dropdown menu at the top right */ ?>
                     @if($menuItem->name == 'user-dropdown')
 
-                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                        <div
+                            class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
 
                             @php
                                 $avatarElems = [];
@@ -98,7 +109,8 @@
                             };
                         @endphp
 
-                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable {{ $hideClass }}">
+                        <div
+                            class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable {{ $hideClass }}">
 
                             @include('guest.components.nav-link-top', [
                                 'name'   => $menuItem->title,
@@ -130,7 +142,9 @@
 
                 @endforeach
 
-                <div class="right-home-admin-button-container aside-tools-label has-text-left ml-2 mr-2 mt-3 show-at-1024" style="width: auto; float: right;">
+                <div
+                    class="right-home-admin-button-container aside-tools-label has-text-left ml-2 mr-2 mt-3 show-at-1024"
+                    style="width: auto; float: right;">
 
                     @include('guest.components.button-home', [
                         'name'     => 'Home',

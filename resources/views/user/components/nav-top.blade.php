@@ -1,4 +1,6 @@
 @php
+    use App\Enums\EnvTypes;
+
     $admin = $admin ?? null;
     $user  = $user ?? null;
     $owner = $owner ?? null;
@@ -15,6 +17,15 @@
             <div class="navbar-item has-control">
 
                 <span class="mr-4 has-text-dark" style=" font-size: 1.5em; font-weight: 800;">
+                    @if(!empty($envType) && $envType === EnvTypes::USER)
+                        @include('user.components.link', [
+                            'name'  => config('app.name'),
+                            'href'  => route('admin.index'),
+                            'class' => 'header-page-title admin',
+                        ])
+                    @else
+                        {{ config('app.name') }} Admin Area
+                    @endif
                     {{ config('app.name') }}
                 </span>
 
