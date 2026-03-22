@@ -292,13 +292,15 @@ class MenuService
                     }
                 }
             } else {
-                $menu[] = $this->menuItem([
-                    'tag'   => 'admin_login',
-                    'name'  => 'admin-login',
-                    'title' => 'Admin Login',
-                    'route' => 'admin.login',
-                    'icon'  => 'fa-sign-in'
-                ]);
+                if (!$this->singleAdminMode) {
+                    $menu[] = $this->menuItem([
+                        'tag' => 'admin_login',
+                        'name' => 'admin-login',
+                        'title' => 'Admin Login',
+                        'route' => 'admin.login',
+                        'icon' => 'fa-sign-in'
+                    ]);
+                }
             }
         }
 
@@ -453,13 +455,15 @@ class MenuService
                 $menu[] = $adminDropdownMenu;
 
             } else {
-                $menu[] = $this->menuItem([
-                    'tag'   => 'admin_login',
-                    'title' => 'Admin Login',
-                    'route' => 'admin.login',
-                    'icon'  => 'fa-sign-in',
-                    'name'  => 'admin-login',
-                ]);
+                if (!$this->singleAdminMode) {
+                    $menu[] = $this->menuItem([
+                        'tag' => 'admin_login',
+                        'title' => 'Admin Login',
+                        'route' => 'admin.login',
+                        'icon' => 'fa-sign-in',
+                        'name' => 'admin-login',
+                    ]);
+                }
             }
         }
 

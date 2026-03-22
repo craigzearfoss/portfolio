@@ -17,13 +17,14 @@
                     'selected' => true,
                 ])
 
-                <span style="display: inline-block; background-color: #00dd00; width: 3px;"></span>
-
-                @include('guest.components.button-home', [
-                    'name'     => 'Admin',
-                    'href'     => route('admin.dashboard'),
-                    'selected' => false,
-                ])
+                @if(Auth::guard('admin')->check() || !config('app.single_admin_mode'))
+                    <span style="display: inline-block; background-color: #00dd00; width: 3px;"></span>
+                    @include('guest.components.button-home', [
+                        'name'     => 'Admin',
+                        'href'     => route('admin.dashboard'),
+                        'selected' => false,
+                    ])
+                @endif
 
             </div>
         </div>
