@@ -162,6 +162,25 @@ class BaseController extends Controller
         $envType = !empty($this->envType) ? $this->envType : getEnvType();
         $ownerIdSpecified = false;
 
+        // on the guest home page set the owner to null
+        if (($envType === EnvTypes::GUEST) && (Route::currentRouteName() === 'guest.index')) {
+            if (!config('app.single_admin_mode')) {
+                return null;
+            }
+        }
+
+        // for APP_SINGLE_ADMIN_MODE the owner is always the FEATURED_ADMIN as specified in the .env file
+        if (config('app.single_admin_mode')) {
+            if (!$featuredAdminUsername = config('app.featured_admin')) {
+                abort(500, 'APP_FEATURED_ADMIN must be specified in .env file when APP_SINGLE_ADMIN_MODE is set.');
+            }
+            if (!$featuredAdmin = new Admin()->firstWhere('username', $featuredAdminUsername)) {
+                abort(500, 'Featured admin ' . $featuredAdminUsername . ' does not exist.');
+            } else {
+                return $featuredAdmin;
+            }
+        }
+
         if (($envType->value == 'admin') && !empty($currentAdmin) && !$currentAdmin['is_root']) {
             // this is a non-root admin so they can only view their own resources
             return $currentAdmin;
