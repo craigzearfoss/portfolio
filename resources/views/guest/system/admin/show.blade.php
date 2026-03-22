@@ -38,18 +38,22 @@
                     'external' => false,
                 ])
 
-                <span class="bottom-right-span m-4 pb-2 pr-4">
-                    @include('guest.components.link', [
-                        'name'   => '<i class="fa fa-file-text" aria-hidden="true"></i>Resume',
-                        'href'   => route('guest.resume', $owner),
-                        'class'  => 'button is-primary is-small px-1 py-0',
-                        'style'  => 'font-size: 1rem;',
-                        'title'  => 'Resume',
-                    ])
-                </span>
-
             </div>
-            <div class="m-2 mt-3">
+
+            <div style="width: 300px; margin-top: -54px;">
+
+                <div class="columns">
+                    <span class="column is-12 has-text-right">
+                        @include('guest.components.link', [
+                            'name'   => 'Resume',
+                            'href'   => route('guest.resume', $owner),
+                            'class'  => 'button is-primary px-1 py-0',
+                            'style'  => 'margin-right: 8px;',
+                            'target' => '_blank',
+                            'title'  => 'Resume',
+                        ])
+                    </span>
+                </div>
 
                 <p class="has-text-centered is-size-5 has-text-weight-bold mb-0">
                     <strong>{!! $owner->name !!}</strong>
