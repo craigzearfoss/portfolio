@@ -36,7 +36,7 @@
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
 
-                @if($top_column_headings))
+                @if($top_column_headings)
                     <thead>
                     <tr>
                         <th>name</th>
