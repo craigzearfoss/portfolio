@@ -28,7 +28,7 @@ class IndexController extends BaseGuestController
             ->where('is_disabled', '=', false)
             ->orderBy('name')->paginate($perPage)->appends(request()->except('page'));
 
-        if ($featuredUsername = config('app.featured_admin')) {
+        if ($featuredUsername = config('app.featured_admin_username')) {
             $featuredAdmin = $adminModel->where('username', '=', $featuredUsername)->first();
         } else {
             $featuredAdmin = null;

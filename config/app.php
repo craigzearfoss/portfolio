@@ -41,7 +41,7 @@ return [
     'demo_user_password'      => env('APP_DEMO_USER_PASSWORD', ''),
     'demo_user_username'      => env('APP_DEMO_USER_USERNAME', ''),
     'dictionary_db'           => env('DICTIONARY_DB_DATABASE'),
-    'featured_admin'          => env('APP_FEATURED_ADMIN'),
+    'featured_admin'          => env('APP_FEATURED_ADMIN_USERNAME'),
     'google_recaptcha_key'    => env('GOOGLE_RECAPTCHA_KEY', ''),
     'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET', ''),
     'google_tag'              => env('GOOGLE_TAG', ''),

@@ -171,8 +171,8 @@ class BaseController extends Controller
 
         // for APP_SINGLE_ADMIN_MODE the owner is always the FEATURED_ADMIN as specified in the .env file
         if (config('app.single_admin_mode')) {
-            if (!$featuredAdminUsername = config('app.featured_admin')) {
-                abort(500, 'APP_FEATURED_ADMIN must be specified in .env file when APP_SINGLE_ADMIN_MODE is set.');
+            if (!$featuredAdminUsername = config('app.featured_admin_username')) {
+                abort(500, 'APP_FEATURED_ADMIN_USERNAME must be specified in .env file when APP_SINGLE_ADMIN_MODE is set.');
             }
             if (!$featuredAdmin = new Admin()->firstWhere('username', $featuredAdminUsername)) {
                 abort(500, 'Featured admin ' . $featuredAdminUsername . ' does not exist.');
@@ -243,7 +243,7 @@ class BaseController extends Controller
 
                         return new Admin()->where('label', '=', $parameters['admin'])->first();
 
-                    } elseif ($featuredAdminUsername = config('app.featured_admin')) {
+                    } elseif ($featuredAdminUsername = config('app.featured_admin_username')) {
 
                         return new Admin()->where('username', '=', $featuredAdminUsername)->first();
                     }
