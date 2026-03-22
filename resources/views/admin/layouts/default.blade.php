@@ -44,34 +44,34 @@
             <div id="hamburger-menu-container">
 
                 @include('admin.components.partials.left-menu-contents', [
-                    'menuService' => $menuService ?? null,
-                    'admin'       => $admin ?? null,
-                    'user'        => $user ?? null,
-                    'owner'       => $owner ?? null,
+                    'menuService' => $menuService,
+                    'admin'       => $admin,
+                    'user'        => $user,
+                    'owner'       => $owner,
                 ])
 
             </div>
         </div>
 
         @include('guest.components.title-bar', [
-            'title'       => $title ?? '',
-            'breadcrumbs' => $breadcrumbs ?? []
+            'title'       => $title,
+            'breadcrumbs' => $breadcrumbs
         ])
 
         @include('admin.components.subtitle-bar', [
-            'title'      => $subtitle ?? '',
-            'selectList' => $navSelectList ?? '',
-            'buttons'    => $navButtons ?? [],
-            'prev'       => $prev ?? null,
-            'next'       => $next ?? null,
+            'title'      => $subtitle,
+            'selectList' => $navSelectList,
+            'buttons'    => $navButtons,
+            'prev'       => $prev,
+            'next'       => $next,
         ])
 
         <section class="is-main-section">
 
             @include('admin.components.messages', [
-                'errorMessages' => $errorMessages ?? [],
-                'success'       => $success ?? null,
-                'error'         => $error ?? null,
+                'errorMessages' => $errorMessages,
+                'success'       => $success,
+                'error'         => $error,
             ])
 
             <div class="container">

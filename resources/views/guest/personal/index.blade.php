@@ -1,5 +1,8 @@
 @php
-    $title    = $pageTitle ?? (!empty($owner) ? 'Personal for ' . $owner->name : 'Personal');
+    $title    = $pageTitle
+        ?? config('app.single_admin_mode')
+            ? 'Personal'
+            : (!empty($owner) ? 'Personal for ' . $owner->name : 'Personal');
     $subtitle = $title;
 
     // set breadcrumbs

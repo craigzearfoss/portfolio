@@ -3,6 +3,7 @@
 use App\Enums\EnvTypes;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
+use App\Models\System\Owner;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use Illuminate\Support\Facades\Route;
@@ -954,19 +955,44 @@ if (! function_exists('appTimestamp')) {
 
 if (! function_exists('filteredPageTitle')) {
     /**
-     * Returns a page title. If in the .env APP_SINGLE_ADMIN_MODE is set to one then the $adminName
+     * Returns a page title. If in the .env APP_SINGLE_ADMIN_MODE=1 then the $ownerName
      * is not added to the page title.
      *
      * @param string $pageType
-     * @param string|null $adminName
+     * @param string|null $ownerName
      * @return string
      */
-    function filteredPageTitle(string $pageType,  string|null $adminName = null): string
+    function filteredPageTitle(string $pageType,  string|null $ownerName = null): string
     {
-        if (config('app.single_admin_mode') && !empty($adminName)) {
+        if (config('app.single_admin_mode') && !empty($ownerName)) {
             return ucfirst($pageType);
         } else {
-            return $adminName . ' ' . ucwords($pageType);
+            return $ownerName . ' ' . ucwords($pageType);
         }
+    }
+}
+
+if (! function_exists('filteredBreadcrumbs')) {
+    /**
+     * If in the .env APP_SINGLE_ADMIN_MODE=1 then this filters our the "Candidates" and owner name breadcrumbs.
+     *
+     * @param array $breadcrumbs
+     * @param Admin|Owner|null $owner
+     * @return array
+     */
+    function filteredBreadcrumbs(array $breadcrumbs,  Admin|Owner|null $owner = null): array
+    {
+        if (empty($owner)) {
+            return $breadcrumbs;
+        }
+
+        $filteredBreadcrumbs = [];
+        foreach ($breadcrumbs as $breadcrumb) {
+            if ($breadcrumb['name'] !== $owner['name'] && !in_array($breadcrumb['name'], ['Candidates', 'Admins'])) {
+                $filteredBreadcrumbs[] = $breadcrumb;
+            }
+        }
+
+        return $filteredBreadcrumbs;
     }
 }

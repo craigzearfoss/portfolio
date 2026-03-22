@@ -26,9 +26,9 @@
         <section class="is-main-section">
 
             @include('user.components.messages', [
-                'errorMessages' => $errorMessages ?? [],
-                'success'       => $success ?? null,
-                'error'         => $error ?? null,
+                'errorMessages' => $errorMessages,
+                'success'       => $success,
+                'error'         => $error,
             ])
 
             <div class="container">
