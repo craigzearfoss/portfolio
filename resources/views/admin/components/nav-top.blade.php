@@ -16,10 +16,10 @@
 
             <div class="navbar-item has-control">
 
-                <span class="mr-4 has-text-dark" style=" font-size: 1.5em; font-weight: 800;">
+                <span class="mr-4 has-text-dark">
                     @if(!empty($envType) && $envType === EnvTypes::ADMIN)
                         @include('admin.components.link', [
-                            'name'  => config('app.name') . 'Admin Area',
+                            'name'  => config('app.name') . ' Admin Area',
                             'href'  => route('admin.index'),
                             'class' => 'header-page-title admin',
                         ])

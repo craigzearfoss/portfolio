@@ -414,6 +414,9 @@ div.floating-div-container.settings div.floating-div {
 .header-page-title.admin, .header-page-title.admin:hover {
     color: #363636 !important;
 }
+.header-page-title.user, .header-page-title.user:hover {
+    color: #363636 !important;
+}
 .header-page-title.guest, .header-page-title.guest:hover {
     color: #363636 !important;
 }

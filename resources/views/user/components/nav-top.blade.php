@@ -16,17 +16,16 @@
 
             <div class="navbar-item has-control">
 
-                <span class="mr-4 has-text-dark" style=" font-size: 1.5em; font-weight: 800;">
+                <span class="mr-4 has-text-dark">
                     @if(!empty($envType) && $envType === EnvTypes::USER)
                         @include('user.components.link', [
                             'name'  => config('app.name'),
-                            'href'  => route('admin.index'),
-                            'class' => 'header-page-title admin',
+                            'href'  => route('guest.index'),  /* @TODO: Note that there is currently no user homepage. */
+                            'class' => 'header-page-title user',
                         ])
                     @else
-                        {{ config('app.name') }} Admin Area
+                        {{ config('app.name') }}
                     @endif
-                    {{ config('app.name') }}
                 </span>
 
                 @if(isDemo())
