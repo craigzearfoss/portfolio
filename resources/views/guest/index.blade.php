@@ -35,6 +35,7 @@
                     ])
                 </span>
             </h4>
+
             @include('guest.components.candidates-table-narrow', [
                 'candidates' => $admins,
                 'links'      => false,
