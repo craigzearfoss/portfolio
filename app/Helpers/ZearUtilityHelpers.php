@@ -951,3 +951,22 @@ if (! function_exists('appTimestamp')) {
         return config('app.app_timestamp');
     }
 }
+
+if (! function_exists('filteredPageTitle')) {
+    /**
+     * Returns a page title. If in the .env APP_SINGLE_ADMIN_MODE is set to one then the $adminName
+     * is not added to the page title.
+     *
+     * @param string $pageType
+     * @param string|null $adminName
+     * @return string
+     */
+    function filteredPageTitle(string $pageType,  string|null $adminName = null): string
+    {
+        if (config('app.single_admin_mode') && !empty($adminName)) {
+            return ucfirst($pageType);
+        } else {
+            return $adminName . ' ' . ucwords($pageType);
+        }
+    }
+}

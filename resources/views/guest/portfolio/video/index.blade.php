@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? $owner->name . ' videos';
+    $title    = $pageTitle ?? filteredPageTitle('videos', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs

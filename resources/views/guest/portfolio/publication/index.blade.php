@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? $owner->name . ' publications';
+    $title    = $pageTitle ?? filteredPageTitle('publications', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs

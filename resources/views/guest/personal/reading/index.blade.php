@@ -1,7 +1,7 @@
 @php
     use App\Models\Personal\Reading;
 
-    $title    = $pageTitle ?? $owner->name . ' readings';
+    $title    = $pageTitle ?? filteredPageTitle('readings', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
