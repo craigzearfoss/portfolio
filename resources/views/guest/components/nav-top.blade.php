@@ -57,15 +57,15 @@
 
                 @foreach($menuItems as $menuItem)
 
-                    @if((get_class($menuItem) === 'stdClass') && $menuItem->name === 'Resume')
+                    @if((get_class($menuItem) === 'stdClass') && ($menuItem->name === 'Resume'))
 
-                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable hide-at-1400"
-                             style="background-color: #3e8ed0 !important; color: #ffffff;"
+                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable"
+                             style="background-color: rgb(0, 158, 134) !important; color: #ffffff;"
                         >
 
                             <a href="{{ $menuItem->url }}"
                                class="navbar-link is-secondary is-arrowless navbar-item"
-                               style="background-color: #3e8ed0 !important; color: #ffffff;"
+                               style="background-color: rgb(0, 158, 134)  !important; color: #ffffff;"
                             >
                                 {{ $menuItem->title }}
                             </a>
