@@ -162,29 +162,26 @@
 
                 @endforeach
 
-                <div
-                    class="right-home-admin-button-container aside-tools-label has-text-left ml-2 mr-2 mt-3 show-at-1024"
-                    style="width: auto; float: right;"
-                >
-
-                    @include('guest.components.button-home', [
-                        'name'     => 'Home',
-                        'href'     => route('guest.index'),
-                        'selected' => true,
-                    ])
-
-                    <span style="display: inline-block; background-color: red; width: 2px;"></span>
-
-                    @include('guest.components.button-home', [
-                        'name'     => 'Admin',
-                        'href'     => route('admin.dashboard'),
-                        'selected' => false,
-                        'style'    => 'background: #2e323a;'
-                    ])
-
-                </div>
-
             </div>
+
+        </div>
+
+        <div class="navbar-item nav-right-home-admin-container has-dropdown has-dropdown-with-icons has-divider show-at-1024">
+
+            @include('guest.components.button-home', [
+                'name'     => 'Home',
+                'href'     => route('guest.index'),
+                'selected' => true,
+            ])
+
+            <span style="display: inline-block; background-color: red !important; width: 2px;"></span>
+
+            @include('guest.components.button-home', [
+                'name'     => 'Admin',
+                'href'     => route('admin.dashboard'),
+                'selected' => false,
+                'style'    => 'background: #2e323a;'
+            ])
 
         </div>
 

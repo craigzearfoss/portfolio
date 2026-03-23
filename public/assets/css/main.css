@@ -269,7 +269,10 @@ nav.navbar .navbar-item.has-user-avatar .is-user-name {
     display: inline-block;
     vertical-align: middle;
 }
-
+.navbar-item.nav-right-home-admin-container {
+    padding-top: 0.7em;
+    padding-right: 0.4em !important;
+}
 nav.pagination ul.pagination-list li {
     margin-left: 0;
 }
@@ -505,46 +508,47 @@ div.property-list div.value {
     padding-left: 1.2rem !important;
 }
 
+.show-at-480 { display: none !important; }
 @media screen and (max-width: 480px) {
     .hide-at-480 { display: none !important; }
     .show-at-480 { display: block !important; }
     .font-size-12px-at-480 { font-size: 12px !important; }
 }
-
+.show-at-600 { display: none !important; }
 @media screen and (max-width: 600px) {
     .hide-at-600 { display: none !important; }
     .show-at-60 { display: block !important; }
     .font-size-14px-at-600 { font-size: 12px !important; }
 }
+.show-at-750 { display: none !important; }
 @media screen and (max-width: 750px) {
     .hide-at-750 { display: none !important; }
     .show-at-750 { display: block !important; }
 }
+.show-at-900 { display: none !important; }
 @media screen and (max-width: 900px) {
     .hide-at-900 { display: none !important; }
     .show-at-900 { display: block !important; }
 }
+.show-at-1024 { display: none !important; }
 @media screen and (max-width: 1024px) {
     .hide-at-1024 { display: none !important; }
     .show-at-1024 { display: block !important; }
 }
-@media screen and (min-width: 1024px) {
-    .show-at-1024 { display: none !important; }
-}
+.show-at-1200 { display: none !important; }
 @media screen and (max-width: 1200px) {
     .hide-at-1200 { display: none !important; }
     .show-at-1200 { display: block !important; }
 }
+.show-at-1300 { display: none !important; }
 @media screen and (max-width: 1300px) {
     .hide-at-1300 { display: none !important; }
     .show-at-1300 { display: block !important; }
 }
+.show-at-1400 { display: none !important; }
 @media screen and (max-width: 1400px) {
     .hide-at-1400 { display: none !important; }
     .show-at-1400 { display: block !important; }
-}
-@media screen and (min-width: 1400px) {
-    .show-at-1400 { display: none !important; }
 }
 /* Hamburger menu styles */
 a.hamburger-icon {
