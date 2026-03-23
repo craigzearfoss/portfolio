@@ -162,7 +162,7 @@
 
         </div>
 
-        <div class="navbar-item nav-right-home-admin-container has-dropdown has-dropdown-with-icons has-divider show-at-1024">
+        <div class="navbar-item nav-right-home-admin-container show-at-1024">
 
             @include('guest.components.button-home', [
                 'name'     => 'Home',
@@ -170,7 +170,7 @@
                 'selected' => true,
             ])
 
-            <span style="display: inline-block; background-color: red !important; width: 2px;"></span>
+            <span style="display: inline-block; width: 2px;"></span>
 
             @include('guest.components.button-home', [
                 'name'     => 'Admin',

@@ -49,15 +49,33 @@
 
                 <ul class="menu is-menu-main" style="font-size: 1rem;">
 
-                    <p class="menu-label menu-label-left">
-                        @include('admin.components.nav-link-left', [
-                            'level'  => 1,
-                            'name'   => $menuItems[$i0]->title,
-                            'href'   => !empty($menuItems[$i0]->url) ? $menuItems[$i0]->url: false,
-                            'active' => $menuItems[$i0]->active,
-                            'class'  => 'has-text-white'
-                        ])
-                    </p>
+
+                    @if((get_class($menuItems[$i0]) === 'stdClass') && $menuItems[$i0]->name === 'Resume')
+
+                        <p class="menu-label menu-label-left" style="margin-bottom: 1em !important;">
+                            @include('guest.components.nav-link-left', [
+                                'level'  => 1,
+                                'name'   => $menuItems[$i0]->title,
+                                'href'   => !empty($menuItems[$i0]->url) ? $menuItems[$i0]->url: false,
+                                'active' => $menuItems[$i0]->active,
+                                'class'  => 'button is-primary p-0 mt-1',
+                                'style'  => 'width: 100%; height: 2em; color: #ffffff !important;',
+                            ])
+                        </p>
+
+                    @else
+
+                        <p class="menu-label menu-label-left">
+                            @include('admin.components.nav-link-left', [
+                                'level'  => 1,
+                                'name'   => $menuItems[$i0]->title,
+                                'href'   => !empty($menuItems[$i0]->url) ? $menuItems[$i0]->url: false,
+                                'active' => $menuItems[$i0]->active,
+                                'class'  => 'has-text-white'
+                            ])
+                        </p>
+
+                    @endif
 
                     @if($menu1Items = $menuItems[$i0]->children ?? [])
 

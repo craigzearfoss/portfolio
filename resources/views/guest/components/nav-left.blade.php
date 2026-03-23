@@ -51,6 +51,7 @@
             <ul class="menu is-menu-main mb-2" style="font-size: 1rem;">
 
                 @if((get_class($menuItems[$i]) === 'stdClass') && $menuItems[$i]->name === 'Resume')
+
                     <p class="menu-label menu-label-left" style="margin-bottom: 1em !important;">
                         @include('guest.components.nav-link-left', [
                             'level'  => 1,
