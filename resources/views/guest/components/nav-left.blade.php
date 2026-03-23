@@ -48,17 +48,33 @@
 
         @for ($i = 0; $i < count($menuItems); $i++)
 
-            <ul class="menu is-menu-main" style="font-size: 1rem;">
+            <ul class="menu is-menu-main mb-2" style="font-size: 1rem;">
 
-                <p class="menu-label menu-label-left">
-                    @include('guest.components.nav-link-left', [
-                        'level'  => 1,
-                        'name'   => $menuItems[$i]->title,
-                        'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
-                        'active' => $menuItems[$i]->active,
-                        'class'  => 'has-text-white'
-                    ])
-                </p>
+                @if((get_class($menuItems[$i]) === 'stdClass') && $menuItems[$i]->name === 'Resume')
+                    <p class="menu-label menu-label-left" style="margin-bottom: 1em !important;">
+                        @include('guest.components.nav-link-left', [
+                            'level'  => 1,
+                            'name'   => $menuItems[$i]->title,
+                            'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
+                            'active' => $menuItems[$i]->active,
+                            'class'  => 'button is-primary p-0',
+                            'style'  => 'width: 100%; height: 2em; color: #ffffff !important;',
+                        ])
+                    </p>
+
+                @else
+
+                    <p class="menu-label menu-label-left">
+                        @include('guest.components.nav-link-left', [
+                            'level'  => 1,
+                            'name'   => $menuItems[$i]->title,
+                            'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
+                            'active' => $menuItems[$i]->active,
+                            'class'  => 'has-text-white'
+                        ])
+                    </p>
+
+                @endif
 
                 @if(!empty($menuItems[$i]->children))
 
@@ -75,6 +91,7 @@
                                 ])
 
                                 @if(!empty($menu2Item->children))
+                                    @php dd($menu2Item->children) @endphp
                                     @php //@TODO: This isn't working @endphp
                                     <ul class="menu-list pl-2" style="margin-left: 1em;">
 

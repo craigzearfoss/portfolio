@@ -57,86 +57,106 @@
 
                 @foreach($menuItems as $menuItem)
 
-                        <?php /* user dropdown menu at the top right */ ?>
-                    @if($menuItem->name == 'user-dropdown')
+                    @if((get_class($menuItem) === 'stdClass') && $menuItem->name === 'Resume')
 
-                        <div
-                            class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable hide-at-1400"
+                             style="background-color: #3e8ed0 !important; color: #ffffff;"
+                        >
 
-                            @php
-                                $avatarElems = [];
-                                if (!empty($menuItem->thumbnail)) {
-                                    $avatarElems[] = '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
-                                }
-                                $avatarElems[] = '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
-                                if (!empty($menuItem->icon)) {
-                                    $avatarElems[] = '<span class="text-xl"><i class="fa '.$menuItem->icon.'"></i>';
-                                }
-                            @endphp
-
-                            @include('guest.components.nav-link-top', [
-                                'name'       => implode('', $avatarElems),
-                                'href'       => false,
-                                'class'      => 'navbar-link is-arrowless',
-                                'icon'       => false
-                            ])
-
-                            @if (!empty($menuItem->children))
-                                <div class="navbar-dropdown">
-
-                                    @foreach($menuItem->children as $menuSubItem)
-                                        @include('guest.components.nav-link-top', [
-                                            'name'   => (!empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title),
-                                            'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
-                                            'active' => $menuSubItem->active,
-                                            'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
-                                        ])
-                                    @endforeach
-
-                                </div>
-                            @endif
-
+                            <a href="{{ $menuItem->url }}"
+                               class="navbar-link is-secondary is-arrowless navbar-item"
+                               style="background-color: #3e8ed0 !important; color: #ffffff;"
+                            >
+                                {{ $menuItem->title }}
+                            </a>
                         </div>
 
                     @else
 
-                        @php
-                            $hideClass = match ($menuItem->tag) {
-                                'dictionary_db'               => 'hide-at-1400',
-                                'user_login', 'admin_login'   => 'hide-at-1300',
-                                'personal_db', 'portfolio_db' => 'hide-at-1200',
-                                default => '',
-                            };
-                        @endphp
+                        <?php /* user dropdown menu at the top right */ ?>
+                        @if($menuItem->name == 'user-dropdown')
 
-                        <div
-                            class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable {{ $hideClass }}">
+                            <div
+                                class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable"
+                            >
 
-                            @include('guest.components.nav-link-top', [
-                                'name'   => $menuItem->title,
-                                'href'   => $menuItem->url ?? false,
-                                'class'  => 'navbar-link is-arrowless',
-                                'icon'   => false
-                            ])
+                                @php
+                                    $avatarElems = [];
+                                    if (!empty($menuItem->thumbnail)) {
+                                        $avatarElems[] = '<div class="is-user-avatar"><img src="'.$menuItem->thumbnail.'" alt="'.$menuItem->title.'"></div>';
+                                    }
+                                    $avatarElems[] = '<div class="is-user-name"><span>'.$menuItem->title.'</span></div>';
+                                    if (!empty($menuItem->icon)) {
+                                        $avatarElems[] = '<span class="text-xl"><i class="fa '.$menuItem->icon.'"></i>';
+                                    }
+                                @endphp
 
-                            @if(!empty($menuItem->children))
+                                @include('guest.components.nav-link-top', [
+                                    'name'       => implode('', $avatarElems),
+                                    'href'       => false,
+                                    'class'      => 'navbar-link is-arrowless',
+                                    'icon'       => false
+                                ])
 
-                                <div class="navbar-dropdown">
+                                @if (!empty($menuItem->children))
+                                    <div class="navbar-dropdown">
 
-                                    @foreach($menuItem->children as $menuSubItem)
-                                        @include('guest.components.nav-link-top', [
-                                            'name'   => !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title,
-                                            'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
-                                            'active' => $menuSubItem->active,
-                                            'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
-                                        ])
-                                    @endforeach
+                                        @foreach($menuItem->children as $menuSubItem)
+                                            @include('guest.components.nav-link-top', [
+                                                'name'   => (!empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title),
+                                                'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
+                                                'active' => $menuSubItem->active,
+                                                'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
+                                            ])
+                                        @endforeach
 
-                                </div>
+                                    </div>
+                                @endif
 
-                            @endif
+                            </div>
 
-                        </div>
+                        @else
+
+                            @php
+                                $hideClass = match ($menuItem->tag) {
+                                    'dictionary_db'               => 'hide-at-1400',
+                                    'user_login', 'admin_login'   => 'hide-at-1300',
+                                    'personal_db', 'portfolio_db' => 'hide-at-1200',
+                                    default => '',
+                                };
+                            @endphp
+
+                            <div
+                                class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable {{ $hideClass }}"
+                            >
+
+                                @include('guest.components.nav-link-top', [
+                                    'name'   => $menuItem->title,
+                                    'href'   => $menuItem->url ?? false,
+                                    'class'  => 'navbar-link is-arrowless',
+                                    'icon'   => false
+                                ])
+
+                                @if(!empty($menuItem->children))
+
+                                    <div class="navbar-dropdown">
+
+                                        @foreach($menuItem->children as $menuSubItem)
+                                            @include('guest.components.nav-link-top', [
+                                                'name'   => !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title,
+                                                'href'   => !empty($menuSubItem->url) ? $menuSubItem->url : false,
+                                                'active' => $menuSubItem->active,
+                                                'icon'   => !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle'
+                                            ])
+                                        @endforeach
+
+                                    </div>
+
+                                @endif
+
+                            </div>
+
+                        @endif
 
                     @endif
 
@@ -144,7 +164,8 @@
 
                 <div
                     class="right-home-admin-button-container aside-tools-label has-text-left ml-2 mr-2 mt-3 show-at-1024"
-                    style="width: auto; float: right;">
+                    style="width: auto; float: right;"
+                >
 
                     @include('guest.components.button-home', [
                         'name'     => 'Home',

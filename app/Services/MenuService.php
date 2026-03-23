@@ -203,7 +203,7 @@ class MenuService
             $this->{$property} = $value;
         }
 
-        $menu = $this->getResourceMenu();
+        $menu = $this->getDatabaseResourceMenu();
 
         if (($this->hasAdmins) && ($this->isRootAdmin)) {
             $menu[] = $this->menuItem([
@@ -304,6 +304,13 @@ class MenuService
             }
         }
 
+        if (!empty($this->owner)) {
+            if ($resume = $this->getResumeMenuItem(1)) {
+                array_unshift($menu, $resume);
+            }
+
+        }
+
         return $menu;
     }
 
@@ -325,7 +332,7 @@ class MenuService
             $this->{$property} = $value;
         }
 
-        $menu = $this->getResourceMenu();
+        $menu = $this->getDatabaseResourceMenu();
 
         if (($this->envType == EnvTypes::GUEST) && !$this->singleAdminMode) {
             /// only show candidates menu option if there are more than one public, non-disabled admins
@@ -467,6 +474,13 @@ class MenuService
             }
         }
 
+        if (!empty($this->owner)) {
+            if ($resume = $this->getResumeMenuItem(1)) {
+                array_unshift($menu, $resume);
+            }
+
+        }
+
         return $menu;
     }
 
@@ -514,13 +528,14 @@ class MenuService
         return $menuItem;
     }
 
+
     /**
      * Returns the array of menu items for resources.
      *
      * @return array
      * @throws Exception
      */
-    public function getResourceMenu(): array
+    public function getDatabaseResourceMenu(): array
     {
         // Create the array of menu items.
         $menu = [];
@@ -529,20 +544,34 @@ class MenuService
 
             $database = $this->getDatabaseMenuItem($database);
 
-            if (!empty($database['resources'])) {
-                $childResources = [];
-                foreach ($database['resources'] as $resource) {
-                    $childResources[] = $this->getResourceMenuItem($resource);
-                }
-
-                $database['children'] = Collection::make($childResources);
-            }
-
+            $this->getChildResourcesCollection($database['resources'] ?? []);
+            $database['children'] = $this->getChildResourcesCollection($database['resources'] ?? []);
             $menu[] = $database;
-
         }
 
         return $menu;
+    }
+
+    /**
+     * Returns the array of menu items for resources.
+     *
+     * @param array|Collection $resources
+     * @return Collection
+     * @throws Exception
+     */
+    public function getChildResourcesCollection(array|Collection $resources): Collection
+    {
+        $childResources = [];
+        foreach ($resources as $resource) {
+            // @TODO: This is working. It does not get resource children. Need to re-investigate
+            $childResource = $this->getResourceMenuItem($resource);
+            if (!empty($childResource['resources'])) {
+                $childResources[] = $this->getChildResourcesCollection($childResource['resources']);
+            }
+            $childResources[] = $this->getResourceMenuItem($resource);
+        }
+
+        return Collection::make($childResources);
     }
 
     /**
