@@ -57,7 +57,7 @@
                             'name'   => $menuItems[$i]->title,
                             'href'   => !empty($menuItems[$i]->url) ? $menuItems[$i]->url: false,
                             'active' => $menuItems[$i]->active,
-                            'class'  => 'button is-primary p-0',
+                            'class'  => 'button is-primary p-0 mt-1',
                             'style'  => 'width: 100%; height: 2em; color: #ffffff !important;',
                         ])
                     </p>
