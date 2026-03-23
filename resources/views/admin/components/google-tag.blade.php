@@ -1,7 +1,7 @@
 <?php
 $googleTag = config('app.google_tag');
 ?>
-@if(!empty($googleTag) && (config('app.env') === 'production'))
+@if(!empty($googleTag))
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{$googleTag}}"></script>
     <script>
