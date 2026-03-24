@@ -36,9 +36,11 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.event.index') ])
-    @endif
+    @include('admin.components.search-panel.career-event',
+        [ 'action'     => route('admin.career.event.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

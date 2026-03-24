@@ -8,11 +8,11 @@
     // set breadcrumbs
     if (!empty($application)) {
         $breadcrumbs = [
-            [ 'name' => 'Home',             'href' => route('admin.index') ],
-            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Home',               'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',             'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,      'href' => route('admin.career.application.index') ],
+            [ 'name' => $application['name'], 'href' => route('admin.career.application.show', $application) ],
             [ 'name' => 'Resumes' ]
         ];
     } else {
@@ -26,10 +26,11 @@
 
     // set navigation buttons
     $navButtons = [];
-    $navButtons[] = view('admin.components.nav-button', [ 'name' => 'Preview Current Resume',
-                                                       'href' => route('admin.career.resume.preview', $owner),
-                                                       'style' => 'background-color: #3e8ed0 !important;'
-                                                     ])->render();
+    $navButtons[] = view('admin.components.nav-button', [ 'name'  => 'Preview Current Resume',
+                                                          'href'  => route('admin.career.resume.preview', $owner),
+                                                          'class' => 'button is-small is-dark my-0 nav-button',
+                                                          'icon'  => 'fa-eye',
+                                                        ])->render();
     if (canCreate(Resume::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Resume', 'href' => route('admin.career.resume.create')])->render();
     }
@@ -39,9 +40,11 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.resume.index') ])
-    @endif
+    @include('admin.components.search-panel.career-resume',
+        [ 'action'     => route('admin.career.resume.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
