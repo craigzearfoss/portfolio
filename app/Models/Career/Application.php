@@ -22,8 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Application extends Model
 {
@@ -256,6 +255,12 @@ class Application extends Model
             })
             ->when(!empty($filters['apply_date']), function ($query) use ($filters) {
                 $query->where('apply_date', '=', $filters['apply_date']);
+            })
+            ->when(!empty($filters['apply_from']), function ($query) use ($filters) {
+                $query->where('apply_from', '<=', $filters['apply_from']);
+            })
+            ->when(!empty($filters['apply_to']), function ($query) use ($filters) {
+                $query->where('apply_to', '>=', $filters['apply_to']);
             })
             ->when(!empty($filters['close_date']), function ($query) use ($filters) {
                 $query->where('close_date', '=', $filters['close_date']);

@@ -9,7 +9,8 @@
         }
     }
     $admin_database_id      = $admin_database_id ?? request()->query('company_id');
-    $apply_date             = $apply_date ?? request()->query('apply_date');
+    $apply_from             = $apply_from ?? request()->query('apply_from');
+    $apply_to               = $apply_to ?? request()->query('apply_to');
     $benefits               = $benefits ?? request()->query('benefits');
     $city                   = $city ?? request()->query('city');
     $close_date             = $close_date ?? request()->query('close_date');
@@ -104,7 +105,10 @@
                     </div>
 
                     <div class="floating-div">
-                        @include('admin.components.search-panel.controls.career-apply-date', [ 'city' => $city ])
+                        @include('admin.components.search-panel.controls.career-apply-date', [
+                            'appy_from' => $apply_from,
+                            'appy_to'   => $apply_to,
+                         ])
                     </div>
 
                 </div>
