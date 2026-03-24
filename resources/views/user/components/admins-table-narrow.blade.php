@@ -34,7 +34,7 @@
                 @endif
             </td>
             <td data-field="name">
-                @include('admin.components.link', [
+                @include('user.components.link', [
                     'name' => !empty($thisAdmin->name) ? $thisAdmin->name : $thisAdmin->label,
                     'href' => route('user.system.admin.show', $thisAdmin),
                 ])

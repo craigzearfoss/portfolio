@@ -9,15 +9,7 @@
 
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
-            <div class="control" style="max-width: 28rem;">
-                @include('user.components.form-select', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => $owner_id,
-                    'list'     => new Admin()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'onchange' => "document.getElementById('searchForm').submit()"
-                ])
-            </div>
+            @include('user.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
 
         </form>
 

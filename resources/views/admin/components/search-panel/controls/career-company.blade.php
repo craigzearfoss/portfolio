@@ -17,7 +17,6 @@
                           false,
                           [ 'name', 'asc' ]
                       ),
-        'onchange' => "document.getElementById('searchForm').submit()",
         'style'    => 'min-width: 6rem;'
     ])
 </div>

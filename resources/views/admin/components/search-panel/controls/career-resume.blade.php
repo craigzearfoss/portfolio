@@ -14,10 +14,9 @@
                           [ 'owner_id' => $owner_id ],
                           'id',
                           'name',
-                          0,
+                          true,
                           false,
                           [ 'name', 'desc' ]
                       ),
-        'onchange' => "document.getElementById('searchForm').submit()"
     ])
 </div>

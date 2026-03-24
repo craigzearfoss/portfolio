@@ -24,7 +24,7 @@
 @endphp
 <div>
     <div style="display: inline-block;">
-        @include('guest.components.image', [
+        @include('user.components.image', [
             'name'     => 'image',
             'src'      => $src,
             'filename' => $filename ?? null,

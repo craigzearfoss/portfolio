@@ -235,7 +235,7 @@ class Application extends Model
                 $query->where('company_id', '=', intval($filters['company_id']));
             })
             ->when(!empty($filters['role']), function ($query) use ($filters) {
-                $query->where('to', 'role', '%' . $filters['role'] . '%');
+                $query->where('role', 'like', '%' . $filters['role'] . '%');
             })
             ->when(!empty($filters['job_board_id']), function ($query) use ($filters) {
                 $query->where('job_board_id', '=', intval($filters['job_board_id']));
@@ -246,8 +246,10 @@ class Application extends Model
             ->when(isset($filters['rating']), function ($query) use ($filters) {
                 $query->where('rating', '=', intval($filters['rating']));
             })
-            ->when(isset($filters['active']), function ($query) use ($filters) {
-                $query->where('active', '=', boolval(['active']));
+            ->when(!empty($filters['active']), function ($query) use ($filters) {
+                if (in_array($filters['active'], [0, 1])) {
+                    $query->where('active', '=', boolval($filters['active']));
+                }
             })
             ->when(!empty($filters['post_date']), function ($query) use ($filters) {
                 $query->where('post_date', '=', $filters['post_date']);
@@ -288,19 +290,19 @@ class Application extends Model
             ->when(isset($filters['bonus']), function ($query) use ($filters) {
                 $query->where('bonus', '=', intval($filters['bonus']));
             })
-            ->when(isset($filters['w2']), function ($query) use ($filters) {
+            ->when(!empty($filters['w2']), function ($query) use ($filters) {
                 $query->where('w2', '=', boolval($filters['w2']));
             })
-            ->when(isset($filters['relocation']), function ($query) use ($filters) {
+            ->when(!empty($filters['relocation']), function ($query) use ($filters) {
                 $query->where('relocation', '=', boolval($filters['relocation']));
             })
-            ->when(isset($filters['benefits']), function ($query) use ($filters) {
+            ->when(!empty($filters['benefits']), function ($query) use ($filters) {
                 $query->where('benefits', '=', boolval($filters['benefits']));
             })
-            ->when(isset($filters['vacation']), function ($query) use ($filters) {
+            ->when(!empty($filters['vacation']), function ($query) use ($filters) {
                 $query->where('vacation', '=', boolval($filters['vacation']));
             })
-            ->when(isset($filters['health']), function ($query) use ($filters) {
+            ->when(!empty($filters['health']), function ($query) use ($filters) {
                 $query->where('health', '=', boolval($filters['health']));
             });
 
@@ -317,7 +319,7 @@ class Application extends Model
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
-
+//$query->ddRawSql();
         return $this->appendStandardFilters($query, $filters);
     }
 

@@ -180,7 +180,60 @@ div.field.is-horizontal div.field-label label.label {
     line-height: 1;
     height: calc(1em + .75em) !important;
 }
+form#searchForm div.floating-div-container div.floating-div {
+    width: auto;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control {
+    padding: 0 0 0 4px;
+    display: block;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control {
+    padding: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control.search-checkbox-container div.field div.control {
+    height: 2.1em;
+    margin-top: 0.4em;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field {
+    margin-bottom: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field label {
+    margin-bottom: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div {
+    height: 2.1em;
+    margin-bottom: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div.input {
+    height: 28px;
+    padding: 0;
+    margin-bottom: 0.6em;
+    border-width: 0;
+}
+form#searchForm div.floating-div-container div.floating-div div.search-form-control div.control div.field div.input input {
+    height: 28px;
+    padding-left: 0.2em;
+    margin-bottom: 0;
+}
 
+.search-button, .clear-button {
+    height: 30px;
+    margin-left: .25rem;
+    margin-right: .25rem;
+    font-size: .75rem;
+    background-color: #363636;
+    border-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-width: 1px;
+    border-radius: 2px;
+    cursor: pointer;
+    justify-content: center;
+    padding: 0.4em 1em;
+    text-align: center;
+    white-space: nowrap;
+}
 .top-pinned-message {
     position: fixed;
     top: 0;
@@ -295,6 +348,10 @@ nav.pagination span.pagination-previous,
 nav.pagination span.pagination-next {
     color: #d0d0d0;
     background-color: #f8f8f8;
+}
+
+.nav-button i {
+    margin-right: 8px;
 }
 
 /* admin table */

@@ -2,6 +2,9 @@
     $icon = $icon ?? false;
     $dataTarget = $dataTarget ?? false;
 
+    // get id
+    $id = $id ?? null;
+
     // get name
     $name = $name ?? '';
 
@@ -9,6 +12,7 @@
     $class = !empty($class)
         ? (is_array($class) ? $class : explode(' ', $class)) : ['is-small is-dark my-0'];
     if ($active ?? false) $class[] = 'has-text-primary';
+    $class[] = 'nav-button';
     $class = implode(' ', $class);
 
     // get styles
@@ -20,8 +24,16 @@
     $icon = empty($icon)
         ? ''
         : (!str_contains($icon, '<') ? '<i class="fa ' . $icon . '"></i>' : $icon);
+
+    // get onclick method
+    $onclick = $onclick ?? null;
 @endphp
-<a @if(isset($href) && ($href !== false))href="{!! $href !!}" @endif
+<a @if($id)
+       id="{{ $id }}"
+   @endif
+   @if(isset($href) && ($href !== false))
+       href="{!! $href !!}"
+   @endif
    @if(!empty($class))
        class="{!! $class !!}"
    @endif
@@ -31,8 +43,11 @@
    @if(!empty($dataTarget))
        data-target="{{ $dataTarget }}"
    @endif
-   @if (!empty($target ?? ''))
+   @if(!empty($target ?? ''))
        target="{!! $target !!}"
+    @endif
+    @if($onclick)
+        onclick="{!! $onclick !!}"
     @endif
 >
     {!! $icon !!}

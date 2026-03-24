@@ -10,7 +10,7 @@
         <form id="searchForm" action="{!! $action !!}" method="get">
 
             <div class="control" style="max-width: 28rem;">
-                @include('user.components.form-select', [
+                @include('guest.components.form-select', [
                     'name'     => 'user_id',
                     'label'    => 'user',
                     'value'    => $user_id,

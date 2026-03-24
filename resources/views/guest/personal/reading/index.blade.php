@@ -29,22 +29,11 @@
         @endif
     @endif
 
-    @include('guest.components.search-panel.reading', [ 'action' => route('guest.personal.reading.index', $owner) ])
-
-    <?php /*
-    <div class="search-container card p-2 pb-0 mb-1">
-        <form id="searchForm" action="{{ route('guest.personal.reading.index', request()->all()) }}" method="get">
-            <div class="control">
-                @include('guest.components.form-select', [
-                    'name'     => 'author',
-                    'value'    => Request::get('author'),
-                    'list'     => new Reading()->listOptions([], 'author', 'author', true, false, ['author', 'asc']),
-                    'onchange' => "document.getElementById('searchForm').submit()"
-                ])
-            </div>
-        </form>
-    </div>
-    */ ?>
+    @include('guest.components.search-panel.personal-reading',
+        [ 'action'     => route('guest.personal.reading.index', $owner),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

@@ -152,7 +152,7 @@
 
                         <span style="display: inline-block; background-color: red; width: 2px;"></span>
 
-                        @include('guest.components.button-home', [
+                        @include('user.components.button-home', [
                             'name'     => 'Admin',
                             'href'     => route('admin.dashboard'),
                             'selected' => false,

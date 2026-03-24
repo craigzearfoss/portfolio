@@ -1,7 +1,6 @@
 @php
     use App\Models\Career\JobBoard;
 
-    $owner_id     = $owner_id ?? request()->query('owner_id');
     $job_board_id = $job_board_id ?? request()->query('job_board_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
@@ -17,6 +16,5 @@
                           false,
                           [ 'name', 'asc' ]
                       ),
-        'onchange' => "document.getElementById('searchForm').submit()"
     ])
 </div>

@@ -31,12 +31,12 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.career-application', [ 'action'     => route('admin.career.application.index'),
-                                                                       'owner_id'   => $owner->id ?? null,
-                                                                       'company_id' => request()->query('admin_database_id'),
-                                                                     ])
-    @endif
+    @include('admin.components.search-panel.career-application',
+        [ 'action'     => route('admin.career.application.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+          'company_id' => request()->query('admin_database_id'),
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

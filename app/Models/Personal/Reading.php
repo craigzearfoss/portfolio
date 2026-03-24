@@ -120,19 +120,19 @@ class Reading extends Model
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', 'like', '%' . $filters['featured'] . '%');
             })
-            ->when(isset($filters['fiction']), function ($query) use ($filters) {
+            ->when(!empty($filters['fiction']), function ($query) use ($filters) {
                 $query->where('fiction', '=', boolval($filters['fiction']));
             })
-            ->when(isset($filters['nonfiction']), function ($query) use ($filters) {
+            ->when(!empty($filters['nonfiction']), function ($query) use ($filters) {
                 $query->where('nonfiction', '=', boolval($filters['nonfiction']));
             })
-            ->when(isset($filters['paper']), function ($query) use ($filters) {
+            ->when(!empty($filters['paper']), function ($query) use ($filters) {
                 $query->where('paper', '=', boolval($filters['paper']));
             })
-            ->when(isset($filters['audio']), function ($query) use ($filters) {
+            ->when(!empty($filters['audio']), function ($query) use ($filters) {
                 $query->where('audio', '=', boolval($filters['audio']));
             })
-            ->when(isset($filters['wishlist']), function ($query) use ($filters) {
+            ->when(!empty($filters['wishlist']), function ($query) use ($filters) {
                 $query->where('wishlist', '=', boolval($filters['wishlist']));
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {

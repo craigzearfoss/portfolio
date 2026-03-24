@@ -10,3 +10,12 @@ function toggleHamburgerMenu() {
         x.style.display = "block";
     }
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.getElementById("performSearch").addEventListener("click", function(event){
+        document.getElementById("searchForm").submit();
+    });
+
+});

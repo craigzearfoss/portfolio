@@ -30,7 +30,11 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.reading')
+    @include('admin.components.search-panel.personal-reading',
+        [ 'action'     => route('admin.personal.reading.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

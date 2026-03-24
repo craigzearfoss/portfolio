@@ -30,7 +30,7 @@
     </div>
     <div class="column is-10 value">
         <div style="display: inline-block;">
-            @include('admin.components.image', [
+            @include('user.components.image', [
                 'name'     => 'image',
                 'src'      => $src,
                 'filename' => $filename ?? null,
@@ -44,4 +44,5 @@
                 'external' => $external,
             ])
         </div>
+    </div>
 </div>
