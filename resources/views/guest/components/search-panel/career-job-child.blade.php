@@ -11,7 +11,7 @@
 
             @if(isRootAdmin())
 
-                @include('user.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
+                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 
             @endif
 
@@ -28,7 +28,7 @@
                     <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
                 @if(count($jobs) > 1)
                     <div class="control">
-                        @include('user.components.form-select', [
+                        @include('admin.components.form-select', [
                             'name'     => 'job_id',
                             'label'    => 'job',
                             'value'    => $jobId,

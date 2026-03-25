@@ -31,7 +31,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.job-child', [ 'action' => route('admin.portfolio.job-skill.index') ])
+    @include('admin.components.search-panel.career-job-child', [ 'action' => route('admin.portfolio.job-skill.index') ])
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

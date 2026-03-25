@@ -31,7 +31,7 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.portfolio.certificate.index') ])
+        @include('admin.components.search-panel.system-owner', [ 'action' => route('admin.portfolio.certificate.index') ])
     @endif
 
     <div class="floating-div-container">

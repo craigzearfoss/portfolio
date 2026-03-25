@@ -29,7 +29,7 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.user', [ 'action' => route('admin.system.user-phone.index') ])
+        @include('admin.components.search-panel.system-user', [ 'action' => route('admin.system.user-phone.index') ])
     @endif
 
     <div class="floating-div-container">
