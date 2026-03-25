@@ -66,14 +66,14 @@ class Session extends Model
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
-            ->when(!empty($filters['user_id']), function ($query) use ($filters) {
-                $query->where('user_id', '=', intval($filters['user_id']));
-            })
             ->when(!empty($filters['admin_id']), function ($query) use ($filters) {
                 $query->where('admin_id', '=', intval($filters['admin_id']));
             })
             ->when(!empty($filters['ip_address']), function ($query) use ($filters) {
                 $query->where('ip_address', '=', $filters['ip_address']);
+            })
+            ->when(!empty($filters['user_id']), function ($query) use ($filters) {
+                $query->where('user_id', '=', intval($filters['user_id']));
             });
     }
 }

@@ -32,9 +32,9 @@ return new class extends Migration
                 ->constrained($dictionaryDbName . '.categories', 'id')
                 ->onDelete('cascade');
             $table->integer('dictionary_term_id')->nullable();
-            $table->integer('start_year')->nullable();
-            $table->integer('end_year')->nullable();
-            $table->integer('years')->default(0);
+            $table->integer('start_year')->nullable()->index('start_year_idx');
+            $table->integer('end_year')->nullable()->index('end_year_idx');
+            $table->integer('years')->default(0)->index('year_idx');
             $table->text('notes')->nullable();
             $table->text('description')->nullable();
             $table->string('disclaimer', 500)->nullable();

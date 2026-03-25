@@ -142,7 +142,7 @@
                             {!! !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' !!}
                         </td>
                         <td data-field="apply_date" style="white-space: nowrap;">
-                            {!! !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' !!}
+                            {!! !empty($application->apply_date) ? date('M j, Y', strtotime($application->apply_date)) : '' !!}
                         </td>
                         <td data-field="compensation" class="hide-at-1024">
                             {!!
@@ -246,7 +246,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '10' : '9' }}">There are no applications.</td>
+                        <td colspan="{{ $admin->is_root ? '10' : '9' }}">No applications found.</td>
                     </tr>
 
                 @endforelse

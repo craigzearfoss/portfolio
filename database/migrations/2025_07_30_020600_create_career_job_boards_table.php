@@ -19,8 +19,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('job_boards', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->string('slug', 100)->unique();
+            $table->string('name', 100)->unique('name_unique');
+            $table->string('slug', 100)->unique('slug_unique');
             $table->boolean('primary')->default(false);
             $table->boolean('local')->default(false);
             $table->boolean('regional')->default(false);

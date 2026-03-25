@@ -24,9 +24,9 @@ return new class extends Migration
 
         Schema::connection($this->database_tag)->create('countries', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->string('m49', 3)->unique();
-            $table->string('iso_alpha3', 3)->unique();
+            $table->string('name', 100)->unique('name_unique');
+            $table->string('m49', 3)->unique('m49_unique');
+            $table->string('iso_alpha3', 3)->unique('iso-alpha3_unique');
         });
 
         $data = [

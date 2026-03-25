@@ -80,17 +80,17 @@ class Message extends Model
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            ->when(!empty($filters['body']), function ($query) use ($filters) {
+                $query->where('body', 'like', '%' . $filters['body'] . '%');
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where('email', 'like', '%' . $filters['email'] . '%');
             })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
             ->when(!empty($filters['subject']), function ($query) use ($filters) {
                 $query->where('subject', 'like', '%' . $filters['subject'] . '%');
-            })
-            ->when(!empty($filters['body']), function ($query) use ($filters) {
-                $query->where('body', 'like', '%' . $filters['body'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters, false);

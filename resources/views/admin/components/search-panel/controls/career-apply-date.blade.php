@@ -1,6 +1,6 @@
 @php
     $apply_from = $apply_from ?? request()->query('apply_from');
-    $apply_to = $apply_to ?? request()->query('apply_to');
+    $apply_to   = $apply_to ?? request()->query('apply_to');
 @endphp
 <div class="search-form-control">
     @include('admin.components.input-basic', [

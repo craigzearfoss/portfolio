@@ -28,8 +28,8 @@ return new class extends Migration
                 ->constrained('applications', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('slug');
-            $table->date('date')->nullable();
+            $table->string('slug')->index('slug_idx');
+            $table->date('date')->nullable()->index('date_idx');
             $table->string('filepath', 500)->nullable();
             $table->text('content')->nullable();
             $table->text('notes')->nullable();

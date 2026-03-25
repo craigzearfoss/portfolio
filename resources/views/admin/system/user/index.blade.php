@@ -171,7 +171,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="9">There are no users.</td>
+                        <td colspan="9">No users found.</td>
                     </tr>
 
                 @endforelse

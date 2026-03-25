@@ -153,7 +153,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">There are no cover letters.</td>
+                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">No cover letters found.</td>
                     </tr>
 
                 @endforelse

@@ -7,6 +7,7 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -122,65 +123,92 @@ class Recipe extends Model
      * @param array $filters
      * @param Admin|Owner|null $owner
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
-            })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
-            })
-            ->when(!empty($filters['source']), function ($query) use ($filters) {
-                $query->where('source', 'like', '%' . $filters['source'] . '%');
+            ->when(!empty($filters['appetizer']), function ($query) use ($filters) {
+                $query->where('appetizer', '=', true);
             })
             ->when(!empty($filters['author']), function ($query) use ($filters) {
                 $query->where('author', 'like', '%' . $filters['author'] . '%');
             })
-            ->when(isset($filters['prep_time']), function ($query) use ($filters) {
-                $query->where('prep_time', '<=', intval($filters['prep_time']));
+            ->when(!empty($filters['beverage']), function ($query) use ($filters) {
+                $query->where('beverage', '=', true);
             })
-            ->when(isset($filters['total_time']), function ($query) use ($filters) {
-                $query->where('total_time', '<=', intval($filters['total_time']));
-            })
-            ->when(isset($filters['main']), function ($query) use ($filters) {
-                $query->where('main', '=', boolval(['main']));
-            })
-            ->when(isset($filters['side']), function ($query) use ($filters) {
-                $query->where('side', '=', boolval(['side']));
-            })
-            ->when(isset($filters['dessert']), function ($query) use ($filters) {
-                $query->where('dessert', '=', boolval(['dessert']));
-            })
-            ->when(isset($filters['appetizer']), function ($query) use ($filters) {
-                $query->where('appetizer', '=', boolval(['appetizer']));
-            })
-            ->when(isset($filters['beverage']), function ($query) use ($filters) {
-                $query->where('beverage', '=', boolval(['beverage']));
-            })
-            ->when(isset($filters['breakfast']), function ($query) use ($filters) {
-                $query->where('breakfast', '=', boolval(['breakfast']));
-            })
-            ->when(isset($filters['lunch']), function ($query) use ($filters) {
-                $query->where('lunch', '=', boolval(['lunch']));
-            })
-            ->when(isset($filters['dinner']), function ($query) use ($filters) {
-                $query->where('dinner', '=', boolval(['dinner']));
-            })
-            ->when(isset($filters['snack']), function ($query) use ($filters) {
-                $query->where('snack', '=', boolval(['snack']));
-            })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            ->when(!empty($filters['breakfast']), function ($query) use ($filters) {
+                $query->where('breakfast', '=', true);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
+            ->when(!empty($filters['dessert']), function ($query) use ($filters) {
+                $query->where('dessert', '=', true);
+            })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['dinner']), function ($query) use ($filters) {
+                $query->where('dinner', '=', true);
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
+            })
+            ->when(!empty($filters['lunch']), function ($query) use ($filters) {
+                $query->where('lunch', '=', true);
+            })
+            ->when(!empty($filters['main']), function ($query) use ($filters) {
+                $query->where('main', '=', true);
+            })
+            ->when(!empty($filters['meal']), function ($query) use ($filters) {
+                if (in_array($filters['meal'], ['breakfast', 'dinner', 'lunch', 'snack'])) {
+                    $query->where($filters['meal'], '=', true);
+                } else {
+                    throw new Exception('Invalid recipe meal "' . $filters['meal'] . '" specified.'
+                        . ' Valid relations are "breakfast", "dinner", "lunch", and "snack".');
+                }
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['prep_time']), function ($query) use ($filters) {
+                $prep_time = $filters['prep_time'];
+                $query->where(function ($query) use ($prep_time) {
+                    $query->where('prep_time', '<=', intval($prep_time))
+                        ->where('prep_time', '>', 0)
+                        ->whereNotNull('prep_time');
+                });
+            })
+            ->when(!empty($filters['side']), function ($query) use ($filters) {
+                $query->where('side', '=', true);
+            })
+            ->when(!empty($filters['snack']), function ($query) use ($filters) {
+                $query->where('snack', '=', true);
+            })
+            ->when(!empty($filters['source']), function ($query) use ($filters) {
+                $query->where('source', 'like', '%' . $filters['source'] . '%');
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
+            ->when(!empty($filters['total_time']), function ($query) use ($filters) {
+                $total_time = $filters['total_time'];
+                $query->where(function ($query) use ($total_time) {
+                    $query->where('total_time', '<=', intval($total_time))
+                        ->where('total_time', '>', 0)
+                        ->whereNotNull('total_time');
+                });
+            })
+            ->when(!empty($filters['type']), function ($query) use ($filters) {
+                if (in_array($filters['type'], ['appetizer', 'beverage', 'dessert', 'main', 'side'])) {
+                    $query->where($filters['type'], '=', true);
+                } else {
+                    throw new Exception('Invalid recipe type "' . $filters['type'] . '" specified.'
+                        . ' Valid relations are "appetizer", "beverage", "dessert", "main", and "side".');
+                }
             });
 
         return $this->appendStandardFilters($query, $filters);

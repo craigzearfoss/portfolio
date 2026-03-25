@@ -168,7 +168,7 @@
                             $colspan = $admin->is_root ? '4' : '3';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
-                        <td colspan="{{ $colspan }}">There are no notes.</td>
+                        <td colspan="{{ $colspan }}">No notes found.</td>
                     </tr>
 
                 @endforelse

@@ -22,13 +22,13 @@ return new class extends Migration
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
 
             $table->id();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->string('name')->unique('name_unique');
+            $table->string('slug')->unique('slug_unique');
             $table->integer('enrollment')->nullable();
             $table->integer('founded')->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city', 100)->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained($systemDbName.'.states', 'id')

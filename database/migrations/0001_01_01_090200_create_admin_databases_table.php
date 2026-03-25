@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('name', 50)->index('name_idx');
             $table->string('database', 50)->index('database_idx');
             $table->string('tag', 50)->index('tag_idx');
-            $table->string('title', 50);
+            $table->string('title', 50)->index('title_idx');
             $table->string('plural', 50);
             $table->boolean('has_owner')->default(true);
             $table->boolean('guest')->default(false);

@@ -62,10 +62,7 @@ class ResourceSetting extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        return new self()->getSearchQuery($filters)
-            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
+        return new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
                 $query->where('resource_id', '=', intval($filters['resource_id']));
             })

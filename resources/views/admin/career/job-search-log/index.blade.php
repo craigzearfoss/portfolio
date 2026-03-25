@@ -121,7 +121,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">There are no log entries.</td>
+                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No log entries found.</td>
                     </tr>
 
                 @endforelse

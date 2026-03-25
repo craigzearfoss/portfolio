@@ -26,10 +26,10 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('title')->index('title_idx');
             $table->string('author')->nullable()->index('author_idx');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('publication_year')->nullable();
+            $table->integer('publication_year')->nullable()->index('publication_year_idx');
             $table->boolean('fiction')->default(false);
             $table->boolean('nonfiction')->default(false);
             $table->boolean('paper')->default(true);

@@ -125,7 +125,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">There are no units.</td>
+                        <td colspan="4">No units found.</td>
                     </tr>
 
                 @endforelse

@@ -163,7 +163,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '5' : '4' }}">There are no links.</td>
+                        <td colspan="{{ $admin->is_root ? '5' : '4' }}">No links found.</td>
                     </tr>
 
                 @endforelse

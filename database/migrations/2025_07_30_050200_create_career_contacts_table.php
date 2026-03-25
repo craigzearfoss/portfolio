@@ -25,12 +25,12 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->string('salutation', 20)->nullable();
             $table->string('title', 100)->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city', 100)->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained($systemDbName.'.states', 'id')

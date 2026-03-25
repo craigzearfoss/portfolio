@@ -18,9 +18,9 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email', 255);
-            $table->string('subject', 500);
+            $table->string('name')->index('name_idx');
+            $table->string('email', 255)->index('email_idx');
+            $table->string('subject', 500)->index('subject_idx');
             $table->text('body');
             $table->boolean('is_public')->default(false);
             $table->boolean('is_readonly')->default(false);

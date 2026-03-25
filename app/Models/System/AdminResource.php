@@ -161,44 +161,44 @@ class AdminResource extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
-                $query->where('parent_id', '=', intval($filters['parent_id']));
-            })
-            ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
-                $query->where('resource_id', '=', intval($filters['resource_id']));
-            })
-            ->when(!empty($filters['database_id']), function ($query) use ($filters) {
-                $query->where('database_id', '=', intval($filters['database_id']));
-            })
             ->when(!empty($filters['admin_database_id']), function ($query) use ($filters) {
                 $query->where('admin_database_id', '=', intval($filters['admin_database_id']));
-            })
-            ->when(!empty($filters['table_name']), function ($query) use ($filters) {
-                $query->where('table_name', 'like', '%' . $filters['table_name'] . '%');
             })
             ->when(!empty($filters['class']), function ($query) use ($filters) {
                 $query->where('class', 'like', '%' . $filters['class'] . '%');
             })
-            ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['title'] . '%');
+            ->when(!empty($filters['database_id']), function ($query) use ($filters) {
+                $query->where('database_id', '=', intval($filters['database_id']));
             })
-            ->when(!empty($filters['plural']), function ($query) use ($filters) {
-                $query->where('plural', 'like', '%' . $filters['plural'] . '%');
+            ->when(!empty($filters['has_owner']), function ($query) use ($filters) {
+                $query->where('has_owner', '=', true);
             })
-            ->when(isset($filters['has_owner']), function ($query) use ($filters) {
-                $query->where('has_owner', '=', boolval(['has_owner']));
+            ->when(isset($filters['icon']), function ($query) use ($filters) {
+                $query->where('icon', '=', ['icon']);
             })
-            ->when(isset($filters['menu']), function ($query) use ($filters) {
-                $query->where('menu', '=', boolval(['menu']));
+            ->when(!empty($filters['menu']), function ($query) use ($filters) {
+                $query->where('menu', '=', true);
+            })
+            ->when(!empty($filters['menu_collapsed']), function ($query) use ($filters) {
+                $query->where('menu_collapsed', '=', true);
             })
             ->when(isset($filters['menu_level']), function ($query) use ($filters) {
                 $query->where('menu_level', '=', intval(['menu_level']));
             })
-            ->when(isset($filters['menu_collapsed']), function ($query) use ($filters) {
-                $query->where('menu_collapsed', '=', boolval(['menu_collapsed']));
+            ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
+                $query->where('parent_id', '=', intval($filters['parent_id']));
             })
-            ->when(isset($filters['icon']), function ($query) use ($filters) {
-                $query->where('icon', '=', ['icon']);
+            ->when(!empty($filters['plural']), function ($query) use ($filters) {
+                $query->where('plural', 'like', '%' . $filters['plural'] . '%');
+            })
+            ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
+                $query->where('resource_id', '=', intval($filters['resource_id']));
+            })
+            ->when(!empty($filters['table_name']), function ($query) use ($filters) {
+                $query->where('table_name', 'like', '%' . $filters['table_name'] . '%');
+            })
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where('title', 'like', '%' . $filters['title'] . '%');
             });
 
         $query = $this->appendEnvironmentFilters($query, $filters);

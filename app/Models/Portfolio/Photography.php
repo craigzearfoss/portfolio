@@ -98,35 +98,35 @@ class Photography extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
-            })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
-            })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', intval(['year']));
-            })
-            ->when(!empty($filters['credit']), function ($query) use ($filters) {
-                $query->where('credit', 'like', '%' . $filters['credit'] . '%');
-            })
-            ->when(!empty($filters['model']), function ($query) use ($filters) {
-                $query->where('model', 'like', '%' . $filters['model'] . '%');
-            })
-            ->when(!empty($filters['location']), function ($query) use ($filters) {
-                $query->where('location', 'like', '%' . $filters['location'] . '%');
-            })
             ->when(!empty($filters['copyright']), function ($query) use ($filters) {
                 $query->where('copyright', 'like', '%' . $filters['copyright'] . '%');
             })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            ->when(!empty($filters['credit']), function ($query) use ($filters) {
+                $query->where('credit', 'like', '%' . $filters['credit'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
+            })
+            ->when(!empty($filters['location']), function ($query) use ($filters) {
+                $query->where('location', 'like', '%' . $filters['location'] . '%');
+            })
+            ->when(!empty($filters['model']), function ($query) use ($filters) {
+                $query->where('model', 'like', '%' . $filters['model'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
+            ->when(!empty($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', intval(['year']));
             });
 
         return $this->appendStandardFilters($query, $filters);

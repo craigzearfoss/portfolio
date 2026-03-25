@@ -29,9 +29,11 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.reference.index') ])
-    @endif
+    @include('admin.components.search-panel.career-reference',
+        [ 'action'     => route('admin.career.reference.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
@@ -161,7 +163,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">There are no references.</td>
+                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">No references found..</td>
                     </tr>
 
                 @endforelse

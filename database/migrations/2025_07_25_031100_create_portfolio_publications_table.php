@@ -36,14 +36,14 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('title')->index('title_idx')->constrained();
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx')->constrained();
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->string('publication_name')->nullable();
-            $table->string('publisher')->nullable();
-            $table->date('publication_date')->nullable();
-            $table->integer('publication_year')->nullable();
-            $table->string('credit')->nullable();
+            $table->string('publication_name')->nullable()->index('publication_name_idx');
+            $table->string('publisher')->nullable()->index('publisher_idx');
+            $table->date('publication_date')->nullable()->index('publication_date_idx');
+            $table->integer('publication_year')->nullable()->index('publication_year_idx');
+            $table->string('credit')->nullable()->index('credit_idx');
             $table->boolean('fiction')->default(false);
             $table->boolean('nonfiction')->default(false);
             $table->boolean('technical')->default(false);

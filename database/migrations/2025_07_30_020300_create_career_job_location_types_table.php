@@ -19,8 +19,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('job_location_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
-            $table->string('abbreviation', 20)->unique();
+            $table->string('name', 50)->unique('name_unique');
+            $table->string('abbreviation', 20)->unique('abbreviation_unique');
         });
 
         $data = [

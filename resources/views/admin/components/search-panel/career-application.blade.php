@@ -9,6 +9,7 @@
         }
     }
     $admin_database_id      = $admin_database_id ?? request()->query('company_id');
+    $apply_date             = $apply_date ?? request()->query('apply_date');
     $apply_from             = $apply_from ?? request()->query('apply_from');
     $apply_to               = $apply_to ?? request()->query('apply_to');
     $benefits               = $benefits ?? request()->query('benefits');
@@ -20,6 +21,8 @@
     $job_employment_type_id = $job_employment_type_id ?? request('job_employment_type_id');
     $job_location_type_id   = $job_location_type_id ?? request('job_location_type_id');
     $post_date              = $post_date ?? request()->query('post_date');
+    $post_from              = $post_from ?? request()->query('post_from');
+    $post_to                = $post_to ?? request()->query('post_to');
     $rating                 = $rating ?? request()->query('rating');
     $relocation             = $relocation ?? request()->query('relocation');
     $resume_id              = $resume_id ?? request()->query('resume_id');
@@ -55,7 +58,11 @@
                             @include('admin.components.search-panel.controls.career-company', [ 'company_id' => $company_id ])
                         </div>
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-role', [ 'role' => $role ])
+                            @include('admin.components.input-basic', [
+                                'name'    => 'role',
+                                'value'   => $role,
+                                'message' => $message ?? '',
+                            ])
                         </div>
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-job-board', [ 'job_board_id' => $job_board_id ])
@@ -97,7 +104,11 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-city', [ 'city' => $city ])
+                            @include('admin.components.input-basic', [
+                                'name'    => 'city',
+                                'value'   => $city,
+                                'message' => $message ?? '',
+                            ])
                         </div>
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-state', [ 'state_id' => $state_id ])
@@ -108,6 +119,10 @@
                         @include('admin.components.search-panel.controls.career-apply-date', [
                             'appy_from' => $apply_from,
                             'appy_to'   => $apply_to,
+                         ])
+                        @include('admin.components.search-panel.controls.career-post-date', [
+                            'appy_from' => $post_from,
+                            'appy_to'   => $post_to,
                          ])
                     </div>
 

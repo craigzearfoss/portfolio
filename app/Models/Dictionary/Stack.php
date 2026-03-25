@@ -91,6 +91,12 @@ class Stack extends Model
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
+            ->when(!empty($filters['compiled']), function ($query) use ($filters) {
+                $query->where('compiled', '=', true);
+            })
+            ->when(!empty($filters['definition']), function ($query) use ($filters) {
+                $query->where('definition', 'like', '%' . $filters['definition'] . '%');
+            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $name = $filters['name'];
                 $query->orWhere(function ($query) use ($name) {
@@ -99,20 +105,14 @@ class Stack extends Model
                         ->orWhere('abbreviation', 'LIKE', '%' . $name . '%');
                 });
             })
-            ->when(!empty($filters['definition']), function ($query) use ($filters) {
-                $query->where('definition', 'like', '%' . $filters['definition'] . '%');
-            })
-            ->when(isset($filters['open_source']), function ($query) use ($filters) {
-                $query->where('open_source', '=', $filters['open_source']);
-            })
-            ->when(isset($filters['proprietary']), function ($query) use ($filters) {
-                $query->where('proprietary', '=', $filters['proprietary']);
-            })
-            ->when(isset($filters['compiled']), function ($query) use ($filters) {
-                $query->where('compiled', '=', $filters['compiled']);
+            ->when(!empty($filters['open_source']), function ($query) use ($filters) {
+                $query->where('open_source', '=', true);
             })
             ->when(!empty($filters['owner']), function ($query) use ($filters) {
                 $query->where('owner', 'like', '%' . $filters['owner'] . '%');
+            })
+            ->when(!empty($filters['proprietary']), function ($query) use ($filters) {
+                $query->where('proprietary', '=', true);
             });
 
         return $this->appendStandardFilters($query, $filters, false);

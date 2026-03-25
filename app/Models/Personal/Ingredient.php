@@ -73,15 +73,15 @@ class Ingredient extends Model
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $name = $filters['name'];
                 $query->orWhere(function ($query) use ($name) {
                     $query->where('full_name', 'LIKE', '%' . $name . '%')
                         ->orWhere('name', 'LIKE', '%' . $name . '%');
                 });
-            })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

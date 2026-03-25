@@ -70,14 +70,14 @@ class State extends Model
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
-            })
             ->when(!empty($filters['code']), function ($query) use ($filters) {
                 $query->where('code', '=', $filters['code']);
             })
             ->when(!empty($filters['country_id']), function ($query) use ($filters) {
                 $query->where('country_id', '=', intval($filters['country_id']));
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
             });
     }
 

@@ -27,7 +27,11 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.recipe-child', [ 'action' => route('admin.personal.recipe-ingredient.index') ])
+    @include('admin.components.search-panel.personal-recipe-ingredient',
+        [ 'action'     => route('admin.personal.recipe-ingredient.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
@@ -48,7 +52,7 @@
                             <th>recipe</th>
                         @endif
                         <th>name</th>
-                        <th>amount</th>
+                        <th class="has-text-centered">amount</th>
                         <th>unit</th>
                         <th>actions</th>
                     </tr>
@@ -65,7 +69,7 @@
                             <th>recipe</th>
                         @endif
                         <th>name</th>
-                        <th>amount</th>
+                        <th class="has-text-centered">amount</th>
                         <th>unit</th>
                         <th>actions</th>
                     </tr>
@@ -95,7 +99,7 @@
                         <td data-field="ingredient.name">
                             {!! $recipeIngredient->ingredient->name ?? '' !!}
                         </td>
-                        <td data-field="amount">
+                        <td data-field="amount" class="has-text-centered">
                             {!! $recipeIngredient->amount !!}
                         </td>
                         <td data-field="unit.name">
@@ -162,7 +166,7 @@
                             $cols = $isRootAdmin ? '5' : '4';
                             if (!empty($recipe)) $cols++;
                         @endphp
-                        <td colspan="{{ $cols }}">There are no recipe ingredients.</td>
+                        <td colspan="{{ $cols }}">No recipe ingredients found.</td>
                     </tr>
 
                 @endforelse

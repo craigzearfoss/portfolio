@@ -22,8 +22,8 @@ return new class extends Migration
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
-            $table->string('email', 255);
-            $table->string('label', 100)->nullable();
+            $table->string('email', 255)->index('email_idx');
+            $table->string('label', 100)->nullable()->index('label_idx');
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
             $table->boolean('is_public')->default(false);

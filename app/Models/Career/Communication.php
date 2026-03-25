@@ -123,6 +123,12 @@ class Communication extends Model
             })
             ->when(!empty($filters['date']), function ($query) use ($filters) {
                 $query->where('date', '=', $filters['date']);
+            })
+            ->when(!empty($filters['date_from']), function ($query) use ($filters) {
+                $query->where('date', '>=', $filters['date_from']);
+            })
+            ->when(!empty($filters['date_to']), function ($query) use ($filters) {
+                $query->where('date', '<=', $filters['date_to']);
             });
 
         return $this->appendStandardFilters($query, $filters);

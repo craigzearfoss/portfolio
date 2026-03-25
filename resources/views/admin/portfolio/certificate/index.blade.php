@@ -174,7 +174,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '9' : '8' }}">There are no certificates.</td>
+                        <td colspan="{{ $admin->is_root ? '9' : '8' }}">No certificates found.</td>
                     </tr>
 
                 @endforelse

@@ -88,11 +88,11 @@ return new class extends Migration
             $table->string('label', 200)->unique();
             $table->string('salutation', 20)->nullable();
             $table->string('title', 100)->nullable();
-            $table->string('role', 100)->nullable();
-            $table->string('employer', 100)->nullable();
+            $table->string('role', 100)->nullable()->index('role_idx');
+            $table->string('employer', 100)->nullable()->index('employer_idx');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city', 100)->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained('states', 'id')
@@ -104,8 +104,8 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('email', 255)->unique();
+            $table->string('phone', 20)->nullable()->index('phone_idx');
+            $table->string('email', 255)->unique('email_unique');
             $table->timestamp('email_verified_at')->nullable();
             $table->date('birthday')->nullable();
             $table->string('link', 500)->nullable();

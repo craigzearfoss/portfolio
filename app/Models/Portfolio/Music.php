@@ -107,50 +107,47 @@ class Music extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
-                $query->where('parent_id', '=', intval($filters['parent_id']));
-            })
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
             ->when(!empty($filters['artist']), function ($query) use ($filters) {
                 $query->where('artist', 'like', '%' . $filters['artist'] . '%');
-            })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
-            })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
-            })
-            ->when(isset($filters['collection']), function ($query) use ($filters) {
-                $query->where('collection', '=', boolval(['collection']));
-            })
-            ->when(isset($filters['track']), function ($query) use ($filters) {
-                $query->where('track', '=', boolval(['track']));
-            })
-            ->when(!empty($filters['label']), function ($query) use ($filters) {
-                $query->where('label', 'like', '%' . $filters['label'] . '%');
-            })
-            ->when(!empty($filters['catalog_number']), function ($query) use ($filters) {
-                $query->where('catalog_number', 'like', '%' . $filters['catalog_number'] . '%');
-            })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', intval(['year']));
-            })
-            ->when(!empty($filters['release_date']), function ($query) use ($filters) {
-                $query->where('release_date', '=', ['release_date']);
             })
             ->when(!empty($filters['audio_url']), function ($query) use ($filters) {
                 $query->where('audio_url', '=', ['audio_url']);
             })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            ->when(!empty($filters['catalog_number']), function ($query) use ($filters) {
+                $query->where('catalog_number', 'like', '%' . $filters['catalog_number'] . '%');
+            })
+            ->when(!empty($filters['collection']), function ($query) use ($filters) {
+                $query->where('collection', '=', true);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
+            })
+            ->when(!empty($filters['label']), function ($query) use ($filters) {
+                $query->where('label', 'like', '%' . $filters['label'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+                $query->where('parent_id', '=', intval($filters['parent_id']));
+            })
+            ->when(!empty($filters['release_date']), function ($query) use ($filters) {
+                $query->where('release_date', '=', ['release_date']);
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
+            ->when(!empty($filters['track']), function ($query) use ($filters) {
+                $query->where('track', '=', true);
+            })
+            ->when(!empty($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', intval(['year']));
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -136,7 +136,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">There are no certifications.</td>
+                        <td colspan="6">No certifications found.</td>
                     </tr>
 
                 @endforelse

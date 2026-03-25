@@ -120,7 +120,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="3">There are no industries.</td>
+                        <td colspan="3">No industries found.</td>
                     </tr>
 
                 @endforelse

@@ -25,20 +25,20 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('year')->nullable();
+            $table->integer('year')->nullable()->index('year_idx');
             $table->boolean('completed')->default(false);
-            $table->date('completion_date')->nullable();
+            $table->date('completion_date')->nullable()->index('completion_date_idx');
             $table->float('duration_hours')->nullable();
             $table->foreignId('academy_id')
                 ->nullable()
                 ->constrained('academies', 'id')
                 ->onDelete('cascade');
-            $table->string('school')->nullable();
-            $table->string('instructor')->nullable();
-            $table->string('sponsor')->nullable();
+            $table->string('school')->nullable()->index('school_idx');
+            $table->string('instructor')->nullable()->index('instructor_idx');
+            $table->string('sponsor')->nullable()->index('sponsor_idx');
             $table->string('certificate_url', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

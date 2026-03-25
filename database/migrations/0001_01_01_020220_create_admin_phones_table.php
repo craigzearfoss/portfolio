@@ -22,8 +22,8 @@ return new class extends Migration
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
-            $table->string('phone', 20);
-            $table->string('label', 100)->nullable();
+            $table->string('phone', 20)->index('phone_idx');
+            $table->string('label', 100)->nullable()->index('label_idx');
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
             $table->boolean('is_public')->default(false);

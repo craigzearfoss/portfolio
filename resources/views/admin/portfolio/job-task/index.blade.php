@@ -155,7 +155,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">There are no job tasks.</td>
+                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No job tasks found..</td>
                     </tr>
 
                 @endforelse

@@ -100,11 +100,17 @@ class Note extends Model
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where('application_id', '=', intval($filters['application_id']));
             })
-            ->when(!empty($filters['subject']), function ($query) use ($filters) {
-                $query->where('subject', 'like', '%' . $filters['subject'] . '%');
-            })
             ->when(!empty($filters['body']), function ($query) use ($filters) {
                 $query->where('body', 'like', '%' . $filters['body'] . '%');
+            })
+            ->when(!empty($filters['created_at_from']), function ($query) use ($filters) {
+                $query->where('date', '>=', $filters['created_at_from']);
+            })
+            ->when(!empty($filters['created_at_to']), function ($query) use ($filters) {
+                $query->where('date', '<=', $filters['created_at_to']);
+            })
+            ->when(!empty($filters['subject']), function ($query) use ($filters) {
+                $query->where('subject', 'like', '%' . $filters['subject'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -28,10 +28,10 @@ return new class extends Migration
                 ->constrained('applications', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->date('date')->nullable();
+            $table->date('date')->nullable()->index('date_idx');
             $table->time('time')->nullable();
-            $table->string('location')->nullable();
-            $table->string('attendees', 500)->nullable();
+            $table->string('location')->nullable()->index('location_idx');
+            $table->string('attendees', 500)->nullable()->index('attendees_idx');
             $table->text('description')->nullable();
             $table->boolean('is_public')->default(false);
             $table->boolean('is_readonly')->default(false);

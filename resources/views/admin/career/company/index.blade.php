@@ -30,9 +30,11 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.career.company.index') ])
-    @endif
+    @include('admin.components.search-panel.career-company',
+        [ 'action'     => route('admin.career.company.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
@@ -152,7 +154,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '5' : '4' }}">There are no companies.</td>
+                        <td colspan="{{ $admin->is_root ? '5' : '4' }}">No companies found.</td>
                     </tr>
 
                 @endforelse

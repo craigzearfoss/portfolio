@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignId('resource_id')
                 ->constrained('resources', 'id')
                 ->onDelete('cascade');
-            $table->string('name', 100);
+            $table->string('name', 100)->index('name_idx');
             $table->foreignId('setting_type_id')
                 ->constrained('setting_types', 'id')
                 ->onDelete('cascade');

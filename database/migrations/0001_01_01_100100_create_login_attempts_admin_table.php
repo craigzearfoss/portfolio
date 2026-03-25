@@ -19,7 +19,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('login_attempts_admin', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->string('username', 200)->nullable();
+            $table->string('username', 200);
             $table->string('action', 10);
             $table->string('ip_address', 50)->nullable();
             $table->tinyInteger('success')->default(0);

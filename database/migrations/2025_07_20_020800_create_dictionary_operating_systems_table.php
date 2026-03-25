@@ -19,10 +19,10 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('operating_systems', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name')->unique();
-            $table->string('name', 100)->unique();
-            $table->string('slug', 100)->unique();
-            $table->string('abbreviation', 20)->nullable();
+            $table->string('full_name')->unique('full_name_unique');
+            $table->string('name', 100)->unique('name_unique');
+            $table->string('slug', 100)->unique('slug_unique');
+            $table->string('abbreviation', 20)->nullable()->index('abbreviation_idx');
             $table->string('definition', 500)->nullable();
             $table->boolean('open_source')->default(false);
             $table->boolean('proprietary')->default(false);

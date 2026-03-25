@@ -171,7 +171,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">There are no projects.</td>
+                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">No projects found.</td>
                     </tr>
 
                 @endforelse

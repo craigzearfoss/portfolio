@@ -148,7 +148,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no languages.</td>
+                        <td colspan="5">No languages found.</td>
                     </tr>
 
                 @endforelse

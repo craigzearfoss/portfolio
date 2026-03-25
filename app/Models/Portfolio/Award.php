@@ -101,32 +101,32 @@ class Award extends Model
             ->when(!empty($filters['category']), function ($query) use ($filters) {
                 $query->where('category', 'like', '%' . $filters['category'] . '%');
             })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
+            })
+            ->when(!empty($filters['organization']), function ($query) use ($filters) {
+                $query->where('organization', 'like', '%' . $filters['organization'] . '%');
+            })
             ->when(!empty($filters['nominated_work']), function ($query) use ($filters) {
                 $query->where('nominated_work', 'like', '%' . $filters['nominated_work'] . '%');
             })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(isset($filters['received']), function ($query) use ($filters) {
+                $query->where('received', '=', intval($filters['received']));
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(isset($filters['year']), function ($query) use ($filters) {
                 $query->where('year', '=', intval($filters['year']));
-            })
-            ->when(isset($filters['received']), function ($query) use ($filters) {
-                $query->where('received', '=', intval($filters['received']));
-            })
-            ->when(!empty($filters['organization']), function ($query) use ($filters) {
-                $query->where('organization', 'like', '%' . $filters['organization'] . '%');
-            })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
-            })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
-            })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

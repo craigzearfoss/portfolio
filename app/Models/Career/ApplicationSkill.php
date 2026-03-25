@@ -98,8 +98,8 @@ class ApplicationSkill extends Model
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where('application_id', '=', intval($filters['application_id']));
             })
-            ->when(array_key_exists('level', $filters), function ($query) use ($filters) {
-                $query->where('level', '=', intval($filters['level']));
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['dictionary_category_id']), function ($query) use ($filters) {
                 $query->where('dictionary_category_id', '=', intval($filters['dictionary_category_id']));
@@ -107,23 +107,23 @@ class ApplicationSkill extends Model
             ->when(!empty($filters['dictionary_term_id']), function ($query) use ($filters) {
                 $query->where('dictionary_term_id', '=', intval($filters['dictionary_term_id']));
             })
-            ->when(array_key_exists('start_year', $filters), function ($query) use ($filters) {
-                $query->where('start_year', '=', intval($filters['start_year']));
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(array_key_exists('end_year', $filters), function ($query) use ($filters) {
                 $query->where('end_year', '=', intval($filters['end_year']));
             })
-            ->when(array_key_exists('years', $filters), function ($query) use ($filters) {
-                $query->where('years', '=', intval($filters['years']));
+            ->when(array_key_exists('level', $filters), function ($query) use ($filters) {
+                $query->where('level', '=', intval($filters['level']));
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            ->when(array_key_exists('start_year', $filters), function ($query) use ($filters) {
+                $query->where('start_year', '=', intval($filters['start_year']));
             })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            ->when(array_key_exists('years', $filters), function ($query) use ($filters) {
+                $query->where('years', '=', intval($filters['years']));
             });
 
         return $this->appendStandardFilters($query, $filters);

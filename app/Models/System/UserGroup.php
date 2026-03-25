@@ -89,20 +89,20 @@ class UserGroup extends Model
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
+            ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
+                $query->where('abbreviation', '=', $filters['abbreviation']);
+            })
+            ->when(isset($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
             ->when(!empty($filters['user_id']), function ($query) use ($filters) {
                 $query->where('user_id', '=', intval($filters['user_id']));
             })
             ->when(!empty($filters['user_team_id']), function ($query) use ($filters) {
                 $query->where('user_team_id', '=', intval($filters['user_team_id']));
-            })
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', '=', $filters['name']);
-            })
-            ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
-                $query->where('abbreviation', '=', $filters['abbreviation']);
-            })
-            ->when(isset($filters['description']), function ($query) use ($filters) {
-                $query->where('description', '=', boolval($filters['description']));
             });
 
         return $this->appendStandardFilters($query, $filters);

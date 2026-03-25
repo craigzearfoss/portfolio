@@ -119,23 +119,22 @@ class Company extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['industry_id']), function ($query) use ($filters) {
-                $query->where('industry_id', '=', intval($filters['industry_id']));
-            });
-
-        $query =$this->appendAddressFilters($query, $filters);
-        $query =$this->appendPhoneFilters($query, $filters);
-        $query =$this->appendEmailFilters($query, $filters);
-
-            $query->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
-            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['industry_id']), function ($query) use ($filters) {
+                $query->where('industry_id', '=', intval($filters['industry_id']));
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             });
+
+        $query =$this->appendAddressFilters($query, $filters);
+        $query =$this->appendPhoneFilters($query, $filters);
+        $query =$this->appendEmailFilters($query, $filters);
 
         return $this->appendStandardFilters($query, $filters);
     }

@@ -93,17 +93,23 @@ class Event extends Model
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where('application_id', '=', intval($filters['application_id']));
             })
+            ->when(!empty($filters['attendees']), function ($query) use ($filters) {
+                $query->where('attendees', 'like', '%' . $filters['attendees'] . '%');
+            })
             ->when(!empty($filters['date']), function ($query) use ($filters) {
                 $query->where('date', '=', $filters['date']);
             })
+            ->when(!empty($filters['date_from']), function ($query) use ($filters) {
+                $query->where('date', '>=', $filters['date_from']);
+            })
+            ->when(!empty($filters['date_to']), function ($query) use ($filters) {
+                $query->where('date', '<=', $filters['date_to']);
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where('location', 'like', '%' . $filters['location'] . '%');
-            })
-                ->when(!empty($filters['attendees']), function ($query) use ($filters) {
-                $query->where('attendees', 'like', '%' . $filters['attendees'] . '%');
-            })
-                ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

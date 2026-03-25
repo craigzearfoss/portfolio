@@ -161,7 +161,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '15' : '14' }}">There are no resources.</td>
+                        <td colspan="{{ $admin->is_root ? '15' : '14' }}">No resources found.</td>
                     </tr>
 
                 @endforelse

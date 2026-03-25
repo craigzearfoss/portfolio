@@ -153,7 +153,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '6' : '5' }}">There are no videos.</td>
+                        <td colspan="{{ $admin->is_root ? '6' : '5' }}">No videos found.</td>
                     </tr>
 
                 @endforelse

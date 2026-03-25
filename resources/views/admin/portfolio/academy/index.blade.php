@@ -126,7 +126,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">There are no academies.</td>
+                        <td colspan="4">No academies found.</td>
                     </tr>
 
                 @endforelse

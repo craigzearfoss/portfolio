@@ -126,7 +126,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no messages.</td>
+                        <td colspan="5">No messages found.</td>
                     </tr>
 
                 @endforelse

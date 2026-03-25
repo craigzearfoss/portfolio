@@ -184,7 +184,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '10' : '9' }}">There are no readings.</td>
+                        <td colspan="{{ $admin->is_root ? '10' : '9' }}">No readings found.</td>
                     </tr>
 
                 @endforelse

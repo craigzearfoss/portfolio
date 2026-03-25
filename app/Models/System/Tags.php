@@ -76,8 +76,11 @@ class Tags extends Model
         }
 
         return new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
-                $query->where('resource_id', '=', intval($filters['resource_id']));
+            ->when(!empty($filters['dictionary_category_id']), function ($query) use ($filters) {
+                $query->where('dictionary_category_id', '=', intval($filters['dictionary_category_id']));
+            })
+            ->when(!empty($filters['dictionary_term_id']), function ($query) use ($filters) {
+                $query->where('dictionary_term_id', '=', intval($filters['dictionary_term_id']));
             })
             ->when(!empty($filters['model_class']), function ($query) use ($filters) {
                 $query->where('model_class', 'like', '%' . $filters['model_class'] . '%');
@@ -85,11 +88,8 @@ class Tags extends Model
             ->when(!empty($filters['model_item_id']), function ($query) use ($filters) {
                 $query->where('model_item_id', '=', intval($filters['model_item_id']));
             })
-            ->when(!empty($filters['dictionary_term_id']), function ($query) use ($filters) {
-                $query->where('dictionary_term_id', '=', intval($filters['dictionary_term_id']));
-            })
-            ->when(!empty($filters['dictionary_category_id']), function ($query) use ($filters) {
-                $query->where('dictionary_category_id', '=', intval($filters['dictionary_category_id']));
+            ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
+                $query->where('resource_id', '=', intval($filters['resource_id']));
             });
     }
 }

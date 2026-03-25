@@ -141,7 +141,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">There are no recruiters.</td>
+                        <td colspan="6">No recruiters found.</td>
                     </tr>
 
                 @endforelse

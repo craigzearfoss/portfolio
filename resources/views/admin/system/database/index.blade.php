@@ -165,7 +165,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '16' : '15' }}">There are no databases.</td>
+                        <td colspan="{{ $isRootAdmin ? '16' : '15' }}">No databases found.</td>
                     </tr>
 
                 @endforelse

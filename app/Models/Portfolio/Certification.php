@@ -89,17 +89,17 @@ class Certification extends Model
             ->when(!empty($filters['certification_type_id']), function ($query) use ($filters) {
                 $query->where('certification_type_id', '=', intval($filters['certification_type_id']));
             })
-            ->when(!empty($filters['organization']), function ($query) use ($filters) {
-                $query->where('organization', 'like', '%' . $filters['organization'] . '%');
-            })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
-            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['organization']), function ($query) use ($filters) {
+                $query->where('organization', 'like', '%' . $filters['organization'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -106,29 +106,26 @@ class Education extends Model
             ->when(isset($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
+            ->when(isset($filters['currently_enrolled']), function ($query) use ($filters) {
+                $query->where('currently_enrolled', '=', intval($filters['currently_enrolled']));
+            })
             ->when(isset($filters['degree_type_id']), function ($query) use ($filters) {
                 $query->where('degree_type_id', '=', intval($filters['degree_type_id']));
             })
-            ->when(!empty($filters['major']), function ($query) use ($filters) {
-                $query->where('major', 'like', '%' . $filters['major'] . '%');
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(!empty($filters['minor']), function ($query) use ($filters) {
-                $query->where('minor', 'like', '%' . $filters['minor'] . '%');
-            })
-            ->when(isset($filters['school_id']), function ($query) use ($filters) {
-                $query->where('school_id', '=', intval($filters['school_id']));
-            })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
-            })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(isset($filters['enrollment_month']), function ($query) use ($filters) {
                 $query->where('enrollment_month', '=', intval($filters['enrollment_month']));
             })
             ->when(isset($filters['enrollment_year']), function ($query) use ($filters) {
                 $query->where('enrollment_year', '=', intval($filters['enrollment_year']));
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
             })
             ->when(isset($filters['graduated']), function ($query) use ($filters) {
                 $query->where('graduated', '=', intval($filters['graduated']));
@@ -139,17 +136,20 @@ class Education extends Model
             ->when(isset($filters['graduation_year']), function ($query) use ($filters) {
                 $query->where('graduation_year', '=', intval($filters['graduation_year']));
             })
-            ->when(isset($filters['currently_enrolled']), function ($query) use ($filters) {
-                $query->where('currently_enrolled', '=', intval($filters['currently_enrolled']));
+            ->when(!empty($filters['major']), function ($query) use ($filters) {
+                $query->where('major', 'like', '%' . $filters['major'] . '%');
+            })
+            ->when(!empty($filters['minor']), function ($query) use ($filters) {
+                $query->where('minor', 'like', '%' . $filters['minor'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            ->when(isset($filters['school_id']), function ($query) use ($filters) {
+                $query->where('school_id', '=', intval($filters['school_id']));
             })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -63,7 +63,7 @@
         @empty
 
             <tr>
-                <td colspan="4">There are no candidates.</td>
+                <td colspan="4">No candidates found.</td>
             </tr>
 
         @endforelse

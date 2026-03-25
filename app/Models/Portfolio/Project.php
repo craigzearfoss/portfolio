@@ -101,23 +101,23 @@ class Project extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
-            })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', intval(['year']));
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
             })
             ->when(!empty($filters['language']), function ($query) use ($filters) {
                 $query->where('language', 'like', '%' . $filters['language'] . '%');
             })
             ->when(!empty($filters['language_version']), function ($query) use ($filters) {
                 $query->where('language_version', 'like', '%' . $filters['language_version'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['repository']), function ($query) use ($filters) {
                 $repository = $filters['repository'];
@@ -126,14 +126,11 @@ class Project extends Model
                         ->orWhere('repository_name', 'like', '%' . $repository . '%');
                 });
             })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
-            })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            ->when(!empty($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', intval(['year']));
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -26,7 +26,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('site_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->string('name', 100)->unique('name_unique');
             $table->foreignId('setting_type_id')
                 ->constrained('setting_types', 'id')
                 ->onDelete('cascade');

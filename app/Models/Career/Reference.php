@@ -10,6 +10,7 @@ use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\ReferenceFactory;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -118,32 +119,41 @@ class Reference extends Model
      * @param array $filters
      * @param Admin|Owner|null $owner
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['friend']), function ($query) use ($filters) {
-                $query->where('friend', '=', boolval($filters['friend']));
+            ->when(!empty($filters['coworker']), function ($query) use ($filters) {
+                $query->where('coworker', '=', true);
             })
-            ->when(isset($filters['family']), function ($query) use ($filters) {
-                $query->where('family', '=', boolval($filters['family']));
+            ->when(!empty($filters['family']), function ($query) use ($filters) {
+                $query->where('family', '=', true);
             })
-            ->when(isset($filters['coworker']), function ($query) use ($filters) {
-                $query->where('coworker', '=', boolval($filters['coworker']));
+            ->when(!empty($filters['friend']), function ($query) use ($filters) {
+                $query->where('friend', '=', true);
             })
-            ->when(isset($filters['supervisor']), function ($query) use ($filters) {
-                $query->where('supervisor', '=', boolval($filters['supervisor']));
+            ->when(!empty($filters['other']), function ($query) use ($filters) {
+                $query->where('other', '=', true);
             })
-            ->when(isset($filters['subordinate']), function ($query) use ($filters) {
-                $query->where('subordinate', '=', boolval($filters['subordinate']));
+            ->when(!empty($filters['professional']), function ($query) use ($filters) {
+                $query->where('professional', '=', true);
             })
-            ->when(isset($filters['professional']), function ($query) use ($filters) {
-                $query->where('professional', '=', boolval($filters['professional']));
+            ->when(!empty($filters['relation']), function ($query) use ($filters) {
+                if (in_array($filters['relation'], ['coworker', 'family', 'friend', 'professional', 'subordinate', 'supervisor', 'other'])) {
+                    $query->where($filters['relation'], '=', true);
+                } else {
+                    throw new Exception('Invalid relation "' . $filters['relation'] . '" specified.'
+                        . ' Valid relations are "coworker", "family", "friend", "professional", "subordinate", "supervisor", and "other".');
+                }
             })
-            ->when(isset($filters['other']), function ($query) use ($filters) {
-                $query->where('other', '=', boolval($filters['other']));
+            ->when(!empty($filters['subordinate']), function ($query) use ($filters) {
+                $query->where('subordinate', '=', true);
+            })
+            ->when(!empty($filters['supervisor']), function ($query) use ($filters) {
+                $query->where('supervisor', '=', true);
             });
 
             $query =$this->appendAddressFilters($query, $filters);

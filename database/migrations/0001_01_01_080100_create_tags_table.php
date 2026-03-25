@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
-            $table->string('name', 100);
+            $table->string('name', 100)->index('name_idx');
             $table->foreignId('resource_id')
                 ->constrained('resources', 'id')
                 ->onDelete('cascade');

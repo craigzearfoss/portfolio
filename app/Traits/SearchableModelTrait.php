@@ -252,11 +252,9 @@ trait SearchableModelTrait
     {
         $query->when(!empty($filters['email']), function ($query) use ($filters) {
             $email = $filters['email'];
-            $query->orWhere(function ($query) use ($email) {
+            $query->where(function ($query) use ($email) {
                 $query->where('email', 'LIKE', '%' . $email . '%')
-                    ->orWhere('email_label', 'LIKE', '%' . $email . '%')
-                    ->orWhere('alt_email', 'LIKE', '%' . $email . '%')
-                    ->orWhere('alt_email_label', 'LIKE', '%' . $email . '%');
+                    ->orWhere('alt_email', 'LIKE', '%' . $email . '%');
             });
         });
 
@@ -306,7 +304,7 @@ trait SearchableModelTrait
     {
         $query->when(!empty($filters['phone']), function ($query) use ($filters) {
             $phone = $filters['phone'];
-            $query->orWhere(function ($query) use ($phone) {
+            $query->where(function ($query) use ($phone) {
                 $query->where('phone', 'LIKE', '%' . $phone . '%')
                     ->orWhere('phone_label', 'LIKE', '%' . $phone . '%')
                     ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%')

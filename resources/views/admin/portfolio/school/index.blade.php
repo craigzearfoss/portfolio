@@ -144,7 +144,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">There are no schools.</td>
+                        <td colspan="4">No schools found.</td>
                     </tr>
 
                 @endforelse

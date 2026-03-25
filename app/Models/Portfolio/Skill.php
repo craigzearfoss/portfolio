@@ -129,11 +129,29 @@ class Skill extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['version']), function ($query) use ($filters) {
-                $query->where('version', 'like', '%' . $filters['version'] . '%');
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
+            ->when(isset($filters['dictionary_category_id']), function ($query) use ($filters) {
+                $query->where('dictionary_category_id', '=', intval(['dictionary_category_id']));
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(isset($filters['end_year']), function ($query) use ($filters) {
+                $query->where('end_year', '=', intval(['end_year']));
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
+            })
+            ->when(isset($filters['level']), function ($query) use ($filters) {
+                $query->where('level', '=', intval(['level']));
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(isset($filters['start_year']), function ($query) use ($filters) {
+                $query->where('start_year', '=', intval(['start_year']));
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where('summary', 'like', '%' . $filters['summary'] . '%');
@@ -141,29 +159,11 @@ class Skill extends Model
             ->when(isset($filters['type_id']), function ($query) use ($filters) {
                 $query->where('type_id', '=', intval(['type_id']));
             })
-            ->when(isset($filters['level']), function ($query) use ($filters) {
-                $query->where('level', '=', intval(['level']));
-            })
-            ->when(isset($filters['dictionary_category_id']), function ($query) use ($filters) {
-                $query->where('dictionary_category_id', '=', intval(['dictionary_category_id']));
-            })
-            ->when(isset($filters['start_year']), function ($query) use ($filters) {
-                $query->where('start_year', '=', intval(['start_year']));
-            })
-            ->when(isset($filters['end_year']), function ($query) use ($filters) {
-                $query->where('end_year', '=', intval(['end_year']));
+            ->when(!empty($filters['version']), function ($query) use ($filters) {
+                $query->where('version', 'like', '%' . $filters['version'] . '%');
             })
             ->when(isset($filters['years']), function ($query) use ($filters) {
                 $query->where('years', '=', intval(['years']));
-            })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
-            })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
-            })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -30,10 +30,10 @@ return new class extends Migration
             $table->foreignId('owner_id')
                 ->constrained('admins', 'id')
                 ->onDelete('cascade');
-            $table->string('name', 50)->unique();
-            $table->string('database', 50)->unique();
-            $table->string('tag', 50)->unique();
-            $table->string('title', 50);
+            $table->string('name', 50)->unique('name_unique');
+            $table->string('database', 50)->unique('database_unique');
+            $table->string('tag', 50)->unique('tag_unique');
+            $table->string('title', 50)->index('title_idx');
             $table->string('plural', 50);
             $table->boolean('has_owner')->default(true);
             $table->boolean('guest')->default(false);

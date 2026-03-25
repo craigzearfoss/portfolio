@@ -216,7 +216,7 @@
                     @empty
 
                         <tr>
-                            <td colspan="{{ $admin->is_root ? '9' : '8' }}">There are no jobs.</td>
+                            <td colspan="{{ $admin->is_root ? '9' : '8' }}">No jobs found.</td>
                         </tr>
 
                     @endforelse

@@ -169,7 +169,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">There are no skills.</td>
+                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">No skills found.</td>
                     </tr>
 
                 @endforelse

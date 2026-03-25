@@ -148,7 +148,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no operating systems.</td>
+                        <td colspan="5">No operating systems found.</td>
                     </tr>
 
                 @endforelse

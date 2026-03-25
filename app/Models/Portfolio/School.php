@@ -90,24 +90,23 @@ class School extends Model
         $query = new self()->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', 'like', '%' . $filters['name'] . '%');
             })
-            ->when(!empty($filters['enrollment']), function ($query) use ($filters) {
-                $query->where('enrollment', '=', intval(['enrollment']));
-            })
-            ->when(!empty($filters['founded']), function ($query) use ($filters) {
-                $query->where('founded', '=', intval(['founded']));
-            });
-
-        $query =$this->appendAddressFilters($query, $filters);
-
-        $query->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
-            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['enrollment']), function ($query) use ($filters) {
+                $query->where('enrollment', '=', intval(['enrollment']));
+            })
+            ->when(!empty($filters['founded']), function ($query) use ($filters) {
+                $query->where('founded', '=', intval(['founded']));
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             });
+
+        $query =$this->appendAddressFilters($query, $filters);
 
         return $this->appendStandardFilters($query, $filters);
     }

@@ -146,7 +146,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no servers.</td>
+                        <td colspan="5">No servers found.</td>
                     </tr>
 
                 @endforelse

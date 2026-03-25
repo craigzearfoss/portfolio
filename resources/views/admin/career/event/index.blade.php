@@ -188,7 +188,7 @@
                             $colspan = $isRootAdmin ? '8' : '7';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
-                        <td colspan="{{ $colspan }}">There are no events.</td>
+                        <td colspan="{{ $colspan }}">No events found.</td>
                     </tr>
 
                 @endforelse

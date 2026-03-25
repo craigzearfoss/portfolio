@@ -68,14 +68,14 @@ class Country extends Model
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            ->when(!empty($filters['iso_alpha3']), function ($query) use ($filters) {
+                $query->where('iso_alpha3', '=', $filters['iso_alpha3']);
             })
             ->when(!empty($filters['m49']), function ($query) use ($filters) {
                 $query->where('m49', '=', $filters['m49']);
             })
-            ->when(!empty($filters['iso_alpha3']), function ($query) use ($filters) {
-                $query->where('iso_alpha3', '=', $filters['iso_alpha3']);
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
             });
     }
 

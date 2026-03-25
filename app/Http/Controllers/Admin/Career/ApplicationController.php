@@ -32,6 +32,8 @@ class ApplicationController extends BaseAdminController
 
         $applications = new Application()->searchQuery(request()->except('id'), $this->owner ?? null)
             ->orderBy('owner_id')
+            ->orderBy('apply_date', 'desc')
+            ->orderBy('post_date', 'desc')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 

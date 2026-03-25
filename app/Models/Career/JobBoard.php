@@ -89,23 +89,23 @@ class JobBoard extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['international']), function ($query) use ($filters) {
+                $query->where('international', '=', true);
+            })
+            ->when(!empty($filters['local']), function ($query) use ($filters) {
+                $query->where('local', '=', true);
+            })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', 'like', '%' . $filters['name'] . '%');
             })
-            ->when(isset($filters['primary']), function ($query) use ($filters) {
-                $query->where('primary', '=', boolval($filters['primary']));
+            ->when(!empty($filters['national']), function ($query) use ($filters) {
+                $query->where('national', '=', true);
             })
-            ->when(isset($filters['local']), function ($query) use ($filters) {
-                $query->where('local', '=', boolval($filters['local']));
+            ->when(!empty($filters['primary']), function ($query) use ($filters) {
+                $query->where('primary', '=', true);
             })
-            ->when(isset($filters['regional']), function ($query) use ($filters) {
-                $query->where('regional', '=', boolval($filters['regional']));
-            })
-            ->when(isset($filters['national']), function ($query) use ($filters) {
-                $query->where('national', '=', boolval($filters['national']));
-            })
-            ->when(isset($filters['international']), function ($query) use ($filters) {
-                $query->where('international', '=', boolval($filters['international']));
+            ->when(!empty($filters['regional']), function ($query) use ($filters) {
+                $query->where('regional', '=', true);
             });
 
         return $this->appendStandardFilters($query, $filters);

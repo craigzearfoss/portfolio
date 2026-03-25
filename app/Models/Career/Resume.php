@@ -199,20 +199,19 @@ class Resume extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['content']), function ($query) use ($filters) {
+                $query->where('content', 'like', '%' . $filters['content'] . '%');
+            })
             ->when(!empty($filters['date']), function ($query) use ($filters) {
                 $query->where('date', '=', $filters['date']);
             })
-            ->when(isset($filters['primary']), function ($query) use ($filters) {
-                $query->where('primary', '=', boolval($filters['primary']));
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(!empty($filters['doc_filepath']), function ($query) use ($filters) {
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })            ->when(!empty($filters['doc_filepath']), function ($query) use ($filters) {
                 $query->where('doc_filepath', 'like', '%' . $filters['doc_filepath'] . '%');
-            })
-            ->when(!empty($filters['pdf_filepath']), function ($query) use ($filters) {
-                $query->where('pdf_filepath', 'like', '%' . $filters['pdf_filepath'] . '%');
-            })
-            ->when(!empty($filters['content']), function ($query) use ($filters) {
-                $query->where('content', 'like', '%' . $filters['content'] . '%');
             })
             ->when(!empty($filters['file_type']), function ($query) use ($filters) {
                 $query->where('file_type', '=', $filters['file_type']);
@@ -220,11 +219,11 @@ class Resume extends Model
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            ->when(!empty($filters['pdf_filepath']), function ($query) use ($filters) {
+                $query->where('pdf_filepath', 'like', '%' . $filters['pdf_filepath'] . '%');
             })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            ->when(!empty($filters['primary']), function ($query) use ($filters) {
+                $query->where('primary', '=', true);
             });
 
         return $this->appendStandardFilters($query, $filters);

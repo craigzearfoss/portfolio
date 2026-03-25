@@ -158,7 +158,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">There are no awards.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No awards found.</td>
                     </tr>
 
                 @endforelse

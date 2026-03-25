@@ -25,7 +25,7 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->string('title', 100)->nullable();
             $table->boolean('friend')->default(false);
             $table->boolean('family')->default(false);
@@ -40,7 +40,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city', 100)->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained($systemDbName.'.states', 'id')

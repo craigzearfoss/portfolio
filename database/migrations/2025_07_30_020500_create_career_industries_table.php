@@ -19,9 +19,9 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('industries', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
-            $table->string('slug', 50)->unique();
-            $table->string('abbreviation', 20)->unique();
+            $table->string('name', 50)->unique('name_unique');
+            $table->string('slug', 50)->unique('slug_unique');
+            $table->string('abbreviation', 20)->unique('abbreviation_unique');
         });
 
         $data = [

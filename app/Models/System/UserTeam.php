@@ -88,17 +88,17 @@ class UserTeam extends Model
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })
-            ->when(!empty($filters['user_id']), function ($query) use ($filters) {
-                $query->where('user_id', '=', intval($filters['user_id']));
-            })
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', '=', $filters['name']);
-            })
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where('abbreviation', '=', $filters['abbreviation']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', '=', $filters['description']);
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where('name', 'like', '%' . $filters['name'] . '%');
+            })
+            ->when(!empty($filters['user_id']), function ($query) use ($filters) {
+                $query->where('user_id', '=', intval($filters['user_id']));
             });
 
         return $this->appendStandardFilters($query, $filters);

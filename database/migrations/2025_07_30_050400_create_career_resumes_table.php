@@ -25,8 +25,8 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('slug');
-            $table->date('date')->nullable();
+            $table->string('slug')->index();
+            $table->date('date')->nullable()->index('date_idx');
             $table->boolean('primary')->default(false);
             $table->string('doc_filepath')->nullable();
             $table->string('pdf_filepath')->nullable();

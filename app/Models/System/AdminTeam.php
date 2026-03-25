@@ -79,14 +79,11 @@ class AdminTeam extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', '=', $filters['name']);
-            })
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
                 $query->where('abbreviation', '=', $filters['abbreviation']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', '=', $filters['description']);
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

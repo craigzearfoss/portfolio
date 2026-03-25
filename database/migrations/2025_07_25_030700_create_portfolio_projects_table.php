@@ -25,14 +25,14 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('year')->nullable();
-            $table->string('language', 50)->nullable();
+            $table->integer('year')->nullable()->index('year_idx');
+            $table->string('language', 50)->nullable()->index('language_idx');
             $table->string('language_version', 20)->nullable();
             $table->string('repository_url')->nullable();
-            $table->string('repository_name')->nullable();
+            $table->string('repository_name')->nullable()->index('repository_name_idx');
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

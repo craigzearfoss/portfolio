@@ -48,7 +48,7 @@
     @empty
 
         <tr>
-            <td colspan="3">There are no admins.</td>
+            <td colspan="3">No admins found.</td>
         </tr>
 
     @endforelse

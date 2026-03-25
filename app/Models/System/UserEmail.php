@@ -74,8 +74,8 @@ class UserEmail extends Model
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
               $query->where('id', '=', intval($filters['id']));
             })
-            ->when(!empty($filters['user_id']), function ($query) use ($filters) {
-                $query->where('user_id', '=', intval($filters['user_id']));
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where('email', 'like', '%' . $filters['email'] . '%');
@@ -83,11 +83,11 @@ class UserEmail extends Model
             ->when(!empty($filters['label']), function ($query) use ($filters) {
                 $query->where('label', 'like', '%' . $filters['label'] . '%');
             })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
-            })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['user_id']), function ($query) use ($filters) {
+                $query->where('user_id', '=', intval($filters['user_id']));
             });
 
         return $this->appendStandardFilters($query, $filters);

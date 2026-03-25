@@ -141,20 +141,11 @@ class Job extends Model
             ->when(!empty($filters['company']), function ($query) use ($filters) {
                 $query->where('company', 'like', '%' . $filters['company'] . '%');
             })
-            ->when(!empty($filters['role']), function ($query) use ($filters) {
-                $query->where('role', 'like', '%' . $filters['role'] . '%');
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
-            })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
-            })
-            ->when(isset($filters['start_month']), function ($query) use ($filters) {
-                $query->where('start_month', '=', intval($filters['start_month']));
-            })
-            ->when(isset($filters['start_year']), function ($query) use ($filters) {
-                $query->where('start_year', '=', intval($filters['start_year']));
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(isset($filters['end_month']), function ($query) use ($filters) {
                 $query->where('end_month', '=', intval($filters['end_month']));
@@ -162,24 +153,32 @@ class Job extends Model
             ->when(isset($filters['end_year']), function ($query) use ($filters) {
                 $query->where('end_year', '=', intval($filters['end_year']));
             })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
+            })
             ->when(isset($filters['job_employment_type_id']), function ($query) use ($filters) {
                 $query->where('job_employment_type_id', '=', intval($filters['job_employment_type_id']));
             })
             ->when(isset($filters['job_location_type_id']), function ($query) use ($filters) {
                 $query->where('job_location_type_id', '=', intval($filters['job_location_type_id']));
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['role']), function ($query) use ($filters) {
+                $query->where('role', 'like', '%' . $filters['role'] . '%');
+            })
+            ->when(isset($filters['start_month']), function ($query) use ($filters) {
+                $query->where('start_month', '=', intval($filters['start_month']));
+            })
+            ->when(isset($filters['start_year']), function ($query) use ($filters) {
+                $query->where('start_year', '=', intval($filters['start_year']));
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             });
 
         $query =$this->appendAddressFilters($query, $filters);
-
-        $query->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
-            })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
-            })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
-            });
 
         return $this->appendStandardFilters($query, $filters);
     }

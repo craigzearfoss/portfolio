@@ -27,7 +27,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('setting_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20);
+            $table->string('name', 20)->index('name_idx');
             $table->text('description')->nullable();
         });
 

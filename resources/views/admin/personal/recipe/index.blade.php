@@ -30,9 +30,11 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.personal.recipe.index') ])
-    @endif
+    @include('admin.components.search-panel.personal-recipe',
+        [ 'action'     => route('admin.personal.recipe.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
@@ -159,7 +161,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">There are no recipes.</td>
+                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">No recipes found.</td>
                     </tr>
 
                 @endforelse

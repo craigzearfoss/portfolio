@@ -118,35 +118,8 @@ class Video extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
-                $query->where('parent_id', '=', intval(['parent_id']));
-            })
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
-            })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
-            })
-            ->when(isset($filters['full_episode']), function ($query) use ($filters) {
-                $query->where('full_episode', '=', boolval(['full_episode']));
-            })
-            ->when(isset($filters['clip']), function ($query) use ($filters) {
+            ->when(!empty($filters['clip']), function ($query) use ($filters) {
                 $query->where('clip', '=', boolval(['clip']));
-            })
-            ->when(isset($filters['public_access']), function ($query) use ($filters) {
-                $query->where('public_access', '=', boolval(['public_access']));
-            })
-            ->when(isset($filters['source_recording']), function ($query) use ($filters) {
-                $query->where('source_recording', '=', boolval(['source_recording']));
-            })
-            ->when(isset($filters['date']), function ($query) use ($filters) {
-                $query->where('date', '=', $filters['date']);
-            })
-            ->when(isset($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', intval($filters['year']));
             })
             ->when(!empty($filters['company']), function ($query) use ($filters) {
                 $query->where('company', 'like', '%' . $filters['company'] . '%');
@@ -154,14 +127,32 @@ class Video extends Model
             ->when(!empty($filters['credit']), function ($query) use ($filters) {
                 $query->where('credit', 'like', '%' . $filters['credit'] . '%');
             })
-            ->when(!empty($filters['show']), function ($query) use ($filters) {
-                $query->where('show', 'like', '%' . $filters['show'] . '%');
+            ->when(isset($filters['date']), function ($query) use ($filters) {
+                $query->where('date', '=', $filters['date']);
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', boolval(['featured']));
+            })
+            ->when(!empty($filters['full_episode']), function ($query) use ($filters) {
+                $query->where('full_episode', '=', boolval(['full_episode']));
             })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where('location', 'like', '%' . $filters['location'] . '%');
             })
-            ->when(!empty($filters['video_url']), function ($query) use ($filters) {
-                $query->where('video_url', 'like', '%' . $filters['video_url'] . '%');
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+                $query->where('parent_id', '=', intval(['parent_id']));
+            })
+            ->when(!empty($filters['public_access']), function ($query) use ($filters) {
+                $query->where('public_access', '=', boolval(['public_access']));
             })
             ->when(!empty($filters['review']), function ($query) use ($filters) {
                 $review = $filters['review'];
@@ -174,14 +165,20 @@ class Video extends Model
                         ->orWhere('review_link3_name', 'like', '%' . $review . '%');
                 });
             })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            ->when(!empty($filters['show']), function ($query) use ($filters) {
+                $query->where('show', 'like', '%' . $filters['show'] . '%');
             })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            ->when(!empty($filters['source_recording']), function ($query) use ($filters) {
+                $query->where('source_recording', '=', boolval(['source_recording']));
             })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
+            ->when(!empty($filters['video_url']), function ($query) use ($filters) {
+                $query->where('video_url', 'like', '%' . $filters['video_url'] . '%');
+            })
+            ->when(isset($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', intval($filters['year']));
             });
 
         return $this->appendStandardFilters($query, $filters);

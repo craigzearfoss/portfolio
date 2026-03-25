@@ -19,11 +19,11 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('dictionary_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->string('slug', 100)->unique();
-            $table->string('plural', 100)->unique();
-            $table->string('table_name', 100)->unique();
-            $table->string('model', 100)->unique();
+            $table->string('name', 100)->unique('name_unique');
+            $table->string('slug', 100)->unique('slug_unique');
+            $table->string('plural', 100)->unique('plural_unique');
+            $table->string('table_name', 100)->unique('table_name_unique');
+            $table->string('model', 100)->unique('model_unique');
             $table->string('icon', 50)->nullable();
             $table->boolean('is_public')->default(true);
             $table->boolean('is_readonly')->default(false);

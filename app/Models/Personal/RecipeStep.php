@@ -99,17 +99,17 @@ class RecipeStep extends Model
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
-            ->when(!empty($filters['recipe_id']), function ($query) use ($filters) {
-                $query->where('recipe_id', '=', intval($filters['recipe_id']));
-            })
-            ->when(!empty($filters['step']), function ($query) use ($filters) {
-                $query->where('step', '=', intval($filters['step']));
-            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['recipe_id']), function ($query) use ($filters) {
+                $query->where('recipe_id', '=', intval($filters['recipe_id']));
+            })
+            ->when(!empty($filters['step']), function ($query) use ($filters) {
+                $query->where('step', '=', intval($filters['step']));
             });
 
         return $this->appendStandardFilters($query, $filters);

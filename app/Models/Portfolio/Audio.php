@@ -116,33 +116,12 @@ class Audio extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        $query = new self()->getSearchQuery($filters)
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
-                $query->where('parent_id', '=', intval(['parent_id']));
+        $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['audio_url']), function ($query) use ($filters) {
+                $query->where('audio_url', 'like', '%' . $filters['publication_url'] . '%');
             })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval($filters['featured']));
-            })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
-            })
-            ->when(isset($filters['full_episode']), function ($query) use ($filters) {
-                $query->where('full_episode', '=', boolval($filters['full_episode']));
-            })
-            ->when(isset($filters['clip']), function ($query) use ($filters) {
-                $query->where('clip', '=', boolval($filters['clip']));
-            })
-            ->when(isset($filters['podcast']), function ($query) use ($filters) {
-                $query->where('podcast', '=', boolval($filters['podcast']));
-            })
-            ->when(isset($filters['source_recording']), function ($query) use ($filters) {
-                $query->where('source_recording', '=', boolval(['source_recording']));
-            })
-            ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where('date', '=', $filters['date']);
-            })
-            ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', $filters['year']);
+            ->when(!empty($filters['clip']), function ($query) use ($filters) {
+                $query->where('clip', '=', true);
             })
             ->when(!empty($filters['company']), function ($query) use ($filters) {
                 $query->where('company', 'like', '%' . $filters['company'] . '%');
@@ -150,14 +129,32 @@ class Audio extends Model
             ->when(!empty($filters['credit']), function ($query) use ($filters) {
                 $query->where('credit', 'like', '%' . $filters['credit'] . '%');
             })
-            ->when(isset($filters['show']), function ($query) use ($filters) {
-                $query->where('show', '=', boolval($filters['show']));
+            ->when(!empty($filters['date']), function ($query) use ($filters) {
+                $query->where('date', '=', $filters['date']);
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
+            })
+            ->when(!empty($filters['full_episode']), function ($query) use ($filters) {
+                $query->where('full_episode', '=', true);
             })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where('location', 'like', '%' . $filters['location'] . '%');
             })
-            ->when(!empty($filters['audio_url']), function ($query) use ($filters) {
-                $query->where('audio_url', 'like', '%' . $filters['publication_url'] . '%');
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
+                $query->where('parent_id', '=', intval(['parent_id']));
+            })
+            ->when(!empty($filters['podcast']), function ($query) use ($filters) {
+                $query->where('podcast', '=', true);
             })
             ->when(!empty($filters['review']), function ($query) use ($filters) {
                 $review = $filters['review'];
@@ -170,14 +167,17 @@ class Audio extends Model
                         ->orWhere('review_link3_name', 'like', '%' . $review . '%');
                 });
             })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            ->when(!empty($filters['show']), function ($query) use ($filters) {
+                $query->where('show', '=', true);
             })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            ->when(!empty($filters['source_recording']), function ($query) use ($filters) {
+                $query->where('source_recording', '=', true);
             })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
+            ->when(!empty($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', $filters['year']);
             });
 
         return $this->appendStandardFilters($query, $filters);

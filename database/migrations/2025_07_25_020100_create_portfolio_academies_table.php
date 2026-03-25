@@ -19,8 +19,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('academies', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->string('slug', 100)->unique();
+            $table->string('name', 100)->unique('name_unique');
+            $table->string('slug', 100)->unique('slug_unique');
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

@@ -193,7 +193,7 @@
                             $colspan = $admin->is_root ? '6' : '5';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
-                        <td colspan="{{ $colspan }}">There are no communications.</td>
+                        <td colspan="{{ $colspan }}">No communications found.</td>
                     </tr>
 
                 @endforelse

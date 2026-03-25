@@ -19,8 +19,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('states', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 10);
-            $table->string('name', 50)->unique();
+            $table->string('code', 10)->index('code_unique');
+            $table->string('name', 50)->unique('name_unique');
             $table->foreignId('country_id')
                 ->nullable()
                 ->constrained('countries', 'id')

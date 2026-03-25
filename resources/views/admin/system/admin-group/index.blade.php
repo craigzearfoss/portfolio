@@ -158,7 +158,11 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '6' : '5' }}">There are no groups.</td>
+                        @if($isRootAmin)
+                            <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No admin groups found.</td>
+                        @else
+                            <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No groups found.</td>
+                        @endif
                     </tr>
 
                 @endforelse

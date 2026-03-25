@@ -102,23 +102,23 @@ class CoverLetter extends Model
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where('application_id', '=', intval($filters['application_id']));
             })
-            ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where('date', '=', $filters['date']);
-            })
-            ->when(!empty($filters['filepath']), function ($query) use ($filters) {
-                $query->where('filepath', 'like', '%' . $filters['filepath'] . '%');
-            })
             ->when(!empty($filters['content']), function ($query) use ($filters) {
                 $query->where('content', 'like', '%' . $filters['content'] . '%');
             })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            ->when(!empty($filters['date']), function ($query) use ($filters) {
+                $query->where('date', '=', $filters['date']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['filepath']), function ($query) use ($filters) {
+                $query->where('filepath', 'like', '%' . $filters['filepath'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

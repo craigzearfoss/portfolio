@@ -35,18 +35,18 @@ return new class extends Migration
                 ->constrained('degree_types', 'id')
                 ->onDelete('cascade');
             $table->string('major')->index('major_idx');
-            $table->string('minor')->nullable();
+            $table->string('minor')->nullable()->index('minor_idx');
             $table->foreignId('school_id')
                 ->constrained('schools', 'id')
                 ->onDelete('cascade');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('enrollment_month')->nullable();
-            $table->integer('enrollment_year')->nullable();
+            $table->integer('enrollment_month')->nullable()->index('enrollment_month_idx');
+            $table->integer('enrollment_year')->nullable()->index('enrollment_year_idx');
             $table->boolean('graduated')->default(false);
-            $table->integer('graduation_month')->nullable();
-            $table->integer('graduation_year')->nullable();
+            $table->integer('graduation_month')->nullable()->index('graduation_month_idx');
+            $table->integer('graduation_year')->nullable()->index('graduation_year_idx');
             $table->boolean('currently_enrolled')->default(false);
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

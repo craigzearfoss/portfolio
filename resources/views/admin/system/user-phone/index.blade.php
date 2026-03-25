@@ -137,7 +137,11 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">There are no phone numbers.</td>
+                        @if($isRootAmin)
+                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No user phone numbers found.</td>
+                        @else
+                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No phone numbers found.</td>
+                        @endif
                     </tr>
 
                 @endforelse

@@ -77,17 +77,17 @@ class AdminPhone extends Model
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
             })
-            ->when(!empty($filters['phone']), function ($query) use ($filters) {
-                $query->where('phone', 'like', '%' . $filters['phone'] . '%');
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['label']), function ($query) use ($filters) {
                 $query->where('label', 'like', '%' . $filters['label'] . '%');
             })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
-            })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['phone']), function ($query) use ($filters) {
+                $query->where('phone', 'like', '%' . $filters['phone'] . '%');
             });
 
         return $this->appendStandardFilters($query, $filters);

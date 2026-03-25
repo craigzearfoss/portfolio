@@ -32,13 +32,13 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('year')->nullable();
-            $table->string('credit')->nullable();
-            $table->string('model')->nullable();
-            $table->string('location')->nullable();
+            $table->integer('year')->nullable()->index('year_idx');
+            $table->string('credit')->nullable()->index('credit_idx');
+            $table->string('model')->nullable()->index('model_idx');
+            $table->string('location')->nullable()->index('location_idx');
             $table->string('copyright')->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

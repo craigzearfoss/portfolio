@@ -148,7 +148,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no stacks.</td>
+                        <td colspan="5">No stacks found.</td>
                     </tr>
 
                 @endforelse

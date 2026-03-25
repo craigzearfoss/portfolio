@@ -29,19 +29,19 @@ return new class extends Migration
                 ->constrained($systemDbName . '.admins', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
             $table->boolean('full_episode')->default(false);
             $table->boolean('clip')->default(false);
             $table->boolean('public_access')->default(false);
             $table->boolean('source_recording')->default(false);
-            $table->date('date')->nullable();
-            $table->integer('year')->nullable();
-            $table->string('company')->nullable();
-            $table->string('credit')->nullable();
-            $table->string('show')->nullable();
-            $table->string('location')->nullable();
+            $table->date('date')->nullable()->index('date_idx');
+            $table->integer('year')->nullable()->index('year_idx');
+            $table->string('company')->nullable()->index('company_idx');
+            $table->string('credit')->nullable()->index('credit_idx');
+            $table->string('show')->nullable()->index('show_idx');
+            $table->string('location')->nullable()->index('location_idx');
             $table->text('embed')->nullable();
             $table->string('video_url')->nullable();
             $table->string('review_link1`', 500)->nullable();

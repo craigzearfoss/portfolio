@@ -38,10 +38,10 @@ return new class extends Migration
             $table->foreignId('database_id')
                 ->constrained('databases', 'id')
                 ->onDelete('cascade');
-            $table->string('name', 50);
+            $table->string('name', 50)->index('name_idx');
             $table->string('table_name', 50)->index('table_name_idx');
-            $table->string('class');
-            $table->string('title', 50);
+            $table->string('class')->index('class_idx');
+            $table->string('title', 50)->index('title_idx');
             $table->string('plural', 50);
             $table->boolean('has_owner')->default(true);
             $table->boolean('guest')->default(false);

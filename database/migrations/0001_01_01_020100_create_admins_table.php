@@ -123,20 +123,20 @@ return new class extends Migration
 
         Schema::connection($this->database_tag)->create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('username', 200)->unique();
+            $table->string('username', 200)->unique('username_unique');
             $table->string('name')->index('name_idx');
-            $table->string('label', 200)->unique();
+            $table->string('label', 200)->unique('label_unique');
             $table->string('salutation', 20)->nullable();
             $table->string('title', 100)->nullable();
-            $table->string('role', 100)->nullable();
-            $table->string('employer', 100)->nullable();
+            $table->string('role', 100)->nullable()->index('role_idx');
+            $table->string('employer', 100)->nullable()->index('employer_idx');
             $table->foreignId('employment_status_id')
                 ->nullable()
                 ->constrained('employment_statuses', 'id')
                 ->onDelete('cascade');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city', 100)->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained('states', 'id')
@@ -148,8 +148,8 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('email', 255)->unique();
+            $table->string('phone', 20)->nullable()->index('phone_idx');
+            $table->string('email', 255)->unique('email-phone');
             $table->timestamp('email_verified_at')->nullable();
             $table->date('birthday')->nullable();
             $table->text('bio')->nullable();

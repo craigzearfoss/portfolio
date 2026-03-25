@@ -46,13 +46,13 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('company')->index('company_idx');
             $table->string('role')->index('role_idx');
-            $table->string('slug');
+            $table->string('slug')->index('slug_idx');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->integer('start_month')->nullable();
-            $table->integer('start_year')->nullable();
-            $table->integer('end_month')->nullable();
-            $table->integer('end_year')->nullable();
+            $table->integer('start_month')->nullable()->index('start_month_idx');
+            $table->integer('start_year')->nullable()->index('start_year_idx');
+            $table->integer('end_month')->nullable()->index('end_month_idx');
+            $table->integer('end_year')->nullable()->index('end_year_idx');
             $table->foreignId('job_employment_type_id')
                 ->nullable()
                 ->constrained('job_employment_types', 'id')
@@ -63,7 +63,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city', 100)->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained($systemDbName.'.states', 'id')

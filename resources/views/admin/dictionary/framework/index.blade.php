@@ -148,7 +148,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no frameworks.</td>
+                        <td colspan="5">No frameworks found.</td>
                     </tr>
 
                 @endforelse

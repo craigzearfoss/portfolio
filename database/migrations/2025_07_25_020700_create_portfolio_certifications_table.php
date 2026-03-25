@@ -19,13 +19,13 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('certifications', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->string('name')->unique('name_unique');
+            $table->string('slug')->unique('slug_unique');
             $table->string('abbreviation', 50)->nullable();
             $table->foreignId('certification_type_id')
                 ->constrained('certification_types', 'id')
                 ->onDelete('cascade');
-            $table->string('organization')->nullable();
+            $table->string('organization')->nullable()->index('organization_idx');
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

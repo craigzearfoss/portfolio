@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreignId('company_id')
                 ->constrained('companies', 'id')
                 ->onDelete('cascade');
-            $table->string('role');
+            $table->string('role')->index('role_idx');
             $table->foreignId('job_board_id')
                 ->nullable()
                 ->constrained('job_boards', 'id')
@@ -39,8 +39,8 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->tinyInteger('rating')->default(1);
             $table->boolean('active')->default(true);
-            $table->date('post_date')->nullable();
-            $table->date('apply_date')->nullable();
+            $table->date('post_date')->nullable()->index('post_date_idx');
+            $table->date('apply_date')->nullable()->index('apply_date_idx');
             $table->date('close_date')->nullable();
             $table->integer('compensation_min')->nullable();
             $table->integer('compensation_max')->nullable();
@@ -59,7 +59,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city')->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained($systemDbName.'.states', 'id')

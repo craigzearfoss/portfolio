@@ -148,7 +148,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no libraries.</td>
+                        <td colspan="5">No libraries found.</td>
                     </tr>
 
                 @endforelse

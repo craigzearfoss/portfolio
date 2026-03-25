@@ -141,7 +141,11 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '5' : '4' }}">There are no email addresses.</td>
+                        @if($isRootAmin)
+                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No admin email addresses found.</td>
+                        @else
+                            <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No email addresses found.</td>
+                        @endif
                     </tr>
 
                 @endforelse

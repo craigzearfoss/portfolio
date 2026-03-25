@@ -22,8 +22,8 @@ return new class extends Migration
             $systemDbName = Schema::connection('system_db')->getCurrentSchemaName();
 
             $table->id();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->string('name')->unique('name_unique');
+            $table->string('slug')->unique('slug_unique');
             $table->string('postings_url')->nullable();
             $table->boolean('local')->default(false);
             $table->boolean('regional')->default(false);
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->boolean('international')->default(false);
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city', 100)->nullable();
+            $table->string('city', 100)->nullable()->index('city_idx');
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained($systemDbName.'.states', 'id')

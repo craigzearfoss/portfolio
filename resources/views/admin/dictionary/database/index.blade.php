@@ -148,7 +148,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no databases.</td>
+                        <td colspan="5">No databases found.</td>
                     </tr>
 
                 @endforelse

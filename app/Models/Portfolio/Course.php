@@ -105,47 +105,44 @@ class Course extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
-            })
-            ->when(isset($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', boolval(['featured']));
-            })
-            ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
-            })
-            ->when(isset($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', $filters['year']);
-            })
-            ->when(!empty($filters['completed']), function ($query) use ($filters) {
-                $query->where('completed', '=', boolval($filters['completed']));
-            })
-            ->when(!empty($filters['completion_date']), function ($query) use ($filters) {
-                $query->where('completion_date', '=', $filters['completion_date']);
-            })
-            ->when(!empty($filters['duration_hours']), function ($query) use ($filters) {
-                $query->where('duration_hours', '>=', floatval($filters['duration_hours']));
-            })
             ->when(isset($filters['academy_id']), function ($query) use ($filters) {
                 $query->where('academy_id', '=', intval(['academy_id']));
             })
-            ->when(!empty($filters['school']), function ($query) use ($filters) {
-                $query->where('school', 'like', '%' . $filters['school'] . '%');
+            ->when(!empty($filters['completed']), function ($query) use ($filters) {
+                $query->where('completed', '=', true);
             })
-            ->when(!empty($filters['instructor']), function ($query) use ($filters) {
-                $query->where('instructor', 'like', '%' . $filters['instructor'] . '%');
-            })
-            ->when(!empty($filters['sponsor']), function ($query) use ($filters) {
-                $query->where('sponsor', 'like', '%' . $filters['sponsor'] . '%');
-            })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            ->when(!empty($filters['completion_date']), function ($query) use ($filters) {
+                $query->where('completion_date', '=', $filters['completion_date']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['duration_hours']), function ($query) use ($filters) {
+                $query->where('duration_hours', '>=', floatval($filters['duration_hours']));
+            })
+            ->when(!empty($filters['featured']), function ($query) use ($filters) {
+                $query->where('featured', '=', true);
+            })
+            ->when(!empty($filters['instructor']), function ($query) use ($filters) {
+                $query->where('instructor', 'like', '%' . $filters['instructor'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['school']), function ($query) use ($filters) {
+                $query->where('school', 'like', '%' . $filters['school'] . '%');
+            })
+            ->when(!empty($filters['sponsor']), function ($query) use ($filters) {
+                $query->where('sponsor', 'like', '%' . $filters['sponsor'] . '%');
+            })
+            ->when(!empty($filters['summary']), function ($query) use ($filters) {
+                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+            })
+            ->when(isset($filters['year']), function ($query) use ($filters) {
+                $query->where('year', '=', $filters['year']);
             });
 
         return $this->appendStandardFilters($query, $filters);

@@ -35,7 +35,11 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.recipe-child', [ 'action' => route('admin.personal.recipe-step.index') ])
+    @include('admin.components.search-panel.personal-recipe-step',
+        [ 'action'     => route('admin.personal.recipe-step.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
@@ -150,7 +154,7 @@
                             $cols = $isRootAdmin ? '4' : '3';
                             if (!empty($recipeId)) $cols++;
                         @endphp
-                        <td colspan="{{ $cols }}">There are no recipe steps.</td>
+                        <td colspan="{{ $cols }}">No recipe steps found.</td>
                     </tr>
 
                 @endforelse

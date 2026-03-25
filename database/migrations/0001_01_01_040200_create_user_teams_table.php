@@ -24,8 +24,8 @@ return new class extends Migration
                 ->constrained('users', 'id')
                 ->onDelete('cascade');
             $table->string('name', 100)->index('name_idx');
-            $table->string('slug', 100)->unique();
-            $table->string('abbreviation', 20)->nullable();
+            $table->string('slug', 100)->unique('slug_idx');
+            $table->string('abbreviation', 20)->nullable()->index('abbreviation_idx');
             $table->text('description')->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();

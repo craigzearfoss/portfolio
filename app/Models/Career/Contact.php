@@ -139,6 +139,7 @@ class Contact extends Model
     /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
+     * @TODO: Need to add joins for company_ids to be searched.
      *
      * @param array $filters
      * @param Admin|Owner|null $owner
@@ -149,6 +150,18 @@ class Contact extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['birthday']), function ($query) use ($filters) {
+                $query->where('birthday', '=', $filters['birthday']);
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+            })
             ->when(!empty($filters['salutation']), function ($query) use ($filters) {
                 $query->where('salutation', 'like', '%' . $filters['salutation'] . '%');
             })
@@ -159,19 +172,6 @@ class Contact extends Model
         $query =$this->appendAddressFilters($query, $filters);
         $query =$this->appendPhoneFilters($query, $filters);
         $query =$this->appendEmailFilters($query, $filters);
-
-        $query->when(!empty($filters['birthday']), function ($query) use ($filters) {
-                $query->where('birthday', '=', $filters['birthday']);
-            })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
-            })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
-            })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
-            });
 
         return $this->appendStandardFilters($query, $filters);
     }

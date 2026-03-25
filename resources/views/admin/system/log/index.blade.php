@@ -149,7 +149,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="7">There are no entries in
+                        <td colspan="7">No entries found in
                             the {{ $type == 'admin' ? 'login_attempts_admin' : 'login_attempts_user' }} log.
                         </td>
                     </tr>
