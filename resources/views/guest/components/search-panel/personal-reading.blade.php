@@ -2,8 +2,6 @@
     use App\Models\Personal\Reading;
     use App\Models\System\Admin;
 
-    $readingModel = new Reading();
-
     $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $audio            = $audio ?? request()->query('audio');
     $author           = $author ?? request()->query('author');
@@ -12,7 +10,6 @@
     $paper            = $paper ?? request()->query('paper');
     $searchTitleValue = $searchTitleValue ?? request()->query('searchTitleValue');
     $wishlist         = $wishlist ?? request()->query('wishlist');
-
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -25,6 +22,11 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('guest.components.form-select', [
@@ -80,6 +82,9 @@
                                 ])
                             </div>
                         </div>
+                    </div>
+
+                    <div class="floating-div pl-4">
                         <div class="search-form-control">
                             <div class="container control" style="width: 8rem;">
                                 @include('guest.components.form-checkbox', [
@@ -116,11 +121,11 @@
 
                 <div class="has-text-right pr-2">
                     @include('guest.components.button-clear', [
-                        'id'      =>'clearSearchForm',
-                        'name'    => 'Clear',
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
                     ])
                     @include('guest.components.button-search', [
-                        'id'      =>'performSearch',
+                        'id' =>'performSearch',
                     ])
                 </div>
 

@@ -17,11 +17,13 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="floating-div">
                         <div class="search-form-control">
@@ -61,11 +63,11 @@
 
                 <div class="has-text-right pr-2">
                     @include('guest.components.button-clear', [
-                        'id'      =>'clearSearchForm',
-                        'name'    => 'Clear',
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
                     ])
                     @include('guest.components.button-search', [
-                        'id'      =>'performSearch',
+                        'id' =>'performSearch',
                     ])
                 </div>
 

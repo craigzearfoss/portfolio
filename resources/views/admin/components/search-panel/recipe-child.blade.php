@@ -11,14 +11,14 @@
 
             @if(isRootAdmin())
 
-                @include('admin.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
+                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 
             @endif
 
             @if(!empty($owner))
 
                 @php
-                    $recipes = new Recipe()->listOptions(!empty($owner) ? [ 'owner_id' => $owner->id ] : [], 'id', 'name', true, false, [ 'name', 'asc' ]);
+                    $recipes = new Recipe()->listOptions([ 'owner_id' => $owner->id ], 'id', 'name', true, false, [ 'name', 'asc' ]);
                     $recipeId = Request::get('recipe_id');
                     if (!array_key_exists($recipeId, $recipes)) {
                         $recipeId = null;

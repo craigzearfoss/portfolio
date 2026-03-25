@@ -14,11 +14,13 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            <div class="search-form-control">
+                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="floating-div">
                         <div class="search-form-control">

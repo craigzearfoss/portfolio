@@ -24,6 +24,11 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.career-recruiter',
+        [ 'action'     => route('admin.career.recruiter.index'),
+        ]
+    )
+
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 

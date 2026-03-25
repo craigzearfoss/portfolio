@@ -6,6 +6,7 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -83,12 +84,21 @@ class JobBoard extends Model
      * @param array $filters
      * @param Admin|Owner|null $owner
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['coverage']), function ($query) use ($filters) {
+                if (in_array($filters['coverage'], ['local', 'regional', 'national', 'international'])) {
+                    $query->where($filters['coverage'], '=', true);
+                } else {
+                    throw new Exception('Invalid coverage "' . $filters['coverage'] . '" specified.'
+                        . ' Valid coverages are "local", "regional", "national", and "international".');
+                }
+            })
             ->when(!empty($filters['international']), function ($query) use ($filters) {
                 $query->where('international', '=', true);
             })

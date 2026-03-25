@@ -1,14 +1,22 @@
 @php
-    $apply_date = $apply_date ?? request()->query('apply_date');
+    $apply_from = $apply_from ?? request()->query('apply_from');
+    $apply_to   = $apply_to ?? request()->query('apply_to');
 @endphp
-<div>
-
+<div class="search-form-control">
+    @include('user.components.input-basic', [
+        'type'     => 'date',
+        'name'     => 'apply_from',
+        'label'    => 'applied from',
+        'value'    => $apply_from,
+        'nohidden' => true,
+    ])
 </div>
-<div class="container control" style="width: 8rem;">
-    @include('user.components.form-checkbox', [
-        'name'     => 'relocation',
-        'value'    => 1,
-        'checked'  => boolval(Request::get('relocation') ?? false),
+<div class="search-form-control">
+    @include('user.components.input-basic', [
+        'type'     => 'date',
+        'name'     => 'apply_to',
+        'label'    => 'applied to',
+        'value'    => $apply_to,
         'nohidden' => true,
     ])
 </div>

@@ -11,7 +11,7 @@
 
             @if(isRootAdmin())
 
-                @include('admin.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
+                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 
             @endif
 

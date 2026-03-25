@@ -10,6 +10,8 @@
     }
     $admin_database_id      = $admin_database_id ?? request()->query('company_id');
     $apply_date             = $apply_date ?? request()->query('apply_date');
+    $apply_from             = $apply_from ?? request()->query('apply_from');
+    $apply_to               = $apply_to ?? request()->query('apply_to');
     $benefits               = $benefits ?? request()->query('benefits');
     $city                   = $city ?? request()->query('city');
     $close_date             = $close_date ?? request()->query('close_date');
@@ -19,6 +21,8 @@
     $job_employment_type_id = $job_employment_type_id ?? request('job_employment_type_id');
     $job_location_type_id   = $job_location_type_id ?? request('job_location_type_id');
     $post_date              = $post_date ?? request()->query('post_date');
+    $post_from              = $post_from ?? request()->query('post_from');
+    $post_to                = $post_to ?? request()->query('post_to');
     $rating                 = $rating ?? request()->query('rating');
     $relocation             = $relocation ?? request()->query('relocation');
     $resume_id              = $resume_id ?? request()->query('resume_id');
@@ -38,9 +42,11 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
-                        </div>
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.career-active', [ 'active' => $active ])
                         </div>
@@ -54,7 +60,11 @@
                             @include('guest.components.search-panel.controls.career-company', [ 'company_id' => $company_id ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-role', [ 'role' => $role ])
+                            @include('guest.components.input-basic', [
+                                'name'    => 'role',
+                                'value'   => $role,
+                                'message' => $message ?? '',
+                            ])
                         </div>
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.career-job-board', [ 'job_board_id' => $job_board_id ])
@@ -96,25 +106,36 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-city', [ 'city' => $city ])
+                            @include('guest.components.input-basic', [
+                                'name'    => 'city',
+                                'value'   => $city,
+                                'message' => $message ?? '',
+                            ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-state', [ 'state_id' => $state_id ])
+                            @include('guest.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
                         </div>
                     </div>
 
                     <div class="floating-div">
-                        @include('guest.components.search-panel.controls.career-apply-date', [ 'city' => $city ])
+                        @include('guest.components.search-panel.controls.career-apply-date', [
+                            'appy_from' => $apply_from,
+                            'appy_to'   => $apply_to,
+                         ])
+                        @include('guest.components.search-panel.controls.career-post-date', [
+                            'appy_from' => $post_from,
+                            'appy_to'   => $post_to,
+                         ])
                     </div>
 
                 </div>
                 <div class="has-text-right pr-2">
                     @include('guest.components.button-clear', [
-                        'id'      =>'clearSearchForm',
-                        'name'    => 'Clear',
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
                     ])
                     @include('guest.components.button-search', [
-                        'id'      =>'performSearch',
+                        'id' =>'performSearch',
                     ])
                 </div>
 

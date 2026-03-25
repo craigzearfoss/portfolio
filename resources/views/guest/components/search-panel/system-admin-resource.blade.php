@@ -10,7 +10,7 @@
 
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
-            @include('guest.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
+            @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 
             @include('guest.components.search-panel.controls.system-admin-database', [ 'admin_database_id' => $admin_database_id ])
 

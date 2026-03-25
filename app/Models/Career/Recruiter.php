@@ -9,6 +9,7 @@ use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\RecruiterFactory;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -107,6 +108,14 @@ class Recruiter extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['coverage']), function ($query) use ($filters) {
+                if (in_array($filters['coverage'], ['local', 'regional', 'national', 'international'])) {
+                    $query->where($filters['coverage'], '=', true);
+                } else {
+                    throw new Exception('Invalid coverage "' . $filters['coverage'] . '" specified.'
+                        . ' Valid coverages are "local", "regional", "national", and "international".');
+                }
+            })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
             })

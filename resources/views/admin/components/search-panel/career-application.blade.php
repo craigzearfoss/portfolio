@@ -42,9 +42,11 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.owner', [ 'owner_id' => $owner_id ])
-                        </div>
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-active', [ 'active' => $active ])
                         </div>
@@ -111,7 +113,7 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-state', [ 'state_id' => $state_id ])
+                            @include('admin.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
                         </div>
                     </div>
 
@@ -129,11 +131,11 @@
                 </div>
                 <div class="has-text-right pr-2">
                     @include('admin.components.button-clear', [
-                        'id'      =>'clearSearchForm',
-                        'name'    => 'Clear',
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
                     ])
                     @include('admin.components.button-search', [
-                        'id'      =>'performSearch',
+                        'id' =>'performSearch',
                     ])
                 </div>
 
