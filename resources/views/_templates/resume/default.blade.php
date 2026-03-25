@@ -1,7 +1,7 @@
 @php
     $envType = getEnvType();
 
-    $title    = $pageTitle ?? 'Resume';
+    $title    = $pageTitle ?? filteredPageTitle('Resume', $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
