@@ -1,5 +1,5 @@
 @php
-    $title = $pageTitle ?? 'Reading: ' .  $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : '');
+    $title = $pageTitle ?? filteredPageTitle('Reading: ' .  $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''), $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs

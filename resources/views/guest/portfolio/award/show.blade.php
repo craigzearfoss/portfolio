@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? 'Award: ' . $award->name . (!empty($award->year) ? ' - ' . $award->year : '');
+    $title    = $pageTitle ?? filteredPageTitle('Award: ' . $award->name . (!empty($award->year) ? ' - ' . $award->year : ''), $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs

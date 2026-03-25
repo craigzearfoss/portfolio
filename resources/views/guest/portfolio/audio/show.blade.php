@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? 'Audio: ' . $audio->name;
+    $title    = $pageTitle ?? filteredPageTitle('Audio: ' . $audio->name, $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs

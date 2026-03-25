@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '');
+    $title    = $pageTitle ?? filteredPageTitle('Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''), $owner->name);
     $subtitle = $title;
 
     // set breadcrumbs
