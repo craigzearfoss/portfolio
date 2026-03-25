@@ -13,19 +13,20 @@
         <div class="aside-tools">
             <div class="aside-tools-label has-text-left has-text-centered" style="width: 100%;">
 
-                @include('user.components.button-home', [
+                @include('guest.components.button-home', [
                     'name'     => 'Home',
                     'href'     => route('guest.index'),
                     'selected' => true,
                 ])
 
-                <span style="display: inline-block; background-color: #00dd00; width: 3px;"></span>
-
-                @include('admin.components.button-home', [
-                    'name'     => 'Admin',
-                    'href'     => route('admin.dashboard'),
-                    'selected' => false,
-                ])
+                @if(Auth::guard('admin')->check() || !config('app.single_admin_mode'))
+                    <span class="home-admin-button-separator"></span>
+                    @include('admin.components.button-home', [
+                        'name'     => 'Admin',
+                        'href'     => route('admin.dashboard'),
+                        'selected' => false,
+                    ])
+                @endif
 
             </div>
         </div>

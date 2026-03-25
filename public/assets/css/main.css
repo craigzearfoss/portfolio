@@ -354,6 +354,27 @@ nav.pagination span.pagination-next {
     margin-right: 8px;
 }
 
+.home-button {
+    background-color: #2e323a !important;
+    color: #f5f5f5 !important;
+    font-size: 1.2em !important;
+    font-weight: 700 !important;
+    padding: .25rem .5rem .25rem .5rem !important;
+    border-radius: 10px !important;
+}
+.home-button:hover {
+    background-color: #727c8f !important;
+    color: #f5f5f5 !important;
+}
+.home-button.selected {
+    background-color: #727c8f !important;
+    cursor: default;
+}
+.home-admin-button-separator {
+    display: inline-block !important;
+    width: 3px !important;
+}
+
 /* admin table */
 table.table.admin-table,
 table.table.user-table,

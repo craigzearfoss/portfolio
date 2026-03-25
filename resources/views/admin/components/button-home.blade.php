@@ -1,24 +1,22 @@
 @php
+    // get classes
     $classes = $classes ?? [
-        'has-text-light',
-         'p-1',
-         'pl-2',
-         'pr-2',
-    ];
-    $styles = $styles ?? [
-        'font-size: 1.2em',
-        'font-weight: 700;',
-        'border-radius: 10px',
+         'home-button',
     ];
     if (!empty($selected)) {
-        $styles[] ='background-color: #727c8f;';
-    } else {
-        $styles[] ='background-color: #2e323a;';
+        $classes[] = 'selected';
     }
+
+    // get styles
+    $styles = $styles ?? [];
 @endphp
 <a href="{{ $href ?? route('guest.index') }}"
-   class="{{ implode(' ', $classes) }}"
-   style="{{ implode('; ', $styles) }};"
+   @if(!empty($classes))
+       class="{{ implode(' ', $classes) }}"
+   @endif
+   @if(!empty($styles))
+       style="{{ implode('; ', $styles) }};"
+   @endif
 >
     {{ $name ?? 'Home' }}
 </a>

@@ -114,7 +114,7 @@
 
                                 @include('admin.components.nav-link-top', [
                                     'name'   => $menuItem->title,
-                                    'href'   =>  $menuItem->url ?? false,
+                                    'href'   => $menuItem->url ?? false,
                                     'class'  => 'navbar-link is-arrowless',
                                     'icon'   => false
                                 ])
@@ -151,15 +151,15 @@
                 @include('guest.components.button-home', [
                     'name'     => 'Home',
                     'href'     => route('guest.index'),
-                    'selected' => true,
+                    'selected' => false,
                 ])
 
-                <span style="display: inline-block; width: 2px;"></span>
+                <span class="home-admin-button-separator"></span>
 
                 @include('guest.components.button-home', [
                     'name'     => 'Admin',
                     'href'     => route('admin.dashboard'),
-                    'selected' => false,
+                    'selected' => true,
                     'style'    => 'background: #2e323a;'
                 ])
 

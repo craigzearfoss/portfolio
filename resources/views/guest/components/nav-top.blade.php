@@ -170,7 +170,7 @@
                 'selected' => true,
             ])
 
-            <span style="display: inline-block; width: 2px;"></span>
+            <span class="home-admin-button-separator"></span>
 
             @include('guest.components.button-home', [
                 'name'     => 'Admin',
