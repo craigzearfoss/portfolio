@@ -126,7 +126,7 @@ class InitSampleAdmin extends Command
 
         if (!empty($undefinedUsernames)) {
             if (count($undefinedUsernames) == 1) {
-                $this->error("Username $undefinedUsernames[0] not defined.");
+                $this->error('Username "' . $undefinedUsernames[0] . '" not defined.');
             } else {
                 $this->error('These usernames are not defined: ' . implode(', ', $undefinedUsernames));
             }
