@@ -10,8 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class DictionarySection extends Model
 {
@@ -52,7 +51,7 @@ class DictionarySection extends Model
      * @param string $valueColumn - id, name, slug, table, or route
      * @param string $labelColumn
      * @param bool $includeBlank
-     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param bool $includeOther
      * @param array $orderBy
      * @param EnvTypes|null $envType
      * @return array|string[]
@@ -62,14 +61,23 @@ class DictionarySection extends Model
                                 string        $labelColumn = 'name',
                                 bool          $includeBlank = false,
                                 bool          $includeOther = false,
-                                array         $orderBy = [ 'name', 'asc' ],
+                                array         $orderBy = [],
                                 EnvTypes|null $envType = EnvTypes::GUEST): array
     {
         if (!in_array($valueColumn, ['id', 'name', 'slug', 'plural', 'table_name', 'route'])) {
             return [];
         }
 
-        $options = [];
+        $predefinedColumns = [];
+        $other = null;
+
+        if ($includeBlank) {
+            $key = ($valueColumn == 'route') ? route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.index') : '';
+            $options = [ $key => '' ];
+        } else {
+            $options = [];
+        }
+
         if ($includeBlank) {
             $key = $valueColumn == 'route'
                 ? route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.index')
@@ -79,8 +87,10 @@ class DictionarySection extends Model
             ];
         }
 
+        // create the query
         $query = new DictionarySection()->select('id', 'name', 'slug', 'plural', 'table_name');
-            //->orderBy($orderBy[0], $orderBy[1] ?? 'asc');
+
+        // apply filters to the query
         foreach ($filters as $column => $value) {
             $query = $query->where($column, '=', $value);
         }
@@ -95,12 +105,13 @@ class DictionarySection extends Model
                     $key = $dictionarySection->{$valueColumn};
                     break;
                 case 'route':
-                    $key = route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.'.$dictionarySection->slug.'.index');
+                    $key = route((!empty($envType) ? $envType->value . '.' : '')
+                        . 'dictionary.' . $dictionarySection->slug . '.index');
                     break;
             }
 
             if (!empty($key)) {
-                $options[$key] = $dictionarySection->{$labelColumn};
+                $options[$key] = ucwords($dictionarySection->{$labelColumn});
             }
         }
 

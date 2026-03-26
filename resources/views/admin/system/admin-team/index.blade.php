@@ -146,7 +146,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAmin)
+                        @if($isRootAdmin)
                             <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No admin teams found.</td>
                         @else
                             <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No teams found.</td>

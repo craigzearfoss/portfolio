@@ -8,6 +8,7 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -15,6 +16,38 @@ use Illuminate\Support\Facades\Schema;
  */
 trait SearchableModelTrait
 {
+    const array COMMON_COLUMNS = [
+        'id',
+        'owner_id',
+        'name',
+        'slug',
+        'featured',
+        'summary',
+        'primary',
+        'street',
+        'street2',
+        'city',
+        'state_id',
+        'zip_id',
+        'country',
+        'phone',
+        'alt_phone',
+        'email',
+        'alt_email',
+        'notes',
+        'link_name',
+        'description',
+        'is_public',
+        'is_readonly',
+        'is_root',
+        'is_disabled',
+        'is_demo',
+        'sequence',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     /**
      * Returns an array of options for an industry select list.
      *
@@ -33,23 +66,35 @@ trait SearchableModelTrait
                                 string $labelColumn = 'name',
                                 mixed  $includeBlank = false,
                                 bool   $includeOther = false,
-                                array  $orderBy = self::SEARCH_ORDER_BY,
+                                array  $orderBy = [],
                                 EnvTypes $envType = EnvTypes::GUEST): array
     {
+        $predefinedColumns = [];
         $other = null;
 
-        $options = [];
-        if ($includeBlank !== false) {
-            $options[!is_bool($includeBlank) ? $includeBlank : ''] = '';
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        // set the columns
+        $selectColumns = [
+            $this->table . '.id',
+        ];
+
+        foreach ([$valueColumn, $labelColumn] as $field) {
+            if (!empty($field) ) {
+                if ($field = $this->fullyQualifiedField($field, $predefinedColumns)) {
+                    $selectColumns[] = $field;
+                }
+            }
         }
 
-        $selectColumns = !empty($valueColumn) && !empty($labelColumn)
-            ? [$valueColumn, $labelColumn]
-            : self::SEARCH_COLUMNS;
+        // set the order by
+        $sortColumn = $orderBy[0] ?? $this->table . '.' . self::SEARCH_ORDER_BY[0];
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
+            $selectColumns[] = $sortColumn;
+        }
+        $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
 
-        $sortColumn = $orderBy[0] ?? 'name';
-        $sortDir = $orderBy[1] ?? 'asc';
-
+        // create the query
         if ($envType == EnvTypes::ADMIN) {
             $query = new self()->withoutGlobalScope(AdminPublicScope::class)
                 ->select($selectColumns)->orderBy($sortColumn, $sortDir);
@@ -57,8 +102,15 @@ trait SearchableModelTrait
             $query = new self()->distinct()->select($selectColumns)->orderBy($sortColumn, $sortDir);
         }
 
-        // Apply filters to the query.
+        // apply filters to the query
         foreach ($filters as $col => $value) {
+
+            // make sure common columns are fully qualified to avoid query errors
+            if (in_array($col, self::COMMON_COLUMNS)) {
+                $col = $this->table . '.' .$col;
+            }
+
+            // get the where clause
             if (is_array($value)) {
                 $query = $query->whereIn($col, $value);
             } else {
@@ -87,7 +139,7 @@ trait SearchableModelTrait
             }
         }
 
-        // Put the 'other' option last.
+        // put the 'other' option last
         if ($includeOther) {
             if (!empty($other)) {
                 $options[$other->{$valueColumn}] = $other->{$labelColumn};
@@ -363,5 +415,18 @@ trait SearchableModelTrait
         }
 
         return $filters;
+    }
+
+    public function fullyQualifiedField($field, array $predefinedColumns = []): string|null
+    {
+        if (empty($field)) {
+            return null;
+        } elseif (in_array($field, $predefinedColumns)) {
+            return $field;
+        }
+
+        return strpos($field, '.')
+            ? $field
+            : $this->table . '.' . $field;
     }
 }

@@ -79,12 +79,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'date',
-            'value' => longDateTime($event->date)
+            'value' => longDate($event->date)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'time',
-            'value' => $event->time
+            'value' => !empty($event->time) ? date("g:i a", strtotime($event->time)) : ''
         ])
 
         @include('admin.components.show-row', [
