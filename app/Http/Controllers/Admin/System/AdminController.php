@@ -8,7 +8,6 @@ use App\Http\Requests\System\StoreAdminsRequest;
 use App\Http\Requests\System\UpdateAdminsRequest;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
-use App\Models\System\Database;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -192,11 +191,59 @@ class AdminController extends BaseAdminController
     {
         if (!isRootAdmin()) {
             abort(403, 'Only root admins can delete admins.');
-        } elseif ($admin->id == $this->admin->id ) {
+        } elseif ($admin['id'] == $this->admin['id'] ) {
             abort(403, 'An admin cannot delete themselves.');
         }
 
         return redirect(referer('admin.system.admin.index'))
-            ->with('success', $admin->username . ' deleted successfully.');
+            ->with('success', $admin['username'] . ' deleted successfully.');
+    }
+
+    /**
+     * Display the change password page for an admin.
+     *
+     * @param Admin $admin
+     * @return View
+     */
+    public function change_password(Admin $admin): View
+    {
+        $thisOwner = $admin;
+
+        return view('admin.system.admin.change-password', compact('thisOwner'));
+    }
+
+    /**
+     * Update the new password for the admin.
+     *
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
+    public function change_password_submit(Request $request): RedirectResponse|View
+    {
+        $request->validate([
+            'password'         => ['required'],
+            'confirm_password' => ['required', 'same:password']
+        ]);
+
+        if (Hash::check($request->password, $this->owner->password)) {
+            return redirect()->back()->with(['error' => 'You cannot use the old password again.']);
+        }
+
+        $this->owner['password'] = Hash::make($request->password);
+        $this->owner['token'] = null;
+        $this->owner->update();
+
+        $referer = $request->input('referer');
+        if (in_array($request->input('referer'),
+            [
+                route('admin.system.admin.change-password', $this->owner),
+                route('admin.system.admin.change-password-submit', $this->owner)
+            ]
+        )) {
+            $referer = route('admin.system.admin.show', $this->owner);
+        }
+
+        return redirect($referer)
+            ->with(['success' => 'Admin password successfully updated.']);
     }
 }

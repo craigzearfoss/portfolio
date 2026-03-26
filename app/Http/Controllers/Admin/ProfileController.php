@@ -69,7 +69,7 @@ class ProfileController extends BaseAdminController
     public function change_password_submit(Request $request): RedirectResponse|View
     {
         $request->validate([
-            'password' => ['required'],
+            'password'         => ['required'],
             'confirm_password' => ['required', 'same:password']
         ]);
 

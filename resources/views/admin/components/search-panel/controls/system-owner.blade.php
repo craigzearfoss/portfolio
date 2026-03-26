@@ -5,10 +5,17 @@
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('admin.components.form-select', [
-        'name'     => 'owner_id',
+        'name'     => 'id',
         'label'    => 'owner',
         'value'    => $owner_id,
-        'list'     => new Admin()->listOptions([], 'id', 'username', 0, false, [ 'username', 'asc' ]),
+        'list'     => new Admin()->listOptions(
+            [],
+            'id',
+            'username',
+            true,
+            false,
+            [ 'username', 'asc' ]
+        ),
         'onchange' => "document.getElementById('searchForm').submit()"
     ])
 </div>

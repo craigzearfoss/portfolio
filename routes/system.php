@@ -123,8 +123,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('admin/{admin}/profile', [AdminSystemAdminController::class, 'profile'])->name('admin.profile');
             Route::put('admin/{admin}', [AdminSystemAdminController::class, 'update'])->name('admin.update');
             Route::put('admin/{admin}/delete', [AdminSystemAdminController::class, 'destroy'])->name('admin.destroy');
-            Route::get('admin/{admin}/change-password', [AdminSystemUserController::class, 'change_password'])->name('admin.change-password');
-            Route::post('admin/{admin}/change-password', [AdminSystemUserController::class, 'change_password_submit'])->name('admin.change-password-submit');
+            Route::get('admin/{admin}/change-password', [AdminSystemAdminController::class, 'change_password'])->name('admin.change-password');
+            Route::put('admin/{admin}/change-password', [AdminSystemAdminController::class, 'change_password_submit'])->name('admin.change-password-submit');
             Route::resource('admin-email', AdminSystemAdminEmailController::class)->parameter('admin-email', 'admin_email');
             Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
             Route::resource('admin-phone', AdminSystemAdminPhoneController::class)->parameter('admin-phone', 'admin_phone');

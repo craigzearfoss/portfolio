@@ -39,7 +39,7 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.owner', [ 'action' => route('admin.system.admin.index') ])
+        @include('admin.components.search-panel.system-owner', [ 'action' => route('admin.system.admin.index') ])
     @endif
 
     <div class="floating-div-container">
@@ -158,6 +158,14 @@
                                         'title'    => 'link',
                                         'icon'     => 'fa-external-link',
                                         'disabled' => true
+                                    ])
+                                @endif
+
+                                @if(canUpdate($thisAdmin, $admin))
+                                    @include('admin.components.link-icon', [
+                                        'title' => 'change password',
+                                        'href'  => route('admin.system.admin.change-password', $thisAdmin),
+                                        'icon'  => 'fa-key'
                                     ])
                                 @endif
 

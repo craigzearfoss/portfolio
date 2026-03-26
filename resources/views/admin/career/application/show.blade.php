@@ -36,6 +36,7 @@
 @section('content')
 
     <section class="section">
+
         <div class="container show-container">
             <div class="columns is-12 is-variable">
                 <div class="column is-12-tablet">
@@ -366,6 +367,7 @@
                 </div>
             </div>
         </div>
+
     </section>
 
 @endsection

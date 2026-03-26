@@ -268,9 +268,7 @@ class Resource extends Model
 
         // get column names for select
         $selectColumns = [];
-//        foreach (self::OWNER_PROPERTIES as $field => $name) {
-//            $selectColumns[] =  DB::raw("admins.$name AS '$field'");
-//        }
+
         foreach (self::DATABASE_PROPERTIES as $field => $name) {
             $selectColumns[] =  DB::raw("databases.$name AS '$field'");
         }
