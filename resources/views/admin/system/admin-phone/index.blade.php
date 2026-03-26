@@ -141,7 +141,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAmin)
+                        @if($isRootAdmin)
                             <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No admin phone numbers found.</td>
                         @else
                             <td colspan="{{ $isRootAdmin ? '5' : '4' }}">No phone numbers found.</td>

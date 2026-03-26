@@ -152,7 +152,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAmin)
+                        @if($isRootAdmin)
                             <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No user groups found.</td>
                         @else
                             <td colspan="{{ $isRootAdmin ? '6' : '5' }}">No groups found.</td>

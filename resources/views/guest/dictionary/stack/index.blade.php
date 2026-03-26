@@ -1,7 +1,7 @@
 @php
     use App\Models\Dictionary\DictionarySection;
 
-    $title    = 'Dictionary: Stacks';
+    $title    = 'Dictionary';
     $subtitle = $title;
 
     // set breadcrumbs
@@ -19,11 +19,11 @@
         'label'    => '',
         'value'    => route('guest.dictionary.stack.index'),
         'list'     => new DictionarySection()->listOptions(
-        [],
-        'route',
-        'name',
-        true
-        ),
+                          [],
+                          'route',
+                          'plural',
+                          true
+                      ),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]);

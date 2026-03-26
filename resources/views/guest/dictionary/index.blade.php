@@ -20,7 +20,7 @@
         'list'     => new DictionarySection()->listOptions(
                           [],
                           'route',
-                          'name',
+                          'plural',
                           true
                       ),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",

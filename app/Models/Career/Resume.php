@@ -16,10 +16,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Resume extends Model
 {
@@ -119,7 +119,7 @@ class Resume extends Model
      * @param bool     $includeBlank
      * @param bool     $includeOther
      * @param array    $orderBy
-     * @param EnvTypes $envType (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param EnvTypes $envType
      * @return array
      * @throws Exception
      */
@@ -128,24 +128,50 @@ class Resume extends Model
                                 string              $labelColumn = 'name',
                                 bool                $includeBlank = false,
                                 bool                $includeOther = false,
-                                array               $orderBy = self::SEARCH_ORDER_BY,
+                                array               $orderBy = [],
                                 EnvTypes $envType = EnvTypes::GUEST): array
     {
+        $predefinedColumns = [ 'name' ];
         $other = null;
 
-        $options = [];
-        if ($includeBlank !== false) {
-            $options[!is_bool($includeBlank) ? $includeBlank : ''] = '';
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        // set the columns
+        $selectColumns = [
+            $this->table . '.id',
+            'CONCAT(date, " - ", ' . $this->table . '.name) AS name',
+        ];
+
+        foreach ([$valueColumn, $labelColumn] as $field) {
+            if (!empty($field) && ($field !== 'name')) {
+                if ($field = $this->fullyQualifiedField($field, $predefinedColumns)) {
+                    if (!in_array($field, $selectColumns)) {
+                        $selectColumns[] = $field;
+                    }
+                }
+            }
         }
 
-        $sortColumn = $orderBy[0] ?? 'name';
-        $sortDir = $orderBy[1] ?? 'asc';
+        // set the order by
+        $sortColumn = $orderBy[0] ?? $this->table . '.' . self::SEARCH_ORDER_BY[0];
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
+            $selectColumns[] = $sortColumn;
+        }
+        $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
 
-        $query = new self()->selectRaw('CONCAT(date, " - ", name) AS name, id')
+        // create the query
+        $query = new self()->selectRaw(implode(',', $selectColumns))
             ->orderBy($sortColumn, $sortDir);
 
-        // Apply filters to the query.
+        // apply filters to the query
         foreach ($filters as $col => $value) {
+
+            // make sure common columns are fully qualified to avoid query errors
+            if (in_array($col, self::COMMON_COLUMNS)) {
+                $col = $this->table . '.' .$col;
+            }
+
+            // get the where clause
             if (is_array($value)) {
                 $query = $query->whereIn($col, $value);
             } else {

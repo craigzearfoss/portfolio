@@ -189,7 +189,7 @@
                 @empty
 
                     <tr>
-                        @if($isRootAmin)
+                        @if($isRootAdmin)
                             <td colspan="{{ $isRootAdmin ? '15' : '12' }}">No admin resources found.</td>
                         @else
                             <td colspan="{{ $isRootAdmin ? '15' : '12' }}">No resources found.</td>

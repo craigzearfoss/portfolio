@@ -2,6 +2,7 @@
 
 namespace App\Models\Career;
 
+use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Country;
@@ -128,43 +129,77 @@ class Application extends Model
     /**
      * Returns an array of options for an application select list.
      *
-     * @param array  $filters
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool   $includeBlank
-     * @param bool   $includeOther
-     * @param array  $orderBy
+     * @param array       $filters
+     * @param string      $valueColumn
+     * @param string|null $labelColumn
+     * @param bool        $includeBlank
+     * @param bool        $includeOther
+     * @param array       $orderBy
+     * @param EnvTypes    $envType
      * @return array
      * @throws Exception
      */
-    public function listOptions(array  $filters = [],
-                                       string $valueColumn = 'id',
-                                       string $labelColumn = 'name',
-                                       bool   $includeBlank = false,
-                                       bool   $includeOther = false,
-                                       array  $orderBy = ['company_name', 'asc']): array
+    public function listOptions(array       $filters = [],
+                                string      $valueColumn = 'id',
+                                string|null $labelColumn = 'id',
+                                bool        $includeBlank = false,
+                                bool        $includeOther = false,
+                                array       $orderBy = [],
+                                EnvTypes    $envType = EnvTypes::GUEST): array
     {
-        $options = [];
-        if ($includeBlank !== false) {
-            $options[!is_bool($includeBlank) ? $includeBlank : ''] = '';
+        $predefinedColumns = [
+            'company_name',
+        ];
+
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        // set the columns
+        $selectColumns = [
+            $this->table . '.id',
+            $this->table . '.role',
+            $this->table . '.apply_date',
+            DB::raw('companies.name AS `company_name`'),
+        ];
+
+        foreach ([$valueColumn, $labelColumn] as $field) {
+            if (!empty($field) && ($field !== 'name')) {
+                // note that there is no "name" column in the applications table
+                if ($field = $this->fullyQualifiedField($field, $predefinedColumns)) {
+                    if (!in_array($field, $selectColumns)) {
+                        $selectColumns[] = $field;
+                    }
+                }
+            }
         }
 
-        $selectColumns = !empty($valueColumn) && !empty($labelColumn)
-            ? [$valueColumn, $labelColumn]
-            : self::SEARCH_COLUMNS;
+        // set the order by
+        $sortColumn = $orderBy[0] ?? $this->table . '.' . self::SEARCH_ORDER_BY[0];
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
+            $selectColumns[] = $sortColumn;
+        }
+        $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
 
-        $sortColumn = $orderBy[0] ?? 'name';
-        $sortDir = $orderBy[1] ?? 'asc';
+        // create the query
+        if ($envType == EnvTypes::ADMIN) {
+            $query = new self()->withoutGlobalScope(AdminPublicScope::class)
+                ->distinct()->select($selectColumns)->orderBy($sortColumn, $sortDir)
+                ->join('companies','companies.id', 'applications.company_id')
+                ->orderBy($sortColumn, $sortDir);
+        } else {
+            $query = new self()->distinct()->select($selectColumns)
+                ->join('companies','companies.id', 'applications.company_id')
+                ->orderBy($sortColumn, $sortDir);
+        }
 
-        $query = new Application()->distinct()->select($selectColumns)
-            ->join('companies','companies.id', 'applications.company_id')
-            ->orderBy($sortColumn, $sortDir);
-
-        // Apply filters to the query.
+        // apply filters to the query
         foreach ($filters as $col => $value) {
-            if (in_array($col, ['id', 'owner_id'])) {
-                $col = 'applications.' . $col;
+
+            // make sure common columns are fully qualified to avoid query errors
+            if (in_array($col, self::COMMON_COLUMNS)) {
+                $col = $this->table . '.' .$col;
             }
+
+            // get the where clause
             if (is_array($value)) {
                 $query = $query->whereIn($col, $value);
             } else {
@@ -180,13 +215,14 @@ class Application extends Model
                         throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
-                    $query = $query->where($col, $value);
+                    $query = $query->where($col, '=', $value);
                 }
             }
         }
 
         foreach ($query->get() as $row) {
-            if ($labelColumn == 'name') {
+            if (empty($labelColumn) || ($labelColumn == 'name')) {
+                // there is no name column for applications so we need to generate one
                 $label = (!empty($row->company_name) ? $row->company_name : '?company?') . ' - '
                     . ($row->role ?? '?role?')
                     . (!empty($row->apply_date)

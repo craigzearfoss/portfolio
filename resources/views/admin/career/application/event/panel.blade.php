@@ -6,7 +6,7 @@
 
     <h3 class="is-size-5 title mb-3">
 
-        Coworkers
+        Events
 
         <span style="display: inline-flex; float: right;">
 

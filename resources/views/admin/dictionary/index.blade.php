@@ -17,7 +17,15 @@
         'name'     => '',
         'label'    => '',
         'value'    => route('admin.dictionary.index'),
-        'list'     => new DictionarySection()->listOptions([], 'route', 'name', true, false, [ 'name'=>'asc' ], EnvTypes::ADMIN),
+        'list'     => new DictionarySection()->listOptions(
+                          [],
+                          'route',
+                          'plural',
+                          true,
+                          false,
+                          [ 'name'=>'asc' ],
+                          EnvTypes::ADMIN
+                      ),
         'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
         'message'  => $message ?? '',
     ]);
