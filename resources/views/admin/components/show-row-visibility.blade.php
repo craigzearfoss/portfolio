@@ -18,6 +18,14 @@
     if (!empty($styleArray)) {
         $styles = array_merge($styles, $styleArray);
     }
+
+    $columns = [
+        'is_public'   => 'public',
+        'is_readonly' => 'read-only',
+        'is_root'     => 'root',
+        'is_disabled' => 'disabled',
+        'is_demo'     => 'demo',
+    ];
 @endphp
 <div @if(!empty($classes))
          class="{!! implode(' ', $classes) !!}"
@@ -34,15 +42,15 @@
 
             <div class="floating-div-container settings">
 
-                @foreach(['is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo'] as $setting)
+                @foreach($columns as $column=>$label)
 
-                    @if($resource->hasAttribute($setting))
+                    @if($resource->hasAttribute($column))
 
                         <div class="show-container card floating-div">
                             <span>
-                                @include('admin.components.checkbox', [ 'checked' => !empty($resource->{$setting}) ])
+                                @include('admin.components.checkbox', [ 'checked' => !empty($resource->{$column}) ])
                             </span>
-                            <span><strong>{{ $setting == 'is_readonly' ? 'read-only' : $setting }}</strong></span>
+                            <span><strong>{{ $label }}</strong></span>
                         </div>
 
                     @endif

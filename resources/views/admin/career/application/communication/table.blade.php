@@ -5,8 +5,9 @@
     <thead>
     <th>type</th>
     <th>subject</th>
-    <th>date</th>
-    <th>time</th>
+    <th>to</th>
+    <th>from</th>
+    <th class="has-text-centered">date</th>
     <th>actions</th>
     </thead>
     <tbody>
@@ -21,10 +22,15 @@
                 {!! $communication->subject !!}
             </td>
             <td>
-                {{ longDate($communication->date) }}
+                {!! $communication->to !!}
             </td>
             <td>
-                {!! $communication->time !!}
+                {!! $communication->from !!}
+            </td>
+            <td class="has-text-centered">
+                <span style="white-space: nowrap">
+                    {{ shortDateTime($communication->date . ' ' . $communication->time) }}
+                </span>
             </td>
             <td class="is-1">
 

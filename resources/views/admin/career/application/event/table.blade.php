@@ -21,7 +21,7 @@
                 {{ longDate($event->date) }}
             </td>
             <td>
-                {!! !empty($event->time) ? date("g:i a", strtotime($event->time)) : '' !!}
+                {{ !empty($event->time) ? date("g:i a", strtotime($event->time)) : '' }}
             </td>
             <td>
                 {!! $event->location !!}
