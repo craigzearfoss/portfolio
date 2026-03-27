@@ -12,6 +12,7 @@ use App\Models\System\Owner;
 use App\Models\System\Resource;
 use App\Models\System\User;
 use Exception;
+use http\Env;
 use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
@@ -304,6 +305,15 @@ class MenuService
             }
         }
 
+        // create the contact menu item
+        $menu[] = $this->createMenuItem(
+            null,
+            'Contact',
+            route('guest.contact'),
+            'guest-contact',
+            EnvTypes::GUEST,
+        );
+
         if (!empty($this->owner)) {
             if ($resume = $this->getResumeMenuItem(1)) {
                 array_unshift($menu, $resume);
@@ -575,6 +585,68 @@ class MenuService
     }
 
     /**
+     * Create a new menu item.
+     *
+     * @param int|null $ownerId
+     * @param string $name
+     * @param string|null $url
+     * @param string|null $routeName - used to determine if this menu item is the currently active one
+     * @param EnvTypes|null $envType
+     * @param int $level
+     * @return stdClass|null
+     */
+    public function createMenuItem(
+        int|null $ownerId,
+        string $name,
+        string|null $url = null,
+        string|null $routeName = null,
+        EnvTypes|null $envType = null,
+        int $level = 1): stdClass|null
+    {
+        $menuItem = new stdClass();
+        $menuItem->owner_id       = $ownerId;
+        $menuItem->id             = null;
+        $menuItem->database_id    = null;
+        $menuItem->database_name  = null;
+        $menuItem->resource_id    = null;
+        $menuItem->parent_id      = null;
+        $menuItem->name           = $name;
+        $menuItem->table_name     = null;
+        $menuItem->tag            = null;
+        $menuItem->title          = $name;
+        $menuItem->plural         = '';
+        $menuItem->label          = '';
+        $menuItem->active         = $routeName == $this->currentRouteName;
+        $menuItem->guest          = !empty($envType)
+                                        ? ($envType == EnvTypes::GUEST ? 1 : 0)
+                                        : ($this->envType == EnvTypes::GUEST ? 1 : 0);
+        $menuItem->user           = !empty($envType)
+                                        ? ($envType == EnvTypes::USER ? 1 : 0)
+                                        : ($this->envType == EnvTypes::USER ? 1 : 0);
+        $menuItem->admin          = !empty($envType)
+                                        ? ($envType == EnvTypes::ADMIN ? 1 : 0)
+                                        : ($this->envType == EnvTypes::ADMIN ? 1 : 0);
+        $menuItem->menu           = 1;
+        $menuItem->menu_level     = $level;
+        $menuItem->menu_collapsed = 1;
+        $menuItem->icon           = null;
+        $menuItem->is_public      = 1;
+        $menuItem->is_readonly    = 0;
+        $menuItem->is_root        = 0;
+        $menuItem->is_disabled    = 0;
+        $menuItem->is_demo        = 0;
+        $menuItem->sequence       = 0;
+        $menuItem->created_at     = date("Y-m-d H:i:s");
+        $menuItem->update_at      = date("Y-m-d H:i:s");
+        $menuItem->deleted_at     = 0;
+        $menuItem->children       = [];
+        $menuItem->route          = $routeName;
+        $menuItem->url            = $url;
+
+        return $menuItem;
+    }
+
+    /**
      * Returns a menu item.
      * *
      * @param int $level
@@ -615,7 +687,6 @@ class MenuService
         $menuItem->plural         = 'Resumes';
         $menuItem->label          = 'Resume';
         $menuItem->active         = $routeName == $this->currentRouteName;
-        //????????????????
         $menuItem->guest          = $this->envType == EnvTypes::GUEST ? 1 : 0;
         $menuItem->user           = $this->envType == EnvTypes::USER ? 1 : 0;
         $menuItem->admin          = $this->envType == EnvTypes::ADMIN ? 1 : 0;
