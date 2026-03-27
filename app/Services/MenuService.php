@@ -306,11 +306,12 @@ class MenuService
         }
 
         // create the contact menu item
+        $contactRoute = $this->envType == EnvTypes::ADMIN ? 'admin.contact' : 'guest.contact';
         $menu[] = $this->createMenuItem(
             null,
             'Contact',
-            route('guest.contact'),
-            'guest-contact',
+            route($contactRoute),
+            $contactRoute,
             EnvTypes::GUEST,
         );
 
