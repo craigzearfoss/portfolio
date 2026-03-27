@@ -689,3 +689,36 @@ a.hamburger-icon i.fa {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
+
+/* styles for about page admin preview panel */
+div.card.admin-preview {
+    display: flex;
+    background-color: rgb(128, 128, 128);
+    padding: 16px;
+    margin-bottom: 2.5rem !important;
+}
+div.card.admin-preview.no-flex {
+    display: block;
+}
+div.card.admin-preview div {
+    vertical-align: top;
+    margin-bottom: 16px;
+}
+div.card.admin-preview div.admin-preview-image {
+    flex: 1;
+    margin-right: 16px;
+}
+div.card.admin-preview div.admin-preview-image.no-flex {
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+}
+div.card.admin-preview div.admin-preview-text {
+    flex: 3;
+    background-color: #f0f0f0;
+    padding: 16px;
+}
+div.card.admin-preview div.admin-preview-text.no-flex {
+    display: block;
+    width: 100%;
+}
