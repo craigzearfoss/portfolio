@@ -68,7 +68,7 @@ class IndexController extends BaseGuestController
      * @param MessageStoreRequest $messageStoreRequest
      * @return RedirectResponse
      */
-    public function storeContactMessage(MessageStoreRequest $messageStoreRequest): View
+    public function storeContactMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
     {
         new Message()->create($messageStoreRequest->validated());
 
