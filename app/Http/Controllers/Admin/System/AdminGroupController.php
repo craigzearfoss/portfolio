@@ -27,12 +27,15 @@ class AdminGroupController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminGroups = new AdminGroup()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        // by default, root admins display all admin groups
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $adminGroups = new AdminGroup()->searchQuery($request->all(), $this->isRootAdmin ? null : $owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' groups';
+        $pageTitle = ($owner->name  ?? '') . ' groups';
 
         return view('admin.system.admin-group.index', compact('adminGroups', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

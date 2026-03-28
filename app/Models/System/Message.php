@@ -35,6 +35,7 @@ class Message extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'from_admin',
         'name',
         'email',
         'subject',
@@ -50,13 +51,13 @@ class Message extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'name', 'email', 'subject', 'body','is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'from_admin', 'name', 'email', 'subject', 'body', 'is_public', 'is_readonly',
+        'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'subject', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'created_at', 'desc' ];
 
     /**
      * Returns the query builder for a search from the request parameters.
@@ -85,6 +86,9 @@ class Message extends Model
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
                 $query->where('email', 'like', '%' . $filters['email'] . '%');
+            })
+            ->when(!empty($filters['from_admin']), function ($query) use ($filters) {
+                $query->where('from_admin', '=', true);
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $query->where('name', 'like', '%' . $filters['name'] . '%');

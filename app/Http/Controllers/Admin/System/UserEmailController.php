@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\User\BaseUserController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUserEmailsRequest;
 use App\Http\Requests\System\UpdateUserEmailsRequest;
 use App\Models\System\UserEmail;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class UserEmailController extends BaseUserController
+class UserEmailController extends BaseAdminController
 {
     /**
      * Display a listing of user emails.

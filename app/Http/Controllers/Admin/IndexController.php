@@ -19,6 +19,9 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+/**
+ *
+ */
 class IndexController extends BaseAdminController
 {
     use RecaptchaValidation;
@@ -252,7 +255,7 @@ class IndexController extends BaseAdminController
      */
     public function contact(): View
     {
-        return view(themedTemplate('admin.contact'));
+        return view('admin.contact');
     }
 
     /**
@@ -263,11 +266,9 @@ class IndexController extends BaseAdminController
      */
     public function storeContactMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
     {
-        //@TODO:
-        die('@TODO: ???? Controllers\Admin\IndexController->storContactMessage');
-        $message = new Message()->create($messageStoreRequest->validated());
+        new Message()->create($messageStoreRequest->validated());
 
-        return redirect(route('admin.dashboard'))
+        return redirect(route('admin.contact'))
             ->with('success', 'Your message has been sent. Thank you!.');
     }
 

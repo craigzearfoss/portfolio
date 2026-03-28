@@ -20,6 +20,14 @@
                 @csrf
 
                 @include($envType == EnvTypes::ADMIN
+                                        ? 'admin.components.form-hidden'
+                                        : 'guest.components.form-hidden',
+                [
+                    'name'        => 'from_admin',
+                    'value'       => !empty($from_admin) ? 1 : 0,
+                ])
+
+                @include($envType == EnvTypes::ADMIN
                                         ? 'admin.components.form-input-horizontal'
                                         : 'guest.components.form-input-horizontal',
                 [

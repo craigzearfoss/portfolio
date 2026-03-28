@@ -27,12 +27,15 @@ class AdminEmailController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminEmails = new AdminEmail()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        // by default, root admins display all admin emails
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $adminEmails = new AdminEmail()->searchQuery($request->all(), $this->isRootAdmin ? null : $owner)
             ->orderBy('owner_id')
             ->orderBy('email')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' email addresses';
+        $pageTitle = ($owner->name  ?? '') . ' email addresses';
 
         return view('admin.system.admin-email.index', compact('adminEmails', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -7,37 +7,59 @@
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
+
         <form id="searchForm" action="{!! $action !!}" method="get">
 
-            @if(isRootAdmin())
+            <div>
 
-                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                <div class="floating-div-container">
 
-            @endif
+                    <div class="floating-div">
 
-            @if(!empty($owner))
+                        @if(isRootAdmin())
 
-                @php
-                    $recipes = new Recipe()->listOptions([ 'owner_id' => $owner->id ], 'id', 'name', true, false, [ 'name', 'asc' ]);
-                    $recipeId = Request::get('recipe_id');
-                    if (!array_key_exists($recipeId, $recipes)) {
-                        $recipeId = null;
-                    }
-                @endphp
+                            @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 
-                    <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
-                @if(count($recipes) > 1)
-                    <div class="control">
-                        @include('admin.components.form-select', [
-                            'name'     => 'recipe_id',
-                            'label'    => 'recipe',
-                            'value'    => $recipeId,
-                            'list'     => $recipes,
-                            'onchange' => "document.getElementById('searchForm').submit()"
-                        ])
+                        @endif
+
+                        @if(!empty($owner))
+
+                            @php
+                                $recipes = new Recipe()->listOptions([ 'owner_id' => $owner->id ], 'id', 'name', true, false, [ 'name', 'asc' ]);
+                                $recipeId = Request::get('recipe_id');
+                                if (!array_key_exists($recipeId, $recipes)) {
+                                    $recipeId = null;
+                                }
+                            @endphp
+
+                                <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
+                            @if(count($recipes) > 1)
+                                <div class="control">
+                                    @include('admin.components.form-select', [
+                                        'name'     => 'recipe_id',
+                                        'label'    => 'recipe',
+                                        'value'    => $recipeId,
+                                        'list'     => $recipes,
+                                    ])
+                                </div>
+                            @endif
+                        @endif
+
                     </div>
-                @endif
-            @endif
+
+                </div>
+
+                <div class="has-text-right pr-2">
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+                </div>
+
+            </div>
 
         </form>
 

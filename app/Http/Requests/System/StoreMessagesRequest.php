@@ -29,6 +29,7 @@ class StoreMessagesRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'from_admin'   => ['integer', 'between:0,1'],
             'name'         => ['required', 'max:255'],
             'email'        => ['required', 'email:rfc,dns', 'max:255'],
             'subject'      => ['required', 'string', 'max:500'],

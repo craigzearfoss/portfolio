@@ -15,9 +15,12 @@
 
     // set navigation buttons
     $navButtons = [];
+    /*
+    // messages must be created from the site contact pages
     if (canCreate(Message::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', ['name' => 'Add New Message', 'href' => route('admin.system.message.create', $owner)])->render();
     }
+    */
 @endphp
 
 @extends('admin.layouts.default')
@@ -36,6 +39,7 @@
                 @if($top_column_headings)
                     <thead>
                     <tr>
+                        <th class="has-text-centered"><span title="Was the message sent from the admin area?">admin</span></th>
                         <th>name</th>
                         <th>email</th>
                         <th>subject</th>
@@ -48,6 +52,7 @@
                 @if($bottom_column_headings)
                     <tfoot>
                     <tr>
+                        <th class="has-text-centered"><span title="Was the message sent from the admin area?">admin</span></th>
                         <th>name</th>
                         <th>email</th>
                         <th>subject</th>
@@ -62,6 +67,9 @@
                 @forelse ($messages as $message)
 
                     <tr data-id="{{ $message->id }}">
+                        <td class="has-text-centered" data-field="from_admin">
+                            @include('admin.components.checkmark', [ 'checked' => $message->from_admin ])
+                        </td>
                         <td data-field="name">
                             {!! $message->name !!}
                         </td>
@@ -71,7 +79,7 @@
                         <td data-field="subject">
                             {!! $message->subject !!}
                         </td>
-                        <td data-field="created_at">
+                        <td data-field="created_at" style="white-space: nowrap;">
                             {{ shortDateTime($message->created_at) }}
                         </td>
                         <td class="is-1">
@@ -86,21 +94,13 @@
                                     ])
                                 @endif
 
+                                <?php /*
+                                // you can't delete messages
                                 @if(canUpdate($message, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'edit',
                                         'href'  => route('admin.system.message.edit', $message),
                                         'icon'  => 'fa-pen-to-square'
-                                    ])
-                                @endif
-
-                                @if(canDelete($message, $admin))
-                                    @csrf
-                                    @method('DELETE')
-                                    @include('admin.components.button-icon', [
-                                        'title' => 'delete',
-                                        'class' => 'delete-btn',
-                                        'icon'  => 'fa-trash'
                                     ])
                                 @endif
 
@@ -117,6 +117,7 @@
                                         ])
                                     </form>
                                 @endif
+                                */ ?>
 
                             </div>
 
@@ -126,7 +127,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">No messages found.</td>
+                        <td colspan="6">No messages found.</td>
                     </tr>
 
                 @endforelse

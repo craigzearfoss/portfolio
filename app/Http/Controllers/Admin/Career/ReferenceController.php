@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreReferencesRequest;
 use App\Http\Requests\Career\UpdateReferencesRequest;
 use App\Models\Career\Reference;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,6 +21,7 @@ class ReferenceController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -27,7 +29,10 @@ class ReferenceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $references = new Reference()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all references
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $references = new Reference()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

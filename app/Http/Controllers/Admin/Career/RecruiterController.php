@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreRecruitersRequest;
 use App\Http\Requests\Career\UpdateRecruitersRequest;
 use App\Models\Career\Recruiter;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,6 +21,7 @@ class RecruiterController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {

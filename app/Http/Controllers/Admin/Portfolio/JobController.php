@@ -27,13 +27,16 @@ class JobController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = new Job()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all jobs
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $jobs = new Job()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' jobs';
+        $pageTitle = ($owner->name  ?? '') . ' jobs';
 
         return view('admin.portfolio.job.index', compact('jobs', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

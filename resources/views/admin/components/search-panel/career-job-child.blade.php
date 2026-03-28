@@ -7,37 +7,59 @@
 <div class="mb-2" style="display: flex;">
 
     <div class="search-container card p-2">
+
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
-            @if(isRootAdmin())
+            <div>
 
-                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                <div class="floating-div-container">
 
-            @endif
+                    <div class="floating-div">
 
-            @if(!empty($owner))
+                        @if(isRootAdmin())
 
-                @php
-                    $jobs = new Job()->listOptions(!empty($owner) ? [ 'owner_id' => $owner->id ] : [], 'id', 'company', true, false, [ 'company', 'asc' ]);
-                    $jobId = Request::get('job_id');
-                    if (!array_key_exists($jobId, $jobs)) {
-                        $jobId = null;
-                    }
-                @endphp
+                            @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
 
-                    <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
-                @if(count($jobs) > 1)
-                    <div class="control">
-                        @include('admin.components.form-select', [
-                            'name'     => 'job_id',
-                            'label'    => 'job',
-                            'value'    => $jobId,
-                            'list'     => $jobs,
-                            'onchange' => "document.getElementById('searchForm').submit()"
-                        ])
+                        @endif
+
+                        @if(!empty($owner))
+
+                            @php
+                                $jobs = new Job()->listOptions(!empty($owner) ? [ 'owner_id' => $owner->id ] : [], 'id', 'company', true, false, [ 'company', 'asc' ]);
+                                $jobId = Request::get('job_id');
+                                if (!array_key_exists($jobId, $jobs)) {
+                                    $jobId = null;
+                                }
+                            @endphp
+
+                                <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
+                            @if(count($jobs) > 1)
+                                <div class="control">
+                                    @include('admin.components.form-select', [
+                                        'name'     => 'job_id',
+                                        'label'    => 'job',
+                                        'value'    => $jobId,
+                                        'list'     => $jobs,
+                                    ])
+                                </div>
+                            @endif
+                        @endif
+
                     </div>
-                @endif
-            @endif
+
+                </div>
+
+                <div class="has-text-right pr-2">
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+                </div>
+
+            </div>
 
         </form>
 

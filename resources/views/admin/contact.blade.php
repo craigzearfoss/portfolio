@@ -1,8 +1,7 @@
 @php
     use App\Enums\EnvTypes;
 
-    // set breadcrumbs
-    $title    = $pagTitle ?? 'Contact Us';
+    $title    = $pageTitle ?? 'Contact Us';
     $subtitle = false;
 
     // set breadcrumbs
@@ -19,6 +18,13 @@
 
 @section('content')
 
-    @include('partials.contact-content', [ 'envType' => EnvTypes::ADMIN ])
+    @if(!$success = session('success'))
+
+        @include('partials.contact-content', [
+            'envType'    => EnvTypes::ADMIN,
+            'from_admin' => true
+        ])
+
+    @endif
 
 @endsection

@@ -11,6 +11,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class AdminController extends BaseGuestController
 {
     /**

@@ -31,6 +31,14 @@
                 'value' => referer('admin.system.message.index')
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'from_admin',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('from_admin'),
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? '',

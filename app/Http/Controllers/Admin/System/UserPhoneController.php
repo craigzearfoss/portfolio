@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\User\BaseUserController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUserPhonesRequest;
 use App\Http\Requests\System\UpdateUserPhonesRequest;
 use App\Models\System\UserPhone;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class UserPhoneController extends BaseUserController
+class UserPhoneController extends BaseAdminController
 {
     /**
      * Display a listing of user phones.

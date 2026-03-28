@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class AdminPhoneController extends BaseAdminController
 {
     /**
@@ -24,12 +27,15 @@ class AdminPhoneController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminPhones = new AdminPhone()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        // by default, root admins display all admin phones
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $adminPhones = new AdminPhone()->searchQuery($request->all(), $this->isRootAdmin ? null : $owner)
             ->orderBy('owner_id')
             ->orderBy('phone')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' phone numbers';
+        $pageTitle = ($owner->name  ?? '') . ' phone numbers';
 
         return view('admin.system.admin-phone.index', compact('adminPhones', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

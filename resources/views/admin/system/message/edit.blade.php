@@ -1,5 +1,5 @@
 @php
-    $title    = $pageTitle ?? 'Edit Message ' . $message->id;
+    $title    = $pageTitle ?? 'Edit Message ' . $message['id'];
     $subtitle = $title;
 
     // set breadcrumbs
@@ -8,7 +8,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],
-        [ 'name' => 'Edit Message ' . $message->id ],
+        [ 'name' => 'Edit Message ' . $message['id'] ],
     ];
 
     // set navigation buttons
@@ -34,12 +34,20 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $message->id
+                'value' => $message['id']
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'from_admin',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('from_admin') ?? $message['from_admin'],
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $message->name,
+                'value'     => old('name') ?? $message['name'],
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -48,7 +56,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'email',
                 'name'      => 'email',
-                'value'     => old('email') ??  $message->email,
+                'value'     => old('email') ??  $message['email'],
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -56,7 +64,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'subject',
-                'value'     => old('subject') ??  $message->subject,
+                'value'     => old('subject') ??  $message['subject'],
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -64,7 +72,7 @@
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'body',
-                'value'   => old('body') ??  $message->body,
+                'value'   => old('body') ??  $message['body'],
                 'message' => $message ?? '',
             ])
 

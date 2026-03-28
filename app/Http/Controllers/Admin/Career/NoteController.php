@@ -28,14 +28,17 @@ class NoteController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $notes = new Note()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all notes
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $notes = new Note()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('created_at', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
 
-        $pageTitle = ($this->owner->name  ?? '') . ' notes';
+        $pageTitle = ($owner->name  ?? '') . ' notes';
 
         return view('admin.career.note.index', compact('notes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

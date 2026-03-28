@@ -27,10 +27,13 @@ class AdminResourceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminResources = new AdminResource()->searchQuery(request()->except('id'))
+        // by default, root admins display all admin resources
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $adminResources = new AdminResource()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('sequence')
-            ->paginate($perPage)->appends(request()->except('page'));;
+            ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Admin Resources';
 

@@ -31,11 +31,14 @@ class AdminController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        // by default, root admins display all admins
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
          if (empty($this->admin->is_root)) {
              return redirect()->route('admin.profile.show');
          }
 
-         $allAdmins = new Admin()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+         $allAdmins = new Admin()->searchQuery($request->all(), $this->isRootAdmin ? null : $owner)
              ->orderBy('name')
              ->paginate($perPage)->appends(request()->except('page'));
 

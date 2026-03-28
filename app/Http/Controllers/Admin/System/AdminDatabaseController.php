@@ -27,12 +27,15 @@ class AdminDatabaseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminDatabases = new AdminDatabase()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        // by default, root admins display all admin databases
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $adminDatabases = new AdminDatabase()->searchQuery($request->all(), $this->isRootAdmin ? null : $owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' databases';
+        $pageTitle = ($owner->name  ?? '') . ' databases';
 
         return view('admin.system.admin-database.index', compact('adminDatabases', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

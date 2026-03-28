@@ -6,6 +6,9 @@ use App\Enums\EnvTypes;
 use App\Http\Controllers\BaseController;
 use App\Services\PermissionService;
 
+/**
+ *
+ */
 class BaseUserController extends BaseController
 {
     public function __construct(PermissionService $permissionService)

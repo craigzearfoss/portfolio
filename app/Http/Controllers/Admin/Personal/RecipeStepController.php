@@ -28,14 +28,17 @@ class RecipeStepController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipeSteps = new RecipeStep()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all recipe steps
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $recipeSteps = new RecipeStep()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('recipe_id')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null;
 
-        $pageTitle = ($this->owner->name  ?? '') . ' recipe steps';
+        $pageTitle = ($owner->name  ?? '') . ' recipe steps';
 
         return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

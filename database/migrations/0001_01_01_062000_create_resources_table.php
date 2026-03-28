@@ -137,7 +137,7 @@ return new class extends Migration
                     'menu'            => true,
                     'menu_level'      => 2,
                     'menu_collapsed'  => false,
-                    'icon'            => 'fa-envelope',
+                    'icon'            => 'fa-phone',
                     'is_public'       => false,
                     'is_readonly'     => false,
                     'is_root'         => false,

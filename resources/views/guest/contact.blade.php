@@ -4,12 +4,11 @@
     $title    = $pageTitle ?? 'Contact Us';
     $subtitle = false;
 
-    $breadcrumbs = $publicAdminCount < 2
-        ? []
-        : [
-            [ 'name' => 'Home', 'href' => route('guest.index')],
-            [ 'name' => 'Contact Us']
-          ];
+    // set breadcrumbs
+    $breadcrumbs = [
+        [ 'name' => 'Home', 'href' => route('guest.index')],
+        [ 'name' => 'Contact Us']
+    ];
 
     $navButtons = [];
 @endphp
@@ -18,6 +17,13 @@
 
 @section('content')
 
-    @include('partials.contact-content', [ 'envType' => EnvTypes::GUEST ])
+    @if(!$success = session('success'))
+
+        @include('partials.contact-content', [
+            'envType'       => EnvTypes::GUEST,
+            'from_admin' => false
+        ])
+
+    @endif
 
 @endsection

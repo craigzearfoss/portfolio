@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\User\BaseUserController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUsersRequest;
 use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class UserController extends BaseUserController
+class UserController extends BaseAdminController
 {
     /**
      * Display a listing of users.

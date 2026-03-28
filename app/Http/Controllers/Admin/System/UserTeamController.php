@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\User\BaseUserController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUserTeamsRequest;
 use App\Http\Requests\System\UpdateUserTeamsRequest;
 use App\Models\System\UserTeam;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class UserTeamController extends BaseUserController
+class UserTeamController extends BaseAdminController
 {
     /**
      * Display a listing of user teams.

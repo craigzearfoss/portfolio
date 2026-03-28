@@ -71,6 +71,7 @@
                     </div>
 
                 </div>
+
                 <div class="has-text-right pr-2">
                     @include('admin.components.button-clear', [
                         'id'   =>'clearSearchForm',

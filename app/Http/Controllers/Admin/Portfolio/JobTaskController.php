@@ -7,7 +7,6 @@ use App\Http\Requests\Portfolio\StoreJobTasksRequest;
 use App\Http\Requests\Portfolio\UpdateJobTasksRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobTask;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -29,14 +28,17 @@ class JobTaskController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        // by default, root admins display all job tasks
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
         $jobTaskModel = new JobTask();
 
         $job = null;
-        $jobTasks = $jobTaskModel->searchQuery(request()->except('id'), $this->owner ?? null)
+        $jobTasks = $jobTaskModel->searchQuery(request()->except('id'), $owner)
             ->orderBy('job_id')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' job tasks';
+        $pageTitle = ($owner->name  ?? '') . ' job tasks';
 
         return view('admin.portfolio.job-task.index', compact('jobTasks', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

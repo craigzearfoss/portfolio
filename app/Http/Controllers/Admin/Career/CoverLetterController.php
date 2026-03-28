@@ -27,12 +27,15 @@ class CoverLetterController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $coverLetters = new CoverLetter()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all cover letters
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $coverLetters = new CoverLetter()->searchQuery(request()->except('id'), $owner ?? null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' cover letters';
+        $pageTitle = ($owner->name  ?? '') . ' cover letters';
 
         return view('admin.career.cover-letter.index', compact('coverLetters', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

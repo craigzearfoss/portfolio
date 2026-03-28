@@ -9,7 +9,25 @@
 
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
-            @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+            <div>
+
+                <div class="floating-div-container">
+                    <div class="floating-div">
+                        @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                    </div>
+                </div>
+
+                <div class="has-text-right pr-2">
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+                </div>
+
+            </div>
 
         </form>
 

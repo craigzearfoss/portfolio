@@ -88,7 +88,7 @@
                         'name' => 'Clear',
                     ])
                     @include('guest.components.button-search', [
-                        'id' =>'performSearch',
+                        'id' => 'performSearch',
                     ])
                 </div>
 

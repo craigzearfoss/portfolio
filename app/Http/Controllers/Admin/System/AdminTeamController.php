@@ -27,12 +27,15 @@ class AdminTeamController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminTeams = new AdminTeam()->searchQuery($request->all(), !empty($this->owner->is_root) ? null : $this->owner)
+        // by default, root admins display all admin teams
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $adminTeams = new AdminTeam()->searchQuery($request->all(), $this->isRootAdmin ? null : $owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' teams';
+        $pageTitle = ($owner->name  ?? '') . ' teams';
 
         return view('admin.system.admin-team.index', compact('adminTeams', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

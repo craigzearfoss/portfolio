@@ -75,6 +75,7 @@
                     </div>
 
                 </div>
+
                 <div class="has-text-right pr-2">
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',

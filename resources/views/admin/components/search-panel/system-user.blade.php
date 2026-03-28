@@ -9,14 +9,33 @@
 
         <form id="searchForm" action="{!! $action !!}" method="get">
 
-            <div class="control" style="max-width: 28rem;">
-                @include('admin.components.form-select', [
-                    'name'     => 'user_id',
-                    'label'    => 'user',
-                    'value'    => $user_id,
-                    'list'     => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
-                    'onchange' => "document.getElementById('searchForm').submit()"
-                ])
+            <div>
+
+                <div class="floating-div-container">
+
+                    <div class="floating-div">
+                        <div class="control" style="max-width: 28rem;">
+                            @include('admin.components.form-select', [
+                                'name'     => 'user_id',
+                                'label'    => 'user',
+                                'value'    => $user_id,
+                                'list'     => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
+                            ])
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="has-text-right pr-2">
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+                </div>
+
             </div>
 
         </form>

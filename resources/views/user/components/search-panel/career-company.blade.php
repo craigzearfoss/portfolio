@@ -52,6 +52,7 @@
                     </div>
 
                 </div>
+
                 <div class="has-text-right pr-2">
                     @include('user.components.button-clear', [
                         'id'   =>'clearSearchForm',

@@ -27,12 +27,15 @@ class PublicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $publications = new Publication()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all publications
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $publications = new Publication()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' publications';
+        $pageTitle = ($owner->name  ?? '') . ' publications';
 
         return view('admin.portfolio.publication.index', compact('publications', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

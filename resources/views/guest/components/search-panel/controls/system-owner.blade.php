@@ -8,7 +8,13 @@
         'name'     => 'owner_id',
         'label'    => 'owner',
         'value'    => $owner_id,
-        'list'     => new Admin()->listOptions([], 'id', 'username', 0, false, [ 'username', 'asc' ]),
-        'onchange' => "document.getElementById('searchForm').submit()"
+        'list'     => new Admin()->listOptions(
+            [],
+            'id',
+            'username',
+            true,
+            false,
+            [ 'username', 'asc' ]
+        )
     ])
 </div>

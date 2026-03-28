@@ -9,6 +9,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class IndexController extends BaseGuestController
 {
     /**
@@ -55,7 +58,7 @@ class IndexController extends BaseGuestController
      */
     public function contact(): View
     {
-        return view(themedTemplate('guest.contact'));
+        return view('guest.contact');
     }
 
 
@@ -65,11 +68,11 @@ class IndexController extends BaseGuestController
      * @param MessageStoreRequest $messageStoreRequest
      * @return RedirectResponse
      */
-    public function storeContactMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
+    public function storeContactMessage(MessageStoreRequest $messageStoreRequest): View
     {
         new Message()->create($messageStoreRequest->validated());
 
-        return redirect(route('guest.index'))
+        return redirect(route('guest.contact'))
             ->with('success', 'Your message has been sent. Thank you!.');
     }
 

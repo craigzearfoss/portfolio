@@ -8,6 +8,9 @@ use App\Models\System\Resource;
 use App\Services\PermissionService;
 use Illuminate\Support\Facades\Route;
 
+/**
+ *
+ */
 class BaseAdminController extends BaseController
 {
     public function __construct(PermissionService $permissionService)

@@ -27,12 +27,15 @@ class PhotographyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $photos = new Photography()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all photos
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $photos = new Photography()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' photography';
+        $pageTitle = ($owner->name  ?? '') . ' photography';
 
         return view('admin.portfolio.photography.index', compact('photos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

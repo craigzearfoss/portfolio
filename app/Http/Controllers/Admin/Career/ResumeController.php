@@ -32,7 +32,10 @@ class ResumeController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $query = new Resume()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all resumes
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $query = new Resume()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('name', 'desc');
 
@@ -43,7 +46,7 @@ class ResumeController extends BaseAdminController
 
         $resumes = $query->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' resumes';
+        $pageTitle = ($owner->name  ?? '') . ' resumes';
 
         return view('admin.career.resume.index', compact('resumes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

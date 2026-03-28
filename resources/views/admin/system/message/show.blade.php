@@ -33,7 +33,7 @@
 @section('content')
 
     <div class="floating-div-container">
-        <div class="show-container card floating-div">
+        <div class="show-container card floating-div" style="width: 40rem;">
 
             <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
                 @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
@@ -42,6 +42,11 @@
             @include('admin.components.show-row', [
                 'name'  => 'id',
                 'value' => $message->id
+            ])
+
+            @include('admin.components.show-row-checkmark', [
+                'name'    => 'from admin',
+                'checked' => $message->from_admin
             ])
 
             @include('admin.components.show-row', [

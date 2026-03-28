@@ -29,6 +29,7 @@ class UpdateMessagesRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'from_admin'  => ['integer', 'between:0,1'],
             'name'        => ['filled', 'string', 'max:255'],
             'email'       => ['filled', 'email:rfc,dns', 'max:255'],
             'subject'     => ['filled', 'string', 'max:500'],

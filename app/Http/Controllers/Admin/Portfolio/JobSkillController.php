@@ -7,7 +7,6 @@ use App\Http\Requests\Portfolio\StoreJobSkillsRequest;
 use App\Http\Requests\Portfolio\UpdateJobSkillsRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobSkill;
-use App\Models\System\Owner;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -29,14 +28,17 @@ class JobSkillController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        // by default, root admins display all job skills
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
         $jobSkillModel = new JobSkill();
 
         $job = null;
-        $jobSkills = $jobSkillModel->searchQuery(request()->except('id'), $this->owner ?? null)
+        $jobSkills = $jobSkillModel->searchQuery(request()->except('id'), $owner)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($this->owner->name  ?? '') . ' job skills';
+        $pageTitle = ($owner->name  ?? '') . ' job skills';
 
         return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

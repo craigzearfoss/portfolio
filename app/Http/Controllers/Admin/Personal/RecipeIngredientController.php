@@ -28,14 +28,17 @@ class RecipeIngredientController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipeIngredients = new RecipeIngredient()->searchQuery(request()->except('id'), $this->owner ?? null)
+        // by default, root admins display all recipe ingredients
+        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
+
+        $recipeIngredients = new RecipeIngredient()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
             ->orderBy('recipe_id')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null;
 
-        $pageTitle = ($this->owner->name  ?? '') . ' recipe ingredients';
+        $pageTitle = ($owner->name  ?? '') . ' recipe ingredients';
 
         return view('admin.personal.recipe-ingredient.index', compact('recipeIngredients', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
