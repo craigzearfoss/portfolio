@@ -33,9 +33,11 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.system-owner', [ 'action' => route('admin.portfolio.art.index') ])
-    @endif
+    @include('admin.components.search-panel.portfolio-art',
+        [ 'action'     => route('admin.portfolio.art.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

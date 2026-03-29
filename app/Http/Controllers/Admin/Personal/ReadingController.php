@@ -39,9 +39,7 @@ class ReadingController extends BaseAdminController
 
         $pageTitle = ($owner->name  ?? '') . ' readings';
 
-        $searchTitleValue = $request->query('title');
-
-        return view('admin.personal.reading.index', compact('readings', 'pageTitle', 'searchTitleValue'))
+        return view('admin.personal.reading.index', compact('readings', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

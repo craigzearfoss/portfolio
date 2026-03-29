@@ -222,8 +222,8 @@ class Publication extends Model
             ->when(!empty($filters['textbook']), function ($query) use ($filters) {
                 $query->where('textbook', '=', true);
             })
-            ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['title'] . '%');
+            ->when(!empty($filters['search_title']), function ($query) use ($filters) {
+                $query->where('title', 'like', '%' . $filters['search_title'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);

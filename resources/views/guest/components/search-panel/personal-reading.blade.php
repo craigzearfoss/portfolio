@@ -2,14 +2,14 @@
     use App\Models\Personal\Reading;
     use App\Models\System\Admin;
 
-    $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $audio            = $audio ?? request()->query('audio');
-    $author           = $author ?? request()->query('author');
-    $fiction          = $fiction ?? request()->query('fiction');
-    $nonfiction       = $nonfiction ?? request()->query('nonfiction');
-    $paper            = $paper ?? request()->query('paper');
-    $searchTitleValue = $searchTitleValue ?? request()->query('searchTitleValue');
-    $wishlist         = $wishlist ?? request()->query('wishlist');
+    $owner_id           = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $audio              = $audio ?? request()->query('audio');
+    $author             = $author ?? request()->query('author');
+    $fiction            = $fiction ?? request()->query('fiction');
+    $nonfiction         = $nonfiction ?? request()->query('nonfiction');
+    $paper              = $paper ?? request()->query('paper');
+    $search_title_value = $search_title_value ?? request()->query('search_title_value');
+    $wishlist           = $wishlist ?? request()->query('wishlist');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -31,7 +31,7 @@
                             <div class="control" style="max-width: 28rem;">
                                 @include('guest.components.form-select', [
                                     'name'     => 'title',
-                                    'value'    => $searchTitleValue,
+                                    'value'    => $search_title_value,
                                     'list'     => new Reading()->listOptions(
                                         !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
                                         'title',

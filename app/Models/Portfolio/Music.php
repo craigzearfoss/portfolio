@@ -128,8 +128,8 @@ class Music extends Model
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where('featured', '=', true);
             })
-            ->when(!empty($filters['label']), function ($query) use ($filters) {
-                $query->where('label', 'like', '%' . $filters['label'] . '%');
+            ->when(!empty($filters['search_label']), function ($query) use ($filters) {
+                $query->where('label', 'like', '%' . $filters['search_label'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where('notes', 'like', '%' . $filters['notes'] . '%');

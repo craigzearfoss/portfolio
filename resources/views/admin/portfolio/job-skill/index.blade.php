@@ -31,7 +31,11 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.career-job-child', [ 'action' => route('admin.portfolio.job-skill.index') ])
+    @include('admin.components.search-panel.portfolio-job-skill',
+        [ 'action'     => route('admin.portfolio.job-skill.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

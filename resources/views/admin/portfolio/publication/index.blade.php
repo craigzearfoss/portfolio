@@ -30,9 +30,11 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.system-owner', [ 'action' => route('admin.portfolio.publication.index') ])
-    @endif
+    @include('admin.components.search-panel.portfolio-publication',
+        [ 'action'     => route('admin.portfolio.publication.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
@@ -52,7 +54,7 @@
                             <th>owner</th>
                         @endif
                         <th>title</th>
-                        <th>publication<br>name</th>
+                        <th>publication</th>
                         <th>publisher</th>
                         <th class="has-text-centered">year</th>
                         <th class="has-text-centered">public</th>
@@ -69,7 +71,7 @@
                             <th>owner</th>
                         @endif
                         <th>title</th>
-                        <th>publication<br>name</th>
+                        <th>publication</th>
                         <th>publisher</th>
                         <th class="has-text-centered">year</th>
                         <th class="has-text-centered">public</th>

@@ -30,9 +30,11 @@
 
 @section('content')
 
-    @if($isRootAdmin)
-        @include('admin.components.search-panel.system-owner', [ 'action' => route('admin.portfolio.skill.index') ])
-    @endif
+    @include('admin.components.search-panel.portfolio-skill',
+        [ 'action'     => route('admin.portfolio.skill.index'),
+          'owner_id'   => $isRootAdmin ? null : $owner->id,
+        ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
@@ -86,11 +88,12 @@
                     <tr data-id="{{ $skill->id }}">
                         @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
-                                {{ $skill->owner->username ?? '' }}{!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                                {{ $skill->owner->username ?? '' }}
                             </td>
                         @endif
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') ?? '' !!}
+                            {!! !empty($skill->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="dictionary_category_id">
                              @if(!empty($skill->category->name))

@@ -10,7 +10,7 @@
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('guest.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index', ['owner_id'=>$owner->id]) ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index', $owner ? ['owner_id' => $owner->id] : []) ],
         [ 'name' => 'Schools' ]
     ];
 
@@ -24,19 +24,9 @@
 
 @section('content')
 
-    <div class="search-container card p-2">
-        <form id="searchForm" action="{!! route('admin.portfolio.school.index') !!}" method="get">
-            <div class="control">
-                @include('admin.components.form-select', [
-                    'name'     => 'state_id',
-                    'label'    => 'state',
-                    'value'    => Request::get('state_id'),
-                    'list'     => new State()->listOptions([], 'id', 'name', true, false, [ 'name', 'asc' ]),
-                    'onchange' => "document.getElementById('searchForm').submit()"
-                ])
-            </div>
-        </form>
-    </div>
+    @include('admin.components.search-panel.portfolio-school',
+        [ 'action' => route('admin.portfolio.school.index') ]
+    )
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">
