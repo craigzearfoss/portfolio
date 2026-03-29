@@ -226,7 +226,9 @@ class Publication extends Model
                 $query->where('title', 'like', '%' . $filters['title'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

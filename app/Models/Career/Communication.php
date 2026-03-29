@@ -130,7 +130,9 @@ class Communication extends Model
                 $query->where('date', '<=', $filters['date_to']);
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

@@ -181,7 +181,9 @@ class Video extends Model
                 $query->where('year', '=', intval($filters['year']));
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

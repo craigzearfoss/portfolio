@@ -101,7 +101,9 @@ class UserTeam extends Model
                 $query->where('user_id', '=', intval($filters['user_id']));
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

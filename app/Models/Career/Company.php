@@ -132,11 +132,12 @@ class Company extends Model
                 $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             });
 
-        $query =$this->appendAddressFilters($query, $filters);
-        $query =$this->appendPhoneFilters($query, $filters);
-        $query =$this->appendEmailFilters($query, $filters);
+        $query = $this->appendAddressFilters($query, $filters);
+        $query = $this->appendPhoneFilters($query, $filters);
+        $query = $this->appendEmailFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendStandardFilters($query, $filters);
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

@@ -112,7 +112,9 @@ class Event extends Model
                 $query->where('location', 'like', '%' . $filters['location'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

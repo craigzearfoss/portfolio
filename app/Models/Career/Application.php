@@ -365,10 +365,11 @@ class Application extends Model
                 $query->where('w2', '=', true);
             });
 
-        $query =$this->appendPhoneFilters($query, $filters);
-        $query =$this->appendEmailFilters($query, $filters);
+        $query = $this->appendPhoneFilters($query, $filters);
+        $query = $this->appendEmailFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendStandardFilters($query, $filters);
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

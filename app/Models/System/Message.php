@@ -97,6 +97,9 @@ class Message extends Model
                 $query->where('subject', 'like', '%' . $filters['subject'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters, false);
+        $query = $this->appendStandardFilters($query, $filters);
+        $query =  $this->appendTimestampFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 }

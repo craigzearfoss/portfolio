@@ -90,7 +90,9 @@ class AdminPhone extends Model
                 $query->where('phone', 'like', '%' . $filters['phone'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

@@ -91,7 +91,7 @@ class JobSearchLog extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
                 $query->where('id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where('owner_id', '=', intval($filters['owner_id']));
@@ -132,6 +132,8 @@ class JobSearchLog extends Model
             ->when(!empty($filters['time_logged']), function ($query) use ($filters) {
                 $query->where('time_logged', 'like', '%' . $filters['time_logged'] . '%');
             });
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
 

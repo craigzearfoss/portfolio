@@ -32,6 +32,13 @@
                         </div>
                     </div>
 
+                    <div class="floating-div">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
+                    </div>
+
                 </div>
 
                 <div class="has-text-right pr-2">

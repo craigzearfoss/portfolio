@@ -102,7 +102,9 @@ class Certification extends Model
                 $query->where('organization', 'like', '%' . $filters['organization'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

@@ -145,7 +145,9 @@ class Reading extends Model
                 $query->where('wishlist', '=', true);
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

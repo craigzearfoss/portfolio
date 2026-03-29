@@ -196,9 +196,10 @@ class User extends Authenticatable
                 $query->where('user_team_id', '=', intval($filters['user_team_id']));
             });
 
-        $query =$this->appendAddressFilters($query, $filters);
+        $query = $this->appendAddressFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendStandardFilters($query, $filters);
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

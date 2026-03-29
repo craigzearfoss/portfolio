@@ -129,7 +129,9 @@ class Photography extends Model
                 $query->where('year', '=', intval(['year']));
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

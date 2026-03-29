@@ -223,8 +223,9 @@ class Owner extends Model
             });
 
         $query =$this->appendAddressFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendStandardFilters($query, $filters);
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

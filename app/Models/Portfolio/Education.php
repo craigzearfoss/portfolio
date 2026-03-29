@@ -152,7 +152,9 @@ class Education extends Model
                 $query->where('summary', 'like', '%' . $filters['summary'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

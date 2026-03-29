@@ -118,7 +118,9 @@ class JobBoard extends Model
                 $query->where('regional', '=', true);
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

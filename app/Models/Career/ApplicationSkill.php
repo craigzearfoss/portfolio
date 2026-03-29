@@ -126,7 +126,9 @@ class ApplicationSkill extends Model
                 $query->where('years', '=', intval($filters['years']));
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

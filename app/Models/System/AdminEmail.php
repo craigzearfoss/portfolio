@@ -90,7 +90,9 @@ class AdminEmail extends Model
                 $query->where('notes', 'like', '%' . $filters['notes'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

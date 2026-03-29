@@ -118,7 +118,9 @@ class RecipeIngredient extends Model
                 $query->where('unit_id', '=', intval($filters['unit_id']));
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

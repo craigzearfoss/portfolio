@@ -86,7 +86,9 @@ class AdminTeam extends Model
                 $query->where('description', 'like', '%' . $filters['description'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

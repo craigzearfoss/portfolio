@@ -122,8 +122,9 @@ class JobSkill extends Model
                 $query->where('type', '=', intval($filters['type']));
             });
 
+        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendStandardFilters($query, $filters);
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

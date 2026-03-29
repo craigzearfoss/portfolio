@@ -105,7 +105,9 @@ class UserGroup extends Model
                 $query->where('user_team_id', '=', intval($filters['user_team_id']));
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

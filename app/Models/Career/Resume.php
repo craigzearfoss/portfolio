@@ -252,7 +252,9 @@ class Resume extends Model
                 $query->where('primary', '=', true);
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

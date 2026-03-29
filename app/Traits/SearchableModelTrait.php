@@ -349,10 +349,9 @@ trait SearchableModelTrait
      *
      * @param Builder $query
      * @param array $filters
-     * @param bool $includeDemo
      * @return Builder
      */
-    public function appendPhoneFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    public function appendPhoneFilters(Builder $query, array $filters = []): Builder
     {
         $query->when(!empty($filters['phone']), function ($query) use ($filters) {
             $phone = $filters['phone'];
@@ -372,10 +371,9 @@ trait SearchableModelTrait
      *
      * @param Builder $query
      * @param array $filters
-     * @param bool $includeDemo
      * @return Builder
      */
-    public function appendStandardFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    public function appendStandardFilters(Builder $query, array $filters = []): Builder
     {
         $query->when(isset($filters['is_public']), function ($query) use ($filters) {
                 $query->where('is_public', '=', boolval(['is_public']));
@@ -389,15 +387,43 @@ trait SearchableModelTrait
             ->when(isset($filters['is_disabled']), function ($query) use ($filters) {
                 $query->where('is_disabled', '=', boolval(['is_disabled']));
             })
+            ->when(isset($filters['is_demo']), function ($query) use ($filters) {
+                $query->where('is_demo', '=', intval(['is_demo']));
+            })
             ->when(isset($filters['sequence']), function ($query) use ($filters) {
                 $query->where('sequence', '=', intval(['sequence']));
             });
 
-        if ($includeDemo) {
-           $query->when(isset($filters['is_demo']), function ($query) use ($filters) {
-                $query->where('is_demo', '=', intval(['is_demo']));
-            });
-        }
+        return $query;
+    }
+
+    /**
+     * Append timestamp column filters to a database query.
+     *
+     * @param Builder $query
+     * @param array $filters
+     * @return Builder
+     */
+    public function appendTimestampFilters(Builder $query, array $filters = []): Builder
+    {
+        $query->when(!empty($filters['created_at_from']), function ($query) use ($filters) {
+            $query->where('created_at', '>=', $filters['created_at_from']);
+        })
+        ->when(!empty($filters['created_at_to']), function ($query) use ($filters) {
+            $query->where('created_at', '<=', $filters['created_at_to']);
+        })
+        ->when(!empty($filters['deleted_at_from']), function ($query) use ($filters) {
+            $query->where('deleted_at', '>=', $filters['deleted_at_from']);
+        })
+        ->when(!empty($filters['deleted_at_to']), function ($query) use ($filters) {
+            $query->where('deleted_at', '<=', $filters['deleted_at_to']);
+        })
+        ->when(!empty($filters['updated_at_from']), function ($query) use ($filters) {
+            $query->where('updated_at', '>=', $filters['updated_at_from']);
+        })
+        ->when(!empty($filters['updated_at_to']), function ($query) use ($filters) {
+            $query->where('updated_at', '<=', $filters['updated_at_to']);
+        });
 
         return $query;
     }

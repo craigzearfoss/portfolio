@@ -124,6 +124,8 @@ class Server extends Model
                 $query->where('proprietary', '=', true);
             });
 
-        return $this->appendStandardFilters($query, $filters, false);
+        $query = $this->appendStandardFilters($query, $filters, false);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 }

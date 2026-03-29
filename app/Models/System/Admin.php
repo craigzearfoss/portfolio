@@ -228,9 +228,10 @@ class Admin extends Authenticatable
                 $query->where('username', 'like', '%' . $filters['username'] . '%');
             });
 
-        $query =$this->appendAddressFilters($query, $filters);
+        $query = $this->appendAddressFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendStandardFilters($query, $filters);
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

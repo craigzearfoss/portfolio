@@ -84,8 +84,9 @@ class Academy extends Model
         }
 
         $query = new self()->getSearchQuery($filters, $owner);
+        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendStandardFilters($query, $filters);
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

@@ -62,7 +62,7 @@ class ResourceSetting extends Model
     {
         $filters = $this->removeEmptyFilters($filters);
 
-        return new self()->getSearchQuery($filters, $owner)
+        $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
                 $query->where('resource_id', '=', intval($filters['resource_id']));
             })
@@ -72,6 +72,8 @@ class ResourceSetting extends Model
             ->when(!empty($filters['value']), function ($query) use ($filters) {
                 $query->where('value', 'like', '%' . $filters['value'] . '%');
             });
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

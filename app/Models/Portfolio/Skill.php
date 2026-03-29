@@ -166,7 +166,9 @@ class Skill extends Model
                 $query->where('years', '=', intval(['years']));
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

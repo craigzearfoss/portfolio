@@ -145,7 +145,9 @@ class Course extends Model
                 $query->where('year', '=', $filters['year']);
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

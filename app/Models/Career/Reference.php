@@ -173,7 +173,9 @@ class Reference extends Model
                 $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             });
 
-        return $this->appendStandardFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**

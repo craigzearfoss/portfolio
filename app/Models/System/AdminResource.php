@@ -202,8 +202,9 @@ class AdminResource extends Model
             });
 
         $query = $this->appendEnvironmentFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendStandardFilters($query, $filters);
+        return $this->appendTimestampFilters($query, $filters);
     }
 
     /**
