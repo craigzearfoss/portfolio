@@ -15,8 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class JobSkill extends Model
 {

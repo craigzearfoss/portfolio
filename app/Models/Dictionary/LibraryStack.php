@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class LibraryStack extends Pivot
 {

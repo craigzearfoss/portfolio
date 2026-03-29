@@ -15,8 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Route;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Database extends Model
 {

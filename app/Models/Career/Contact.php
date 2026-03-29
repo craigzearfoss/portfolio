@@ -20,8 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Contact extends Model
 {

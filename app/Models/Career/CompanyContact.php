@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class CompanyContact extends Model
 {

@@ -38,8 +38,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Owner extends Model
 {

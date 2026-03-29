@@ -33,9 +33,7 @@ return new class extends Migration
             $table->string('subject')->index('subject_idx');
             $table->string('to', 500)->nullable()->index('to_idx');
             $table->string('from', 500)->nullable()->index('from_idx');
-            $table->date('date')->nullable()->index('date_idx');
-            $table->time('time')->nullable();
-            $table->text('body')->nullable();
+            $table->dateTime('datetime')->nullable()->index('datetime_idx');
             $table->boolean('is_public')->default(false);
             $table->boolean('is_readonly')->default(false);
             $table->boolean('is_root')->default(false);
@@ -52,8 +50,7 @@ return new class extends Migration
             'application_id'        => null,
             'communication_type_id' => null,
             'subject'               => '',
-            'date'                  => '2025-10-10',
-            'time'                  => '01:00:00',
+            'datetime'              => '2025-10-10 01:00:00',
             'body'                  => '',
         ];
 

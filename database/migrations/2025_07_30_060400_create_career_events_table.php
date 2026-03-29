@@ -28,8 +28,7 @@ return new class extends Migration
                 ->constrained('applications', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->date('date')->nullable()->index('date_idx');
-            $table->time('time')->nullable();
+            $table->date('datetime')->nullable()->index('datetime_idx');
             $table->string('location')->nullable()->index('location_idx');
             $table->string('attendees', 500)->nullable()->index('attendees_idx');
             $table->text('description')->nullable();
@@ -48,8 +47,7 @@ return new class extends Migration
             'owner_id'       => null,
             'application_id' => null,
             'name'           => '',
-            'date'           => '2025-10-10',
-            'time'           => '01:00:00',
+            'datetime'       => '2025-10-10 01:00:00',
             'location'       => '',
             'description'    => '',
         ];

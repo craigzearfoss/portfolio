@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Library extends Model
 {

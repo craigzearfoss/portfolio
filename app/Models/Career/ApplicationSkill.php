@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class ApplicationSkill extends Model
 {

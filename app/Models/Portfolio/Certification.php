@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Certification extends Model
 {

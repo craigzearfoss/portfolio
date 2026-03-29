@@ -11,8 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Academy extends Model
 {

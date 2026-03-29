@@ -16,8 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Video extends Model
 {

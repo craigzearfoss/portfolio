@@ -19,8 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Reference extends Model
 {

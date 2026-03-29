@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Ingredient extends Model
 {
@@ -24,6 +23,9 @@ class Ingredient extends Model
      */
     protected $connection = 'personal_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'ingredients';
 
     /**
@@ -56,6 +58,9 @@ class Ingredient extends Model
     const array SEARCH_COLUMNS = [ 'id', 'full_name', 'name', 'description', 'is_public', 'is_readonly', 'is_root',
         'is_disabled', 'is_demo' ];
 
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**

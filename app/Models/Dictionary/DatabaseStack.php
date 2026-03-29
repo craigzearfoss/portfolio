@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class DatabaseStack extends Pivot
 {

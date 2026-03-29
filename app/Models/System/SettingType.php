@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class SettingType extends Model
 {
@@ -20,6 +19,9 @@ class SettingType extends Model
      */
     protected $connection = 'system_db';
 
+    /**
+     * @var string
+     */
     protected $table = 'setting_types';
 
     /**
@@ -37,5 +39,8 @@ class SettingType extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'name' ];
 
+    /**
+     *
+     */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 }
