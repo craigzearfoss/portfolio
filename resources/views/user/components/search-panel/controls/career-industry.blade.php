@@ -4,7 +4,7 @@
     $industry_id = $industry_id ?? request()->query('industry_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
-    @include('admin.components.form-select', [
+    @include('user.components.form-select', [
         'name'     => 'industry_id',
         'label'    => 'industry',
         'value'    => $industry_id,

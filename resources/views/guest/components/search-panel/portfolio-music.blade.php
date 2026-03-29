@@ -1,13 +1,13 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id    = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $city        = $city ?? request()->query('city');
-    $email       = $email ?? request()->query('email');
-    $name        = $name ?? request()->query('name');
-    $phone       = $phone ?? request()->query('phone');
-    $relation    = $relation ?? request()->query('relation');
-    $state_id    = $state_id ?? request()->query('state_id');
+    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $artist          = $artist ?? request()->query('artist');
+    $catalog_number  = $catalog_number ?? request()->query('catalog_number');
+    $search_label    = $search_label ?? request()->query('search_label');
+    $name            = $name ?? request()->query('name');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -19,13 +19,13 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
+                    <div class="floating-div">
+                        @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        </div>
-                    @endif
+                        @endif
+                    </div>
 
                     <div class="floating-div">
                         <div class="search-form-control">
@@ -36,22 +36,9 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-reference-relation', [ 'owner_id' => $owner_id ])
-                        </div>
-                    </div>
-
-                    <div class="floating-div">
-                        <div class="search-form-control">
                             @include('guest.components.input-basic', [
-                                'name'    => 'email',
-                                'value'   => $email,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-                        <div class="search-form-control">
-                            @include('guest.components.input-basic', [
-                                'name'    => 'phone',
-                                'value'   => $phone,
+                                'name'    => 'artist',
+                                'value'   => $artist,
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -60,14 +47,27 @@
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
-                                'name'    => 'city',
-                                'value'   => $city,
+                                'name'    => 'search_label',
+                                'label'   => 'label',
+                                'value'   => $search_label,
                                 'message' => $message ?? '',
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
+                            @include('guest.components.input-basic', [
+                                'name'    => 'catalog_number',
+                                'label'   => 'catalog number',
+                                'value'   => $catalog_number,
+                                'message' => $message ?? '',
+                            ])
                         </div>
+                    </div>
+
+                    <div class="floating-div">
+                        @include('guest.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

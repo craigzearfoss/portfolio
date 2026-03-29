@@ -10,7 +10,7 @@
     ];
 @endphp
 <div class="control" style="max-width: 28rem;">
-    @include('admin.components.form-select', [
+    @include('user.components.form-select', [
         'name'     => 'coverage',
         'label'    => 'coverage',
         'value'    => $coverage,

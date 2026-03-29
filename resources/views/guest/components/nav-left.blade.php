@@ -19,7 +19,7 @@
 
                 @if(Auth::guard('admin')->check() || !config('app.single_admin_mode'))
                     <span class="home-admin-button-separator"></span>
-                    @include('admin.components.button-home', [
+                    @include('guest.components.button-home', [
                         'name'     => 'Admin',
                         'href'     => route('admin.dashboard'),
                         'selected' => false,

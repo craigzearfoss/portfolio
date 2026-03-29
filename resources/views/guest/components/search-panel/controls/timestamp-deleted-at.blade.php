@@ -3,7 +3,7 @@
     $deleted_at_to   = $deleted_at_to ?? request()->query('deleted_at_to');
 @endphp
 <div class="search-form-control">
-    @include('admin.components.input-basic', [
+    @include('guest.components.input-basic', [
         'type'    => 'datetime-local',
         'name'    => 'deleted_at_from',
         'label'   => 'deleted from',
@@ -12,7 +12,7 @@
     ])
 </div>
 <div class="search-form-control">
-    @include('admin.components.input-basic', [
+    @include('guest.components.input-basic', [
         'type'    => 'datetime-local',
         'name'    => 'deleted_at_to',
         'label'   => 'deleted to',

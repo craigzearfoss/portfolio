@@ -4,7 +4,7 @@
     $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
 @endphp
 <div class="control" style="max-width: 28rem;">
-    @include('admin.components.form-select', [
+    @include('user.components.form-select', [
         'name'     => 'owner_id',
         'label'    => 'owner',
         'value'    => $owner_id,

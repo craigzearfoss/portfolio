@@ -3,7 +3,7 @@
     $updated_at_to   = $updated_at_to ?? request()->query('updated_at_to');
 @endphp
 <div class="search-form-control">
-    @include('admin.components.input-basic', [
+    @include('guest.components.input-basic', [
         'type'    => 'datetime-local',
         'name'    => 'updated_at_from',
         'label'   => 'updated from',
@@ -12,7 +12,7 @@
     ])
 </div>
 <div class="search-form-control">
-    @include('admin.components.input-basic', [
+    @include('guest.components.input-basic', [
         'type'    => 'datetime-local',
         'name'    => 'updated_at_to',
         'label'   => 'updated to',

@@ -1,12 +1,12 @@
 @php
     use App\Models\System\Admin;
 
-    $name            = $name ?? request()->query('name');
-    $email           = $email ?? request()->query('email');
-    $subject         = $subject ?? request()->query('subject');
-    $body            = $body ?? request()->query('body');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $publication_name = $publication_name ?? request()->query('publication_name');
+    $publisher        = $publisher ?? request()->query('publisher');
+    $search_title     = $search_title ?? request()->query('search_title');
+    $created_at_from  = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to    = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -19,17 +19,19 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="floating-div">
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-                        <div class="search-form-control">
-                            @include('user.components.input-basic', [
-                                'name'    => 'email',
-                                'value'   => $email,
+                                'name'    => 'search_title',
+                                'label'   => 'title',
+                                'value'   => $search_title,
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -38,15 +40,16 @@
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
-                                'name'    => 'subject',
-                                'value'   => $subject,
+                                'name'    => 'publication_name',
+                                'label'   => 'publication',
+                                'value'   => $publication_name,
                                 'message' => $message ?? '',
                             ])
                         </div>
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
-                                'name'    => 'body',
-                                'value'   => $body,
+                                'name'    => 'publisher',
+                                'value'   => $publisher,
                                 'message' => $message ?? '',
                             ])
                         </div>
@@ -67,7 +70,7 @@
                         'name' => 'Clear',
                     ])
                     @include('user.components.button-search', [
-                        'id' => 'performSearch',
+                        'id' =>'performSearch',
                     ])
                 </div>
 

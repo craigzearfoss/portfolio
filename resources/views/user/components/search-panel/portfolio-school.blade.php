@@ -1,12 +1,9 @@
 @php
     use App\Models\System\Admin;
 
-    $name            = $name ?? request()->query('name');
-    $email           = $email ?? request()->query('email');
-    $subject         = $subject ?? request()->query('subject');
-    $body            = $body ?? request()->query('body');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name     = $name ?? request()->query('name');
+    $city     = $city ?? request()->query('city');
+    $state_id = $state_id ?? request()->query('state_id');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -26,37 +23,21 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                        <div class="search-form-control">
-                            @include('user.components.input-basic', [
-                                'name'    => 'email',
-                                'value'   => $email,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
                     </div>
 
                     <div class="floating-div">
+                        <?php /* We don't currently have any cities in the portfolio.schools table.
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
-                                'name'    => 'subject',
-                                'value'   => $subject,
+                                'name'    => 'city',
+                                'value'   => $city,
                                 'message' => $message ?? '',
                             ])
                         </div>
+                        */ ?>
                         <div class="search-form-control">
-                            @include('user.components.input-basic', [
-                                'name'    => 'body',
-                                'value'   => $body,
-                                'message' => $message ?? '',
-                            ])
+                            @include('user.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
                         </div>
-                    </div>
-
-                    <div class="floating-div">
-                        @include('user.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
                     </div>
 
                 </div>
@@ -67,7 +48,7 @@
                         'name' => 'Clear',
                     ])
                     @include('user.components.button-search', [
-                        'id' => 'performSearch',
+                        'id' =>'performSearch',
                     ])
                 </div>
 

@@ -31,7 +31,7 @@
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
-                    @include('admin.components.button-search', [
+                    @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
                 </div>
