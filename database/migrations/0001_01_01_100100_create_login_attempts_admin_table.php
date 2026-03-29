@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('ip_address', 50)->nullable();
             $table->tinyInteger('success')->default(0);
             $table->timestamps();
+
+            $table->index(['created_at'], 'created_at_idx');
         });
     }
 

@@ -37,6 +37,8 @@ return new class extends Migration
             $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['created_at'], 'created_at_idx');
         });
 
         /*
