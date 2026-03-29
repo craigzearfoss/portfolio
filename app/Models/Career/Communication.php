@@ -45,8 +45,7 @@ class Communication extends Model
         'subject',
         'to',
         'from',
-        'date',
-        'time',
+        'datetime',
         'body',
         'is_public',
         'is_readonly',
@@ -60,12 +59,12 @@ class Communication extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'communication_type_id', 'subject', 'to',
-        'from', 'date', 'time', 'body', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'from', 'datetime', 'body', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'subject', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'datetime', 'desc' ];
 
     /**
      * @return void
@@ -120,14 +119,11 @@ class Communication extends Model
             ->when(!empty($filters['body']), function ($query) use ($filters) {
                 $query->where('body', 'like', '%' . $filters['body'] . '%');
             })
-            ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where('date', '=', $filters['date']);
+            ->when(!empty($filters['datetime_from']), function ($query) use ($filters) {
+                $query->where('datetime', '>=', $filters['datetime_from']);
             })
-            ->when(!empty($filters['date_from']), function ($query) use ($filters) {
-                $query->where('date', '>=', $filters['date_from']);
-            })
-            ->when(!empty($filters['date_to']), function ($query) use ($filters) {
-                $query->where('date', '<=', $filters['date_to']);
+            ->when(!empty($filters['datetime_to']), function ($query) use ($filters) {
+                $query->where('datetime', '<=', $filters['datetime_to']);
             });
 
         $query = $this->appendStandardFilters($query, $filters);

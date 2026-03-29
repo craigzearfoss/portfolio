@@ -31,6 +31,7 @@ return new class extends Migration
                 ->constrained('communication_types', 'id')
                 ->onDelete('cascade');
             $table->string('subject')->index('subject_idx');
+            $table->text('body')->nullable();
             $table->string('to', 500)->nullable()->index('to_idx');
             $table->string('from', 500)->nullable()->index('from_idx');
             $table->dateTime('datetime')->nullable()->index('datetime_idx');

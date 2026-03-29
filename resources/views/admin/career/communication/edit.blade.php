@@ -111,17 +111,11 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'    => 'date',
-                'name'    => 'date',
-                'value'   => old('date') ?? $communication->date,
+                'type'    => 'datetime-local',
+                'name'    => 'datetime',
+                'value'   => old('datetime') ?? $communication->datetime,
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'    => 'time',
-                'name'    => 'time',
-                'value'   => old('time') ?? $communication->time,
-                'message' => $message ?? '',
+                'style'   => 'width: 15rem;',
             ])
 
             @include('admin.components.form-textarea-horizontal', [

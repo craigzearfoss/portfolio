@@ -1,13 +1,13 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id    = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $attendees   = $attendees ?? request()->query('attendees');
-    $date_from   = $date_from ?? request()->query('date_from');
-    $date_to     = $date_to ?? request()->query('date_to');
-    $description = $description ?? request()->query('description');
-    $name        = $name ?? request()->query('name');
-    $location    = $location ?? request()->query('location');
+    $owner_id      = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $attendees     = $attendees ?? request()->query('attendees');
+    $datetime_from = $datetime_from ?? request()->query('datetime_from');
+    $datetime_to   = $datetime_to ?? request()->query('datetime_to');
+    $description   = $description ?? request()->query('description');
+    $name          = $name ?? request()->query('name');
+    $location      = $location ?? request()->query('location');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -19,13 +19,16 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
+                    <div class="floating-div">
+                        @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        </div>
-                    @endif
+                        @endif
+                    </div>
+                    <div class="search-form-control">
+                        @include('admin.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                    </div>
 
                     <div class="floating-div">
                         <div class="search-form-control">
@@ -64,17 +67,19 @@
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
-                                'name'    => 'from_date',
+                                'type'    => 'date',
+                                'name'    => 'datetime_from',
                                 'label'   => 'from date',
-                                'value'   => $date_from,
+                                'value'   => $datetime_from,
                                 'message' => $message ?? '',
                             ])
                         </div>
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
-                                'name'    => 'to_date',
+                                'type'    => 'date',
+                                'name'    => 'datetime_to',
                                 'label'   => 'to date',
-                                'value'   => $date_to,
+                                'value'   => $datetime_to,
                                 'message' => $message ?? '',
                             ])
                         </div>

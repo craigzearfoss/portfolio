@@ -61,8 +61,7 @@
                             <th>application</th>
                         @endif
                         <th>name</th>
-                        <th>date</th>
-                        <th>time</th>
+                        <th>datetime</th>
                         <th>location</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
@@ -81,8 +80,7 @@
                             <th>application</th>
                         @endif
                         <th>name</th>
-                        <th>date</th>
-                        <th>time</th>
+                        <th>datetime</th>
                         <th>location</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
@@ -115,10 +113,7 @@
                             {!! $event->name !!}
                         </td>
                         <td data-field="date" style="white-space: nowrap;">
-                            {{ shortDate($event->date) }}
-                        </td>
-                        <td data-field="time" style="white-space: nowrap;">
-                            {!! $event->time !!}
+                            {{ shortDateTime($event->datetime) }}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
                             {!! $event->location !!}
@@ -185,7 +180,7 @@
 
                     <tr>
                         @php
-                            $colspan = $isRootAdmin ? '8' : '7';
+                            $colspan = $isRootAdmin ? '7' : '6';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
                         <td colspan="{{ $colspan }}">No events found.</td>

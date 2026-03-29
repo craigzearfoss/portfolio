@@ -42,8 +42,7 @@ class Event extends Model
         'owner_id',
         'application_id',
         'name',
-        'date',
-        'time',
+        'datetime',
         'location',
         'attendees',
         'description',
@@ -58,13 +57,13 @@ class Event extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'date', 'time', 'location', 'attendees',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'datetime', 'location', 'attendees',
         'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'subject', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'datetime', 'desc' ];
 
     /**
      * @return void
@@ -95,14 +94,11 @@ class Event extends Model
             ->when(!empty($filters['attendees']), function ($query) use ($filters) {
                 $query->where('attendees', 'like', '%' . $filters['attendees'] . '%');
             })
-            ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where('date', '=', $filters['date']);
+            ->when(!empty($filters['datetime_from']), function ($query) use ($filters) {
+                $query->where('datetime', '>=', $filters['datetime_from']);
             })
-            ->when(!empty($filters['date_from']), function ($query) use ($filters) {
-                $query->where('date', '>=', $filters['date_from']);
-            })
-            ->when(!empty($filters['date_to']), function ($query) use ($filters) {
-                $query->where('date', '<=', $filters['date_to']);
+            ->when(!empty($filters['datetime_to']), function ($query) use ($filters) {
+                $query->where('datetime', '<=', $filters['datetime_to']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where('description', 'like', '%' . $filters['description'] . '%');

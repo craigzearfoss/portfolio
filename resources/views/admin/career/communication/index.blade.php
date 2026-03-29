@@ -61,8 +61,7 @@
                         @endif
                         <th>type</th>
                         <th>subject</th>
-                        <th>date</th>
-                        <th>time</th>
+                        <th>datetime</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -79,8 +78,7 @@
                         @endif
                         <th>type</th>
                         <th>subject</th>
-                        <th>date</th>
-                        <th>time</th>
+                        <th>datetime</th>
                         <th>actions</th>
                     </tr>
                     </tfoot>
@@ -113,10 +111,7 @@
                             {!! $communication->subject !!}
                         </td>
                         <td data-field="date" style="white-space: nowrap;">
-                            {{ shortDate($communication->date) }}
-                        </td>
-                        <td data-field="time" style="white-space: nowrap;">
-                            {!! $communication->time !!}
+                            {{ shortDateTime($communication->datetime) }}
                         </td>
                         <td class="is-1">
 
@@ -190,7 +185,7 @@
 
                     <tr>
                         @php
-                            $colspan = $admin->is_root ? '6' : '5';
+                            $colspan = $admin->is_root ? '5' : '4';
                             if (!empty($application)) $colspan = $colspan++;
                         @endphp
                         <td colspan="{{ $colspan }}">No communications found.</td>

@@ -33,7 +33,7 @@ class CommunicationController extends BaseAdminController
 
         $communications = new Communication()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
-            ->orderBy('date', 'desc')
+            ->orderBy('datetime', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
@@ -107,7 +107,7 @@ class CommunicationController extends BaseAdminController
             $communication['id'],
             'admin.career.communication.show',
             $this->owner ?? null,
-            [ 'date', 'asc' ]
+            [ 'datetime', 'desc' ]
         );
 
         return view('admin.career.communication.show', compact('communication', 'prev', 'next'));

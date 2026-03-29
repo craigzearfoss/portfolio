@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
+use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -38,8 +39,7 @@ class StoreCommunicationsRequest extends FormRequest
             'subject'               => ['required', 'string', 'max:255'],
             'to'                    => ['string', 'max:500', 'nullable'],
             'from'                  => ['string', 'max:500', 'nullable'],
-            'date'                  => ['date_format:Y-m-d', 'nullable'],
-            'time'                  => ['date_format:H:i:s', 'nullable'],
+            'datetime'              => ['date _format:Y-m-d H:i:s', 'nullable'],
             'body'                  => ['nullable'],
             'is_public'             => ['integer', 'between:0,1'],
             'is_readonly'           => ['integer', 'between:0,1'],
@@ -70,19 +70,11 @@ class StoreCommunicationsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws \DateMalformedStringException
      */
     public function prepareForValidation(): void
     {
-        if (!empty($this->time)) {
-            $this->merge([
-                'time' => $this->time . ':00',
-            ]);
-        }
-
-        if (!empty($this->time) && (substr_count($this->time, ':') === 3)) {
-            // remove milliseconds part of time
-            $lastPos = strrpos($this->time, ':');
-            $this->merge(['time' => substr($this->time, 0, $lastPos)]);
-        }
+        $datetime = new DateTime($this['datetime']);
+        $this['datetime'] = $datetime->format('Y-m-d H:i:s');
     }
 }

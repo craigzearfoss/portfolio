@@ -33,7 +33,7 @@ class EventController extends BaseAdminController
 
         $events = new Event()->searchQuery(request()->except('id'), $owner)
             ->orderBy('owner_id')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('datetime', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
@@ -107,7 +107,7 @@ class EventController extends BaseAdminController
             $event['id'],
             'admin.career.event.show',
             $this->owner ?? null,
-            [ 'date', 'asc' ]
+            [ 'datetime', 'desc' ]
         );
 
         return view('admin.career.event.show', compact('event', 'prev', 'next'));

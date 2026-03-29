@@ -87,17 +87,11 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'    => 'date',
-                'name'    => 'date',
-                'value'   => old('date') ?? $event->date,
+                'type'    => 'datetime-local',
+                'name'    => 'datetime',
+                'value'   => old('datetime') ?? $event->datetime,
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'    => 'time',
-                'name'    => 'time',
-                'value'   => old('time') ?? $event->time,
-                'message' => $message ?? '',
+                'style'   => 'width: 15rem;',
             ])
 
             @include('admin.components.form-input-horizontal', [

@@ -93,13 +93,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'date',
-            'value' => longDate($communication->date)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'time',
-            'value' => !empty($communication->time) ? date("g:i a", strtotime($communication->time)) : ''
+            'name'  => 'datetime',
+            'value' => longDateTime($communication->datetime)
         ])
 
         @include('admin.components.show-row', [

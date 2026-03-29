@@ -114,7 +114,7 @@ class Application extends Model
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'apply_date', 'desc' ];
+    const array SEARCH_ORDER_BY = [ 'company_name', 'asc' ];
 
     /**
      * @return void
@@ -173,7 +173,7 @@ class Application extends Model
         }
 
         // set the order by
-        $sortColumn = $orderBy[0] ?? $this->table . '.' . self::SEARCH_ORDER_BY[0];
+        $sortColumn = $orderBy[0] ?? self::SEARCH_ORDER_BY[0];
         if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
             $selectColumns[] = $sortColumn;
         }
