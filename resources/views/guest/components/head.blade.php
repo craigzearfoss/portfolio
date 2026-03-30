@@ -6,7 +6,10 @@
     <meta property="og:url"         content="{{ $share_url ?? url()->current() }}" />
     <meta property="og:title"       content="{{ $title ?? config('app.name') }}" />
     <meta property="og:description" content="{{ config('app.name') }}" />
-    @if($shareImage = getShareImage())
+    @php
+        $shareImage = getShareImage();
+    @endphp
+    @if(Route::currentRouteName() == 'guest.index')
         <meta property="og:image" content="{{ $shareImage }}?{{ appTimestamp() }}" />
     @endif
     @if($fb_app_id = config('app.facebook_app_id'))
