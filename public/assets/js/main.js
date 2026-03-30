@@ -14,8 +14,10 @@ function toggleHamburgerMenu() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.getElementById("performSearch").addEventListener("click", function(event){
-        document.getElementById("searchForm").submit();
-    });
+    if (document.getElementById("performSearch")) {
+        document.getElementById("performSearch").addEventListener("click", function (event) {
+            document.getElementById("searchForm").submit();
+        });
+    }
 
 });

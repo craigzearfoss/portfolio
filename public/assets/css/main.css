@@ -722,3 +722,15 @@ div.card.admin-preview div.admin-preview-text.no-flex {
     display: block;
     width: 100%;
 }
+
+/* social media share styles */
+#social-links {
+    font-size: 1.8rem;
+}
+#social-links ul {
+    display: flex;
+    list-style-type: none; /* Removes bullets */
+    padding: 0;
+    margin: 0;
+}
+
