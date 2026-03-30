@@ -996,3 +996,33 @@ if (! function_exists('filteredBreadcrumbs')) {
         return $filteredBreadcrumbs;
     }
 }
+
+if (! function_exists('getShareImage')) {
+    /**
+     * Returns the file for a social network share or null if one does not exist.
+     *
+     * @param string $site
+     * @return string|null
+     */
+    function getShareImage(string $site): string|null
+    {
+        // determine the file name
+        $fileName = config('app.url');
+        $pos = strrpos($fileName, "/");
+        if ($pos !== false) {
+            $fileName = substr($fileName, $pos + 1);
+        }
+        $fileName = $site . '-' . $fileName . '.png';
+
+        $imageFile = base_path()
+            . DIRECTORY_SEPARATOR . 'public'
+            . DIRECTORY_SEPARATOR.'share-images'
+            . DIRECTORY_SEPARATOR . $fileName;
+
+        if (!file_exists($imageFile)) {
+            return null;
+        } else {
+            return $imageFile;
+        }
+    }
+}

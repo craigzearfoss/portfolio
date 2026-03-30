@@ -3,11 +3,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta property="og:url"                content="{{ $share_url ?? url()->current() }}" />
-    <meta property="og:title"              content="{{ $title ?? config('app.name') }}" />
-    <meta property="og:description"        content="{{ config('app.name') }}" />
-    <meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
-    <meta property="fb:app_id"             content="{{ config('app.facebook_app_id') }}" />
+    <meta property="og:url"         content="{{ $share_url ?? url()->current() }}" />
+    <meta property="og:title"       content="{{ $title ?? config('app.name') }}" />
+    <meta property="og:description" content="{{ config('app.name') }}" />
+    @if($shareImage = getShareImage('facebook'))
+        <meta property="og:image" content="{{ $shareImage }}" />
+    @endif
+    @if($fb_app_id = config('app.facebook_app_id'))
+
+        <meta property="fb:app_id" content="{{ $fb_app_id }}" />
+    @endif
 
     <link rel="shortcut icon" href="{{ asset('images/site/favicon.ico') }}">
     <title>
