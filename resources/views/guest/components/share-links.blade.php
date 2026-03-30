@@ -1,5 +1,5 @@
 @php
-    $preview_image = $preview_image ?? 'default.png';
+    $preview_image = $preview_image ?? 'default.png';dd(getShareImage($preview_image));
 @endphp
 @if($previewImage = getShareImage($preview_image))
     <div style="width: 0; height: 0;">
