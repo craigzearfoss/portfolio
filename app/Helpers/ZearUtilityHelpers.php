@@ -1016,6 +1016,7 @@ if (! function_exists('getShareImage')) {
 
         $imageFile = base_path()
             . DIRECTORY_SEPARATOR . 'public'
+            . DIRECTORY_SEPARATOR.'images'
             . DIRECTORY_SEPARATOR.'share-images'
             . DIRECTORY_SEPARATOR . $fileName;
 
