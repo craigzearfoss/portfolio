@@ -20,7 +20,7 @@
 @include('guest.components.head')
 
 <body>
-
+@php dd(Route::currentRouteName(), 'guest.index', !config('app.single_admin_mode')); @endphp
     @if((Route::currentRouteName() == 'guest.index') && !config('app.single_admin_mode'))
         @include('guest.components.share-links', [ 'preview_image' => 'default.png' ])
     @endif
