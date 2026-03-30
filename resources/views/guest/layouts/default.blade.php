@@ -20,9 +20,12 @@
 @include('guest.components.head')
 
 <body>
-<div style="position: absolute; top: 2em; left: 2em;">
 
-</div>
+    <div style="display: none;">
+        <h1 class="title">Hello World!</h1>
+        <img src="{{ config('app.url') }}/images/share-images/facebook-demo.zearfoss.com.png" alt="{{ config('app.name') }} preview image">
+    </div>
+
     <div id="app">
 
         @include('guest.components.nav-top', [

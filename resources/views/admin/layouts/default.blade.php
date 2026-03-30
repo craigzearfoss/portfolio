@@ -26,11 +26,6 @@
 
     <div id="app">
 
-        <div style="display: none;">
-            <h1 class="title">Hello World!</h1>
-            <img src="{{ config('app.url') }}/images/share-images/facebook-demo.zearfoss.com.png" alt="{{ config('app.name') }} preview image">
-        </div>
-
         @include('admin.components.nav-top', [
             'menuService' => $menuService,
             'admin'       => $admin,
