@@ -21,7 +21,7 @@
 
 <body>
 
-    @if((url()->current() == config('app.url')) && !config('app.single_admin_mode'))
+    @if((Route::currentRouteName() == config('guest.index')) && !config('app.single_admin_mode'))
         @include('guest.components.share-links', [ 'preview_image' => 'default.png' ])
     @endif
 
