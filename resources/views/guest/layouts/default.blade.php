@@ -21,11 +21,11 @@
 
 <body>
 
-    @if((Route::currentRouteName() == 'guest.index') && !config('app.single_admin_mode'))
-        @include('guest.components.share-links', [ 'preview_image' => 'default.png' ])
-    @endif
-
     <div id="app">
+
+        @if((Route::currentRouteName() == 'guest.index') && !config('app.single_admin_mode'))
+            @include('guest.components.share-links', [ 'preview_image' => 'default.png' ])
+        @endif
 
         @include('guest.components.nav-top', [
             'menuService' => $menuService,
