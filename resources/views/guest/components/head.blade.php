@@ -3,17 +3,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta property="og:url"         content="{{ $share_url ?? url()->current() }}" />
-    <meta property="og:title"       content="{{ $title ?? config('app.name') }}" />
-    <meta property="og:description" content="{{ config('app.name') }}" />
     @php
         $shareImage = getShareImage();
     @endphp
+    <meta property="og:url"         content="{{ $share_url ?? url()->current() }}" />
+    <meta property="og:title"       content="{{ $title ?? config('app.name') }}" />
     @if(Route::currentRouteName() == 'guest.index')
         <meta property="og:image" content="{{ $shareImage }}?{{ appTimestamp() }}" />
+        <meta property="og:description" content="{{ config('app.name') }} is a site to track your job search and manage your career information." />
     @endif
     @if($fb_app_id = config('app.facebook_app_id'))
-
         <meta property="fb:app_id" content="{{ $fb_app_id }}" />
     @endif
 
