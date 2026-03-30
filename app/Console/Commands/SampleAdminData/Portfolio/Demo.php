@@ -167,7 +167,7 @@ class Demo extends Command
             [
                 'name'           => 'unnamed acrylic painting',
                 'artist'         => 'Laird Dixon',
-                'slug'           => 'former-painting-from-cats-cradle-by-by-laird-dixon',
+                'slug'           => 'former-painting-from-cats-cradle-by-laird-dixon',
                 'summary'        => null,
                 'year'           => 1992,
                 'featured'       => 1,

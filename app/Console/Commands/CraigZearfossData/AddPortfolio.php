@@ -167,7 +167,7 @@ class AddPortfolio extends Command
             [
                 'name'        => 'unnamed acrylic painting',
                 'artist'      => 'Laird Dixon',
-                'slug'        => 'former-painting-from-cats-cradle-by-by-laird-dixon',
+                'slug'        => 'former-painting-from-cats-cradle-by-laird-dixon',
                 'summary'     => 'I purchased this unique painting from Chapel Hill, NC artist Laird Dixon shortly after the release of his band Zen Frisbee\'s debut 1994 CD I\'m As Mad as Faust</i>.',
                 'year'        => 1992,
                 'featured'    => 1,
