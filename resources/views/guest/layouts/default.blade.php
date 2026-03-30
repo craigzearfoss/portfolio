@@ -21,11 +21,8 @@
 
 <body>
 
-    <?php /* add social media preview image for the home page. */ ?>
     @if((url()->current() == config('app.url')) && !config('app.single_admin_mode'))
-        <div style="width: 0; height: 0;">
-            <img src="{{ getShareImage('default.png') }}" alt="{{ config('app.name') }} preview image" />
-        </div>
+        @include('guest.components.share-links', [ 'preview_image' => 'default.png' ])
     @endif
 
     <div id="app">
