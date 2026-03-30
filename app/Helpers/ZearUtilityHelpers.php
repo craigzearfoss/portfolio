@@ -999,31 +999,22 @@ if (! function_exists('filteredBreadcrumbs')) {
 
 if (! function_exists('getShareImage')) {
     /**
-     * Returns the file for a social network share or null if one does not exist.
+     * Returns the url for the preview image file for a social network share or null if one does
      *
-     * @param string $site
+     * @param string $filename
      * @return string|null
      */
-    function getShareImage(string $site): string|null
+    function getShareImage(string $filename = 'default.png'): string|null
     {
-        // determine the file name
-        $fileName = config('app.url');
-        $pos = strrpos($fileName, "/");
-        if ($pos !== false) {
-            $fileName = substr($fileName, $pos + 1);
-        }
-        $fileName = $site . '-' . $fileName . '.png';
-
         $imageFile = base_path()
             . DIRECTORY_SEPARATOR . 'public'
-            . DIRECTORY_SEPARATOR.'images'
             . DIRECTORY_SEPARATOR.'share-images'
-            . DIRECTORY_SEPARATOR . $fileName;
+            . DIRECTORY_SEPARATOR . $filename;
 
         if (!file_exists($imageFile)) {
             return null;
         } else {
-            return $imageFile;
+            return config('app.url') . '/' . $imageFile;
         }
     }
 }

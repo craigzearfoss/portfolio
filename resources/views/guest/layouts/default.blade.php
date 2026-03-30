@@ -21,10 +21,12 @@
 
 <body>
 
-    <div style="width: 0; height: 0;">
-        <h1 class="title">Hello World!</h1>
-        <img src="{{ config('app.url') }}/images/share-images/facebook-demo.zearfoss.com.png" alt="{{ config('app.name') }} preview image">
-    </div>
+    <?php /* add social media preview image for the home page. */ ?>
+    @if((url()->current() == config('app.url')) && !config('app.single_admin_mode'))
+        <div style="width: 0; height: 0;">
+            <img src="{{ getShareImage('default.png') }}" alt="{{ config('app.name') }} preview image" />
+        </div>
+    @endif
 
     <div id="app">
 
