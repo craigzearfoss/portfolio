@@ -21,7 +21,7 @@
 
 <body>
 
-    <div style="display: none;">
+    <div style="width: 0; height: 0;">
         <h1 class="title">Hello World!</h1>
         <img src="{{ config('app.url') }}/images/share-images/facebook-demo.zearfoss.com.png" alt="{{ config('app.name') }} preview image">
     </div>
