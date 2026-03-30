@@ -1014,7 +1014,7 @@ if (! function_exists('getShareImage')) {
         if (!file_exists($imageFile)) {
             return null;
         } else {
-            return config('app.url') . '/' . $imageFile;
+            return rtrim(config('app.url'), '/') . '/' . $imageFile;
         }
     }
 }
