@@ -29,10 +29,9 @@
                                                              ])->render();
     }
     if (canUpdate($thisAdmin, $admin)) {
-        $navButtons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
-                                                           'icon'=>'fa-key',
-                                                           'href' => route('admin.system.admin.change-password', $thisAdmin)
-                                                         ])->render();
+        $navButtons[] = view('admin.components.nav-button-change-password', [ 'name' => 'Change Password',
+                                                                              'href' => route('admin.system.admin.change-password', $thisAdmin)
+                                                                            ])->render();
     }
     $navButtons[] = view('admin.components.nav-button-back', [ 'href' => referer('admin.system.admin.index', $thisAdmin) ])->render();
 @endphp

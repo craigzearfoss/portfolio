@@ -16,10 +16,9 @@
     // set navigation buttons
     $navButtons = [];
     if (canUpdate($thisUser, $admin)) {
-        $navButtons[] = view('admin.components.nav-button', [ 'name' => 'Change Password',
-                                                           'icon'=>'fa-key',
-                                                           'href' => route('admin.system.user.change-password', $thisUser)
-                                                         ])->render();
+        $navButtons[] = view('admin.components.nav-button-change-password', [ 'name' => 'Change Password',
+                                                                              'href' => route('admin.system.user.change-password', $thisUser)
+                                                                            ])->render();
         $navButtons[] = view('admin.components.nav-button-edit', [ 'href' => route('admin.system.user.edit', $thisUser) ])->render();
     }
     if (canCreate($thisUser, $admin)) {
