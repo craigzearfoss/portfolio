@@ -40,6 +40,7 @@ return [
     'demo_mode'               => boolval(env('APP_DEMO_MODE', false)),
     'demo_site_url'           => env('APP_DEMO_SITE_URL'),
     'demo_single_site_url'    => env('APP_DEMO_SINGLE_SITE_URL'),
+    'demo_user_can_edit'      => boolval(env('APP_DEMO_USER_CAN_EDIT', false)),
     'demo_user_enabled'       => boolval(env('APP_DEMO_USER_ENABLED', false)),
     'demo_user_password'      => env('APP_DEMO_USER_PASSWORD', ''),
     'demo_user_username'      => env('APP_DEMO_USER_USERNAME', ''),
