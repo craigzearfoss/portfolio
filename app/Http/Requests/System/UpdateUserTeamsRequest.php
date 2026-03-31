@@ -3,6 +3,7 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -33,9 +34,14 @@ class UpdateUserTeamsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$userId = $this['user_id']) {
+            throw new Exception('No user_id specified.');
+        }
+
         return [
             'user_id'      => ['filled', 'integer', 'exists:system_db.users,id'],
             'name'         => [
@@ -43,10 +49,10 @@ class UpdateUserTeamsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name)
-                        ->whereNot('id', $this->user_team->id);
+                Rule::unique('system_db.user_teams', 'name')->where(function ($query) use ($userId) {
+                    return $query->where('user_id', $userId)
+                        ->where('name', $this['name'])
+                        ->whereNot('id', $this['user_team']['id']);
                 })
             ],
             'slug'          => [
@@ -54,20 +60,20 @@ class UpdateUserTeamsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug)
-                        ->whereNot('id', $this->user_team->id);
+                Rule::unique('system_db.user_teams', 'name')->where(function ($query) use ($userId) {
+                    return $query->where('user_id', $userId)
+                        ->where('slug', $this['slug'])
+                        ->whereNot('id', $this['user_team']['id']);
                 })
             ],
             'abbreviation'  => [
                 'filled',
                 'string',
                 'max:20',
-                Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('abbreviation', $this->abbreviation)
-                        ->whereNot('id', $this->user_team->id);
+                Rule::unique('system_db.user_teams', 'name')->where(function ($query) use ($userId) {
+                    return $query->where('user_id', $userId)
+                        ->where('abbreviation', $this['abbreviation'])
+                        ->whereNot('id', $this['user_team']['id']);
                 }),
                 'nullable',
             ],
@@ -104,13 +110,18 @@ class UpdateUserTeamsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     protected function prepareForValidation(): void
     {
+        if (!$userId = $this['user_id']) {
+            throw new Exception('No user_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.user_teams', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'system_db.user_teams', $userId)
             ]);
         }
     }

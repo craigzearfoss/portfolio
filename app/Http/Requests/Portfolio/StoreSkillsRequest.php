@@ -32,15 +32,19 @@ class StoreSkillsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'                => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'                    => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.skills', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                Rule::unique('portfolio_db.skills', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('name', $this['name']);
                 })
             ],
             'version'                 => ['string', 'max:20', 'nullable'],
@@ -49,17 +53,17 @@ class StoreSkillsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.skills', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('portfolio_db.skills', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'featured'                => ['integer', 'between:0,1'],
             'summary'                 => ['string', 'max:500', 'nullable'],
             'level'                   => ['integer', 'between:1,10', 'nullable'],
             'dictionary_category_id'  => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
-            'start_year'              => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
-            'end_year'                => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
+            'start_year'              => ['integer', 'min:1980', 'max:' . date("Y"), 'nullable'],
+            'end_year'                => ['integer', 'min:1980', 'max:' . date("Y"), 'nullable'],
             'years'                   => ['integer', 'min:0', 'nullable'],
             'notes'                   => ['nullable'],
             'link'                    => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -98,16 +102,21 @@ class StoreSkillsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug(
                     $this['name'] . (!empty($this['version']) ? '-' . $this['version'] : ''),
                     'portfolio_db.skills',
-                    $this->owner_id
+                    $ownerId
                 )
             ]);
         }

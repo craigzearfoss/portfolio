@@ -58,7 +58,7 @@
                         <th>minor</th>
                         <th>school</th>
                         <th class="has-text-centered">enrollment<br>date</th>
-                        <th>graduated</th>
+                        <th class="has-text-centered">graduated</th>
                         <th class="has-text-centered">graduation<br>date</th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>
@@ -77,7 +77,7 @@
                         <th>minor</th>
                         <th>school</th>
                         <th class="has-text-centered">enrollment<br>date</th>
-                        <th>graduated</th>
+                        <th class="has-text-centered">graduated</th>
                         <th class="has-text-centered">graduation<br>date</th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>

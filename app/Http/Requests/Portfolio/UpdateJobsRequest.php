@@ -36,6 +36,10 @@ class UpdateJobsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
             'company'                => ['filled', 'string', 'max:255'],
@@ -44,10 +48,10 @@ class UpdateJobsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.jobs', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug)
-                        ->whereNot('id', $this->job->id);
+                Rule::unique('portfolio_db.jobs', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug'])
+                        ->whereNot('id', $this['job']['id']);
                 })
             ],
             'featured'               => ['integer', 'between:0,1'],
@@ -109,16 +113,22 @@ class UpdateJobsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug(
                     $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
                     'portfolio_db.jobs ',
-                    $this->owner_id)
+                    $ownerId
+                )
             ]);
         }
     }

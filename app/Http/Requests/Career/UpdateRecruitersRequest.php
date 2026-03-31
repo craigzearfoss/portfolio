@@ -27,8 +27,8 @@ class UpdateRecruitersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['filled', 'string', 'max:255', 'unique:career_db.recruiters,name,'.$this['recruiter']->id],
-            'slug'            => ['filled', 'string', 'max:255', 'unique:career_db.recruiters,slug,'.$this['recruiter']->id],
+            'name'            => ['filled', 'string', 'max:255', 'unique:career_db.recruiters,name,' . $this['recruiter']['id']],
+            'slug'            => ['filled', 'string', 'max:255', 'unique:career_db.recruiters,slug,' . $this['recruiter']['id']],
             'postings_url'    => ['string', 'max:255', 'nullable'],
             'local'           => ['integer', 'between:0,1'],
             'regional'        => ['integer', 'between:0,1'],

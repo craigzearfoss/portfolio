@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Certification;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,8 +27,8 @@ class UpdateCertificationsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                  => ['filled', 'string', 'max:255', 'unique:portfolio_db.certifications,name,'.$this->certification->id],
-            'slug'                  => ['filled', 'string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this->certification->id],
+            'name'                  => ['filled', 'string', 'max:255', 'unique:' . Certification::class],
+            'slug'                  => ['filled', 'string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this['certification']['id']],
             'abbreviation'          => ['string', 'max:50', 'nullable'],
             'certification_type_id' => ['filled', 'integer', 'exists:portfolio_db.certification_types,id'],
             'organization'          => ['string', 'max:255', 'nullable'],

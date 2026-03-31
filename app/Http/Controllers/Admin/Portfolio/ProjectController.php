@@ -27,15 +27,12 @@ class ProjectController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all projects
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $projects = new Project()->searchQuery(request()->except('id'), $owner)
+        $projects = new Project()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Projects';
+        $pageTitle = ($this->owner->name  ?? '') . ' Projects';
 
         return view('admin.portfolio.project.index', compact('projects', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

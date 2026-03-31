@@ -3,6 +3,7 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
@@ -31,11 +32,12 @@ class UpdateAdminDatabasesRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
-        if (!$adminDatabase = Route::current()->parameters()['admin_database']) {
-            abort(503, 'No database specified.');
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
         }
 
         return [
@@ -44,14 +46,14 @@ class UpdateAdminDatabasesRequest extends FormRequest
                 'filled',
                 'integer',
                 'exists:system_db.databases,id',
-                Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('database_id', $this['database_id']);
                 }),
             ],
-            'name'           => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,name,'.$adminDatabase->id],
-            'database'       => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,database,'.$adminDatabase->id],
-            'tag'            => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,tag,'.$adminDatabase->id],
+            'name'           => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,name,' . $this['adminDatabase']['id']],
+            'database'       => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,database,' . $this['adminDatabase']['id']],
+            'tag'            => ['filled', 'string', 'max:50', 'unique:system_db.admin_databases,tag,' . $this['adminDatabase']['id']],
             'title'          => ['filled', 'string', 'max:50'],
             'plural'         => ['filled', 'string', 'max:50'],
             'has_owner'      => ['integer', 'between:0,1'],

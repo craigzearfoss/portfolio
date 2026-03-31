@@ -28,11 +28,10 @@ class UserEmailController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $userEmails = new UserEmail()->searchQuery($request->all())
-            ->orderBy('owner_id')
-            ->orderBy('name')
+            ->orderBy('email')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = 'User Email Addresses';
+        $pageTitle = ($this->user->name  ?? '') . ' User Email Addresses';
 
         return view('admin.system.user-email.index', compact('userEmails', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

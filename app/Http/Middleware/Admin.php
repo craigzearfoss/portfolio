@@ -28,7 +28,6 @@ class Admin
 
             $method = $request->method();
             $owner_id = $request->get('owner_id');
-            //dd([ 'owner_id'=>$owner_id, 'admin->id'=>$admin->id, 'method'=>$method ]);
 
             if (!empty($owner_id)
                 && in_array($method, [/*'POST',*/ 'PUT', 'PATCH', 'DELETE'])

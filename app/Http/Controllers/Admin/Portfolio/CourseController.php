@@ -27,15 +27,12 @@ class CourseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all courses
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $courses = new Course()->searchQuery(request()->except('id'), $owner)
+        $courses = new Course()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Courses';
+        $pageTitle = ($this->owner->name  ?? '') . ' Courses';
 
         return view('admin.portfolio.course.index', compact('courses', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -3,8 +3,10 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreAdminEmailsRequest extends FormRequest
 {
@@ -26,12 +28,26 @@ class StoreAdminEmailsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
-            'email'        => ['required', 'string', 'lowercase', 'email', 'max:255'],
+            'email'        => [
+                'required',
+                'string',
+                'lowercase',
+                'email', 'max:255',
+                Rule::unique('system_db.admin_emails', 'email')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('email', $this['email']);
+                })
+            ],
             'label'        => ['string', 'max:100', 'nullable'],
             'description'  => ['nullable'],
             'notes'        => ['nullable'],

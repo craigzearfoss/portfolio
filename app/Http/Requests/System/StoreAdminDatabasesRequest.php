@@ -4,6 +4,7 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Database;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -31,23 +32,28 @@ class StoreAdminDatabasesRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'       => ['integer', 'exists:system_db.admins,id'],
             'database_id'    => [
                 'required',
                 'integer',
                 'exists:system_db.admin_databases,id',
-                Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('system_db.admin_databases', 'database_id')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('database_id', $this['database_id']);
                 }),
             ],
-            'name'           => ['required', 'string', 'max:50', 'unique:'.Database::class],
-            'database'       => ['required', 'string', 'max:50', 'unique:'.Database::class],
-            'tag'            => ['required', 'string', 'max:50', 'unique:'.Database::class],
+            'name'           => ['required', 'string', 'max:50', 'unique:' . Database::class],
+            'database'       => ['required', 'string', 'max:50', 'unique:' . Database::class],
+            'tag'            => ['required', 'string', 'max:50', 'unique:' . Database::class],
             'title'          => ['required', 'string', 'max:50'],
             'plural'         => ['required', 'string', 'max:50'],
             'has_owner'      => ['integer', 'between:0,1'],

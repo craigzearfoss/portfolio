@@ -29,15 +29,12 @@ class CompanyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all companies
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $companies = new Company()->searchQuery(request()->except('id'), $owner)
+        $companies = new Company()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Companies';
+        $pageTitle = ($this->owner->name  ?? '') . ' Companies';
 
         return view('admin.career.company.index', compact('companies', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

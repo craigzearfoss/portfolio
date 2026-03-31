@@ -3,6 +3,7 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -23,9 +24,14 @@ class StoreResourceSettingsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'resource_id'     => ['filled', 'integer', 'exists:system_db.resources,id'],
@@ -34,8 +40,8 @@ class StoreResourceSettingsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('system_db.user_teams', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('name', $this['name']);
                 })
             ],

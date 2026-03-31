@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -96,39 +97,54 @@ class Communication extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
-                $query->where('application_id', '=', intval($filters['application_id']));
+                $query->where($this->table . '.application_id', '=', intval($filters['application_id']));
             })
             ->when(!empty($filters['communication_type_id']), function ($query) use ($filters) {
-                $query->where('communication_type_id', '=', intval($filters['communication_type_id']));
+                $query->where($this->table . '.communication_type_id', '=', intval($filters['communication_type_id']));
+            })
+            ->when(!empty($filters['company_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.company_id', '=', intval($filters['company_id']));
+            })
+            ->when(!empty($filters['company_name']), function ($query) use ($filters) {
+                $query->where('companies.name', '=', 'like', '%' . $filters['company_name'] . '%');
             })
             ->when(!empty($filters['subject']), function ($query) use ($filters) {
-                $query->where('subject', 'like', '%' . $filters['subject'] . '%');
+                $query->where($this->table . '.subject', 'like', '%' . $filters['subject'] . '%');
             })
             ->when(!empty($filters['to']), function ($query) use ($filters) {
-                $query->where('to', 'like', '%' . $filters['to'] . '%');
+                $query->where($this->table . '.to', 'like', '%' . $filters['to'] . '%');
             })
             ->when(!empty($filters['from']), function ($query) use ($filters) {
-                $query->where('from', 'like', '%' . $filters['from'] . '%');
+                $query->where($this->table . '.from', 'like', '%' . $filters['from'] . '%');
             })
             ->when(!empty($filters['body']), function ($query) use ($filters) {
-                $query->where('body', 'like', '%' . $filters['body'] . '%');
+                $query->where($this->table . '.body', 'like', '%' . $filters['body'] . '%');
             })
             ->when(!empty($filters['datetime_from']), function ($query) use ($filters) {
-                $query->where('datetime', '>=', $filters['datetime_from']);
+                $query->where($this->table . '.datetime', '>=', $filters['datetime_from']);
             })
             ->when(!empty($filters['datetime_to']), function ($query) use ($filters) {
-                $query->where('datetime', '<=', $filters['datetime_to']);
+                $query->where($this->table . '.datetime', '<=', $filters['datetime_to']);
             });
 
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
+        $query->join('companies', 'companies.id', '=', 'applications.company_id');
+        $query->select([
+            DB::raw($this->table . '.*'),
+            DB::raw('applications.company_id as company_id'),
+            DB::raw('companies.name as company_name'),
+        ]);
+
+        return $query;
     }
 
     /**

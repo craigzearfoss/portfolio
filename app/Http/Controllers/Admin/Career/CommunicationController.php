@@ -28,17 +28,14 @@ class CommunicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all communications
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $communications = new Communication()->searchQuery(request()->except('id'), $owner)
+        $communications = new Communication()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('datetime', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
 
-        $pageTitle = ($owner->name  ?? '') . ' Communications';
+        $pageTitle = ($this->owner->name  ?? '') . ' Communications';
 
         return view('admin.career.communication.index', compact('communications', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

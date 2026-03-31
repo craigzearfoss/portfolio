@@ -15,6 +15,8 @@
     $benefits               = $benefits ?? request()->query('benefits');
     $city                   = $city ?? request()->query('city');
     $close_date             = $close_date ?? request()->query('close_date');
+    $company_id             = $company_id ?? request()->query('company_id');
+    $company_name           = $company_name ?? request()->query('company_name');
     $health                 = $health ?? request()->query('health');
     $job_board_id           = $job_board_id ?? request()->query('job_board_id');
     $job_duration_type_id   = $job_duration_type_id ?? request('job_duration_type_id');

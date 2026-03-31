@@ -105,6 +105,11 @@ trait SearchableModelTrait
         // apply filters to the query
         foreach ($filters as $col => $value) {
 
+            // if the filter is owner_id and the value is null then ignore it because owner_id should always have a value
+            if (($col == 'owner_id') && empty($value)) {
+                continue;
+            }
+
             // make sure common columns are fully qualified to avoid query errors
             if (in_array($col, self::COMMON_COLUMNS)) {
                 $col = $this->table . '.' .$col;
@@ -256,13 +261,13 @@ trait SearchableModelTrait
         }
 
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             });
     }
 
@@ -277,16 +282,16 @@ trait SearchableModelTrait
     public function appendAddressFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
     {
         $query->when(!empty($filters['city']), function ($query) use ($filters) {
-                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+                $query->where($this->table . '.city', 'LIKE', '%' . $filters['city'] . '%');
             })
             ->when(!empty($filters['state_id']), function ($query) use ($filters) {
-                $query->where('state_id', '=', intval($filters['state_id']));
+                $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
             })
             ->when(!empty($filters['zip']), function ($query) use ($filters) {
-                $query->where('zip', 'LIKE', '%' . $filters['zip'] . '%');
+                $query->where($this->table . '.zip', 'LIKE', '%' . $filters['zip'] . '%');
             })
             ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where('country_id', '=', intval($filters['country_id']));
+                $query->where($this->table . '.country_id', '=', intval($filters['country_id']));
             });
 
         return $query;
@@ -305,8 +310,8 @@ trait SearchableModelTrait
         $query->when(!empty($filters['email']), function ($query) use ($filters) {
             $email = $filters['email'];
             $query->where(function ($query) use ($email) {
-                $query->where('email', 'LIKE', '%' . $email . '%')
-                    ->orWhere('alt_email', 'LIKE', '%' . $email . '%');
+                $query->where($this->table . '.email', 'LIKE', '%' . $email . '%')
+                    ->orWhere($this->table . '.alt_email', 'LIKE', '%' . $email . '%');
             });
         });
 
@@ -323,22 +328,22 @@ trait SearchableModelTrait
     public function appendEnvironmentFilters(Builder $query, array $filters = []): Builder
     {
         $query->when(isset($filters['guest']), function ($query) use ($filters) {
-                $query->where('guest', '=', boolval(['guest']));
+                $query->where($this->table . '.guest', '=', boolval(['guest']));
             })
             ->when(isset($filters['user']), function ($query) use ($filters) {
-                $query->where('user', '=', boolval(['user']));
+                $query->where($this->table . '.user', '=', boolval(['user']));
             })
             ->when(isset($filters['admin']), function ($query) use ($filters) {
-                $query->where('admin', '=', boolval(['admin']));
+                $query->where($this->table . '.admin', '=', boolval(['admin']));
             })
             ->when(isset($filters['menu']), function ($query) use ($filters) {
-                $query->where('menu', '=', boolval(['menu']));
+                $query->where($this->table . '.menu', '=', boolval(['menu']));
             })
             ->when(isset($filters['menu_level']), function ($query) use ($filters) {
-                $query->where('menu_level', '=', intval(['menu_level']));
+                $query->where($this->table . '.menu_level', '=', intval(['menu_level']));
             })
             ->when(isset($filters['menu_collapsed']), function ($query) use ($filters) {
-                $query->where('menu_collapsed', '=', boolval(['menu_collapsed']));
+                $query->where($this->table . '.menu_collapsed', '=', boolval(['menu_collapsed']));
             });
 
         return $query;
@@ -356,10 +361,10 @@ trait SearchableModelTrait
         $query->when(!empty($filters['phone']), function ($query) use ($filters) {
             $phone = $filters['phone'];
             $query->where(function ($query) use ($phone) {
-                $query->where('phone', 'LIKE', '%' . $phone . '%')
-                    ->orWhere('phone_label', 'LIKE', '%' . $phone . '%')
-                    ->orWhere('alt_phone', 'LIKE', '%' . $phone . '%')
-                    ->orWhere('alt_phone_label', 'LIKE', '%' . $phone . '%');
+                $query->where($this->table . '.phone', 'LIKE', '%' . $phone . '%')
+                    ->orWhere($this->table . '.phone_label', 'LIKE', '%' . $phone . '%')
+                    ->orWhere($this->table . '.alt_phone', 'LIKE', '%' . $phone . '%')
+                    ->orWhere($this->table . '.alt_phone_label', 'LIKE', '%' . $phone . '%');
             });
         });
 
@@ -376,22 +381,22 @@ trait SearchableModelTrait
     public function appendStandardFilters(Builder $query, array $filters = []): Builder
     {
         $query->when(isset($filters['is_public']), function ($query) use ($filters) {
-                $query->where('is_public', '=', boolval(['is_public']));
+                $query->where($this->table . '.is_public', '=', boolval(['is_public']));
             })
             ->when(isset($filters['is_readonly']), function ($query) use ($filters) {
-                $query->where('is_readonly', '=', boolval(['is_readonly']));
+                $query->where($this->table . '.is_readonly', '=', boolval(['is_readonly']));
             })
             ->when(isset($filters['is_root']), function ($query) use ($filters) {
-                $query->where('is_root', '=', boolval(['is_root']));
+                $query->where($this->table . '.is_root', '=', boolval(['is_root']));
             })
             ->when(isset($filters['is_disabled']), function ($query) use ($filters) {
-                $query->where('is_disabled', '=', boolval(['is_disabled']));
+                $query->where($this->table . '.is_disabled', '=', boolval(['is_disabled']));
             })
             ->when(isset($filters['is_demo']), function ($query) use ($filters) {
-                $query->where('is_demo', '=', intval(['is_demo']));
+                $query->where($this->table . '.is_demo', '=', intval(['is_demo']));
             })
             ->when(isset($filters['sequence']), function ($query) use ($filters) {
-                $query->where('sequence', '=', intval(['sequence']));
+                $query->where($this->table . '.sequence', '=', intval(['sequence']));
             });
 
         return $query;
@@ -407,22 +412,22 @@ trait SearchableModelTrait
     public function appendTimestampFilters(Builder $query, array $filters = []): Builder
     {
         $query->when(!empty($filters['created_at_from']), function ($query) use ($filters) {
-            $query->where('created_at', '>=', $filters['created_at_from']);
+            $query->where($this->table . '.created_at', '>=', $filters['created_at_from']);
         })
         ->when(!empty($filters['created_at_to']), function ($query) use ($filters) {
-            $query->where('created_at', '<=', $filters['created_at_to']);
+            $query->where($this->table . '.created_at', '<=', $filters['created_at_to']);
         })
         ->when(!empty($filters['deleted_at_from']), function ($query) use ($filters) {
-            $query->where('deleted_at', '>=', $filters['deleted_at_from']);
+            $query->where($this->table . '.deleted_at', '>=', $filters['deleted_at_from']);
         })
         ->when(!empty($filters['deleted_at_to']), function ($query) use ($filters) {
-            $query->where('deleted_at', '<=', $filters['deleted_at_to']);
+            $query->where($this->table . '.deleted_at', '<=', $filters['deleted_at_to']);
         })
         ->when(!empty($filters['updated_at_from']), function ($query) use ($filters) {
-            $query->where('updated_at', '>=', $filters['updated_at_from']);
+            $query->where($this->table . '.updated_at', '>=', $filters['updated_at_from']);
         })
         ->when(!empty($filters['updated_at_to']), function ($query) use ($filters) {
-            $query->where('updated_at', '<=', $filters['updated_at_to']);
+            $query->where($this->table . '.updated_at', '<=', $filters['updated_at_to']);
         });
 
         return $query;

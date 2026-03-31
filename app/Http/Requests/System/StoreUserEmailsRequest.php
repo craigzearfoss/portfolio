@@ -30,7 +30,7 @@ class StoreUserEmailsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
+            'user_id'      => ['required', 'integer', 'exists:system_db.users,id'],
             'email'        => ['required', 'string', 'lowercase', 'email', 'max:255'],
             'label'        => ['string', 'max:100', 'nullable'],
             'description'  => ['nullable'],

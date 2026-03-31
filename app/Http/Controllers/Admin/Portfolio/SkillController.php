@@ -27,15 +27,12 @@ class SkillController extends BaseAdminController
 
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
-        // by default, root admins display all skills
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $skills = new Skill()->searchQuery(request()->except('id'), $owner)
+        $skills = new Skill()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Skills';
+        $pageTitle = ($this->owner->name  ?? '') . ' Skills';
 
         return view('admin.portfolio.skill.index', compact('skills', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

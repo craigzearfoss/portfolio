@@ -5,6 +5,7 @@ namespace App\Http\Requests\Portfolio;
 use App\Models\Portfolio\DegreeType;
 use App\Models\Portfolio\School;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -32,6 +33,10 @@ class StoreEducationsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return[
             'owner_id'           => ['required', 'integer', 'exists:system_db.admins,id'],
             'degree_type_id'     => ['required', 'integer', 'exists:portfolio_db.degree_types,id'],
@@ -42,16 +47,16 @@ class StoreEducationsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.education', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('portfolio_db.education', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'enrollment_month'   => ['integer', 'between:1,12', 'nullable' ],
-            'enrollment_year'    => ['integer', 'between:1980,'.date("Y"), 'nullable'],
+            'enrollment_year'    => ['integer', 'between:1980,' . date("Y"), 'nullable'],
             'graduated'          => ['integer', 'between:0,1'],
             'graduation_month'   => ['integer', 'between:1,12', 'nullable' ],
-            'graduation_year'    => ['integer', 'between:1980,'.date("Y"), 'nullable'],
+            'graduation_year'    => ['integer', 'between:1980,' . date("Y"), 'nullable'],
             'currently_enrolled' => ['integer', 'between:0,1'],
             'summary'            => ['string', 'max:500', 'nullable'],
             'notes'              => ['nullable'],
@@ -95,9 +100,14 @@ class StoreEducationsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {
 
@@ -111,7 +121,7 @@ class StoreEducationsRequest extends FormRequest
                     . '-from-' .  $school
                 ),
                 'portfolio_db.education',
-                $this->owner_id
+                $ownerId
             ]);
         }
     }

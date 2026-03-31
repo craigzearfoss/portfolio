@@ -27,15 +27,12 @@ class ArtController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all art
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $arts = new Art()->searchQuery(request()->except('id'), $owner)
+        $arts = new Art()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Art';
+        $pageTitle = ($this->owner->name  ?? '') . ' Art';
 
         return view('admin.portfolio.art.index', compact('arts','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

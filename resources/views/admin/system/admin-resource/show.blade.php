@@ -81,7 +81,7 @@
                     'value' => '<i>None</i>'
                 ])
             @endif
-@php dd($adminResource->children); @endphp
+
             @if(!empty($adminResource->children()))
                 <div class="columns">
                     <div class="column is-2"><strong>children</strong>:</div>

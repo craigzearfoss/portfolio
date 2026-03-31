@@ -28,11 +28,10 @@ class UserPhoneController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $userPhones = new UserPhone()->searchQuery($request->all())
-            ->orderBy('owner_id')
-            ->orderBy('name')
+            ->orderBy('phone')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = 'User Phone Numbers';
+        $pageTitle = ($this->user->name  ?? '') . ' User Phone Numbers';
 
         return view('admin.system.user-phone.index', compact('userPhones', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

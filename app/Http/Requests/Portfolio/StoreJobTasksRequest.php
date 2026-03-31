@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,9 +28,14 @@ class StoreJobTasksRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'        => ['required', 'integer', 'exists:system_db.admins,id'],
             'job_id'          => ['required', 'integer', 'exists:portfolio_db.jobs,id'],
@@ -37,10 +43,10 @@ class StoreJobTasksRequest extends FormRequest
                 'required',
                 'string',
                 'max:500',
-                Rule::unique('portfolio_db.job_tasks', 'summary')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('job_id', $this->job_id)
-                        ->where('summary', $this->summary);
+                Rule::unique('portfolio_db.job_tasks', 'summary')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('job_id', $this['job_id'])
+                        ->where('summary', $this['summary']);
                 })
             ],
             'notes'           => ['nullable'],
@@ -73,7 +79,7 @@ class StoreJobTasksRequest extends FormRequest
             'owner_id.exists'   => 'The specified owner does not exist.',
             'job_id.required'   => 'Please select a job for the task.',
             'job_id.exists'     => 'The specified job does not exist.',
-            'summary.unique'  => '`' . $this->summary . '` has already been added.',
+            'summary.unique'  => '`' . $this['summary'] . '` has already been added.',
         ];
     }
 }

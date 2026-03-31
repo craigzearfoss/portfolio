@@ -34,8 +34,7 @@ class DatabaseController extends BaseAdminController
         }
 
         $databases = new Database()->searchQuery($request->all())
-            ->orderBy('owner_id')
-            ->orderBy('name')
+            ->orderBy('sequence')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Databases';

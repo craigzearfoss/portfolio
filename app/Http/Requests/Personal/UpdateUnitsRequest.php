@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Models\Personal\Unit;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,8 +30,8 @@ class UpdateUnitsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['filled', 'max:50', 'unique:personal_db.units,name,'.$this->unit->id],
-            'abbreviation' => ['filled', 'max:20', 'unique:personal_db.units,abbreviation,'.$this->unit->id],
+            'name'         => ['filled', 'max:50', 'unique:' . Unit::class],
+            'abbreviation' => ['filled', 'max:20', 'unique:' . Unit::class],
             'system'       => ['string', 'max:10', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:500', 'nullable'],

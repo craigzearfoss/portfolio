@@ -27,8 +27,8 @@ class StoreCertificationsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                  => ['required', 'string', 'max:255', 'unique:'.Certification::class],
-            'slug'                  => ['required', 'string', 'max:255', 'unique:'.Certification::class],
+            'name'                  => ['required', 'string', 'max:255', 'unique:' . Certification::class],
+            'slug'                  => ['required', 'string', 'max:255', 'unique:' . Certification::class],
             'abbreviation'          => ['string', 'max:50', 'nullable'],
             'certification_type_id' => ['required', 'integer', 'exists:portfolio_db.certification_types,id'],
             'organization'          => ['string', 'max:255', 'nullable'],

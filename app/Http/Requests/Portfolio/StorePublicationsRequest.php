@@ -33,24 +33,28 @@ class StorePublicationsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
             'title'          => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.publications', 'title')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('title', $this->title);
+                Rule::unique('portfolio_db.publications', 'title')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('title', $this['title']);
                 })
             ],
             'slug'           => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.publications', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('portfolio_db.publications', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'parent_id'      => [
@@ -63,7 +67,7 @@ class StorePublicationsRequest extends FormRequest
             'publication_name'  => ['string', 'max:255', 'nullable'],
             'publisher'         => ['string', 'max:255', 'nullable'],
             'publication_date'  => ['date', 'nullable'],
-            'publication_year'  => ['integer', 'between:1980,'.date("Y"), 'nullable'],
+            'publication_year'  => ['integer', 'between:1980,' . date("Y"), 'nullable'],
             'credit'            => ['string', 'max:255', 'nullable'],
             'freelance'         => ['integer', 'between:0,1'],
             'fiction'           => ['integer', 'between:0,1'],
@@ -121,13 +125,18 @@ class StorePublicationsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['title'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['title'], 'portfolio_db.publications', $this->owner_id)
+                'slug' => uniqueSlug($this['title'], 'portfolio_db.publications', $ownerId),
             ]);
         }
     }

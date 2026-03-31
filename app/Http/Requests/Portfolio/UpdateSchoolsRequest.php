@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\School;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -30,8 +31,8 @@ class UpdateSchoolsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['filled', 'string', 'max:255', 'unique:portfolio_db.schools,name,'.$this->school->id],
-            'slug'         => ['filled', 'string', 'max:255', 'unique:portfolio_db.schools,slug,'.$this->school->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:' . School::class],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:' . School::class],
             'enrollment'   => ['integer', 'min:0', 'nullable'],
             'founded'      => ['integer', 'min:0', 'nullable'],
             'street'       => ['string', 'max:255', 'nullable'],

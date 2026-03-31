@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
+use DateMalformedStringException;
 use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -70,7 +71,7 @@ class UpdateCommunicationsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws \DateMalformedStringException
+     * @throws DateMalformedStringException
      */
     public function prepareForValidation(): void
     {

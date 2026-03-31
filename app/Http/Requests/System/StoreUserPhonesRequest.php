@@ -30,7 +30,7 @@ class StoreUserPhonesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
+            'user_id'      => ['required', 'integer', 'exists:system_db.users,id'],
             'phone'        => ['filled', 'string', 'max:20', 'nullable'],
             'label'        => ['string', 'max:100', 'nullable'],
             'description'  => ['nullable'],

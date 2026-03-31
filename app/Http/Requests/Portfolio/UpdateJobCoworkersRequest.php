@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -32,9 +33,14 @@ class UpdateJobCoworkersRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'job_id'          => ['filled', 'integer', 'exists:portfolio_db.jobs,id'],
@@ -42,11 +48,11 @@ class UpdateJobCoworkersRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.job_coworkers', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('job_id', $this->job_id)
-                        ->where('name', $this->name)
-                        ->whereNot('id', $this->job_coworker->id);
+                Rule::unique('portfolio_db.job_coworkers', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('job_id', $this['job_id'])
+                        ->where('name', $this['name'])
+                        ->whereNot('id', $this['job_coworker']['id']);
                 })
             ],
             'title'           => ['string', 'max:100', 'nullable'],
@@ -85,7 +91,7 @@ class UpdateJobCoworkersRequest extends FormRequest
             'owner_id.exists' => 'The specified owner does not exist.',
             'job_id.filled'   => 'Please select a job for the coworker.',
             'job_id.exists'   => 'The specified job does not exist.',
-            'name.unique'        => '`' . $this->name . '` has already been added.',
+            'name.unique'        => '`' . $this['name'] . '` has already been added.',
             'level_id.filled' => 'Please select a level type for the coworker.',
             'level_id.exists' => 'The specified level does not exist.',
         ];

@@ -27,15 +27,12 @@ class AwardController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all awards
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $awards = new Award()->searchQuery(request()->except('id'), $owner)
+        $awards = new Award()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Awards';
+        $pageTitle = ($this->owner->name  ?? '') . ' Awards';
 
         return view('admin.portfolio.award.index', compact('awards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

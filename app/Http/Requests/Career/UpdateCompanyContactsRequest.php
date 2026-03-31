@@ -34,15 +34,19 @@ class UpdateCompanyContactsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'   => ['filled', 'integer', 'exists:system_db.admins,id'],
             'company_id' => [
                 'filled',
                 'integer',
                 'exists:career_db.companies,id',
-                Rule::unique('career_db.company_contact', 'contact_id')->where(function ($query) {
+                Rule::unique('career_db.company_contact', 'contact_id')->where(function ($query) use ($ownerId) {
                     return $query->where('company_id', $this['company_id'])
-                        ->where('owner_id', $this['owner_id']);
+                        ->where('owner_id', $ownerId);
                 }),
             ],
             'contact_id' => ['filled', 'integer', 'exists:career_db.contacts,id'],

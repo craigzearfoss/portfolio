@@ -30,10 +30,7 @@ class ApplicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all applications
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $applications = new Application()->searchQuery(request()->except('id'), $owner)
+        $applications = new Application()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('apply_date', 'desc')
             ->orderBy('post_date', 'desc')
@@ -42,7 +39,7 @@ class ApplicationController extends BaseAdminController
 
         $resume = $request->resume_id ? new Resume()->findOrFail($request->resume_id) : null;
 
-        $pageTitle = ($owner->name  ?? '') . ' Applications';
+        $pageTitle = ($this->owner->name  ?? '') . ' Applications';
 
         return view('admin.career.application.index', compact('applications', 'resume', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

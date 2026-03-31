@@ -30,9 +30,9 @@ class StoreIngredientsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:'.Ingredient::class],
-            'name'         => ['required', 'string', 'max:100', 'unique:'.Ingredient::class],
-            'slug'         => ['required', 'string', 'max:100', 'unique:'.Ingredient::class],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:' . Ingredient::class],
+            'name'         => ['required', 'string', 'max:100', 'unique:' . Ingredient::class],
+            'slug'         => ['required', 'string', 'max:100', 'unique:' . Ingredient::class],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

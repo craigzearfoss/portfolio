@@ -3,6 +3,7 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -33,9 +34,13 @@ class UpdateAdminTeamsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
         return [
             'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'         => [
@@ -43,10 +48,10 @@ class UpdateAdminTeamsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name)
-                        ->whereNot('id', $this->admin_team->id);
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('name', $this['name'])
+                        ->whereNot('id', $this['admin_team']['id']);
                 })
             ],
             'slug'          => [
@@ -54,20 +59,20 @@ class UpdateAdminTeamsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug)
-                        ->whereNot('id', $this->admin_team->id);
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug'])
+                        ->whereNot('id', $this['admin_team']['id']);
                 })
             ],
             'abbreviation'  => [
                 'filled',
                 'string',
                 'max:20',
-                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('abbreviation', $this->abbreviation)
-                        ->whereNot('id', $this->admin_team->id);
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('abbreviation', $this['abbreviation'])
+                        ->whereNot('id', $this['admin_team']['id']);
                 }),
                 'nullable',
             ],
@@ -98,13 +103,17 @@ class UpdateAdminTeamsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     protected function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.admin_teams', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'system_db.admin_teams', $ownerId)
             ]);
         }
     }

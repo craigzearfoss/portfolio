@@ -4,6 +4,7 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Resource;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -33,18 +34,22 @@ class UpdateResourcesRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
         return [
             'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
             'database_id'    => [
                 'filled',
                 'integer',
                 'exists:system_db.databases,id',
-                Rule::unique('system_db.resources', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('resource_id', $this->database_id);
+                Rule::unique('system_db.resources', 'database_id')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('resource_id', $this['database_id']);
                 }),
             ],
             'name'           => [
@@ -52,9 +57,9 @@ class UpdateResourcesRequest extends FormRequest
                 'string',
                 'max:50',
                 Rule::unique('system_db.resources', 'name')->where(function ($query) {
-                    return $query->where('database_id', $this->database_id)
-                        ->where('name', $this->name)
-                        ->whereNot('id', $this->resource->id);
+                    return $query->where('database_id', $this['database_id'])
+                        ->where('name', $this['name'])
+                        ->whereNot('id', $this['resource']['id']);
                 })
             ],
             'parent_id'      => [
@@ -67,9 +72,9 @@ class UpdateResourcesRequest extends FormRequest
                 'string',
                 'max:50',
                 Rule::unique('system_db.resources', 'table_name')->where(function ($query) {
-                    return $query->where('database_id', $this->database_id)
+                    return $query->where('database_id', $this['database_id'])
                         ->where('table_name', $this['table_name'])
-                        ->whereNot('id', $this->resource->id);
+                        ->whereNot('id', $this['resource']['id']);
                 })
             ],
             'class'          => ['filled', 'string', 'max:255'],

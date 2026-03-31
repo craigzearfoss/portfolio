@@ -29,8 +29,8 @@ class UpdateJobBoardsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          => ['filled','string', 'max:100', 'unique:career_db.job_boards,name,'.$this['job_board']->id],
-            'slug'          => ['filled', 'string', 'max:100', 'unique:career_db.job_boards,slug,'.$this['job_board']->id],
+            'name'          => ['filled','string', 'max:100', 'unique:career_db.job_boards,name,' . $this['job_board']['id']],
+            'slug'          => ['filled', 'string', 'max:100', 'unique:career_db.job_boards,slug,' . $this['job_board']['id']],
             'primary'       => ['integer', 'between:0,1'],
             'local'         => ['integer', 'between:0,1'],
             'regional'      => ['integer', 'between:0,1'],

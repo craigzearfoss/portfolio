@@ -28,17 +28,14 @@ class EventController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all events
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $events = new Event()->searchQuery(request()->except('id'), $owner)
+        $events = new Event()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('datetime', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
         $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
 
-        $pageTitle = ($owner->name  ?? '') . ' Events';
+        $pageTitle = ($this->owner->name  ?? '') . ' Events';
 
         return view('admin.career.event.index', compact('events', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

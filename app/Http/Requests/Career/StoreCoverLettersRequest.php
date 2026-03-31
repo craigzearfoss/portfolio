@@ -32,6 +32,10 @@ class StoreCoverLettersRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'          => ['required', 'integer', 'exists:system_db.admins,id'],
             'application_id'    => ['required', 'integer', 'exists:career_db.applications,id'],
@@ -39,8 +43,8 @@ class StoreCoverLettersRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.resumes', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('career_db.resumes', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('date', $this['date'])
                         ->where('name', $this['name']);
                 })
@@ -49,8 +53,8 @@ class StoreCoverLettersRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.resumes', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('career_db.resumes', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('date', $this['date'])
                         ->where('slug', $this['slug']);
                 })

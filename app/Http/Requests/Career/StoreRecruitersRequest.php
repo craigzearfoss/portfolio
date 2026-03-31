@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Company;
+use App\Models\Career\Recruiter;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,8 +29,8 @@ class StoreRecruitersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['required', 'string', 'max:255', 'unique:'.Company::class],
-            'slug'            => ['required', 'string', 'max:255', 'unique:'.Company::class],
+            'name'            => ['required', 'string', 'max:255', 'unique:' . Recruiter::class],
+            'slug'            => ['required', 'string', 'max:255', 'unique:' . Recruiter::class],
             'postings_url'    => ['string', 'max:255', 'nullable'],
             'local'           => ['integer', 'between:0,1'],
             'regional'        => ['integer', 'between:0,1'],

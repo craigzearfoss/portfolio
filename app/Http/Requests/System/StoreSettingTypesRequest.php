@@ -27,7 +27,7 @@ class StoreSettingTypesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:255', 'unique:'.SettingType::class],
+            'name'        => ['required', 'string', 'max:255', 'unique:' . SettingType::class],
             'value'       => ['nullable'],
             'description' => ['nullable'],
         ];

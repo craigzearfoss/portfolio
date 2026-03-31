@@ -27,15 +27,12 @@ class AudioController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all audio
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $audios = new Audio()->searchQuery(request()->except('id'), $owner)
+        $audios = new Audio()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Audio';
+        $pageTitle = ($this->owner->name  ?? '') . ' Audio';
 
         return view('admin.portfolio.audio.index', compact('audios','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

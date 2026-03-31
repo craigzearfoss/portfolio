@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,9 +28,14 @@ class StoreAwardsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'           => ['required', 'string', 'max:255'],
@@ -39,9 +45,9 @@ class StoreAwardsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.award', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('portfolio_db.award', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'featured'       => ['integer', 'between:0,1'],
@@ -84,9 +90,14 @@ class StoreAwardsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $label = (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name'];
@@ -94,7 +105,7 @@ class StoreAwardsRequest extends FormRequest
                 $label .= ' for ' . $this['category'];
             }
             $this->merge([
-                'slug' => uniqueSlug($label, 'portfolio_db.awards', $this->owner_id)
+                'slug' => uniqueSlug($label, 'portfolio_db.awards', $ownerId)
             ]);
         }
     }

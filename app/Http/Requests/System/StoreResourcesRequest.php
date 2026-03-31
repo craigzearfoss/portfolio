@@ -4,6 +4,7 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\Resource;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,26 +28,28 @@ class StoreResourcesRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
             'database_id'    => [
                 'required',
                 'integer',
                 'exists:system_db.databases,id',
-                Rule::unique('system_db.resources', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
-                        ->where('resource_id', $this['database_id']);
-                }),
             ],
             'name'           => [
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('system_db.resources', 'name')->where(function ($query) {
-                    return $query->where('database_id', $this['database_id'])
+                Rule::unique('system_db.resources', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('database_id', $this['database_id'])
                         ->where('name', $this['name']);
                 })
             ],
@@ -59,8 +62,9 @@ class StoreResourcesRequest extends FormRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('system_db.resources', 'table_name')->where(function ($query) {
-                    return $query->where('database_id', $this['database_id'])
+                Rule::unique('system_db.resources', 'table_name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('database_id', $this['database_id'])
                         ->where('table', $this['table_name']);
                 })
             ],

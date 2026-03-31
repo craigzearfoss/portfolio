@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dictionary;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,9 +30,9 @@ class UpdateOperatingSystemsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,full_name,'.$this->operating_system->id],
-            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,name,'.$this->operating_system->id],
-            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,slug,'.$this->operating_system->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,full_name,' . $this['operating_system']['id']],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,name,' . $this['operating_system']['id']],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,slug,' . $this['operating_system']['id']],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
@@ -71,13 +72,18 @@ class UpdateOperatingSystemsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.operating_systems ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.operating_systems ', $ownerId)
             ]);
         }
     }

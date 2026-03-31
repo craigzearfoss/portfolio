@@ -2,6 +2,7 @@
     use App\Models\Career\Resume;
 
     $owner_id   = $owner_id ?? request()->query('owner_id');
+    $isRootAmin = $isRootAmin ?? false;
     $company_id = $company_id ?? request()->query('company_id');
     $resume_id  = $resume_id ?? request()->query('resume_id');
 @endphp
@@ -11,7 +12,7 @@
         'label'    => 'resume',
         'value'    => $resume_id,
         'list'     => new Resume()->listOptions(
-                          [ 'owner_id' => $owner_id ],
+                          $isRootAmin ? [] : [ 'owner_id' => $owner_id ],
                           'id',
                           'name',
                           true,

@@ -27,15 +27,12 @@ class LinkController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all links
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $links = new Link()->searchQuery(request()->except('id'), $owner)
+        $links = new Link()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Links';
+        $pageTitle = ($this->owner->name  ?? '') . ' Links';
 
         return view('admin.portfolio.link.index', compact('links', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

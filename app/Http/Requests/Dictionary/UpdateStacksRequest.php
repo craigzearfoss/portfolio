@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Dictionary;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,9 +30,9 @@ class UpdateStacksRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['filled','string', 'max:255', 'unique:dictionary_db.stacks,full_name,'.$this->stack->id],
-            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.stacks,name,'.$this->stack->id],
-            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.stacks,slug,'.$this->stack->id],
+            'full_name'    => ['filled','string', 'max:255', 'unique:dictionary_db.stacks,full_name,' . $this['stack']['id']],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.stacks,name,' . $this['stack']['id']],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.stacks,slug,' . $this['stack']['id']],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
@@ -71,13 +72,18 @@ class UpdateStacksRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $ownerId)
             ]);
         }
     }

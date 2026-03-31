@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -31,9 +32,14 @@ class UpdateAwardsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'           => ['filled', 'string', 'max:255'],
@@ -43,10 +49,10 @@ class UpdateAwardsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.awards', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug)
-                        ->whereNot('id', $this->award->id);
+                Rule::unique('portfolio_db.awards', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug'])
+                        ->whereNot('id', $this['award']['id']);
                 })
             ],
             'featured'       => ['integer', 'between:0,1'],
@@ -89,9 +95,14 @@ class UpdateAwardsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $label = (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name'];
@@ -99,7 +110,7 @@ class UpdateAwardsRequest extends FormRequest
                 $label .= ' for ' . $this['category'];
             }
             $this->merge([
-                'slug' => uniqueSlug($label, 'portfolio_db.awards', $this->owner_id)
+                'slug' => uniqueSlug($label, 'portfolio_db.awards', $ownerId)
             ]);
         }
     }

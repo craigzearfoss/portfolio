@@ -3,6 +3,8 @@
 
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $body            = $body ?? request()->query('body');
+    $company_id      = $company_id ?? request()->query('company_id');
+    $company_name    = $company_name ?? request()->query('company_name');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $subject         = $subject ?? request()->query('subject');
@@ -17,13 +19,16 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
+                    <div class="floating-div">
+                        @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
+                        @endif
+                        <div class="search-form-control">
+                            @include('admin.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
                         </div>
-                    @endif
+                    </div>
 
                     <div class="floating-div">
                         <div class="search-form-control">

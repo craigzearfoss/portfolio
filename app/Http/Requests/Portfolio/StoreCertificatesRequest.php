@@ -32,24 +32,28 @@ class StoreCertificatesRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return[
             'owner_id'        => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.certificates', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                Rule::unique('portfolio_db.certificates', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('name', $this['name']);
                 })
             ],
             'slug'            => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.certificates', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('portfolio_db.certificates', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'featured'        => ['integer', 'between:0,1'],
@@ -97,13 +101,18 @@ class StoreCertificatesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.certificates', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.certificates', $ownerId)
             ]);
         }
     }

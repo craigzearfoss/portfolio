@@ -28,18 +28,15 @@ class JobCoworkerController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all job coworkers
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
         $job = null;
 
         $jobCoworkerModel = new JobCoworker();
 
-        $jobCoworkers = $jobCoworkerModel->searchQuery(request()->except('id'), $owner)
+        $jobCoworkers = $jobCoworkerModel->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = (isRootAdmin() && !empty($ownerId)) ? $this->owner['name'] . ' Job Coworkers' : 'Job Coworkers';
+        $pageTitle = (isRootAdmin() && !empty($this->ownerId)) ? $this->owner['name'] . ' Job Coworkers' : 'Job Coworkers';
 
         return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

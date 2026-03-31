@@ -32,6 +32,10 @@ class StoreJobsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'               => ['required', 'integer', 'exists:system_db.admins,id'],
             'company'                => ['required', 'string', 'max:255'],
@@ -40,17 +44,17 @@ class StoreJobsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.jobs', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('portfolio_db.jobs', 'slug')->where(function ($query) use ($ownerId)  {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'featured'               => ['integer', 'between:0,1'],
             'summary'                => ['string', 'max:500', 'nullable'],
             'start_month'            => ['integer', 'between:1,12', 'nullable' ],
-            'start_year'             => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
+            'start_year'             => ['integer', 'min:1980', 'max:' . date("Y"), 'nullable'],
             'end_month'              => ['integer', 'between:1,12', 'nullable' ],
-            'end_year'               => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
+            'end_year'               => ['integer', 'min:1980', 'max:' . date("Y"), 'nullable'],
             'job_employment_type_id' => ['integer', 'exists:portfolio_db.job_employment_types,id', 'nullable'],
             'job_location_type_id'   => ['integer', 'exists:portfolio_db.job_location_types,id', 'nullable'],
             'street'                 => ['string', 'max:255', 'nullable'],
@@ -104,16 +108,21 @@ class StoreJobsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
                 'slug' => uniqueSlug(
                     $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
                     'portfolio_db.jobs ',
-                    $this->owner_id)
+                    $ownerId)
             ]);
         }
     }

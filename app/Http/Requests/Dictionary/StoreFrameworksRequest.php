@@ -4,6 +4,7 @@ namespace App\Http\Requests\Dictionary;
 
 use App\Models\Dictionary\Framework;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -30,9 +31,9 @@ class StoreFrameworksRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:'.Framework::class],
-            'name'         => ['required', 'string', 'max:255', 'unique:'.Framework::class],
-            'slug'         => ['required', 'string', 'max:255', 'unique:'.Framework::class],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:' . Framework::class],
+            'name'         => ['required', 'string', 'max:255', 'unique:' . Framework::class],
+            'slug'         => ['required', 'string', 'max:255', 'unique:' . Framework::class],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
@@ -72,13 +73,18 @@ class StoreFrameworksRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.frameworks ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.frameworks ', $ownerId)
             ]);
         }
     }

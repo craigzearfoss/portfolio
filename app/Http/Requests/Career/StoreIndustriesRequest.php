@@ -30,9 +30,9 @@ class StoreIndustriesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'max:50', 'unique:'.Industry::class],
-            'slug'         => ['required', 'string', 'max:50', 'unique:'.Industry::class],
-            'abbreviation' => ['required', 'string', 'max:20', 'unique:'.Industry::class],
+            'name'         => ['required', 'string', 'max:50', 'unique:' . Industry::class],
+            'slug'         => ['required', 'string', 'max:50', 'unique:' . Industry::class],
+            'abbreviation' => ['required', 'string', 'max:20', 'unique:' . Industry::class],
         ];
     }
 

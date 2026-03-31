@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -31,9 +32,14 @@ class UpdatePhotographyRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'         => ['filled', 'string', 'max:255'],
@@ -41,15 +47,15 @@ class UpdatePhotographyRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.photography', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug)
-                        ->whereNot('id', $this->photography->id);
+                Rule::unique('portfolio_db.photography', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug'])
+                        ->whereNot('id', $this['photography']['id']);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
             'summary'      => ['string', 'max:500', 'nullable'],
-            'year'         => ['integer', 'between:1900,'.date("Y"), 'nullable'],
+            'year'         => ['integer', 'between:1900,' . date("Y"), 'nullable'],
             'credit'       => ['string', 'max:255', 'nullable'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -86,13 +92,18 @@ class UpdatePhotographyRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.photography', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.photography', $ownerId)
             ]);
         }
     }

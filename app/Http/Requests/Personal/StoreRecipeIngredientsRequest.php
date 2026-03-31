@@ -37,12 +37,16 @@ class StoreRecipeIngredientsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'      => ['required', 'integer', 'exists:system_db.admins,id'],
             'recipe_id'     => [
                 'required',
                 'integer',
-                Rule::in(new Recipe()->where('owner_id', $this->owner_id)->get()->pluck('id')->toArray())
+                Rule::in(new Recipe()->where('owner_id', $ownerId)->get()->pluck('id')->toArray())
             ],
             'ingredient_id' => ['required', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],

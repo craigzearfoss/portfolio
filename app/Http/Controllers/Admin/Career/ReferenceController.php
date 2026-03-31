@@ -29,11 +29,7 @@ class ReferenceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all references
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $references = new Reference()->searchQuery(request()->except('id'), $owner)
-            ->orderBy('owner_id')
+        $references = new Reference()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

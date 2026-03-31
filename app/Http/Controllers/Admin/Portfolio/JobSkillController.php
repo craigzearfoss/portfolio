@@ -28,17 +28,14 @@ class JobSkillController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all job skills
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
         $jobSkillModel = new JobSkill();
 
         $job = null;
-        $jobSkills = $jobSkillModel->searchQuery(request()->except('id'), $owner)
+        $jobSkills = $jobSkillModel->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Job Skills';
+        $pageTitle = ($this->owner->name  ?? '') . ' Job Skills';
 
         return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

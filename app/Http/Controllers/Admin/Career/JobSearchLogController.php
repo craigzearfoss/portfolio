@@ -26,8 +26,7 @@ class JobSearchLogController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobSearchLogs = new JobSearchLog()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('owner_id')
+        $jobSearchLogs = new JobSearchLog()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

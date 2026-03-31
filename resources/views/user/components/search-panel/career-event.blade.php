@@ -3,6 +3,8 @@
 
     $owner_id      = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $attendees     = $attendees ?? request()->query('attendees');
+    $company_id    = $company_id ?? request()->query('company_id');
+    $company_name  = $company_name ?? request()->query('company_name');
     $datetime_from = $datetime_from ?? request()->query('datetime_from');
     $datetime_to   = $datetime_to ?? request()->query('datetime_to');
     $description   = $description ?? request()->query('description');
@@ -25,9 +27,9 @@
                                 @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
                         @endif
-                    </div>
-                    <div class="search-form-control">
-                        @include('user.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                        <div class="search-form-control">
+                            @include('user.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                        </div>
                     </div>
 
                     <div class="floating-div">

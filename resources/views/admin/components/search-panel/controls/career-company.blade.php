@@ -2,6 +2,7 @@
     use App\Models\Career\Company;
 
     $owner_id   = $owner_id ?? request()->query('owner_id');
+    $isRootAmin = $isRootAmin ?? false;
     $company_id = $company_id ?? request()->query('company_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
@@ -10,10 +11,10 @@
         'label'    => 'company',
         'value'    => $company_id,
         'list'     => new Company()->listOptions(
-                          [ 'owner_id' => $owner_id ],
+                          $isRootAmin ? [] : [ 'owner_id' => $owner_id ],
                           'id',
                           'name',
-                          0,
+                          true,
                           false,
                           [ 'name', 'asc' ]
                       ),

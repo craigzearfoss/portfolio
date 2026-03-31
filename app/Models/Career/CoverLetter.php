@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -99,30 +100,45 @@ class CoverLetter extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
-                $query->where('application_id', '=', intval($filters['application_id']));
+                $query->where($this->table . '.application_id', '=', intval($filters['application_id']));
+            })
+            ->when(!empty($filters['company_id']), function ($query) use ($filters) {
+                $query->where('company_id', '=', intval($filters['company_id']));
+            })
+            ->when(!empty($filters['company_name']), function ($query) use ($filters) {
+                $query->where('companies.name', '=', 'like', '%' . $filters['company_name'] . '%');
             })
             ->when(!empty($filters['content']), function ($query) use ($filters) {
-                $query->where('content', 'like', '%' . $filters['content'] . '%');
+                $query->where($this->table . '.content', 'like', '%' . $filters['content'] . '%');
             })
             ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where('date', '=', $filters['date']);
+                $query->where($this->table . '.date', '=', $filters['date']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['filepath']), function ($query) use ($filters) {
-                $query->where('filepath', 'like', '%' . $filters['filepath'] . '%');
+                $query->where($this->table . '.filepath', 'like', '%' . $filters['filepath'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
+        $query->join('companies', 'companies.id', '=', 'applications.company_id');
+        $query->select([
+            DB::raw($this->table . '.*'),
+            DB::raw('applications.company_id as company_id'),
+            DB::raw('companies.name as company_name'),
+        ]);
+
+        return $query;
     }
 
     /**

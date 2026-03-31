@@ -30,15 +30,12 @@ class ContactController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all contacts
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $contacts = new Contact()->searchQuery(request()->except('id'), $owner)
+        $contacts = new Contact()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Contacts';
+        $pageTitle = ($this->owner->name  ?? '') . ' Contacts';
 
         return view('admin.career.contact.index', compact('contacts', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

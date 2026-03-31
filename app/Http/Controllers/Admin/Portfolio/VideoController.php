@@ -27,15 +27,12 @@ class VideoController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all videos
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $videos = new Video()->searchQuery(request()->except('id'), $owner)
+        $videos = new Video()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Videos';
+        $pageTitle = ($this->owner->name  ?? '') . ' Videos';
 
         return view('admin.portfolio.video.index', compact('videos', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -27,16 +27,13 @@ class EducationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all education
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $educations = new Education()->searchQuery(request()->except('id'), $owner)
+        $educations = new Education()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('enrollment_year', 'desc')
             ->orderBy('enrollment_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Education';
+        $pageTitle = ($this->owner->name  ?? '') . ' Education';
 
         return view('admin.portfolio.education.index', compact('educations', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -3,8 +3,10 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserPhonesRequest extends FormRequest
 {
@@ -26,12 +28,25 @@ class UpdateUserPhonesRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$userId = $this['user_id']) {
+            throw new Exception('No user_id specified.');
+        }
+
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'phone'        => ['filled', 'string', 'max:20',],
+            'user_id'      => ['filled', 'integer', 'exists:system_db.users,id'],
+            'phone'        => [
+                'filled',
+                'string',
+                'max:20',
+                Rule::unique('system_db.admin_phones', 'phone')->where(function ($query) use ($userId) {
+                    return $query->where('user_id', $userId)
+                        ->where('phone', $this['phone']);
+                })
+            ],
             'label'        => ['string', 'max:100', 'nullable'],
             'description'  => ['nullable'],
             'notes'        => ['nullable'],

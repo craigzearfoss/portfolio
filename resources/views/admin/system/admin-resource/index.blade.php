@@ -116,7 +116,7 @@
                         <td data-field="database.name">
                             {!! $adminResource->database->name ?? '' !!}
                         </td>
-                        <td data-field="name">
+                        <td data-field="name" style="white-space: nowrap;">
                             {!! $adminResource->name !!}
                         </td>
                         <td data-field="icon" class="has-text-centered">

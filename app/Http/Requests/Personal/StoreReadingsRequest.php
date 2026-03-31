@@ -33,23 +33,27 @@ class StoreReadingsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'         => ['required', 'integer', 'exists:system_db.admins,id'],
-            'title'            => ['required', 'string', 'max:255', 'unique:'.Reading::class],
+            'title'            => ['required', 'string', 'max:255', 'unique:' . Reading::class],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('personal_db.readings', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('personal_db.readings', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'featured'         => ['integer', 'between:0,1'],
             'summary'          => ['string', 'max:500', 'nullable'],
-            'year'             => ['integer', 'between:-3000,'.date("Y"), 'nullable'],
-            'publication_year' => ['integer', 'between:-3000,'.date("Y"), 'nullable'],
+            'year'             => ['integer', 'between:-3000,' . date("Y"), 'nullable'],
+            'publication_year' => ['integer', 'between:-3000,' . date("Y"), 'nullable'],
             'fiction'          => ['integer', 'between:0,1'],
             'nonfiction'       => ['integer', 'between:0,1'],
             'paper'            => ['integer', 'between:0,1'],
@@ -90,15 +94,20 @@ class StoreReadingsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['title'])) {
             $this->merge([
                 'slug' => uniqueSlug($this['title'] . (!empty($this['author']) ? '-by-' . $this['author'] : '')),
                 'personal_db.readings',
-                $this->owner_id
+                $ownerId
             ]);
         }
     }

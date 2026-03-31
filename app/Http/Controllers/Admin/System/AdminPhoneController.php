@@ -27,15 +27,11 @@ class AdminPhoneController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all admin phones
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $adminPhones = new AdminPhone()->searchQuery($request->all(), $this->isRootAdmin ? null : $owner)
-            ->orderBy('owner_id')
+        $adminPhones = new AdminPhone()->searchQuery($request->all(), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('phone')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Phone Numbers';
+        $pageTitle = ($this->owner->name  ?? '') . ' Phone Numbers';
 
         return view('admin.system.admin-phone.index', compact('adminPhones', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

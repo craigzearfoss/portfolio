@@ -1,16 +1,17 @@
 @php
-    use App\Models\System\AdminDatabase;
+    use App\Models\System\Database;
 
-    $owner_id    = $owner_id ?? request()->query('owner_id');
-    $database_id = $database_id ?? request()->query('database_id');
+    $owner_id   = $owner_id ?? request()->query('owner_id');
+    $isRootAmin = $isRootAmin ?? false;
+    $id         = $id ?? request()->query('id');
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('guest.components.form-select', [
-        'name'     => 'database_id',
+        'name'     => 'id',
         'label'    => 'database',
-        'value'    => $database_id,
-        'list'     => new AdminDatabase()->listOptions(
-                          [ 'owner_id' => $owner_id ],
+        'value'    => $id,
+        'list'     => new Database()->listOptions(
+                          $isRootAmin ? [] : [ 'owner_id' => $owner_id ],
                           'id',
                           'tag',
                           true,

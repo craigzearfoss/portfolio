@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipesRequest;
 use App\Http\Requests\Personal\UpdateRecipesRequest;
 use App\Models\Personal\Recipe;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,6 +21,7 @@ class RecipeController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -27,15 +29,12 @@ class RecipeController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all recipes
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $recipes = new Recipe()->searchQuery(request()->except('id'), $owner)
+        $recipes = new Recipe()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Recipes';
+        $pageTitle = ($this->owner->name  ?? '') . ' Recipes';
 
         return view('admin.personal.recipe.index', compact('recipes', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

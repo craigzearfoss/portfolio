@@ -29,15 +29,12 @@ class ReadingController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all readings
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $readings = new Reading()->searchQuery(request()->except('id'), $owner)
+        $readings = new Reading()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('title')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Readings';
+        $pageTitle = ($this->owner->name  ?? '') . ' Readings';
 
         return view('admin.personal.reading.index', compact('readings', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -30,8 +30,8 @@ class StoreJobBoardsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          => ['required', 'string', 'max:100', 'unique:'.JobBoard::class],
-            'slug'          => ['required', 'string', 'max:100', 'unique:'.JobBoard::class],
+            'name'          => ['required', 'string', 'max:100', 'unique:' . JobBoard::class],
+            'slug'          => ['required', 'string', 'max:100', 'unique:' . JobBoard::class],
             'primary'       => ['integer', 'between:0,1'],
             'local'         => ['integer', 'between:0,1'],
             'regional'      => ['integer', 'between:0,1'],

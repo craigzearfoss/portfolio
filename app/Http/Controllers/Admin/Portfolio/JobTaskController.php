@@ -28,17 +28,14 @@ class JobTaskController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all job tasks
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
         $jobTaskModel = new JobTask();
 
         $job = null;
-        $jobTasks = $jobTaskModel->searchQuery(request()->except('id'), $owner)
+        $jobTasks = $jobTaskModel->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('job_id')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Job Tasks';
+        $pageTitle = ($this->owner->name  ?? '') . ' Job Tasks';
 
         return view('admin.portfolio.job-task.index', compact('jobTasks', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

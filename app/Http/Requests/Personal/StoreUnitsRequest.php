@@ -30,8 +30,8 @@ class StoreUnitsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'max:50', 'unique:'.Unit::class],
-            'abbreviation' => ['required', 'string', 'max:20', 'unique:'.Unit::class],
+            'name'         => ['required', 'string', 'max:50', 'unique:' . Unit::class],
+            'abbreviation' => ['required', 'string', 'max:20', 'unique:' . Unit::class],
             'system'       => ['string', 'max:10', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:500', 'nullable'],

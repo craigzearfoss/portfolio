@@ -31,19 +31,23 @@ class StoreMusicRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         $maxYear = intval(date("Y")) + 1;
 
         return [
             'owner_id'       => ['required','integer', 'exists:system_db.admins,id'],
-            'name'           => ['required', 'string', 'max:255', 'unique:'.Music::class],
+            'name'           => ['required', 'string', 'max:255', 'unique:' . Music::class],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.music', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('portfolio_db.music', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'featured'       => ['integer', 'between:0,1'],
@@ -52,7 +56,7 @@ class StoreMusicRequest extends FormRequest
             'track'          => ['integer', 'between:0,1'],
             'label'          => ['string', 'max:255', 'nullable'],
             'catalog_number' => ['string', 'max:50', 'nullable'],
-            'year'           => ['integer', 'between:1900,'.$maxYear, 'nullable'],
+            'year'           => ['integer', 'between:1900,' . $maxYear, 'nullable'],
             'release_date'   => ['date', 'nullable'],
             'embed'          => ['nullable'],
             'audio_url'      => ['string', 'max:500', 'nullable'],

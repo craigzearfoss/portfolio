@@ -31,8 +31,8 @@ class StoreSchoolsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:'.School::class],
-            'slug'         => ['required', 'string', 'max:255', 'unique:'.School::class],
+            'name'         => ['required', 'string', 'max:255', 'unique:' . School::class],
+            'slug'         => ['required', 'string', 'max:255', 'unique:' . School::class],
             'enrollment'   => ['integer', 'min:0', 'nullable'],
             'founded'      => ['integer', 'min:0', 'nullable'],
             'street'       => ['string', 'max:255', 'nullable'],

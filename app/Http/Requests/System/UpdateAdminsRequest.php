@@ -4,6 +4,7 @@ namespace App\Http\Requests\System;
 
 use App\Rules\CaseInsensitiveNotIn;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,7 @@ class UpdateAdminsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
@@ -45,7 +47,10 @@ class UpdateAdminsRequest extends FormRequest
                 'lowercase',
                 'min:6',
                 'max:200',
-                'unique:admins,username,'.$this->admin->id,
+                Rule::unique('system_db.admins', 'name')->where(function ($query) {
+                    return $query->where('name', $this['name'])
+                        ->whereNot('id', $this['admin']['id']);
+                }),
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             */
@@ -57,7 +62,10 @@ class UpdateAdminsRequest extends FormRequest
                 'min:6',
                 'max:200',
                 'alpha_dash',
-                'unique:admins,label,'.$this['admin']->id,
+                Rule::unique('system_db.admins', 'label')->where(function ($query) {
+                    return $query->where('label', $this['label'])
+                        ->whereNot('id', $this['admin']['id']);
+                }),
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'salutation'       => ['string', 'max:20', 'nullable'],

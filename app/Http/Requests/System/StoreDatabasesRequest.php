@@ -31,9 +31,9 @@ class StoreDatabasesRequest extends FormRequest
     {
         return [
             'owner_id'       => ['integer', 'exists:system_db.admins,id'],
-            'name'           => ['required', 'string', 'max:50', 'unique:'.Database::class],
-            'database'       => ['required', 'string', 'max:50', 'unique:'.Database::class],
-            'tag'            => ['required', 'string', 'max:50', 'unique:'.Database::class],
+            'name'           => ['required', 'string', 'max:50', 'unique:' . Database::class],
+            'database'       => ['required', 'string', 'max:50', 'unique:' . Database::class],
+            'tag'            => ['required', 'string', 'max:50', 'unique:' . Database::class],
             'title'          => ['required', 'string', 'max:50'],
             'plural'         => ['required', 'string', 'max:50'],
             'has_owner'      => ['integer', 'between:0,1'],

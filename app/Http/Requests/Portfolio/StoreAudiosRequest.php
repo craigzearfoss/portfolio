@@ -33,29 +33,33 @@ class StoreAudiosRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'          => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'              => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.audios', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                Rule::unique('portfolio_db.audios', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('name', $this['name']);
                 })
             ],
             'slug'              => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.audios', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                Rule::unique('portfolio_db.audios', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('slug', $this['slug']);
                 })
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(new Audio()->whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
+                Rule::in(new Audio()->whereNot('id', $this['audio']['id'])->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],
@@ -65,7 +69,7 @@ class StoreAudiosRequest extends FormRequest
             'podcast'           => ['integer', 'between:0,1'],
             'source_recording'  => ['integer', 'between:0,1'],
             'date'              => ['date', 'nullable'],
-            'year'              => ['integer', 'between:1980,'.date("Y"), 'nullable'],
+            'year'              => ['integer', 'between:1980,' . date("Y"), 'nullable'],
             'company'           => ['string', 'max:255', 'nullable'],
             'credit'            => ['nullable'],
             'show'              => ['string', 'max:255', 'nullable'],
@@ -113,13 +117,18 @@ class StoreAudiosRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.audios', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.audios', $ownerId)
             ]);
         }
     }

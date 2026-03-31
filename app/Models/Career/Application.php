@@ -194,6 +194,11 @@ class Application extends Model
         // apply filters to the query
         foreach ($filters as $col => $value) {
 
+            // if the filter is owner_id and the value is null then ignore it because owner_id should always have a value
+            if (($col == 'owner_id') && empty($value)) {
+                continue;
+            }
+
             // make sure common columns are fully qualified to avoid query errors
             if (in_array($col, self::COMMON_COLUMNS)) {
                 $col = $this->table . '.' .$col;
@@ -259,117 +264,127 @@ class Application extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['active']), function ($query) use ($filters) {
                 if (in_array($filters['active'], [0, 1])) {
-                    $query->where('active', '=', true);
+                    $query->where($this->table . '.active', '=', boolval($filters['active']));
                 }
             })
             ->when(!empty($filters['apply_date']), function ($query) use ($filters) {
-                $query->where('apply_date', '=', $filters['apply_date']);
+                $query->where($this->table . '.apply_date', '=', $filters['apply_date']);
             })
             ->when(!empty($filters['apply_from']), function ($query) use ($filters) {
-                $query->where('apply_date', '>=', $filters['apply_from']);
+                $query->where($this->table . '.apply_date', '>=', $filters['apply_from']);
             })
             ->when(!empty($filters['apply_to']), function ($query) use ($filters) {
-                $query->where('apply_date', '<=', $filters['apply_to']);
+                $query->where($this->table . '.apply_date', '<=', $filters['apply_to']);
             })
             ->when(isset($filters['bonus']), function ($query) use ($filters) {
-                $query->where('bonus', '=', intval($filters['bonus']));
+                $query->where($this->table . '.bonus', '=', intval($filters['bonus']));
             })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
-                $query->where('city', 'LIKE', '%' . $filters['city'] . '%');
+                $query->where($this->table . '.city', 'LIKE', '%' . $filters['city'] . '%');
             })
             ->when(!empty($filters['company_id']), function ($query) use ($filters) {
-                $query->where('company_id', '=', intval($filters['company_id']));
+                $query->where($this->table . '.company_id', '=', intval($filters['company_id']));
+            })
+            ->when(!empty($filters['company_name']), function ($query) use ($filters) {
+                $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
             })
             ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where('country_id', '=', intval($filters['country_id']));
+                $query->where($this->table . '.country_id', '=', intval($filters['country_id']));
             })
             ->when(!empty($filters['benefits']), function ($query) use ($filters) {
-                $query->where('benefits', '=', true);
+                $query->where($this->table . '.benefits', '=', true);
             })
             ->when(!empty($filters['close_date']), function ($query) use ($filters) {
-                $query->where('close_date', '=', $filters['close_date']);
+                $query->where($this->table . '.close_date', '=', $filters['close_date']);
             })
             ->when(!empty($filters['close_from']), function ($query) use ($filters) {
-                $query->where('close_date', '>=', $filters['close_from']);
+                $query->where($this->table . '.close_date', '>=', $filters['close_from']);
             })
             ->when(!empty($filters['close_to']), function ($query) use ($filters) {
-                $query->where('close_date', '<=', $filters['close_to']);
+                $query->where($this->table . '.close_date', '<=', $filters['close_to']);
             })
             ->when(!empty($filters['compensation_max']), function ($query) use ($filters) {
-                $query->where('compensation_max', '<=', intval($filters['compensation_max']));
+                $query->where($this->table . '.compensation_max', '<=', intval($filters['compensation_max']));
             })
             ->when(!empty($filters['compensation_min']), function ($query) use ($filters) {
-                $query->where('compensation_min', '>=', intval($filters['compensation_min']));
+                $query->where($this->table . '.compensation_min', '>=', intval($filters['compensation_min']));
             })
             ->when(!empty($filters['compensation_unit_id']), function ($query) use ($filters) {
-                $query->where('compensation_unit_id', '=', intval($filters['compensation_unit_id']));
+                $query->where($this->table . '.compensation_unit_id', '=', intval($filters['compensation_unit_id']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['health']), function ($query) use ($filters) {
-                $query->where('health', '=', true);
+                $query->where($this->table . '.health', '=', true);
             })
             ->when(!empty($filters['job_board_id']), function ($query) use ($filters) {
-                $query->where('job_board_id', '=', intval($filters['job_board_id']));
+                $query->where($this->table . '.job_board_id', '=', intval($filters['job_board_id']));
             })
             ->when(!empty($filters['job_duration_type_id']), function ($query) use ($filters) {
-                $query->where('job_duration_type_id', '=', intval($filters['job_duration_type_id']));
+                $query->where($this->table . '.job_duration_type_id', '=', intval($filters['job_duration_type_id']));
             })
             ->when(!empty($filters['job_employment_type_id']), function ($query) use ($filters) {
-                $query->where('job_employment_type_id', '=', intval($filters['job_employment_type_id']));
+                $query->where($this->table . '.job_employment_type_id', '=', intval($filters['job_employment_type_id']));
             })
             ->when(!empty($filters['job_location_type_id']), function ($query) use ($filters) {
-                $query->where('job_location_type_id', '=', intval($filters['job_location_type_id']));
+                $query->where($this->table . '.job_location_type_id', '=', intval($filters['job_location_type_id']));
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['post_date']), function ($query) use ($filters) {
-                $query->where('post_date', '=', $filters['post_date']);
+                $query->where($this->table . '.post_date', '=', $filters['post_date']);
             })
             ->when(!empty($filters['post_from']), function ($query) use ($filters) {
-                $query->where('post_date', '>=', $filters['post_from']);
+                $query->where($this->table . '.post_date', '>=', $filters['post_from']);
             })
             ->when(!empty($filters['post_to']), function ($query) use ($filters) {
-                $query->where('post_date', '<=', $filters['pst_to']);
+                $query->where($this->table . '.post_date', '<=', $filters['pst_to']);
             })
-            ->when(isset($filters['rating']), function ($query) use ($filters) {
-                $query->where('rating', '=', intval($filters['rating']));
+            ->when(!empty($filters['rating']), function ($query) use ($filters) {
+                $query->where($this->table . '.rating', '=', intval($filters['rating']));
             })
             ->when(!empty($filters['relocation']), function ($query) use ($filters) {
-                $query->where('relocation', '=', true);
+                $query->where($this->table . '.relocation', '=', true);
             })
             ->when(!empty($filters['resume_id']), function ($query) use ($filters) {
-                $query->where('resume_id', '=', intval($filters['resume_id']));
+                $query->where($this->table . '.resume_id', '=', intval($filters['resume_id']));
             })
             ->when(!empty($filters['role']), function ($query) use ($filters) {
-                $query->where('role', 'like', '%' . $filters['role'] . '%');
+                $query->where($this->table . '.role', 'like', '%' . $filters['role'] . '%');
             })
             ->when(!empty($filters['state_id']), function ($query) use ($filters) {
-                $query->where('state_id', '=', intval($filters['state_id']));
+                $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
             })
             ->when(!empty($filters['vacation']), function ($query) use ($filters) {
-                $query->where('vacation', '=', true);
+                $query->where($this->table . '.vacation', '=', true);
             })
             ->when(!empty($filters['w2']), function ($query) use ($filters) {
-                $query->where('w2', '=', true);
+                $query->where($this->table . '.w2', '=', true);
             });
 
         $query = $this->appendPhoneFilters($query, $filters);
         $query = $this->appendEmailFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        $query->join('companies', 'companies.id', '=', 'applications.company_id');
+        $query->select([
+            DB::raw($this->table . '.*'),
+            DB::raw('companies.name as company_name'),
+        ]);
+//$query->ddRawSql();
+        return $query;
     }
 
     /**
@@ -413,8 +428,7 @@ class Application extends Model
     public function communications(): HasMany
     {
         return $this->hasMany(Communication::class, 'application_id')
-            ->orderBy('date', 'desc')
-            ->orderBy('time', 'desc');
+            ->orderBy('datetime', 'desc');
     }
 
     /**
@@ -473,7 +487,7 @@ class Application extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class, 'application_id')
-            ->orderBy('date', 'desc');
+            ->orderBy('datetime', 'desc');
     }
 
     /**
@@ -513,6 +527,15 @@ class Application extends Model
     }
 
     /**
+     * Get the career notes for the application.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Event::class, 'application_id')
+            ->orderBy('created_at', 'desc');
+    }
+
+    /**
      * Get the career resume that owns the application.
      */
     public function resume(): BelongsTo
@@ -527,8 +550,7 @@ class Application extends Model
     public function skills(): HasMany
     {
         return $this->hasMany(ApplicationSkill::class, 'application_id')
-            ->orderBy('date', 'desc')
-            ->orderBy('time', 'desc');
+            ->orderBy('name', 'asc');
     }
     /**
      * Get the system state that owns the application.

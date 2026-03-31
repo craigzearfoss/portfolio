@@ -1,11 +1,15 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $name         = $name ?? request()->query('name');
-    $content      = $content ?? request()->query('content');
-    $description  = $description ?? request()->query('description');
-    $notes        = $notes ?? request()->query('notes');
+    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $name            = $name ?? request()->query('name');
+    $company_id      = $company_id ?? request()->query('company_id');
+    $company_name    = $company_name ?? request()->query('company_name');
+    $content         = $content ?? request()->query('content');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $description     = $description ?? request()->query('description');
+    $notes           = $notes ?? request()->query('notes');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -17,13 +21,21 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
+                    <div class="floating-div">
+                        @if($isRootAdmin)
                             <div class="search-form-control">
                                 @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
+                        @endif
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
                         </div>
-                    @endif
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.career-company',
+                                $isRootAdmin ? [] : [ 'owner_' => $owner_id ]
+                            )
+                        </div>
+                    </div>
 
                     <div class="floating-div">
                         <div class="search-form-control">

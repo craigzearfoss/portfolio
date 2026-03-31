@@ -27,15 +27,12 @@ class MusicController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all music
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $musics = new Music()->searchQuery(request()->except('id'), $owner)
+        $musics = new Music()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Music';
+        $pageTitle = ($this->owner->name  ?? '') . ' Music';
 
         return view('admin.portfolio.music.index', compact('musics', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

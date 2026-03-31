@@ -3,6 +3,7 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,9 +28,14 @@ class StoreAdminGroupsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     * @throws Exception
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id '     => ['required', 'integer', 'exists:system_db.admins,id'],
             'admin_team_id' => ['required', 'integer', 'exists:system_db.admin_teams,id'],
@@ -38,8 +44,8 @@ class StoreAdminGroupsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('name', $this['name']);
                 })
             ],
@@ -48,8 +54,8 @@ class StoreAdminGroupsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('slug', $this['slug']);
                 })
             ],
@@ -57,8 +63,8 @@ class StoreAdminGroupsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:20',
-                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('system_db.admin_groups', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('abbreviation', $this['abbreviation']);
                 }),
                 'nullable',
@@ -98,13 +104,18 @@ class StoreAdminGroupsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.admin_groups', $this['owner_id'])
+                'slug' => uniqueSlug($this['name'], 'system_db.admin_groups', $ownerId)
             ]);
         }
     }

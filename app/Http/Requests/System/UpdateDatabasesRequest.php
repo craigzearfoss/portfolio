@@ -35,9 +35,9 @@ class UpdateDatabasesRequest extends FormRequest
 
         return [
             'owner_id'       => ['integer', 'exists:system_db.admins,id'],
-            'name'           => ['filled', 'string', 'max:50', 'unique:system_db.databases,name,'.$database->id],
-            'database'       => ['filled', 'string', 'max:50', 'unique:system_db.databases,database,'.$database->id],
-            'tag'            => ['filled', 'string', 'max:50', 'unique:system_db.databases,tag,'.$database->id],
+            'name'           => ['filled', 'string', 'max:50', 'unique:system_db.databases,name,' . $database['id']],
+            'database'       => ['filled', 'string', 'max:50', 'unique:system_db.databases,database,' . $database['id']],
+            'tag'            => ['filled', 'string', 'max:50', 'unique:system_db.databases,tag,' . $database['id']],
             'title'          => ['filled', 'string', 'max:50'],
             'plural'         => ['filled', 'string', 'max:50'],
             'has_owner'      => ['integer', 'between:0,1'],

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -36,18 +37,22 @@ class UpdateUserGroupsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$userId = $this['user_id']) {
+            throw new Exception('No user_id specified.');
+        }
+
         return [
-            'owner_id'      => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'user_id'       => ['filled', 'integer', 'exists:system_db.users,id'],
             'admin_team_id' => ['filled', 'integer', 'exists:system_db.user_teams,id'],
             'name'          => [
                 'filled',
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.user_groups', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name)
-                        ->whereNot('id', $this->user_group->id);
+                Rule::unique('system_db.user_groups', 'name')->where(function ($query) use ($userId) {
+                    return $query->where('user_id', $userId)
+                        ->where('name', $this['name'])
+                        ->whereNot('id', $this['user_group']['id']);
                 })
             ],
             'slug'          => [
@@ -55,20 +60,20 @@ class UpdateUserGroupsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:100',
-                Rule::unique('system_db.user_groups', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug)
-                        ->whereNot('id', $this->user_group->id);
+                Rule::unique('system_db.user_groups', 'name')->where(function ($query) use ($userId) {
+                    return $query->where('user_id', $userId)
+                        ->where('slug', $this['slug'])
+                        ->whereNot('id', $this['user_group']['id']);
                 })
             ],
             'abbreviation'  => [
                 'filled',
                 'string',
                 'max:20',
-                Rule::unique('system_db.user_groups', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('abbreviation', $this->abbreviation)
-                        ->whereNot('id', $this->user_group->id);
+                Rule::unique('system_db.user_groups', 'name')->where(function ($query) use ($userId) {
+                    return $query->where('user_id', $userId)
+                        ->where('abbreviation', $this['abbreviation'])
+                        ->whereNot('id', $this['user_group']['id']);
                 }),
                 'nullable',
             ],
@@ -107,13 +112,18 @@ class UpdateUserGroupsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     protected function prepareForValidation(): void
     {
+        if (!$userId = $this['user_id']) {
+            throw new Exception('No user_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'system_db.user_groups', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'system_db.user_groups', $userId)
             ]);
         }
     }

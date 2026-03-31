@@ -4,6 +4,7 @@ namespace App\Http\Requests\Dictionary;
 
 use App\Models\Dictionary\Language;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -30,9 +31,9 @@ class StoreLanguagesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:'.Language::class],
-            'name'         => ['required', 'string', 'max:255', 'unique:'.Language::class],
-            'slug'         => ['required', 'string', 'max:255', 'unique:'.Language::class],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:' . Language::class],
+            'name'         => ['required', 'string', 'max:255', 'unique:' . Language::class],
+            'slug'         => ['required', 'string', 'max:255', 'unique:' . Language::class],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
@@ -72,13 +73,18 @@ class StoreLanguagesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $ownerId)
             ]);
         }
     }

@@ -35,41 +35,30 @@ class StoreAdminResourcesRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'          => ['required', 'integer', 'exists:system_db.admins,id'],
             'resource_id'       => [
                 'filled',
                 'integer',
                 'exists:system_db.admin_databases,id',
-                Rule::unique('system_db.admin_resources', 'resource_id')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
+                Rule::unique('system_db.admin_resources', 'resource_id')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
                         ->where('resource_id', $this['resource_id']);
                 }),
             ],
-            'database_id'       => [
-                'filled',
-                'integer',
-                'exists:system_db.databases,id',
-                Rule::unique('system_db.admin_resources', 'database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
-                        ->where('database_id', $this['database_id']);
-                }),
-            ],
-            'admin_database_id' => [
-                'filled',
-                'integer',
-                'exists:system_db.admin_databases,id',
-                Rule::unique('system_db.admin_resources', 'admin_database_id')->where(function ($query) {
-                    return $query->where('owner_id', $this['owner_id'])
-                        ->where('admin_database_id', $this['admin_database_id']);
-                }),
-            ],
+            'database_id'       => ['filled', 'integer', 'exists:system_db.databases,id'],
+            'admin_database_id' => ['filled', 'integer', 'exists:system_db.admin_databases,id'],
             'name'              => [
                 'filled',
                 'string',
                 'max:50',
-                Rule::unique('system_db.admin_resources', 'name')->where(function ($query) {
-                    return $query->where('database_id', $this['database_id'])
+                Rule::unique('system_db.admin_resources', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('database_id', $this['database_id'])
                         ->where('name', $this['name']);
                 })
             ],
@@ -82,8 +71,9 @@ class StoreAdminResourcesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:50',
-                Rule::unique('system_db.admin_resources', 'table_name')->where(function ($query) {
-                    return $query->where('database_id', $this['database_id'])
+                Rule::unique('system_db.admin_resources', 'table_name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('database_id', $this['database_id'])
                         ->where('table_name', $this['table_name']);
                 })
             ],

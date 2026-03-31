@@ -95,7 +95,12 @@ class DictionarySection extends Model
             $query = $query->where($column, '=', $value);
         }
 
-        foreach ($query->get() as $dictionarySection) {
+        foreach ($query->get() as $col => $dictionarySection) {
+
+            // if the filter is owner_id and the value is null then ignore it because owner_id should always have a value
+            if (($col == 'owner_id') && empty($value)) {
+                continue;
+            }
 
             switch ($valueColumn) {
                 case 'id':

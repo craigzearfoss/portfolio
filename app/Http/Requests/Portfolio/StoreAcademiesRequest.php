@@ -30,8 +30,8 @@ class StoreAcademiesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:'.Academy::class],
-            'slug'         => ['required', 'string', 'max:255', 'unique:'.Academy::class],
+            'name'         => ['required', 'string', 'max:255', 'unique:' . Academy::class],
+            'slug'         => ['required', 'string', 'max:255', 'unique:' . Academy::class],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

@@ -38,26 +38,30 @@ class UpdateReferencesRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         return [
             'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.references', 'name')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name)
-                        ->whereNot('id', $this->reference->id);
+                Rule::unique('career_db.references', 'name')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('name', $this['name'])
+                        ->whereNot('id', $this['reference']['id']);
                 })
             ],
             'slug'            => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.references', 'slug')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->slug)
-                        ->whereNot('id', $this->reference->id);
+                Rule::unique('career_db.references', 'slug')->where(function ($query) use ($ownerId) {
+                    return $query->where('owner_id', $ownerId)
+                        ->where('name', $this['slug'])
+                        ->whereNot('id', $this['reference']['id']);
                 })
             ],
             'title'           => ['string', 'max:100', 'nullable'],
@@ -123,13 +127,18 @@ class UpdateReferencesRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     public function prepareForValidation(): void
     {
+        if (!$ownerId = $this['owner_id']) {
+            throw new Exception('No owner_id specified.');
+        }
+
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.references', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'career_db.references', $ownerId)
             ]);
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Models\Personal\Ingredient;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -29,9 +30,9 @@ class UpdateIngredientsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['filled', 'string', 'max:255', 'unique:personal_db.ingredients,full_name,'.$this->ingredient->id],
-            'name'         => ['filled', 'string', 'max:100', 'unique:personal_db.ingredients,name,'.$this->ingredient->id],
-            'slug'         => ['filled', 'string', 'max:100', 'unique:personal_db.ingredients,slug,'.$this->ingredient->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:' . Ingredient::class],
+            'name'         => ['filled', 'string', 'max:100', 'unique:' . Ingredient::class],
+            'slug'         => ['filled', 'string', 'max:100', 'unique:' . Ingredient::class],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
@@ -70,7 +71,7 @@ class UpdateIngredientsRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients')
             ]);
         }
     }

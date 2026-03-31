@@ -27,15 +27,12 @@ class CertificateController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        // by default, root admins display all certificates
-        $owner = ($this->owner && ($this->owner['id'] !== $this->admin['id'])) ? $this->owner : null;
-
-        $certificates = new Certificate()->searchQuery(request()->except('id'), $owner)
+        $certificates = new Certificate()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
             ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' Certificates';
+        $pageTitle = ($this->owner->name  ?? '') . ' Certificates';
 
         return view('admin.portfolio.certificate.index', compact('certificates', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

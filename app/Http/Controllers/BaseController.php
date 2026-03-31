@@ -25,6 +25,11 @@ class BaseController extends Controller
     protected EnvTypes|null $envType = null;
 
     /**
+     * Is the sight in single admin mode?
+     */
+    protected $singleAdminMode = false;
+
+    /**
      * The logged in admin, logged-in user, and current owner that is being viewed.
      */
     protected Admin|Owner|null $admin = null;
@@ -91,6 +96,7 @@ class BaseController extends Controller
         $this->cookieManager = new CookieManagerService();
 
         $this->envType          = $envType;
+        $this->singleAdminMode  = config('app.singleAdminMode', false);
         $this->resourceType     = $this->getResourceTypeFromRoute();
         $this->admin            = loggedInAdmin();
         $this->isRootAdmin      = $this->admin->is_root ?? false;
@@ -118,6 +124,7 @@ class BaseController extends Controller
 
         // inject variables into blade templates
         view()->share('envType', $this->envType);
+        view()->share('singleAdminMode', $this->singleAdminMode);
         view()->share('admin', $this->admin);
         view()->share('isRootAdmin', $this->isRootAdmin);
         view()->share('owner', $this->owner);
