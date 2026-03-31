@@ -35,7 +35,7 @@ class AdminEmailController extends BaseAdminController
             ->orderBy('email')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' email addresses';
+        $pageTitle = ($owner->name  ?? '') . ' Email Addresses';
 
         return view('admin.system.admin-email.index', compact('adminEmails', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

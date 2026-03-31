@@ -35,7 +35,7 @@ class CertificateController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' certificates';
+        $pageTitle = ($owner->name  ?? '') . ' Certificates';
 
         return view('admin.portfolio.certificate.index', compact('certificates', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

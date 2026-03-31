@@ -38,7 +38,7 @@ class ContactController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' contacts';
+        $pageTitle = ($owner->name  ?? '') . ' Contacts';
 
         return view('admin.career.contact.index', compact('contacts', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

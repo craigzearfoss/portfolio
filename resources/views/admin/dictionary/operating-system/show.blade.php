@@ -30,10 +30,6 @@
 
     <div class="show-container card p-4">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
-
         @include('admin.components.show-row', [
             'name'  => 'id',
             'value' => $operatingSystem->id
@@ -91,9 +87,15 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => !empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link',
+            'name'   => 'link',
             'href'   => $operatingSystem->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'label'  => 'link_name',
+            'value'  => $operatingSystem->link_name,
         ])
 
         @include('admin.components.show-row', [

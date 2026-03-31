@@ -38,10 +38,6 @@
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
-            <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-                @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-            </div>
-
             @include('admin.components.show-row', [
                 'name'  => 'id',
                 'value' => $reading->id
@@ -115,9 +111,15 @@
             ])
 
             @include('admin.components.show-row-link', [
-                'name'   => !empty($reading->link_name) ? $reading->link_name : 'link',
+                'name'   => 'link',
                 'href'   => $reading->link,
                 'target' => '_blank'
+            ])
+
+            @include('admin.components.show-row', [
+                'name'   => 'link name',
+                'label'  => 'link_name',
+                'value'  => $reading->link_name,
             ])
 
             @include('admin.components.show-row', [

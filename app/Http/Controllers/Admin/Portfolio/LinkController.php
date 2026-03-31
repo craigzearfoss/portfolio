@@ -35,7 +35,7 @@ class LinkController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' links';
+        $pageTitle = ($owner->name  ?? '') . ' Links';
 
         return view('admin.portfolio.link.index', compact('links', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

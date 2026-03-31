@@ -30,6 +30,7 @@ return [
     'datetime_format_long'    => env('APP_DATETIME_FORMAT_LONG', 'F j, Y h:i:s a'),
     'datetime_format_short'   => env('APP_DATETIME_FORMAT_SHORT', 'm/d/Y h:i:s a'),
     'demo_admin_autologin'    => boolval(env('APP_DEMO_ADMIN_AUTOLOGIN', false)),
+    'demo_admin_can_edit'     => boolval(env('APP_DEMO_ADMIN_CAN_EDIT', false)),
     'demo_admin_enabled'      => boolval(env('APP_DEMO_ADMIN_ENABLED', false)),
     'demo_admin_password'     => env('APP_DEMO_ADMIN_PASSWORD', ''),
     'demo_admin_url'          => boolval(env('APP_DEMO_ADMIN_URL')),

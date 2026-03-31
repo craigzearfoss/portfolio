@@ -51,10 +51,6 @@
                             </li>
                         </ul>
 
-                        <div class="m-2" style="display: inline-block; position: absolute; top: -6px; right: 0;">
-                            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-                        </div>
-
                     </div>
 
                     <div class="px-2" id="tab-content">
@@ -147,16 +143,22 @@
                                         'value' => $contact->notes
                                     ])
 
-                                    @include('admin.components.show-row-link', [
-                                        'name'   => !empty($contact->link_name) ? $contact->link_name : 'link',
-                                        'href'   => $contact->link,
-                                        'target' => '_blank'
-                                    ])
+                                @include('admin.components.show-row-link', [
+                                    'name'   => 'link',
+                                    'href'   => $contact->link,
+                                    'target' => '_blank'
+                                ])
 
-                                    @include('admin.components.show-row', [
-                                        'name'  => 'description',
-                                        'value' => $contact->description
-                                    ])
+                                @include('admin.components.show-row', [
+                                    'name'   => 'link name',
+                                    'label'  => 'link_name',
+                                    'value'  => $contact->link_name,
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'description',
+                                    'value' => $contact->description
+                                ])
 
                                     @include('admin.components.show-row', [
                                         'name'  => 'disclaimer',

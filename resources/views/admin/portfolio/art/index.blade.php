@@ -23,9 +23,9 @@
     $navButtons = [];
     if (canCreate(Art::class, $admin)) {
         $navButtons[] = view('admin.components.nav-button-add', [ 'name' => 'Add New Art',
-                                                               'href' => route('admin.portfolio.art.create',
-                                                                               !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
-                                                                              )])->render();
+                                                                  'href' => route('admin.portfolio.art.create',
+                                                                                  !empty($owner) ? [ 'owner_id'=>$owner->id ] : []
+                                                                                 )])->render();
     }
 @endphp
 

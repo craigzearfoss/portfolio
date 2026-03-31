@@ -54,10 +54,6 @@
                             </li>
                         </ul>
 
-                        <div class="m-2" style="display: inline-block; position: absolute; top: -6px; right: 0;">
-                            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-                        </div>
-
                     </div>
 
                     <div class="px-2" id="tab-content">
@@ -173,9 +169,15 @@
                                 ])
 
                                 @include('admin.components.show-row-link', [
-                                    'name'   => !empty($recipe->link_name) ? $recipe->link_name : 'link',
+                                    'name'   => 'link',
                                     'href'   => $recipe->link,
                                     'target' => '_blank'
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'   => 'link name',
+                                    'label'  => 'link_name',
+                                    'value'  => $recipe->link_name,
                                 ])
 
                                 @include('admin.components.show-row', [

@@ -38,7 +38,7 @@ class NoteController extends BaseAdminController
 
         $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
 
-        $pageTitle = ($owner->name  ?? '') . ' notes';
+        $pageTitle = ($owner->name  ?? '') . ' Notes';
 
         return view('admin.career.note.index', compact('notes', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

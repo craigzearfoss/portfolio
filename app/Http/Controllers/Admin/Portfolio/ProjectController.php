@@ -35,7 +35,7 @@ class ProjectController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' projects';
+        $pageTitle = ($owner->name  ?? '') . ' Projects';
 
         return view('admin.portfolio.project.index', compact('projects', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

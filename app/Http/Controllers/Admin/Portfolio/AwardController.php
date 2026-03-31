@@ -35,7 +35,7 @@ class AwardController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' awards';
+        $pageTitle = ($owner->name  ?? '') . ' Awards';
 
         return view('admin.portfolio.award.index', compact('awards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

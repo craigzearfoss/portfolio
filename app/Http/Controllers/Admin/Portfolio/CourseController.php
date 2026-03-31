@@ -35,7 +35,7 @@ class CourseController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' courses';
+        $pageTitle = ($owner->name  ?? '') . ' Courses';
 
         return view('admin.portfolio.course.index', compact('courses', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

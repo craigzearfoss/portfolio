@@ -35,7 +35,7 @@ class AudioController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' audio';
+        $pageTitle = ($owner->name  ?? '') . ' Audio';
 
         return view('admin.portfolio.audio.index', compact('audios','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

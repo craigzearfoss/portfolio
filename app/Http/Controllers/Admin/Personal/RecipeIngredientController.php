@@ -38,7 +38,7 @@ class RecipeIngredientController extends BaseAdminController
 
         $recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null;
 
-        $pageTitle = ($owner->name  ?? '') . ' recipe ingredients';
+        $pageTitle = ($owner->name  ?? '') . ' Recipe Ingredients';
 
         return view('admin.personal.recipe-ingredient.index', compact('recipeIngredients', 'recipe', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

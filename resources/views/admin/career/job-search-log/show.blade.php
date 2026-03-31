@@ -31,10 +31,6 @@
 
     <div class="show-container card p-4">
 
-        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-        </div>
-
         @include('admin.components.show-row', [
             'name'  => 'id',
             'value' => $jobSearchLog->id

@@ -36,7 +36,7 @@ class JobController extends BaseAdminController
             ->orderBy('start_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' jobs';
+        $pageTitle = ($owner->name  ?? '') . ' Jobs';
 
         return view('admin.portfolio.job.index', compact('jobs', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

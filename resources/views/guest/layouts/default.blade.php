@@ -6,7 +6,10 @@
     $navSelectList = $navSelectList ?? null;
     $prev          = $prev ?? null;
     $next          = $next ?? null;
-    $errorMessages = $errorMessages = [];
+    $errorMessages = $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [];
+    //$errorMessages = $errorMessages = [];
     $success       = $success ?? null;
     $error         = $error ?? null;
     $menuService   = $menuService ?? null;
@@ -23,6 +26,7 @@
 
     <div id="app">
 
+        <?php /* For social media share links (@TODO: is this really needed?) */?>
         @if((Route::currentRouteName() == 'guest.index') && !config('app.single_admin_mode'))
             @include('guest.components.share-links', [ 'preview_image' => 'default.png' ])
         @endif
@@ -56,15 +60,15 @@
 
         @include('guest.components.title-bar', [
             'title'       => $title,
-            'breadcrumbs' => filteredBreadcrumbs($breadcrumbs, $owner)
+            'breadcrumbs' => $breadcrumbs,
+            'navButtons'  => $navButtons,
+            'prev'        => $prev,
+            'next'        => $next,
         ])
 
         @include('guest.components.subtitle-bar', [
             'title'      => $subtitle,
             'selectList' => $navSelectList,
-            'buttons'    => $navButtons,
-            'prev'       => $prev,
-            'next'       => $next,
         ])
 
         <section class="is-main-section">
@@ -81,7 +85,7 @@
 
         </section>
 
-        @php /* Social media links. */ @endphp
+        <?php /* Social media share links */ ?>
         @include('guest.components.social-media-share-links', [ 'page' => url()->current() ])
 
         @include('guest.components.footer')
@@ -92,6 +96,7 @@
 
     {!! CookieConsent::scripts() !!}
 
+    <?php /* The following JavaScript files are need for the social-media-share links. */ ?>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/share.js') }}"></script>
 

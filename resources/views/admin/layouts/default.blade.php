@@ -26,6 +26,13 @@
 
     <div id="app">
 
+        <?php /* For social media share links (@TODO: is this really needed?) */?>
+        <?php /*
+        @if((Route::currentRouteName() == 'guest.index') && !config('app.single_admin_mode'))
+            @include('guest.components.share-links', [ 'preview_image' => 'default.png' ])
+        @endif
+        */ ?>
+
         @include('admin.components.nav-top', [
             'menuService' => $menuService,
             'admin'       => $admin,
@@ -53,17 +60,17 @@
             </div>
         </div>
 
-        @include('guest.components.title-bar', [
+        @include('admin.components.title-bar', [
             'title'       => $title,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumbs' => $breadcrumbs,
+            'navButtons'  => $navButtons,
+            'prev'        => $prev,
+            'next'        => $next,
         ])
 
         @include('admin.components.subtitle-bar', [
             'title'      => $subtitle,
             'selectList' => $navSelectList,
-            'buttons'    => $navButtons,
-            'prev'       => $prev,
-            'next'       => $next,
         ])
 
         <section class="is-main-section">
@@ -80,6 +87,11 @@
 
         </section>
 
+        <?php /* Social media share links */ ?>
+        <?php /*
+        @include('guest.components.social-media-share-links', [ 'page' => url()->current() ])
+	*/ ?>
+
         @include('admin.components.footer')
 
     </div>
@@ -87,6 +99,12 @@
     <script src="{{ asset('assets/js/main.js') }}?{{ appTimestamp() }}"></script>
 
     {!! CookieConsent::scripts() !!}
+
+    <?php /* The following JavaScript files are need for the social-media-share links. */ ?>
+    <?php /*
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/share.js') }}"></script>
+    */ ?>
 
 </body>
 

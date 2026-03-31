@@ -240,25 +240,35 @@ if (! function_exists('canCreate')) {
      *
      * @param string $resourceClass
      * @param Admin|null $admin
+     * @param EnvTypes $envType
      * @return bool
      */
-    function canCreate(string $resourceClass, Admin|null $admin = null): bool
+    function canCreate(string $resourceClass, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
-        if (empty($resourceClass)) {
-            abort(500, 'canCreate(): Argument #1 ($resourceClass) cannot be empty');
-        } elseif (empty($admin)) {
+        $isRootAdmin = $admin['is_root'] ?? false;
+
+        if (empty($admin)) {
             return false;
-        } elseif (!empty($admin->is_root)) {
+        } elseif ($isRootAdmin) {
             return true;
-        } elseif (!$resourceObject = new AdminResource()->where('class', '=', $resourceClass)->first()) {
-            return false;
         } else {
-            if($resourceObject->is_root) {
+
+            $adminResource = new AdminResource()
+                ->where('class', '=', $resourceClass)
+                ->where('owner_id', '=', $admin['id'])
+                ->where($envType->value, '=', true)
+                ->first();
+
+            if (empty($adminResource)) {
                 return false;
-            } else {
-                return boolval($resourceObject->admin);
+            } elseif (!$adminResource->admin) {
+                return false;
             }
         }
+
+        return $admin['is_demo']
+            ? config('app.demo_admin_can_edit')
+            : true;
     }
 }
 
@@ -269,13 +279,12 @@ if (! function_exists('canRead')) {
      *
      * @param $resourceObjectOrClass
      * @param Admin|null $admin
+     * @param EnvTypes $envType
      * @return bool
      */
-    function canRead($resourceObjectOrClass, Admin|null $admin = null): bool
-    {//dd($resourceObjectOrClass, $admin);
-        if (empty($resourceObjectOrClass)) {
-            abort(500, 'canRead(): Argument #1 ($resourceObjectOrClass) cannot be empty');
-        }
+    function canRead($resourceObjectOrClass, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
+    {
+        $isRootAdmin = $admin['is_root'] ?? false;
 
         if (is_string($resourceObjectOrClass)) {
             $resourceClass = $resourceObjectOrClass;
@@ -287,33 +296,30 @@ if (! function_exists('canRead')) {
 
         // get the admin resource (Note that is not admin is specified we pull it from the system.resources table.)
         if (empty($admin) || $admin['is_root']) {
-            $adminResource = new Resource()->where('class', '=', $resourceClass)->first();
+            $adminResource = new Resource()->where('class', '=', $resourceClass)
+                ->where($envType->value, '=', true)
+                ->first();
         } else {
             $adminResource = new AdminResource()->where('class', '=', $resourceClass)
                 ->where('owner_id', '=', $admin['id'])
+                ->where($envType->value, '=', true)
                 ->first();
         }
-//dd($adminResource);
+//dd($resourceClass, $resourceObject, $admin, $envType, $adminResource);
         if (empty($adminResource)) {
-            // specified resource does not exist
+            return false;
+        } elseif ( $adminResource->is_root && !$isRootAdmin) {
+            return false;
+        } elseif (!$adminResource->admin) {
             return false;
         } elseif (!$adminResource->has_owner) {
-            // resources that have no owner can be read by anyone
             return true;
         } elseif (!empty($admin)) {
-            if ($admin['is_root']) {
-                // root admins can read resources of all owners
-                return true;
-            } elseif (empty($resourceObject)) {
-                return true;
-            } elseif (!empty($resourceObject) && ($resourceObject->owner_id == $admin['id'])) {
-                // non-root users can only view their own resources
+            if ($adminResource->owner_id == $admin['id']) {
                 return true;
             } else {
                 return false;
             }
-        } elseif (empty($resourceObject)) {
-            return true;
         } else {
             return false;
         }
@@ -327,29 +333,39 @@ if (! function_exists('canUpdate')) {
      *
      * @param $resourceObject
      * @param Admin|null $admin
+     * @param EnvTypes $envType
      * @return bool
      */
-    function canUpdate($resourceObject, Admin|null $admin = null): bool
+    function canUpdate($resourceObject, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
-        if (empty($resourceObject)) {
-            abort(500, 'canUpdate(): Argument #1 ($resourceObject) cannot be empty');
-        } elseif (empty($admin)) {
+        $isRootAdmin = $admin['is_root'] ?? false;
+
+        if (empty($admin)) {
             return false;
-        } elseif (!empty($admin->is_root)) {
-            return true;
-        } elseif ($resourceObject->is_root) {
+        } elseif ($resourceObject->is_root && !$isRootAdmin) {
             return false;
+        } elseif ($isRootAdmin) {
+            $retValue = true;
         } else {
-            $adminResource = new AdminResource()->where('owner_id', '=', $admin['id'])
-                ->where('class', '=', get_class($resourceObject))->first();
+
+            $adminResource = new AdminResource()->where('class', '=', get_class($resourceObject))
+                ->where('owner_id', '=', $admin['id'])
+                ->where($envType->value, '=', true)
+                ->first();
+
             if (empty($adminResource)) {
                 return false;
-            } elseif ($adminResource->admin && !$adminResource->is_root) {
-                return true;
-            } else {
+            } elseif (!$adminResource->has_owner) {
+                // only admins can update resources that don't have an owner
                 return false;
+            } else {
+                $retValue = true;
             }
         }
+
+        return $admin['is_demo']
+            ? config('app.demo_admin_can_edit')
+            : true;
     }
 }
 
@@ -362,27 +378,37 @@ if (! function_exists('canDelete')) {
      * @param Admin|null $admin
      * @return bool
      */
-    function canDelete($resourceObject, Admin|null $admin = null): bool
+    function canDelete($resourceObject, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
     {
-        if (empty($resourceObject)) {
-            abort(500, 'canDelete(): Argument #1 ($resourceObject) cannot be empty');
-        } elseif (empty($admin)) {
+        $isRootAdmin = $admin['is_root'] ?? false;
+
+        if (empty($admin)) {
             return false;
-        } elseif (!empty($admin->is_root)) {
+        } elseif (!$resourceObject->has_owner && !$isRootAdmin) {
+            // only admins can delete resources that don't have an owner
+            return false;
+        } elseif ($resourceObject->is_root && !$isRootAdmin) {
+            return false;
+        } elseif ($isRootAdmin) {
             return true;
-        } elseif ($resourceObject->is_root) {
-            return false;
         } else {
-            $adminResource = new AdminResource()->where('owner_id', '=', $admin['id'])
-                ->where('class', '=', get_class($resourceObject))->first();
-            if (empty($adminResource)) {
+
+            $adminResource = new AdminResource()->where('class', '=', get_class($resourceObject))
+                ->where('owner_id', '=', $admin['id'])
+                ->where($envType->value, '=', true)
+                ->first();
+
+            if (!$adminResource->has_owner) {
+                // only admins can delete resources that don't have an owner
                 return false;
-            } elseif ($adminResource->admin && !$adminResource->is_root) {
-                return true;
-            } else {
+            } elseif (!empty($adminResource)) {
                 return false;
             }
         }
+
+        return $admin['is_demo']
+            ? config('app.demo_admin_can_edit')
+            : true;
     }
 }
 

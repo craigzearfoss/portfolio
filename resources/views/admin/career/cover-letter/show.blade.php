@@ -50,10 +50,6 @@
 
                         </ul>
 
-                        <div class="m-2" style="display: inline-block; position: absolute; top: 0; right: 0;">
-                            @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-                        </div>
-
                     </div>
 
                     <div class="px-2" id="tab-content">
@@ -164,9 +160,15 @@
                                 ])
 
                                 @include('admin.components.show-row-link', [
-                                    'name'   => !empty($coverLetter->link_name) ? $coverLetter->link_name : 'link',
+                                    'name'   => 'link',
                                     'href'   => $coverLetter->link,
                                     'target' => '_blank'
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'   => 'link name',
+                                    'label'  => 'link_name',
+                                    'value'  => $coverLetter->link_name,
                                 ])
 
                                 @include('admin.components.show-row', [

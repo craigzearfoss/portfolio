@@ -42,7 +42,7 @@ class ApplicationController extends BaseAdminController
 
         $resume = $request->resume_id ? new Resume()->findOrFail($request->resume_id) : null;
 
-        $pageTitle = ($owner->name  ?? '') . ' applications';
+        $pageTitle = ($owner->name  ?? '') . ' Applications';
 
         return view('admin.career.application.index', compact('applications', 'resume', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

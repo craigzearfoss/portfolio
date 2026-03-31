@@ -38,7 +38,7 @@ class JobSkillController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' job skills';
+        $pageTitle = ($owner->name  ?? '') . ' Job Skills';
 
         return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

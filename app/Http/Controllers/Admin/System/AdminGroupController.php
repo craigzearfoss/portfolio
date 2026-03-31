@@ -35,7 +35,7 @@ class AdminGroupController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' groups';
+        $pageTitle = ($owner->name  ?? '') . ' Groups';
 
         return view('admin.system.admin-group.index', compact('adminGroups', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

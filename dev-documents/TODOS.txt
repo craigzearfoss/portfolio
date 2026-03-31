@@ -1,2 +1,3 @@
 from_admin field on /contact page for messages is not being set correctly in the database.
 Verify that page titles are displayed correctly in the admin for single admin mode.
+Filter out Admins menu item for non-root admins.

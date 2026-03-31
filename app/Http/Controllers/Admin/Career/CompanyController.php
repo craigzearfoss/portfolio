@@ -37,7 +37,7 @@ class CompanyController extends BaseAdminController
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' companies';
+        $pageTitle = ($owner->name  ?? '') . ' Companies';
 
         return view('admin.career.company.index', compact('companies', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

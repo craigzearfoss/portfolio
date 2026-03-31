@@ -36,7 +36,7 @@ class EducationController extends BaseAdminController
             ->orderBy('enrollment_month', 'desc')
             ->paginate($perPage)->appends(request()->except('page'));
 
-        $pageTitle = ($owner->name  ?? '') . ' education';
+        $pageTitle = ($owner->name  ?? '') . ' Education';
 
         return view('admin.portfolio.education.index', compact('educations', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

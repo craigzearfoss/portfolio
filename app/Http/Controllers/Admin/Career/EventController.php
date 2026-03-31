@@ -38,7 +38,7 @@ class EventController extends BaseAdminController
 
         $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
 
-        $pageTitle = ($owner->name  ?? '') . ' events';
+        $pageTitle = ($owner->name  ?? '') . ' Events';
 
         return view('admin.career.event.index', compact('events', 'application', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
