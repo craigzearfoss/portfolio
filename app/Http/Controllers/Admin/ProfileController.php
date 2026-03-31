@@ -73,12 +73,12 @@ class ProfileController extends BaseAdminController
             'confirm_password' => ['required', 'same:password']
         ]);
 
-        if (Hash::check($request->password, $this->admin->password)) {
+        if (Hash::check($request->password, $this->admin['password'])) {
             return redirect()->back()->with('error', ' You cannot use your old password again.');
         }
 
-        $this->admin->password = Hash::make($request->password);
-        $this->admin->token = null;
+        $this->admin['password'] = Hash::make($request->password);
+        $this->admin['token'] = null;
         $this->admin->update();
 
         return redirect(referer('admin.portfolio.show'))

@@ -156,7 +156,7 @@ return new class extends Migration
                 'guest'       => false,
                 'user'        => false,
                 'admin'       => true,
-                'menu'        => false,
+                'menu'        => true,
                 'menu_level'  => 2,
                 'icon'        => 'fa-file-text',
                 'is_public'   => false,

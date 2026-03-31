@@ -75,6 +75,13 @@ class InitSampleAdmin extends Command
     ];
 
     /**
+     * This is the password for the admin with the username "demo".
+     *
+     * @var string
+     */
+    const string DEMO_PASSWORD = 'Shpadoinkle!';
+
+    /**
      * The name and signature of the console command.
      *
      * @var string
@@ -92,7 +99,7 @@ class InitSampleAdmin extends Command
      */
     protected $description = 'This will populate the databases with initial data for a sample admin (or all sample admins).';
 
-    protected $siteCompany = null;
+    protected string|null $siteCompany = null;
 
     /**
      * Execute the console command.
@@ -344,7 +351,13 @@ class InitSampleAdmin extends Command
     {
         echo $username . ": Inserting into System\\Admin ...\n";
 
-        if (empty($password)) {
+        if ($username == 'demo') {
+
+            // for the demo admin use the defined password
+            $password = self::DEMO_PASSWORD;
+
+        } elseif (empty($password)) {
+
             // generate a random password
             $bytes = random_bytes(ceil(16 / 2));
             $randomString = bin2hex($bytes);
