@@ -99,30 +99,30 @@ class OperatingSystem extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['compiled']), function ($query) use ($filters) {
-                $query->where('compiled', '=', true);
+                $query->where($this->table . '.compiled', '=', true);
             })
             ->when(!empty($filters['definition']), function ($query) use ($filters) {
-                $query->where('definition', 'like', '%' . $filters['definition'] . '%');
+                $query->where($this->table . '.definition', 'like', '%' . $filters['definition'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
                 $name = $filters['name'];
                 $query->orWhere(function ($query) use ($name) {
-                    $query->where('full_name', 'LIKE', '%' . $name . '%')
-                        ->orWhere('name', 'LIKE', '%' . $name . '%')
-                        ->orWhere('abbreviation', 'LIKE', '%' . $name . '%');
+                    $query->where($this->table . '.full_name', 'LIKE', '%' . $name . '%')
+                        ->orWhere($this->table . '.name', 'LIKE', '%' . $name . '%')
+                        ->orWhere($this->table . '.abbreviation', 'LIKE', '%' . $name . '%');
                 });
             })
             ->when(!empty($filters['open_source']), function ($query) use ($filters) {
-                $query->where('open_source', '=', true);
+                $query->where($this->table . '.open_source', '=', true);
             })
             ->when(!empty($filters['owner']), function ($query) use ($filters) {
-                $query->where('owner', 'like', '%' . $filters['owner'] . '%');
+                $query->where($this->table . '.owner', 'like', '%' . $filters['owner'] . '%');
             })
             ->when(!empty($filters['proprietary']), function ($query) use ($filters) {
-                $query->where('proprietary', '=', true);
+                $query->where($this->table . '.proprietary', '=', true);
             });
 
         $query = $this->appendStandardFilters($query, $filters, false);

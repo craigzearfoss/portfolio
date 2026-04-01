@@ -85,31 +85,31 @@ class Database extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['database']), function ($query) use ($filters) {
-                $query->where('database', 'like', '%' . $filters['database'] . '%');
+                $query->where($this->table . '.database', 'like', '%' . $filters['database'] . '%');
             })
-            ->when(isset($filters['has_owner']), function ($query) use ($filters) {
-                $query->where('has_owner', '=', boolval(['has_owner']));
+            ->when(!empty($filters['has_owner']), function ($query) use ($filters) {
+                $query->where($this->table . '.has_owner', '=', boolval(['has_owner']));
             })
-            ->when(isset($filters['icon']), function ($query) use ($filters) {
-                $query->where('icon', '=', ['icon']);
+            ->when(!empty($filters['icon']), function ($query) use ($filters) {
+                $query->where($this->table . '.icon', '=', ['icon']);
             })
-            ->when(isset($filters['menu']), function ($query) use ($filters) {
-                $query->where('menu', '=', boolval(['menu']));
+            ->when(!empty($filters['menu']), function ($query) use ($filters) {
+                $query->where($this->table . '.menu', '=', boolval(['menu']));
             })
-            ->when(isset($filters['menu_collapsed']), function ($query) use ($filters) {
-                $query->where('menu_collapsed', '=', boolval(['menu_collapsed']));
+            ->when(!empty($filters['menu_collapsed']), function ($query) use ($filters) {
+                $query->where($this->table . '.menu_collapsed', '=', boolval(['menu_collapsed']));
             })
             ->when(isset($filters['menu_level']), function ($query) use ($filters) {
-                $query->where('menu_level', '=', intval(['menu_level']));
+                $query->where($this->table . '.menu_level', '=', intval(['menu_level']));
             })
             ->when(!empty($filters['plural']), function ($query) use ($filters) {
-                $query->where('plural', 'like', '%' . $filters['plural'] . '%');
+                $query->where($this->table . '.plural', 'like', '%' . $filters['plural'] . '%');
             })
             ->when(!empty($filters['tag']), function ($query) use ($filters) {
-                $query->where('tag', 'like', '%' . $filters['tag'] . '%');
+                $query->where($this->table . '.tag', 'like', '%' . $filters['tag'] . '%');
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['title'] . '%');
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
         $query = $this->appendEnvironmentFilters($query, $filters);

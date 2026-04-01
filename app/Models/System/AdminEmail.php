@@ -72,22 +72,22 @@ class AdminEmail extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-              $query->where('id', '=', intval($filters['id']));
+              $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $query->where('email', 'like', '%' . $filters['email'] . '%');
+                $query->where($this->table . '.email', 'like', '%' . $filters['email'] . '%');
             })
             ->when(!empty($filters['label']), function ($query) use ($filters) {
-                $query->where('label', 'like', '%' . $filters['label'] . '%');
+                $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);

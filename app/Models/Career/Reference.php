@@ -126,33 +126,33 @@ class Reference extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['coworker']), function ($query) use ($filters) {
-                $query->where('coworker', '=', true);
+                $query->where($this->table . '.coworker', '=', true);
             })
             ->when(!empty($filters['family']), function ($query) use ($filters) {
-                $query->where('family', '=', true);
+                $query->where($this->table . '.family', '=', true);
             })
             ->when(!empty($filters['friend']), function ($query) use ($filters) {
-                $query->where('friend', '=', true);
+                $query->where($this->table . '.friend', '=', true);
             })
             ->when(!empty($filters['other']), function ($query) use ($filters) {
-                $query->where('other', '=', true);
+                $query->where($this->table . '.other', '=', true);
             })
             ->when(!empty($filters['professional']), function ($query) use ($filters) {
-                $query->where('professional', '=', true);
+                $query->where($this->table . '.professional', '=', true);
             })
             ->when(!empty($filters['relation']), function ($query) use ($filters) {
                 if (in_array($filters['relation'], ['coworker', 'family', 'friend', 'professional', 'subordinate', 'supervisor', 'other'])) {
-                    $query->where($filters['relation'], '=', true);
+                    $query->where($this->table . '.' . $filters['relation'], '=', true);
                 } else {
                     throw new Exception('Invalid relation "' . $filters['relation'] . '" specified.'
                         . ' Valid relations are "coworker", "family", "friend", "professional", "subordinate", "supervisor", and "other".');
                 }
             })
             ->when(!empty($filters['subordinate']), function ($query) use ($filters) {
-                $query->where('subordinate', '=', true);
+                $query->where($this->table . '.subordinate', '=', true);
             })
             ->when(!empty($filters['supervisor']), function ($query) use ($filters) {
-                $query->where('supervisor', '=', true);
+                $query->where($this->table . '.supervisor', '=', true);
             });
 
             $query =$this->appendAddressFilters($query, $filters);

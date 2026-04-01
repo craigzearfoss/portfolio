@@ -63,13 +63,13 @@ class ResourceSetting extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['resource_id']), function ($query) use ($filters) {
-                $query->where('resource_id', '=', intval($filters['resource_id']));
+                $query->where($this->table . '.resource_id', '=', intval($filters['resource_id']));
             })
             ->when(!empty($filters['setting_type_id']), function ($query) use ($filters) {
-                $query->where('setting_type_id', '=', intval($filters['setting_type_id']));
+                $query->where($this->table . '.setting_type_id', '=', intval($filters['setting_type_id']));
             })
             ->when(!empty($filters['value']), function ($query) use ($filters) {
-                $query->where('value', 'like', '%' . $filters['value'] . '%');
+                $query->where($this->table . '.value', 'like', '%' . $filters['value'] . '%');
             });
 
         return $this->appendTimestampFilters($query, $filters);

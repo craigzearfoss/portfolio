@@ -79,13 +79,13 @@ class AdminGroup extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
-                $query->where('abbreviation', '=', $filters['abbreviation']);
+                $query->where($this->table . '.abbreviation', '=', $filters['abbreviation']);
             })
             ->when(!empty($filters['admin_team_id']), function ($query) use ($filters) {
-                $query->where('admin_team_id', '=', intval($filters['admin_team_id']));
+                $query->where($this->table . '.admin_team_id', '=', intval($filters['admin_team_id']));
             })
-            ->when(isset($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);

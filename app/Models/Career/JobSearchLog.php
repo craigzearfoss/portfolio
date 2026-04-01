@@ -91,45 +91,45 @@ class JobSearchLog extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
-                $query->where('application_id', '=', intval($filters['application_id']));
+                $query->where($this->table . '.application_id', '=', intval($filters['application_id']));
             })
             ->when(!empty($filters['communication_id']), function ($query) use ($filters) {
-                $query->where('communication_id', '=', intval($filters['communication_id']));
+                $query->where($this->table . '.communication_id', '=', intval($filters['communication_id']));
             })
             ->when(!empty($filters['company_id']), function ($query) use ($filters) {
-                $query->where('company_id', '=', intval($filters['company_id']));
+                $query->where($this->table . '.company_id', '=', intval($filters['company_id']));
             })
             ->when(!empty($filters['contact_id']), function ($query) use ($filters) {
-                $query->where('contact_id', '=', intval($filters['contact_id']));
+                $query->where($this->table . '.contact_id', '=', intval($filters['contact_id']));
             })
             ->when(!empty($filters['cover_letter_id']), function ($query) use ($filters) {
-                $query->where('cover_letter_id', '=', intval($filters['cover_letter_id']));
+                $query->where($this->table . '.cover_letter_id', '=', intval($filters['cover_letter_id']));
             })
             ->when(!empty($filters['event_id']), function ($query) use ($filters) {
-                $query->where('event_id', '=', intval($filters['event_id']));
+                $query->where($this->table . '.event_id', '=', intval($filters['event_id']));
             })
             ->when(!empty($filters['message']), function ($query) use ($filters) {
-                $query->where('message', 'like', '%' . $filters['message'] . '%');
+                $query->where($this->table . '.message', 'like', '%' . $filters['message'] . '%');
             })
             ->when(!empty($filters['note_id']), function ($query) use ($filters) {
-                $query->where('note_id', '=', intval($filters['note_id']));
+                $query->where($this->table . '.note_id', '=', intval($filters['note_id']));
             })
             ->when(!empty($filters['recruiter_id']), function ($query) use ($filters) {
-                $query->where('recruiter_id', '=', intval($filters['recruiter_id']));
+                $query->where($this->table . '.recruiter_id', '=', intval($filters['recruiter_id']));
             })
             ->when(!empty($filters['reference_id']), function ($query) use ($filters) {
-                $query->where('reference_id', '=', intval($filters['reference_id']));
+                $query->where($this->table . '.reference_id', '=', intval($filters['reference_id']));
             })
             ->when(!empty($filters['resume_id']), function ($query) use ($filters) {
-                $query->where('resume_id', '=', intval($filters['resume_id']));
+                $query->where($this->table . '.resume_id', '=', intval($filters['resume_id']));
             })
             ->when(!empty($filters['time_logged']), function ($query) use ($filters) {
-                $query->where('time_logged', 'like', '%' . $filters['time_logged'] . '%');
+                $query->where($this->table . '.time_logged', 'like', '%' . $filters['time_logged'] . '%');
             });
 
         return $this->appendTimestampFilters($query, $filters);

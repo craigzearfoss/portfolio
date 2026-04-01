@@ -65,16 +65,16 @@ class Country extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['iso_alpha3']), function ($query) use ($filters) {
-                $query->where('iso_alpha3', '=', $filters['iso_alpha3']);
+                $query->where($this->table . '.iso_alpha3', '=', $filters['iso_alpha3']);
             })
             ->when(!empty($filters['m49']), function ($query) use ($filters) {
-                $query->where('m49', '=', $filters['m49']);
+                $query->where($this->table . '.m49', '=', $filters['m49']);
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             });
     }
 

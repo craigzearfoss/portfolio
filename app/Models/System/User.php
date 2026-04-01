@@ -141,58 +141,58 @@ class User extends Authenticatable
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['bio']), function ($query) use ($filters) {
-                $query->where('bio', 'like', '%' . $filters['bio'] . '%');
+                $query->where($this->table . '.bio', 'like', '%' . $filters['bio'] . '%');
             })
             ->when(!empty($filters['birthday']), function ($query) use ($filters) {
-                $query->where('birthday', '=', $filters['birthday']);
+                $query->where($this->table . '.birthday', '=', $filters['birthday']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $query->where('email', 'like', '%' . $filters['email'] . '%');
+                $query->where($this->table . '.email', 'like', '%' . $filters['email'] . '%');
             })
             ->when(!empty($filters['employer']), function ($query) use ($filters) {
-                $query->where('employer', 'like', '%' . $filters['employer'] . '%');
+                $query->where($this->table . '.employer', 'like', '%' . $filters['employer'] . '%');
             })
             ->when(!empty($filters['label']), function ($query) use ($filters) {
-                $query->where('label', 'like', '%' . $filters['label'] . '%');
+                $query->where($this->table . '.label', 'like', '%' . $filters['label'] . '%');
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['phone']), function ($query) use ($filters) {
-                $query->where('phone', 'like', '%' . $filters['phone'] . '%');
+                $query->where($this->table . '.phone', 'like', '%' . $filters['phone'] . '%');
             })
             ->when(!empty($filters['requires_relogin']), function ($query) use ($filters) {
-                $query->where('requires_relogin', '=', true);
+                $query->where($this->table . '.requires_relogin', '=', true);
             })
             ->when(!empty($filters['role']), function ($query) use ($filters) {
-                $query->where('role', 'like', '%' . $filters['role'] . '%');
+                $query->where($this->table . '.role', 'like', '%' . $filters['role'] . '%');
             })
             ->when(!empty($filters['salutation']), function ($query) use ($filters) {
-                $query->where('salutation', 'like', '%' . $filters['salutation'] . '%');
+                $query->where($this->table . '.salutation', 'like', '%' . $filters['salutation'] . '%');
             })
-            ->when(isset($filters['status']), function ($query) use ($filters) {
-                $query->where('status', '=', intval(['status']));
+            ->when(!empty($filters['status']), function ($query) use ($filters) {
+                $query->where($this->table . '.status', '=', intval(['status']));
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['title'] . '%');
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             })
             ->when(!empty($filters['username']), function ($query) use ($filters) {
-                $query->where('username', 'like', '%' . $filters['username'] . '%');
+                $query->where($this->table . '.username', 'like', '%' . $filters['username'] . '%');
             })
             ->when(!empty($filters['user_team_id']), function ($query) use ($filters) {
-                $query->where('user_team_id', '=', intval($filters['user_team_id']));
+                $query->where($this->table . '.user_team_id', '=', intval($filters['user_team_id']));
             });
 
         $query = $this->appendAddressFilters($query, $filters);

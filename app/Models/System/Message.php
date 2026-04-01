@@ -78,22 +78,22 @@ class Message extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['body']), function ($query) use ($filters) {
-                $query->where('body', 'like', '%' . $filters['body'] . '%');
+                $query->where($this->table . '.body', 'like', '%' . $filters['body'] . '%');
             })
             ->when(!empty($filters['email']), function ($query) use ($filters) {
-                $query->where('email', 'like', '%' . $filters['email'] . '%');
+                $query->where($this->table . '.email', 'like', '%' . $filters['email'] . '%');
             })
             ->when(!empty($filters['from_admin']), function ($query) use ($filters) {
-                $query->where('from_admin', '=', true);
+                $query->where($this->table . '.from_admin', '=', true);
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['subject']), function ($query) use ($filters) {
-                $query->where('subject', 'like', '%' . $filters['subject'] . '%');
+                $query->where($this->table . '.subject', 'like', '%' . $filters['subject'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);

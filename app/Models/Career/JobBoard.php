@@ -92,29 +92,29 @@ class JobBoard extends Model
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['coverage']), function ($query) use ($filters) {
                 if (in_array($filters['coverage'], ['local', 'regional', 'national', 'international'])) {
-                    $query->where($filters['coverage'], '=', true);
+                    $query->where($this->table . '.' . $filters['coverage'], '=', true);
                 } else {
                     throw new Exception('Invalid coverage "' . $filters['coverage'] . '" specified.'
                         . ' Valid coverages are "local", "regional", "national", and "international".');
                 }
             })
             ->when(!empty($filters['international']), function ($query) use ($filters) {
-                $query->where('international', '=', true);
+                $query->where($this->table . '.international', '=', true);
             })
             ->when(!empty($filters['local']), function ($query) use ($filters) {
-                $query->where('local', '=', true);
+                $query->where($this->table . '.local', '=', true);
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['national']), function ($query) use ($filters) {
-                $query->where('national', '=', true);
+                $query->where($this->table . '.national', '=', true);
             })
             ->when(!empty($filters['primary']), function ($query) use ($filters) {
-                $query->where('primary', '=', true);
+                $query->where($this->table . '.primary', '=', true);
             })
             ->when(!empty($filters['regional']), function ($query) use ($filters) {
-                $query->where('regional', '=', true);
+                $query->where($this->table . '.regional', '=', true);
             });
 
         $query = $this->appendStandardFilters($query, $filters);

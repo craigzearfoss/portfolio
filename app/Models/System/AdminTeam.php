@@ -79,10 +79,10 @@ class AdminTeam extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
-                $query->where('abbreviation', '=', $filters['abbreviation']);
+                $query->where($this->table . '.abbreviation', '=', $filters['abbreviation']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);

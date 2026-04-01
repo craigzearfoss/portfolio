@@ -150,22 +150,22 @@ class Contact extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['birthday']), function ($query) use ($filters) {
-                $query->where('birthday', '=', $filters['birthday']);
+                $query->where($this->table . '.birthday', '=', $filters['birthday']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['salutation']), function ($query) use ($filters) {
-                $query->where('salutation', 'like', '%' . $filters['salutation'] . '%');
+                $query->where($this->table . '.salutation', 'like', '%' . $filters['salutation'] . '%');
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['title'] . '%');
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
         $query = $this->appendAddressFilters($query, $filters);

@@ -67,16 +67,16 @@ class State extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         return new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['code']), function ($query) use ($filters) {
-                $query->where('code', '=', $filters['code']);
+                $query->where($this->table . '.code', '=', $filters['code']);
             })
             ->when(!empty($filters['country_id']), function ($query) use ($filters) {
-                $query->where('country_id', '=', intval($filters['country_id']));
+                $query->where($this->table . '.country_id', '=', intval($filters['country_id']));
             })
             ->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where('name', 'like', '%' . $filters['name'] . '%');
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             });
     }
 
