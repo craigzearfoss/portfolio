@@ -117,7 +117,7 @@ class Event extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        $query->join('applications', 'applications.id', '=', 'cover_letters.application_id');
+        $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
         $query->select([
             DB::raw('cover_letters.*'),

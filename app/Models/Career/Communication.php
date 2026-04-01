@@ -105,6 +105,14 @@ class Communication extends Model
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.application_id', '=', intval($filters['application_id']));
             })
+            ->when(!empty($filters['application_name']), function ($query) use ($filters) {
+                $applicationName = $filters['application_name'];
+                $query->where(function ($query) use ($applicationName) {
+                    $query->where('companies.name', 'LIKE', '%' . $applicationName . '%')
+                        ->orWhere('applications.role', 'LIKE', '%' . $applicationName . '%')
+                        ->orWhere('applications.apply_date', 'LIKE', '%' . $applicationName . '%');
+                });
+            })
             ->when(!empty($filters['communication_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.communication_type_id', '=', intval($filters['communication_type_id']));
             })

@@ -18,6 +18,6 @@
                           false,
                           []
                       ),
-        'style'    => 'min-width: 6rem;'
+        'style'    => 'min-width: 20rem;'
     ])
 </div>

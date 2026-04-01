@@ -16,8 +16,8 @@ Route::prefix('admin/personal')->middleware('admin')->name('admin.personal.')->g
 
     Route::get('/', [AdminPersonalIndexController::class, 'index'])->name('index');
 
-    Route::resource('personal/ingredient', AdminPersonalIngredientController::class);
-    Route::resource('personal/unit', AdminPersonalUnitController::class);
+    Route::resource('ingredient', AdminPersonalIngredientController::class);
+    Route::resource('unit', AdminPersonalUnitController::class);
 
     Route::resource('reading', AdminPersonalReadingController::class);
     Route::resource('recipe', AdminPersonalRecipeController::class);

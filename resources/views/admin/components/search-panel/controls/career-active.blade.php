@@ -7,6 +7,6 @@
         'label'    => 'status',
         'value'    => $active,
         'list'     => [ 1 => 'active', 0 => 'inactive', 3 => 'all' ],
-        'style'    => 'min-width: 6rem;',
+        'style'    => 'width: 6rem;',
     ])
 </div>

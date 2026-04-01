@@ -73,11 +73,6 @@ class IndexController extends BaseAdminController
      */
     public function login(Request $request): RedirectResponse|View
     {
-        if (isAdmin()) {
-            // admin is already logged in
-            return redirect()->route('admin.dashboard');
-        }
-
         if ($request->isMethod('post')) {
 
             $inputs = $request->all();
@@ -130,6 +125,11 @@ class IndexController extends BaseAdminController
             }
 
         } else {
+
+            if (isAdmin()) {
+                // admin is already logged in
+                return redirect()->route('admin.dashboard');
+            }
 
             return view(themedTemplate('admin.login'));
         }

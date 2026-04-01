@@ -360,6 +360,9 @@ class Application extends Model
             ->when(!empty($filters['resume_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.resume_id', '=', intval($filters['resume_id']));
             })
+            ->when(!empty($filters['resume_name']), function ($query) use ($filters) {
+                $query->where('resumes.name', 'like', '%' . $filters['resume_name'] . '%');
+            })
             ->when(!empty($filters['role']), function ($query) use ($filters) {
                 $query->where($this->table . '.role', 'like', '%' . $filters['role'] . '%');
             })
@@ -379,9 +382,11 @@ class Application extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
+        $query->join('resumes', 'resumes.id', '=', 'applications.resume_id');
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('companies.name as company_name'),
+            DB::raw('resumes.name as resume_name'),
         ]);
 //$query->ddRawSql();
         return $query;
