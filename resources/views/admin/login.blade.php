@@ -36,14 +36,7 @@
         @else
 
             @if(config('app.demo_admin_autologin'))
-
-                <div class="p-2 has-text-centered">
-                    <p class="mb-1">
-                        To log in as the <strong>demo</strong> admin use the credentials below.
-                    </p>
-                    <code class=" has-text-primary">{{ config('app.demo_admin_username') }} / {{ config('app.demo_admin_password') }}</code>
-                </div>
-
+                @include('admin.components.partials.show-demo-admin-username-and-password')
             @endif
 
             <form id="frmMain" action="{{ route('admin.login-submit') }}" method="POST">

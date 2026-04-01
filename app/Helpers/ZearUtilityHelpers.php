@@ -6,6 +6,9 @@ use App\Models\System\AdminResource;
 use App\Models\System\Owner;
 use App\Models\System\Database;
 use App\Models\System\Resource;
+use App\Models\System\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\IOFactory;
@@ -1043,5 +1046,71 @@ if (! function_exists('getShareImage')) {
         } else {
             return rtrim(config('app.url'), '/') . '/images/share-images/' . $filename;
         }
+    }
+}
+
+if (! function_exists('validateDemoAdminCredentials')) {
+    /**
+     * Checks oto make sure that the admin specified by the APP_DEMO_ADMIN_USERNAME variable in the .env exists
+     * in the database and has the password specified by APP_DEMO_ADMIN_PASSWORD matches.
+     *
+     * If the demo admin credentials specified in the .env are correct then boolean true is returned. Otherwise,
+     * it returns an error message.
+     *
+     * @return bool|string
+     */
+    function validateDemoAdminCredentials(): bool|string
+    {
+        $errorMessage = '';
+        if (!$username = config('app.demo_admin_username')) {
+            $errorMessage = 'No APP_DEMO_ADMIN_USERNAME specified in .env file.';
+        } elseif (!$password = config('app.demo_admin_password')) {
+            $errorMessage = 'No APP_DEMO_ADMIN_PASSWORD specified in .env file.';
+        } elseif(!$admin = new Admin()->where('username', $username)->first()) {
+            $errorMessage = 'Admin "' . $username . '"  specified by APP_DEMO_ADMIN_USERNAME in .env file not found in the database.';
+        } else {
+            if (Auth::guard('admin')->attempt([ 'username' => $username, 'password' => $password ])) {
+                if ($admin->disabled) {
+                    $errorMessage = 'The demo admin account "' . $username . '" has been disabled.';
+                }
+            } else {
+                $errorMessage = 'The password specified by APP_DEMO_ADMIN_PASSWORD in .env file does not match the value in the database.';
+            }
+        }
+
+        return !empty($errorMessage) ? $errorMessage : true;
+    }
+}
+
+if (! function_exists('validateDemoUserCredentials')) {
+    /**
+     * Checks oto make sure that the admin specified by the APP_DEMO_ADMIN_USERNAME variable in the .env exists
+     * in the database and has the password specified by APP_DEMO_ADMIN_PASSWORD matches.
+     *
+     * If the demo admin credentials specified in the .env are correct then boolean true is returned. Otherwise,
+     * it returns an error message.
+     *
+     * @return bool|string
+     */
+    function validateDemoUserCredentials(): bool|string
+    {
+        $errorMessage = '';
+        if (!$username = config('app.demo_user_username')) {
+            $errorMessage = 'No APP_DEMO_USER_USERNAME specified in .env file.';
+        } elseif (!$password = config('app.demo_user_password')) {
+            $errorMessage = 'No APP_DEMO_USER_PASSWORD specified in .env file.';
+        } elseif(!$user = new User()->where('username', $username)->first()) {
+            $errorMessage = 'User "' . $username . '"  specified by APP_DEMO_USER_USERNAME in .env file not found in the database.';
+        } else {
+            if (Auth::guard('admin')->attempt(['username' => $username, 'password' => $password])) {
+                if ($user->disabled) {
+                    $errorMessage = 'The demo user account "' . $username . '" has been disabled.';
+                }
+            } else {
+                $errorMessage = 'The password specified by APP_DEMO_USER_PASSWORD in .env file does not match the value in the database.';
+            }
+        }
+
+        return !empty($errorMessage) ? $errorMessage : true;
     }
 }
