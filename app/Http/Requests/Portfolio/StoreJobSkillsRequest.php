@@ -17,9 +17,7 @@ class StoreJobSkillsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
+        createGate('App\Models\Portfolio\JobSkill', loggedInAdmin());
 
         return true;
     }

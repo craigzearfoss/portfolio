@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Company;
+use App\Models\Career\Reference;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -19,13 +20,17 @@ class UpdateReferencesRequest extends FormRequest
     private mixed $slug;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$reference = Reference::find($this['reference']['id']) ) {
+            throw new Exception('Recruiter ' . $this['reference']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($reference, loggedInAdmin());
 
         return true;
     }

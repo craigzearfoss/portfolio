@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\AdminDatabase;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
 /**
@@ -17,13 +17,17 @@ class UpdateAdminDatabasesRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$admin_database = AdminDatabase::find($this['admin_database']['id']) ) {
+            throw new Exception('Admin database ' . $this['admin_database']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($admin_database, loggedInAdmin());
 
         return true;
     }

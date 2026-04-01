@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Company;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,13 +18,17 @@ class UpdateCompaniesRequest extends FormRequest
     private mixed $company;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$company = Company::find($this['company']['id']) ) {
+            throw new Exception('Company ' . $this['company']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($company, loggedInAdmin());
 
         return true;
     }

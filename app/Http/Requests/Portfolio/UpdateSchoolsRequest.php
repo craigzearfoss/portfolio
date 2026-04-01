@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\School;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -16,11 +17,19 @@ class UpdateSchoolsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$school = School::find($this['school']['id']) ) {
+            throw new Exception('School ' . $this['school']['id'] . ' not found');
+        }
+
+        updateGate($school, loggedInAdmin());
+
+        return true;
     }
 
     /**

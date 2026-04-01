@@ -20,13 +20,17 @@ class UpdatePublicationsRequest extends FormRequest
     private mixed $id;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$publication = Publication::find($this['publication']['id']) ) {
+            throw new Exception('Publication ' . $this['publication']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($publication, loggedInAdmin());
 
         return true;
     }

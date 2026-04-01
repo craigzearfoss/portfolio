@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Recruiter;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -12,11 +14,19 @@ class UpdateRecruitersRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$recruiter = Recruiter::find($this['recruiter']['id']) ) {
+            throw new Exception('Recruiter ' . $this['recruiter']['id'] . ' not found');
+        }
+
+        updateGate($recruiter, loggedInAdmin());
+
+        return true;
     }
 
     /**

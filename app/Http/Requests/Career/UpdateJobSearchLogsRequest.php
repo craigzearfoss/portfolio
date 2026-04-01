@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\JobSearchLog;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,13 +13,17 @@ class UpdateJobSearchLogsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$job_search_log = JobSearchLog::find($this['job_search_log']['id']) ) {
+            throw new Exception('Job search log ' . $this['job_search_log']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($job_search_log, loggedInAdmin());
 
         return true;
     }

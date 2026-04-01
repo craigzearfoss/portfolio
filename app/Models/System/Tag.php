@@ -3,26 +3,25 @@
 namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  *
  */
-class Tags extends Model
+class Tag extends Model
 {
     use SearchableModelTrait;
 
     /**
      * @var string
      */
-    protected $connection = 'dictionary_db';
+    protected $connection = 'system_db';
 
     /**
      * @var string
      */
-    protected $table = 'stacks';
+    protected $table = 'tags';
 
     /**
      * @var bool
@@ -40,15 +39,15 @@ class Tags extends Model
         'resource_id',
         'model_class',
         'model_item_id',
-        'dictionary_category_id',
         'dictionary_term_id',
+        'dictionary_category_id',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'owner_id', 'name', 'resource_id', 'model_class', 'model_item_id',
-        'dictionary_category_id', 'dictionary_term_id' ];
+        'dictionary_term_id', 'dictionary_category_id' ];
 
     /**
      *

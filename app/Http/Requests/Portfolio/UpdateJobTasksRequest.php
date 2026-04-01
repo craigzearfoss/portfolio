@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\JobTask;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateJobTasksRequest extends FormRequest
     private mixed $job_task;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$jobTask = JobTask::find($this['job_task']['id']) ) {
+            throw new Exception('Job Task ' . $this['job_task']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($jobTask, loggedInAdmin());
 
         return true;
     }

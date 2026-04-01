@@ -12,11 +12,13 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreCertificationsRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        createGate('App\Models\Portfolio\Certification', loggedInAdmin());
+
+        return true;
     }
 
     /**

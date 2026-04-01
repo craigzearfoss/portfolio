@@ -19,13 +19,17 @@ class UpdateVideosRequest extends FormRequest
     private mixed $id;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$video = Video::find($this['video']['id']) ) {
+            throw new Exception('Video ' . $this['video']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($video, loggedInAdmin());
 
         return true;
     }

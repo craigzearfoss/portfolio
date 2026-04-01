@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Models\Dictionary\Category;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -15,11 +16,19 @@ class UpdateCategoriesRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$category = Category::find($this['category']['id']) ) {
+            throw new Exception('Category ' . $this['category']['id'] . ' not found');
+        }
+
+        updateGate($category, loggedInAdmin());
+
+        return true;
     }
 
     /**

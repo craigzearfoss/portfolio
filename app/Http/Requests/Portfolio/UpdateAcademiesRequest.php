@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Academy;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,11 +16,19 @@ class UpdateAcademiesRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$academy = Academy::find($this['academy']['id']) ) {
+            throw new Exception('Academy ' . $this['academy']['id'] . ' not found');
+        }
+
+        updateGate($academy, loggedInAdmin());
+
+        return true;
     }
 
     /**

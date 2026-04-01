@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\JobBoard;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,11 +16,19 @@ class UpdateJobBoardsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$job_board = JobBoard::find($this['job_board']['id']) ) {
+            throw new Exception('Job board ' . $this['job_board']['id'] . ' not found');
+        }
+
+        updateGate($job_board, loggedInAdmin());
+
+        return true;
     }
 
     /**

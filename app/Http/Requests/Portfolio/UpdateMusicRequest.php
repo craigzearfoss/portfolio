@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Music;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,13 +18,17 @@ class UpdateMusicRequest extends FormRequest
     private mixed $music;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$music = Music::find($this['music']['id']) ) {
+            throw new Exception('Music ' . $this['music']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($music, loggedInAdmin());
 
         return true;
     }

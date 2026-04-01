@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Application;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -13,13 +14,17 @@ class UpdateApplicationsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$application = Application::find($this['application']['id']) ) {
+            throw new Exception('Application ' . $this['application']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($application, loggedInAdmin());
 
         return true;
     }

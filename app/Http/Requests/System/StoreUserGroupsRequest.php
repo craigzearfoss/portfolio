@@ -16,9 +16,7 @@ class StoreUserGroupsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
+        createGate('App\Models\System\UserGroup', loggedInAdmin());
 
         return true;
     }

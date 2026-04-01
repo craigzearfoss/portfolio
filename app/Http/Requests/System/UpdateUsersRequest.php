@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\User;
 use App\Rules\CaseInsensitiveNotIn;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -16,25 +17,19 @@ class UpdateUsersRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        // root admins can update any user
-        if (isRootAdmin()) {
-            return true;
+        if (!$user = User::find($this['user']['id']) ) {
+            throw new Exception('User ' . $this['user']['id'] . ' not found');
         }
 
-        if (Auth::guard('user')->check()) {
-            // users can only update themselves
-            if ($this->user->id === Auth::guard('user')->user()->id) {
-                return true;
-            }
-        }
+        updateGate($user, loggedInAdmin());
 
-        return false;
+        return true;
     }
 
     /**

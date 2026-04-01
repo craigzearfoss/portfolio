@@ -13,21 +13,19 @@ class StoreJobsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
+        createGate('App\Models\Portfolio\Job', loggedInAdmin());
 
         return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     * *
-     * * @return array<string, ValidationRule|array|string>
+     *
+     * @return array<string, ValidationRule|array|string>
      * @throws Exception
      */
     public function rules(): array

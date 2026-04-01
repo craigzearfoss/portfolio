@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\ApplicationSkill;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,13 +18,17 @@ class UpdateApplicationSkillsRequest extends FormRequest
     private mixed $id;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$application_skill = ApplicationSkill::find($this['application_skill']['id']) ) {
+            throw new Exception('Application skill ' . $this['application_skill']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($application_skill, loggedInAdmin());
 
         return true;
     }

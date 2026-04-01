@@ -20,7 +20,7 @@ class StoreUsersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        createGate('App\Models\System\User', loggedInAdmin());
 
         return true;
     }

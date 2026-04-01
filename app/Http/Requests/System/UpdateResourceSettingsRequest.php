@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\ResourceSetting;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,11 +18,19 @@ class UpdateResourceSettingsRequest extends FormRequest
     private mixed $resource_setting;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$resource_setting = ResourceSetting::find($this['resource_setting']['id']) ) {
+            throw new Exception('Resource setting ' . $this['resource_setting']['id'] . ' not found');
+        }
+
+        updateGate($resource_setting, loggedInAdmin());
+
+        return true;
     }
 
     /**

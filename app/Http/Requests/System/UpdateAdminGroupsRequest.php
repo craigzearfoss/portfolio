@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\AdminGroup;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateAdminGroupsRequest extends FormRequest
     private mixed $abbreviation;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$admin_group = AdminGroup::find($this['admin_group']['id']) ) {
+            throw new Exception('Admin group ' . $this['admin_group']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($admin_group, loggedInAdmin());
 
         return true;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Models\Dictionary\Database;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -15,11 +16,19 @@ class UpdateDatabasesRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$database = Database::find($this['database']['id']) ) {
+            throw new Exception('Database ' . $this['database']['id'] . ' not found');
+        }
+
+        updateGate($database, loggedInAdmin());
+
+        return true;
     }
 
     /**

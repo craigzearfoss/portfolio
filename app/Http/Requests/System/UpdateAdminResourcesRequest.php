@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\AdminResource;
 use App\Models\System\Resource;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
@@ -21,13 +22,17 @@ class UpdateAdminResourcesRequest extends FormRequest
     private mixed $table;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$admin_resource = AdminResource::find($this['admin_resource']['id']) ) {
+            throw new Exception('Admin resource ' . $this['admin_resource']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($admin_resource, loggedInAdmin());
 
         return true;
     }

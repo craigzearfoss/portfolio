@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Art;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,13 +18,17 @@ class UpdateArtRequest extends FormRequest
     private mixed $art;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$art = Art::find($this['art']['id']) ) {
+            throw new Exception('Art ' . $this['art']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($art, loggedInAdmin());
 
         return true;
     }
@@ -32,6 +37,7 @@ class UpdateArtRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     *
      * @throws Exception
      */
     public function rules(): array

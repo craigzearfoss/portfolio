@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\CoverLetter;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -19,13 +20,17 @@ class UpdateCoverLettersRequest extends FormRequest
     private mixed $name;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$cover_letter = CoverLetter::find($this['cover_letter']['id']) ) {
+            throw new Exception('Cover letter ' . $this['cover_letter']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($cover_letter, loggedInAdmin());
 
         return true;
     }

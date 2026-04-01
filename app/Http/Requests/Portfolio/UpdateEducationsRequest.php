@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\DegreeType;
+use App\Models\Portfolio\Education;
 use App\Models\Portfolio\School;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
@@ -19,13 +20,17 @@ class UpdateEducationsRequest extends FormRequest
     private mixed $education;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$education = Education::find($this['education']['id']) ) {
+            throw new Exception('Education ' . $this['education']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($education, loggedInAdmin());
 
         return true;
     }
@@ -34,6 +39,7 @@ class UpdateEducationsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     *
      * @throws Exception
      */
     public function rules(): array

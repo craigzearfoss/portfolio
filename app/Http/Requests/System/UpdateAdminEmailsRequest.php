@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\AdminEmail;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,13 +13,17 @@ class UpdateAdminEmailsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$admin_email = AdminEmail::find($this['admin_email']['id']) ) {
+            throw new Exception('Admin email ' . $this['admin_email']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($admin_email, loggedInAdmin());
 
         return true;
     }

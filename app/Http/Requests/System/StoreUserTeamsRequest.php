@@ -16,7 +16,7 @@ class StoreUserTeamsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        createGate('App\Models\System\UserTeam', loggedInAdmin());
 
         return true;
     }

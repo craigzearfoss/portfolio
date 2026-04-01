@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\UserPhone;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -13,13 +14,17 @@ class UpdateUserPhonesRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$user_phone = UserPhone::find($this['user_phone']['id']) ) {
+            throw new Exception('User phone ' . $this['user_phone']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($user_phone, loggedInAdmin());
 
         return true;
     }

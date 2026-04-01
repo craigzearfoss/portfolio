@@ -424,7 +424,7 @@ if (! function_exists('createGate')) {
     function createGate(string $resourceClass, Admin|null $admin = null): void
     {
         if (!canCreate($resourceClass, $admin)) {
-            abort(403, 'Read not authorized.');
+            abort(403, 'Create not authorized.');
         }
     }
 }

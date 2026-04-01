@@ -20,13 +20,17 @@ class UpdateAudiosRequest extends FormRequest
     private mixed $id;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$audio = Audio::find($this['audio']['id']) ) {
+            throw new Exception('Audio ' . $this['audio']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($audio, loggedInAdmin());
 
         return true;
     }

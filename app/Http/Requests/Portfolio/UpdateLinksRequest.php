@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Link;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateLinksRequest extends FormRequest
     private mixed $slug;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$link = Link::find($this['link']['id']) ) {
+            throw new Exception('Link ' . $this['link']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($link, loggedInAdmin());
 
         return true;
     }

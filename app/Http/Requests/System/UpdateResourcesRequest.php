@@ -23,11 +23,19 @@ class UpdateResourcesRequest extends FormRequest
     private mixed $table;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$resource = Resource::find($this['resource']['id']) ) {
+            throw new Exception('Resource ' . $this['resource']['id'] . ' not found');
+        }
+
+        updateGate($resource, loggedInAdmin());
+
+        return true;
     }
 
     /**

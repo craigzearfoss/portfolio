@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\Admin;
 use App\Rules\CaseInsensitiveNotIn;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
@@ -17,17 +18,19 @@ class UpdateAdminsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        if (isRootAdmin() || ($this->admin->id === Auth::guard('admin')->user()->id)) {
-            return true;
+        if (!$admin = Admin::find($this['admin']['id']) ) {
+            throw new Exception('Admin ' . $this['admin']['id'] . ' not found');
         }
 
-        return false;
+        updateGate($admin, loggedInAdmin());
+
+        return true;
     }
 
     /**

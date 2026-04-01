@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Event;
 use App\Traits\ModelPermissionsTrait;
 use DateTime;
 use Exception;
@@ -13,13 +14,17 @@ class UpdateEventsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$event = Event::find($this['event']['id']) ) {
+            throw new Exception('Event ' . $this['event']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($event, loggedInAdmin());
 
         return true;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Certificate;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateCertificatesRequest extends FormRequest
     private mixed $slug;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$certificate  = Certificate::find($this['certificate']['id']) ) {
+            throw new Exception('Certificate ' . $this['certificate']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($certificate, loggedInAdmin());
 
         return true;
     }
@@ -33,6 +38,7 @@ class UpdateCertificatesRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     *
      * @throws Exception
      */
     public function rules(): array

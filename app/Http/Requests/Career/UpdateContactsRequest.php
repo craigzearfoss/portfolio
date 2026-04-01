@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Contact;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateContactsRequest extends FormRequest
     private mixed $slug;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$contact = Contact::find($this['contact']['id']) ) {
+            throw new Exception('Contact ' . $this['contact']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($contact, loggedInAdmin());
 
         return true;
     }

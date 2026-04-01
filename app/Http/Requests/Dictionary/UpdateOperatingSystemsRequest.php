@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Models\Dictionary\OperatingSystem;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -15,11 +16,19 @@ class UpdateOperatingSystemsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$operating_system = OperatingSystem::find($this['operating_system']['id']) ) {
+            throw new Exception('Operating system ' . $this['operating_system']['id'] . ' not found');
+        }
+
+        updateGate($operating_system, loggedInAdmin());
+
+        return true;
     }
 
     /**

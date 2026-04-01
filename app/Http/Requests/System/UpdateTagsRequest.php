@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\Tag;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,13 +18,16 @@ class UpdateTagsRequest extends FormRequest
     private mixed $tag;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$tag = Tag::find($this['tag']['id']) ) {
+            throw new Exception('Tag ' . $this['tag']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($tag, loggedInAdmin());
 
         return true;
     }

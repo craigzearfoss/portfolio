@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Models\Personal\Reading;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -19,12 +20,16 @@ class UpdateReadingsRequest extends FormRequest
 
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$reading = Reading::find($this['reading']['id']) ) {
+            throw new Exception('Reading ' . $this['reading']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($reading, loggedInAdmin());
 
         return true;
     }

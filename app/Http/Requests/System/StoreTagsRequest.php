@@ -17,9 +17,7 @@ class StoreTagsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
+        createGate('App\Models\System\Tag', loggedInAdmin());
 
         return true;
     }

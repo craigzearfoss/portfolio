@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Personal;
 
 use App\Models\Personal\Ingredient;
+use App\Models\Personal\RecipeIngredient;
 use App\Models\Personal\Recipe;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
@@ -15,13 +16,17 @@ class UpdateRecipeIngredientsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$recipe_ingredient = RecipeIngredient::find($this['recipe_ingredient']['id']) ) {
+            throw new Exception('Recipe ingredient ' . $this['recipe_ingredient']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($recipe_ingredient, loggedInAdmin());
 
         return true;
     }

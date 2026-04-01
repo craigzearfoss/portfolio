@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\JobCoworker;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateJobCoworkersRequest extends FormRequest
     private mixed $job_id;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$jobCoworker = JobCoworker::find($this['job_coworker']['id']) ) {
+            throw new Exception('Job Coworker ' . $this['job_coworker']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($jobCoworker, loggedInAdmin());
 
         return true;
     }

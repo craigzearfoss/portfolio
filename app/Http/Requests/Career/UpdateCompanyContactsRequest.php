@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\CompanyContact;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
@@ -15,13 +16,17 @@ class UpdateCompanyContactsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$company_contact = CompanyContact::find($this['company_contact']['id']) ) {
+            throw new Exception('Company contact ' . $this['company_contact']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($company_contact, loggedInAdmin());
 
         return true;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Award;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,13 +18,17 @@ class UpdateAwardsRequest extends FormRequest
     private mixed $award;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$award = Award::find($this['award']['id']) ) {
+            throw new Exception('Award ' . $this['award']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($award, loggedInAdmin());
 
         return true;
     }
@@ -32,6 +37,7 @@ class UpdateAwardsRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     *
      * @throws Exception
      */
     public function rules(): array

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\JobSkill;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -21,13 +22,17 @@ class UpdateJobSkillsRequest extends FormRequest
     private mixed $job_skill;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$jobSkill = JobSkill::find($this['job_skill']['id']) ) {
+            throw new Exception('Job Skill ' . $this['job_skill']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($jobSkill, loggedInAdmin());
 
         return true;
     }

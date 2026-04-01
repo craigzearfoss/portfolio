@@ -2,12 +2,16 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\UserGroup;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class UpdateUserGroupsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
@@ -19,13 +23,17 @@ class UpdateUserGroupsRequest extends FormRequest
     private mixed $abbreviation;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$user_group = UserGroup::find($this['user_group']['id']) ) {
+            throw new Exception('User group ' . $this['user_group']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($user_group, loggedInAdmin());
 
         return true;
     }
@@ -33,7 +41,8 @@ class UpdateUserGroupsRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array
+     * @throws Exception
      */
     public function rules(): array
     {

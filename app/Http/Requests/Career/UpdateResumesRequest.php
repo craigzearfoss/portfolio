@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Resume;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -19,13 +20,17 @@ class UpdateResumesRequest extends FormRequest
     private mixed $resumes;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$resume = Resume::find($this['resume']['id']) ) {
+            throw new Exception('Resume ' . $this['resume']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($resume, loggedInAdmin());
 
         return true;
     }

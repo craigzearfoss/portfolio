@@ -2,17 +2,27 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\SettingType;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSettingTypesRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$setting_type = SettingType::find($this['setting_type']['id']) ) {
+            throw new Exception('Setting type ' . $this['setting_type']['id'] . ' not found');
+        }
+
+        updateGate($setting_type, loggedInAdmin());
+
+        return true;
     }
 
     /**

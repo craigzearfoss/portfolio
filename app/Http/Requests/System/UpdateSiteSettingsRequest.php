@@ -2,17 +2,27 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\SiteSetting;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSiteSettingsRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$site_setting = SiteSetting::find($this['site_setting']['id']) ) {
+            throw new Exception('Site setting ' . $this['site_setting']['id'] . ' not found');
+        }
+
+        updateGate($site_setting, loggedInAdmin());
+
+        return true;
     }
 
     /**

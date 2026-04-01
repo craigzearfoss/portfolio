@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Models\Personal\Recipe;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateRecipesRequest extends FormRequest
     private mixed $slug;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$recipe = Recipe::find($this['recipe']['id']) ) {
+            throw new Exception('Recipe ' . $this['recipe']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($recipe, loggedInAdmin());
 
         return true;
     }

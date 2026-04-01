@@ -4,6 +4,7 @@ namespace App\Http\Requests\Personal;
 
 use App\Models\Personal\Unit;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -15,11 +16,19 @@ class UpdateUnitsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$unit = Unit::find($this['unit']['id']) ) {
+            throw new Exception('Unit ' . $this['unit']['id'] . ' not found');
+        }
+
+        updateGate($unit, loggedInAdmin());
+
+        return true;
     }
 
     /**

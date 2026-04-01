@@ -15,9 +15,7 @@ class StoreUserPhonesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
+        createGate('App\Models\System\UserPhone', loggedInAdmin());
 
         return true;
     }

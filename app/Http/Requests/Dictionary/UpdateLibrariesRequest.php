@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Models\Dictionary\Library;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -15,11 +16,19 @@ class UpdateLibrariesRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$library = Library::find($this['library']['id']) ) {
+            throw new Exception('Library ' . $this['library']['id'] . ' not found');
+        }
+
+        updateGate($library, loggedInAdmin());
+
+        return true;
     }
 
     /**

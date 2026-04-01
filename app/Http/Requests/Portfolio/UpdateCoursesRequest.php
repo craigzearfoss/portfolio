@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Course;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateCoursesRequest extends FormRequest
     private mixed $slug;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$course = Course::find($this['course']['id']) ) {
+            throw new Exception('Course ' . $this['course']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($course, loggedInAdmin());
 
         return true;
     }
@@ -33,6 +38,7 @@ class UpdateCoursesRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, ValidationRule|array|string>
+     *
      * @throws Exception
      */
     public function rules(): array

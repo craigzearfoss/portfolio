@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dictionary;
 
+use App\Models\Dictionary\Language;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -15,11 +16,19 @@ class UpdateLanguagesRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$language = Language::find($this['language']['id']) ) {
+            throw new Exception('Language ' . $this['language']['id'] . ' not found');
+        }
+
+        updateGate($language, loggedInAdmin());
+
+        return true;
     }
 
     /**

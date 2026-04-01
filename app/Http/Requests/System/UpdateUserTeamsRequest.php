@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\UserTeam;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -19,13 +20,17 @@ class UpdateUserTeamsRequest extends FormRequest
     private mixed $abbreviation;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$user_team = UserTeam::find($this['user_team']['id']) ) {
+            throw new Exception('User team ' . $this['user_team']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($user_team, loggedInAdmin());
 
         return true;
     }

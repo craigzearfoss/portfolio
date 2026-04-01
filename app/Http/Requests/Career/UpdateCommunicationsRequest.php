@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Communication;
 use App\Traits\ModelPermissionsTrait;
 use DateMalformedStringException;
 use DateTime;
@@ -14,13 +15,17 @@ class UpdateCommunicationsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$communication = Communication::find($this['communication']['id']) ) {
+            throw new Exception('Communication ' . $this['communication']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($communication, loggedInAdmin());
 
         return true;
     }

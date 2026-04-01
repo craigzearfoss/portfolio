@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\Certification;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,11 +13,19 @@ use Illuminate\Foundation\Http\FormRequest;
 class UpdateCertificationsRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$academy = Certification::find($this['certification']['id']) ) {
+            throw new Exception('Certification ' . $this['certification']['id'] . ' not found');
+        }
+
+        updateGate($academy, loggedInAdmin());
+
+        return true;
     }
 
     /**

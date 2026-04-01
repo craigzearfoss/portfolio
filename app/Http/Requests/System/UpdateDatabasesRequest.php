@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\System;
 
+use App\Models\System\Database;
 use App\Traits\ModelPermissionsTrait;
+use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Route;
@@ -15,11 +17,19 @@ class UpdateDatabasesRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        if (!$database = Database::find($this['database']['id']) ) {
+            throw new Exception('Database ' . $this['database']['id'] . ' not found');
+        }
+
+        updateGate($database, loggedInAdmin());
+
+        return true;
     }
 
     /**

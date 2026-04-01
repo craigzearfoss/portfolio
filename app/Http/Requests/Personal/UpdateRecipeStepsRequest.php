@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Personal;
 
 use App\Models\Personal\Recipe;
+use App\Models\Personal\RecipeStep;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -14,13 +15,17 @@ class UpdateRecipeStepsRequest extends FormRequest
     use ModelPermissionsTrait;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$recipe_step = RecipeStep::find($this['recipe_step']['id']) ) {
+            throw new Exception('Recipe step ' . $this['recipe_step']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($recipe_step, loggedInAdmin());
 
         return true;
     }

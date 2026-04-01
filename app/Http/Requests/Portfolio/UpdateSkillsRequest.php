@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Skill;
 use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,13 +19,17 @@ class UpdateSkillsRequest extends FormRequest
     private mixed $slug;
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
+     *
+     * @throws Exception
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
+        if (!$skill = Skill::find($this['skill']['id']) ) {
+            throw new Exception('Skill ' . $this['skill']['id'] . ' not found');
+        }
 
-        $this->checkOwner();
+        updateGate($skill, loggedInAdmin());
 
         return true;
     }
