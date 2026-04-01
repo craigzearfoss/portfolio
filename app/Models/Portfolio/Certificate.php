@@ -102,37 +102,37 @@ class Certificate extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['academy_id']), function ($query) use ($filters) {
-                $query->where('academy_id', '=', intval($filters['academy_id']));
+                $query->where($this->table . '.academy_id', '=', intval($filters['academy_id']));
             })
-            ->when(isset($filters['certificate_url']), function ($query) use ($filters) {
-                $query->where('certificate_url', '=', $filters['certificate_url']);
+            ->when(!empty($filters['certificate_url']), function ($query) use ($filters) {
+                $query->where($this->table . '.certificate_url', '=', $filters['certificate_url']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
-            ->when(isset($filters['expiration']), function ($query) use ($filters) {
-                $query->where('expiration', '=', $filters['expiration']);
+            ->when(!empty($filters['expiration']), function ($query) use ($filters) {
+                $query->where($this->table . '.expiration', '=', $filters['expiration']);
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', true);
+                $query->where($this->table . '.featured', '=', true);
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['organization']), function ($query) use ($filters) {
-                $query->where('organization', 'like', '%' . $filters['organization'] . '%');
+                $query->where($this->table . '.organization', 'like', '%' . $filters['organization'] . '%');
             })
-            ->when(isset($filters['received']), function ($query) use ($filters) {
-                $query->where('received', '=', $filters['received']);
+            ->when(!empty($filters['received']), function ($query) use ($filters) {
+                $query->where($this->table . '.received', '=', $filters['received']);
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
-            ->when(isset($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', $filters['year']);
+            ->when(!empty($filters['year']), function ($query) use ($filters) {
+                $query->where($this->table . '.year', '=', $filters['year']);
             });
 
         $query = $this->appendStandardFilters($query, $filters);

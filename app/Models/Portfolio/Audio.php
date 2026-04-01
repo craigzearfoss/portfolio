@@ -117,66 +117,66 @@ class Audio extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['audio_url']), function ($query) use ($filters) {
-                $query->where('audio_url', 'like', '%' . $filters['publication_url'] . '%');
+                $query->where($this->table . '.audio_url', 'like', '%' . $filters['publication_url'] . '%');
             })
             ->when(!empty($filters['clip']), function ($query) use ($filters) {
-                $query->where('clip', '=', true);
+                $query->where($this->table . '.clip', '=', true);
             })
             ->when(!empty($filters['company']), function ($query) use ($filters) {
-                $query->where('company', 'like', '%' . $filters['company'] . '%');
+                $query->where($this->table . '.company', 'like', '%' . $filters['company'] . '%');
             })
             ->when(!empty($filters['credit']), function ($query) use ($filters) {
-                $query->where('credit', 'like', '%' . $filters['credit'] . '%');
+                $query->where($this->table . '.credit', 'like', '%' . $filters['credit'] . '%');
             })
             ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where('date', '=', $filters['date']);
+                $query->where($this->table . '.date', '=', $filters['date']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', true);
+                $query->where($this->table . '.featured', '=', true);
             })
             ->when(!empty($filters['full_episode']), function ($query) use ($filters) {
-                $query->where('full_episode', '=', true);
+                $query->where($this->table . '.full_episode', '=', true);
             })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
-                $query->where('location', 'like', '%' . $filters['location'] . '%');
+                $query->where($this->table . '.location', 'like', '%' . $filters['location'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
-                $query->where('parent_id', '=', intval(['parent_id']));
+            ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.parent_id', '=', intval(['parent_id']));
             })
             ->when(!empty($filters['podcast']), function ($query) use ($filters) {
-                $query->where('podcast', '=', true);
+                $query->where($this->table . '.podcast', '=', true);
             })
             ->when(!empty($filters['review']), function ($query) use ($filters) {
                 $review = $filters['review'];
                 $query->orWhere(function ($query) use ($review) {
-                    $query->where('review_link1', 'like', '%' . $review . '%')
-                        ->orWhere('review_link1_name', 'like', '%' . $review . '%')
-                        ->orWhere('review_link2', 'like', '%' . $review . '%')
-                        ->orWhere('review_link2_name', 'like', '%' . $review . '%')
-                        ->orWhere('review_link3', 'like', '%' . $review . '%')
-                        ->orWhere('review_link3_name', 'like', '%' . $review . '%');
+                    $query->where($this->table . '.review_link1', 'like', '%' . $review . '%')
+                        ->orWhere($this->table . '.review_link1_name', 'like', '%' . $review . '%')
+                        ->orWhere($this->table . '.review_link2', 'like', '%' . $review . '%')
+                        ->orWhere($this->table . '.review_link2_name', 'like', '%' . $review . '%')
+                        ->orWhere($this->table . '.review_link3', 'like', '%' . $review . '%')
+                        ->orWhere($this->table . '.review_link3_name', 'like', '%' . $review . '%');
                 });
             })
             ->when(!empty($filters['show']), function ($query) use ($filters) {
-                $query->where('show', '=', true);
+                $query->where($this->table . '.show', '=', true);
             })
             ->when(!empty($filters['source_recording']), function ($query) use ($filters) {
-                $query->where('source_recording', '=', true);
+                $query->where($this->table . '.source_recording', '=', true);
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', $filters['year']);
+                $query->where($this->table . '.year', '=', $filters['year']);
             });
 
         $query = $this->appendStandardFilters($query, $filters);

@@ -28,7 +28,6 @@ class AudioController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $audios = new Audio()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

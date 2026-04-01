@@ -96,25 +96,25 @@ class RecipeIngredient extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['ingredient_id']), function ($query) use ($filters) {
-                $query->where('ingredient_id', '=', intval($filters['ingredient_id']));
+                $query->where($this->table . '.ingredient_id', '=', intval($filters['ingredient_id']));
             })
             ->when(!empty($filters['recipe_id']), function ($query) use ($filters) {
-                $query->where('recipe_id', '=', intval($filters['recipe_id']));
+                $query->where($this->table . '.recipe_id', '=', intval($filters['recipe_id']));
             })
             ->when(!empty($filters['unit_id']), function ($query) use ($filters) {
-                $query->where('unit_id', '=', intval($filters['unit_id']));
+                $query->where($this->table . '.unit_id', '=', intval($filters['unit_id']));
             });
 
         $query = $this->appendStandardFilters($query, $filters);

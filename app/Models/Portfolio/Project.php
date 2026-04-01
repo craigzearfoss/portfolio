@@ -101,35 +101,35 @@ class Project extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', true);
+                $query->where($this->table . '.featured', '=', true);
             })
             ->when(!empty($filters['language']), function ($query) use ($filters) {
-                $query->where('language', 'like', '%' . $filters['language'] . '%');
+                $query->where($this->table . '.language', 'like', '%' . $filters['language'] . '%');
             })
             ->when(!empty($filters['language_version']), function ($query) use ($filters) {
-                $query->where('language_version', 'like', '%' . $filters['language_version'] . '%');
+                $query->where($this->table . '.language_version', 'like', '%' . $filters['language_version'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['repository']), function ($query) use ($filters) {
                 $repository = $filters['repository'];
                 $query->orWhere(function ($query) use ($repository) {
-                    $query->where('repository_url', 'like', '%' . $repository . '%')
-                        ->orWhere('repository_name', 'like', '%' . $repository . '%');
+                    $query->where($this->table . '.repository_url', 'like', '%' . $repository . '%')
+                        ->orWhere($this->table . '.repository_name', 'like', '%' . $repository . '%');
                 });
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', intval(['year']));
+                $query->where($this->table . '.year', '=', intval(['year']));
             });
 
         $query = $this->appendStandardFilters($query, $filters);

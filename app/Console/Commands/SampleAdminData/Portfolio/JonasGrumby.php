@@ -440,7 +440,7 @@ class JonasGrumby extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => ' Willy Gilligan', 'title' => 'First Mate',  'level_id' => 3, 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Willy Gilligan', 'title' => 'First Mate',  'level_id' => 3, 'link' => null, 'link_name' => null ],
         ];
 
         if (!empty($data)) {

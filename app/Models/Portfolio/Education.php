@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -100,60 +101,70 @@ class Education extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
-            ->when(isset($filters['currently_enrolled']), function ($query) use ($filters) {
-                $query->where('currently_enrolled', '=', intval($filters['currently_enrolled']));
+            ->when(!empty($filters['currently_enrolled']), function ($query) use ($filters) {
+                $query->where($this->table . '.currently_enrolled', '=', intval($filters['currently_enrolled']));
             })
-            ->when(isset($filters['degree_type_id']), function ($query) use ($filters) {
-                $query->where('degree_type_id', '=', intval($filters['degree_type_id']));
+            ->when(!empty($filters['degree_type_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.degree_type_id', '=', intval($filters['degree_type_id']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
-            ->when(isset($filters['enrollment_month']), function ($query) use ($filters) {
-                $query->where('enrollment_month', '=', intval($filters['enrollment_month']));
+            ->when(!empty($filters['enrollment_month']), function ($query) use ($filters) {
+                $query->where($this->table . '.enrollment_month', '=', intval($filters['enrollment_month']));
             })
-            ->when(isset($filters['enrollment_year']), function ($query) use ($filters) {
-                $query->where('enrollment_year', '=', intval($filters['enrollment_year']));
+            ->when(!empty($filters['enrollment_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.enrollment_year', '=', intval($filters['enrollment_year']));
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', true);
+                $query->where($this->table . '.featured', '=', true);
             })
-            ->when(isset($filters['graduated']), function ($query) use ($filters) {
-                $query->where('graduated', '=', intval($filters['graduated']));
+            ->when(!empty($filters['graduated']), function ($query) use ($filters) {
+                $query->where($this->table . '.graduated', '=', intval($filters['graduated']));
             })
-            ->when(isset($filters['graduation_month']), function ($query) use ($filters) {
-                $query->where('graduation_month', '=', intval($filters['graduation_month']));
+            ->when(!empty($filters['graduation_month']), function ($query) use ($filters) {
+                $query->where($this->table . '.graduation_month', '=', intval($filters['graduation_month']));
             })
-            ->when(isset($filters['graduation_year']), function ($query) use ($filters) {
-                $query->where('graduation_year', '=', intval($filters['graduation_year']));
+            ->when(!empty($filters['graduation_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.graduation_year', '=', intval($filters['graduation_year']));
             })
             ->when(!empty($filters['major']), function ($query) use ($filters) {
-                $query->where('major', 'like', '%' . $filters['major'] . '%');
+                $query->where($this->table . '.major', 'like', '%' . $filters['major'] . '%');
             })
             ->when(!empty($filters['minor']), function ($query) use ($filters) {
-                $query->where('minor', 'like', '%' . $filters['minor'] . '%');
+                $query->where($this->table . '.minor', 'like', '%' . $filters['minor'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(isset($filters['school_id']), function ($query) use ($filters) {
-                $query->where('school_id', '=', intval($filters['school_id']));
+            ->when(!empty($filters['school_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.school_id', '=', intval($filters['school_id']));
+            })
+            ->when(!empty($filters['school_name']), function ($query) use ($filters) {
+                $query->where('schools.name', 'like', '%' . $filters['school_name'] . '%');
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);
+        $query =  $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        $query->join('schools', 'schools.id', '=', $this->table . '.school_id');
+        $query->select([
+            DB::raw($this->table . '.*'),
+            DB::raw('schools.name as school_name'),
+        ]);
+
+        return $query;
     }
 
     /**

@@ -2,9 +2,11 @@
     use App\Models\System\Admin;
 
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $name            = $name ?? request()->query('name');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $company         = $company ?? request()->query('company');
+    $name            = $name ?? request()->query('name');
+    $role            = $role ?? request()->query('role');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -29,6 +31,13 @@
                             @include('user.components.input-basic', [
                                 'name'    => 'name',
                                 'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                        <div class="search-form-control">
+                            @include('user.components.input-basic', [
+                                'name'    => 'company',
+                                'value'   => $company,
                                 'message' => $message ?? '',
                             ])
                         </div>

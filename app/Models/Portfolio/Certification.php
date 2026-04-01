@@ -83,19 +83,19 @@ class Certification extends Model
 
         $query = $this->appendStandardFilters($query, $filters)
             ->when(!empty($filters['abbreviation']), function ($query) use ($filters) {
-                $query->where('abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
+                $query->where($this->table . '.abbreviation', 'like', '%' . $filters['abbreviation'] . '%');
             })
             ->when(!empty($filters['certification_type_id']), function ($query) use ($filters) {
-                $query->where('certification_type_id', '=', intval($filters['certification_type_id']));
+                $query->where($this->table . '.certification_type_id', '=', intval($filters['certification_type_id']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['organization']), function ($query) use ($filters) {
                 $query->where('organization', 'like', '%' . $filters['organization'] . '%');

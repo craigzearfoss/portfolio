@@ -2,7 +2,10 @@
     use App\Models\System\Admin;
 
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $company         = $company ?? request()->query('company_name');
+    $job_id          = $job_id ?? request()->query('job_id');
     $name            = $name ?? request()->query('name');
+    $role            = $role ?? request()->query('role');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
@@ -29,6 +32,26 @@
                             @include('user.components.input-basic', [
                                 'name'    => 'name',
                                 'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                        <div class="search-form-control">
+                            @include('user.components.search-panel.controls.portfolio-job', [ 'owner_' => $owner_id ])
+                        </div>
+                    </div>
+
+                    <div class="floating-div">
+                        <div class="search-form-control">
+                            @include('user.components.input-basic', [
+                                'name'    => 'company',
+                                'value'   => $company,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                        <div class="search-form-control">
+                            @include('user.components.input-basic', [
+                                'name'    => 'role',
+                                'value'   => $role,
                                 'message' => $message ?? '',
                             ])
                         </div>

@@ -24,6 +24,11 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.personal-ingredient',
+        [ 'action'     => route('admin.personal.ingredient.index'),
+        ]
+    )
+
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 

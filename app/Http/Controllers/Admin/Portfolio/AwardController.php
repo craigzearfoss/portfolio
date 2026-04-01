@@ -28,7 +28,6 @@ class AwardController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $awards = new Award()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));
 

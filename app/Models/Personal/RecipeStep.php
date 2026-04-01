@@ -93,22 +93,22 @@ class RecipeStep extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['recipe_id']), function ($query) use ($filters) {
-                $query->where('recipe_id', '=', intval($filters['recipe_id']));
+                $query->where($this->table . '.recipe_id', '=', intval($filters['recipe_id']));
             })
             ->when(!empty($filters['step']), function ($query) use ($filters) {
-                $query->where('step', '=', intval($filters['step']));
+                $query->where($this->table . '.step', '=', intval($filters['step']));
             });
 
         $query = $this->appendStandardFilters($query, $filters);

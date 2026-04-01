@@ -2,6 +2,7 @@
 
 namespace App\Models\Portfolio;
 
+use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Country;
@@ -13,6 +14,7 @@ use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Portfolio\JobFactory;
 use Eloquent;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -113,6 +116,114 @@ class Job extends Model
     }
 
     /**
+     * Returns an array of options for an application select list.
+     *
+     * @param array       $filters
+     * @param string      $valueColumn
+     * @param string|null $labelColumn
+     * @param bool        $includeBlank
+     * @param bool        $includeOther
+     * @param array       $orderBy
+     * @param EnvTypes    $envType
+     * @return array
+     * @throws Exception
+     */
+    public function listOptions(array       $filters = [],
+                                string      $valueColumn = 'id',
+                                string|null $labelColumn = 'id',
+                                bool        $includeBlank = false,
+                                bool        $includeOther = false,
+                                array       $orderBy = [],
+                                EnvTypes    $envType = EnvTypes::GUEST): array
+    {
+        $predefinedColumns = [];
+
+        $options = $includeBlank ? [ '' => '' ] : [];
+
+        // set the columns
+        $selectColumns = [
+            $this->table . '.id',
+            $this->table . '.company',
+            $this->table . '.role',
+        ];
+
+        foreach ([$valueColumn, $labelColumn] as $field) {
+            if (!empty($field) && ($field !== 'name')) {
+                // note that there is no "name" column in the jobs table
+                if ($field = $this->fullyQualifiedField($field, $predefinedColumns)) {
+                    if (!in_array($field, $selectColumns)) {
+                        $selectColumns[] = $field;
+                    }
+                }
+            }
+        }
+
+        // set the order by
+        $sortColumn = $orderBy[0] ?? self::SEARCH_ORDER_BY[0];
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
+            $selectColumns[] = $sortColumn;
+        }
+        $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
+
+        // create the query
+        if ($envType == EnvTypes::ADMIN) {
+            $query = new self()->withoutGlobalScope(AdminPublicScope::class)
+                ->distinct()->select($selectColumns)->orderBy($sortColumn, $sortDir)
+                ->orderBy($sortColumn, $sortDir);
+        } else {
+            $query = new self()->distinct()->select($selectColumns)
+                ->orderBy($sortColumn, $sortDir);
+        }
+
+        // apply filters to the query
+        foreach ($filters as $col => $value) {
+
+            // if the filter is owner_id and the value is null then ignore it because owner_id should always have a value
+            if (($col == 'owner_id') && empty($value)) {
+                continue;
+            }
+
+            // make sure common columns are fully qualified to avoid query errors
+            if (in_array($col, self::COMMON_COLUMNS)) {
+                $col = $this->table . '.' .$col;
+            }
+
+            // get the where clause
+            if (is_array($value)) {
+                $query = $query->whereIn($col, $value);
+            } else {
+                $parts = explode(' ', $col);
+                $col = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->whereNot($col, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($col, $value);
+                    } else {
+                        throw new Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($col, '=', $value);
+                }
+            }
+        }
+
+        foreach ($query->get() as $row) {
+            if (empty($labelColumn) || ($labelColumn == 'name')) {
+                // there is no name column for jobs so we need to generate one
+                $label = $row->company . ' - ' . $row->role;
+            } else {
+                $label = $row->{$labelColumn};
+            }
+
+            $options[$row->{$valueColumn}] = $label;
+        }
+
+        return $options;
+    }
+
+    /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
      *
@@ -131,50 +242,50 @@ class Job extends Model
             $filters['owner_id'] = $owner->id;
         }
 
-        $query = new self()->when(isset($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+        $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })
-            ->when(isset($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+            ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['company']), function ($query) use ($filters) {
-                $query->where('company', 'like', '%' . $filters['company'] . '%');
+                $query->where($this->table . '.company', 'like', '%' . $filters['company'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
-            ->when(isset($filters['end_month']), function ($query) use ($filters) {
-                $query->where('end_month', '=', intval($filters['end_month']));
+            ->when(!empty($filters['end_month']), function ($query) use ($filters) {
+                $query->where($this->table . '.end_month', '=', intval($filters['end_month']));
             })
-            ->when(isset($filters['end_year']), function ($query) use ($filters) {
-                $query->where('end_year', '=', intval($filters['end_year']));
+            ->when(!empty($filters['end_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.end_year', '=', intval($filters['end_year']));
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', true);
+                $query->where($this->table . '.featured', '=', true);
             })
-            ->when(isset($filters['job_employment_type_id']), function ($query) use ($filters) {
-                $query->where('job_employment_type_id', '=', intval($filters['job_employment_type_id']));
+            ->when(!empty($filters['job_employment_type_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.job_employment_type_id', '=', intval($filters['job_employment_type_id']));
             })
-            ->when(isset($filters['job_location_type_id']), function ($query) use ($filters) {
-                $query->where('job_location_type_id', '=', intval($filters['job_location_type_id']));
+            ->when(!empty($filters['job_location_type_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.job_location_type_id', '=', intval($filters['job_location_type_id']));
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['role']), function ($query) use ($filters) {
-                $query->where('role', 'like', '%' . $filters['role'] . '%');
+                $query->where($this->table . '.role', 'like', '%' . $filters['role'] . '%');
             })
-            ->when(isset($filters['start_month']), function ($query) use ($filters) {
-                $query->where('start_month', '=', intval($filters['start_month']));
+            ->when(!empty($filters['start_month']), function ($query) use ($filters) {
+                $query->where($this->table . '.start_month', '=', intval($filters['start_month']));
             })
-            ->when(isset($filters['start_year']), function ($query) use ($filters) {
-                $query->where('start_year', '=', intval($filters['start_year']));
+            ->when(!empty($filters['start_year']), function ($query) use ($filters) {
+                $query->where($this->table . '.start_year', '=', intval($filters['start_year']));
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
         $query = $this->appendAddressFilters($query, $filters);

@@ -56,7 +56,7 @@
                         @endif
                         <th>name</th>
                         <th>company</th>
-                        <th>summary</th>
+                        <th>role</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -72,7 +72,7 @@
                         @endif
                         <th>name</th>
                         <th>company</th>
-                        <th>summary</th>
+                        <th>role</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -100,8 +100,10 @@
                                 {!! $jobSkill->job->company ?? '' !!}
                             @endif
                         </td>
-                        <td data-field="summary">
-                            {!! $jobSkill->summary !!}
+                        <td data-field="jo.role">
+                            @if($jobSkill->job)
+                                {!! $jobSkill->job->role ?? '' !!}
+                            @endif
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $jobSkill->is_public ])

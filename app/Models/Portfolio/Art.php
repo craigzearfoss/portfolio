@@ -97,25 +97,25 @@ class Art extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['artist']), function ($query) use ($filters) {
-                $query->where('artist', 'like', '%' . $filters['artist'] . '%');
+                $query->where($this->table . '.artist', 'like', '%' . $filters['artist'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', true);
+                $query->where($this->table . '.featured', '=', true);
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', $filters['year']);
+                $query->where($this->table . '.year', '=', $filters['year']);
             });
 
         $query = $this->appendStandardFilters($query, $filters);

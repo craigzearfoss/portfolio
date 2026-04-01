@@ -133,96 +133,96 @@ class Publication extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['article']), function ($query) use ($filters) {
-                $query->where('article', '=', true);
+                $query->where($this->table . '.article', '=', true);
             })
             ->when(!empty($filters['book']), function ($query) use ($filters) {
-                $query->where('book', '=', true);
+                $query->where($this->table . '.book', '=', true);
             })
             ->when(!empty($filters['credit']), function ($query) use ($filters) {
-                $query->where('credit', 'like', '%' . $filters['credit'] . '%');
+                $query->where($this->table . '.credit', 'like', '%' . $filters['credit'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', true);
+                $query->where($this->table . '.featured', '=', true);
             })
             ->when(!empty($filters['fiction']), function ($query) use ($filters) {
-                $query->where('fiction', '=', true);
+                $query->where($this->table . '.fiction', '=', true);
             })
             ->when(!empty($filters['freelance']), function ($query) use ($filters) {
-                $query->where('freelance', '=', true);
+                $query->where($this->table . '.freelance', '=', true);
             })
             ->when(!empty($filters['nonfiction']), function ($query) use ($filters) {
-                $query->where('nonfiction', '=', true);
+                $query->where($this->table . '.nonfiction', '=', true);
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['novel']), function ($query) use ($filters) {
-                $query->where('novel', '=', true);
+                $query->where($this->table . '.novel', '=', true);
             })
             ->when(!empty($filters['online']), function ($query) use ($filters) {
-                $query->where('online', '=', true);
+                $query->where($this->table . '.online', '=', true);
             })
             ->when(!empty($filters['pamphlet']), function ($query) use ($filters) {
-                $query->where('pamphlet', '=', true);
+                $query->where($this->table . '.pamphlet', '=', true);
             })
             ->when(!empty($filters['paper']), function ($query) use ($filters) {
-                $query->where('paper', '=', true);
+                $query->where($this->table . '.paper', '=', true);
             })
-            ->when(isset($filters['parent_id']), function ($query) use ($filters) {
-                $query->where('parent_id', '=', intval($filters['parent_id']));
+            ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.parent_id', '=', intval($filters['parent_id']));
             })
             ->when(!empty($filters['poetry']), function ($query) use ($filters) {
-                $query->where('poetry', '=', true);
+                $query->where($this->table . '.poetry', '=', true);
             })
             ->when(!empty($filters['publication_date']), function ($query) use ($filters) {
-                $query->where('publication_date', '=', $filters['publication_date']);
+                $query->where($this->table . '.publication_date', '=', $filters['publication_date']);
             })
             ->when(!empty($filters['publication_name']), function ($query) use ($filters) {
-                $query->where('publication_name', 'like', '%' . $filters['publication_name'] . '%');
+                $query->where($this->table . '.publication_name', 'like', '%' . $filters['publication_name'] . '%');
             })
             ->when(!empty($filters['publication_url']), function ($query) use ($filters) {
-                $query->where('publication_url', 'like', '%' . $filters['publication_url'] . '%');
+                $query->where($this->table . '.publication_url', 'like', '%' . $filters['publication_url'] . '%');
             })
             ->when(!empty($filters['publication_year']), function ($query) use ($filters) {
-                $query->where('publication_year', '=', intval($filters['publication_year']));
+                $query->where($this->table . '.publication_year', '=', intval($filters['publication_year']));
             })
             ->when(!empty($filters['publisher']), function ($query) use ($filters) {
-                $query->where('publisher', 'like', '%' . $filters['publisher'] . '%');
+                $query->where($this->table . '.publisher', 'like', '%' . $filters['publisher'] . '%');
             })
             ->when(!empty($filters['research']), function ($query) use ($filters) {
-                $query->where('research', '=', true);
+                $query->where($this->table . '.research', '=', true);
             })
             ->when(!empty($filters['review']), function ($query) use ($filters) {
                 $review = $filters['review'];
                 $query->orWhere(function ($query) use ($review) {
-                    $query->where('review_link1', 'like', '%' . $review . '%')
-                        ->orWhere('review_link1_name', 'like', '%' . $review . '%')
-                        ->where('review_link2', 'kile', '%' . $review . '%')
-                        ->orWhere('review_link2_name', 'like', '%' . $review . '%')
-                        ->where('review_link3', 'like', '%' . $review . '%')
-                        ->orWhere('review_link3_name', 'like', '%' . $review . '%');
+                    $query->where($this->table . '.review_link1', 'like', '%' . $review . '%')
+                        ->orWhere($this->table . '.review_link1_name', 'like', '%' . $review . '%')
+                        ->where($this->table . '.review_link2', 'kile', '%' . $review . '%')
+                        ->orWhere($this->table . '.review_link2_name', 'like', '%' . $review . '%')
+                        ->where($this->table . '.review_link3', 'like', '%' . $review . '%')
+                        ->orWhere($this->table . '.review_link3_name', 'like', '%' . $review . '%');
                 });
             })
             ->when(!empty($filters['story']), function ($query) use ($filters) {
-                $query->where('story', '=', true);
+                $query->where($this->table . '.story', '=', true);
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['technical']), function ($query) use ($filters) {
-                $query->where('technical', '=', true);
+                $query->where($this->table . '.technical', '=', true);
             })
             ->when(!empty($filters['textbook']), function ($query) use ($filters) {
-                $query->where('textbook', '=', true);
+                $query->where($this->table . '.textbook', '=', true);
             })
             ->when(!empty($filters['search_title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['search_title'] . '%');
+                $query->where($this->table . '.title', 'like', '%' . $filters['search_title'] . '%');
             });
 
         $query = $this->appendStandardFilters($query, $filters);

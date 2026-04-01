@@ -106,42 +106,42 @@ class Reading extends Model
         }
 
         $query = new self()->when(!empty($filters['id']), function ($query) use ($filters) {
-                $query->where('id', '=', intval($filters['id']));
+                $query->where($this->table . '.id', '=', intval($filters['id']));
             })->when(!empty($filters['owner_id']), function ($query) use ($filters) {
-                $query->where('owner_id', '=', intval($filters['owner_id']));
+                $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['audio']), function ($query) use ($filters) {
-                $query->where('audio', '=', true);
+                $query->where($this->table . '.audio', '=', true);
             })
             ->when(!empty($filters['author']), function ($query) use ($filters) {
-                $query->where('author', 'like', '%' . $filters['author'] . '%');
+                $query->where($this->table . '.author', 'like', '%' . $filters['author'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', 'like', '%' . $filters['featured'] . '%');
+                $query->where($this->table . '.featured', 'like', '%' . $filters['featured'] . '%');
             })
             ->when(!empty($filters['fiction']), function ($query) use ($filters) {
-                $query->where('fiction', '=', true);
+                $query->where($this->table . '.fiction', '=', true);
             })
             ->when(!empty($filters['nonfiction']), function ($query) use ($filters) {
-                $query->where('nonfiction', '=', true);
+                $query->where($this->table . '.nonfiction', '=', true);
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
-            ->when(!empty($filters['paper']), function ($query) use ($filters) {
+            ->when(!empty($filters[$this->table . '.paper']), function ($query) use ($filters) {
                 $query->where('paper', '=', true);
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['title'] . '%');
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             })
             ->when(!empty($filters['wishlist']), function ($query) use ($filters) {
-                $query->where('wishlist', '=', true);
+                $query->where($this->table . '.wishlist', '=', true);
             });
 
         $query = $this->appendStandardFilters($query, $filters);

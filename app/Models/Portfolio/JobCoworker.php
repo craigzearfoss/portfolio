@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -149,36 +150,50 @@ class JobCoworker extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['company']), function ($query) use ($filters) {
+                $query->where('jobs.company', 'like', '%' . $filters['company'] . '%');
+            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where('featured', '=', true);
+                $query->where($this->table . '.featured', '=', true);
             })
-            ->when(isset($filters['job_id']), function ($query) use ($filters) {
-                $query->where('job_id', '=', intval($filters['job_id']));
+            ->when(!empty($filters['job_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.job_id', '=', intval($filters['job_id']));
             })
-            ->when(isset($filters['level_id']), function ($query) use ($filters) {
-                $query->where('level_id', '=', intval($filters['level_id']));
+            ->when(!empty($filters['level_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.level_id', '=', intval($filters['level_id']));
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['role']), function ($query) use ($filters) {
+                $query->where('jobs.role', 'like', '%' . $filters['role'] . '%');
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
-                $query->where('summary', 'like', '%' . $filters['summary'] . '%');
+                $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['title']), function ($query) use ($filters) {
-                $query->where('title', 'like', '%' . $filters['title'] . '%');
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
         $query = $this->appendPhoneFilters($query, $filters);
         $query = $this->appendEmailFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        $query->join('jobs', 'jobs.id', '=', $this->table . '.job_id');
+        $query->select([
+            DB::raw($this->table . '.*'),
+            DB::raw('jobs.company as company'),
+            DB::raw('jobs.role as role'),
+        ]);
+
+        return $query;
     }
 
     /**
