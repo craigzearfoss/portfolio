@@ -18,5 +18,6 @@
                           false,
                           [ 'name', 'desc' ]
                       ),
+        'style'    => 'min-width: 12rem;'
     ])
 </div>

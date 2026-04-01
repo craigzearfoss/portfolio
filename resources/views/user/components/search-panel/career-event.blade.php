@@ -1,15 +1,18 @@
 @php
+    use App\Models\Career\Application;
     use App\Models\System\Admin;
 
-    $owner_id      = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $attendees     = $attendees ?? request()->query('attendees');
-    $company_id    = $company_id ?? request()->query('company_id');
-    $company_name  = $company_name ?? request()->query('company_name');
-    $datetime_from = $datetime_from ?? request()->query('datetime_from');
-    $datetime_to   = $datetime_to ?? request()->query('datetime_to');
-    $description   = $description ?? request()->query('description');
-    $name          = $name ?? request()->query('name');
-    $location      = $location ?? request()->query('location');
+    $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $application_id   = $application_id ?? request()->query('application_id');
+    $application_name = $application_name ?? request()->query('application_name');
+    $attendees        = $attendees ?? request()->query('attendees');
+    $company_id       = $company_id ?? request()->query('company_id');
+    $company_name     = $company_name ?? request()->query('company_name');
+    $datetime_from    = $datetime_from ?? request()->query('datetime_from');
+    $datetime_to      = $datetime_to ?? request()->query('datetime_to');
+    $description      = $description ?? request()->query('description');
+    $name             = $name ?? request()->query('name');
+    $location         = $location ?? request()->query('location');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -26,10 +29,19 @@
                             <div class="search-form-control">
                                 @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
+                            <div class="search-form-control">
+                                @include('user.components.input-basic', [
+                                    'name'    => 'application_name',
+                                    'label'   => 'application',
+                                    'value'   => $application_name,
+                                    'message' => $message ?? '',
+                                ])
+                            </div>
+                        @else
+                            <div class="search-form-control">
+                                @include('user.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                            </div>
                         @endif
-                        <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
-                        </div>
                     </div>
 
                     <div class="floating-div">

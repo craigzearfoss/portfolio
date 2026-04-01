@@ -10,6 +10,6 @@
         'label'    => 'rating',
         'value'    => $rating,
         'list'     => [ '' => '', 1 => 1, 2 => 2, 3 => 3, 4 => 4 ],
-        'style'    => 'min-width: 4rem;',
+        'style'    => 'width: 6rem;',
     ])
 </div>

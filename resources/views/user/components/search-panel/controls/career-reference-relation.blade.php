@@ -18,5 +18,6 @@
         'label'    => 'relation',
         'value'    => $relation,
         'list'     => $relations,
+        'style'    => 'width: 8rem;'
     ])
 </div>

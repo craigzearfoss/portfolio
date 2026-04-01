@@ -4,3 +4,4 @@ Filter out Admins menu item for non-root admins.
 Enable search by company for job coworker, job skill, and job task pages.
 Enable search by company and role on cover letter page.
 Page permissions and links on admin-database, admin-email, admin-phone
+Search by application name not working on Communications, Events, and Notes pages.

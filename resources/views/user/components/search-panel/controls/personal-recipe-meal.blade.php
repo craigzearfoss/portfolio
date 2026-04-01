@@ -14,6 +14,6 @@
         'name'  => 'meal',
         'value' => $meal,
         'list'  => $meals,
-        'style' => 'width: 6rem;',
+        'style' => 'width: 7rem;',
     ])
 </div>

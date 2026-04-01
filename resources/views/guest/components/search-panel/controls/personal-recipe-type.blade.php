@@ -15,6 +15,6 @@
         'name'  => 'type',
         'value' => $type,
         'list'  => $types,
-        'style' => 'width: 6rem;',
+        'style' => 'width: 7rem;',
     ])
 </div>

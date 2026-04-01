@@ -38,8 +38,9 @@
                                         'title',
                                         true,
                                         false,
-                                        [ 'title', 'asc' ]
+                                        [ 'title', 'asc' ],
                                     ),
+                                    'style'    => 'min-width: 15rem;'
                                 ])
                             </div>
                         </div>
@@ -56,6 +57,7 @@
                                         false,
                                         [ 'author', 'asc' ]
                                     ),
+                                    'style'    => 'min-width: 15rem;'
                                 ])
                             </div>
                         </div>

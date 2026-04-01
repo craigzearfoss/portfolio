@@ -28,6 +28,7 @@
     $rating                 = $rating ?? request()->query('rating');
     $relocation             = $relocation ?? request()->query('relocation');
     $resume_id              = $resume_id ?? request()->query('resume_id');
+    $resume_name            = $resume_name ?? request()->query('resume_name');
     $role                   = $role ?? request()->query('role');
     $state_id               = $state_id ?? request()->query('state_id');
     $vacation               = $vacation ?? request()->query('vacation');
@@ -58,9 +59,21 @@
                     </div>
 
                     <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-company', [ 'company_id' => $company_id ])
-                        </div>
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('guest.components.input-basic', [
+                                    'name'    => 'company_name',
+                                    'label'   => 'company',
+                                    'value'   => $company_name,
+                                    'message' => $message ?? '',
+                                    'style'   => 'width: 16rem;'
+                                ])
+                            </div>
+                        @else
+                            <div class="search-form-control">
+                                @include('guest.components.search-panel.controls.career-company', [ 'company_id' => $company_id ])
+                            </div>
+                        @endif
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
                                 'name'    => 'role',
@@ -71,6 +84,16 @@
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.career-job-board', [ 'job_board_id' => $job_board_id ])
                         </div>
+                        <div class="search-form-control">
+                            @include('guest.components.input-basic', [
+                                'name'    => 'resume_name',
+                                'label'   => 'resume',
+                                'value'   => $resume_name,
+                                'message' => $message ?? '',
+                                'style'   => 'width: 16rem;'
+                            ])
+                        </div>
+
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.career-resume', [ 'owner_id' => $owner_id ])
                         </div>
