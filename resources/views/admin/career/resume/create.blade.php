@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\Resume;
     use App\Models\System\Owner;
 
     $title    = $pageTitle ??  'Add Resume' . (!empty($application) ? ' to ' . $application->name . ' application' : '');
@@ -110,7 +111,7 @@
                 'label'    => 'file type',
                 'value'    => old('file_type') ?? '',
                 'required' => true,
-                'list'     => \App\Models\System\Resume::fileTypes(true),
+                'list'     => Resume::fileTypes(true),
                 'message'  => $message ?? '',
             ])
 

@@ -5,7 +5,7 @@
     @include('admin.components.form-checkbox', [
         'name'     => 'benefits',
         'value'    => 1,
-        'checked'  => boolval(Request::get('benefits') ?? false),
+        'checked'  => boolval($benefits ?? false),
         'nohidden' => true,
     ])
 </div>

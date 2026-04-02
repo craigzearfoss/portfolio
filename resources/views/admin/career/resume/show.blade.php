@@ -5,14 +5,25 @@
     $subtitle = $title;
 
     // set breadcrumbs
-    $breadcrumbs = [
-        [ 'name' => 'Home',             'href' => route('admin.index') ],
-        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',           'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
-        [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
-        [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ]
-    ];
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application) ],
+            [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ],
+            [ 'name' => $resume->name ]
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('admin.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index') ],
+            [ 'name' => $resume->name ]
+        ];
+    }
 
     // set navigation buttons
     $navButtons = [];
@@ -37,7 +48,7 @@
                     <!-- tabbed content -->
                     <div class="tabs is-boxed mb-2">
                         <ul>
-                            <li class="is-active" data-target="resume">
+                            <li id="initial-selected-tab" class="is-active" data-target="resume">
                                 <a>Resume</a>
                             </li>
                             <li data-target="details">
@@ -121,17 +132,27 @@
                                     'value' => $resume->content
                                 ])
 
+                                @include('admin.components.show-row-images', [
+                                    'resource' => $resume,
+                                    'download' => !empty($resume->doc_filepath) && !Str::startsWith($resume->doc_filepath, 'http'),
+                                    'external' => true,
+                                ])
+
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'Word doc',
-                                    'label'  => !empty($resume->doc_url) ? '<i class="fa-solid fa-download"></i>download' : '',
-                                    'href'   => !empty($resume->doc_url) ? route('download-from-public', [ 'file' => $resume->doc_url, 'name' => $resume->slug ]) : null,
+                                    'label'  => !empty($resume->doc_filepath) ? '<i class="fa-solid fa-download"></i>download' : '',
+                                    'href'   => !empty($resume->doc_filepath) ?
+                                        route('download-from-public', [
+                                            'file' => $resume->doc_filepath,
+                                            'name' => $resume->slug ])
+                                        : null,
                                     'target' => '_blank'
                                 ])
 
                                 @include('admin.components.show-row-link', [
                                     'name'   => 'PDF doc',
-                                    'label'  => !empty($resume->pdf_url) ? '<i class="fa-solid fa-download"></i>download' : '',
-                                    'href'   => !empty($resume->pdf_url) ? route('download-from-public', [ 'file' => $resume->pdf_url, 'name' => $resume->slug ]) : null,
+                                    'label'  => !empty($resume->pdf_filepath) ? '<i class="fa-solid fa-download"></i>download' : '',
+                                    'href'   => !empty($resume->pdf_filepath) ? route('download-from-public', [ 'file' => $resume->pdf_filepath, 'name' => $resume->slug ]) : null,
                                     'target' => '_blank'
                                 ])
 

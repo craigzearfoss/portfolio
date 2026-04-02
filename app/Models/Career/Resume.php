@@ -283,7 +283,7 @@ class Resume extends Model
      * @param $includeBlank bool
      * @return array
      */
-    protected static function fileTypes(bool $includeBlank = false): array
+    public static function fileTypes(bool $includeBlank = false): array
     {
         return $includeBlank
             ? array_merge([ '' => ''], self::FILE_TYPES)

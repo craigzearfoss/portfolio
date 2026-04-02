@@ -5,6 +5,8 @@
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $name            = $name ?? request()->query('name');
+    $primary         = $primary ?? request()->query('primary');
+    $public          = $public ?? request()->query('public');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -35,7 +37,16 @@
                     </div>
 
                     <div class="floating-div">
-                        @include('guest.components.search-panel.controls.timestamp-created-at', [
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.primary', [ 'primary' => $primary ])
+                        </div>
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.public', [ 'public' => $public ])
+                        </div>
+                    </div>
+
+                    <div class="floating-div">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
                             'created_at_from' => $created_at_from,
                             'created_at_to'   => $created_at_to,
                         ])

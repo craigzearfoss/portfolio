@@ -1,11 +1,11 @@
 @php
-    $w2 = $w2 ?? request()->query('w2');
+    $public = $public ?? request()->query('public');
 @endphp
 <div class="container control" style="width: 8rem;">
     @include('admin.components.form-checkbox', [
-        'name'     => 'w2',
+        'name'     => 'public',
         'value'    => 1,
-        'checked'  => boolval($w2 ?? false),
+        'checked'  => boolval($public ?? false),
         'nohidden' => true,
     ])
 </div>

@@ -53,10 +53,8 @@ class IndexController extends BaseController
             $realFileName = explode('.', $filePathParts[count($filePathParts) - 1])[0];
             $realFileExt = explode('.', $filePathParts[count($filePathParts) - 1])[1] ?? '';
 
-            if (!empty($realFileName)) {
-                if (!explode('.', $newFileName)[1] ?? false) {
+            if (!empty($realFileName) && !strpos('.', $realFileName)) {
                     $newFileName = $newFileName . '.' . $realFileExt;
-                }
             }
         }
 

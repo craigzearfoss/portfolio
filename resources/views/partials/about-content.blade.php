@@ -9,7 +9,7 @@
                 <!-- tabbed content -->
                 <div class="card tabs is-boxed mb-0" style="background-color: #f8f8f8; border-width: 0;">
                     <ul style="border-bottom-width: 0 !important;">
-                        <li class="ml-1 is-active" data-target="site-overview">
+                        <li id="initial-selected-tab"  class="ml-1 is-active" data-target="site-overview">
                             <a>Site Overview</a>
                         </li>
                         <li class="ml-1" data-target="site-details">
@@ -366,7 +366,7 @@
                             </p>
                             <p>
                                 Currently it contains terminology for
-                                <a href="/dictionary/database">databases<a>,
+                                <a href="/dictionary/database">databases</a>,
                                 <a href="/dictionary/framework">web frameworks</a>,
                                 <a href="/dictionary/language">programming languages</a>,
                                 <a href="/dictionary/library">software libraries</a>,
@@ -486,6 +486,8 @@
                                 low we may consider it.
                             </p>
 
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -493,3 +495,4 @@
         </div>
     </div>
 </div>
+

@@ -1,11 +1,11 @@
 @php
-    $w2 = $w2 ?? request()->query('w2');
+    $featured = $featured ?? request()->query('featured');
 @endphp
 <div class="container control" style="width: 8rem;">
     @include('admin.components.form-checkbox', [
-        'name'     => 'w2',
+        'name'     => 'featured',
         'value'    => 1,
-        'checked'  => boolval($w2 ?? false),
+        'checked'  => boolval($featured ?? false),
         'nohidden' => true,
     ])
 </div>

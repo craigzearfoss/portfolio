@@ -48,7 +48,7 @@ class UpdateResumesRequest extends FormRequest
                     return $query->where('owner_id', $ownerId)
                         ->where('name', $this['name'])
                         ->where('date', $this['date'])
-                        ->whereNot('id', $this['resumes']['id']);
+                        ->whereNot('id', $this['resume']['id']);
                 })
             ],
             'slug'         => [
@@ -59,7 +59,7 @@ class UpdateResumesRequest extends FormRequest
                     return $query->where('owner_id', $ownerId)
                         ->where('slug', $this['slug'])
                         ->where('date', $this['date'])
-                        ->whereNot('id', $this['resumes']['id']);
+                        ->whereNot('id', $this['resume']['id']);
                 })
             ],
             'date'  => ['date', 'nullable'],

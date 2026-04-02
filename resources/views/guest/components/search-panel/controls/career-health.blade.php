@@ -5,7 +5,7 @@
     @include('guest.components.form-checkbox', [
         'name'     => 'health',
         'value'    => 1,
-        'checked'  => boolval(Request::get('health') ?? false),
+        'checked'  => boolval($health ?? false),
         'nohidden' => true,
     ])
 </div>

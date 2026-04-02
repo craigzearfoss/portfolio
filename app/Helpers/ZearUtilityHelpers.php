@@ -358,6 +358,8 @@ if (! function_exists('canUpdate')) {
             } elseif (!$adminResource->has_owner) {
                 // only admins can update resources that don't have an owner
                 return false;
+            } elseif ($admin['id'] != $resourceObject->owner_id) {
+                return false;
             }
         }
 

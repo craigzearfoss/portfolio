@@ -20,4 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // click the initial tab for tabbed content
+    const tabElement = document.getElementById('initial-selected-tab');
+    if (tabElement) {
+        tabElement.click();
+    }
 });

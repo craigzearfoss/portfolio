@@ -43,7 +43,7 @@
                     <!-- tabbed content -->
                     <div class="tabs is-boxed mb-0">
                         <ul style="border-bottom-width: 0 !important;">
-                            <li class="is-active" data-target="overview">
+                            <li id="initial-selected-tab"  class="is-active" data-target="overview">
                                 <a>Overview</a>
                             </li>
                             <li data-target="contacts">

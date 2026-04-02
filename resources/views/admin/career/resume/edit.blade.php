@@ -1,4 +1,5 @@
 @php
+    use App\Models\Career\Resume;
     use App\Models\System\Owner;
 
     $title    = $pageTitle ?? 'Edit Resume' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
@@ -39,7 +40,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.resume.update', array_merge([$resume], request()->all()) }}" method="POST">
+        <form action="{{ route('admin.career.resume.update', array_merge([$resume], request()->all())) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -120,7 +121,7 @@
                 'label'    => 'file type',
                 'value'    => old('file_type') ?? $resume->file_type,
                 'required' => true,
-                'list'     => \App\Models\System\Resume::fileTypes(true),
+                'list'     => Resume::fileTypes(true),
                 'message'  => $message ?? '',
             ])
 

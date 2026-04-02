@@ -17,15 +17,9 @@
 
             <div class="level-right" style="display: inline-block;">
 
-                @if(!empty($prev) || !empty($next))
+                @if (!empty($navButtons))
 
-                    <div style="display: inline-block; float: right;">
-                        @include('admin.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
-                    </div>
-
-                @elseif (!empty($navButtons))
-
-                    <div class="level-item">
+                    <div class="level-item mt-1" style="display: inline-block;">
                         <div class="buttons is-right pb-2">
 
                             @foreach ($navButtons as $navButton)
@@ -33,6 +27,14 @@
                             @endforeach
 
                         </div>
+                    </div>
+
+                @endif
+
+                @if(!empty($prev) || !empty($next))
+
+                    <div style="display: inline-block; float: right;">
+                        @include('user.components.nav-prev-next', [ 'prev' => $prev, 'next' => $next ])
                     </div>
 
                 @endif

@@ -5,7 +5,7 @@
     @include('user.components.form-checkbox', [
         'name'     => 'w2',
         'value'    => 1,
-        'checked'  => boolval(Request::get('w2') ?? false),
+        'checked'  => boolval($w2 ?? false),
         'nohidden' => true,
     ])
 </div>

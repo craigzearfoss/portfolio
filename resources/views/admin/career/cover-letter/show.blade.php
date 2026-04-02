@@ -41,7 +41,7 @@
                     <!-- tabbed content -->
                     <div class="tabs is-boxed mb-2">
                         <ul>
-                            <li class="is-active" data-target="cover-letter">
+                            <li id="initial-selected-tab"  class="is-active" data-target="cover-letter">
                                 <a>Cover Letter</a>
                             </li>
                             <li data-target="details">
