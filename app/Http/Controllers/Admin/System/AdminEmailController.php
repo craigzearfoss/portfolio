@@ -27,9 +27,12 @@ class AdminEmailController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminEmails = new AdminEmail()->searchQuery($request->all(), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('email')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $adminEmails = new AdminEmail()->searchQuery(
+            $request->all(),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('email')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Email Addresses';
 
@@ -59,10 +62,10 @@ class AdminEmailController extends BaseAdminController
     {
         createGate(AdminEmail::class, $this->admin);
 
-        $adminEmail = new AdminEmail()->create($request->validated());
+        $adminEmail = AdminEmail::query()->create($request->validated());
 
         return redirect()->route('admin.system.admin-email.show', $adminEmail)
-            ->with('success', $adminEmail->name . ' successfully added.');
+            ->with('success', $adminEmail['name'] . ' successfully added.');
     }
 
     /**

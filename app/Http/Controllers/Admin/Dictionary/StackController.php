@@ -29,8 +29,8 @@ class StackController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $stacks = new Category()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.stack.index', compact('stacks'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -62,10 +62,10 @@ class StackController extends BaseAdminController
             abort(403, 'Only admins with root access can add stacks.');
         }
 
-        $stack = new Stack()->create($request->validated());
+        $stack = Stack::query()->create($request->validated());
 
         return redirect()->route('admin.dictionary.stack.show', $stack)
-            ->with('success', $stack->name . ' successfully added.');
+            ->with('success', $stack['name'] . ' successfully added.');
     }
 
     /**
@@ -119,7 +119,7 @@ class StackController extends BaseAdminController
         $stack->update($request->validated());
 
         return redirect()->route('admin.dictionary.stack.show', $stack)
-            ->with('success', $stack->name . ' successfully updated.');
+            ->with('success', $stack['name'] . ' successfully updated.');
     }
 
     /**
@@ -137,6 +137,6 @@ class StackController extends BaseAdminController
         $stack->delete();
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $stack->name . ' deleted successfully.');
+            ->with('success', $stack['name'] . ' deleted successfully.');
     }
 }

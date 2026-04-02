@@ -24,9 +24,12 @@ class LinkController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $links = new Link()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('sequence')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $links = new Link()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('sequence')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.link.index'), compact('links'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -41,7 +44,7 @@ class LinkController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$link = new Link()->where('owner_id', '=', $admin['id'])
+        if (!$link = Link::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

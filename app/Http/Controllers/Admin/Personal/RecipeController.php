@@ -30,9 +30,9 @@ class RecipeController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $recipes = new Recipe()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Recipes';
 
@@ -62,10 +62,10 @@ class RecipeController extends BaseAdminController
     {
         createGate(Recipe::class, $this->admin);
 
-        $recipe = new Recipe()->create($request->validated());
+        $recipe = Recipe::query()->create($request->validated());
 
         return redirect()->route('admin.personal.recipe.show', $recipe)
-            ->with('success', $recipe->name . ' successfully added.');
+            ->with('success', $recipe['name'] . ' successfully added.');
     }
 
     /**
@@ -115,7 +115,7 @@ class RecipeController extends BaseAdminController
         updateGate($recipe, $this->admin);
 
         return redirect()->route('admin.personal.recipe.show', $recipe)
-            ->with('success', $recipe->name . ' successfully updated.');
+            ->with('success', $recipe['name'] . ' successfully updated.');
     }
 
     /**
@@ -131,6 +131,6 @@ class RecipeController extends BaseAdminController
         $recipe->delete();
 
         return redirect(referer('admin.personal.recipe.index'))
-            ->with('success', $recipe->name . ' deleted successfully.');
+            ->with('success', $recipe['name'] . ' deleted successfully.');
     }
 }

@@ -29,8 +29,8 @@ class UserController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $allUsers = new User()->searchQuery($request->all())
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Users';
 
@@ -65,15 +65,15 @@ class UserController extends BaseAdminController
         $request->validate($request->rules());
 
         $user = new User();
-        $user->username = $request->username;
-        $user->email    = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->disabled = $request->disabled;
+        $user['username'] = $request->username;
+        $user['email']    = $request->email;
+        $user['password'] = Hash::make($request->password);
+        $user['disabled'] = $request->disabled;
 
         $user->save();
 
         return redirect()->route('user.user.show', $user)
-            ->with('success', 'User ' . $user->username . ' successfully added.');
+            ->with('success', 'User ' . $user['username'] . ' successfully added.');
     }
 
     /**
@@ -123,7 +123,7 @@ class UserController extends BaseAdminController
         $user->update($request->validated());
 
         return redirect()->route('user.user.show', $user)
-            ->with('success', $user->username . ' successfully updated.');
+            ->with('success', $user['username'] . ' successfully updated.');
     }
 
     /**
@@ -139,6 +139,6 @@ class UserController extends BaseAdminController
         $user->delete();
 
         return redirect(referer('admin.system.user.index'))
-            ->with('success', $user->username . ' deleted successfully.');
+            ->with('success', $user['username'] . ' deleted successfully.');
     }
 }

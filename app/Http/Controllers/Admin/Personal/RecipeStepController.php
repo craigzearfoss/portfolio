@@ -29,11 +29,11 @@ class RecipeStepController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $recipeSteps = new RecipeStep()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('recipe_id')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('owner_id')
+        ->orderBy('recipe_id')
+        ->paginate($perPage)->appends(request()->except('page'));
 
-        $recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null;
+        $recipe = $request->recipe_id ? Recipe::query()->findOrFail($request->recipe_id) : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' Recipe Steps';
 
@@ -63,7 +63,7 @@ class RecipeStepController extends BaseAdminController
     {
         createGate(RecipeStep::class, $this->admin);
 
-        $recipeStep = new RecipeStep()->create($request->validated());
+        $recipeStep = RecipeStep::query()->create($request->validated());
 
         return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
             ->with('success', 'Recipe step successfully added.');

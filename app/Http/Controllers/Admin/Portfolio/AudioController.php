@@ -27,9 +27,12 @@ class AudioController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $audios = new Audio()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $audios = new Audio()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Audio';
 
@@ -59,10 +62,10 @@ class AudioController extends BaseAdminController
     {
         createGate(Audio::class, $this->admin);
 
-        $audio = new Audio()->create($request->validated());
+        $audio = Audio::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.audio.show', $audio)
-            ->with('success', $audio->name . ' successfully added.');
+            ->with('success', $audio['name'] . ' successfully added.');
     }
 
     /**
@@ -112,7 +115,7 @@ class AudioController extends BaseAdminController
         updateGate($audio, $this->admin);
 
         return redirect()->route('admin.portfolio.audio.show', $audio)
-            ->with('success', $audio->name . ' successfully updated.');
+            ->with('success', $audio['name'] . ' successfully updated.');
     }
 
     /**
@@ -128,6 +131,6 @@ class AudioController extends BaseAdminController
         $audio->delete();
 
         return redirect(referer('admin.portfolio.audio.index'))
-            ->with('success', $audio->name . ' deleted successfully.');
+            ->with('success', $audio['name'] . ' deleted successfully.');
     }
 }

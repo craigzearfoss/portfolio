@@ -28,12 +28,13 @@ class JobSkillController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobSkillModel = new JobSkill();
-
         $job = null;
-        $jobSkills = $jobSkillModel->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $jobSkills = new JobSkill()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Job Skills';
 
@@ -52,7 +53,7 @@ class JobSkillController extends BaseAdminController
         createGate(JobSkill::class, $this->admin);
 
         $jobId = $request->get('job_id');
-        $job = !empty($jobId) ? new Job()->find($jobId) : null;
+        $job = !empty($jobId) ? Job::query()->find($jobId) : null;
 
         return view('admin.portfolio.job-skill.create', compact('job'));
     }
@@ -67,10 +68,10 @@ class JobSkillController extends BaseAdminController
     {
         createGate(JobSKill::class, $this->admin);
 
-        $jobSkill = new JobSkill()->create($request->validated());
+        $jobSkill = JobSkill::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
-            ->with('success', $jobSkill->name . ' successfully added.');
+            ->with('success', $jobSkill['name'] . ' successfully added.');
     }
 
     /**
@@ -120,7 +121,7 @@ class JobSkillController extends BaseAdminController
         updateGate($jobSkill, $this->admin);
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
-            ->with('success', $jobSkill->name . ' successfully updated.');
+            ->with('success', $jobSkill['name'] . ' successfully updated.');
     }
 
     /**
@@ -136,6 +137,6 @@ class JobSkillController extends BaseAdminController
         $jobSkill->delete();
 
         return redirect(referer('admin.portfolio.job-skill.index'))
-            ->with('success', $jobSkill->name . ' deleted successfully.');
+            ->with('success', $jobSkill['name'] . ' deleted successfully.');
     }
 }

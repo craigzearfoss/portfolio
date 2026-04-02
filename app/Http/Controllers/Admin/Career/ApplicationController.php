@@ -30,14 +30,17 @@ class ApplicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $applications = new Application()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('apply_date', 'desc')
-            ->orderBy('post_date', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $applications = new Application()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('apply_date', 'desc')
+        ->orderBy('post_date', 'desc')
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage)->appends(request()->except('page'));
 
-        $resume = $request->resume_id ? new Resume()->findOrFail($request->resume_id) : null;
+        $resume = $request->resume_id ? Resume::query()->findOrFail($request->resume_id) : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' Applications';
 
@@ -60,21 +63,21 @@ class ApplicationController extends BaseAdminController
 
         if ($companyId = $request->query('company_id')) {
             $urlParams['company_id'] = $companyId;
-            if (!new Company()->find($companyId)) {
+            if (!Company::query()->find($companyId)) {
                 $errorMessages[] = "Company `$companyId` not found.";
             }
         }
 
         if ($resumeId = $request->query('resume_id')) {
             $urlParams['resume_id'] = $resumeId;
-            if (!new Resume()->find($resumeId)) {
+            if (!Resume::query()->find($resumeId)) {
                 $errorMessages[] = "Resume `$resumeId` not found.";
             }
         }
 
         if ($coverLetterId = $request->query('cover_letter_id')) {
             $urlParams['cover_letter_id'] = $coverLetterId;
-            if (!new CoverLetter()->find($coverLetterId)) {
+            if (!CoverLetter::query()->find($coverLetterId)) {
                 $errorMessages[] = "Cover letter `$coverLetterId` not found.";
             }
         }
@@ -100,10 +103,10 @@ class ApplicationController extends BaseAdminController
     {
         createGate(Application::class, $this->admin);
 
-        $application = new Application()->create($request->validated());
+        $application = Application::query()->create($request->validated());
 
         // Create a cover letter for the application.
-        new CoverLetter()->insert([
+        CoverLetter::query()->insert([
             'owner_id'       => $application->owner_id,
             'application_id' => $application->id,
         ]);
@@ -194,11 +197,11 @@ class ApplicationController extends BaseAdminController
         updateGate($application, $this->admin);
 
         if (empty($application->coverLetter)) {
-            new CoverLetter()->insert([
-                'owner_id'       => $application->owner_id,
+            CoverLetter::query()->insert([
+                'owner_id'       => $application['owner_id'],
                 'application_id' => $application->id,
             ]);
-            $application = new Application()->find($application->id);
+            $application = Application::query()->find($application->id);
         }
 
         return $application;

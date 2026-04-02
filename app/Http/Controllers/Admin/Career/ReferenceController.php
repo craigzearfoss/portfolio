@@ -29,9 +29,12 @@ class ReferenceController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $references = new Reference()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $references = new Reference()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' References';
 
@@ -61,10 +64,10 @@ class ReferenceController extends BaseAdminController
     {
         createGate(Reference::class, $this->admin);
 
-        $reference = new Reference()->create($request->validated());
+        $reference = Reference::query()->create($request->validated());
 
         return redirect()->route('admin.career.reference.show', $reference)
-            ->with('success', $reference->name . ' successfully added.');
+            ->with('success', $reference['name'] . ' successfully added.');
     }
 
     /**
@@ -114,7 +117,7 @@ class ReferenceController extends BaseAdminController
         updateGate($reference, $this->admin);
 
         return redirect()->route('admin.career.reference.show', $reference)
-            ->with('success', $reference->name . ' successfully updated.');
+            ->with('success', $reference['name'] . ' successfully updated.');
     }
 
     /**
@@ -130,6 +133,6 @@ class ReferenceController extends BaseAdminController
         $reference->delete();
 
         return redirect(referer('admin.career.reference.index'))
-            ->with('success', $reference->name . ' deleted successfully.');
+            ->with('success', $reference['name'] . ' deleted successfully.');
     }
 }

@@ -24,10 +24,13 @@ class ArtController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $arts = new Art()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('name')
-            ->orderBy('artist')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $arts = new Art()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('name')
+        ->orderBy('artist')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.art.index'), compact('arts'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -42,7 +45,7 @@ class ArtController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$art = new Art()->where('owner_id', '=', $admin['id'])
+        if (!$art = Art::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

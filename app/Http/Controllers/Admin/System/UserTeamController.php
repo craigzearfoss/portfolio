@@ -28,8 +28,8 @@ class UserTeamController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $userTeams = new UserTeam()->searchQuery($request->all())
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'User Teams';
 
@@ -57,10 +57,10 @@ class UserTeamController extends BaseAdminController
      */
     public function store(StoreUserTeamsRequest $request): RedirectResponse
     {
-        $userTeam = new UserTeam()->create($request->validated());
+        $userTeam = UserTeam::query()->create($request->validated());
 
         return redirect()->route('user.system.user-team.show', $userTeam)
-            ->with('success', $userTeam->name . ' successfully added.');
+            ->with('success', $userTeam['name'] . ' successfully added.');
     }
 
     /**
@@ -108,7 +108,7 @@ class UserTeamController extends BaseAdminController
         $userTeam->update($request->validated());
 
         return redirect()->route('user.system.user-team.show', $userTeam)
-            ->with('success', $userTeam->name . ' successfully updated.');
+            ->with('success', $userTeam['name'] . ' successfully updated.');
     }
 
     /**
@@ -124,6 +124,6 @@ class UserTeamController extends BaseAdminController
         $userTeam->delete();
 
         return redirect(referer('user.system.user-team.index'))
-            ->with('success', $userTeam->name . ' deleted successfully.');
+            ->with('success', $userTeam['name'] . ' deleted successfully.');
     }
 }

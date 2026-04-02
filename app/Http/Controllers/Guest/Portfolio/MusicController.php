@@ -24,10 +24,13 @@ class MusicController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = new Music()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('name')
-            ->orderBy('artist')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $musics = new Music()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('name')
+        ->orderBy('artist')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.music.index'), compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -42,7 +45,7 @@ class MusicController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$music = new Music()->where('owner_id', '=', $admin['id'])
+        if (!$music = Music::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

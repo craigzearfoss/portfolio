@@ -23,7 +23,7 @@ class OperatingSystemController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $operatingSystems = new OperatingSystem()->where('name', '!=', 'other')
+        $operatingSystems = OperatingSystem::query()->where('name', '!=', 'other')
             ->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->where('name', '!=', 'other')
@@ -42,7 +42,7 @@ class OperatingSystemController extends BaseGuestController
      */
     public function show(string $slug): View
     {
-        if (!$operatingSystem = new OperatingSystem()->where('slug', '=', $slug)->first()) {
+        if (!$operatingSystem = OperatingSystem::query()->where('slug', '=', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

@@ -28,8 +28,8 @@ class AdminGroupController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $adminGroups = new AdminGroup()->searchQuery($request->all())
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Groups';
 
@@ -59,10 +59,10 @@ class AdminGroupController extends BaseAdminController
     {
         createGate(AdminGroup::class, $this->admin);
 
-        $adminGroup = new AdminGroup()->create($request->validated());
+        $adminGroup = AdminGroup::query()->create($request->validated());
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
-            ->with('success', $adminGroup->name . ' successfully added.');
+            ->with('success', $adminGroup['name'] . ' successfully added.');
     }
 
     /**
@@ -112,7 +112,7 @@ class AdminGroupController extends BaseAdminController
         updateGate($adminGroup, $this->admin);
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
-            ->with('success', $adminGroup->name . ' successfully updated.');
+            ->with('success', $adminGroup['name'] . ' successfully updated.');
     }
 
     /**
@@ -128,6 +128,6 @@ class AdminGroupController extends BaseAdminController
         $adminGroup->delete();
 
         return redirect(referer('admin.system.admin-group.index'))
-            ->with('success', $adminGroup->name . ' deleted successfully.');
+            ->with('success', $adminGroup['name'] . ' deleted successfully.');
     }
 }

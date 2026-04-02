@@ -24,9 +24,12 @@ class CertificateController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $certificates = new Certificate()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $certificates = new Certificate()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+    ->orderBy('name')
+    ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.certificate.index'), compact('certificates'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -41,7 +44,7 @@ class CertificateController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$certificate = new Certificate()->where('owner_id', '=', $admin['id'])
+        if (!$certificate = Certificate::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

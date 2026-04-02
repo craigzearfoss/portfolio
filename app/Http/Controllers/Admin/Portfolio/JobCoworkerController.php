@@ -30,11 +30,12 @@ class JobCoworkerController extends BaseAdminController
 
         $job = null;
 
-        $jobCoworkerModel = new JobCoworker();
-
-        $jobCoworkers = $jobCoworkerModel->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $jobCoworkers = new JobCoworker()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = (isRootAdmin() && !empty($this->ownerId)) ? $this->owner['name'] . ' Job Coworkers' : 'Job Coworkers';
 
@@ -53,7 +54,7 @@ class JobCoworkerController extends BaseAdminController
         createGate(JobCoworker::class, $this->admin);
 
         if ($jobId = $request->query('job_id')) {
-            $job = new Job()->find($jobId);
+            $job = Job::query()->find($jobId);
         } else {
             $job = null;
         }
@@ -71,10 +72,10 @@ class JobCoworkerController extends BaseAdminController
     {
         createGate(JobCoworker::class, $this->admin);
 
-        $jobCoworker = new JobCoworker()->create($request->validated());
+        $jobCoworker = JobCoworker::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
-            ->with('success', $jobCoworker->name . ' successfully added.');
+            ->with('success', $jobCoworker['name'] . ' successfully added.');
     }
 
     /**
@@ -124,7 +125,7 @@ class JobCoworkerController extends BaseAdminController
         updateGate($jobCoworker, $this->admin);
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
-            ->with('success', $jobCoworker->name . ' successfully updated.');
+            ->with('success', $jobCoworker['name'] . ' successfully updated.');
     }
 
     /**
@@ -140,6 +141,6 @@ class JobCoworkerController extends BaseAdminController
         $jobCoworker->delete();
 
         return redirect(referer('admin.portfolio.job-coworker.index'))
-            ->with('success', $jobCoworker->name . ' deleted successfully.');
+            ->with('success', $jobCoworker['name'] . ' deleted successfully.');
     }
 }

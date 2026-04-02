@@ -27,9 +27,12 @@ class CertificateController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $certificates = new Certificate()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $certificates = new Certificate()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Certificates';
 
@@ -59,10 +62,10 @@ class CertificateController extends BaseAdminController
     {
         createGate(Certificate::class, $this->admin);
 
-        $certificate = new Certificate()->create($request->validated());
+        $certificate = Certificate::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.certificate.show', $certificate)
-            ->with('success', $certificate->name . ' certificate successfully added.');
+            ->with('success', $certificate['name'] . ' certificate successfully added.');
     }
 
     /**
@@ -113,7 +116,7 @@ class CertificateController extends BaseAdminController
         updateGate($certificate, $this->admin);
 
         return redirect()->route('admin.portfolio.certificate.show', $certificate)
-            ->with('success', $certificate->name . ' certificate successfully updated.');
+            ->with('success', $certificate['name'] . ' certificate successfully updated.');
     }
 
     /**
@@ -129,6 +132,6 @@ class CertificateController extends BaseAdminController
         $certificate->delete();
 
         return redirect(referer('admin.portfolio.certificate.index'))
-            ->with('success', $certificate->name . ' certificate deleted successfully.');
+            ->with('success', $certificate['name'] . ' certificate deleted successfully.');
     }
 }

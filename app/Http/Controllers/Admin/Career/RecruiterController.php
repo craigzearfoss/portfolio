@@ -30,8 +30,8 @@ class RecruiterController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $recruiters = new Recruiter()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Recruiters';
 
@@ -61,10 +61,10 @@ class RecruiterController extends BaseAdminController
     {
         createGate(Recruiter::class, $this->admin);
 
-        $recruiter = new Recruiter()->create($request->validated());
+        $recruiter = Recruiter::query()->create($request->validated());
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
-            ->with('success', $recruiter->name . ' successfully added.');
+            ->with('success', $recruiter['name'] . ' successfully added.');
     }
 
     /**
@@ -114,7 +114,7 @@ class RecruiterController extends BaseAdminController
         updateGate($recruiter, $this->admin);
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
-            ->with('success', $recruiter->name . ' successfully updated.');
+            ->with('success', $recruiter['name'] . ' successfully updated.');
     }
 
     /**
@@ -130,6 +130,6 @@ class RecruiterController extends BaseAdminController
         $recruiter->delete();
 
         return redirect(referer('admin.career.recruiter.index'))
-            ->with('success', $recruiter->name . ' deleted successfully.');
+            ->with('success', $recruiter['name'] . ' deleted successfully.');
     }
 }

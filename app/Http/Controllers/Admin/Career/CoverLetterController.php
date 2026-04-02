@@ -27,10 +27,13 @@ class CoverLetterController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $coverLetters = new CoverLetter()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $coverLetters = new CoverLetter()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Cover Letters';
 
@@ -60,7 +63,7 @@ class CoverLetterController extends BaseAdminController
     {
         createGate(CoverLetter::class, $this->admin);
 
-        $coverLetter = new CoverLetter()->create($request->validated());
+        $coverLetter = CoverLetter::query()->create($request->validated());
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover Letter successfully added.');

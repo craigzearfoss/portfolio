@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest\Personal;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Personal\Recipe;
 use App\Models\System\Admin;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -19,14 +20,18 @@ class RecipeController extends BaseGuestController
      *
      * @param Request $request
      * @return View
+     * @throws Exception
      */
     public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipes = new Recipe()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $recipes = new Recipe()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.personal.recipe.index'), compact('recipes'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -41,7 +46,7 @@ class RecipeController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$recipe = new Recipe()->where('owner_id', '=', $admin['id'])
+        if (!$recipe = Recipe::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

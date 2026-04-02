@@ -24,9 +24,12 @@ class PublicationController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $publications = new Publication()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('title')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $publications = new Publication()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('title')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.publication.index'), compact('publications'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -41,7 +44,7 @@ class PublicationController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$publication = new Publication()->where('owner_id', '=', $admin['id'])
+        if (!$publication = Publication::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

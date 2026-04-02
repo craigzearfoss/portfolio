@@ -6,7 +6,6 @@ use App\Enums\EnvTypes;
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\System\Admin;
 use App\Models\System\AdminResource;
-use App\Models\System\Database;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -27,7 +26,7 @@ class AdminController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $admin = null;
-        $candidates = new Admin()->where('is_public', '=', true)
+        $candidates = Admin::query()->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->orderBy('name')
             ->paginate($perPage)->appends(request()->except('page'));

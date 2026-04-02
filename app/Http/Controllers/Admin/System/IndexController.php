@@ -25,7 +25,7 @@ class IndexController extends BaseAdminController
     {
         $systems = [];
 
-        if ($databaseId = new Database()->where('tag', '=', 'system_db')->first()->id ?? null) {
+        if ($databaseId = Database::query()->where('tag', '=', 'system_db')->first()->id ?? null) {
 
             if (isRootAdmin() || empty($this->owner)) {
 

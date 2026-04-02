@@ -30,8 +30,8 @@ class JobBoardController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $jobBoards = new JobBoard()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Job Boards';
 
@@ -61,10 +61,10 @@ class JobBoardController extends BaseAdminController
     {
         createGate(JobBoard::class, $this->admin);
 
-        $jobBoard = new JobBoard()->create($request->validated());
+        $jobBoard = JobBoard::query()->create($request->validated());
 
         return redirect()->route('admin.career.job-board.show', $jobBoard)
-            ->with('success', $jobBoard->name . ' successfully added.');
+            ->with('success', $jobBoard['name'] . ' successfully added.');
     }
 
     /**
@@ -114,7 +114,7 @@ class JobBoardController extends BaseAdminController
         updateGate($jobBoard, $this->admin);
 
         return redirect()->route('admin.career.job-board.show', $jobBoard)
-            ->with('success', $jobBoard->name . ' successfully updated.');
+            ->with('success', $jobBoard['name'] . ' successfully updated.');
     }
 
     /**
@@ -130,6 +130,6 @@ class JobBoardController extends BaseAdminController
         $jobBoard->delete();
 
         return redirect(referer('admin.career.job-board.index'))
-            ->with('success', $jobBoard->name . ' deleted successfully.');
+            ->with('success', $jobBoard['name'] . ' deleted successfully.');
     }
 }

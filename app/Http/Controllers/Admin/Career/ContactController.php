@@ -30,10 +30,13 @@ class ContactController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $contacts = new Contact()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $contacts = new Contact()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Contacts';
 
@@ -66,13 +69,13 @@ class ContactController extends BaseAdminController
         $error = null;
 
         if ($companyId = $request->get('company_id')) {
-            if (!$company = Company::find($companyId)) {
+            if (!Company::query()->find($companyId)) {
                 $error = 'Company ' . $companyId . ' not found';
             }
         }
 
-        if ($contact = empty($error) ? new Contact()->create($request->validated()) : null) {
-            CompanyContact::insert([
+        if ($contact = empty($error) ? Contact::query()->create($request->validated()) : null) {
+            CompanyContact::query()->insert([
                 'owner_id'   => $contact->owner_id,
                 'contact_id' => $contact->id,
                 'company_id' => $companyId,
@@ -172,7 +175,7 @@ class ContactController extends BaseAdminController
      */
     public function attachCompany(int $contactId, StoreCompanyContactsRequest $request): RedirectResponse
     {
-        $contact = new Contact()->find($contactId);
+        $contact = Contact::query()->find($contactId);
 
         updateGate($contact, $this->admin);
 
@@ -181,7 +184,7 @@ class ContactController extends BaseAdminController
         if (!empty($data['company_id'])) {
 
             // Attach an existing contact.
-            if (!$company = new Company()->find($data['company_id'])) {
+            if (!$company = Company::query()->find($data['company_id'])) {
                 return redirect(route('admin.career.contact.company.add', $contactId))
                     ->with('error', 'Company ' . $data['company_id'] . ' not found.');
             }

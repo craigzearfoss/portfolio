@@ -27,12 +27,12 @@ class IndexController extends BaseGuestController
         $adminModel = new Admin();
 
         $admin = null;
-        $admins = $adminModel->where('is_public', '=', true)
+        $admins = $adminModel::query()->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->orderBy('name')->paginate($perPage)->appends(request()->except('page'));
 
         if ($featuredUsername = config('app.featured_admin_username')) {
-            $featuredAdmin = $adminModel->where('username', '=', $featuredUsername)->first();
+            $featuredAdmin = $adminModel::query()->where('username', '=', $featuredUsername)->first();
         } else {
             $featuredAdmin = null;
         }
@@ -70,7 +70,7 @@ class IndexController extends BaseGuestController
      */
     public function storeContactMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
     {
-        new Message()->create($messageStoreRequest->validated());
+        Message::query()->create($messageStoreRequest->validated());
 
         return redirect(route('guest.contact'))
             ->with('success', 'Your message has been sent. Thank you!.');

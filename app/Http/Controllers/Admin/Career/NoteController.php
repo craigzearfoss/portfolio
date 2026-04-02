@@ -28,11 +28,14 @@ class NoteController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $notes = new Note()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $notes = new Note()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage)->appends(request()->except('page'));
 
-        $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
+        $application = $request->application_id ? Application::query()->findOrFail($request->application_id) : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' Notes';
 
@@ -51,7 +54,7 @@ class NoteController extends BaseAdminController
         createGate(Note::class, $this->admin);
 
         $application = !empty($request->application_id)
-            ? new Application()->find($request->application_id)
+            ? Application::query()->find($request->application_id)
             : null;
 
         return view('admin.career.note.create', compact('application'));
@@ -69,14 +72,14 @@ class NoteController extends BaseAdminController
 
         $applicationId = $request->query('application_id');
 
-        if (!empty($applicationId) && (!$application = new Application()->find($applicationId)))  {
+        if (!empty($applicationId) && (!$application = Application::query()->find($applicationId)))  {
             $previousUrl = url()->previous();
             $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
                 ->withInput();
         }
 
-        $note = new Note()->create($request->validated());
+        $note = Note::query()->create($request->validated());
 
         if (!empty($application)) {
             return redirect()->route('admin.career.application.show', $application)
@@ -132,7 +135,7 @@ class NoteController extends BaseAdminController
     {
         $applicationId = $request->query('application_id');
 
-        if (!empty($applicationId) && (!$application = new Application()->find($applicationId)))  {
+        if (!empty($applicationId) && (!$application = Application::query()->find($applicationId)))  {
             $previousUrl = url()->previous();
             $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')

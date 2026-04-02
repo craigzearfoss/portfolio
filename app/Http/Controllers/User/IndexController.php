@@ -125,7 +125,7 @@ class IndexController extends BaseUserController
             ]);
 
             $email = $request->email ?? '';
-            if (!$user = new User()->where('email', '=', $email)
+            if (!$user = User::query()->where('email', '=', $email)
                 ->where('status', '=', 1)->first()
             ) {
                 return view(themedTemplate('user.forgot-password'))
@@ -172,7 +172,7 @@ class IndexController extends BaseUserController
             ]);
 
             $username = $request->username ?? '';
-            $user = new User()->where('username', '=', $username)
+            $user = User::query()->where('username', '=', $username)
                 ->where('status', '=', 1)->first();
             if (!$user) {
                 return view(themedTemplate('user.forgot-username'))
@@ -208,7 +208,7 @@ class IndexController extends BaseUserController
      */
     public function reset_password($token, $email): RedirectResponse|View
     {
-        if (!new User()->where('email', '=', $email)->where('token', '=', $token)->first()) {
+        if (!User::query()->where('email', '=', $email)->where('token', '=', $token)->first()) {
             return redirect()->route('admin.login')
                 ->with('error', 'Your reset password token is expired. Please try again.');
         } else {
@@ -230,7 +230,7 @@ class IndexController extends BaseUserController
             'password' => ['required', 'confirmed', Password::defaults()->letters()->numbers()->symbols()],
         ]);
 
-        if (!$user = new User()->where('email', '=', $email)
+        if (!$user = User::query()->where('email', '=', $email)
             ->where('token', '=', $token)->first()
         ) {
             return redirect()->back()->with('error', 'Your reset password token is expired. Please try again.');
@@ -255,22 +255,22 @@ class IndexController extends BaseUserController
             $request->validate(new StoreUsersRequest()->rules());
 
             $user = new User();
-            $user->name     = $request->get('name');
-            $user->email    = $request->get('email');
-            $user->password = Hash::make($request->password);
-            $user->token    = hash('sha256', time());
-            $user->status   = 0;
-            $user->disabled = 1;
+            $user['name']     = $request->get('name');
+            $user['email']    = $request->get('email');
+            $user['password'] = Hash::make($request->password);
+            $user['token']    = hash('sha256', time());
+            $user['status']   = 0;
+            $user['disabled'] = 1;
 
             $user->save();
 
             $verificationLink = route(
                 'user.email-verification',
-                ['token' => $user->token, 'email' => urlencode($request->email)]
+                ['token' => $user['token'], 'email' => urlencode($request->email)]
             );
             $subject = "Email Verification from " . config('app.name');
             $info = [
-                'name' => $user->name,
+                'name' => $user['name'],
                 'verificationLink' => $verificationLink
             ];
 
@@ -288,7 +288,7 @@ class IndexController extends BaseUserController
 
     public function email_verification($token, $email): RedirectResponse
     {
-        $user = new User()->where('email', '=', $email)->where('token', '=', $token)->first();
+        $user = User::query()->where('email', '=', $email)->where('token', '=', $token)->first();
         if (!$user) {
             return redirect()->route('admin.login');
         }

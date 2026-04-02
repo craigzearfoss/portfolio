@@ -28,8 +28,8 @@ class IndustryController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $industries = new Industry()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Industries';
 
@@ -59,10 +59,10 @@ class IndustryController extends BaseAdminController
     {
         createGate(Industry::class, $this->admin);
 
-        $industry = new Industry()->create($request->validated());
+        $industry = Industry::query()->create($request->validated());
 
         return redirect()->route('admin.career.industry.show', $industry)
-            ->with('success', $industry->name . ' successfully added.');
+            ->with('success', $industry['name'] . ' successfully added.');
     }
 
     /**
@@ -112,7 +112,7 @@ class IndustryController extends BaseAdminController
         updateGate($industry, $this->admin);
 
         return redirect()->route('admin.career.industry.show', $industry)
-            ->with('success', $industry->name . ' successfully updated.');
+            ->with('success', $industry['name'] . ' successfully updated.');
     }
 
     /**
@@ -128,6 +128,6 @@ class IndustryController extends BaseAdminController
         $industry->delete();
 
         return redirect(referer('admin.career.industry.index'))
-            ->with('success', $industry->name . ' deleted successfully.');
+            ->with('success', $industry['name'] . ' deleted successfully.');
     }
 }

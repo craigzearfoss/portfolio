@@ -74,15 +74,15 @@ class AdminController extends BaseAdminController
         $request->validate($request->rules());
 
         $admin = new Admin();
-        $admin->username = $request->username;
-        $admin->email    = $request->email;
-        $admin->password = Hash::make($request->password);
-        $admin->disabled = $request->disabled;
+        $admin['username'] = $request->username;
+        $admin['email']    = $request->email;
+        $admin['password'] = Hash::make($request->password);
+        $admin['disabled'] = $request->disabled;
 
         $admin->save();
 
         return redirect()->route('admin.system.admin.show', $admin)
-            ->with('success', 'Admin ' . $admin->username . ' successfully added.');
+            ->with('success', 'Admin ' . $admin['username'] . ' successfully added.');
     }
 
     /**
@@ -172,13 +172,13 @@ class AdminController extends BaseAdminController
         updateGate($admin, $this->admin);
 
         // update the owner_id cookie
-        if (!empty($this->owner) && ($this->owner->id == $admin->id)) {
-            $this->cookieManager->setOwnerId(EnvTypes::ADMIN, $admin->id)
+        if (!empty($this->owner) && ($this->owner['id'] == $admin['id'])) {
+            $this->cookieManager->setOwnerId(EnvTypes::ADMIN, $admin['id'])
                 ->queueOwnerId(EnvTypes::ADMIN);
         }
 
         return redirect()->route('admin.system.admin.show', $admin)
-            ->with('success', $admin->username . ' successfully updated.');
+            ->with('success', $admin['username'] . ' successfully updated.');
     }
 
     /**
@@ -225,7 +225,7 @@ class AdminController extends BaseAdminController
             'confirm_password' => ['required', 'same:password']
         ]);
 
-        if (Hash::check($request->password, $this->owner->password)) {
+        if (Hash::check($request->password, $this->owner['password'])) {
             return redirect()->back()->with(['error' => 'You cannot use the old password again.']);
         }
 

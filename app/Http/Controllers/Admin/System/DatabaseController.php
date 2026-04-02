@@ -34,8 +34,8 @@ class DatabaseController extends BaseAdminController
         }
 
         $databases = new Database()->searchQuery($request->all())
-            ->orderBy('sequence')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('sequence')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Databases';
 
@@ -117,7 +117,7 @@ class DatabaseController extends BaseAdminController
         $database->update($request->validated());
 
         return redirect()->route('admin.system.database.show', $database)
-            ->with('success', $database->name . ' successfully updated.');
+            ->with('success', $database['name'] . ' successfully updated.');
     }
 
     /**

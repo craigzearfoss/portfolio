@@ -28,8 +28,8 @@ class MessageController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $messages = new Message()->searchQuery($request->all())
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Messages';
 
@@ -59,7 +59,7 @@ class MessageController extends BaseAdminController
     {
         createGate(Message::class, $this->user);
 
-        $message = new Message()->create($request->validated());
+        $message = Message::query()->create($request->validated());
 
         return redirect()->route('admin.system.message.show', $message)
             ->with('success', 'Message successfully added.');

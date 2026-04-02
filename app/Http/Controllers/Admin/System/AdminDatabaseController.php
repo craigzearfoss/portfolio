@@ -27,9 +27,12 @@ class AdminDatabaseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminDatabases = new AdminDatabase()->searchQuery($request->all(), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('sequence')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $adminDatabases = new AdminDatabase()->searchQuery(
+            $request->all(),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('sequence')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Databases';
 
@@ -106,7 +109,7 @@ class AdminDatabaseController extends BaseAdminController
         updateGate($adminDatabase, $this->admin);
 
         return redirect()->route('admin.system.admin-database.show', $adminDatabase)
-            ->with('success', $adminDatabase->name . ' successfully updated.');
+            ->with('success', $adminDatabase['name'] . ' successfully updated.');
     }
 
     /**

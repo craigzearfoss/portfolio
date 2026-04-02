@@ -27,10 +27,13 @@ class LinkController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $links = new Link()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $links = new Link()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Links';
 
@@ -60,7 +63,7 @@ class LinkController extends BaseAdminController
     {
         createGate(Link::class, $this->admin);
 
-        $link = new Link()->create($request->validated());
+        $link = Link::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.link.show', $link)
             ->with('success', $link->name . ' link successfully added.');

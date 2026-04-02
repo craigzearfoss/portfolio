@@ -27,9 +27,12 @@ class AdminPhoneController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $adminPhones = new AdminPhone()->searchQuery($request->all(), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('phone')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $adminPhones = new AdminPhone()->searchQuery(
+            $request->all(),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('phone')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Phone Numbers';
 
@@ -59,7 +62,7 @@ class AdminPhoneController extends BaseAdminController
     {
         createGate(AdminPhone::class, $this->admin);
 
-        $adminPhone = new AdminPhone()->create($request->validated());
+        $adminPhone = AdminPhone::query()->create($request->validated());
 
         return redirect()->route('admin.system.admin-phone.show', $adminPhone)
             ->with('success', $adminPhone->name . ' successfully added.');

@@ -27,10 +27,13 @@ class VideoController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $videos = new Video()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $videos = new Video()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Videos';
 
@@ -60,7 +63,7 @@ class VideoController extends BaseAdminController
     {
         createGate(Video::class, $this->admin);
 
-        $video = new Video()->create($request->validated());
+        $video = Video::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.video.show', $video)
             ->with('success', $video->name . ' successfully added.');

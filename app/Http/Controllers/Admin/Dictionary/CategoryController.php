@@ -28,8 +28,8 @@ class CategoryController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $categories = new Category()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.category.index', compact('categories'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -61,10 +61,10 @@ class CategoryController extends BaseAdminController
             abort(403, 'Only admins with root access can add categories.');
         }
 
-        $category = new Category()->create($request->validated());
+        $category = Category::query()->create($request->validated());
 
         return redirect()->route('admin.dictionary.category.show', $category)
-            ->with('success', $category->name . ' successfully added.');
+            ->with('success', $category['name'] . ' successfully added.');
     }
 
     /**
@@ -118,7 +118,7 @@ class CategoryController extends BaseAdminController
         $category->update($request->validated());
 
         return redirect()->route('admin.dictionary.category.show', $category)
-            ->with('success', $category->name . ' successfully updated.');
+            ->with('success', $category['name'] . ' successfully updated.');
     }
 
     /**
@@ -136,6 +136,6 @@ class CategoryController extends BaseAdminController
         $category->delete();
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $category->name . ' deleted successfully.');
+            ->with('success', $category['name'] . ' deleted successfully.');
     }
 }

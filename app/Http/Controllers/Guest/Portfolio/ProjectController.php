@@ -24,9 +24,12 @@ class ProjectController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $projects = new Project()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('sequence')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $projects = new Project()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('sequence')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.project.index'), compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -41,7 +44,7 @@ class ProjectController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$project = new Project()->where('owner_id', '=', $admin['id'])
+        if (!$project = Project::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

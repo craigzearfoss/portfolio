@@ -27,10 +27,13 @@ class ProjectController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $projects = new Project()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $projects = new Project()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Projects';
 
@@ -60,7 +63,7 @@ class ProjectController extends BaseAdminController
     {
         createGate(Project::class, $this->admin);
 
-        $project = new Project()->create($request->validated());
+        $project = Project::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.project.show', $project)
             ->with('success', $project->name . ' project successfully added.');

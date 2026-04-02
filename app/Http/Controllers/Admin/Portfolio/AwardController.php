@@ -27,9 +27,12 @@ class AwardController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $awards = new Award()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $awards = new Award()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Awards';
 
@@ -60,10 +63,10 @@ class AwardController extends BaseAdminController
     {
         createGate(Award::class, $this->admin);
 
-        $award = new Award()->create($request->validated());
+        $award = Award::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.award.show', $award)
-            ->with('success', $award->name . ' successfully added.');
+            ->with('success', $award['name'] . ' successfully added.');
     }
 
     /**
@@ -113,7 +116,7 @@ class AwardController extends BaseAdminController
         updateGate($award, $this->admin);
 
         return redirect()->route('admin.portfolio.award.show', $award)
-            ->with('success', $award->name . ' successfully updated.');
+            ->with('success', $award['name'] . ' successfully updated.');
     }
 
     /**
@@ -129,6 +132,6 @@ class AwardController extends BaseAdminController
         $award->delete();
 
         return redirect(referer('admin.portfolio.award.index'))
-            ->with('success', $award->name . ' deleted successfully.');
+            ->with('success', $award['name'] . ' deleted successfully.');
     }
 }

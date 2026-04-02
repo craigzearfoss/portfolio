@@ -27,11 +27,14 @@ class JobController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = new Job()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('start_year', 'desc')
-            ->orderBy('start_month', 'desc')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $jobs = new Job()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('start_year', 'desc')
+        ->orderBy('start_month', 'desc')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Jobs';
 
@@ -61,10 +64,10 @@ class JobController extends BaseAdminController
     {
         createGate(Job::class, $this->admin);
 
-        $job = new Job()->create($request->validated());
+        $job = Job::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.job.show', $job)
-            ->with('success', $job->company . ' job successfully added.');
+            ->with('success', $job['company'] . ' job successfully added.');
     }
 
     /**
@@ -114,7 +117,7 @@ class JobController extends BaseAdminController
         updateGate($job, $this->admin);
 
         return redirect()->route('admin.portfolio.job.show', $job)
-            ->with('success', $job->company . ' job successfully updated.');
+            ->with('success', $job['company'] . ' job successfully updated.');
     }
 
     /**
@@ -130,6 +133,6 @@ class JobController extends BaseAdminController
         $job->delete();
 
         return redirect(referer('admin.portfolio.job.index'))
-            ->with('success', $job->company . ' job deleted successfully.');
+            ->with('success', $job['company'] . ' job deleted successfully.');
     }
 }

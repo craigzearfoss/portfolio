@@ -30,9 +30,9 @@ class ReadingController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $readings = new Reading()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('title')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('owner_id')
+        ->orderBy('title')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Readings';
 
@@ -62,10 +62,10 @@ class ReadingController extends BaseAdminController
     {
         createGate(Reading::class, $this->admin);
 
-        $reading = new Reading()->create($request->validated());
+        $reading = Reading::query()->create($request->validated());
 
         return redirect()->route('admin.personal.reading.show', $reading)
-            ->with('success', $reading->title . ' successfully added.');
+            ->with('success', $reading['title'] . ' successfully added.');
     }
 
     /**
@@ -115,7 +115,7 @@ class ReadingController extends BaseAdminController
         updateGate($reading, $this->admin);
 
         return redirect()->route('admin.personal.reading.show', $reading)
-            ->with('success', $reading->title . ' successfully updated.');
+            ->with('success', $reading['title'] . ' successfully updated.');
     }
 
     /**
@@ -131,6 +131,6 @@ class ReadingController extends BaseAdminController
         $reading->delete();
 
         return redirect(referer('admin.personal.reading.index'))
-            ->with('success', $reading->title . ' deleted successfully.');
+            ->with('success', $reading['title'] . ' deleted successfully.');
     }
 }

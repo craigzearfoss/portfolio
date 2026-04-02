@@ -28,9 +28,9 @@ class IngredientController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $ingredients = new Ingredient()->searchQuery(request()->except('id'))
-            ->where('name', '!=', 'other')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->where('name', '!=', 'other')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Ingredients';
 
@@ -60,10 +60,10 @@ class IngredientController extends BaseAdminController
     {
         createGate(Ingredient::class, $this->admin);
 
-        $ingredient = new Ingredient()->create($request->validated());
+        $ingredient = Ingredient::query()->create($request->validated());
 
         return redirect()->route('admin.personal.ingredient.show', $ingredient)
-            ->with('success', $ingredient->name . ' successfully added.');
+            ->with('success', $ingredient['name'] . ' successfully added.');
     }
 
     /**
@@ -113,7 +113,7 @@ class IngredientController extends BaseAdminController
         updateGate($ingredient, $this->admin);
 
         return redirect()->route('admin.personal.ingredient.show', $ingredient)
-            ->with('success', $ingredient->name . ' successfully updated.');
+            ->with('success', $ingredient['name'] . ' successfully updated.');
     }
 
     /**
@@ -129,6 +129,6 @@ class IngredientController extends BaseAdminController
         $ingredient->delete();
 
         return redirect(referer('admin.personal.ingredient.index'))
-            ->with('success', $ingredient->name . ' deleted successfully.');
+            ->with('success', $ingredient['name'] . ' deleted successfully.');
     }
 }

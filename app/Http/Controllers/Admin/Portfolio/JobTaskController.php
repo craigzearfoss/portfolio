@@ -28,12 +28,13 @@ class JobTaskController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobTaskModel = new JobTask();
-
         $job = null;
-        $jobTasks = $jobTaskModel->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('job_id')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $jobTasks = new JobTask()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('job_id')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Job Tasks';
 
@@ -52,7 +53,7 @@ class JobTaskController extends BaseAdminController
         createGate(JobTask::class, $this->admin);
 
         $jobId = $request->get('job_id');
-        $job = !empty($jobId) ? new Job()->find($jobId) : null;
+        $job = !empty($jobId) ? Job::query()->find($jobId) : null;
 
         return view('admin.portfolio.job-task.create', compact('job'));
     }
@@ -67,7 +68,7 @@ class JobTaskController extends BaseAdminController
     {
         createGate(JobTask::class, $this->admin);
 
-        $jobTask = new JobTask()->create($request->validated());
+        $jobTask = JobTask::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.job-task.show', $jobTask)
             ->with('success', 'Job task successfully added.');

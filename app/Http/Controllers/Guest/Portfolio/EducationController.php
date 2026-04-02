@@ -24,9 +24,12 @@ class EducationController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $educations = new Education()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('graduation_year')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $educations = new Education()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('graduation_year')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.education.index'), compact('educations'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -41,7 +44,7 @@ class EducationController extends BaseGuestController
      */
     public function show(Admin $admin, int $id): View
     {
-        if (!$education = new Education()->where('owner_id', '=', $admin['id'])
+        if (!$education = Education::query()->where('owner_id', '=', $admin['id'])
             ->where('id', '=', $id)->first()
         ) {
             throw new ModelNotFoundException();

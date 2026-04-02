@@ -29,8 +29,8 @@ class DatabaseController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $databases = new Category()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.database.index', compact('databases'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -62,10 +62,10 @@ class DatabaseController extends BaseAdminController
             abort(403, 'Only admins with root access can add databases.');
         }
 
-        $database = new Database()->create($request->validated());
+        $database = Database::query()->create($request->validated());
 
         return redirect()->route('admin.dictionary.database.show', $database)
-            ->with('success', $database->name . ' successfully added.');
+            ->with('success', $database['name'] . ' successfully added.');
     }
 
     /**
@@ -119,7 +119,7 @@ class DatabaseController extends BaseAdminController
         $database->update($request->validated());
 
         return redirect()->route('admin.dictionary.database.show', $database)
-            ->with('success', $database->name . ' successfully updated.');
+            ->with('success', $database['name'] . ' successfully updated.');
     }
 
     /**

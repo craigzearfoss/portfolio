@@ -27,10 +27,13 @@ class PhotographyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $photos = new Photography()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $photos = new Photography()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Photography';
 
@@ -60,10 +63,10 @@ class PhotographyController extends BaseAdminController
     {
         createGate(Photography::class, $this->admin);
 
-        $photo = new Photography()->create($request->validated());
+        $photo = Photography::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
-            ->with('success', $photo->name . ' successfully added.');
+            ->with('success', $photo['name'] . ' successfully added.');
     }
 
     /**
@@ -113,7 +116,7 @@ class PhotographyController extends BaseAdminController
         $photography->update($request->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
-            ->with('success', $photo->name . ' successfully updated.');
+            ->with('success', $photo['name'] . ' successfully updated.');
     }
 
     /**
@@ -129,6 +132,6 @@ class PhotographyController extends BaseAdminController
         $photo->delete();
 
         return redirect(referer('admin.portfolio.photography.index'))
-            ->with('success', $photo->name . ' deleted successfully.');
+            ->with('success', $photo['name'] . ' deleted successfully.');
     }
 }

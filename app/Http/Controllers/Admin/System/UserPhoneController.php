@@ -28,8 +28,8 @@ class UserPhoneController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $userPhones = new UserPhone()->searchQuery($request->all())
-            ->orderBy('phone')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('phone')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->user->name  ?? '') . ' User Phone Numbers';
 
@@ -59,10 +59,10 @@ class UserPhoneController extends BaseAdminController
     {
         createGate(UserPhone::class, $this->user);
 
-        $userPhone = new UserPhone()->create($request->validated());
+        $userPhone = UserPhone::query()->create($request->validated());
 
         return redirect()->route('user.system.user-phone.show', $userPhone)
-            ->with('success', $userPhone->name . ' successfully added.');
+            ->with('success', $userPhone['name'] . ' successfully added.');
     }
 
     /**

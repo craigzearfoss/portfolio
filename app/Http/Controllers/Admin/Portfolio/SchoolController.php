@@ -30,10 +30,10 @@ class SchoolController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $schools = new School()->searchQuery(request()->except('id'))
-            ->where('name', '!=', 'other')
-            ->orderBy('name')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->where('name', '!=', 'other')
+        ->orderBy('name')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Schools';
 
@@ -63,10 +63,10 @@ class SchoolController extends BaseAdminController
     {
         createGate(School::class, $this->admin);
 
-        $school = new School()->create($request->validated());
+        $school = School::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.school.show', $school)
-            ->with('success', $school->name . ' successfully added.');
+            ->with('success', $school['name'] . ' successfully added.');
     }
 
     /**
@@ -116,7 +116,7 @@ class SchoolController extends BaseAdminController
         updateGate($school, $this->admin);
 
         return redirect()->route('admin.portfolio.school.show', $school)
-            ->with('success', $school->name . ' successfully updated.');
+            ->with('success', $school['name'] . ' successfully updated.');
     }
 
     /**
@@ -132,6 +132,6 @@ class SchoolController extends BaseAdminController
         $school->delete();
 
         return redirect(str_replace(config('app.url'), '', 'admin.portfolio.school.index'))
-            ->with('success', $school->name . ' deleted successfully.');
+            ->with('success', $school['name'] . ' deleted successfully.');
     }
 }

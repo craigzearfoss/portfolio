@@ -23,7 +23,7 @@ class FrameworkController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $frameworks = new Framework()->where('name', '!=', 'other')
+        $frameworks = Framework::query()->where('name', '!=', 'other')
             ->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->where('name', '!=', 'other')
@@ -42,7 +42,7 @@ class FrameworkController extends BaseGuestController
      */
     public function show(string $slug): View
     {
-        if (!$framework = new Framework()->where('slug', '=', $slug)->first()) {
+        if (!$framework = Framework::query()->where('slug', '=', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 

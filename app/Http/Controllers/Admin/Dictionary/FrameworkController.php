@@ -29,8 +29,8 @@ class FrameworkController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $frameworks = new Category()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.framework.index', compact('frameworks'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -62,10 +62,10 @@ class FrameworkController extends BaseAdminController
             abort(403, 'Only admins with root access can add frameworks.');
         }
 
-        $framework = new Framework()->create($request->validated());
+        $framework = Framework::query()->create($request->validated());
 
         return redirect()->route('admin.dictionary.framework.show', $framework)
-            ->with('success', $framework->name . ' successfully added.');
+            ->with('success', $framework['name'] . ' successfully added.');
     }
 
     /**
@@ -119,7 +119,7 @@ class FrameworkController extends BaseAdminController
         $framework->update($request->validated());
 
         return redirect()->route('admin.dictionary.framework.show', $framework)
-            ->with('success', $framework->name . ' successfully updated.');
+            ->with('success', $framework['name'] . ' successfully updated.');
     }
 
     /**
@@ -141,10 +141,10 @@ class FrameworkController extends BaseAdminController
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $framework->name . ' deleted successfully.');
+                ->with('success', $framework['name'] . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.framework.index')
-                ->with('success', $framework->name . ' deleted successfully.');
+                ->with('success', $framework['name'] . ' deleted successfully.');
         }
     }
 }

@@ -27,10 +27,13 @@ class MusicController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $musics = new Music()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $musics = new Music()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Music';
 
@@ -60,10 +63,10 @@ class MusicController extends BaseAdminController
     {
         createGate(Music::class, $this->admin);
 
-        $music = new Music()->create($request->validated());
+        $music = Music::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.music.show', $music)
-            ->with('success', $music->name . ' successfully added.');
+            ->with('success', $music['name'] . ' successfully added.');
     }
 
     /**
@@ -113,7 +116,7 @@ class MusicController extends BaseAdminController
         updateGate($music, $this->admin);
 
         return redirect()->route('admin.portfolio.music.show', $music)
-            ->with('success', $music->name . ' successfully updated.');
+            ->with('success', $music['name'] . ' successfully updated.');
     }
 
     /**
@@ -129,6 +132,6 @@ class MusicController extends BaseAdminController
         $music->delete();
 
         return redirect(referer('admin.portfolio.music.index'))
-            ->with('success', $music->name . ' deleted successfully.');
+            ->with('success', $music['name'] . ' deleted successfully.');
     }
 }

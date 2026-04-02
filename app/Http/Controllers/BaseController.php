@@ -27,7 +27,7 @@ class BaseController extends Controller
     /**
      * Is the sight in single admin mode?
      */
-    protected $singleAdminMode = false;
+    protected bool $singleAdminMode = false;
 
     /**
      * The logged in admin, logged-in user, and current owner that is being viewed.
@@ -102,7 +102,7 @@ class BaseController extends Controller
         $this->isRootAdmin      = $this->admin->is_root ?? false;
         $this->user             = loggedInUser();
         $this->owner            = $this->getOwner($this->admin);
-        $this->publicAdminCount = new Admin()->where('is_public', '=', true)
+        $this->publicAdminCount = Admin::query()->where('is_public', '=', true)
             ->where('is_disabled', '=', false)
             ->count();
 
@@ -181,7 +181,7 @@ class BaseController extends Controller
             if (!$featuredAdminUsername = config('app.featured_admin_username')) {
                 abort(500, 'APP_FEATURED_ADMIN_USERNAME must be specified in .env file when APP_SINGLE_ADMIN_MODE is set.');
             }
-            if (!$featuredAdmin = new Admin()->firstWhere('username', $featuredAdminUsername)) {
+            if (!$featuredAdmin = Admin::query()->firstWhere('username', $featuredAdminUsername)) {
                 abort(500, 'Featured admin ' . $featuredAdminUsername . ' does not exist.');
             } else {
                 return $featuredAdmin;
@@ -203,7 +203,7 @@ class BaseController extends Controller
                 $owner_id = null;
             } else {
                 $owner_id = intval($owner_id);
-                $owner = Admin::findOrFail($owner_id);
+                $owner = Admin::query()->findOrFail($owner_id);
             }
 
             if (!$this->isRootAdmin) {
@@ -217,7 +217,7 @@ class BaseController extends Controller
 
                 if (!empty($admin)) {
                     if (is_string($admin)) {
-                        $owner = new Admin()->find($admin);
+                        $owner = Admin::query()->find($admin);
                     } else {
                         $owner = $admin;
                     }
@@ -233,7 +233,7 @@ class BaseController extends Controller
 
                 if ($owner_id = $this->cookieManager->getOwnerId($this->envType)) {
 
-                    $owner = new Admin()->find($owner_id);
+                    $owner = Admin::query()->find($owner_id);
 
                 } elseif (!empty($currentAdmin)) {
 
@@ -248,11 +248,11 @@ class BaseController extends Controller
                     $parameters = Route::current()->parameters();
                     if (!empty($parameters['admin'])) {
 
-                        return new Admin()->where('label', '=', $parameters['admin'])->first();
+                        return Admin::query()->where('label', '=', $parameters['admin'])->first();
 
                     } elseif ($featuredAdminUsername = config('app.featured_admin_username')) {
 
-                        return new Admin()->where('username', '=', $featuredAdminUsername)->first();
+                        return Admin::query()->where('username', '=', $featuredAdminUsername)->first();
                     }
 
                 } elseif ($envType->value == 'admin') {

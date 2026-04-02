@@ -24,9 +24,12 @@ class PhotographyController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $photos = new Photography()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $photos = new Photography()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.photography.index'), compact('photos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -41,7 +44,7 @@ class PhotographyController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$photo = new Photography()->where('owner_id', '=', $admin['id'])
+        if (!$photo = Photography::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

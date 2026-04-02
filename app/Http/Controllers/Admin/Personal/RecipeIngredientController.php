@@ -29,11 +29,11 @@ class RecipeIngredientController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $recipeIngredients = new RecipeIngredient()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('recipe_id')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('owner_id')
+        ->orderBy('recipe_id')
+        ->paginate($perPage)->appends(request()->except('page'));
 
-        $recipe = $request->recipe_id ? new Recipe()->findOrFail($request->recipe_id) : null;
+        $recipe = $request->recipe_id ? Recipe::query()->findOrFail($request->recipe_id) : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' Recipe Ingredients';
 
@@ -63,7 +63,7 @@ class RecipeIngredientController extends BaseAdminController
     {
         createGate(RecipeIngredient::class, $this->admin);
 
-        $recipeIngredient = new RecipeIngredient()->create($request->validated());
+        $recipeIngredient = RecipeIngredient::query()->create($request->validated());
 
         return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
             ->with('success', 'Recipe ingredient successfully added.');

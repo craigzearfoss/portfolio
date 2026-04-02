@@ -25,10 +25,13 @@ class JobController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobs = new Job()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('start_year', 'desc')
-            ->orderBy('start_month', 'desc')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $jobs = new Job()->searchQuery(
+            request()->except('id'),
+                $this->owner ?? null
+        )
+        ->orderBy('start_year', 'desc')
+        ->orderBy('start_month', 'desc')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.job.index'), compact('jobs'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -43,7 +46,7 @@ class JobController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$job = new Job()->where('owner_id', '=', $admin['id'])
+        if (!$job = Job::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

@@ -27,11 +27,14 @@ class EducationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $educations = new Education()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('enrollment_year', 'desc')
-            ->orderBy('enrollment_month', 'desc')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $educations = new Education()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('enrollment_year', 'desc')
+        ->orderBy('enrollment_month', 'desc')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Education';
 
@@ -61,10 +64,10 @@ class EducationController extends BaseAdminController
     {
         createGate(Education::class, $this->admin);
 
-        $education = new Education()->create($request->validated());
+        $education = Education::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.education.show', $education)
-            ->with('success', $education->name . ' education successfully added.');
+            ->with('success', $education['name'] . ' education successfully added.');
     }
 
     /**

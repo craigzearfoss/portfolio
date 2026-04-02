@@ -29,8 +29,8 @@ class OperatingSystemController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $operatingSystems = new Category()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.operating-system.index', compact('operatingSystems'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -62,10 +62,10 @@ class OperatingSystemController extends BaseAdminController
             abort(403, 'Only admins with root access can add operating systems.');
         }
 
-        $operatingSystem = new OperatingSystem()->create($request->validated());
+        $operatingSystem = OperatingSystem::query()->create($request->validated());
 
         return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
-            ->with('success', $operatingSystem->name . ' successfully added.');
+            ->with('success', $operatingSystem['name'] . ' successfully added.');
     }
 
     /**
@@ -120,7 +120,7 @@ class OperatingSystemController extends BaseAdminController
         $operatingSystem->update($request->validated());
 
         return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
-            ->with('success', $operatingSystem->name . ' successfully updated.');
+            ->with('success', $operatingSystem['name'] . ' successfully updated.');
     }
 
     /**
@@ -138,6 +138,6 @@ class OperatingSystemController extends BaseAdminController
         $operatingSystem->delete();
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $operatingSystem->name . ' deleted successfully.');
+            ->with('success', $operatingSystem['name'] . ' deleted successfully.');
     }
 }

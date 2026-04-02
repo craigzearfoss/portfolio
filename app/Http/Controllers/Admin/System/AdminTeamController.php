@@ -28,8 +28,8 @@ class AdminTeamController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $adminTeams = new AdminTeam()->searchQuery($request->all())
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($owner->name  ?? '') . ' Teams';
 
@@ -59,10 +59,10 @@ class AdminTeamController extends BaseAdminController
     {
         createGate(AdminTeam::class, $this->admin);
 
-        $adminTeam = new AdminTeam()->create($request->validated());
+        $adminTeam = AdminTeam::query()->create($request->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
-            ->with('success', $adminTeam->name . ' successfully added.');
+            ->with('success', $adminTeam['name'] . ' successfully added.');
     }
 
     /**
@@ -112,7 +112,7 @@ class AdminTeamController extends BaseAdminController
         updateGate($adminTeam, $this->admin);
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
-            ->with('success', $adminTeam->name . ' successfully updated.');
+            ->with('success', $adminTeam['name'] . ' successfully updated.');
     }
 
     /**
@@ -128,6 +128,6 @@ class AdminTeamController extends BaseAdminController
         $adminTeam->delete();
 
         return redirect(referer('admin.system.admin-team.index'))
-            ->with('success', $adminTeam->name . ' deleted successfully.');
+            ->with('success', $adminTeam['name'] . ' deleted successfully.');
     }
 }

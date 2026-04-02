@@ -29,8 +29,8 @@ class ServerController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $servers = new Category()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.server.index', compact('servers'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -62,10 +62,10 @@ class ServerController extends BaseAdminController
             abort(403, 'Only admins with root access can add servers.');
         }
 
-        $server = new Server()->create($request->validated());
+        $server = Server::query()->create($request->validated());
 
         return redirect()->route('admin.dictionary.server.show', $server)
-            ->with('success', $server->name . ' successfully added.');
+            ->with('success', $server['name'] . ' successfully added.');
     }
 
     /**
@@ -119,7 +119,7 @@ class ServerController extends BaseAdminController
         $server->update($request->validated());
 
         return redirect()->route('admin.dictionary.server.show', $server)
-            ->with('success', $server->name . ' successfully updated.');
+            ->with('success', $server['name'] . ' successfully updated.');
     }
 
     /**
@@ -137,6 +137,6 @@ class ServerController extends BaseAdminController
         $server->delete();
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $server->name . ' deleted successfully.');
+            ->with('success', $server['name'] . ' deleted successfully.');
     }
 }

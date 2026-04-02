@@ -27,9 +27,12 @@ class ArtController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $arts = new Art()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $arts = new Art()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Art';
 
@@ -60,10 +63,10 @@ class ArtController extends BaseAdminController
     {
         createGate(Art::class, $this->admin);
 
-        $art = new Art()->create($request->validated());
+        $art = Art::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.art.show', $art)
-            ->with('success', $art->name . ' successfully added.');
+            ->with('success', $art['name'] . ' successfully added.');
     }
 
     /**
@@ -113,7 +116,7 @@ class ArtController extends BaseAdminController
         updateGate($art, $this->admin);
 
         return redirect()->route('admin.portfolio.art.show', $art)
-            ->with('success', $art->name . ' successfully updated.');
+            ->with('success', $art['name'] . ' successfully updated.');
     }
 
     /**
@@ -129,6 +132,6 @@ class ArtController extends BaseAdminController
         $art->delete();
 
         return redirect(referer('admin.portfolio.art.index'))
-            ->with('success', $art->name . ' deleted successfully.');
+            ->with('success', $art['name'] . ' deleted successfully.');
     }
 }

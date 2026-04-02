@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\PermissionService;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use PhpOffice\PhpWord\Exception\Exception;
@@ -83,7 +82,6 @@ class IndexController extends BaseController
 
         // Convert to HTML
         $objWriter = IOFactory::createWriter($phpWord, 'HTML');
-        $htmlContent = '';
 
         // Save the HTML output to a variable or temporary file
         ob_start();

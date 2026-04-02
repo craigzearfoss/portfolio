@@ -27,10 +27,13 @@ class PublicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $publications = new Publication()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('title')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $publications = new Publication()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('title')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Publications';
 
@@ -60,10 +63,10 @@ class PublicationController extends BaseAdminController
     {
         createGate(Publication::class, $this->admin);
 
-        $publication = new Publication()->create($request->validated());
+        $publication = Publication::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.publication.show', $publication)
-            ->with('success', $publication->title . ' successfully added.');
+            ->with('success', $publication['title'] . ' successfully added.');
     }
 
     /**
@@ -113,7 +116,7 @@ class PublicationController extends BaseAdminController
         updateGate($publication, $this->admin);
 
         return redirect()->route('admin.portfolio.publication.show', $publication)
-            ->with('success', $publication->title . ' successfully updated.');
+            ->with('success', $publication['title'] . ' successfully updated.');
     }
 
     /**
@@ -129,6 +132,6 @@ class PublicationController extends BaseAdminController
         $publication->delete();
 
         return redirect(referer('admin.portfolio.publication.index'))
-            ->with('success', $publication->title . ' deleted successfully.');
+            ->with('success', $publication['title'] . ' deleted successfully.');
     }
 }

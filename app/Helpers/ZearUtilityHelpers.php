@@ -8,7 +8,6 @@ use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\IOFactory;
@@ -65,7 +64,7 @@ if (! function_exists('dbName')) {
      * @return string|null
      */
     function dbName(string $dbTag): string|null  {
-        if ($database = new Database()->where('tag', '=', $dbTag)->first()) {
+        if ($database = Database::query()->where('tag', '=', $dbTag)->first()) {
             return $database->name;
         } else {
             return null;
@@ -256,7 +255,7 @@ if (! function_exists('canCreate')) {
             return true;
         } else {
 
-            $adminResource = new AdminResource()
+            $adminResource = AdminResource::query()
                 ->where('class', '=', $resourceClass)
                 ->where('owner_id', '=', $admin['id'])
                 ->where($envType->value, '=', true)
@@ -299,11 +298,11 @@ if (! function_exists('canRead')) {
 
         // get the admin resource (Note that is not admin is specified we pull it from the system.resources table.)
         if (empty($admin) || $admin['is_root']) {
-            $adminResource = new Resource()->where('class', '=', $resourceClass)
+            $adminResource = Resource::query()->where('class', '=', $resourceClass)
                 ->where($envType->value, '=', true)
                 ->first();
         } else {
-            $adminResource = new AdminResource()->where('class', '=', $resourceClass)
+            $adminResource = AdminResource::query()->where('class', '=', $resourceClass)
                 ->where('owner_id', '=', $admin['id'])
                 ->where($envType->value, '=', true)
                 ->first();
@@ -331,7 +330,7 @@ if (! function_exists('canRead')) {
 
 if (! function_exists('canUpdate')) {
     /**
-     * Returns true if an admin can update an resource.
+     * Returns true if an admin can update a resource.
      * Only root admins can update entities that belong to other admins.
      *
      * @param $resourceObject
@@ -347,11 +346,9 @@ if (! function_exists('canUpdate')) {
             return false;
         } elseif ($resourceObject->is_root && !$isRootAdmin) {
             return false;
-        } elseif ($isRootAdmin) {
-            $retValue = true;
-        } else {
+        } elseif (!$isRootAdmin) {
 
-            $adminResource = new AdminResource()->where('class', '=', get_class($resourceObject))
+            $adminResource = AdminResource::query()->where('class', '=', get_class($resourceObject))
                 ->where('owner_id', '=', $admin['id'])
                 ->where($envType->value, '=', true)
                 ->first();
@@ -361,11 +358,10 @@ if (! function_exists('canUpdate')) {
             } elseif (!$adminResource->has_owner) {
                 // only admins can update resources that don't have an owner
                 return false;
-            } else {
-                $retValue = true;
             }
         }
 
+        // before returning true make sure it's not for a demo user with editing disabled
         return $admin['is_demo']
             ? config('app.demo_admin_can_edit')
             : true;
@@ -379,6 +375,7 @@ if (! function_exists('canDelete')) {
      *
      * @param $resourceObject
      * @param Admin|null $admin
+     * @param EnvTypes $envType
      * @return bool
      */
     function canDelete($resourceObject, Admin|null $admin = null, EnvTypes $envType = EnvTypes::ADMIN): bool
@@ -396,7 +393,7 @@ if (! function_exists('canDelete')) {
             return true;
         } else {
 
-            $adminResource = new AdminResource()->where('class', '=', get_class($resourceObject))
+            $adminResource = AdminResource::query()->where('class', '=', get_class($resourceObject))
                 ->where('owner_id', '=', $admin['id'])
                 ->where($envType->value, '=', true)
                 ->first();
@@ -693,8 +690,8 @@ if (! function_exists('reservedKeywords')) {
                 'user',
                 'verify email', 'verify-email',
             ],
-            new Database()->select('name')->get()->pluck('name')->toArray(),
-            new Resource()->select('name')->get()->pluck('name')->toArray()
+            Database::query()->select('name')->get()->pluck('name')->toArray(),
+            Resource::query()->select('name')->get()->pluck('name')->toArray()
         ));
 
         sort($reservedKeywords);
@@ -913,8 +910,6 @@ if (! function_exists('viewDocument')) {
      */
     function viewDocument($filename): string|null
     {
-        $filePath = Storage::path('documents/' . $filename); // Adjust the path as needed
-
         $filePath = base_path() . DIRECTORY_SEPARATOR . 'public'
             . DIRECTORY_SEPARATOR . 'portfolio'
             . DIRECTORY_SEPARATOR . 'images'
@@ -928,7 +923,6 @@ if (! function_exists('viewDocument')) {
 
         // Convert to HTML
         $objWriter = IOFactory::createWriter($phpWord, 'HTML');
-        $htmlContent = '';
 
         // Save the HTML output to a variable or temporary file
         ob_start();
@@ -1066,7 +1060,7 @@ if (! function_exists('validateDemoAdminCredentials')) {
             $errorMessage = 'No APP_DEMO_ADMIN_USERNAME specified in .env file.';
         } elseif (!$password = config('app.demo_admin_password')) {
             $errorMessage = 'No APP_DEMO_ADMIN_PASSWORD specified in .env file.';
-        } elseif(!$admin = new Admin()->where('username', $username)->first()) {
+        } elseif(!$admin = Admin::query()->where('username', $username)->first()) {
             $errorMessage = 'Admin "' . $username . '"  specified by APP_DEMO_ADMIN_USERNAME in .env file not found in the database.';
         } else {
             if (Auth::guard('admin')->attempt([ 'username' => $username, 'password' => $password ])) {
@@ -1099,7 +1093,7 @@ if (! function_exists('validateDemoUserCredentials')) {
             $errorMessage = 'No APP_DEMO_USER_USERNAME specified in .env file.';
         } elseif (!$password = config('app.demo_user_password')) {
             $errorMessage = 'No APP_DEMO_USER_PASSWORD specified in .env file.';
-        } elseif(!$user = new User()->where('username', $username)->first()) {
+        } elseif(!$user = User::query()->where('username', $username)->first()) {
             $errorMessage = 'User "' . $username . '"  specified by APP_DEMO_USER_USERNAME in .env file not found in the database.';
         } else {
             if (Auth::guard('admin')->attempt(['username' => $username, 'password' => $password])) {

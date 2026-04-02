@@ -30,8 +30,8 @@ class LanguageController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $languages = new Category()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.language.index', compact('languages'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -63,10 +63,10 @@ class LanguageController extends BaseAdminController
             abort(403, 'Only admins with root access can add languages.');
         }
 
-        $language = new Language()->create($request->validated());
+        $language = Language::query()->create($request->validated());
 
         return redirect()->route('admin.dictionary.language.show', $language)
-            ->with('success', $language->name . ' successfully added.');
+            ->with('success', $language['name'] . ' successfully added.');
     }
 
     /**
@@ -120,7 +120,7 @@ class LanguageController extends BaseAdminController
         $language->update($request->validated());
 
         return redirect()->route('admin.dictionary.language.show', $language)
-            ->with('success', $language->name . ' successfully updated.');
+            ->with('success', $language['name'] . ' successfully updated.');
     }
 
     /**
@@ -132,12 +132,12 @@ class LanguageController extends BaseAdminController
     public function destroy(Language $language): RedirectResponse
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete a lagnuage.');
+            abort(403, 'Only admins with root access can delete a language.');
         }
 
         $language->delete();
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $language->name . ' deleted successfully.');
+            ->with('success', $language['name'] . ' deleted successfully.');
     }
 }

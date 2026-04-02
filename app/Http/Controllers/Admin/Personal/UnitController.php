@@ -28,8 +28,8 @@ class UnitController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $units = new Unit()->searchQuery(request()->except('id'))
-            ->orderBy('name')->paginate($perPage)
-            ->appends(request()->except('page'));
+        ->orderBy('name')->paginate($perPage)
+        ->appends(request()->except('page'));
 
         $pageTitle = 'Units';
 
@@ -59,10 +59,10 @@ class UnitController extends BaseAdminController
     {
         createGate(Unit::class, $this->admin);
 
-        $unit = new Unit()->create($request->validated());
+        $unit = Unit::query()->create($request->validated());
 
-        return redirect()->route('admin.personal.unit.show', $unit->id)
-            ->with('success', $unit->name . $unit->name . ' successfully added.');
+        return redirect()->route('admin.personal.unit.show', $unit['id'])
+            ->with('success', $unit['name'] . ' successfully added.');
     }
 
     /**
@@ -112,7 +112,7 @@ class UnitController extends BaseAdminController
         updateGate($unit, $this->admin);
 
         return redirect()->route('admin.personal.unit.show', $unit)
-            ->with('success', $unit->name . ' successfully updated.');
+            ->with('success', $unit['name'] . ' successfully updated.');
     }
 
     /**
@@ -128,6 +128,6 @@ class UnitController extends BaseAdminController
         $unit->delete();
 
         return redirect(referer('admin.personal.unit.index'))
-            ->with('success', $unit->name . ' deleted successfully.');
+            ->with('success', $unit['name'] . ' deleted successfully.');
     }
 }

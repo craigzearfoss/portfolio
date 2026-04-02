@@ -28,8 +28,8 @@ class CertificationController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $certifications = new Certification()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Certifications';
 
@@ -59,10 +59,10 @@ class CertificationController extends BaseAdminController
     {
         createGate(Certification::class, $this->admin);
 
-        $certification = new Certification()->create($request->validated());
+        $certification = Certification::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.certification.show', $certification)
-            ->with('success', $certification->name . ' successfully added.');
+            ->with('success', $certification['name'] . ' successfully added.');
     }
 
     /**
@@ -112,7 +112,7 @@ class CertificationController extends BaseAdminController
         updateGate($certification, $this->admin);
 
         return redirect()->route('admin.portfolio.certification.show', $certification)
-            ->with('success', $certification->name . ' successfully updated.');
+            ->with('success', $certification['name'] . ' successfully updated.');
     }
 
     /**
@@ -128,6 +128,6 @@ class CertificationController extends BaseAdminController
         $certification->delete();
 
         return redirect(route('admin.portfolio.certification.index'))
-            ->with('success', $certification->name . ' deleted successfully.');
+            ->with('success', $certification['name'] . ' deleted successfully.');
     }
 }

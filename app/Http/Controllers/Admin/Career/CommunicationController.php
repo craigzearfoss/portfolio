@@ -28,12 +28,15 @@ class CommunicationController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $communications = new Communication()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('datetime', 'desc')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $communications = new Communication()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('datetime', 'desc')
+        ->paginate($perPage)->appends(request()->except('page'));
 
-        $application = $request->application_id ? new Application()->findOrFail($request->application_id) : null;
+        $application = $request->application_id ? Application::query()->findOrFail($request->application_id) : null;
 
         $pageTitle = ($this->owner->name  ?? '') . ' Communications';
 
@@ -52,7 +55,7 @@ class CommunicationController extends BaseAdminController
         createGate(Communication::class, $this->admin);
 
         $application = $request->application_id
-            ? new Application()->find($request->application_id)
+            ? Application::query()->find($request->application_id)
             : null;
 
         return view('admin.career.communication.create', compact('application'));
@@ -70,14 +73,14 @@ class CommunicationController extends BaseAdminController
 
         $applicationId = $request->query('application_id');
 
-        if (!empty($applicationId) && (!$application = new Application()->find($applicationId)))  {
+        if (!empty($applicationId) && (!$application = Application::query()->find($applicationId)))  {
             $previousUrl = url()->previous();
             $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
                 ->withInput();
         }
 
-        $communication = new Communication()->create($request->validated());
+        $communication = Communication::query()->create($request->validated());
 
         if ($referer = $request->query('referer')) {
             return redirect($referer)->with('success', 'Communication successfully added.');
@@ -135,7 +138,7 @@ class CommunicationController extends BaseAdminController
     {
         $applicationId = $request->query('application_id');
 
-        if (!empty($applicationId) && (!$application = new Application()->find($applicationId)))  {
+        if (!empty($applicationId) && (!$application = Application::query()->find($applicationId)))  {
             $previousUrl = url()->previous();
             $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
             return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')

@@ -31,8 +31,8 @@ class ResourceController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $resources = new AdminResource()->searchQuery($request->all())
-            ->orderBy('sequence')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('sequence')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Resources';
 
@@ -114,7 +114,7 @@ class ResourceController extends BaseAdminController
         $resource->update($request->validated());
 
         return redirect()->route('admin.system.resource.show', $resource)
-            ->with('success', $resource->name . ' successfully updated.');
+            ->with('success', $resource['name'] . ' successfully updated.');
     }
 
     /**

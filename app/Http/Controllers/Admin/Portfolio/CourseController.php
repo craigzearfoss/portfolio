@@ -27,9 +27,12 @@ class CourseController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $courses = new Course()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $courses = new Course()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Courses';
 
@@ -59,10 +62,10 @@ class CourseController extends BaseAdminController
     {
         createGate(Course::class, $this->admin);
 
-        $course = new Course()->create($request->validated());
+        $course = Course::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.course.show', $course)
-            ->with('success', $course-> name . ' successfully added.');
+            ->with('success', $course['name'] . ' successfully added.');
     }
 
     /**
@@ -112,7 +115,7 @@ class CourseController extends BaseAdminController
         updateGate($course, $this->admin);
 
         return redirect()->route('admin.portfolio.course.show', $course)
-            ->with('success', $course->name . ' successfully updated.');
+            ->with('success', $course['name'] . ' successfully updated.');
     }
 
     /**
@@ -128,6 +131,6 @@ class CourseController extends BaseAdminController
         $course->delete();
 
         return redirect(referer('admin.portfolio.course.index'))
-            ->with('success', $course->name . ' deleted successfully.');
+            ->with('success', $course['name'] . ' deleted successfully.');
     }
 }

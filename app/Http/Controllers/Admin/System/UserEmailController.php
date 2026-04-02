@@ -28,8 +28,8 @@ class UserEmailController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $userEmails = new UserEmail()->searchQuery($request->all())
-            ->orderBy('email')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('email')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->user->name  ?? '') . ' User Email Addresses';
 
@@ -59,10 +59,10 @@ class UserEmailController extends BaseAdminController
     {
         createGate(UserEmail::class, $this->user);
 
-        $userEmail = new UserEmail()->create($request->validated());
+        $userEmail = UserEmail::query()->create($request->validated());
 
         return redirect()->route('admin.system.user-email.show', $userEmail)
-            ->with('success', $userEmail->name . ' successfully added.');
+            ->with('success', $userEmail['name'] . ' successfully added.');
     }
 
     /**

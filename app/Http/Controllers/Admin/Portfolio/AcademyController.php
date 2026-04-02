@@ -28,9 +28,9 @@ class AcademyController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $academies = new Academy()->searchQuery(request()->except('id'))
-            ->where('name', '!=', 'other')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->where('name', '!=', 'other')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Academies';
 
@@ -60,10 +60,10 @@ class AcademyController extends BaseAdminController
     {
         createGate(Academy::class, $this->admin);
 
-        $academy = new Academy()->create($request->validated());
+        $academy = Academy::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.academy.show', $academy)
-            ->with('success', $academy->name . ' successfully added.');
+            ->with('success', $academy['name'] . ' successfully added.');
     }
 
     /**
@@ -113,7 +113,7 @@ class AcademyController extends BaseAdminController
         updateGate($academy, $this->admin);
 
         return redirect()->route('admin.portfolio.academy.show', $academy)
-            ->with('success', $academy->name . ' successfully updated.');
+            ->with('success', $academy['name'] . ' successfully updated.');
     }
 
     /**
@@ -129,6 +129,6 @@ class AcademyController extends BaseAdminController
         $academy->delete();
 
         return redirect(route('admin.portfolio.academy.index'))
-            ->with('success', $academy->name . ' deleted successfully.');
+            ->with('success', $academy['name'] . ' deleted successfully.');
     }
 }

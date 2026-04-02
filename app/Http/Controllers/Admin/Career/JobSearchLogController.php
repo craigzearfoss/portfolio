@@ -26,9 +26,12 @@ class JobSearchLogController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobSearchLogs = new JobSearchLog()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $jobSearchLogs = new JobSearchLog()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Job Search Log';
 
@@ -58,7 +61,7 @@ class JobSearchLogController extends BaseAdminController
     {
         createGate(JobSearchLog::class, $this->admin);
 
-        $logEntry = new JobSearchLog()->create($request->validated());
+        $logEntry = JobSearchLog::query()->create($request->validated());
 
         return redirect()->route('admin.career.job-search-log.show', $logEntry)
             ->with('success', 'Log entry successfully added.');

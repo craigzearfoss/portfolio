@@ -29,8 +29,8 @@ class LibraryController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $libraries = new Category()->searchQuery(request()->except('id'))
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.library.index', compact('libraries'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -62,10 +62,10 @@ class LibraryController extends BaseAdminController
             abort(403, 'Only admins with root access can add libraries.');
         }
 
-        $library = new Library()->create($request->validated());
+        $library = Library::query()->create($request->validated());
 
         return redirect()->route('admin.dictionary.library.show', $library)
-            ->with('success', $library->name . ' successfully added.');
+            ->with('success', $library['name'] . ' successfully added.');
     }
 
     /**
@@ -119,7 +119,7 @@ class LibraryController extends BaseAdminController
         $library->update($request->validated());
 
         return redirect()->route('admin.dictionary.library.index', $library)
-            ->with('success', $library->name . ' successfully updated.');
+            ->with('success', $library['name'] . ' successfully updated.');
     }
 
     /**
@@ -131,12 +131,12 @@ class LibraryController extends BaseAdminController
     public function destroy(Library $library): RedirectResponse
     {
         if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete a lirary.');
+            abort(403, 'Only admins with root access can delete a library.');
         }
 
         $library->delete();
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $library->name . ' deleted successfully.');
+            ->with('success', $library['name'] . ' deleted successfully.');
     }
 }

@@ -41,7 +41,7 @@ class VideoController extends BaseGuestController
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$video = new Video()->where('owner_id', '=', $admin['id'])
+        if (!$video = Video::query()->where('owner_id', '=', $admin['id'])
             ->where('slug', '=', $slug)->first()
         ) {
             throw new ModelNotFoundException();

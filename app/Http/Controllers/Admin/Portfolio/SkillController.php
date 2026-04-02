@@ -27,10 +27,13 @@ class SkillController extends BaseAdminController
 
         $perPage = 50; //$request->query('per_page', $this->perPage());
 
-        $skills = new Skill()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
-            ->orderBy('owner_id')
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $skills = new Skill()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
+        ->orderBy('owner_id')
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Skills';
 
@@ -60,10 +63,10 @@ class SkillController extends BaseAdminController
     {
         createGate(Skill::class, $this->admin);
 
-        $skill = new Skill()->create($request->validated());
+        $skill = Skill::query()->create($request->validated());
 
         return redirect()->route('admin.portfolio.skill.show', $skill)
-            ->with('success', $skill->name . ' successfully added.');
+            ->with('success', $skill['name'] . ' successfully added.');
     }
 
     /**
@@ -113,7 +116,7 @@ class SkillController extends BaseAdminController
         updateGate($skill, $this->admin);
 
         return redirect()->route('admin.portfolio.skill.show', $skill)
-            ->with('success', $skill->name . ' successfully updated.');
+            ->with('success', $skill['name'] . ' successfully updated.');
     }
 
     /**
@@ -129,6 +132,6 @@ class SkillController extends BaseAdminController
         $skill->delete();
 
         return redirect(referer('admin.portfolio.skill.index'))
-            ->with('success', $skill->name . ' deleted successfully.');
+            ->with('success', $skill['name'] . ' deleted successfully.');
     }
 }

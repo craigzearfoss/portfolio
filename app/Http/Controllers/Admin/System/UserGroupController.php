@@ -28,8 +28,8 @@ class UserGroupController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $userGroups = new UserGroup()->searchQuery($request->all())
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        ->orderBy('name')
+        ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'User Groups';
 
@@ -57,10 +57,10 @@ class UserGroupController extends BaseAdminController
      */
     public function store(StoreUserGroupsRequest $request): RedirectResponse
     {
-        $userGroup = new UserGroup()->create($request->validated());
+        $userGroup = UserGroup::query()->create($request->validated());
 
         return redirect()->route('admin.system.user-group.show', $userGroup)
-            ->with('success', $userGroup->name . ' successfully added.');
+            ->with('success', $userGroup['name'] . ' successfully added.');
     }
 
     /**
@@ -108,7 +108,7 @@ class UserGroupController extends BaseAdminController
         $userGroup->update($request->validated());
 
         return redirect()->route('admin.system.user-group.show', $userGroup)
-            ->with('success', $userGroup->name . ' successfully updated.');
+            ->with('success', $userGroup['name'] . ' successfully updated.');
     }
 
     /**
@@ -124,6 +124,6 @@ class UserGroupController extends BaseAdminController
         $userGroup->delete();
 
         return redirect(referer('admin.system.user-group.index'))
-            ->with('success', $userGroup->name . ' deleted successfully.');
+            ->with('success', $userGroup['name'] . ' deleted successfully.');
     }
 }
