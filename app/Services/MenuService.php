@@ -36,7 +36,7 @@ class MenuService
     protected EnvTypes|null $envType = null;
 
     /**
-     * @var array|Collection
+     * @var array
      */
     protected array $resourcesByDatabase = [];
 
@@ -147,7 +147,7 @@ class MenuService
         $this->adminsEnabled    = config('app.admins_enabled');
         $this->usersEnabled     = config('app.users_enabled');
 
-        $this->publicAdminCount = new Admin()->where('is_public', '=', true)
+        $this->publicAdminCount = Admin::query()->where('is_public', '=', true)
             ->where('is_disabled', '=', false)->count();
 
         if (!in_array($this->envType, [ EnvTypes::ADMIN, EnvTypes::USER, EnvTypes::GUEST ])) {
@@ -316,7 +316,7 @@ class MenuService
         );
 
         if (!empty($this->owner)) {
-            if ($resume = $this->getResumeMenuItem(1)) {
+            if ($resume = $this->getResumeMenuItem()) {
                 array_unshift($menu, $resume);
             }
 
@@ -486,7 +486,7 @@ class MenuService
         }
 
         if (!empty($this->owner)) {
-            if ($resume = $this->getResumeMenuItem(1)) {
+            if ($resume = $this->getResumeMenuItem()) {
                 array_unshift($menu, $resume);
             }
 
@@ -675,7 +675,7 @@ class MenuService
         $url = route($routeName, $this->owner);
 
         $menuItem = new stdClass();
-        $menuItem->owner_id       = $this->owner->id;
+        $menuItem->owner_id       = $this->owner['id'];
         $menuItem->id             = null;
         $menuItem->database_id    = null;
         $menuItem->database_name  = null;

@@ -27,12 +27,7 @@ use App\Models\Portfolio\Music;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
-use App\Models\System\AdminEmail;
-use App\Models\System\AdminGroup;
-use App\Models\System\AdminPhone;
-use App\Models\System\AdminTeam;
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -363,7 +358,7 @@ class Admin extends Authenticatable
     /**
      * Get the system country that owns the admin.
      *
-     * @return HasMany
+     * @return BelongsTo
      */
     public function country(): BelongsTo
     {

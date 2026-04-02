@@ -43,7 +43,7 @@ class PermissionService
             if ($action !== self::ACTION_READ) {
                 return false;
             } else {
-                return new Resource()->where('type', '=', $resourceType)
+                return Resource::query()->where('type', '=', $resourceType)
                         ->where('is_public', '=', 1)
                         ->where('is_disabled', '=', 0)
                         ->get()->count() > 0;
@@ -53,10 +53,10 @@ class PermissionService
 
             if (!empty(Auth::guard('admin')->user()->root)) {
                 // Root admins can view disabled resource types.
-                return new Resource()->where('type', '=', $resourceType)->get()->count() > 0;
+                return Resource::query()->where('type', '=', $resourceType)->get()->count() > 0;
             } else {
                 // Non-root admins can only see resource types that are not disabled.
-                return new Resource()->where('type', '=', $resourceType)
+                return Resource::query()->where('type', '=', $resourceType)
                         ->where('is_disabled', '=', 0)->get()->count() > 0;
             }
 
@@ -88,7 +88,7 @@ class PermissionService
         $permissions = [];
 
         foreach (!empty($owner)
-                     ? new AdminResource()->ownerResources($owner->id, $envType)
+                     ? new AdminResource()->ownerResources($owner['id'], $envType)
                      : new Resource()->ownerResources($envType)
                  as $resource) {
 

@@ -28,7 +28,6 @@ use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -357,7 +356,7 @@ class Owner extends Model
     /**
      * Get the system country that owns the admin.
      *
-     * @return HasMany
+     * @return BelongsTo
      */
     public function country(): BelongsTo
     {

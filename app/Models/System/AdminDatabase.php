@@ -4,7 +4,6 @@ namespace App\Models\System;
 
 use App\Enums\EnvTypes;
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

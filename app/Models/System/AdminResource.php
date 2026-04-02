@@ -4,7 +4,6 @@ namespace App\Models\System;
 
 use App\Enums\EnvTypes;
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -292,7 +291,7 @@ class AdminResource extends Model
         // apply database filter
         if (!empty($databaseTag)) {
             if (!$database = new Database()->firstWhere('tag', '=', $databaseTag)) {
-                throw new \Exception('Database tag ' . $databaseTag . ' not found');
+                throw new Exception('Database tag ' . $databaseTag . ' not found');
             }
             $query->where('admin_resources.database_id', '=', $database['id']);
         }
@@ -350,7 +349,7 @@ class AdminResource extends Model
      * @param EnvTypes         $envType
      * @param string|null      $databaseTag
      * @param array            $filters
-     * @param array|null       $orderBy - if null then sorted by database.sequence and then resource.sequence
+     * @param array|null       $orderBy - if null then sorted by databases sequence and then resources sequence
      * @return array
      * @throws Exception
      */
@@ -413,7 +412,7 @@ class AdminResource extends Model
      * @param string $resourceName
      * @return AdminResource|null
      */
-    public function getResourceByName(Admin|Owner $owner, string $databaseName, string $resourceName): ?AdminResource
+    #[NoReturn] public function getResourceByName(Admin|Owner $owner, string $databaseName, string $resourceName): ?AdminResource
     {
 
         // get column names for select
@@ -470,7 +469,7 @@ class AdminResource extends Model
      * @return void
      */
     protected function appendRouteFieldToDatabase(
-        AdminDatabase    &$adminDatabase,
+        AdminDatabase    $adminDatabase,
         EnvTypes|null    $envType = EnvTypes::GUEST,
         Admin|Owner|null $owner = null): void
     {
@@ -500,7 +499,7 @@ class AdminResource extends Model
      * @return void
      */
     protected function appendRouteFieldToResource(
-        AdminResource    &$adminResource,
+        AdminResource    $adminResource,
         EnvTypes|null    $envType = EnvTypes::GUEST,
         Admin|Owner|null $owner = null): void
     {

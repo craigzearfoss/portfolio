@@ -6,7 +6,6 @@ use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -124,7 +123,7 @@ class Library extends Model
                 $query->where($this->table . '.proprietary', '=', true);
             });
 
-        $query = $this->appendStandardFilters($query, $filters, false);
+        $query = $this->appendStandardFilters($query, $filters);
 
         return $this->appendTimestampFilters($query, $filters);
     }

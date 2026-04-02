@@ -6,7 +6,6 @@ use App\Models\System\Admin;
 use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;

@@ -8,7 +8,6 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -276,10 +275,9 @@ trait SearchableModelTrait
      *
      * @param Builder $query
      * @param array $filters
-     * @param bool $includeDemo
      * @return Builder
      */
-    public function appendAddressFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    public function appendAddressFilters(Builder $query, array $filters = []): Builder
     {
         $query->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where($this->table . '.city', 'LIKE', '%' . $filters['city'] . '%');
@@ -302,10 +300,9 @@ trait SearchableModelTrait
      *
      * @param Builder $query
      * @param array $filters
-     * @param bool $includeDemo
      * @return Builder
      */
-    public function appendEmailFilters(Builder $query, array $filters = [], bool $includeDemo = true): Builder
+    public function appendEmailFilters(Builder $query, array $filters = []): Builder
     {
         $query->when(!empty($filters['email']), function ($query) use ($filters) {
             $email = $filters['email'];

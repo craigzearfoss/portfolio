@@ -8,7 +8,6 @@ use App\Models\System\Owner;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\RecruiterFactory;
-use Eloquent;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -101,6 +100,7 @@ class Recruiter extends Model
      * @param array $filters
      * @param Admin|Owner|null $owner
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {

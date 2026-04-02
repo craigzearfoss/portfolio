@@ -3,8 +3,6 @@
 namespace App\Models\Career;
 
 use Database\Factories\Career\CompanyContactFactory;
-use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

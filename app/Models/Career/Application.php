@@ -554,7 +554,7 @@ class Application extends Model
     public function skills(): HasMany
     {
         return $this->hasMany(ApplicationSkill::class, 'application_id')
-            ->orderBy('name', 'asc');
+            ->orderBy('name');
     }
     /**
      * Get the system state that owns the application.

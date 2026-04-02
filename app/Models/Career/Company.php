@@ -9,7 +9,6 @@ use App\Models\System\Owner;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\CompanyFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

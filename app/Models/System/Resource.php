@@ -4,7 +4,6 @@ namespace App\Models\System;
 
 use App\Enums\EnvTypes;
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -246,7 +245,7 @@ class Resource extends Model
      * @param EnvTypes    $envType
      * @param string|null $databaseTag
      * @param array       $filters
-     * @param array|null  $orderBy - if null then sorted by databases.sequence and then resources.sequence
+     * @param array|null  $orderBy - if null then sorted by databases sequence and then resources sequence
      * @return Collection
      * @throws Exception
      */
@@ -285,7 +284,7 @@ class Resource extends Model
         // apply database filter
         if (!empty($databaseTag)) {
             if (!$database = new Database()->firstWhere('tag', '=', $databaseTag)) {
-                throw new \Exception('Database tag ' . $databaseTag . ' not found');
+                throw new Exception('Database tag ' . $databaseTag . ' not found');
             }
             $query->where('resources.database_id', '=', $database['id']);
         }
@@ -328,7 +327,7 @@ class Resource extends Model
         $resources = $query->get();
 
         for ($i=0; $i<count($resources); $i++) {
-            $this->appendRouteFieldToResource($resources[$i], $envType, $owner);
+            $this->appendRouteFieldToResource($resources[$i], $envType);
             $this->appendOwnerFieldToResource($resources[$i], $owner);
             $this->appendDatabaseFieldToResource($resources[$i], $envType, $owner);
         }
@@ -342,7 +341,7 @@ class Resource extends Model
      * @param EnvTypes    $envType
      * @param string|null $databaseTag
      * @param array       $filters
-     * @param array|null  $orderBy - if null then sorted by database.sequence and then resource.sequence
+     * @param array|null  $orderBy - if null then sorted by databases sequence and then resources sequence
      * @return array
      * @throws Exception
      */
@@ -419,7 +418,7 @@ class Resource extends Model
      * @return void
      */
     protected function appendRouteFieldToDatabase(
-        Database      &$database,
+        Database      $database,
         EnvTypes|null $envType = EnvTypes::GUEST): void
     {
         $url = null;
@@ -443,7 +442,7 @@ class Resource extends Model
      * @return void
      */
     protected function appendRouteFieldToResource(
-        Resource         &$resource,
+        Resource         $resource,
         EnvTypes|null    $envType = EnvTypes::GUEST): void
     {
         $url = null;
@@ -470,7 +469,7 @@ class Resource extends Model
      * @return void
      */
     protected function appendOwnerFieldToResource(
-        Resource    &$resource,
+        Resource    $resource,
         Admin|Owner $owner): void
     {
         if ($resource['has_owner']) {

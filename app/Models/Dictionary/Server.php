@@ -11,8 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class Server extends Model
 {
@@ -124,7 +123,7 @@ class Server extends Model
                 $query->where($this->table . '.proprietary', '=', true);
             });
 
-        $query = $this->appendStandardFilters($query, $filters, false);
+        $query = $this->appendStandardFilters($query, $filters);
 
         return $this->appendTimestampFilters($query, $filters);
     }

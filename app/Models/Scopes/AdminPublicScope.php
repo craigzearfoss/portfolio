@@ -30,7 +30,7 @@ class AdminPublicScope implements Scope
                     // admin is probably logged out
                     return false;
                 } else {
-                    if (Schema::connection($model->connection)->hasColumn($model['table'], 'owner_id')) {
+                    if (Schema::connection($model['connection'])->hasColumn($model['table'], 'owner_id')) {
                         $builder->where($model->getTable() . '.owner_id', '=', $admin['id']);
                     }
                 }

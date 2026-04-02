@@ -9,7 +9,6 @@ use App\Models\Career\Reference;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\School;
 use App\Traits\SearchableModelTrait;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

@@ -2,8 +2,6 @@
 
 namespace App\Models\System;
 
-use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**

@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @mixin Eloquent
- * @mixin Builder
+ *
  */
 class OperatingSystem extends Model
 {
@@ -125,7 +124,7 @@ class OperatingSystem extends Model
                 $query->where($this->table . '.proprietary', '=', true);
             });
 
-        $query = $this->appendStandardFilters($query, $filters, false);
+        $query = $this->appendStandardFilters($query, $filters);
 
         return $this->appendTimestampFilters($query, $filters);
     }
