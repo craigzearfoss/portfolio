@@ -4,7 +4,6 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\AdminResource;
 use App\Models\System\Resource;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -14,8 +13,6 @@ use Illuminate\Validation\Rule;
  */
 class UpdateAdminResourcesRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     private mixed $database_id;
     private mixed $name;
     private mixed $resource;

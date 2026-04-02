@@ -4,7 +4,6 @@ namespace App\Http\Requests\Career;
 
 use App\Models\Career\Company;
 use App\Models\Career\Reference;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -12,8 +11,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateReferencesRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     private mixed $owner_id;
     private mixed $name;
     private mixed $reference;

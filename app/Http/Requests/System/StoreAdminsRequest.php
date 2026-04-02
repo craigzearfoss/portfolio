@@ -4,7 +4,6 @@ namespace App\Http\Requests\System;
 
 use App\Http\Middleware\Admin;
 use App\Rules\CaseInsensitiveNotIn;
-use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +13,6 @@ use Illuminate\Validation\Rules\Password;
 
 class StoreAdminsRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      */

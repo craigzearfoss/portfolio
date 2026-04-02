@@ -2,15 +2,12 @@
 
 namespace App\Http\Requests\System;
 
-use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreUserTeamsRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the user is authorized to make this request.
      */

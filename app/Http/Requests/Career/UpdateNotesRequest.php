@@ -3,15 +3,12 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Note;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateNotesRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

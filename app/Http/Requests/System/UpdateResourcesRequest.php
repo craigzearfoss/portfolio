@@ -3,7 +3,6 @@
 namespace App\Http\Requests\System;
 
 use App\Models\System\Resource;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -14,12 +13,9 @@ use Illuminate\Validation\Rule;
  */
 class UpdateResourcesRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     private mixed $database_id;
     private mixed $name;
     private mixed $resource;
-    private mixed $id;
     private mixed $table;
 
     /**

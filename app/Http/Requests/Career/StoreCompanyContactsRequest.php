@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -12,8 +11,6 @@ use Illuminate\Validation\Rule;
  */
 class StoreCompanyContactsRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      */

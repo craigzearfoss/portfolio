@@ -3,7 +3,6 @@
 namespace App\Http\Requests\System;
 
 use App\Models\System\AdminGroup;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,8 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateAdminGroupsRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     private mixed $name;
     private mixed $owner_id;
     private mixed $admin_group;

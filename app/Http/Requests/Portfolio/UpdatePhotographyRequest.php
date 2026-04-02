@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\Photography;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,8 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdatePhotographyRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     private mixed $owner_id;
     private mixed $slug;
     private mixed $photography;

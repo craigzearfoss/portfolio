@@ -4,7 +4,6 @@ namespace App\Http\Requests\System;
 
 use App\Models\System\User;
 use App\Rules\CaseInsensitiveNotIn;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -14,8 +13,6 @@ use Illuminate\Validation\Rules\Password;
 
 class UpdateUsersRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

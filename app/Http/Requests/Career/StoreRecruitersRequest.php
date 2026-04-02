@@ -2,17 +2,13 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Career\Company;
 use App\Models\Career\Recruiter;
-use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreRecruitersRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      */

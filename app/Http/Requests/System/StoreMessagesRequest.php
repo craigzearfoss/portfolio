@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\System;
 
-use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,8 +10,6 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class StoreMessagesRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      */

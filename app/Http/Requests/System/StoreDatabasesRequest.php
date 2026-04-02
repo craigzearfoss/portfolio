@@ -3,7 +3,6 @@
 namespace App\Http\Requests\System;
 
 use App\Models\System\Database;
-use App\Traits\ModelPermissionsTrait;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,8 +11,6 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class StoreDatabasesRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      */

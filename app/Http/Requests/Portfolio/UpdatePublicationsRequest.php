@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Portfolio\Publication;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,13 +10,10 @@ use Illuminate\Validation\Rule;
 
 class UpdatePublicationsRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     private mixed $owner_id;
     private mixed $title;
     private mixed $publication;
     private mixed $slug;
-    private mixed $id;
 
     /**
      * Determine if the admin is authorized to make this request.

@@ -4,7 +4,6 @@ namespace App\Http\Requests\Personal;
 
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -12,8 +11,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateRecipeStepsRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

@@ -3,9 +3,7 @@
 namespace App\Http\Requests\System;
 
 use App\Models\System\UserGroup;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -14,8 +12,6 @@ use Illuminate\Validation\Rule;
  */
 class UpdateUserGroupsRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     private mixed $owner_id;
     private mixed $name;
     private mixed $user_group;

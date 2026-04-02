@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Recruiter;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,8 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateRecruitersRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

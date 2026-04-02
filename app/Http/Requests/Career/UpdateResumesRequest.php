@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Resume;
-use App\Traits\ModelPermissionsTrait;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,8 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateResumesRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     private mixed $owner_id;
     private mixed $slug;
     private mixed $name;

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Communication;
-use App\Traits\ModelPermissionsTrait;
 use DateMalformedStringException;
 use DateTime;
 use Exception;
@@ -12,8 +11,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCommunicationsRequest extends FormRequest
 {
-    use ModelPermissionsTrait;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
