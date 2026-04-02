@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateReadingsRequest extends FormRequest
 {
-    private mixed $reading;
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $id;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -22,7 +17,7 @@ class UpdateReadingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$reading = Reading::find($this['reading']['id']) ) {
+        if (!$reading = Reading::query()->find($this['reading']['id']) ) {
             throw new Exception('Reading ' . $this['reading']['id'] . ' not found');
         }
 

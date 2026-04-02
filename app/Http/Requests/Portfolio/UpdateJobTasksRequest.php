@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateJobTasksRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $job_id;
-    private mixed $summary;
-    private mixed $job_task;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -22,7 +17,7 @@ class UpdateJobTasksRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$jobTask = JobTask::find($this['job_task']['id']) ) {
+        if (!$jobTask = JobTask::query()->find($this['job_task']['id']) ) {
             throw new Exception('Job Task ' . $this['job_task']['id'] . ' not found');
         }
 

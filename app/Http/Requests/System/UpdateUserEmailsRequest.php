@@ -17,7 +17,7 @@ class UpdateUserEmailsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$user_email = UserEmail::find($this['user_email']['id']) ) {
+        if (!$user_email = UserEmail::query()->find($this['user_email']['id']) ) {
             throw new Exception('User email ' . $this['user_email']['id'] . ' not found');
         }
 

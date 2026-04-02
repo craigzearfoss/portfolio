@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateCertificatesRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $certificate;
-    private mixed $slug;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -22,7 +17,7 @@ class UpdateCertificatesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$certificate  = Certificate::find($this['certificate']['id']) ) {
+        if (!$certificate  = Certificate::query()->find($this['certificate']['id']) ) {
             throw new Exception('Certificate ' . $this['certificate']['id'] . ' not found');
         }
 

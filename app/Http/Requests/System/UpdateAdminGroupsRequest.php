@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateAdminGroupsRequest extends FormRequest
 {
-    private mixed $name;
-    private mixed $owner_id;
-    private mixed $admin_group;
-    private mixed $abbreviation;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -22,7 +17,7 @@ class UpdateAdminGroupsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_group = AdminGroup::find($this['admin_group']['id']) ) {
+        if (!$admin_group = AdminGroup::query()->find($this['admin_group']['id']) ) {
             throw new Exception('Admin group ' . $this['admin_group']['id'] . ' not found');
         }
 
@@ -108,6 +103,7 @@ class UpdateAdminGroupsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
+     * @throws Exception
      */
     protected function prepareForValidation(): void
     {

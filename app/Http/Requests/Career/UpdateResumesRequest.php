@@ -10,12 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateResumesRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $name;
-    private mixed $date;
-    private mixed $resumes;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

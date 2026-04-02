@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateAwardsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $award;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -21,7 +17,7 @@ class UpdateAwardsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$award = Award::find($this['award']['id']) ) {
+        if (!$award = Award::query()->find($this['award']['id']) ) {
             throw new Exception('Award ' . $this['award']['id'] . ' not found');
         }
 

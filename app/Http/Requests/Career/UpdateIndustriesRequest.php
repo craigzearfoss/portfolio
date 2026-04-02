@@ -19,7 +19,7 @@ class UpdateIndustriesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$industry = Industry::find($this['industry']['id']) ) {
+        if (!$industry = Industry::query()->find($this['industry']['id']) ) {
             throw new Exception('Industry ' . $this['industry']['id'] . ' not found');
         }
 

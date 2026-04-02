@@ -19,7 +19,7 @@ class UpdateLibrariesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$library = Library::find($this['library']['id']) ) {
+        if (!$library = Library::query()->find($this['library']['id']) ) {
             throw new Exception('Library ' . $this['library']['id'] . ' not found');
         }
 

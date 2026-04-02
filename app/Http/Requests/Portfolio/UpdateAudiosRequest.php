@@ -10,12 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateAudiosRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $audio;
-    private mixed $slug;
-    private mixed $id;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -23,7 +17,7 @@ class UpdateAudiosRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$audio = Audio::find($this['audio']['id']) ) {
+        if (!$audio = Audio::query()->find($this['audio']['id']) ) {
             throw new Exception('Audio ' . $this['audio']['id'] . ' not found');
         }
 
@@ -68,7 +62,7 @@ class UpdateAudiosRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(new Audio()->whereNot('id', $this['audi']['id'])->get('id')->pluck('id')->toArray()),
+                Rule::in(Audio::query()->whereNot('id', $this['audi']['id'])->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

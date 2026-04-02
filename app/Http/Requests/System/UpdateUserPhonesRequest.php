@@ -17,7 +17,7 @@ class UpdateUserPhonesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$user_phone = UserPhone::find($this['user_phone']['id']) ) {
+        if (!$user_phone = UserPhone::query()->find($this['user_phone']['id']) ) {
             throw new Exception('User phone ' . $this['user_phone']['id'] . ' not found');
         }
 

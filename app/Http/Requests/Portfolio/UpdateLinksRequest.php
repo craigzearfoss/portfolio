@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateLinksRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $link;
-    private mixed $slug;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

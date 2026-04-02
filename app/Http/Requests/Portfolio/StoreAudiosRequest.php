@@ -54,7 +54,7 @@ class StoreAudiosRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(new Audio()->whereNot('id', $this['audio']['id'])->get('id')->pluck('id')->toArray()),
+                Rule::in(Audio::query()->whereNot('id', $this['audio']['id'])->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

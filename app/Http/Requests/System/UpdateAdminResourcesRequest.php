@@ -13,11 +13,6 @@ use Illuminate\Validation\Rule;
  */
 class UpdateAdminResourcesRequest extends FormRequest
 {
-    private mixed $database_id;
-    private mixed $name;
-    private mixed $resource;
-    private mixed $table;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -25,7 +20,7 @@ class UpdateAdminResourcesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_resource = AdminResource::find($this['admin_resource']['id']) ) {
+        if (!$admin_resource = AdminResource::query()->find($this['admin_resource']['id']) ) {
             throw new Exception('Admin resource ' . $this['admin_resource']['id'] . ' not found');
         }
 
@@ -73,7 +68,7 @@ class UpdateAdminResourcesRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(new Resource()->where('id', '!=', $this['id'])->get()->pluck('id')->toArray()),
+                Rule::in(Resource::query()->where('id', '!=', $this['id'])->get()->pluck('id')->toArray()),
                 'nullable'
             ],
             'table_name'        => [

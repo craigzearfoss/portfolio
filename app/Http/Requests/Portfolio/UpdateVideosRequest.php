@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateVideosRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $video;
-    private mixed $id;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -67,7 +62,7 @@ class UpdateVideosRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(new Video()->whereNot('id', $this['video']['id'])->get('id')->pluck('id')->toArray()),
+                Rule::in(Video::query()->whereNot('id', $this['video']['id'])->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

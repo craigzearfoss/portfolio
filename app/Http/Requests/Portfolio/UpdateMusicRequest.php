@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateMusicRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $music;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -21,7 +17,7 @@ class UpdateMusicRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$music = Music::find($this['music']['id']) ) {
+        if (!$music = Music::query()->find($this['music']['id']) ) {
             throw new Exception('Music ' . $this['music']['id'] . ' not found');
         }
 

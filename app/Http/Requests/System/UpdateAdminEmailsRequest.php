@@ -16,7 +16,7 @@ class UpdateAdminEmailsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_email = AdminEmail::find($this['admin_email']['id']) ) {
+        if (!$admin_email = AdminEmail::query()->find($this['admin_email']['id']) ) {
             throw new Exception('Admin email ' . $this['admin_email']['id'] . ' not found');
         }
 

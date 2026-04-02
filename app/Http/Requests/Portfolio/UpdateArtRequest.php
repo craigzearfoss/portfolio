@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateArtRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $art;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -21,7 +17,7 @@ class UpdateArtRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$art = Art::find($this['art']['id']) ) {
+        if (!$art = Art::query()->find($this['art']['id']) ) {
             throw new Exception('Art ' . $this['art']['id'] . ' not found');
         }
 

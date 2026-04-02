@@ -19,7 +19,7 @@ class UpdateCategoriesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$category = Category::find($this['category']['id']) ) {
+        if (!$category = Category::query()->find($this['category']['id']) ) {
             throw new Exception('Category ' . $this['category']['id'] . ' not found');
         }
 

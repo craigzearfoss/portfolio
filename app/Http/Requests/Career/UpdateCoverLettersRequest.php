@@ -10,12 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateCoverLettersRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $date;
-    private mixed $cover_letters;
-    private mixed $name;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

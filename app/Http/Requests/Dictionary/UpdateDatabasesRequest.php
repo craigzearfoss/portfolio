@@ -19,7 +19,7 @@ class UpdateDatabasesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$database = Database::find($this['database']['id']) ) {
+        if (!$database = Database::query()->find($this['database']['id']) ) {
             throw new Exception('Database ' . $this['database']['id'] . ' not found');
         }
 

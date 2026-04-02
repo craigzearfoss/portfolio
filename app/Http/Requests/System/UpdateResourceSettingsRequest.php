@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateResourceSettingsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $resource_setting;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -21,7 +17,7 @@ class UpdateResourceSettingsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$resource_setting = ResourceSetting::find($this['resource_setting']['id']) ) {
+        if (!$resource_setting = ResourceSetting::query()->find($this['resource_setting']['id']) ) {
             throw new Exception('Resource setting ' . $this['resource_setting']['id'] . ' not found');
         }
 

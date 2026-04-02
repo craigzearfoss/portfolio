@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateCoursesRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $course;
-    private mixed $slug;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -22,7 +17,7 @@ class UpdateCoursesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$course = Course::find($this['course']['id']) ) {
+        if (!$course = Course::query()->find($this['course']['id']) ) {
             throw new Exception('Course ' . $this['course']['id'] . ' not found');
         }
 

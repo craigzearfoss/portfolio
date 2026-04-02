@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateApplicationSkillsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $id;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -21,7 +17,7 @@ class UpdateApplicationSkillsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$application_skill = ApplicationSkill::find($this['application_skill']['id']) ) {
+        if (!$application_skill = ApplicationSkill::query()->find($this['application_skill']['id']) ) {
             throw new Exception('Application skill ' . $this['application_skill']['id'] . ' not found');
         }
 

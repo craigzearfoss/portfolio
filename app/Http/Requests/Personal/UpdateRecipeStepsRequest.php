@@ -18,7 +18,7 @@ class UpdateRecipeStepsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$recipe_step = RecipeStep::find($this['recipe_step']['id']) ) {
+        if (!$recipe_step = RecipeStep::query()->find($this['recipe_step']['id']) ) {
             throw new Exception('Recipe step ' . $this['recipe_step']['id'] . ' not found');
         }
 

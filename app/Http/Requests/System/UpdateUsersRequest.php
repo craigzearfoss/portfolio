@@ -20,7 +20,7 @@ class UpdateUsersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$user = User::find($this['user']['id']) ) {
+        if (!$user = User::query()->find($this['user']['id']) ) {
             throw new Exception('User ' . $this['user']['id'] . ' not found');
         }
 
@@ -130,9 +130,9 @@ class UpdateUsersRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'username' => Str::lower($this->username),
-            'label'    => Str::lower($this->label),
-            'email'    => Str::lower($this->email),
+            'username' => Str::lower($this['username']),
+            'label'    => Str::lower($this['label']),
+            'email'    => Str::lower($this['email']),
         ]);
     }
 }

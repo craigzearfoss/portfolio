@@ -20,7 +20,7 @@ class UpdateSchoolsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$school = School::find($this['school']['id']) ) {
+        if (!$school = School::query()->find($this['school']['id']) ) {
             throw new Exception('School ' . $this['school']['id'] . ' not found');
         }
 

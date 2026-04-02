@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateCompaniesRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $company;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

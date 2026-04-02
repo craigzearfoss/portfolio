@@ -12,10 +12,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateEducationsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $education;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -23,7 +19,7 @@ class UpdateEducationsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$education = Education::find($this['education']['id']) ) {
+        if (!$education = Education::query()->find($this['education']['id']) ) {
             throw new Exception('Education ' . $this['education']['id'] . ' not found');
         }
 
@@ -120,8 +116,8 @@ class UpdateEducationsRequest extends FormRequest
         // generate the slug
         if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {
 
-            $degreeType = new DegreeType()->find($this['degree_type_id'])->name;
-            $school = new School()->find($this['school_id'])->name;
+            $degreeType = DegreeType::query()->find($this['degree_type_id'])->name;
+            $school = School::query()->find($this['school_id'])->name;
 
             $this->merge([
                 'slug' => uniqueSlug(

@@ -19,7 +19,7 @@ class UpdateLanguagesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$language = Language::find($this['language']['id']) ) {
+        if (!$language = Language::query()->find($this['language']['id']) ) {
             throw new Exception('Language ' . $this['language']['id'] . ' not found');
         }
 

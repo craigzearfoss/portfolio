@@ -19,7 +19,7 @@ class UpdateIngredientsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$ingredient = Ingredient::find($this['ingredient']['id']) ) {
+        if (!$ingredient = Ingredient::query()->find($this['ingredient']['id']) ) {
             throw new Exception('Ingredient ' . $this['ingredient']['id'] . ' not found');
         }
 

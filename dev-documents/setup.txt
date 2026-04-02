@@ -1,0 +1,61 @@
+domain = mydomain.com
+
+cd /var/www
+sudo mkdir mydomain.com
+nano /var/www/mydomain/index.html
+
+Add the following text and save the file.
+-------------------------------------------
+mydomain.com
+-------------------------------------------
+
+cd /etc/nginx/sites-available/
+sudo nano mydomain.com.conf
+
+Add the following configuration.
+-------------------------------------------
+server {
+    listen 80;
+    server_name mydomain.com;
+
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
+
+    ssl                  on;
+    ssl_certificate      /etc/ssl/mydomain.com.crt;
+    ssl_certificate_key  /etc/ssl/private/mydomain.com.key;
+
+    server_name mydomain.com;
+
+    root /var/www/mydomain.com/public;
+
+    index index.php index.html index.htm;
+
+    access_log  /var/log/nginx/nginx.vhost.access.log;
+    error_log   /var/log/nginx/nginx.vhost.error.log;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+     }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+-------------------------------------------
+
+sudo ln -s /etc/nginx/sites-available/mydomain.com.conf /etc/nginx/sites-enabled/
+    +------------------------------------------------------------
+    | Note to unlink the conf file.                              |
+    |     sudo unlink /etc/nginx/sites-enabled/mydomain.com.conf |
+    +------------------------------------------------------------+
+sudo nginx -t
+sudo systemctl reload nginx

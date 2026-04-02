@@ -16,7 +16,7 @@ class UpdateSettingTypesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$setting_type = SettingType::find($this['setting_type']['id']) ) {
+        if (!$setting_type = SettingType::query()->find($this['setting_type']['id']) ) {
             throw new Exception('Setting type ' . $this['setting_type']['id'] . ' not found');
         }
 

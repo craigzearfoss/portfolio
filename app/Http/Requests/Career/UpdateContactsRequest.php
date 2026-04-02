@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateContactsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $contact;
-    private mixed $slug;
-
     /**
      * Determine if the admin is authorized to make this request.
      *

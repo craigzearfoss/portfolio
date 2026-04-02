@@ -17,7 +17,7 @@ class UpdateRecruitersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$recruiter = Recruiter::find($this['recruiter']['id']) ) {
+        if (!$recruiter = Recruiter::query()->find($this['recruiter']['id']) ) {
             throw new Exception('Recruiter ' . $this['recruiter']['id'] . ' not found');
         }
 

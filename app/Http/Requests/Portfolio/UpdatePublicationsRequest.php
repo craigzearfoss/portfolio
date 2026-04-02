@@ -10,11 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdatePublicationsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $title;
-    private mixed $publication;
-    private mixed $slug;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -22,7 +17,7 @@ class UpdatePublicationsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$publication = Publication::find($this['publication']['id']) ) {
+        if (!$publication = Publication::query()->find($this['publication']['id']) ) {
             throw new Exception('Publication ' . $this['publication']['id'] . ' not found');
         }
 
@@ -67,7 +62,7 @@ class UpdatePublicationsRequest extends FormRequest
             ],
             'parent_id'         => [
                 'integer',
-                Rule::in(new Publication()->whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
+                Rule::in(Publication::query()->whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
             'featured'          => ['integer', 'between:0,1'],

@@ -20,7 +20,7 @@ class UpdateAdminDatabasesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_database = AdminDatabase::find($this['admin_database']['id']) ) {
+        if (!$admin_database = AdminDatabase::query()->find($this['admin_database']['id']) ) {
             throw new Exception('Admin database ' . $this['admin_database']['id'] . ' not found');
         }
 

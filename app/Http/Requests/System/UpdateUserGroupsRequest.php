@@ -12,12 +12,6 @@ use Illuminate\Validation\Rule;
  */
 class UpdateUserGroupsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $user_group;
-    private mixed $slug;
-    private mixed $abbreviation;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -25,7 +19,7 @@ class UpdateUserGroupsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$user_group = UserGroup::find($this['user_group']['id']) ) {
+        if (!$user_group = UserGroup::query()->find($this['user_group']['id']) ) {
             throw new Exception('User group ' . $this['user_group']['id'] . ' not found');
         }
 

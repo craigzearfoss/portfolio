@@ -19,7 +19,7 @@ class UpdateAcademiesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$academy = Academy::find($this['academy']['id']) ) {
+        if (!$academy = Academy::query()->find($this['academy']['id']) ) {
             throw new Exception('Academy ' . $this['academy']['id'] . ' not found');
         }
 

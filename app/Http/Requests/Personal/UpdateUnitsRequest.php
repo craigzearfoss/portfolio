@@ -19,7 +19,7 @@ class UpdateUnitsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$unit = Unit::find($this['unit']['id']) ) {
+        if (!$unit = Unit::query()->find($this['unit']['id']) ) {
             throw new Exception('Unit ' . $this['unit']['id'] . ' not found');
         }
 

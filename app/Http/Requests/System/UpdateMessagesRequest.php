@@ -19,7 +19,7 @@ class UpdateMessagesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$message = Message::find($this['message']['id']) ) {
+        if (!$message = Message::query()->find($this['message']['id']) ) {
             throw new Exception('Message ' . $this['message']['id'] . ' not found');
         }
 

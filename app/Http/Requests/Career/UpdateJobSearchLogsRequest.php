@@ -16,7 +16,7 @@ class UpdateJobSearchLogsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$job_search_log = JobSearchLog::find($this['job_search_log']['id']) ) {
+        if (!$job_search_log = JobSearchLog::query()->find($this['job_search_log']['id']) ) {
             throw new Exception('Job search log ' . $this['job_search_log']['id'] . ' not found');
         }
 

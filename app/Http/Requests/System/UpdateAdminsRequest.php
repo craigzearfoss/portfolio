@@ -21,7 +21,7 @@ class UpdateAdminsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin = Admin::find($this['admin']['id']) ) {
+        if (!$admin = Admin::query()->find($this['admin']['id']) ) {
             throw new Exception('Admin ' . $this['admin']['id'] . ' not found');
         }
 

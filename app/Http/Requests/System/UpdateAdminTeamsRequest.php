@@ -10,12 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateAdminTeamsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $slug;
-    private mixed $admin_team;
-    private mixed $abbreviation;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -23,7 +17,7 @@ class UpdateAdminTeamsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_team = AdminTeam::find($this['admin_team']['id']) ) {
+        if (!$admin_team = AdminTeam::query()->find($this['admin_team']['id']) ) {
             throw new Exception('Admin team ' . $this['admin_team']['id'] . ' not found');
         }
 

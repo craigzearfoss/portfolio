@@ -107,8 +107,8 @@ class StoreEducationsRequest extends FormRequest
         // generate the slug
         if (!empty($this['degree_type_id']) && !empty($this['school_id'])) {
 
-            $degreeType = new DegreeType()->find($this['degree_type_id'])->name;
-            $school = new School()->find($this['school_id'])->name;
+            $degreeType = DegreeType::query()->find($this['degree_type_id'])->name;
+            $school = School::query()->find($this['school_id'])->name;
 
             $this->merge([
                 'slug' => uniqueSlug(

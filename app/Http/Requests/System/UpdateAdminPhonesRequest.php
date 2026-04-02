@@ -16,7 +16,7 @@ class UpdateAdminPhonesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$admin_phone = AdminPhone::find($this['admin_phone']['id']) ) {
+        if (!$admin_phone = AdminPhone::query()->find($this['admin_phone']['id']) ) {
             throw new Exception('Admin phone ' . $this['admin_phone']['id'] . ' not found');
         }
 

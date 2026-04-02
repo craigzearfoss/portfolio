@@ -10,17 +10,13 @@ use Illuminate\Validation\Rule;
 
 class UpdateTagsRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $tag;
-
     /**
      * Determine if the admin is authorized to make this request.
      * @throws Exception
      */
     public function authorize(): bool
     {
-        if (!$tag = Tag::find($this['tag']['id']) ) {
+        if (!$tag = Tag::query()->find($this['tag']['id']) ) {
             throw new Exception('Tag ' . $this['tag']['id'] . ' not found');
         }
 

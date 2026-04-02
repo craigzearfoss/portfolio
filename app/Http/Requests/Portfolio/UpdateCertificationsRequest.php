@@ -19,7 +19,7 @@ class UpdateCertificationsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$academy = Certification::find($this['certification']['id']) ) {
+        if (!$academy = Certification::query()->find($this['certification']['id']) ) {
             throw new Exception('Certification ' . $this['certification']['id'] . ' not found');
         }
 

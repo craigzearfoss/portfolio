@@ -11,11 +11,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateReferencesRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $name;
-    private mixed $reference;
-    private mixed $slug;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -23,7 +18,7 @@ class UpdateReferencesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$reference = Reference::find($this['reference']['id']) ) {
+        if (!$reference = Reference::query()->find($this['reference']['id']) ) {
             throw new Exception('Recruiter ' . $this['reference']['id'] . ' not found');
         }
 

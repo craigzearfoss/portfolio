@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Event;
+use DateMalformedStringException;
 use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,7 +18,7 @@ class UpdateEventsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$event = Event::find($this['event']['id']) ) {
+        if (!$event = Event::query()->find($this['event']['id']) ) {
             throw new Exception('Event ' . $this['event']['id'] . ' not found');
         }
 
@@ -70,7 +71,7 @@ class UpdateEventsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws \DateMalformedStringException
+     * @throws DateMalformedStringException
      */
     public function prepareForValidation(): void
     {

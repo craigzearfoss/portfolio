@@ -19,7 +19,7 @@ class UpdateCompanyContactsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$company_contact = CompanyContact::find($this['company_contact']['id']) ) {
+        if (!$company_contact = CompanyContact::query()->find($this['company_contact']['id']) ) {
             throw new Exception('Company contact ' . $this['company_contact']['id'] . ' not found');
         }
 

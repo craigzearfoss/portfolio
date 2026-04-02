@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdatePhotographyRequest extends FormRequest
 {
-    private mixed $owner_id;
-    private mixed $slug;
-    private mixed $photography;
-
     /**
      * Determine if the admin is authorized to make this request.
      *
@@ -21,7 +17,7 @@ class UpdatePhotographyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$photography = Photography::find($this['photography']['id']) ) {
+        if (!$photography = Photography::query()->find($this['photography']['id']) ) {
             throw new Exception('Photography ' . $this['photography']['id'] . ' not found');
         }
 

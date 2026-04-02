@@ -19,7 +19,7 @@ class UpdateJobBoardsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!$job_board = JobBoard::find($this['job_board']['id']) ) {
+        if (!$job_board = JobBoard::query()->find($this['job_board']['id']) ) {
             throw new Exception('Job board ' . $this['job_board']['id'] . ' not found');
         }
 
