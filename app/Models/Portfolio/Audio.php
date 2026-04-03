@@ -7,6 +7,7 @@ use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Portfolio\AudioFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -93,6 +94,15 @@ class Audio extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    const array AUDIO_TYPES = [
+        'podcast',
+        'clip',
+        'source_recording',
+    ];
+
+    /**
      * @return void
      */
     protected static function booted(): void
@@ -109,6 +119,7 @@ class Audio extends Model
      * @param array $filters
      * @param Admin|Owner|null $owner
      * @return Builder
+     * @throws Exception
      */
     public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
     {
@@ -117,6 +128,14 @@ class Audio extends Model
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['audio_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.audio_date', '=', $filters['audio_date']);
+            })
+            ->when(!empty($filters['audio_type']), function ($query) use ($filters) {
+                if (in_array($filters['audio_type'], self::AUDIO_TYPES)) {
+                    $query->where($this->table . '.'.$filters['audio_type'], '=', true);
+                } else {
+                    throw new Exception('Invalid audio_type "' . $filters['audio_type'] . '" specified.'
+                        . ' Valid audio types are "' . implode('", "', self::AUDIO_TYPES) . '".');
+                }
             })
             ->when(!empty($filters['audio_url']), function ($query) use ($filters) {
                 $query->where($this->table . '.audio_url', 'like', '%' . $filters['publication_url'] . '%');

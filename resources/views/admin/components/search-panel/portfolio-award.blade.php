@@ -2,7 +2,10 @@
     use App\Models\System\Admin;
 
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $category        = $category ?? request()->query('category');
     $name            = $name ?? request()->query('name');
+    $nominated_work  = $nominated_work ?? request()->query('nominated_work');
+    $organization    = $organization ?? request()->query('organization');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
@@ -22,13 +25,37 @@
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
                         @endif
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'category',
+                                'value'   => $category,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
                     </div>
 
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
+                                'name'    => 'nominated_work',
+                                'label'   => 'nominated work',
+                                'value'   => $nominated_work,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                    </div>
+                    <div class="floating-div">
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'organization',
+                                'value'   => $organization,
                                 'message' => $message ?? '',
                             ])
                         </div>

@@ -31,7 +31,7 @@
         [ 'action' => route('guest.portfolio.certificate.index', $owner), $owner ]
     )
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 60em !important;">
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -106,7 +106,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">No certificats found.</td>
+                        <td colspan="6">No certificates found.</td>
                     </tr>
 
                 @endforelse

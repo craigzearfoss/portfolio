@@ -94,6 +94,16 @@ class Recruiter extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    const array COVERAGE_AREAS = [
+        'local',
+        'regional',
+        'national',
+        'international',
+    ];
+
+    /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
      *
@@ -107,12 +117,12 @@ class Recruiter extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
-            ->when(!empty($filters['coverage']), function ($query) use ($filters) {
-                if (in_array($filters['coverage'], ['local', 'regional', 'national', 'international'])) {
-                    $query->where($this->table . '.' . $filters['coverage'], '=', true);
+            ->when(!empty($filters['coverage_area']), function ($query) use ($filters) {
+                if (in_array($filters['coverage_area'], self::COVERAGE_AREAS)) {
+                    $query->where($this->table . '.'.$filters['coverage_area'], '=', true);
                 } else {
-                    throw new Exception('Invalid coverage "' . $filters['coverage'] . '" specified.'
-                        . ' Valid coverages are "local", "regional", "national", and "international".');
+                    throw new Exception('Invalid audio_type "' . $filters['audio_type'] . '" specified.'
+                        . ' Valid coverage areas are "' . implode('", "', self::COVERAGE_AREAS) . '".');
                 }
             })
             ->when(!empty($filters['city']), function ($query) use ($filters) {

@@ -3,6 +3,7 @@
 
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $name            = $name ?? request()->query('name');
+    $url             = $url ?? request()->query('url');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
@@ -16,19 +17,26 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        @if($isRootAdmin)
+                    @if($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
 
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
                                 'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'url',
+                                'value'   => $url,
                                 'message' => $message ?? '',
                             ])
                         </div>

@@ -1,10 +1,10 @@
 @php
     use App\Models\Career\JobBoard;
 
-    $name     = $name ?? request()->query('name');
-    $city     = $city ?? request()->query('city');
-    $coverage = $coverage ?? request()->query('coverage');
-    $state_id = $state_id ?? request()->query('state_id');
+    $name          = $name ?? request()->query('name');
+    $city          = $city ?? request()->query('city');
+    $coverage_area = $coverage_area ?? request()->query('coverage_area');
+    $state_id      = $state_id ?? request()->query('state_id');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -28,7 +28,7 @@
 
                     <div class="floating-div pl-4">
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-recruiter-coverage', [ 'coverage' => $coverage ])
+                            @include('user.components.search-panel.controls.career-recruiter-coverage_area', [ 'coverage_area' => $coverage_area ])
                         </div>
                     </div>
 

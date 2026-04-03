@@ -1,8 +1,8 @@
 @php
     use App\Models\Career\JobBoard;
 
-    $name     = $name ?? request()->query('name');
-    $coverage = $coverage ?? request()->query('coverage');
+    $name          = $name ?? request()->query('name');
+    $coverage_area = $coverage_area ?? request()->query('coverage_area');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -26,7 +26,7 @@
 
                     <div class="floating-div pl-4">
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-job-board-coverage', [ 'coverage' => $coverage ])
+                            @include('admin.components.search-panel.controls.career-job-board-coverage_area', [ 'coverage_area' => $coverage_area ])
                         </div>
                     </div>
 
