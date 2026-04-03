@@ -79,7 +79,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="3">There is no art.</td>
+                        <td colspan="3">No art found.</td>
                     </tr>
 
                 @endforelse

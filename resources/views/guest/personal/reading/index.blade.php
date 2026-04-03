@@ -102,7 +102,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">There are no readings.</td>
+                        <td colspan="6">No readings found.</td>
                     </tr>
 
                 @endforelse

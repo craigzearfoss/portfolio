@@ -84,7 +84,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="3">There is no audio.</td>
+                        <td colspan="3">No audio found.</td>
                     </tr>
 
                 @endforelse

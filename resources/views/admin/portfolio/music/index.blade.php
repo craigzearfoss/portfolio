@@ -170,7 +170,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '9' : '8' }}">There is no music.</td>
+                        <td colspan="{{ $admin->is_root ? '9' : '8' }}">No music found.</td>
                     </tr>
 
                 @endforelse

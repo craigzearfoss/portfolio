@@ -1,12 +1,10 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id        = $owner->id ?? -1;
-    $academy_id      = $academy_id ?? request()->query('academy_id');
-    $instructor      = $instructor ?? request()->query('instructor');
-    $name            = $name ?? request()->query('name');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $owner_id   = $owner->id ?? -1;
+    $academy_id = $academy_id ?? request()->query('academy_id');
+    $instructor = $instructor ?? request()->query('instructor');
+    $name       = $name ?? request()->query('name');
 @endphp
 <div class="mb-2" style="display: flex;">
 

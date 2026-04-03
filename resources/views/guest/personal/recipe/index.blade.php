@@ -79,7 +79,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="3">There are no recipes.</td>
+                        <td colspan="3">No recipes found.</td>
                     </tr>
 
                 @endforelse

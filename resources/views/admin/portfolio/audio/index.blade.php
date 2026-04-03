@@ -165,7 +165,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">There is no audio.</td>
+                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No audio found.</td>
                     </tr>
 
                 @endforelse

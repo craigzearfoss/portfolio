@@ -27,6 +27,10 @@
         @endif
     @endif
 
+    @include('guest.components.search-panel.portfolio-certificate',
+        [ 'action' => route('guest.portfolio.certificate.index', $owner), $owner ]
+    )
+
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 
@@ -102,7 +106,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">There are no certificates.</td>
+                        <td colspan="6">No certificats found.</td>
                     </tr>
 
                 @endforelse

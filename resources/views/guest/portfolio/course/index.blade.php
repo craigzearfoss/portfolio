@@ -28,7 +28,7 @@
     @endif
 
     @include('guest.components.search-panel.portfolio-course',
-        [ 'action'     => route('guest.portfolio.course.index', $owner), $owner ]
+        [ 'action' => route('guest.portfolio.course.index', $owner), $owner ]
     )
 
     <div class="floating-div-container">
@@ -96,7 +96,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">There are no courses.</td>
+                        <td colspan="4">No courses found.</td>
                     </tr>
 
                 @endforelse

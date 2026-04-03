@@ -95,7 +95,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There are no awards.</td>
+                        <td colspan="5">No awards found.</td>
                     </tr>
 
                 @endforelse

@@ -84,7 +84,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">There are no videos.</td>
+                        <td colspan="4">No videos found.</td>
                     </tr>
 
                 @endforelse

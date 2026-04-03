@@ -176,7 +176,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '10' : '9' }}">There is no education.</td>
+                        <td colspan="{{ $isRootAdmin ? '10' : '9' }}">No education found.</td>
                     </tr>
 
                 @endforelse

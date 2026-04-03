@@ -89,7 +89,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="5">There is no music.</td>
+                        <td colspan="5">No music found.</td>
                     </tr>
 
                 @endforelse

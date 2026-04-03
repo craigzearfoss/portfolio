@@ -91,7 +91,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="7">There is no education.</td>
+                        <td colspan="7">No education found.</td>
                     </tr>
 
                 @endforelse

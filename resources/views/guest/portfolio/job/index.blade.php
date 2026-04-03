@@ -122,7 +122,7 @@
             @empty
 
                     <tr>
-                        <td colspan="7">There are no jobs.</td>
+                        <td colspan="7">No jobs found.</td>
                     </tr>
 
             @endforelse

@@ -93,7 +93,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">There are no projects.</td>
+                        <td colspan="4">No projects found..</td>
                     </tr>
 
                 @endforelse

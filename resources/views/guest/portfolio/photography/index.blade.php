@@ -79,7 +79,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="2">There are no photos.</td>
+                        <td colspan="2">No photos found.</td>
                     </tr>
 
                 @endforelse

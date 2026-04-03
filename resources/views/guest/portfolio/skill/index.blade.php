@@ -81,7 +81,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="4">There are no skills.</td>
+                        <td colspan="4">No skills found.</td>
                     </tr>
 
                 @endforelse
