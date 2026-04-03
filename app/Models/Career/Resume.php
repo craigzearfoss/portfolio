@@ -43,7 +43,7 @@ class Resume extends Model
         'owner_id',
         'name',
         'slug',
-        'date',
+        'resume_date',
         'primary',
         'doc_filepath',
         'pdf_filepath',
@@ -89,7 +89,7 @@ class Resume extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'date', 'primary', 'doc_filepath',
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'file_type', 'resume_date', 'primary', 'doc_filepath',
         'pdf_filepath', 'content', 'file_type', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
         'is_root', 'is_disabled', 'is_demo' ];
 
@@ -231,9 +231,6 @@ class Resume extends Model
             ->when(!empty($filters['content']), function ($query) use ($filters) {
                 $query->where($this->table . '.content', 'like', '%' . $filters['content'] . '%');
             })
-            ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where($this->table . '.date', '=', $filters['date']);
-            })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
@@ -254,8 +251,11 @@ class Resume extends Model
             })
             ->when(!empty($filters['primary']), function ($query) use ($filters) {
                 $query->where($this->table . '.primary', '=', true);
+            })
+            ->when(!empty($filters['resume_date']), function ($query) use ($filters) {
+                $query->where($this->table . '.resume_date', '=', $filters['resume_date']);
             });
-
+        
         $query = $this->appendStandardFilters($query, $filters);
 
         return $this->appendTimestampFilters($query, $filters);

@@ -231,7 +231,7 @@ class Application extends Model
                     . ($row->role ?? '?role?')
                     . (!empty($row->apply_date)
                         ? ' [applied: ' . $row->apply_date . ']'
-                        : (!empty($row->post_date) ? ' [applied: ' . $row->post_date . ']' : '')
+                        : (!empty($row->post_date) ? ' [posted: ' . $row->post_date . ']' : '')
                     );
             } else {
                 $label = $row->{$labelColumn};

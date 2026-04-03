@@ -124,7 +124,7 @@
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'date',
-                                    'value' => longDate($resume->date)
+                                    'value' => longDate($resume->resume_date)
                                 ])
 
                                 @include('admin.components.show-row', [

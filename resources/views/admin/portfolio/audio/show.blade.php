@@ -102,7 +102,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'date',
-                'value' => longDate($audio->date)
+                'value' => longDate($audio->audio_date)
             ])
 
             @include('admin.components.show-row', [

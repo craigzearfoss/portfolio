@@ -29,7 +29,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug')->index('slug_idx');
-            $table->date('date')->nullable()->index('date_idx');
+            $table->date('cover_letter_date')->nullable()->index('cover_letter_date_idx');
             $table->string('filepath', 500)->nullable();
             $table->text('content')->nullable();
             $table->text('notes')->nullable();
@@ -58,9 +58,9 @@ return new class extends Migration
         /*
         $data = [
             [
-                'owner_id'         => null,
-                'date'             => '',
-                'url' => '',
+                'owner_id'          => null,
+                'cover_letter_date' => '',
+                'url'               => '',
             ]
         ];
 

@@ -26,7 +26,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
             $table->string('slug')->index();
-            $table->date('date')->nullable()->index('date_idx');
+            $table->date('resume_date')->nullable()->index('resume_date_idx');
             $table->boolean('primary')->default(false);
             $table->string('doc_filepath')->nullable();
             $table->string('pdf_filepath')->nullable();
@@ -58,7 +58,7 @@ return new class extends Migration
         $data = [
             [
                 'name'        => '',
-                'date'        => null,
+                'resume_date' => null,
                 'primary'     => 0,
                 'doc_url'     => null,
                 'pdf_url'     => null,

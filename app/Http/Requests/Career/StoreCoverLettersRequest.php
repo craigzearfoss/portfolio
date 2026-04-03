@@ -65,7 +65,7 @@ class StoreCoverLettersRequest extends FormRequest
                         ->where('slug', $this['slug']);
                 })
             ],
-            'date'              => ['date', 'nullable'],
+            'cover_letter_date' => ['date', 'nullable'],
             'filepath'          => ['string', 'max:500', 'nullable'],
             'content'           => ['nullable'],
             'notes'             => ['nullable'],
@@ -124,9 +124,7 @@ class StoreCoverLettersRequest extends FormRequest
 
         // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.cover_letters', $this['slug'])
-            ]);
+            $this['slug'] = uniqueSlug($this['name'], 'career_db.cover_letters', $this['owner_id']);
         }
     }
 }

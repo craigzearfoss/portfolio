@@ -149,8 +149,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'date',
-                'name'      => 'date',
-                'value'     => old('date') ?? $audio->date,
+                'name'      => 'audio_date',
+                'label'     => 'date',
+                'value'     => old('audio_date') ?? $audio->audio_date,
                 'message'   => $message ?? '',
             ])
 

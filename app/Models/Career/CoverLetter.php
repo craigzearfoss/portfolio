@@ -44,7 +44,7 @@ class CoverLetter extends Model
         'application_id',
         'name',
         'slug',
-        'date',
+        'cover_letter_date',
         'filepath',
         'content',
         'notes',
@@ -67,8 +67,8 @@ class CoverLetter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'date', 'filepath', 'content', 'notes',
-        'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'cover_letter_date', 'filepath',
+        'content', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -140,8 +140,8 @@ class CoverLetter extends Model
             ->when(!empty($filters['content']), function ($query) use ($filters) {
                 $query->where($this->table . '.content', 'like', '%' . $filters['content'] . '%');
             })
-            ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where($this->table . '.date', '=', $filters['date']);
+            ->when(!empty($filters['cover_letter_date']), function ($query) use ($filters) {
+                $query->where($this->table . '.cover_letter_date', '=', $filters['cover_letter_date']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');

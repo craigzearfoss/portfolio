@@ -102,7 +102,7 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'date',
-                'value' => longDate($video->date)
+                'value' => longDate($video->video_date)
             ])
 
             @include('admin.components.show-row', [

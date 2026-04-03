@@ -136,7 +136,7 @@
 
                                 @include('admin.components.show-row-link', [
                                     'name'  => 'date',
-                                    'value' => longDate($coverLetter->date)
+                                    'value' => longDate($coverLetter->cover_letter_date)
                                 ])
 
                                 @include('admin.components.show-row-link', [

@@ -27,7 +27,10 @@ class UserEmailController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $userEmails = new UserEmail()->searchQuery($request->all())
+        $userEmails = new UserEmail()->searchQuery(
+            $request->all(),
+            !$this->isRootAdmin ? $this->user : null
+        )
         ->orderBy('email')
         ->paginate($perPage)->appends(request()->except('page'));
 

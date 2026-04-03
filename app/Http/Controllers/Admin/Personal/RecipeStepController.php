@@ -28,7 +28,10 @@ class RecipeStepController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $recipeSteps = new RecipeStep()->searchQuery(request()->except('id'), $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null)
+        $recipeSteps = new RecipeStep()->searchQuery(
+            request()->except('id'),
+            $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
+        )
         ->orderBy('owner_id')
         ->orderBy('recipe_id')
         ->paginate($perPage)->appends(request()->except('page'));

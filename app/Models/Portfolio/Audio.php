@@ -48,7 +48,7 @@ class Audio extends Model
         'clip',
         'podcast',
         'source_recording',
-        'date',
+        'audio_date',
         'year',
         'company',
         'credit',
@@ -83,7 +83,7 @@ class Audio extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'parent_id', 'owner_id', 'name', 'featured', 'summary', 'full_episode',
-        'clip', 'podcast', 'source_recording', 'date', 'year', 'company', 'credit', 'show', 'location', 'audio_url',
+        'clip', 'podcast', 'source_recording', 'audio_date', 'year', 'company', 'credit', 'show', 'location', 'audio_url',
         'review_link1', 'review_link1_name', 'review_link2', 'review_link2_name', 'review_link3', 'review_link3_name',
         'notes','description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
@@ -115,6 +115,9 @@ class Audio extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['audio_date']), function ($query) use ($filters) {
+                $query->where($this->table . '.audio_date', '=', $filters['audio_date']);
+            })
             ->when(!empty($filters['audio_url']), function ($query) use ($filters) {
                 $query->where($this->table . '.audio_url', 'like', '%' . $filters['publication_url'] . '%');
             })
@@ -126,9 +129,6 @@ class Audio extends Model
             })
             ->when(!empty($filters['credit']), function ($query) use ($filters) {
                 $query->where($this->table . '.credit', 'like', '%' . $filters['credit'] . '%');
-            })
-            ->when(!empty($filters['date']), function ($query) use ($filters) {
-                $query->where($this->table . '.date', '=', $filters['date']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');

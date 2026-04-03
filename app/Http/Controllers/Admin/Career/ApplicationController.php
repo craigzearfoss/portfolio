@@ -106,10 +106,14 @@ class ApplicationController extends BaseAdminController
         $application = Application::query()->create($request->validated());
 
         // Create a cover letter for the application.
-        CoverLetter::query()->insert([
+        $coverLetterData = [
             'owner_id'       => $application->owner_id,
             'application_id' => $application->id,
-        ]);
+            'name'           => CoverLetter::getName($application->id),
+        ];
+        $coverLetterData['slug'] = uniqueSlug($coverLetterData['name'], 'career_db.cover_letters', $application->owner_id);
+
+        CoverLetter::query()->insert($coverLetterData);
 
         return redirect()->route('admin.career.application.show', $application)
             ->with('success', 'Application successfully added.');

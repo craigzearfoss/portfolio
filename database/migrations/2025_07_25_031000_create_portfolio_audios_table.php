@@ -36,7 +36,7 @@ return new class extends Migration
             $table->boolean('clip')->default(false);
             $table->boolean('podcast')->default(false);
             $table->boolean('source_recording')->default(false);
-            $table->date('date')->nullable()->index('date_idx');
+            $table->date('audio_date')->nullable()->index('audio_date_idx');
             $table->integer('year')->nullable()->index('year_idx');
             $table->string('company')->nullable()->index('company_idx');
             $table->string('credit')->nullable()->index('credit_idx');

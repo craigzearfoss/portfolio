@@ -60,9 +60,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
-                'name'    => 'date',
+                'name'    => 'cover_letter_date',
                 'label'   => 'date',
-                'value'   => old('date') ?? '',
+                'value'   => old('cover_letter_date') ?? '',
                 'message' => $message ?? '',
             ])
 

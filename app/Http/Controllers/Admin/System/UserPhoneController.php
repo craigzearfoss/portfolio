@@ -27,7 +27,10 @@ class UserPhoneController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $userPhones = new UserPhone()->searchQuery($request->all())
+        $userPhones = new UserPhone()->searchQuery(
+            $request->all(),
+            !$this->isRootAdmin ? $this->user : null
+        )
         ->orderBy('phone')
         ->paginate($perPage)->appends(request()->except('page'));
 

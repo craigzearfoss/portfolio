@@ -27,6 +27,7 @@ class UserTeamController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
+        // note that any user can see all user teams
         $userTeams = new UserTeam()->searchQuery($request->all())
         ->orderBy('name')
         ->paginate($perPage)->appends(request()->except('page'));

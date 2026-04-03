@@ -45,7 +45,8 @@ class UpdateCoverLettersRequest extends FormRequest
                 'integer',
                 'exists:career_db.applications,id',
                 Rule::unique('career_db.cover_letters', 'application_id')->where(function ($query) {
-                    return $query->where('application_id', $this['application_id']);
+                    return $query->where('application_id', $this['application_id'])
+                        ->whereNot('id', $this['cover_letter']['id']);
                 })
             ],
             'name'              => [
@@ -56,7 +57,7 @@ class UpdateCoverLettersRequest extends FormRequest
                     return $query->where('owner_id', $ownerId)
                         ->where('name', $this['name'])
                         ->where('date', $this['date'])
-                        ->whereNot('id', $this['cover_letters']['id']);
+                        ->whereNot('id', $this['cover_letter']['id']);
                 })
             ],
             'slug'              => [
@@ -67,10 +68,10 @@ class UpdateCoverLettersRequest extends FormRequest
                     return $query->where('owner_id', $ownerId)
                         ->where('slug', $this['slug'])
                         ->where('date', $this['date'])
-                        ->whereNot('id', $this['cover_letters']['id']);
+                        ->whereNot('id', $this['cover_letter']['id']);
                 })
             ],
-            'date'              => ['date', 'nullable'],
+            'cover_letter_date' => ['date', 'nullable'],
             'filepath'          => ['string', 'max:500', 'nullable'],
             'content'           => ['nullable'],
             'notes'             => ['nullable'],

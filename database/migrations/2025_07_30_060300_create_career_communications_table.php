@@ -34,7 +34,7 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->string('to', 500)->nullable()->index('to_idx');
             $table->string('from', 500)->nullable()->index('from_idx');
-            $table->dateTime('communication_datetime')->nullable()->index('datetime_idx');
+            $table->dateTime('communication_datetime')->nullable()->index('communication_datetime_idx');
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

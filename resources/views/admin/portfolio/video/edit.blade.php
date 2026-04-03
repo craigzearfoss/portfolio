@@ -149,8 +149,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'date',
-                'name'      => 'date',
-                'value'     => old('date') ?? $video->date,
+                'name'      => 'video_date',
+                'label'     => 'video_date',
+                'value'     => old('video_date') ?? $video->video_date,
                 'message'   => $message ?? '',
             ])
 

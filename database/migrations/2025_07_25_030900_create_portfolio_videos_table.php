@@ -36,7 +36,7 @@ return new class extends Migration
             $table->boolean('clip')->default(false);
             $table->boolean('public_access')->default(false);
             $table->boolean('source_recording')->default(false);
-            $table->date('date')->nullable()->index('date_idx');
+            $table->date('video_date')->nullable()->index('video_date_idx');
             $table->integer('year')->nullable()->index('year_idx');
             $table->string('company')->nullable()->index('company_idx');
             $table->string('credit')->nullable()->index('credit_idx');
@@ -76,7 +76,7 @@ return new class extends Migration
         $data = [
             [
                 'id'                 => 1,
-                'ower_id'            => null,
+                'owner_id'           => null,
                 'name'               => '',
                 'slug'               => '',
                 'featured'           => 0,

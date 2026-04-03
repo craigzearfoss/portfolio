@@ -48,7 +48,7 @@ class Video extends Model
         'clip',
         'public_access',
         'source_recording',
-        'date',
+        'video_date',
         'year',
         'company',
         'credit',
@@ -83,7 +83,7 @@ class Video extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'parent_id', 'id', 'owner_id', 'name', 'featured', 'summary', 'full_episode',
-        'clip', 'public_access', 'source_recording', 'date', 'year', 'company', 'credit', 'show',
+        'clip', 'public_access', 'source_recording', 'video_date', 'year', 'company', 'credit', 'show',
         'location', 'video_url', 'review_link1', 'review_link1_name', 'review_link2', 'review_link2_name',
         'review_link3', 'review_link3_name', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly',
         'is_root', 'is_disabled', 'is_demo' ];
