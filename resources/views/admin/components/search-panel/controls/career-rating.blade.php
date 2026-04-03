@@ -1,7 +1,4 @@
 @php
-    use App\Models\Career\JobBoard;
-
-    $owner_id = $owner_id ?? request()->query('owner_id');
     $rating   = $rating ?? request()->query('rating');
 @endphp
 <div class="control" style="max-width: 28rem;">

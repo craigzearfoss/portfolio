@@ -1,8 +1,7 @@
 @php
     use App\Models\Portfolio\Job;
 
-    $owner_id   = $owner_id ?? request()->query('owner_id');
-    $isRootAmin = $isRootAmin ?? false;
+    $owner_id   = $owner->id ?? -1;
     $job_id     = $job_id ?? request()->query('job_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
@@ -11,7 +10,7 @@
         'label'    => 'job',
         'value'    => $job_id,
         'list'     => new Job()->listOptions(
-                          $isRootAmin ? [] : [ 'owner_id' => $owner_id ],
+                          [ 'owner_id' => $owner_id ],
                           'id',
                           'name',
                           true,

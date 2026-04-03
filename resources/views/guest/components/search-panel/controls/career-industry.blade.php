@@ -12,7 +12,7 @@
                           [],
                           'id',
                           'name',
-                          0,
+                          true,
                           false,
                           [ 'name', 'asc' ]
                       ),

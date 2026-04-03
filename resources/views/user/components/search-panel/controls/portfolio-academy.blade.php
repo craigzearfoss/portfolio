@@ -1,14 +1,13 @@
 @php
-    use App\Models\Career\Industry;
+    use App\Models\Portfolio\Academy;
 
-    $industry_id = $industry_id ?? request()->query('industry_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('user.components.form-select', [
-        'name'     => 'industry_id',
-        'label'    => 'industry',
-        'value'    => $industry_id,
-        'list'     => new Industry()->listOptions(
+        'name'     => 'academy_id',
+        'label'    => 'academy',
+        'value'    => $academy_id,
+        'list'     => new Academy()->listOptions(
                           [],
                           'id',
                           'name',
@@ -16,6 +15,6 @@
                           false,
                           [ 'name', 'asc' ]
                       ),
-        'style'    => 'width: 19rem;'
+        'style'    => 'min-width: 6rem;'
     ])
 </div>

@@ -22,11 +22,6 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        @if($isRootAdmin)
-                            <div class="search-form-control">
-                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        @endif
                         <div class="search-form-control">
                             @include('user.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
                         </div>

@@ -14,7 +14,7 @@
 <div class="search-form-control">
     @include('guest.components.input-basic', [
         'type'     => 'date',
-        'name'     => 'post_to',
+        'name'     => 'posted_to',
         'label'    => 'posted to',
         'value'    => $posted_to,
         'nohidden' => true,

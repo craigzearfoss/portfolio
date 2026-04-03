@@ -45,11 +45,6 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        @if($isRootAdmin)
-                            <div class="search-form-control">
-                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        @endif
                         <div class="search-form-control">
                             @include('user.components.search-panel.controls.career-active', [ 'active' => $active ])
                         </div>
@@ -59,21 +54,9 @@
                     </div>
 
                     <div class="floating-div">
-                        @if($isRootAdmin)
-                            <div class="search-form-control">
-                                @include('user.components.input-basic', [
-                                    'name'    => 'company_name',
-                                    'label'   => 'company',
-                                    'value'   => $company_name,
-                                    'message' => $message ?? '',
-                                    'style'   => 'width: 16rem;'
-                                ])
-                            </div>
-                        @else
-                            <div class="search-form-control">
-                                @include('user.components.search-panel.controls.career-company', [ 'company_id' => $company_id ])
-                            </div>
-                        @endif
+                        <div class="search-form-control">
+                            @include('user.components.search-panel.controls.career-company', [ 'company_id' => $company_id ])
+                        </div>
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
                                 'name'    => 'role',
@@ -84,16 +67,6 @@
                         <div class="search-form-control">
                             @include('user.components.search-panel.controls.career-job-board', [ 'job_board_id' => $job_board_id ])
                         </div>
-                        <div class="search-form-control">
-                            @include('user.components.input-basic', [
-                                'name'    => 'resume_name',
-                                'label'   => 'resume',
-                                'value'   => $resume_name,
-                                'message' => $message ?? '',
-                                'style'   => 'width: 16rem;'
-                            ])
-                        </div>
-
                         <div class="search-form-control">
                             @include('user.components.search-panel.controls.career-resume', [ 'owner_id' => $owner_id ])
                         </div>
@@ -143,14 +116,20 @@
                     </div>
 
                     <div class="floating-div">
-                        @include('user.components.search-panel.controls.career-apply-date', [
-                            'appy_from' => $apply_from,
-                            'appy_to'   => $apply_to,
+                        @include('user.components.search-panel.controls.career-application-apply-date', [
+                            'applied_from' => $applied_from,
+                            'applied_to'   => $applied_to,
                          ])
-                        @include('user.components.search-panel.controls.career-post-date', [
-                            'appy_from' => $post_from,
-                            'appy_to'   => $post_to,
+                        @include('user.components.search-panel.controls.career-application-post-date', [
+                            'posted_from' => $posted_from,
+                            'posted_to'   => $posted_to,
                          ])
+                        <div style="display: none;">
+                            @include('user.components.search-panel.controls.career-application-close-date', [
+                                'closed_from' => $closed_from,
+                                'closed_to'   => $closed_to,
+                             ])
+                        </div>
                     </div>
 
                 </div>

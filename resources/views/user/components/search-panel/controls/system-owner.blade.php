@@ -1,7 +1,7 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $owner_id = $owner->id ?? -1;
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('user.components.form-select', [

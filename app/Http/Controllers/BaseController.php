@@ -11,6 +11,7 @@ use App\Services\CookieManagerService;
 use App\Services\MenuService;
 use App\Services\PermissionService;
 use Exception;
+use http\Env;
 use Illuminate\Support\Facades\Route;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -193,8 +194,8 @@ class BaseController extends Controller
             return $currentAdmin;
         }
 
-        // get the "owner_id" url parameter, if there is one
-        if (request()->exists('owner_id')) {
+        // get the "owner_id" url parameter, if there is one (only allow this is the admin area)
+        if (request()->exists('owner_id') && ($envType == EnvTypes::ADMIN)) {
 
             $ownerIdSpecified = true;
             $owner_id = request()->query('owner_id');

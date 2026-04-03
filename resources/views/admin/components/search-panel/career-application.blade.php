@@ -10,11 +10,13 @@
     }
     $admin_database_id      = $admin_database_id ?? request()->query('company_id');
     $apply_date             = $apply_date ?? request()->query('apply_date');
-    $apply_from             = $apply_from ?? request()->query('apply_from');
-    $apply_to               = $apply_to ?? request()->query('apply_to');
+    $applied_from           = $applied_from ?? request()->query('applied_from');
+    $applied_to             = $applied_to ?? request()->query('applied_to');
     $benefits               = $benefits ?? request()->query('benefits');
     $city                   = $city ?? request()->query('city');
     $close_date             = $close_date ?? request()->query('close_date');
+    $closed_from            = $closed_from ?? request()->query('closed_from');
+    $closed_to              = $closed_to ?? request()->query('closed_to');
     $company_id             = $company_id ?? request()->query('company_id');
     $company_name           = $company_name ?? request()->query('company_name');
     $health                 = $health ?? request()->query('health');
@@ -23,8 +25,8 @@
     $job_employment_type_id = $job_employment_type_id ?? request('job_employment_type_id');
     $job_location_type_id   = $job_location_type_id ?? request('job_location_type_id');
     $post_date              = $post_date ?? request()->query('post_date');
-    $post_from              = $post_from ?? request()->query('post_from');
-    $post_to                = $post_to ?? request()->query('post_to');
+    $posted_from            = $posted_from ?? request()->query('posted_from');
+    $posted_to              = $posted_to ?? request()->query('posted_to');
     $rating                 = $rating ?? request()->query('rating');
     $relocation             = $relocation ?? request()->query('relocation');
     $resume_id              = $resume_id ?? request()->query('resume_id');
@@ -84,19 +86,21 @@
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-job-board', [ 'job_board_id' => $job_board_id ])
                         </div>
-                        <div class="search-form-control">
-                            @include('admin.components.input-basic', [
-                                'name'    => 'resume_name',
-                                'label'   => 'resume',
-                                'value'   => $resume_name,
-                                'message' => $message ?? '',
-                                'style'   => 'width: 16rem;'
-                            ])
-                        </div>
-
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-resume', [ 'owner_id' => $owner_id ])
-                        </div>
+                        @if($isRootAdmin)
+                            <div class="search-form-control">
+                                @include('admin.components.input-basic', [
+                                    'name'    => 'resume_name',
+                                    'label'   => 'resume',
+                                    'value'   => $resume_name,
+                                    'message' => $message ?? '',
+                                    'style'   => 'width: 16rem;'
+                                ])
+                            </div>
+                        @else
+                            <div class="search-form-control">
+                                @include('admin.components.search-panel.controls.career-resume', [ 'owner_id' => $owner_id ])
+                            </div>
+                        @endif
                     </div>
 
                     <div class="floating-div">
@@ -143,14 +147,20 @@
                     </div>
 
                     <div class="floating-div">
-                        @include('admin.components.search-panel.controls.career-apply-date', [
-                            'appy_from' => $apply_from,
-                            'appy_to'   => $apply_to,
-                         ])
-                        @include('admin.components.search-panel.controls.career-post-date', [
-                            'appy_from' => $post_from,
-                            'appy_to'   => $post_to,
-                         ])
+                        @include('admin.components.search-panel.controls.career-application-apply-date', [
+                            'applied_from' => $applied_from,
+                            'applied_to'   => $applied_to,
+                        ])
+                        @include('admin.components.search-panel.controls.career-application-post-date', [
+                            'posted_from' => $posted_from,
+                            'posted_to'   => $posted_to,
+                        ])
+                        <div style="display: none;">
+                            @include('admin.components.search-panel.controls.career-application-close-date', [
+                                'closed_from' => $closed_from,
+                                'closed_to'   => $closed_to,
+                             ])
+                        </div>
                     </div>
 
                 </div>

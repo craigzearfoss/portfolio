@@ -20,14 +20,6 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
-                            <div class="search-form-control">
-                                @include('user.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('user.components.input-basic', [

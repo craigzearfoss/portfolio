@@ -19,14 +19,6 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        @if($isRootAdmin)
-                            <div class="search-form-control">
-                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="floating-div">
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
                                 'name'    => 'name',

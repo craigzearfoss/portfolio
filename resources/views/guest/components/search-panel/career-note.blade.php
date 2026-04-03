@@ -22,23 +22,9 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        @if($isRootAdmin)
-                            <div class="search-form-control">
-                                @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                            <div class="search-form-control">
-                                @include('guest.components.input-basic', [
-                                    'name'    => 'application_name',
-                                    'label'   => 'application',
-                                    'value'   => $application_name,
-                                    'message' => $message ?? '',
-                                ])
-                            </div>
-                        @else
-                            <div class="search-form-control">
-                                @include('guest.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
-                            </div>
-                        @endif
+                        <div class="search-form-control">
+                            @include('guest.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                        </div>
                     </div>
 
                     <div class="floating-div">

@@ -1,14 +1,13 @@
 @php
-    use App\Models\System\State;
+    use App\Models\Portfolio\Academy;
 
-    $state_id = $state_id ?? request()->query('state_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
-    @include('guest.components.form-select', [
-        'name'     => 'state_id',
-        'label'    => 'state',
-        'value'    => $state_id,
-        'list'     => new State()->listOptions(
+    @include('admin.components.form-select', [
+        'name'     => 'academy_id',
+        'label'    => 'academy',
+        'value'    => $academy_id,
+        'list'     => new Academy()->listOptions(
                           [],
                           'id',
                           'name',

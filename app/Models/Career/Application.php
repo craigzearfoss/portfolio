@@ -275,17 +275,26 @@ class Application extends Model
             ->when(!empty($filters['apply_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.apply_date', '=', $filters['apply_date']);
             })
-            ->when(!empty($filters['apply_from']), function ($query) use ($filters) {
-                $query->where($this->table . '.apply_date', '>=', $filters['apply_from']);
+            ->when(!empty($filters['applied_from']), function ($query) use ($filters) {
+                $query->where($this->table . '.apply_date', '>=', $filters['applied_from']);
             })
-            ->when(!empty($filters['apply_to']), function ($query) use ($filters) {
-                $query->where($this->table . '.apply_date', '<=', $filters['apply_to']);
+            ->when(!empty($filters['applied_to']), function ($query) use ($filters) {
+                $query->where($this->table . '.apply_date', '<=', $filters['applied_to']);
             })
             ->when(isset($filters['bonus']), function ($query) use ($filters) {
                 $query->where($this->table . '.bonus', '=', intval($filters['bonus']));
             })
             ->when(!empty($filters['city']), function ($query) use ($filters) {
                 $query->where($this->table . '.city', 'LIKE', '%' . $filters['city'] . '%');
+            })
+            ->when(!empty($filters['close_date']), function ($query) use ($filters) {
+                $query->where($this->table . '.close_date', '=', $filters['close_date']);
+            })
+            ->when(!empty($filters['closed_from']), function ($query) use ($filters) {
+                $query->where($this->table . '.close_date', '>=', $filters['closed_from']);
+            })
+            ->when(!empty($filters['closed_to']), function ($query) use ($filters) {
+                $query->where($this->table . '.close_date', '<=', $filters['closed_to']);
             })
             ->when(!empty($filters['company_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.company_id', '=', intval($filters['company_id']));
@@ -298,15 +307,6 @@ class Application extends Model
             })
             ->when(!empty($filters['benefits']), function ($query) use ($filters) {
                 $query->where($this->table . '.benefits', '=', true);
-            })
-            ->when(!empty($filters['close_date']), function ($query) use ($filters) {
-                $query->where($this->table . '.close_date', '=', $filters['close_date']);
-            })
-            ->when(!empty($filters['close_from']), function ($query) use ($filters) {
-                $query->where($this->table . '.close_date', '>=', $filters['close_from']);
-            })
-            ->when(!empty($filters['close_to']), function ($query) use ($filters) {
-                $query->where($this->table . '.close_date', '<=', $filters['close_to']);
             })
             ->when(!empty($filters['compensation_max']), function ($query) use ($filters) {
                 $query->where($this->table . '.compensation_max', '<=', intval($filters['compensation_max']));
@@ -344,11 +344,11 @@ class Application extends Model
             ->when(!empty($filters['post_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.post_date', '=', $filters['post_date']);
             })
-            ->when(!empty($filters['post_from']), function ($query) use ($filters) {
-                $query->where($this->table . '.post_date', '>=', $filters['post_from']);
+            ->when(!empty($filters['posted_from']), function ($query) use ($filters) {
+                $query->where($this->table . '.post_date', '>=', $filters['posted_from']);
             })
-            ->when(!empty($filters['post_to']), function ($query) use ($filters) {
-                $query->where($this->table . '.post_date', '<=', $filters['pst_to']);
+            ->when(!empty($filters['posted_to']), function ($query) use ($filters) {
+                $query->where($this->table . '.post_date', '<=', $filters['posted_to']);
             })
             ->when(!empty($filters['rating']), function ($query) use ($filters) {
                 $query->where($this->table . '.rating', '=', intval($filters['rating']));

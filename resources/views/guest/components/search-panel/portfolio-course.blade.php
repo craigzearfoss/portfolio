@@ -1,7 +1,7 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $owner_id        = $owner->id ?? -1;
     $academy_id      = $academy_id ?? request()->query('academy_id');
     $instructor      = $instructor ?? request()->query('instructor');
     $name            = $name ?? request()->query('name');

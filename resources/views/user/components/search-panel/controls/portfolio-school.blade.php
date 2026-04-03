@@ -1,8 +1,6 @@
 @php
     use App\Models\Portfolio\School;
 
-    $owner_id   = $owner_id ?? request()->query('owner_id');
-    $isRootAmin = $isRootAmin ?? false;
     $school_id  = $school_id ?? request()->query('school_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
