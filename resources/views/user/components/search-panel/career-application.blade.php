@@ -49,7 +49,7 @@
                             @include('user.components.search-panel.controls.career-active', [ 'active' => $active ])
                         </div>
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-rating', [ 'rating' => $rating ])
+                            @include('user.components.search-panel.controls.career-application-rating', [ 'rating' => $rating ])
                         </div>
                     </div>
 
@@ -86,19 +86,19 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-w2', [ 'w2' => $w2 ])
+                            @include('user.components.search-panel.controls.career-application-w2', [ 'w2' => $w2 ])
                         </div>
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-relocation', [ 'relocation' => $relocation ])
+                            @include('user.components.search-panel.controls.career-application-relocation', [ 'relocation' => $relocation ])
                         </div>
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-benefits', [ 'benefits' => $benefits ])
+                            @include('user.components.search-panel.controls.career-application-benefits', [ 'benefits' => $benefits ])
                         </div>
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-vacation', [ 'vacation' => $vacation ])
+                            @include('user.components.search-panel.controls.career-application-vacation', [ 'vacation' => $vacation ])
                         </div>
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-health', [ 'health' => $health ])
+                            @include('user.components.search-panel.controls.career-application-health', [ 'health' => $health ])
                         </div>
                     </div>
 
