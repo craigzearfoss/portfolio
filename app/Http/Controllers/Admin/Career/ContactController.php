@@ -66,6 +66,7 @@ class ContactController extends BaseAdminController
     {
         createGate(Contact::class, $this->admin);
 
+        $contact = null;
         $error = null;
 
         if ($companyId = $request->get('company_id')) {
@@ -74,13 +75,20 @@ class ContactController extends BaseAdminController
             }
         }
 
-        if ($contact = empty($error) ? Contact::query()->create($request->validated()) : null) {
-            CompanyContact::query()->insert([
-                'owner_id'   => $contact->owner_id,
-                'contact_id' => $contact->id,
-                'company_id' => $companyId,
-                'active'     => true,
-            ]);
+        if (empty($error)) {
+
+            // create the contact
+            $contact = Contact::query()->create($request->validated());
+
+            // attach the contact to the company
+            if (!empty($companyId)) {
+                CompanyContact::query()->insert([
+                    'owner_id'   => $contact->owner_id,
+                    'contact_id' => $contact->id,
+                    'company_id' => $companyId,
+                    'active'     => true,
+                ]);
+            }
         }
 
         return redirect()->route('admin.career.contact.show', $contact)

@@ -45,8 +45,13 @@ class Communication extends Model
         'subject',
         'to',
         'from',
-        'datetime',
+        'communication_datetime',
         'body',
+        'notes',
+        'link',
+        'link_name',
+        'description',
+        'disclaimer',
         'is_public',
         'is_readonly',
         'is_root',
@@ -59,12 +64,13 @@ class Communication extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'communication_type_id', 'subject', 'to',
-        'from', 'datetime', 'body', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+        'from', 'communication_datetime', 'body', 'notes', 'link', 'link_name,', 'description', 'disclaimer',
+        'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'datetime', 'desc' ];
+    const array SEARCH_ORDER_BY = [ 'communication_datetime', 'desc' ];
 
     /**
      * @return void
@@ -112,6 +118,12 @@ class Communication extends Model
                         ->orWhere('applications.apply_date', 'LIKE', '%' . $applicationName . '%');
                 });
             })
+            ->when(!empty($filters['communication_datetime_from']), function ($query) use ($filters) {
+                $query->where($this->table . '.communication_datetime', '>=', $filters['communication_datetime_from']);
+            })
+            ->when(!empty($filters['communication_datetime_to']), function ($query) use ($filters) {
+                $query->where($this->table . '.communication_datetime', '<=', $filters['communication_datetime_to']);
+            })
             ->when(!empty($filters['communication_type_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.communication_type_id', '=', intval($filters['communication_type_id']));
             })
@@ -120,6 +132,12 @@ class Communication extends Model
             })
             ->when(!empty($filters['company_name']), function ($query) use ($filters) {
                 $query->where('companies.name', '=', 'like', '%' . $filters['company_name'] . '%');
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['subject']), function ($query) use ($filters) {
                 $query->where($this->table . '.subject', 'like', '%' . $filters['subject'] . '%');
@@ -132,12 +150,6 @@ class Communication extends Model
             })
             ->when(!empty($filters['body']), function ($query) use ($filters) {
                 $query->where($this->table . '.body', 'like', '%' . $filters['body'] . '%');
-            })
-            ->when(!empty($filters['datetime_from']), function ($query) use ($filters) {
-                $query->where($this->table . '.datetime', '>=', $filters['datetime_from']);
-            })
-            ->when(!empty($filters['datetime_to']), function ($query) use ($filters) {
-                $query->where($this->table . '.datetime', '<=', $filters['datetime_to']);
             });
 
         $query = $this->appendStandardFilters($query, $filters);

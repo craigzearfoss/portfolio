@@ -1,4 +1,5 @@
 @php
+    use Carbon\Carbon;
     use App\Enums\PermissionEntityTypes;
     use App\Models\Career\Application;
     use App\Models\Career\Event;
@@ -57,11 +58,10 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
-                        @if(!empty($event->application))
-                            <th>application</th>
-                        @endif
+                        <th>application</th>
                         <th>name</th>
-                        <th>datetime</th>
+                        <th class="has-text-centered">date</th>
+                        <th class="has-text-centered">time</th>
                         <th>location</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
@@ -76,11 +76,10 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
-                        @if(!empty($event->application))
-                            <th>application</th>
-                        @endif
+                        <th>application</th>
                         <th>name</th>
-                        <th>datetime</th>
+                        <th class="has-text-centered">date</th>
+                        <th class="has-text-centered">time</th>
                         <th>location</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
@@ -99,21 +98,25 @@
                                 {{ $event->owner->username }}
                             </td>
                         @endif
-                        @if(!empty($event->application))
-                            <td data-field="application_id">
-                                @include('admin.components.link', [
-                                    'name' => $event->application->name ?? '',
-                                    'href' => route('admin.career.application.show',
-                                                  Application::find($event->application->id)
-                                              )
-                                ])
-                            </td>
-                        @endif
+                        <td data-field="application_id">
+                            @include('admin.components.link', [
+                                'name' => $event->application->name ?? '',
+                                'href' => route('admin.career.application.show',
+                                              Application::find($event->application->id)
+                                          )
+                            ])
+                        </td>
                         <td data-field="name" style="white-space: nowrap;">
                             {!! $event->name !!}
                         </td>
-                        <td data-field="date" style="white-space: nowrap;">
-                            {{ shortDateTime($event->datetime) }}
+                        <td data-field="event_date" class="has-text-centered" style="white-space: nowrap;">
+                            {{ shortDate($event->event_date) }}
+                        </td>
+                        <td data-field="event_time" class="has-text-centered" style="white-space: nowrap;">
+                            {{ !empty($event->event_time)
+                                   ? Carbon::createFromFormat('H:i:s', $event->event_time)->format('g:i a')
+                                   : ''
+                            }}
                         </td>
                         <td data-field="location" style="white-space: nowrap;">
                             {!! $event->location !!}
@@ -180,8 +183,7 @@
 
                     <tr>
                         @php
-                            $colspan = $isRootAdmin ? '7' : '6';
-                            if (!empty($application)) $colspan = $colspan++;
+                            $colspan = $isRootAdmin ? '9' : '8';
                         @endphp
                         <td colspan="{{ $colspan }}">No events found.</td>
                     </tr>

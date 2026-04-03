@@ -64,7 +64,6 @@
                                                      'name' => $coverLetter->name,
                                                      'href' => route('admin.career.application.show', $coverLetter->application),
                                                  ]),
-                                    'message' => $message ?? '',
                                 ])
 
                                 @if (!empty($coverLetter->filepath))
@@ -128,6 +127,11 @@
                                                      'href' => route('admin.career.application.show', $coverLetter->application),
                                                  ]),
                                     'message' => $message ?? '',
+                                ])
+
+                                @include('admin.components.show-row', [
+                                    'name'  => 'name',
+                                    'value' => $coverLetter->name
                                 ])
 
                                 @include('admin.components.show-row-link', [

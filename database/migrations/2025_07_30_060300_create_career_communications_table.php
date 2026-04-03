@@ -34,7 +34,12 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->string('to', 500)->nullable()->index('to_idx');
             $table->string('from', 500)->nullable()->index('from_idx');
-            $table->dateTime('datetime')->nullable()->index('datetime_idx');
+            $table->dateTime('communication_datetime')->nullable()->index('datetime_idx');
+            $table->text('notes')->nullable();
+            $table->string('link', 500)->nullable();
+            $table->string('link_name')->nullable();
+            $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
             $table->boolean('is_public')->default(false);
             $table->boolean('is_readonly')->default(false);
             $table->boolean('is_root')->default(false);
@@ -47,12 +52,12 @@ return new class extends Migration
 
         /*
         $data = [
-            'owner_id'              => null,
-            'application_id'        => null,
-            'communication_type_id' => null,
-            'subject'               => '',
-            'datetime'              => '2025-10-10 01:00:00',
-            'body'                  => '',
+            'owner_id'               => null,
+            'application_id'         => null,
+            'communication_type_id'  => null,
+            'subject'                => '',
+            'communication_datetime' => '2025-10-10 01:00:00',
+            'body'                   => '',
         ];
 
         // add timestamps and owner_ids

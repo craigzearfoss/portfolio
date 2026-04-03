@@ -93,6 +93,32 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $note->notes,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $note->link,
+                'name' => old('link_name') ?? $note->link_name,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $note->description,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'disclaimer',
+                'value'       => old('disclaimer') ?? $note->disclaimer,
+                'maxlength'   => 500,
+                'message'     => $message ?? '',
+            ])
+
             @include('admin.components.form-visibility-horizontal', [
                 'is_public'   => old('is_public')   ?? $note->is_public,
                 'is_readonly' => old('is_readonly') ?? $note->is_readonly,

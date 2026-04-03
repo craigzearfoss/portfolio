@@ -1,11 +1,13 @@
 @php
+    use Carbon\Carbon;
+
     $events = $events ?? [];
 @endphp
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
-    <th>date</th>
-    <th>time</th>
+    <th class="has-text-centered">date</th>
+    <th class="has-text-centered">time</th>
     <th>location</th>
     <th>actions</th>
     </thead>
@@ -17,11 +19,14 @@
             <td>
                 {!! $event->name !!}
             </td>
-            <td>
-                {{ longDate($event->date) }}
+            <td class="has-text-centered">
+                {{ shortDate($event->event_date) }}
             </td>
-            <td>
-                {{ !empty($event->time) ? date("g:i a", strtotime($event->time)) : '' }}
+            <td class="has-text-centered">
+                {{ !empty($event->event_time)
+                       ? Carbon::createFromFormat('H:i:s', $event->event_time)->format('g:i a')
+                       : ''
+                }}
             </td>
             <td>
                 {!! $event->location !!}

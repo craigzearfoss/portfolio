@@ -90,12 +90,41 @@
 
         @include('admin.components.show-row', [
             'name'  => 'datetime',
-            'value' => longDateTime($communication->datetime)
+            'value' => longDateTime($communication->communication_datetime)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'body',
             'value' => $communication->body
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $communication->notes
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'href'   => $communication->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'label'  => 'link_name',
+            'value'  => $communication->link_name,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $communication->description
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [
+                            'value' => $communication->disclaimer
+                       ])
         ])
 
         @include('admin.components.show-row-visibility', [

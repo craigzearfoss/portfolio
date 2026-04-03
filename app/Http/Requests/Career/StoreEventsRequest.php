@@ -32,10 +32,15 @@ class StoreEventsRequest extends FormRequest
             'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
             'application_id' => ['required', 'integer', 'exists:career_db.applications,id'],
             'name'           => ['required', 'string', 'max:255'],
-            'datetime'       => ['date _format:Y-m-d H:i:s', 'nullable'],
+            'event_date'     => ['date_format:Y-m-d', 'nullable'],
+            'event_time'     => ['date_format:H:i:s', 'nullable'],
             'location'       => ['string', 'max:255', 'nullable'],
             'attendees'      => ['string', 'max:500', 'nullable'],
+            'notes'          => ['nullable'],
+            'link'           => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'      => ['string', 'max:255', 'nullable'],
             'description'    => ['nullable'],
+            'disclaimer'     => ['string', 'max:500', 'nullable'],
             'is_public'      => ['integer', 'between:0,1'],
             'is_readonly'    => ['integer', 'between:0,1'],
             'is_root'        => ['integer', 'between:0,1'],
@@ -64,11 +69,14 @@ class StoreEventsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws DateMalformedStringException
      */
     public function prepareForValidation(): void
     {
-        $datetime = new DateTime($this['datetime']);
-        $this['datetime'] = $datetime->format('Y-m-d H:i:s');
+        if (!empty($this['event_time'])) {
+            $parts = explode(':', $this['event_time']);
+            $parts[] = '00';
+            $parts[] = '00';
+            $this['event_time'] = implode(':', array_slice($parts, 0, 3));
+        }
     }
 }

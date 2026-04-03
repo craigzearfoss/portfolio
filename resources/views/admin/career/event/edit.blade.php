@@ -87,9 +87,17 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'    => 'datetime-local',
-                'name'    => 'datetime',
-                'value'   => old('datetime') ?? $event->datetime,
+                'type'    => 'date',
+                'name'    => 'event_date',
+                'value'   => old('event_date') ?? $event->event_date,
+                'message' => $message ?? '',
+                'style'   => 'width: 15rem;',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'time',
+                'name'    => 'event_time',
+                'value'   => old('event_time') ?? $event->event_time,
                 'message' => $message ?? '',
                 'style'   => 'width: 15rem;',
             ])
@@ -109,12 +117,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $event->link,
-                'name' => old('link_name') ?? $event->link_name,
-                'message'   => $message ?? '',
-            ])
-
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'text',
                 'id'      => 'inputEditor',
@@ -122,12 +124,30 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'    => 'number',
-                'name'    => 'sequence',
-                'value'   => old('sequence') ?? $event->sequence,
-                'min'     => 0,
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $event->notes,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $event->link,
+                'name' => old('link_name') ?? $event->link_name,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $event->description,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'disclaimer',
+                'value'       => old('disclaimer') ?? $event->disclaimer,
+                'maxlength'   => 500,
+                'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-visibility-horizontal', [

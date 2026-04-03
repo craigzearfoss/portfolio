@@ -3,8 +3,6 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Career\Event;
-use DateMalformedStringException;
-use DateTime;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -39,10 +37,15 @@ class UpdateEventsRequest extends FormRequest
             'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
             'application_id' => ['filled', 'integer', 'exists:career_db.applications,id'],
             'name'           => ['filled', 'string', 'max:255'],
-            'datetime'       => ['date _format:Y-m-d H:i:s', 'nullable'],
+            'event_date'     => ['date_format:Y-m-d', 'nullable'],
+            'event_time'     => ['date_format:H:i:s', 'nullable'],
             'location'       => ['string', 'max:255', 'nullable'],
             'attendees'      => ['string', 'max:500', 'nullable'],
+            'notes'           => ['nullable'],
+            'link'           => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'      => ['string', 'max:255', 'nullable'],
             'description'    => ['nullable'],
+            'disclaimer'     => ['string', 'max:500', 'nullable'],
             'is_public'      => ['integer', 'between:0,1'],
             'is_readonly'    => ['integer', 'between:0,1'],
             'is_root'        => ['integer', 'between:0,1'],
@@ -71,11 +74,14 @@ class UpdateEventsRequest extends FormRequest
      * Prepare the data for validation.
      *
      * @return void
-     * @throws DateMalformedStringException
      */
     public function prepareForValidation(): void
     {
-        $datetime = new DateTime($this['datetime']);
-        $this['datetime'] = $datetime->format('Y-m-d H:i:s');
+        if (!empty($this['event_time'])) {
+            $parts = explode(':', $this['event_time']);
+            $parts[] = '00';
+            $parts[] = '00';
+            $this['event_time'] = implode(':', array_slice($parts, 0, 3));
+        }
     }
 }

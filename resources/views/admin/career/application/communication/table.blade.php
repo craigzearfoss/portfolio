@@ -7,7 +7,7 @@
     <th>subject</th>
     <th>to</th>
     <th>from</th>
-    <th class="has-text-centered">date</th>
+    <th class="has-text-centered">datetime</th>
     <th>actions</th>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
             </td>
             <td class="has-text-centered">
                 <span style="white-space: nowrap">
-                    {{ shortDateTime($communication->date . ' ' . $communication->time) }}
+                    {{ shortDateTime($communication->communication_datetime) }}
                 </span>
             </td>
             <td class="is-1">

@@ -36,20 +36,25 @@ class UpdateCommunicationsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'              => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'application_id'        => ['filled', 'integer', 'exists:career_db.applications,id'],
-            'communication_type_id' => ['filled', 'integer', 'exists:career_db.communication_types,id'],
-            'subject'               => ['filled', 'string', 'max:255'],
-            'to'                    => ['string', 'max:500', 'nullable'],
-            'from'                  => ['string', 'max:500', 'nullable'],
-            'datetime'              => ['date _format:Y-m-d H:i:s', 'nullable'],
-            'body'                  => ['nullable'],
-            'is_public'             => ['integer', 'between:0,1'],
-            'is_readonly'           => ['integer', 'between:0,1'],
-            'is_root'               => ['integer', 'between:0,1'],
-            'is_disabled'           => ['integer', 'between:0,1'],
-            'is_demo'               => ['integer', 'between:0,1'],
-            'sequence'              => ['integer', 'min:0', 'nullable'],
+            'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'application_id'         => ['filled', 'integer', 'exists:career_db.applications,id'],
+            'communication_type_id'  => ['filled', 'integer', 'exists:career_db.communication_types,id'],
+            'subject'                => ['filled', 'string', 'max:255'],
+            'to'                     => ['string', 'max:500', 'nullable'],
+            'from'                   => ['string', 'max:500', 'nullable'],
+            'communication_datetime' => ['date _format:Y-m-d H:i:s', 'nullable'],
+            'body'                   => ['nullable'],
+            'notes'                  => ['nullable'],
+            'link'                   => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'              => ['string', 'max:255', 'nullable'],
+            'description'            => ['nullable'],
+            'disclaimer'             => ['string', 'max:500', 'nullable'],
+            'is_public'              => ['integer', 'between:0,1'],
+            'is_readonly'            => ['integer', 'between:0,1'],
+            'is_root'                => ['integer', 'between:0,1'],
+            'is_disabled'            => ['integer', 'between:0,1'],
+            'is_demo'                => ['integer', 'between:0,1'],
+            'sequence'               => ['integer', 'min:0', 'nullable'],
         ];
     }
 
@@ -77,7 +82,9 @@ class UpdateCommunicationsRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        $datetime = new DateTime($this['datetime']);
-        $this['datetime'] = $datetime->format('Y-m-d H:i:s');
+        if (!empty($this['communication_datetime'])) {
+            $communication_datetime = new DateTime($this['communication_datetime']);
+            $this['communication_datetime'] = $communication_datetime->format('Y-m-d H:i:s');
+        }
     }
 }

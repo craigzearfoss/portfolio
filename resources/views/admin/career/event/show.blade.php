@@ -1,6 +1,7 @@
 @php
     use App\Enums\PermissionEntityTypes;
     use App\Models\Career\Application;
+    use Carbon\Carbon;
 
     $title = $pageTitle ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
     $subtitle = $title;
@@ -74,8 +75,15 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'datetime',
-            'value' => longDateTime($event->dateime)
+            'name'  => 'date',
+            'value' => longDate($event->event_date)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'time',
+            'value' => !empty($event->event_time)
+                           ? Carbon::createFromFormat('H:i:s', $event->event_time)->format('g:i a')
+                           : '',
         ])
 
         @include('admin.components.show-row', [
@@ -88,9 +96,45 @@
             'value' => $event->attendees
         ])
 
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'href'   => $event->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'label'  => 'link_name',
+            'value'  => $event->link_name,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $event->notes
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'href'   => $event->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'label'  => 'link_name',
+            'value'  => $event->link_name,
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $event->description
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [
+                            'value' => $event->disclaimer
+                       ])
         ])
 
         @include('admin.components.show-row-visibility', [

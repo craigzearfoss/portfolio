@@ -103,8 +103,9 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'datetime-local',
-                'name'    => 'datetime',
-                'value'   => old('datetime') ?? '',
+                'name'    => 'communication_datetime',
+                'label'   => 'datetime',
+                'value'   => old('communication_datetime') ?? '',
                 'message' => $message ?? '',
                 'style'   => 'width: 15rem;',
             ])
@@ -114,6 +115,32 @@
                 'id'      => 'inputEditor',
                 'value'   => old('body') ?? '',
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $note->link,
+                'name' => old('link_name') ?? '',
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'disclaimer',
+                'value'       => old('disclaimer') ?? '',
+                'maxlength'   => 500,
+                'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-visibility-horizontal', [

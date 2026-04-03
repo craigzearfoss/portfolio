@@ -28,10 +28,15 @@ return new class extends Migration
                 ->constrained('applications', 'id')
                 ->onDelete('cascade');
             $table->string('name')->index('name_idx');
-            $table->date('datetime')->nullable()->index('datetime_idx');
+            $table->date('event_date')->nullable()->index('event_date_idx');
+            $table->time('event_time')->nullable()->index('event_time_idx');
             $table->string('location')->nullable()->index('location_idx');
             $table->string('attendees', 500)->nullable()->index('attendees_idx');
+            $table->text('notes')->nullable();
+            $table->string('link', 500)->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
             $table->boolean('is_public')->default(false);
             $table->boolean('is_readonly')->default(false);
             $table->boolean('is_root')->default(false);
@@ -47,7 +52,8 @@ return new class extends Migration
             'owner_id'       => null,
             'application_id' => null,
             'name'           => '',
-            'datetime'       => '2025-10-10 01:00:00',
+            'event_date'     => '2025-10-10',
+            'event_time'     => '01:00:00',
             'location'       => '',
             'description'    => '',
         ];

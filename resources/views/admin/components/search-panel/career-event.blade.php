@@ -8,8 +8,10 @@
     $attendees        = $attendees ?? request()->query('attendees');
     $company_id       = $company_id ?? request()->query('company_id');
     $company_name     = $company_name ?? request()->query('company_name');
-    $datetime_from    = $datetime_from ?? request()->query('datetime_from');
-    $datetime_to      = $datetime_to ?? request()->query('datetime_to');
+    $date_from        = $datetime_from ?? request()->query('date_from');
+    $date_to          = $datetime_to ?? request()->query('date_to');
+    $time_from        = $date_from ?? request()->query('time_from');
+    $time_to          = $time_to ?? request()->query('time_to');
     $description      = $description ?? request()->query('description');
     $name             = $name ?? request()->query('name');
     $location         = $location ?? request()->query('location');
@@ -82,18 +84,39 @@
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'type'    => 'date',
-                                'name'    => 'datetime_from',
+                                'name'    => 'date_from',
                                 'label'   => 'from date',
-                                'value'   => $datetime_from,
+                                'value'   => $date_from,
                                 'message' => $message ?? '',
                             ])
                         </div>
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'type'    => 'date',
-                                'name'    => 'datetime_to',
+                                'name'    => 'date_to',
                                 'label'   => 'to date',
-                                'value'   => $datetime_to,
+                                'value'   => $date_to,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                    </div>
+
+                    <div class="floating-div">
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'type'    => 'time',
+                                'name'    => 'time_from',
+                                'label'   => 'from time',
+                                'value'   => $time_from,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'type'    => 'time',
+                                'name'    => 'time_to',
+                                'label'   => 'to time',
+                                'value'   => $time_to,
                                 'message' => $message ?? '',
                             ])
                         </div>

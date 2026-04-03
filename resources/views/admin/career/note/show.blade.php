@@ -78,6 +78,35 @@
             'value' => $note->body
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $note->notes
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'href'   => $note->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'label'  => 'link_name',
+            'value'  => $note->link_name,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $note->description
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [
+                            'value' => $note->disclaimer
+                       ])
+        ])
+
         @include('admin.components.show-row-visibility', [
             'resource' => $note,
         ])

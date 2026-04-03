@@ -76,6 +76,36 @@ class CoverLetter extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     * Generates the name for a cover letter from the application.
+     *
+     * @param int $applicationId
+     * @return string
+     */
+    public static function getName(int $applicationId): string
+    {
+        if (!$application = Application::query()->find($applicationId)) {
+            $name = 'dummy';
+            // the validation will fail because there is no application id so just put anything in the name field
+        } else {
+            if ($application['company']['name']) {
+                $name = !empty($application['role'])
+                    ? $application['company']['name'] . ' - ' . $application['role']
+                    : $application['company']['name'];
+            } elseif(!empty($application['role'])) {
+                $name = $application['role'];
+            } else {
+                $name = 'UNNAMED';
+            }
+
+            if (!empty($application['apply_date'])) {
+                $name .= ' [' . $application['apply_date'] . ']';
+            }
+        }
+
+        return $name;
+    }
+
+    /**
      * @return void
      */
     protected static function booted(): void
@@ -121,6 +151,9 @@ class CoverLetter extends Model
             })
             ->when(!empty($filters['filepath']), function ($query) use ($filters) {
                 $query->where($this->table . '.filepath', 'like', '%' . $filters['filepath'] . '%');
+            })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');

@@ -42,10 +42,15 @@ class Event extends Model
         'owner_id',
         'application_id',
         'name',
-        'datetime',
+        'event_date',
+        'event_time',
         'location',
         'attendees',
+        'notes',
+        'link',
+        'link_name',
         'description',
+        'disclaimer',
         'is_public',
         'is_readonly',
         'is_root',
@@ -57,13 +62,14 @@ class Event extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'datetime', 'location', 'attendees',
-        'description', 'is_public', 'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'name', 'event_date', 'event_time', 'location',
+        'attendees', 'notes', 'link', 'link_name,', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'datetime', 'desc' ];
+    const array SEARCH_ORDER_BY = [ 'event_date', 'desc' ];
 
     /**
      * @return void
@@ -100,17 +106,26 @@ class Event extends Model
             ->when(!empty($filters['company_name']), function ($query) use ($filters) {
                 $query->where('companies.name', '=', 'like', '%' . $filters['company_name'] . '%');
             })
-            ->when(!empty($filters['datetime_from']), function ($query) use ($filters) {
-                $query->where($this->table . '.datetime', '>=', $filters['datetime_from']);
+            ->when(!empty($filters['date_from']), function ($query) use ($filters) {
+                $query->where($this->table . '.date', '>=', $filters['date_from']);
             })
-            ->when(!empty($filters['datetime_to']), function ($query) use ($filters) {
-                $query->where($this->table . '.datetime', '<=', $filters['datetime_to']);
+            ->when(!empty($filters['date_to']), function ($query) use ($filters) {
+                $query->where($this->table . '.date', '<=', $filters['date_to']);
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where($this->table . '.location', 'like', '%' . $filters['location'] . '%');
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
+            })
+            ->when(!empty($filters['time_from']), function ($query) use ($filters) {
+                $query->where($this->table . '.time', '>=', $filters['time_from']);
+            })
+            ->when(!empty($filters['time_to']), function ($query) use ($filters) {
+                $query->where($this->table . '.time', '<=', $filters['time_to']);
             });
 
         $query = $this->appendStandardFilters($query, $filters);
@@ -119,7 +134,7 @@ class Event extends Model
         $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
         $query->select([
-            DB::raw('cover_letters.*'),
+            DB::raw('events.*'),
             DB::raw('applications.company_id as company_id'),
             DB::raw('companies.name as company_name'),
         ]);

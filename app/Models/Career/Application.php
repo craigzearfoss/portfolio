@@ -432,7 +432,7 @@ class Application extends Model
     public function communications(): HasMany
     {
         return $this->hasMany(Communication::class, 'application_id')
-            ->orderBy('datetime', 'desc');
+            ->orderBy('communication_datetime', 'desc');
     }
 
     /**
@@ -491,7 +491,7 @@ class Application extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class, 'application_id')
-            ->orderBy('datetime', 'desc');
+            ->orderBy('event_date', 'desc');
     }
 
     /**

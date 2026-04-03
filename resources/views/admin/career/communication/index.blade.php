@@ -111,7 +111,7 @@
                             {!! $communication->subject !!}
                         </td>
                         <td data-field="date" style="white-space: nowrap;">
-                            {{ shortDateTime($communication->datetime) }}
+                            {{ shortDateTime($communication->communication_datetime) }}
                         </td>
                         <td class="is-1">
 

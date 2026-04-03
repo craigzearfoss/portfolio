@@ -29,6 +29,11 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('subject')->index('subject_idx');
             $table->text('body')->nullable();
+            $table->text('notes')->nullable();
+            $table->string('link', 500)->nullable();
+            $table->string('link_name')->nullable();
+            $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
             $table->boolean('is_public')->default(false);
             $table->boolean('is_readonly')->default(false);
             $table->boolean('is_root')->default(false);

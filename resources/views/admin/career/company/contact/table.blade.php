@@ -4,7 +4,6 @@
 <table class="table admin-table {{ $adminTableClasses ?? '' }}">
     <thead>
     <th>name</th>
-    <th>active</th>
     <th>phone</th>
     <th>email</th>
     <th>actions</th>

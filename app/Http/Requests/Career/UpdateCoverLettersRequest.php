@@ -40,7 +40,14 @@ class UpdateCoverLettersRequest extends FormRequest
 
         return [
             'owner_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'application_id'    => ['filled', 'integer', 'exists:career_db.applications,id'],
+            'application_id'    => [
+                'filled',
+                'integer',
+                'exists:career_db.applications,id',
+                Rule::unique('career_db.cover_letters', 'application_id')->where(function ($query) {
+                    return $query->where('application_id', $this['application_id']);
+                })
+            ],
             'name'              => [
                 'filled',
                 'string',
@@ -96,6 +103,7 @@ class UpdateCoverLettersRequest extends FormRequest
             'owner_id.exists'       => 'The specified owner does not exist.',
             'application_id.filled' => 'Please select an application for the cover letter.',
             'application_id.exists' => 'The specified application does not exist.',
+            'application_id.unique' => 'Application already has a cover letter.  Edit it to make changes.',
             'name.unique'           => 'There is already a cover letter with the same name for this date.',
             'slug.unique'           => 'There is already a cover letter with the same slug for this date.'
         ];
@@ -109,20 +117,21 @@ class UpdateCoverLettersRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
-        if (!$ownerId = $this['owner_id']) {
-            throw new Exception('No owner_id specified.');
+        // generate the name
+        if ($applicationId = $this['application_id']) {
+
+            $this['name'] = CoverLetter::getName($applicationId);
+
+        } else {
+
+            // the validation will fail because there is no application id so just put anything in the name field
+            $this['name'] = 'UNNAMED';
         }
 
         // generate the slug
         if (!empty($this['name'])) {
-            $slug = !empty($this['date'])
-                ? $this['date'] . '-' . $this['name']
-                : $this['name'];
-
             $this->merge([
-                'slug' => uniqueSlug($slug),
-                'career_db.cover_letters',
-                $ownerId
+                'slug' => uniqueSlug($this['name'], 'career_db.cover_letters', $this['slug'])
             ]);
         }
     }

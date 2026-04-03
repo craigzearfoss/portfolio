@@ -43,6 +43,11 @@ class Note extends Model
         'application_id',
         'subject',
         'body',
+        'notes',
+        'link',
+        'link_name',
+        'description',
+        'disclaimer',
         'is_public',
         'is_readonly',
         'is_root',
@@ -54,8 +59,8 @@ class Note extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'subject', 'body', 'is_public', 'is_readonly',
-        'is_root', 'is_disabled', 'is_demo' ];
+    const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'subject', 'body', 'notes', 'link', 'link_name',
+        'description', 'disclamier', 'is_public', 'is_readonly','is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
