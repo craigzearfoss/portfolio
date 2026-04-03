@@ -178,6 +178,7 @@ class MenuService
             // tables instead of the admin_databases and admin_resources tables
             $this->resourcesByDatabase = new Resource()->ownerResourcesByDatabase($this->envType, null, $filters);
         } else {
+            $filters['admin_resources.table_name <>'] = 'admins';
             $this->resourcesByDatabase = new AdminResource()->ownerResourcesByDatabase($this->owner ?? null, $this->envType, null, $filters);
         }
 

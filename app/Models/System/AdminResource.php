@@ -317,7 +317,7 @@ class AdminResource extends Model
                     $operator = trim($parts[1]);
 
                     if (in_array($operator, ['<>', '!=', '=!'])) {
-                        $query->where($col, '<>', $value);
+                        $query->where($col, '<>', is_numeric($value) ? $value : str_replace("'", '', "'{$value}'"));
                     } elseif (strtolower($operator) == 'like') {
                         $query->whereLike($col, $value);
                     } else {
@@ -329,7 +329,7 @@ class AdminResource extends Model
                 }
             }
         }
-
+//$query->ddRawSql();
         // add "route", "active", "owner", and "database" fields to all the resources
         $adminResources = $query->get();
 
