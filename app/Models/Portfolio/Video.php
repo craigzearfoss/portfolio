@@ -117,7 +117,7 @@ class Video extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['clip']), function ($query) use ($filters) {
-                $query->where($this->table . '.clip', '=', boolval(['clip']));
+                $query->where($this->table . '.clip', '=', boolval($filters['clip']));
             })
             ->when(!empty($filters['company']), function ($query) use ($filters) {
                 $query->where($this->table . '.company', 'like', '%' . $filters['company'] . '%');
@@ -135,10 +135,10 @@ class Video extends Model
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
-                $query->where($this->table . '.featured', '=', boolval(['featured']));
+                $query->where($this->table . '.featured', '=', boolval($filters['featured']));
             })
             ->when(!empty($filters['full_episode']), function ($query) use ($filters) {
-                $query->where($this->table . '.full_episode', '=', boolval(['full_episode']));
+                $query->where($this->table . '.full_episode', '=', boolval($filters['full_episode']));
             })
             ->when(!empty($filters['location']), function ($query) use ($filters) {
                 $query->where($this->table . '.location', 'like', '%' . $filters['location'] . '%');
@@ -147,10 +147,10 @@ class Video extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['parent_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.parent_id', '=', intval(['parent_id']));
+                $query->where($this->table . '.parent_id', '=', intval($filters['parent_id']));
             })
             ->when(!empty($filters['public_access']), function ($query) use ($filters) {
-                $query->where($this->table . '.public_access', '=', boolval(['public_access']));
+                $query->where($this->table . '.public_access', '=', boolval($filters['public_access']));
             })
             ->when(!empty($filters['review']), function ($query) use ($filters) {
                 $review = $filters['review'];

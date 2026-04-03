@@ -104,7 +104,7 @@ class Course extends Model
 
         $query = new self()->getSearchQuery($filters, $owner)
             ->when(!empty($filters['academy_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.academy_id', '=', intval(['academy_id']));
+                $query->where($this->table . '.academy_id', '=', intval($filters['academy_id']));
             })
             ->when(!empty($filters['completed']), function ($query) use ($filters) {
                 $query->where($this->table . '.completed', '=', true);

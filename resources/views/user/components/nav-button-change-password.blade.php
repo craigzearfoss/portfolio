@@ -1,5 +1,5 @@
 @php
-    $htmlString = view('admin.components.nav-button', [
+    $htmlString = view('user.components.nav-button', [
         'id'      => $id ?? null,
         'name'    => $name ?? 'Edit',
         'class'   => 'button is-small is-dark my-0',

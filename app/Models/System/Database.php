@@ -87,19 +87,19 @@ class Database extends Model
                 $query->where($this->table . '.database', 'like', '%' . $filters['database'] . '%');
             })
             ->when(!empty($filters['has_owner']), function ($query) use ($filters) {
-                $query->where($this->table . '.has_owner', '=', boolval(['has_owner']));
+                $query->where($this->table . '.has_owner', '=', boolval($filters['has_owner']));
             })
             ->when(!empty($filters['icon']), function ($query) use ($filters) {
                 $query->where($this->table . '.icon', '=', ['icon']);
             })
             ->when(!empty($filters['menu']), function ($query) use ($filters) {
-                $query->where($this->table . '.menu', '=', boolval(['menu']));
+                $query->where($this->table . '.menu', '=', boolval($filters['menu']));
             })
             ->when(!empty($filters['menu_collapsed']), function ($query) use ($filters) {
-                $query->where($this->table . '.menu_collapsed', '=', boolval(['menu_collapsed']));
+                $query->where($this->table . '.menu_collapsed', '=', boolval($filters['menu_collapsed']));
             })
             ->when(isset($filters['menu_level']), function ($query) use ($filters) {
-                $query->where($this->table . '.menu_level', '=', intval(['menu_level']));
+                $query->where($this->table . '.menu_level', '=', intval($filters['menu_level']));
             })
             ->when(!empty($filters['plural']), function ($query) use ($filters) {
                 $query->where($this->table . '.plural', 'like', '%' . $filters['plural'] . '%');

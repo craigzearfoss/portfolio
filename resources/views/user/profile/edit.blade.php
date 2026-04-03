@@ -68,14 +68,14 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
-                                                @include('admin.components.form-select-horizontal', [
+                                                @include('user.components.form-select-horizontal', [
                                                     'name'    => 'salutation',
                                                     'value'   => old('salutation') ?? $user->salutation,
                                                     'list'    => $userModel->salutationListOptions(true),
                                                     'message' => $message ?? '',
                                                 ])
 
-                                                @include('admin.components.form-input-horizontal', [
+                                                @include('user.components.form-input-horizontal', [
                                                     'name'      => 'title',
                                                     'value'     => old('role') ?? $owner->title,
                                                     'maxlength' => 100,

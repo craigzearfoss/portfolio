@@ -145,7 +145,7 @@ class Music extends Model
                 $query->where('track', '=', true);
             })
             ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where('year', '=', intval(['year']));
+                $query->where('year', '=', intval($filters['year']));
             });
 
         $query = $this->appendStandardFilters($query, $filters);

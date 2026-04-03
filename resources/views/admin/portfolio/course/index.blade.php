@@ -1,5 +1,6 @@
 @php
     use App\Enums\PermissionEntityTypes;
+    use App\Models\Portfolio\Academy;
     use App\Models\Portfolio\Course;
 
     $title    = $pageTitle ?? 'Courses';
@@ -59,6 +60,7 @@
                         @endif
                         <th>name</th>
                         <th>academy</th>
+                        <th>instructor</th>
                         <th class="has-text-centered">completion<br>date</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
@@ -75,6 +77,7 @@
                         @endif
                         <th>name</th>
                         <th>academy</th>
+                        <th>instructor</th>
                         <th class="has-text-centered">completion<br>date</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
@@ -96,13 +99,16 @@
                         <td data-field="name">
                             {!! $course->name !!}{!! !empty($course->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="academy.name">
+                        <td data-field="academy_id">
                             @if (!empty($course->academy))
                                 @include('admin.components.link', [
                                     'name'   => $course->academy->name ?? '',
-                                    'href'   => route('admin.portfolio.academy.show', \App\Models\Portfolio\Academy::find($course->academy->id)),
+                                    'href'   => route('admin.portfolio.academy.show', Academy::find($course->academy->id)),
                                 ])
                             @endif
+                        </td>
+                        <td data-field="instructor">
+                            {{ $course->instructor }}
                         </td>
                         <td data-field="completion_date">
                             {{ shortDate($course->completion_date) }}
@@ -170,7 +176,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No courses found.</td>
+                        <td colspan="{{ $isRootAdmin ? '8' : '7' }}">No courses found.</td>
                     </tr>
 
                 @endforelse

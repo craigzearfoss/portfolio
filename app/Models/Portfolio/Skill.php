@@ -131,37 +131,37 @@ class Skill extends Model
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
             })
             ->when(!empty($filters['dictionary_category_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.dictionary_category_id', '=', intval(['dictionary_category_id']));
+                $query->where($this->table . '.dictionary_category_id', '=', intval($filters['dictionary_category_id']));
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['end_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.end_year', '=', intval(['end_year']));
+                $query->where($this->table . '.end_year', '=', intval($filters['end_year']));
             })
             ->when(!empty($filters['featured']), function ($query) use ($filters) {
                 $query->where($this->table . '.featured', '=', true);
             })
             ->when(!empty($filters['level']), function ($query) use ($filters) {
-                $query->where($this->table . '.level', '=', intval(['level']));
+                $query->where($this->table . '.level', '=', intval($filters['level']));
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['start_year']), function ($query) use ($filters) {
-                $query->where($this->table . '.start_year', '=', intval(['start_year']));
+                $query->where($this->table . '.start_year', '=', intval($filters['start_year']));
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['type_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.type_id', '=', intval(['type_id']));
+                $query->where($this->table . '.type_id', '=', intval($filters['type_id']));
             })
             ->when(!empty($filters['version']), function ($query) use ($filters) {
                 $query->where($this->table . '.version', 'like', '%' . $filters['version'] . '%');
             })
             ->when(!empty($filters['years']), function ($query) use ($filters) {
-                $query->where($this->table . '.years', '=', intval(['years']));
+                $query->where($this->table . '.years', '=', intval($filters['years']));
             });
 
         $query = $this->appendStandardFilters($query, $filters);

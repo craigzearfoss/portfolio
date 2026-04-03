@@ -27,6 +27,10 @@
         @endif
     @endif
 
+    @include('guest.components.search-panel.portfolio-course',
+        [ 'action'     => route('guest.portfolio.course.index', $owner), $owner ]
+    )
+
     <div class="floating-div-container">
         <div class="show-container card floating-div">
 

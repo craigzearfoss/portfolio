@@ -128,7 +128,7 @@ class Project extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             })
             ->when(!empty($filters['year']), function ($query) use ($filters) {
-                $query->where($this->table . '.year', '=', intval(['year']));
+                $query->where($this->table . '.year', '=', intval($filters['year']));
             });
 
         $query = $this->appendStandardFilters($query, $filters);
