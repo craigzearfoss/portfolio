@@ -17,13 +17,13 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        @if($isRootAdmin)
+                    @if($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
 
                     <div class="floating-div">
                         <div class="search-form-control">
@@ -33,14 +33,8 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
-
-                    <div class="floating-div">
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.portfolio-audio-audio_type', [
-                                'owner_id'   => $owner_id,
-                                'audio_type' => $audio_type,
-                            ])
+                            @include('admin.components.search-panel.controls.portfolio-audio-audio_type', [ 'owner_id'   => $owner_id ])
                         </div>
                     </div>
 

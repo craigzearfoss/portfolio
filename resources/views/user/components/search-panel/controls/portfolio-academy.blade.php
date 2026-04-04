@@ -15,6 +15,6 @@
                           false,
                           [ 'name', 'asc' ]
                       ),
-        'style'    => 'min-width: 6rem;'
+        'style'    => 'width: 16rem;'
     ])
 </div>

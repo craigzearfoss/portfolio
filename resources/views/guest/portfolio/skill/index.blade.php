@@ -27,7 +27,11 @@
         @endif
     @endif
 
-    <div class="floating-div-container">
+    @include('guest.components.search-panel.portfolio-skill',
+        [ 'action' => route('guest.portfolio.skill.index', $owner), $owner ]
+    )
+
+    <div class="floating-div-container" style="max-width: 80em !important;">
         <div class="show-container card floating-div">
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">

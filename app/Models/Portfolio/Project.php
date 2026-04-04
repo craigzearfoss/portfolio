@@ -119,10 +119,16 @@ class Project extends Model
             })
             ->when(!empty($filters['repository']), function ($query) use ($filters) {
                 $repository = $filters['repository'];
-                $query->orWhere(function ($query) use ($repository) {
+                $query->where(function ($query) use ($repository) {
                     $query->where($this->table . '.repository_url', 'like', '%' . $repository . '%')
                         ->orWhere($this->table . '.repository_name', 'like', '%' . $repository . '%');
                 });
+            })
+            ->when(!empty($filters['repository_name']), function ($query) use ($filters) {
+                $query->where($this->table . '.repository_name', 'like', '%' . $filters['repository_name'] . '%');
+            })
+            ->when(!empty($filters['repository_url']), function ($query) use ($filters) {
+                $query->where($this->table . '.repository_url', 'like', '%' . $filters['repository_url'] . '%');
             })
             ->when(!empty($filters['summary']), function ($query) use ($filters) {
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');

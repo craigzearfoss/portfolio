@@ -2,6 +2,7 @@
 
 namespace App\Models\Dictionary;
 
+use App\Enums\EnvTypes;
 use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\Skill;
 use App\Models\Scopes\AdminPublicScope;
@@ -84,6 +85,90 @@ class Category extends Model
         parent::booted();
 
         static::addGlobalScope(new AdminPublicScope());
+    }
+
+    /**
+     * Returns an array of options for a dictionary section select list.
+     *
+     * @param array $filters
+     * @param string $valueColumn - id, name, slug, table, or route
+     * @param string $labelColumn
+     * @param bool $includeBlank
+     * @param bool $includeOther
+     * @param array $orderBy
+     * @param EnvTypes|null $envType
+     * @return array|string[]
+     */
+    public function listOptions(array         $filters = [],
+                                string        $valueColumn = 'id',
+                                string        $labelColumn = 'name',
+                                bool          $includeBlank = false,
+                                bool          $includeOther = false,
+                                array         $orderBy = [],
+                                EnvTypes|null $envType = EnvTypes::GUEST): array
+    {
+        if (!in_array($valueColumn, ['id', 'name', 'full_name', 'slug', 'route'])) {
+            return [];
+        }
+
+        $predefinedColumns = [];
+        $other = null;
+
+        // set the order by
+        $sortColumn = $orderBy[0] ?? self::SEARCH_ORDER_BY[0];
+        if (!in_array($sortColumn, $predefinedColumns)) {
+            $sortColumn = 'name';
+        }
+        $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
+
+        if ($includeBlank) {
+            $key = ($valueColumn == 'route') ? route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.category.index') : '';
+            $options = [ $key => '' ];
+        } else {
+            $options = [];
+        }
+
+        if ($includeBlank) {
+            $key = $valueColumn == 'route'
+                ? route((!empty($envType) ? $envType->value . '.' : '') . 'dictionary.category.index')
+                : '';
+            $options = [
+                $key => ''
+            ];
+        }
+
+        // create the query
+        $query = new Category()->select('id', 'name', 'full_name', 'slug')
+            ->orderBy($sortColumn, $sortDir);
+
+        // apply filters to the query
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, '=', $value);
+        }
+
+        foreach ($query->get() as $col => $dictionaryCategory) {
+
+            switch ($valueColumn) {
+                case 'id':
+                case 'name':
+                case 'full_name':
+                case 'slug':
+                    $key = $dictionaryCategory->{$valueColumn};
+                    break;
+                case 'route':
+                    $key = route((!empty($envType) ? $envType->value . '.' : '')
+                        . 'dictionary.' . $dictionaryCategory->slug . '.index');
+                    break;
+            }
+
+            if (!empty($key)) {
+                if (strtoupper($dictionaryCategory->{$labelColumn}) != 'OTHER') {
+                    $options[$key] = ucwords($dictionaryCategory->{$labelColumn});
+                }
+            }
+        }
+
+        return $options;
     }
 
     /**

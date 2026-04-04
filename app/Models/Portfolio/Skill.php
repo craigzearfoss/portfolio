@@ -68,14 +68,6 @@ class Skill extends Model
     ];
 
     /**
-     *
-     */
-    const array TYPE = [
-        0 => 'soft skill',
-        1 => 'hard skill',
-    ];
-
-    /**
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'name', 'version', 'featured', 'summary', 'type_id', 'level',
@@ -86,6 +78,30 @@ class Skill extends Model
      *
      */
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+
+    /**
+     *
+     */
+    const array TYPE = [
+        0 => 'soft skill',
+        1 => 'hard skill',
+    ];
+
+    /**
+     *
+     */
+    const array LEVELS = [
+        1 => '1 star',
+        2 => '2 stars',
+        3 => '3 stars',
+        4 => '4 stars',
+        5 => '5 stars',
+        6 => '6 stars',
+        7 => '7 stars',
+        8 => '8 stars',
+        9 => '9 stars',
+        10 => '10 stars',
+    ];
 
     /**
      * @return void
@@ -148,6 +164,15 @@ class Skill extends Model
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
+            ->when(!empty($filters['level']), function ($query) use ($filters) {
+                $query->where($this->table . '.level)', '=', intval($filters['level']));
+            })
+            ->when(!empty($filters['max_level']), function ($query) use ($filters) {
+                $query->where($this->table . '.level', '<=', intval($filters['max_level']));
+            })
+            ->when(!empty($filters['min_level']), function ($query) use ($filters) {
+                $query->where($this->table . '.level', '>=', intval($filters['min_level']));
+            })
             ->when(!empty($filters['start_year']), function ($query) use ($filters) {
                 $query->where($this->table . '.start_year', '=', intval($filters['start_year']));
             })
@@ -162,6 +187,9 @@ class Skill extends Model
             })
             ->when(!empty($filters['years']), function ($query) use ($filters) {
                 $query->where($this->table . '.years', '=', intval($filters['years']));
+            })
+            ->when(!empty($filters['min_years']), function ($query) use ($filters) {
+                $query->where($this->table . '.years', '>=', intval($filters['min_years']));
             });
 
         $query = $this->appendStandardFilters($query, $filters);

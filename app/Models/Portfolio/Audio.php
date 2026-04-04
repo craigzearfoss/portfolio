@@ -97,9 +97,9 @@ class Audio extends Model
      *
      */
     const array AUDIO_TYPES = [
-        'podcast',
-        'clip',
-        'source_recording',
+        'podcast'          => 'podcast',
+        'clip'             => 'clip'  ,
+        'source_recording' => 'source recording',
     ];
 
     /**

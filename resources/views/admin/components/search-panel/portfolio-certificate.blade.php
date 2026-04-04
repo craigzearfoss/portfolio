@@ -2,7 +2,9 @@
     use App\Models\System\Admin;
 
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $academy_id      = $academy_id ?? request()->query('academy_id');
     $name            = $name ?? request()->query('name');
+    $organization    = $organization ?? request()->query('organization');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
@@ -16,19 +18,32 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        @if($isRootAdmin)
+                    @if($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
 
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
                                 'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                    </div>
+
+                    <div class="floating-div">
+                        <div class="search-form-control">
+                            @include('admin.components.search-panel.controls.portfolio-academy', [ 'owner_' => $owner_id ])
+                        </div>
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'organization',
+                                'value'   => $organization,
                                 'message' => $message ?? '',
                             ])
                         </div>

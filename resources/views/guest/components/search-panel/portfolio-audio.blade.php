@@ -27,10 +27,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.portfolio-audio-audio_type', [
-                                'owner_id'   => $owner_id,
-                                'audio_type' => $audio_type,
-                            ])
+                            @include('guest.components.search-panel.controls.portfolio-audio-audio_type', [ 'owner_id'   => $owner_id ])
                         </div>
                     </div>
 

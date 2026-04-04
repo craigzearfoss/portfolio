@@ -116,6 +116,16 @@ class Application extends Model
     const array SEARCH_ORDER_BY = [ 'company_name', 'asc' ];
 
     /**
+     *
+     */
+    const array RATINGS = [
+        1 => '1 star',
+        2 => '2 stars',
+        3 => '3 stars',
+        4 => '4 stars',
+    ];
+
+    /**
      * @return void
      */
     protected static function booted(): void
@@ -351,7 +361,13 @@ class Application extends Model
                 $query->where($this->table . '.post_date', '<=', $filters['posted_to']);
             })
             ->when(!empty($filters['rating']), function ($query) use ($filters) {
-                $query->where($this->table . '.rating', '=', intval($filters['rating']));
+                $query->where($this->table . '.rating)', '=', intval($filters['rating']));
+            })
+            ->when(!empty($filters['max_rating']), function ($query) use ($filters) {
+                $query->where($this->table . '.rating', '<=', intval($filters['max_rating']));
+            })
+            ->when(!empty($filters['min_rating']), function ($query) use ($filters) {
+                $query->where($this->table . '.rating', '>=', intval($filters['min_rating']));
             })
             ->when(!empty($filters['relocation']), function ($query) use ($filters) {
                 $query->where($this->table . '.relocation', '=', true);

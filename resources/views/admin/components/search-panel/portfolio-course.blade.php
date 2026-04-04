@@ -18,13 +18,13 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        @if($isRootAdmin)
+                    @if($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
 
                     <div class="floating-div">
                         <div class="search-form-control">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                    <div class="floating-div" style="display: none;">
+                    <div class="floating-div">
                         @include('admin.components.search-panel.controls.timestamp-created-at', [
                             'created_at_from' => $created_at_from,
                             'created_at_to'   => $created_at_to,

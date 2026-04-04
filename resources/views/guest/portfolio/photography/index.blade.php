@@ -27,7 +27,11 @@
         @endif
     @endif
 
-    <div class="floating-div-container">
+    @include('guest.components.search-panel.portfolio-photography',
+        [ 'action' => route('guest.portfolio.photography.index', $owner), $owner ]
+    )
+
+    <div class="floating-div-container" style="max-width: 50em !important;">
         <div class="show-container card floating-div">
 
             @if($pagination_top)

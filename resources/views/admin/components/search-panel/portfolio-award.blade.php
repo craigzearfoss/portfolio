@@ -50,8 +50,6 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
-                    <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'organization',

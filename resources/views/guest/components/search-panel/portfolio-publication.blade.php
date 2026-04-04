@@ -5,8 +5,6 @@
     $publication_name = $publication_name ?? request()->query('publication_name');
     $publisher        = $publisher ?? request()->query('publisher');
     $search_title     = $search_title ?? request()->query('search_title');
-    $created_at_from  = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to    = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -38,6 +36,9 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+                    </div>
+
+                    <div class="floating-div">
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
                                 'name'    => 'publisher',
@@ -45,13 +46,6 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
-
-                    <div class="floating-div">
-                        @include('guest.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
                     </div>
 
                 </div>

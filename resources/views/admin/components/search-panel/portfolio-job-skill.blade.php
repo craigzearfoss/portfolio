@@ -2,7 +2,7 @@
     use App\Models\System\Admin;
 
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $company         = $company ?? request()->query('company_name');
+    $company         = $company ?? request()->query('company');
     $job_id          = $job_id ?? request()->query('job_id');
     $name            = $name ?? request()->query('name');
     $role            = $role ?? request()->query('role');
@@ -19,13 +19,13 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        @if($isRootAdmin)
-                            <div class="search-form-control">
-                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        @endif
-                    </div>
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                                <div class="search-form-control">
+                                    @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
+                                </div>
+                        </div>
+                    @endif
 
                     <div class="floating-div">
                         <div class="search-form-control">

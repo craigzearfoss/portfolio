@@ -4,16 +4,16 @@
 
     $types = [ '' => '' ];
 
-    foreach (Audio::AUDIO_TYPES as $type) {
-        $types[$type] = $type;
+    foreach (Audio::AUDIO_TYPES as $type=>$label) {
+        $types[$type] = $label;
     }
 @endphp
-<div class="control" style="max-width: 28rem;">
+<div class="control" style="max-width: 30rem;">
     @include('admin.components.form-select', [
         'name'     => 'audio_type',
         'label'    => 'type',
         'value'    => $audio_type,
         'list'     => $types,
-        'style'    => 'width: 8rem;'
+        'style'    => 'width: 10rem;'
     ])
 </div>

@@ -54,6 +54,7 @@
                             <th>owner</th>
                         @endif
                         <th>name</th>
+                        <th>url</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -68,6 +69,7 @@
                             <th>owner</th>
                         @endif
                         <th>name</th>
+                        <th>url</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -79,7 +81,7 @@
 
                 @forelse ($links as $link)
 
-                    <tr data-id="{{ $link->id }}">
+                    <td data-id="{{ $link->id }}">
                         @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $link->owner->username ?? '' }}
@@ -87,6 +89,13 @@
                         @endif
                         <td data-field="name">
                             {!! $link->name !!}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
+                        </td>
+                        <td>
+                            @include('guest.components.link', [
+                                'name'   => $link->url,
+                                'href'   => $link->url,
+                                'target' => '_blank',
+                            ])
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $link->is_public ])
@@ -165,7 +174,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '5' : '4' }}">No links found.</td>
+                        <td colspan="{{ $admin->is_root ? '6' : '5' }}">No links found.</td>
                     </tr>
 
                 @endforelse
