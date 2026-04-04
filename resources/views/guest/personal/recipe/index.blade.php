@@ -21,13 +21,15 @@
 
 @section('content')
 
+    @include('guest.components.search-panel.personal-recipe', [ 'owner_id' => $owner->id ?? null ])
+
     @if($owner->is_demo)
         @if($disclaimerMessage = config('app.demo_disclaimer'))
             @include('guest.components.disclaimer', [ 'value' => $disclaimerMessage ])
         @endif
     @endif
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 70em !important;">
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -42,6 +44,7 @@
                         <th>name</th>
                         <th>type</th>
                         <th class="hide-at-600">meal</th>
+                        <th class="hide-at-750">author</th>
                     </tr>
                     </thead>
                 @endif
@@ -52,6 +55,7 @@
                         <th>name</th>
                         <th>type</th>
                         <th class="hide-at-600">meal</th>
+                        <th class="hide-at-750">author</th>
                     </tr>
                     </tfoot>
                 @endif
@@ -74,12 +78,15 @@
                         <td data-field="meals" class="hide-at-600">
                             {{ implode(', ', $recipe->meals()) }}
                         </td>
+                        <td data-field="author" class="hide-at-750">
+                            {{ $recipe->author }}
+                        </td>
                     </tr>
 
                 @empty
 
                     <tr>
-                        <td colspan="3">No recipes found.</td>
+                        <td colspan="4">No recipes found.</td>
                     </tr>
 
                 @endforelse

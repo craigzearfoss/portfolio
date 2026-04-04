@@ -32,7 +32,7 @@
 
     @include('admin.components.search-panel.personal-recipe', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container">
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -52,6 +52,7 @@
                         <th>name</th>
                         <th>type</th>
                         <th>meal</th>
+                        <th>author</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -68,6 +69,7 @@
                         <th>name</th>
                         <th>type</th>
                         <th>meal</th>
+                        <th>author</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -93,6 +95,9 @@
                         </td>
                         <td data-field="meals">
                             {!! implode(', ', $recipe->meals()) !!}
+                        </td>
+                        <td data-field="author" class="hide-at-750">
+                            {{ $recipe->author }}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $recipe->is_public ])
@@ -157,7 +162,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $admin->is_root ? '7' : '6' }}">No recipes found.</td>
+                        <td colspan="{{ $admin->is_root ? '8' : '7' }}">No recipes found.</td>
                     </tr>
 
                 @endforelse
