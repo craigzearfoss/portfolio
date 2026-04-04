@@ -1,14 +1,13 @@
 @php
+    use App\Models\Personal\Recipe;
+
     $type = $type ?? request()->query('type');
 
-    $types = [
-        ''          => '',
-        'appetizer' => 'appetizer',
-        'beverage'  => 'beverage',
-        'dessert'   => 'dessert',
-        'main'      => 'main',
-        'side'      => 'side',
-    ];
+    $types = [ '' => '' ];
+
+    foreach (Recipe::TYPES as $key=>$value) {
+        $types[$key] = $value;
+    }
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('user.components.form-select', [

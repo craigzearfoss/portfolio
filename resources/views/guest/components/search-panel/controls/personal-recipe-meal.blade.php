@@ -1,13 +1,13 @@
 @php
-    $meal           = $meal ?? request()->query('meal');
+    use App\Models\Personal\Recipe;
 
-    $meals = [
-        '' => '',
-        'breakfast' => 'breakfast',
-        'dinner'    => 'dinner',
-        'lunch'     => 'lunch',
-        'snack'     => 'snack',
-    ];
+    $meal = $meal ?? request()->query('meal');
+
+    $meals = [ '' => '' ];
+
+    foreach (Recipe::MEALS as $key=>$value) {
+        $meals[$key] = $value;
+    }
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('guest.components.form-select', [
