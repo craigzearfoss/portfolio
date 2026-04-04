@@ -29,7 +29,7 @@
         ]
     )
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 40em !important;">
         <div class="show-container card floating-div">
 
             @if($pagination_top)

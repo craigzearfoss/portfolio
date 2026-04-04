@@ -28,7 +28,7 @@
         [ 'action' => route('admin.portfolio.school.index') ]
     )
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 60em !important;">
         <div class="show-container card floating-div">
 
             @if($pagination_top)

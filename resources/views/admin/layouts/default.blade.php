@@ -29,7 +29,7 @@
         <?php /* For social media share links (@TODO: is this really needed?) */?>
         <?php /*
         @if((Route::currentRouteName() == 'guest.index') && !config('app.single_admin_mode'))
-            @include('guest.components.share-links', [ 'preview_image' => 'default.png' ])
+            @include('admin.components.share-links', [ 'preview_image' => 'default.png' ])
         @endif
         */ ?>
 
@@ -89,7 +89,7 @@
 
         <?php /* Social media share links */ ?>
         <?php /*
-        @include('guest.components.social-media-share-links', [ 'page' => url()->current() ])
+        @include('admin.components.social-media-share-links', [ 'page' => url()->current() ])
 	*/ ?>
 
         @include('admin.components.footer')

@@ -36,7 +36,7 @@
         ]
     )
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 70em !important;">
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -81,7 +81,7 @@
 
                 @forelse ($links as $link)
 
-                    <td data-id="{{ $link->id }}">
+                    <tr data-id="{{ $link->id }}">
                         @if($admin->is_root)
                             <td data-field="owner.username" style="white-space: nowrap;">
                                 {{ $link->owner->username ?? '' }}
@@ -91,7 +91,7 @@
                             {!! $link->name !!}{!! !empty($link->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td>
-                            @include('guest.components.link', [
+                            @include('admin.components.link', [
                                 'name'   => $link->url,
                                 'href'   => $link->url,
                                 'target' => '_blank',

@@ -42,7 +42,7 @@
 
     <p class="admin-table-caption">* An asterisk indicates a featured photo.</p>
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 60em !important;">
         <div class="show-container card floating-div">
 
             @if($pagination_top)
