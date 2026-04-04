@@ -203,8 +203,8 @@ trait SearchableModelTrait
         }
 
         if ($envType == EnvTypes::GUEST) {
-            $query->where('is_public', true)
-                ->where('is_disabled', false);
+            $query->where($this->table . '.is_public', true)
+                ->where($this->table . '.is_disabled', false);
         }
         $ids = $query->get()->pluck('id')->toArray();
         if (false !== $key = array_search($id, $ids)) {
