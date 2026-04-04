@@ -34,11 +34,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.portfolio-photography',
-        [ 'action'     => route('admin.portfolio.photography.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.portfolio-photography', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <p class="admin-table-caption">* An asterisk indicates a featured photo.</p>
 

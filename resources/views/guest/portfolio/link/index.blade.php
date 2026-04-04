@@ -27,9 +27,7 @@
         @endif
     @endif
 
-    @include('guest.components.search-panel.portfolio-link',
-        [ 'action' => route('guest.portfolio.link.index', $owner), $owner ]
-    )
+    @include('guest.components.search-panel.portfolio-link', [ 'owner_id' => $owner->id ?? null ])
 
     <div class="floating-div-container" style="max-width: 60em !important;">
         <div class="show-container card floating-div">

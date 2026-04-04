@@ -1,11 +1,12 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id   = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $audio_type = $audio_type ?? request()->query('audio_type');
-    $name       = $name ?? request()->query('name');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $audio_type      = $audio_type ?? request()->query('audio_type');
+    $name            = $name ?? request()->query('name');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -34,7 +35,7 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.portfolio-audio-audio_type', [ 'owner_id'   => $owner_id ])
+                            @include('admin.components.search-panel.controls.portfolio-audio-audio_type', [ 'owner_id' => $owner_id ])
                         </div>
                     </div>
 

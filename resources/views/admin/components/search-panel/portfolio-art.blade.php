@@ -1,11 +1,12 @@
 @php
     use App\Models\System\Admin;
 
+    $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $name            = $name ?? request()->query('name');
     $artist          = $artist ?? request()->query('artist');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
 @endphp
 <div class="mb-2" style="display: flex;">
 

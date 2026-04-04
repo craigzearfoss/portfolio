@@ -35,11 +35,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.personal-recipe-step',
-        [ 'action'     => route('admin.personal.recipe-step.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.personal-recipe-step', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container" style="max-width: 80em !important;">
         <div class="show-container card floating-div">

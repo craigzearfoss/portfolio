@@ -30,11 +30,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.portfolio-publication',
-        [ 'action'     => route('admin.portfolio.publication.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.portfolio-publication', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container" style="max-width: 80em !important;">
         <div class="show-container card floating-div">

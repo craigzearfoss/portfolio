@@ -2,7 +2,8 @@
     use App\Models\Dictionary\Category;
     use App\Models\System\Admin;
 
-    $owner_id                = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action                  = $action ?? url()->current();
+    $owner_id                = $owner->id ?? -1;
     $name                    = $name ?? request()->query('name');
     $dictionary_category_id  = $dictionary_category_id ?? request()->query('dictionary_category_id');
     $level                   = $level ?? request()->query('level');

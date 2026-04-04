@@ -24,11 +24,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.career-cover-letter',
-        [ 'action'     => route('admin.career.cover-letter.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.career-cover-letter', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

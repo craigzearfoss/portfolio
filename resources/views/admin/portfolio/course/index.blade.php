@@ -35,11 +35,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.portfolio-course',
-        [ 'action'     => route('admin.portfolio.course.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.portfolio-course', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

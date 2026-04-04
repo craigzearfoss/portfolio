@@ -1,6 +1,7 @@
 @php
     use App\Models\System\Admin;
 
+    $action     = $action ?? url()->current();
     $owner_id   = $owner->id ?? -1;
     $academy_id = $academy_id ?? request()->query('academy_id');
     $instructor = $instructor ?? request()->query('instructor');

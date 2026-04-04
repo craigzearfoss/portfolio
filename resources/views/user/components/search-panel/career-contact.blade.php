@@ -2,7 +2,8 @@
     //@TODO: Need to add joins for company_ids to be searched.
     use App\Models\System\Admin;
 
-    $owner_id    = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action      = $action ?? url()->current();
+    $owner_id    = $owner->id ?? -1;
     $city        = $city ?? request()->query('city');
     $company_id  = $city ?? request()->query('company_id');
     $email       = $email ?? request()->query('email');

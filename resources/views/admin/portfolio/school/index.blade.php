@@ -24,9 +24,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.portfolio-school',
-        [ 'action' => route('admin.portfolio.school.index') ]
-    )
+    @include('admin.components.search-panel.portfolio-school')
 
     <div class="floating-div-container" style="max-width: 60em !important;">
         <div class="show-container card floating-div">

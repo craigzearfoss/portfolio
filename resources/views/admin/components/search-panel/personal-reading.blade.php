@@ -2,6 +2,7 @@
     use App\Models\Personal\Reading;
     use App\Models\System\Admin;
 
+    $action             = $action ?? url()->current();
     $owner_id           = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $audio              = $audio ?? request()->query('audio');
     $author             = $author ?? request()->query('author');

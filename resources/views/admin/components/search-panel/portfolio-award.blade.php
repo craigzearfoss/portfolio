@@ -1,13 +1,14 @@
 @php
     use App\Models\System\Admin;
 
+    $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $category        = $category ?? request()->query('category');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $name            = $name ?? request()->query('name');
     $nominated_work  = $nominated_work ?? request()->query('nominated_work');
     $organization    = $organization ?? request()->query('organization');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 

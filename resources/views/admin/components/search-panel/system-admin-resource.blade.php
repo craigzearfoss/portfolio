@@ -3,6 +3,7 @@
     use App\Models\System\Database;
     use App\Models\System\Resource;
 
+    $action      = $action ?? url()->current();
     $owner_id    = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $database_id = $database_id ?? request()->query('database_id');
     $name        = $name ?? request()->query('name');

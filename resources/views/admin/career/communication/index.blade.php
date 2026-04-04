@@ -2,7 +2,7 @@
     use App\Enums\PermissionEntityTypes;
     use App\Models\Career\Application;use App\Models\Career\Communication;
 
-    $title    = $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : '');
+    $title    = $pageTitle ?? 'Communications' . (!empty($application) ? ' for ' . $application['name'] . ' application' : '');
     $subtitle = $title;
 
     // set breadcrumbs
@@ -35,11 +35,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.career-communication',
-        [ 'action'     => route('admin.career.communication.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.career-communication', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

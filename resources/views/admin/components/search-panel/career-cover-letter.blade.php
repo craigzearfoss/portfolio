@@ -1,6 +1,7 @@
 @php
     use App\Models\System\Admin;
 
+    $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $name            = $name ?? request()->query('name');
     $company_id      = $company_id ?? request()->query('company_id');

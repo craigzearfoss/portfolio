@@ -2,7 +2,8 @@
     use App\Models\System\Admin;
     use App\Models\System\Resource;
 
-    $owner_id    = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action      = $action ?? url()->current();
+    $owner_id    = $owner->id ?? -1;
     $database_id = $database_id ?? request()->query('database_id');
     $name        = $name ?? request()->query('name');
 @endphp

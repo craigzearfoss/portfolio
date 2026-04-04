@@ -1,6 +1,7 @@
 @php
     use App\Models\System\Admin;
 
+    $action   = $action ?? url()->current();
     $name     = $name ?? request()->query('name');
     $city     = $city ?? request()->query('city');
     $state_id = $state_id ?? request()->query('state_id');

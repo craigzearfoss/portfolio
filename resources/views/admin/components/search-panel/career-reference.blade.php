@@ -1,6 +1,7 @@
 @php
     use App\Models\System\Admin;
 
+    $action      = $action ?? url()->current();
     $owner_id    = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $city        = $city ?? request()->query('city');
     $email       = $email ?? request()->query('email');

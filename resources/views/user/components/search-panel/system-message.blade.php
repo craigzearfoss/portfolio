@@ -1,6 +1,7 @@
 @php
     use App\Models\System\Admin;
 
+    $action          = $action ?? url()->current();
     $name            = $name ?? request()->query('name');
     $email           = $email ?? request()->query('email');
     $subject         = $subject ?? request()->query('subject');

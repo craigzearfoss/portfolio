@@ -30,11 +30,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.portfolio-job',
-        [ 'action'     => route('admin.portfolio.job.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.portfolio-job', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     @if(!empty($resource->settings))
 

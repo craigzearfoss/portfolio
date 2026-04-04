@@ -1,6 +1,7 @@
 @php
     use App\Models\System\User;
 
+    $action  = $action ?? url()->current();
     $user_id = $user_id ?? $user->id ?? null;
 @endphp
 <div class="mb-2" style="display: flex;">

@@ -39,7 +39,7 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.system-owner', [ 'action' => route('admin.system.admin.index') ])
+        @include('admin.components.search-panel.system-owner')
     @endif
 
     <div class="floating-div-container">

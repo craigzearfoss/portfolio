@@ -1,13 +1,14 @@
 @php
     use App\Models\System\Admin;
 
+    $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $company         = $company ?? request()->query('company');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $job_id          = $job_id ?? request()->query('job_id');
     $name            = $name ?? request()->query('name');
     $role            = $role ?? request()->query('role');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 

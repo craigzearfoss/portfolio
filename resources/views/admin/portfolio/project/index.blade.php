@@ -29,11 +29,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.portfolio-project',
-        [ 'action'     => route('admin.portfolio.project.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.portfolio-project', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container" style="max-width: 80em !important;">
         <div class="show-container card floating-div">

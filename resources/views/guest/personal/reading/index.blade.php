@@ -29,11 +29,7 @@
         @endif
     @endif
 
-    @include('guest.components.search-panel.personal-reading',
-        [ 'action'     => route('guest.personal.reading.index', $owner),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('guest.components.search-panel.personal-reading', [ 'owner_id' => $owner->id ?? null ])
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

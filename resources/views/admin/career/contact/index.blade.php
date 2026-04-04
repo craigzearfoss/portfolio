@@ -30,11 +30,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.career-contact',
-        [ 'action'     => route('admin.career.contact.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.career-contact', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

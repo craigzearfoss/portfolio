@@ -1,7 +1,8 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id               = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action                 = $action ?? url()->current();
+    $owner_id               = $owner->id ?? -1;
     if (!isset($active)) {
         $active = request()->query('active');
         if (is_null($active)) {
@@ -10,11 +11,13 @@
     }
     $admin_database_id      = $admin_database_id ?? request()->query('company_id');
     $apply_date             = $apply_date ?? request()->query('apply_date');
-    $apply_from             = $apply_from ?? request()->query('apply_from');
-    $apply_to               = $apply_to ?? request()->query('apply_to');
+    $applied_from           = $applied_from ?? request()->query('applied_from');
+    $applied_to             = $applied_to ?? request()->query('applied_to');
     $benefits               = $benefits ?? request()->query('benefits');
     $city                   = $city ?? request()->query('city');
     $close_date             = $close_date ?? request()->query('close_date');
+    $closed_from            = $closed_from ?? request()->query('closed_from');
+    $closed_to              = $closed_to ?? request()->query('closed_to');
     $company_id             = $company_id ?? request()->query('company_id');
     $company_name           = $company_name ?? request()->query('company_name');
     $health                 = $health ?? request()->query('health');
@@ -23,8 +26,8 @@
     $job_employment_type_id = $job_employment_type_id ?? request('job_employment_type_id');
     $job_location_type_id   = $job_location_type_id ?? request('job_location_type_id');
     $post_date              = $post_date ?? request()->query('post_date');
-    $post_from              = $post_from ?? request()->query('post_from');
-    $post_to                = $post_to ?? request()->query('post_to');
+    $posted_from            = $posted_from ?? request()->query('posted_from');
+    $posted_to              = $posted_to ?? request()->query('posted_to');
     $rating                 = $rating ?? request()->query('rating');
     $relocation             = $relocation ?? request()->query('relocation');
     $resume_id              = $resume_id ?? request()->query('resume_id');
@@ -119,11 +122,11 @@
                         @include('guest.components.search-panel.controls.career-application-apply-date', [
                             'applied_from' => $applied_from,
                             'applied_to'   => $applied_to,
-                         ])
+                        ])
                         @include('guest.components.search-panel.controls.career-application-post-date', [
                             'posted_from' => $posted_from,
                             'posted_to'   => $posted_to,
-                         ])
+                        ])
                         <div style="display: none;">
                             @include('guest.components.search-panel.controls.career-application-close-date', [
                                 'closed_from' => $closed_from,

@@ -25,10 +25,7 @@
 @section('content')
 
     @if($isRootAdmin)
-        @include('admin.components.search-panel.system-admin-resource', [ 'action'            => route('admin.system.admin-resource.index'),
-                                                                          'owner_id'          => $owner->id ?? null,
-                                                                          'admin_database_id' => request()->query('admin_database_id'),
-                                                                        ])
+        @include('admin.components.search-panel.system-admin-resource', [ 'owner_id' => $owner->id ?? null])
     @endif
 
     <div class="floating-div-container">

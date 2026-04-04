@@ -30,11 +30,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.portfolio-video',
-        [ 'action'     => route('admin.portfolio.video.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-        ]
-    )
+    @include('admin.components.search-panel.portfolio-video', [ 'owner_id'   => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container" style="max-width: 60em !important;">
         <div class="show-container card floating-div">

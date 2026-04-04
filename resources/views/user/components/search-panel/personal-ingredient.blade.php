@@ -1,5 +1,6 @@
 @php
-    $name = $name ?? request()->query('name');
+    $action = $action ?? url()->current();
+    $name   = $name ?? request()->query('name');
 @endphp
 <div class="mb-2" style="display: flex;">
 

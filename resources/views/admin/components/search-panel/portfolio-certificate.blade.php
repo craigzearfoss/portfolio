@@ -1,12 +1,13 @@
 @php
     use App\Models\System\Admin;
 
+    $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $academy_id      = $academy_id ?? request()->query('academy_id');
-    $name            = $name ?? request()->query('name');
-    $organization    = $organization ?? request()->query('organization');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
+    $organization    = $organization ?? request()->query('organization');
 @endphp
 <div class="mb-2" style="display: flex;">
 

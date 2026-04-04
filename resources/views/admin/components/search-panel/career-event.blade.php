@@ -2,6 +2,7 @@
     use App\Models\Career\Application;
     use App\Models\System\Admin;
 
+    $action           = $action ?? url()->current();
     $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $application_id   = $application_id ?? request()->query('application_id');
     $application_name = $application_name ?? request()->query('application_name');

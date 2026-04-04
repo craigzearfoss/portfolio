@@ -1,7 +1,8 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id       = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action         = $action ?? url()->current();
+    $owner_id       = $owner->id ?? -1;
     $category       = $category ?? request()->query('category');
     $name           = $name ?? request()->query('name');
     $nominated_work = $nominated_work ?? request()->query('nominated_work');

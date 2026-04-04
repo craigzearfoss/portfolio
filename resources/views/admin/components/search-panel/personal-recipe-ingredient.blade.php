@@ -2,6 +2,7 @@
     use App\Models\Personal\Recipe;
     use App\Models\System\Admin;
 
+    $action    = $action ?? url()->current();
     $owner_id  = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $recipe_id = $recipe_id ?? request()->query('recipe_id');
 @endphp

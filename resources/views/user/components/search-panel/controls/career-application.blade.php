@@ -5,7 +5,7 @@
     $application_id  = $application_id ?? request()->query('application_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
-    @include('admin.components.form-select', [
+    @include('user.components.form-select', [
         'name'     => 'application_id',
         'label'    => 'application',
         'value'    => $application_id,

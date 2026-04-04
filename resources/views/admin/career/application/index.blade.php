@@ -31,12 +31,7 @@
 
 @section('content')
 
-    @include('admin.components.search-panel.career-application',
-        [ 'action'     => route('admin.career.application.index'),
-          'owner_id'   => $isRootAdmin ? null : $owner->id,
-          'company_id' => request()->query('admin_database_id'),
-        ]
-    )
+    @include('admin.components.search-panel.career-application', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container">
         <div class="show-container card floating-div">

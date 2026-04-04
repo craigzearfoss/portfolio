@@ -1,7 +1,8 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action     = $action ?? url()->current();
+    $owner_id   = $owner->id ?? -1;
     $publication_name = $publication_name ?? request()->query('publication_name');
     $publisher        = $publisher ?? request()->query('publisher');
     $search_title     = $search_title ?? request()->query('search_title');

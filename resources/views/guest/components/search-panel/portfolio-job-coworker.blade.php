@@ -1,9 +1,8 @@
 @php
     use App\Models\System\Admin;
 
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
     $company         = $company ?? request()->query('company');
     $name            = $name ?? request()->query('name');
     $role            = $role ?? request()->query('role');
@@ -33,13 +32,6 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
-
-                    <div class="floating-div">
-                        @include('guest.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
                     </div>
 
                 </div>

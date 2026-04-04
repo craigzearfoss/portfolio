@@ -1,6 +1,7 @@
 @php
     use App\Models\Career\JobBoard;
 
+    $action        = $action ?? url()->current();
     $name          = $name ?? request()->query('name');
     $coverage_area = $coverage_area ?? request()->query('coverage_area');
 @endphp
