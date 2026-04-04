@@ -3,12 +3,10 @@
 
     $action          = $action ?? url()->current();
     $owner_id        = $owner->id ?? -1;
-    $name            = $name ?? request()->query('name');
-    $company_id      = $company_id ?? request()->query('company_id');
-    $company_name    = $company_name ?? request()->query('company_name');
     $content         = $content ?? request()->query('content');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
     $description     = $description ?? request()->query('description');
     $notes           = $notes ?? request()->query('notes');
 @endphp

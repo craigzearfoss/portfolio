@@ -2,14 +2,14 @@
     //@TODO: Need to add joins for company_ids to be searched.
     use App\Models\System\Admin;
 
-    $action      = $action ?? url()->current();
-    $owner_id    = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $city        = $city ?? request()->query('city');
-    $company_id  = $city ?? request()->query('company_id');
-    $email       = $email ?? request()->query('email');
-    $name        = $name ?? request()->query('name');
-    $phone       = $phone ?? request()->query('phone');
-    $state_id    = $state_id ?? request()->query('state_id');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $city            = $city ?? request()->query('city');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $email           = $email ?? request()->query('email');
+    $name            = $name ?? request()->query('name');
+    $phone           = $phone ?? request()->query('phone');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -40,7 +40,7 @@
                         <?php /*
                         @TODO: Need to add joins for company_ids to be searched.
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-company', [ 'company_id' => $company_id ])
+                            @include('admin.components.search-panel.controls.career-company')
                         </div>
                         */ ?>
                     </div>
@@ -71,8 +71,15 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
+                            @include('admin.components.search-panel.controls.system-state')
                         </div>
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

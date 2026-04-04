@@ -1,41 +1,18 @@
 @php
     use App\Models\System\Admin;
 
-    $action                 = $action ?? url()->current();
-    $owner_id               = $owner->id ?? -1;
-    if (!isset($active)) {
-        $active = request()->query('active');
-        if (is_null($active)) {
-            $active = 3;
-        }
-    }
-    $admin_database_id      = $admin_database_id ?? request()->query('company_id');
-    $apply_date             = $apply_date ?? request()->query('apply_date');
-    $applied_from           = $applied_from ?? request()->query('applied_from');
-    $applied_to             = $applied_to ?? request()->query('applied_to');
-    $benefits               = $benefits ?? request()->query('benefits');
-    $city                   = $city ?? request()->query('city');
-    $close_date             = $close_date ?? request()->query('close_date');
-    $closed_from            = $closed_from ?? request()->query('closed_from');
-    $closed_to              = $closed_to ?? request()->query('closed_to');
-    $company_id             = $company_id ?? request()->query('company_id');
-    $company_name           = $company_name ?? request()->query('company_name');
-    $health                 = $health ?? request()->query('health');
-    $job_board_id           = $job_board_id ?? request()->query('job_board_id');
-    $job_duration_type_id   = $job_duration_type_id ?? request('job_duration_type_id');
-    $job_employment_type_id = $job_employment_type_id ?? request('job_employment_type_id');
-    $job_location_type_id   = $job_location_type_id ?? request('job_location_type_id');
-    $post_date              = $post_date ?? request()->query('post_date');
-    $posted_from            = $posted_from ?? request()->query('posted_from');
-    $posted_to              = $posted_to ?? request()->query('posted_to');
-    $rating                 = $rating ?? request()->query('rating');
-    $relocation             = $relocation ?? request()->query('relocation');
-    $resume_id              = $resume_id ?? request()->query('resume_id');
-    $resume_name            = $resume_name ?? request()->query('resume_name');
-    $role                   = $role ?? request()->query('role');
-    $state_id               = $state_id ?? request()->query('state_id');
-    $vacation               = $vacation ?? request()->query('vacation');
-    $w2                     = $w2 ?? request()->query('w2');
+    $action       = $action ?? url()->current();
+    $owner_id     = $owner->id ?? -1;
+    $applied_from = $applied_from ?? request()->query('applied_from');
+    $applied_to   = $applied_to ?? request()->query('applied_to');
+    $city         = $city ?? request()->query('city');
+    $closed_from  = $closed_from ?? request()->query('closed_from');
+    $closed_to    = $closed_to ?? request()->query('closed_to');
+    $company_name = $company_name ?? request()->query('company_name');
+    $posted_from  = $posted_from ?? request()->query('posted_from');
+    $posted_to    = $posted_to ?? request()->query('posted_to');
+    $resume_name  = $resume_name ?? request()->query('resume_name');
+    $role         = $role ?? request()->query('role');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -49,10 +26,10 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-active', [ 'active' => $active ])
+                            @include('user.components.search-panel.controls.career-application-status')
                         </div>
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-application-rating', [ 'rating' => $rating ])
+                            @include('user.components.search-panel.controls.career-application-rating')
                         </div>
                     </div>
 

@@ -2,8 +2,10 @@
     use App\Models\Personal\Recipe;
     use App\Models\System\Admin;
 
-    $action   = $action ?? url()->current();
-    $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -26,14 +28,22 @@
                         @if(!empty($owner))
 
                             @php
-                                $recipes = new Recipe()->listOptions([ 'owner_id' => $owner->id ], 'id', 'name', true, false, [ 'name', 'asc' ]);
+                                $recipes = new Recipe()->listOptions(
+                                    [ 'owner_id' => $owner->id ],
+                                    'id',
+                                    'name',
+                                    true,
+                                    false,
+                                    [ 'name', 'asc' ]
+                                );
+
                                 $recipeId = Request::get('recipe_id');
                                 if (!array_key_exists($recipeId, $recipes)) {
                                     $recipeId = null;
                                 }
                             @endphp
 
-                                <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
+                            <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
                             @if(count($recipes) > 1)
                                 <div class="control">
                                     @include('admin.components.form-select', [
@@ -46,6 +56,13 @@
                             @endif
                         @endif
 
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

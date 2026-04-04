@@ -4,9 +4,7 @@
     $action      = $action ?? url()->current();
     $owner_id    = $owner->id ?? -1;
     $city        = $city ?? request()->query('city');
-    $industry_id = $industry_id ?? request()->query('industry_id');
     $name        = $name ?? request()->query('name');
-    $state_id    = $state_id ?? request()->query('state_id');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -27,7 +25,7 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-industry', [ 'industry_id' => $industry_id ])
+                            @include('guest.components.search-panel.controls.career-industry')
                         </div>
                     </div>
 
@@ -40,7 +38,7 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
+                            @include('guest.components.search-panel.controls.system-state')
                         </div>
                     </div>
 

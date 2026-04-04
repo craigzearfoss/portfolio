@@ -1,14 +1,14 @@
 @php
     use App\Models\System\Admin;
 
-    $action     = $action ?? url()->current();
-    $owner_id   = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $author     = $author ?? request()->query('author');
-    $meal       = $meal ?? request()->query('meal');
-    $name       = $name ?? request()->query('name');
-    $prep_time  = $prep_time ?? request()->query('prep_time');
-    $total_time = $total_time ?? request()->query('total_time');
-    $type       = $type ?? request()->query('type');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $author          = $author ?? request()->query('author');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $name            = $name ?? request()->query('name');
+    $prep_time       = $prep_time ?? request()->query('prep_time');
+    $total_time      = $total_time ?? request()->query('total_time');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -44,10 +44,10 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.personal-recipe-type', [ 'type' => $type ])
+                            @include('admin.components.search-panel.controls.personal-recipe-type')
                         </div>
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.personal-recipe-meal', [ 'meal' => $meal ])
+                            @include('admin.components.search-panel.controls.personal-recipe-meal')
                         </div>
                     </div>
 
@@ -70,6 +70,13 @@
                                 'style'   => 'width: 5rem;',
                             ])
                         </div>
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

@@ -6,8 +6,6 @@
     $email           = $email ?? request()->query('email');
     $subject         = $subject ?? request()->query('subject');
     $body            = $body ?? request()->query('body');
-    $created_at_from = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -51,13 +49,6 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
-
-                    <div class="floating-div">
-                        @include('guest.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
                     </div>
 
                 </div>

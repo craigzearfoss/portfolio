@@ -3,7 +3,6 @@
 
     $action        = $action ?? url()->current();
     $name          = $name ?? request()->query('name');
-    $coverage_area = $coverage_area ?? request()->query('coverage_area');
 @endphp
 <div class="mb-2" style="display: flex;">
 

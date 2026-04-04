@@ -1,14 +1,12 @@
 @php
     use App\Models\System\Admin;
 
-    $action      = $action ?? url()->current();
-    $owner_id    = $owner->id ?? -1;
-    $city        = $city ?? request()->query('city');
-    $email       = $email ?? request()->query('email');
-    $name        = $name ?? request()->query('name');
-    $phone       = $phone ?? request()->query('phone');
-    $relation    = $relation ?? request()->query('relation');
-    $state_id    = $state_id ?? request()->query('state_id');
+    $action   = $action ?? url()->current();
+    $owner_id = $owner->id ?? -1;
+    $city     = $city ?? request()->query('city');
+    $email    = $email ?? request()->query('email');
+    $name     = $name ?? request()->query('name');
+    $phone    = $phone ?? request()->query('phone');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -59,7 +57,7 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
+                            @include('guest.components.search-panel.controls.system-state')
                         </div>
                     </div>
 

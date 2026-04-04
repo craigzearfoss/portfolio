@@ -1,13 +1,11 @@
 @php
-    use App\Models\Dictionary\Category;
-    use App\Models\System\Admin;
+    use App\Models\Career\JobBoard;
 
     $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $name            = $name ?? request()->query('name');
+    $abbreviation    = $abbreviation ?? request()->query('abbreviation');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
-    $min_years       = $min_years ?? request()->query('min_years');
+    $name            = $name ?? request()->query('name');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -19,14 +17,6 @@
 
                 <div class="floating-div-container">
 
-                    @if($isRootAdmin)
-                        <div class="floating-div">
-                            <div class="search-form-control">
-                                @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                            </div>
-                        </div>
-                    @endif
-
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
@@ -35,29 +25,26 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.dictionary-category')
-                        </div>
                     </div>
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.portfolio-skill-level')
-                        </div>
+                    <div class="floating-div pl-4">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
-                                'type'    => 'number',
-                                'name'    => 'min_years',
-                                'label'    => 'min years',
-                                'value'   => $min_years,
-                                'min'     => 1,
-                                'max'     => 30,
+                                'name'    => 'abbreviation',
+                                'value'   => $abbreviation,
                                 'message' => $message ?? '',
+                                'style'   => 'width: 6rem;',
                             ])
                         </div>
                     </div>
 
                     <div class="floating-div">
+                        <div class="search-form-control">
+                            @include('admin.components.search-panel.controls.portfolio-certification-certification_type')
+                        </div>
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
                         @include('admin.components.search-panel.controls.timestamp-created-at', [
                             'created_at_from' => $created_at_from,
                             'created_at_to'   => $created_at_to,

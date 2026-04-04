@@ -1,5 +1,6 @@
 @php
     use App\Models\System\Admin;
+    use App\Models\System\Database;
     use App\Models\System\Resource;
 
     $action      = $action ?? url()->current();
@@ -25,7 +26,22 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.system-database', [ 'database_id' => $database_id ])
+                            <div class="control" style="max-width: 28rem;">
+                                @include('guest.components.form-select', [
+                                    'name'     => 'database_id',
+                                    'label'    => 'database',
+                                    'value'    => $database_id,
+                                    'list'     => new Database()->listOptions(
+                                                      [ 'owner_id' => 1 ],
+                                                      'id',
+                                                      'tag',
+                                                      true,
+                                                      false,
+                                                      [ 'tag', 'asc' ]
+                                                  ),
+                                    'style'    => 'width: 8rem;'
+                                ])
+                            </div>
                         </div>
                     </div>
 

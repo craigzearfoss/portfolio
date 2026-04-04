@@ -4,16 +4,13 @@
 
     $action           = $action ?? url()->current();
     $owner_id         = $owner->id ?? -1;
-    $application_id   = $application_id ?? request()->query('application_id');
     $application_name = $application_name ?? request()->query('application_name');
     $body             = $body ?? request()->query('body');
-    $company_id       = $company_id ?? request()->query('company_id');
-    $company_name     = $company_name ?? request()->query('company_name');
     $datetime_from    = $datetime_from ?? request()->query('datetime_from');
     $datetime_to      = $datetime_to ?? request()->query('datetime_to');
     $from             = $from ?? request()->query('from');
     $subject          = $subject ?? request()->query('subject');
-    $to                = $to ?? request()->query('to');
+    $to               = $to ?? request()->query('to');
 @endphp
 <div class="mb-2" style="display: flex;">
 

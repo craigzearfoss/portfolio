@@ -3,11 +3,8 @@
 
     $action           = $action ?? url()->current();
     $owner_id         = $owner->id ?? -1;
-    $application_id   = $application_id ?? request()->query('application_id');
     $application_name = $application_name ?? request()->query('application_name');
     $body             = $body ?? request()->query('body');
-    $company_id       = $company_id ?? request()->query('company_id');
-    $company_name     = $company_name ?? request()->query('company_name');
     $created_at_from  = $created_at_from ?? request()->query('created_at_from');
     $created_at_to    = $created_at_to ?? request()->query('created_at_to');
     $subject          = $subject ?? request()->query('subject');

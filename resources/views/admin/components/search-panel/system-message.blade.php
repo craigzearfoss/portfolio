@@ -53,7 +53,7 @@
                         </div>
                     </div>
 
-                    <div class="floating-div">
+                    <div class="floating-div" style="display: none;">
                         @include('admin.components.search-panel.controls.timestamp-created-at', [
                             'created_at_from' => $created_at_from,
                             'created_at_to'   => $created_at_to,

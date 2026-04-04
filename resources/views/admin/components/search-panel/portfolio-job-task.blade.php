@@ -8,7 +8,7 @@
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $job_id          = $job_id ?? request()->query('job_id');
     $name            = $name ?? request()->query('name');
-    $role            = $role ?? request()->query('role');
+    $summary         = $summary ?? request()->query('summary');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -36,6 +36,16 @@
                             @include('admin.components.input-basic', [
                                 'name'    => 'company',
                                 'value'   => $company,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+                    </div>
+
+                    <div class="floating-div">
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'summary',
+                                'value'   => $summary,
                                 'message' => $message ?? '',
                             ])
                         </div>

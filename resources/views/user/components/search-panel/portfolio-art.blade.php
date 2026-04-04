@@ -1,10 +1,10 @@
 @php
     use App\Models\System\Admin;
 
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner->id ?? -1;
-    $artist          = $artist ?? request()->query('artist');
-    $name            = $name ?? request()->query('name');
+    $action   = $action ?? url()->current();
+    $owner_id = $owner->id ?? -1;
+    $artist   = $artist ?? request()->query('artist');
+    $name     = $name ?? request()->query('name');
 @endphp
 <div class="mb-2" style="display: flex;">
 

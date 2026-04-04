@@ -5,11 +5,9 @@
     $action      = $action ?? url()->current();
     $owner_id    = $owner->id ?? -1;
     $city        = $city ?? request()->query('city');
-    $company_id  = $city ?? request()->query('company_id');
     $email       = $email ?? request()->query('email');
     $name        = $name ?? request()->query('name');
     $phone       = $phone ?? request()->query('phone');
-    $state_id    = $state_id ?? request()->query('state_id');
 @endphp
 <div class="mb-2" style="display: flex;">
 

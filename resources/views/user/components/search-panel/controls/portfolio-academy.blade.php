@@ -1,6 +1,7 @@
 @php
     use App\Models\Portfolio\Academy;
 
+    $academy_id = $academy_id ?? request()->query('academy_id');
 @endphp
 <div class="control" style="max-width: 28rem;">
     @include('user.components.form-select', [

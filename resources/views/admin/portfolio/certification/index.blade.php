@@ -24,6 +24,8 @@
 
 @section('content')
 
+    @include('admin.components.search-panel.portfolio-certification', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
+
     <div class="floating-div-container" style="max-width: 80em !important;">
         <div class="show-container card floating-div">
 

@@ -5,7 +5,6 @@
     $owner_id        = $owner->id ?? -1;
     $major           = $major ?? request()->query('major');
     $minor           = $minor ?? request()->query('minor');
-    $school_id       = $school_id ?? request()->query('school_id');
     $school_name     = $school_name ?? request()->query('school_name');
 @endphp
 <div class="mb-2" style="display: flex;">

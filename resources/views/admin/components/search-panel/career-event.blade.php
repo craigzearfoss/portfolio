@@ -4,11 +4,10 @@
 
     $action           = $action ?? url()->current();
     $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $application_id   = $application_id ?? request()->query('application_id');
     $application_name = $application_name ?? request()->query('application_name');
     $attendees        = $attendees ?? request()->query('attendees');
-    $company_id       = $company_id ?? request()->query('company_id');
-    $company_name     = $company_name ?? request()->query('company_name');
+    $created_at_from  = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to    = $created_at_to ?? request()->query('created_at_to');
     $date_from        = $datetime_from ?? request()->query('date_from');
     $date_to          = $datetime_to ?? request()->query('date_to');
     $time_from        = $date_from ?? request()->query('time_from');
@@ -121,6 +120,13 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

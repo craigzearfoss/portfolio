@@ -1,8 +1,10 @@
 @php
     use App\Models\System\User;
 
-    $action  = $action ?? url()->current();
-    $user_id = $user_id ?? $user->id ?? null;
+    $action          = $action ?? url()->current();
+    $user_id         = $user_id ?? $user->id ?? null;
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -15,7 +17,7 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        <div class="control" style="max-width: 28rem;">
+                        <div class="control" style="max-width: 30rem;">
                             @include('admin.components.form-select', [
                                 'name'     => 'user_id',
                                 'label'    => 'user',
@@ -23,6 +25,13 @@
                                 'list'     => new User()->listOptions([], 'id', 'username', true, false, [ 'username', 'asc' ]),
                             ])
                         </div>
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

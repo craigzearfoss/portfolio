@@ -53,6 +53,7 @@
                             ])
                         </div>
                     </div>
+
                     <div class="floating-div">
                         @include('admin.components.search-panel.controls.timestamp-created-at', [
                             'created_at_from' => $created_at_from,

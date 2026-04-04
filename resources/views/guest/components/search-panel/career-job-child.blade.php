@@ -26,7 +26,15 @@
                         @if(!empty($owner))
 
                             @php
-                                $jobs = new Job()->listOptions(!empty($owner) ? [ 'owner_id' => $owner->id ] : [], 'id', 'company', true, false, [ 'company', 'asc' ]);
+                                $jobs = new Job()->listOptions(
+                                    [ 'owner_id' => $owner->id ],
+                                    'id',
+                                    'company',
+                                    true,
+                                    false,
+                                    [ 'company', 'asc' ]
+                                );
+
                                 $jobId = Request::get('job_id');
                                 if (!array_key_exists($jobId, $jobs)) {
                                     $jobId = null;

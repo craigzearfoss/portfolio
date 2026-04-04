@@ -51,6 +51,8 @@
                         @endif
                         <th>name</th>
                         <th>year</th>
+                        <th>show</th>
+                        <th>company</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -66,6 +68,8 @@
                         @endif
                         <th>name</th>
                         <th>year</th>
+                        <th>show</th>
+                        <th>company</th>
                         <th class="has-text-centered">public</th>
                         <th class="has-text-centered">disabled</th>
                         <th>actions</th>
@@ -88,6 +92,12 @@
                         </td>
                         <td data-field="year">
                             {!! $video->year !!}
+                        </td>
+                        <td data-field="show">
+                            {!! $video->show !!}
+                        </td>
+                        <td data-field="company">
+                            {!! $video->company !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">
                             @include('admin.components.checkmark', [ 'checked' => $video->is_public ])

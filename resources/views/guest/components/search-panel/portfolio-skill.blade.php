@@ -5,8 +5,6 @@
     $action                  = $action ?? url()->current();
     $owner_id                = $owner->id ?? -1;
     $name                    = $name ?? request()->query('name');
-    $dictionary_category_id  = $dictionary_category_id ?? request()->query('dictionary_category_id');
-    $level                   = $level ?? request()->query('level');
     $min_years               = $min_years ?? request()->query('min_years');
     $years                   = $years ?? request()->query('years');
 @endphp
@@ -32,9 +30,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.dictionary-category', [
-                                'dictionary_category_id' => $dictionary_category_id
-                            ])
+                            @include('guest.components.search-panel.controls.dictionary-category')
                         </div>
                     </div>
 

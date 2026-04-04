@@ -2,9 +2,11 @@
     use App\Models\Personal\Recipe;
     use App\Models\System\Admin;
 
-    $action    = $action ?? url()->current();
-    $owner_id  = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $recipe_id = $recipe_id ?? request()->query('recipe_id');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $recipe_id       = $recipe_id ?? request()->query('recipe_id');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -40,6 +42,13 @@
                                 ])
                             </div>
                         </div>
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

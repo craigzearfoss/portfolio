@@ -3,7 +3,6 @@
 
     $action        = $action ?? url()->current();
     $name          = $name ?? request()->query('name');
-    $coverage_area = $coverage_area ?? request()->query('coverage_area');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -27,7 +26,7 @@
 
                     <div class="floating-div pl-4">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-job-board-coverage_area', [ 'coverage_area' => $coverage_area ])
+                            @include('guest.components.search-panel.controls.career-job-board-coverage_area')
                         </div>
                     </div>
 

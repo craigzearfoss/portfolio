@@ -1,12 +1,9 @@
 @php
-    use App\Models\Dictionary\Category;
-    use App\Models\System\Admin;
+    use App\Models\Career\JobBoard;
 
-    $action                  = $action ?? url()->current();
-    $owner_id                = $owner->id ?? -1;
-    $name                    = $name ?? request()->query('name');
-    $min_years               = $min_years ?? request()->query('min_years');
-    $years                   = $years ?? request()->query('years');
+    $action       = $action ?? url()->current();
+    $abbreviation = $abbreviation ?? request()->query('abbreviation');
+    $name         = $name ?? request()->query('name');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -28,29 +25,20 @@
                         </div>
                     </div>
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.dictionary-category')
-                        </div>
-                    </div>
-
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('user.components.search-panel.controls.portfolio-skill-level', [ 'level' => $level ])
-                        </div>
-                    </div>
-
-                    <div class="floating-div">
+                    <div class="floating-div pl-4">
                         <div class="search-form-control">
                             @include('user.components.input-basic', [
-                                'type'    => 'number',
-                                'name'    => 'min_years',
-                                'label'    => 'min years',
-                                'value'   => $min_years,
-                                'min'     => 1,
-                                'max'     => 30,
+                                'name'    => 'abbreviation',
+                                'value'   => $abbreviation,
                                 'message' => $message ?? '',
+                                'style'   => 'width: 6rem;',
                             ])
+                        </div>
+                    </div>
+
+                    <div class="floating-div">
+                        <div class="search-form-control">
+                            @include('user.components.search-panel.controls.portfolio-certification-certification_type')
                         </div>
                     </div>
 

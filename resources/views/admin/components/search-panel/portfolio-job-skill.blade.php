@@ -6,7 +6,6 @@
     $company         = $company ?? request()->query('company');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
-    $job_id          = $job_id ?? request()->query('job_id');
     $name            = $name ?? request()->query('name');
     $role            = $role ?? request()->query('role');
 @endphp

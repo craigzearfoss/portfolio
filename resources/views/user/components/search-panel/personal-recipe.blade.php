@@ -4,11 +4,9 @@
     $action     = $action ?? url()->current();
     $owner_id   = $owner->id ?? -1;
     $author     = $author ?? request()->query('author');
-    $meal       = $meal ?? request()->query('meal');
     $name       = $name ?? request()->query('name');
     $prep_time  = $prep_time ?? request()->query('prep_time');
     $total_time = $total_time ?? request()->query('total_time');
-    $type       = $type ?? request()->query('type');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -39,10 +37,10 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.personal-recipe-type', [ 'type' => $type ])
+                            @include('user.components.search-panel.controls.personal-recipe-type')
                         </div>
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.personal-recipe-meal', [ 'meal' => $meal ])
+                            @include('user.components.search-panel.controls.personal-recipe-meal')
                         </div>
                     </div>
 

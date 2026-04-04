@@ -3,14 +3,14 @@
     use App\Models\System\Admin;
 
     $action             = $action ?? url()->current();
-    $owner_id           = $owner->id ?? -1;
-    $audio              = $audio ?? request()->query('audio');
+    $owner_id           = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $audio              = boolval($audio ?? request()->query('audio'));
     $author             = $author ?? request()->query('author');
-    $fiction            = $fiction ?? request()->query('fiction');
-    $nonfiction         = $nonfiction ?? request()->query('nonfiction');
-    $paper              = $paper ?? request()->query('paper');
+    $fiction            = boolval($fiction ?? request()->query('fiction'));
+    $nonfiction         = boolval($nonfiction ?? request()->query('nonfiction'));
+    $paper              = boolval($paper ?? request()->query('paper'));
     $search_title_value = $search_title_value ?? request()->query('search_title_value');
-    $wishlist           = $wishlist ?? request()->query('wishlist');
+    $wishlist           = boolval($wishlist ?? request()->query('wishlist'));
 @endphp
 <div class="mb-2" style="display: flex;">
 

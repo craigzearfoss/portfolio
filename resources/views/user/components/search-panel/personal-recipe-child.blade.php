@@ -26,14 +26,22 @@
                         @if(!empty($owner))
 
                             @php
-                                $recipes = new Recipe()->listOptions([ 'owner_id' => $owner->id ], 'id', 'name', true, false, [ 'name', 'asc' ]);
+                                $recipes = new Recipe()->listOptions(
+                                    [ 'owner_id' => $owner->id ],
+                                    'id',
+                                    'name',
+                                    true,
+                                    false,
+                                    [ 'name', 'asc' ]
+                                );
+
                                 $recipeId = Request::get('recipe_id');
                                 if (!array_key_exists($recipeId, $recipes)) {
                                     $recipeId = null;
                                 }
                             @endphp
 
-                                <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
+                            <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
                             @if(count($recipes) > 1)
                                 <div class="control">
                                     @include('user.components.form-select', [

@@ -4,13 +4,15 @@
 
     $action             = $action ?? url()->current();
     $owner_id           = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
-    $audio              = $audio ?? request()->query('audio');
+    $audio              = boolval($audio ?? request()->query('audio'));
     $author             = $author ?? request()->query('author');
-    $fiction            = $fiction ?? request()->query('fiction');
-    $nonfiction         = $nonfiction ?? request()->query('nonfiction');
-    $paper              = $paper ?? request()->query('paper');
+    $created_at_from    = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to      = $created_at_to ?? request()->query('created_at_to');
+    $fiction            = boolval($fiction ?? request()->query('fiction'));
+    $nonfiction         = boolval($nonfiction ?? request()->query('nonfiction'));
+    $paper              = boolval($paper ?? request()->query('paper'));
     $search_title_value = $search_title_value ?? request()->query('search_title_value');
-    $wishlist           = $wishlist ?? request()->query('wishlist');
+    $wishlist           = boolval($wishlist ?? request()->query('wishlist'));
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -70,7 +72,7 @@
                                 @include('admin.components.form-checkbox', [
                                     'name'     => 'fiction',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('fiction') ?? false),
+                                    'checked'  => $fiction,
                                     'nohidden' => true,
                                 ])
                             </div>
@@ -80,7 +82,7 @@
                                 @include('admin.components.form-checkbox', [
                                     'name'     => 'nonfiction',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('nonfiction') ?? false),
+                                    'checked'  => $nonfiction,
                                     'nohidden' => true,
                                 ])
                             </div>
@@ -93,7 +95,7 @@
                                 @include('admin.components.form-checkbox', [
                                     'name'     => 'paper',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('paper') ?? false),
+                                    'checked'  => $paper,
                                     'nohidden' => true,
                                 ])
                             </div>
@@ -103,7 +105,7 @@
                                 @include('admin.components.form-checkbox', [
                                     'name'     => 'audio',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('audio') ?? false),
+                                    'checked'  => $audio,
                                     'nohidden' => true,
                                 ])
                             </div>
@@ -113,11 +115,18 @@
                                 @include('admin.components.form-checkbox', [
                                     'name'     => 'wishlist',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('wishlist') ?? false),
+                                    'checked'  => $wishlist,
                                     'nohidden' => true,
                                 ])
                             </div>
                         </div>
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

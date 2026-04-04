@@ -278,9 +278,7 @@ class Application extends Model
                 $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
             ->when(!empty($filters['active']), function ($query) use ($filters) {
-                if (in_array($filters['active'], [0, 1])) {
-                    $query->where($this->table . '.active', '=', boolval($filters['active']));
-                }
+                $query->where($this->table . '.active', '=', true);
             })
             ->when(!empty($filters['apply_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.apply_date', '=', $filters['apply_date']);
@@ -383,6 +381,13 @@ class Application extends Model
             })
             ->when(!empty($filters['state_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
+            })
+            ->when(!empty($filters['status']), function ($query) use ($filters) {
+                if (intval($filters['status']) > 1) {
+                    $query->where($this->table . '.active', '=', true);
+                } elseif (intval($filters['status']) == 1) {
+                    $query->where($this->table . '.active', '=', false);
+                }
             })
             ->when(!empty($filters['vacation']), function ($query) use ($filters) {
                 $query->where($this->table . '.vacation', '=', true);

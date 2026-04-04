@@ -2,8 +2,10 @@
     use App\Models\Portfolio\Job;
     use App\Models\System\Admin;
 
-    $action   = $action ?? url()->current();
-    $owner_id = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -26,14 +28,22 @@
                         @if(!empty($owner))
 
                             @php
-                                $jobs = new Job()->listOptions(!empty($owner) ? [ 'owner_id' => $owner->id ] : [], 'id', 'company', true, false, [ 'company', 'asc' ]);
+                                $jobs = new Job()->listOptions(
+                                    [ 'owner_id' => $owner->id ],
+                                    'id',
+                                    'company',
+                                    true,
+                                    false,
+                                    [ 'company', 'asc' ]
+                                );
+
                                 $jobId = Request::get('job_id');
                                 if (!array_key_exists($jobId, $jobs)) {
                                     $jobId = null;
                                 }
                             @endphp
 
-                                <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
+                            <?php /* @TODO: Need to handle deselect of other fields when a new select list option is chosen. */ ?>
                             @if(count($jobs) > 1)
                                 <div class="control">
                                     @include('admin.components.form-select', [

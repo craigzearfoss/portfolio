@@ -1,11 +1,11 @@
 @php
     use App\Models\Career\JobBoard;
 
-    $action        = $action ?? url()->current();
-    $name          = $name ?? request()->query('name');
-    $city          = $city ?? request()->query('city');
-    $coverage_area = $coverage_area ?? request()->query('coverage_area');
-    $state_id      = $state_id ?? request()->query('state_id');
+    $action          = $action ?? url()->current();
+    $name            = $name ?? request()->query('name');
+    $city            = $city ?? request()->query('city');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -29,7 +29,7 @@
 
                     <div class="floating-div pl-4">
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.career-recruiter-coverage_area', [ 'coverage_area' => $coverage_area ])
+                            @include('admin.components.search-panel.controls.career-recruiter-coverage_area')
                         </div>
                     </div>
 
@@ -42,8 +42,15 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
+                            @include('admin.components.search-panel.controls.system-state')
                         </div>
+                    </div>
+
+                    <div class="floating-div" style="display: none;">
+                        @include('admin.components.search-panel.controls.timestamp-created-at', [
+                            'created_at_from' => $created_at_from,
+                            'created_at_to'   => $created_at_to,
+                        ])
                     </div>
 
                 </div>

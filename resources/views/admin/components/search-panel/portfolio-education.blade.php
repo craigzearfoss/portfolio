@@ -7,7 +7,6 @@
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $major           = $major ?? request()->query('major');
     $minor           = $minor ?? request()->query('minor');
-    $school_id       = $school_id ?? request()->query('school_id');
     $school_name     = $school_name ?? request()->query('school_name');
 @endphp
 <div class="mb-2" style="display: flex;">
@@ -59,7 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="floating-div">
+                    <div class="floating-div" style="display: none;">
                         @include('admin.components.search-panel.controls.timestamp-created-at', [
                             'created_at_from' => $created_at_from,
                             'created_at_to'   => $created_at_to,

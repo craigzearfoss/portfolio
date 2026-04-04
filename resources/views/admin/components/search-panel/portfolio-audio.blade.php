@@ -35,7 +35,7 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('admin.components.search-panel.controls.portfolio-audio-audio_type', [ 'owner_id' => $owner_id ])
+                            @include('admin.components.search-panel.controls.portfolio-audio-audio_type')
                         </div>
                     </div>
 

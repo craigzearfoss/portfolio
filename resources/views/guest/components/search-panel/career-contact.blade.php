@@ -5,11 +5,9 @@
     $action      = $action ?? url()->current();
     $owner_id    = $owner->id ?? -1;
     $city        = $city ?? request()->query('city');
-    $company_id  = $city ?? request()->query('company_id');
     $email       = $email ?? request()->query('email');
     $name        = $name ?? request()->query('name');
     $phone       = $phone ?? request()->query('phone');
-    $state_id    = $state_id ?? request()->query('state_id');
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -32,7 +30,7 @@
                         <?php /*
                         @TODO: Need to add joins for company_ids to be searched.
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-company', [ 'company_id' => $company_id ])
+                            @include('guest.components.search-panel.controls.career-company')
                         </div>
                         */ ?>
                     </div>
@@ -63,7 +61,7 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.system-state', [ 'state_id' => $state_id ])
+                            @include('guest.components.search-panel.controls.system-state')
                         </div>
                     </div>
 

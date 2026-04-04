@@ -4,11 +4,8 @@
 
     $action           = $action ?? url()->current();
     $owner_id         = $owner->id ?? -1;
-    $application_id   = $application_id ?? request()->query('application_id');
     $application_name = $application_name ?? request()->query('application_name');
     $attendees        = $attendees ?? request()->query('attendees');
-    $company_id       = $company_id ?? request()->query('company_id');
-    $company_name     = $company_name ?? request()->query('company_name');
     $date_from        = $datetime_from ?? request()->query('date_from');
     $date_to          = $datetime_to ?? request()->query('date_to');
     $time_from        = $date_from ?? request()->query('time_from');
