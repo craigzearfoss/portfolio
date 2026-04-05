@@ -23,30 +23,30 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'ingredient_name|asc' => 'ingredient',
+                                                  'recipe_name|asc'     => 'recipe',
+                                              ],
+                                  )
+                    ])
+
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
-
-                    <div class="search-panel-controls">
-
-                        @include('guest.components.search-sort-select', [
-                            'sort' => $sort,
-                            'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                                  [
-                                                      'ingredient_name|asc' => 'ingredient',
-                                                      'recipe_name|asc'     => 'recipe',
-                                                  ],
-                                      )
-                        ])
-
-                        @include('admin.components.button-clear', [
-                            'id'   =>'clearSearchForm',
-                            'name' => 'Clear',
-                        ])
-
-                        @include('admin.components.button-search', [
-                            'id' =>'performSearch',
-                        ])
-
-                    </div>
 
                     @if($isRootAdmin)
                         <div class="floating-div">

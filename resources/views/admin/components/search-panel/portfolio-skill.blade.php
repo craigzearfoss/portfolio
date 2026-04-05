@@ -58,22 +58,28 @@
                     @endif
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
                                 'value'   => $name,
                                 'message' => $message ?? '',
                             ])
+
                         </div>
                         <div class="search-form-control">
+
                             @include('admin.components.search-panel.controls.dictionary-category')
+
                         </div>
                     </div>
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-skill-level')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'type'    => 'number',
@@ -85,6 +91,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)

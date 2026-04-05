@@ -55,6 +55,7 @@
                     @endif
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
@@ -62,9 +63,10 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'company',
@@ -72,12 +74,14 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-job-coworker-level')
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)

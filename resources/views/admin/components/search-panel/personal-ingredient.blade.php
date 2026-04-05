@@ -18,37 +18,39 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                      'name|asc'    => 'name',
+                                  ],
+                    ])
+
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
+                <div class="floating-div">
+
+                    <div class="search-form-control">
+                        @include('admin.components.input-basic', [
+                            'name'    => 'name',
+                            'value'   => $name,
+                            'message' => $message ?? '',
+                        ])
+                    </div>
+
+                </div>
+
                 <div class="floating-div-container">
-
-                    <div class="search-panel-controls">
-
-                        @include('guest.components.search-sort-select', [
-                            'sort' => $sort,
-                            'list' => [
-                                          'name|asc'    => 'name',
-                                      ],
-                        ])
-
-                        @include('admin.components.button-clear', [
-                            'id'   =>'clearSearchForm',
-                            'name' => 'Clear',
-                        ])
-
-                        @include('admin.components.button-search', [
-                            'id' =>'performSearch',
-                        ])
-
-                    </div>
-
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('admin.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-                    </div>
 
                     @if($isRootAdmin)
                         <div class="floating-div">

@@ -20,32 +20,32 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                      'abbreviation|asc' => 'abbreviation',
+                                      'name|asc'         => 'name',
+                                      'type_name|asc'    => 'type',
+                                  ],
+                    ])
+
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
-
-                    <div class="search-panel-controls">
-
-                        @include('guest.components.search-sort-select', [
-                            'sort' => $sort,
-                            'list' => [
-                                          'abbreviation|asc' => 'abbreviation',
-                                          'name|asc'         => 'name',
-                                          'type_name|asc'    => 'type',
-                                      ],
-                        ])
-
-                        @include('admin.components.button-clear', [
-                            'id'   =>'clearSearchForm',
-                            'name' => 'Clear',
-                        ])
-
-                        @include('admin.components.button-search', [
-                            'id' =>'performSearch',
-                        ])
-
-                    </div>
-
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
@@ -53,9 +53,10 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div pl-4">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'abbreviation',
@@ -64,12 +65,14 @@
                                 'style'   => 'width: 6rem;',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-certification-certification_type')
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)

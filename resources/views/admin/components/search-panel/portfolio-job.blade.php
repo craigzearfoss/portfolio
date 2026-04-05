@@ -57,6 +57,7 @@
                     @endif
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'company',
@@ -64,9 +65,10 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'role',
@@ -74,6 +76,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)

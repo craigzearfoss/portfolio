@@ -22,23 +22,23 @@
 
             <div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-controls">
 
-                    <div class="search-panel-controls">
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'degree_type_name|asc'  => 'degree',
+                                                  'major|asc'             => 'major',
+                                                  'minor|asc'             => 'minor',
+                                                  'school_name|asc'       => 'school',
+                                                  'enrollment_date|desc'  => 'year enrolled',
+                                                  'graduation_date|desc'  => 'year graduated',
+                                              ],
+                                  )
+                    ])
 
-                        @include('guest.components.search-sort-select', [
-                            'sort' => $sort,
-                            'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                                  [
-                                                      'degree_type_name|asc'  => 'degree',
-                                                      'major|asc'             => 'major',
-                                                      'minor|asc'             => 'minor',
-                                                      'school_name|asc'       => 'school',
-                                                      'enrollment_date|desc'  => 'year enrolled',
-                                                      'graduation_date|desc'  => 'year graduated',
-                                                  ],
-                                      )
-                        ])
+                    <div class="floating-div-container">
 
                         @include('admin.components.button-clear', [
                             'id'   =>'clearSearchForm',
@@ -60,12 +60,14 @@
                     @endif
 
                     <div class="floating-div">
+
                         <?php /*
                         // @TODO: too many schools for a select list
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-school')
                         </div>
                         */ ?>
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'school_name',
@@ -74,15 +76,17 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-education-degree-type', [ 'owner_id' => $owner_id ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'major',
@@ -90,6 +94,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'minor',
@@ -97,6 +102,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)

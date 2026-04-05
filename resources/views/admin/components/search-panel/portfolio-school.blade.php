@@ -44,6 +44,7 @@
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
@@ -51,9 +52,11 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     <div class="floating-div">
+
                         <?php /* We don't currently have any cities in the portfolio.schools table.
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
@@ -63,9 +66,11 @@
                             ])
                         </div>
                         */ ?>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.system-state')
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)

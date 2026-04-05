@@ -23,32 +23,32 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'category|asc'     => 'category',
+                                                  'name|asc'         => 'name',
+                                                  'organization|asc' => 'organization',
+                                                  'year|asc'         => 'year',
+                                              ],
+                                  )
+                    ])
+
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
-
-                    <div class="search-panel-controls">
-
-                        @include('guest.components.search-sort-select', [
-                            'sort' => $sort,
-                            'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                                  [
-                                                      'category|asc'     => 'category',
-                                                      'name|asc'         => 'name',
-                                                      'organization|asc' => 'organization',
-                                                      'year|asc'         => 'year',
-                                                  ],
-                                      )
-                        ])
-
-                        @include('admin.components.button-clear', [
-                            'id'   =>'clearSearchForm',
-                            'name' => 'Clear',
-                        ])
-
-                        @include('admin.components.button-search', [
-                            'id' =>'performSearch',
-                        ])
-
-                    </div>
 
                     @if($isRootAdmin)
                         <div class="floating-div">
@@ -59,6 +59,7 @@
                     @endif
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
@@ -66,6 +67,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'category',
@@ -73,9 +75,10 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'nominated_work',
@@ -84,6 +87,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'organization',
@@ -91,6 +95,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)
