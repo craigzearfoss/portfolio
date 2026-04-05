@@ -1,12 +1,17 @@
 @php
+    use App\Models\Portfolio\Award;
     use App\Models\System\Admin;
 
+    // get variables
     $action         = $action ?? url()->current();
     $owner_id       = $owner->id ?? -1;
     $category       = $category ?? request()->query('category');
     $name           = $name ?? request()->query('name');
     $nominated_work = $nominated_work ?? request()->query('nominated_work');
     $organization   = $organization ?? request()->query('organization');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Award::SEARCH_ORDER_BY[0], Award::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -60,13 +65,27 @@
                 </div>
 
                 <div class="has-text-right pr-2">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                    'category|asc'       => 'category',
+                                    'name|asc'           => 'name',
+                                    'nominated_work|asc' => 'nominated work',
+                                    'organization|asc'   => 'organization',
+                                    'year|asc'           => 'year',
+                                  ]
+                    ])
+
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
+
                 </div>
 
             </div>

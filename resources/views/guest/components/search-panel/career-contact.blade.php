@@ -1,13 +1,18 @@
 @php
     //@TODO: Need to add joins for company_ids to be searched.
+    use App\Models\Career\Contact;
     use App\Models\System\Admin;
 
+    // get variables
     $action      = $action ?? url()->current();
     $owner_id    = $owner->id ?? -1;
     $city        = $city ?? request()->query('city');
     $email       = $email ?? request()->query('email');
     $name        = $name ?? request()->query('name');
     $phone       = $phone ?? request()->query('phone');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Contact::SEARCH_ORDER_BY[0], Contact::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

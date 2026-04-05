@@ -10,6 +10,7 @@ use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Mockery\Matcher\Not;
 
 /**
  *
@@ -29,10 +30,10 @@ class NoteController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $notes = new Note()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Note::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('created_at', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $application = $request->application_id ? Application::query()->findOrFail($request->application_id) : null;

@@ -28,11 +28,10 @@ class ProjectController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $projects = new Project()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Project::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('name')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Projects';

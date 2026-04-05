@@ -1,10 +1,15 @@
 @php
+    use App\Models\Portfolio\Art;
     use App\Models\System\Admin;
 
+    // get variables
     $action   = $action ?? url()->current();
     $owner_id = $owner->id ?? -1;
     $artist   = $artist ?? request()->query('artist');
     $name     = $name ?? request()->query('name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Art::SEARCH_ORDER_BY[0], Art::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -39,13 +44,25 @@
                 </div>
 
                 <div class="has-text-right pr-2">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                    'artist|asc' => 'artist',
+                                    'name|asc'   => 'name',
+                                    'year|asc'   => 'year',
+                                  ]
+                    ])
+
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
+
                 </div>
 
             </div>

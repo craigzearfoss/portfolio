@@ -5,8 +5,10 @@ namespace App\Models\Portfolio;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Portfolio\LinkFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -72,6 +74,16 @@ class Link extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * @return void
      */
     protected static function booted(): void
@@ -86,10 +98,17 @@ class Link extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -113,9 +132,20 @@ class Link extends Model
                 $query->where($this->table . '.url', 'like', '%' . $filters['url'] . '%');
             });
 
+        // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // join to owner
+        $query = $this->addJoinToAdminTable($query);
+
+        // add order by clause
+        $query = $this->addOrderBy($query, $sort);
+        if (explode('|', $sort ?? '') != 'owner_username') {
+            $query->orderBy('owner_username');
+        }
+
+        return $query;
     }
 
     /**

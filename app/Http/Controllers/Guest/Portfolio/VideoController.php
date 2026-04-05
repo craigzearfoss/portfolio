@@ -24,9 +24,12 @@ class VideoController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage());
 
-        $videos = new Video()->searchQuery(request()->except('id'), $this->owner ?? null)
-            ->orderBy('name')
-            ->paginate($perPage)->appends(request()->except('page'));
+        $videos = new Video()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Video::SEARCH_ORDER_BY),
+            $this->owner ?? null
+        )
+        ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.video.index'), compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

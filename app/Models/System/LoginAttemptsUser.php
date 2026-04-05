@@ -46,4 +46,14 @@ class LoginAttemptsUser extends Model
      *
      */
     const array SEARCH_ORDER_BY = [ 'created_at', 'desc' ];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
 }

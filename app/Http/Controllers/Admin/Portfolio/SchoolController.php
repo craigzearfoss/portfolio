@@ -29,10 +29,11 @@ class SchoolController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $schools = new School()->searchQuery(request()->except('id'))
-        ->where('name', '!=', 'other')
-        ->orderBy('name')
-        ->orderBy('name')
+        $schools = new School()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', School::SEARCH_ORDER_BY),
+        )
+        ->where('schools.name', '!=', 'other')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Schools';

@@ -21,7 +21,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                            @include('user.components.search-panel.controls.career-application', [ 'owner_id' => $owner_id ])
                         </div>
                     </div>
 

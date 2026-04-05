@@ -1,8 +1,12 @@
 @php
     use App\Models\System\Admin;
 
+    // get variables
     $action   = $action ?? url()->current();
     $owner_id = $owner->id ?? -1;
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Admin::SEARCH_ORDER_BY[0], Admin::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

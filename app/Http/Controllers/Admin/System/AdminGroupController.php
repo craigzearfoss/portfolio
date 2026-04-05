@@ -28,8 +28,10 @@ class AdminGroupController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         // note that any admin can see all admin groups
-        $adminGroups = new AdminGroup()->searchQuery($request->all())
-        ->orderBy('name')
+        $adminGroups = new AdminGroup()->searchQuery(
+            $request->all(),
+            request()->input('sort') ?? implode('|', AdminGroup::SEARCH_ORDER_BY),
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Groups';

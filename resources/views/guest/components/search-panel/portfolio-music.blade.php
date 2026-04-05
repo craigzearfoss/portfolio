@@ -1,12 +1,17 @@
 @php
+    use App\Models\Portfolio\Music;
     use App\Models\System\Admin;
 
+    // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner->id ?? -1;
     $artist          = $artist ?? request()->query('artist');
     $catalog_number  = $catalog_number ?? request()->query('catalog_number');
     $name            = $name ?? request()->query('name');
     $search_label    = $search_label ?? request()->query('search_label');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Music::SEARCH_ORDER_BY[0], Music::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

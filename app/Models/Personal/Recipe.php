@@ -5,6 +5,7 @@ namespace App\Models\Personal;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -105,6 +106,16 @@ class Recipe extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * @return void
      */
     protected static function booted(): void
@@ -119,11 +130,17 @@ class Recipe extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
      * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -169,6 +186,9 @@ class Recipe extends Model
                         . ' Valid relations are "breakfast", "dinner", "lunch", and "snack".');
                 }
             })
+            ->when(!empty($filters['name']), function ($query) use ($filters) {
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
+            })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
@@ -209,9 +229,20 @@ class Recipe extends Model
                 }
             });
 
+        // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // join to owner
+        $query = $this->addJoinToAdminTable($query);
+
+        // add order by clause
+        $query = $this->addOrderBy($query, $sort);
+        if (explode('|', $sort ?? '') != 'owner_username') {
+            $query->orderBy('owner_username');
+        }
+
+        return $query;
     }
 
     /**

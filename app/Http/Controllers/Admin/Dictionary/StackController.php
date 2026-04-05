@@ -28,8 +28,10 @@ class StackController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $stacks = new Category()->searchQuery(request()->except('id'))
-        ->orderBy('name')
+        $stacks = new Stack()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Stack::SEARCH_ORDER_BY)
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.stack.index', compact('stacks'))

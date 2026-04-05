@@ -1,11 +1,16 @@
 @php
+    use App\Models\Portfolio\Education;
     use App\Models\System\Admin;
 
+    //get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner->id ?? -1;
     $major           = $major ?? request()->query('major');
     $minor           = $minor ?? request()->query('minor');
     $school_name     = $school_name ?? request()->query('school_name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Education::SEARCH_ORDER_BY[0], Education::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

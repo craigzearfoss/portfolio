@@ -1,11 +1,16 @@
 @php
+    use App\Models\Portfolio\Video;
     use App\Models\System\Admin;
 
+    // get variables
     $action   = $action ?? url()->current();
     $owner_id = $owner->id ?? -1;
     $company  = $company ?? request()->query('company');
     $name     = $name ?? request()->query('name');
     $show     = $show ?? request()->query('show');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Video::SEARCH_ORDER_BY[0], Video::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

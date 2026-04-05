@@ -29,11 +29,10 @@ class CommunicationController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $communications = new Communication()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Communication::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('communication_datetime', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $application = $request->application_id ? Application::query()->findOrFail($request->application_id) : null;

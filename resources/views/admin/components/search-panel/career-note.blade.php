@@ -1,6 +1,8 @@
 @php
+    use App\Models\Career\Note;
     use App\Models\System\Admin;
 
+    // get variables
     $action           = $action ?? url()->current();
     $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $application_name = $application_name ?? request()->query('application_name');
@@ -8,6 +10,9 @@
     $created_at_from  = $created_at_from ?? request()->query('created_at_from');
     $created_at_to    = $created_at_to ?? request()->query('created_at_to');
     $subject          = $subject ?? request()->query('subject');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Note::SEARCH_ORDER_BY[0], Note::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -34,7 +39,7 @@
                             </div>
                         @else
                             <div class="search-form-control">
-                                @include('admin.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                                @include('admin.components.search-panel.controls.career-application', [ 'owner_id' => $owner_id ])
                             </div>
                         @endif
                     </div>
@@ -56,12 +61,14 @@
                         </div>
                     </div>
 
-                    <div class="floating-div" style="display: none;">
-                        @include('admin.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
-                    </div>
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            @include('admin.components.search-panel.controls.timestamp-created-at', [
+                                'created_at_from' => $created_at_from,
+                                'created_at_to'   => $created_at_to,
+                            ])
+                        </div>
+                    @endif
 
                 </div>
 

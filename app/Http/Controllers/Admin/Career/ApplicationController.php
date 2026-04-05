@@ -31,11 +31,10 @@ class ApplicationController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $applications = new Application()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Application::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('apply_date', 'desc')
         ->orderBy('post_date', 'desc')
         ->orderBy('created_at', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));

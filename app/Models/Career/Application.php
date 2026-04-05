@@ -8,6 +8,7 @@ use App\Models\System\Admin;
 use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\ApplicationFactory;
 use Exception;
@@ -113,7 +114,7 @@ class Application extends Model
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'company_name', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'post_date', 'desc' ];
 
     /**
      *
@@ -124,6 +125,18 @@ class Application extends Model
         3 => '3 stars',
         4 => '4 stars',
     ];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [
+            'company_name',
+        ];
+    }
 
     /**
      * @return void
@@ -156,10 +169,6 @@ class Application extends Model
                                 array       $orderBy = [],
                                 EnvTypes    $envType = EnvTypes::GUEST): array
     {
-        $predefinedColumns = [
-            'company_name',
-        ];
-
         $options = $includeBlank ? [ '' => '' ] : [];
 
         // set the columns
@@ -173,7 +182,7 @@ class Application extends Model
         foreach ([$valueColumn, $labelColumn] as $field) {
             if (!empty($field) && ($field !== 'name')) {
                 // note that there is no "name" column in the applications table
-                if ($field = $this->fullyQualifiedField($field, $predefinedColumns)) {
+                if ($field = $this->fullyQualifiedField($field)) {
                     if (!in_array($field, $selectColumns)) {
                         $selectColumns[] = $field;
                     }
@@ -183,7 +192,7 @@ class Application extends Model
 
         // set the order by
         $sortColumn = $orderBy[0] ?? self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $this->predefinedColumns)) {
             $selectColumns[] = $sortColumn;
         }
         $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
@@ -256,12 +265,20 @@ class Application extends Model
     /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
+     * @TODO: Need to add joins for company_ids to be searched.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -408,7 +425,13 @@ class Application extends Model
             DB::raw('companies.name as company_name'),
             DB::raw('resumes.name as resume_name'),
         ]);
-//$query->ddRawSql();
+
+        // add order by clause
+        $query = $this->addOrderBy($query, $sort);
+        if (explode('|', $sort ?? '') != 'owner_username') {
+            $query->orderBy('owner_username');
+        }
+
         return $query;
     }
 

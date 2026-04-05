@@ -28,8 +28,10 @@ class AdminTeamController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         // note that any admin can see all admin teams
-        $adminTeams = new AdminTeam()->searchQuery($request->all())
-        ->orderBy('name')
+        $adminTeams = new AdminTeam()->searchQuery(
+            $request->all(),
+            request()->input('sort') ?? implode('|', AdminTeam::SEARCH_ORDER_BY),
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($owner->name  ?? '') . ' Teams';

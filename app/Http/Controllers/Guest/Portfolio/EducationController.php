@@ -25,10 +25,10 @@ class EducationController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $educations = new Education()->searchQuery(
-            request()->except('id'),
-                $this->owner ?? null
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Education::SEARCH_ORDER_BY),
+            $this->owner ?? null
         )
-        ->orderBy('graduation_year')
         ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.education.index'), compact('educations'))

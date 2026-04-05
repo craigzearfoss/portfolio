@@ -5,7 +5,9 @@ namespace App\Models\Portfolio;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -78,17 +80,49 @@ class Education extends Model
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'major', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'graduation_date', 'desc' ];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [
+            'degree_type_name',
+            'enrollment_date',
+            'graduation_date',
+            'school_name',
+        ];
+    }
+
+    /**
+     * @return void
+     */
+    protected static function booted(): void
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminPublicScope());
+    }
 
     /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -154,26 +188,47 @@ class Education extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
-        $query = $this->appendStandardFilters($query, $filters);
-        $query =  $this->appendTimestampFilters($query, $filters);
+        $query->join( dbName('portfolio_db') . '.schools', 'schools.id', '=', $this->table . '.school_id');
+        $query->join( dbName('portfolio_db') . '.degree_types', 'degree_types.id', '=', $this->table . '.degree_type_id');
 
-        $query->join('schools', 'schools.id', '=', $this->table . '.school_id');
+        // add additional filters
+        $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
+
+        // join to owner
+        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
         $query->select([
             DB::raw($this->table . '.*'),
             DB::raw('schools.name as school_name'),
+            DB::raw('degree_types.name as degree_type_name'),
+            DB::raw('admins.name AS `owner_name`'),
+            DB::raw('admins.username AS `owner_username`'),
+            DB::raw('admins.email AS `owner_email`'),
         ]);
+        /*
+        $query = $this->addJoinToAdminTable($query, [
+            DB::raw('schools.name as school_name'),
+            DB::raw('degree_types.name as degree_type_name') ,
+        ] );
+*/
+
+        // add order by clause
+        if (explode('|', $sort ?? '')[0] == 'enrollment_date') {
+            $query->orderBy('enrollment_year', 'desc');
+            $query->orderBy('enrollment_month', 'desc');
+        } elseif (explode('|', $sort ?? '')[0] == 'graduation_date') {
+            $query->orderBy('graduation_year', 'desc');
+            $query->orderBy('graduation_month', 'desc');
+        } else {
+            //dd(explode('|', $sort ?? '')[0]);
+            //$query->ddRawSql();
+            $query = $this->addOrderBy($query, $sort);
+            if (explode('|', $sort ?? '') != 'owner_username') {
+                $query->orderBy('owner_username');
+            }
+        }
 
         return $query;
-    }
-
-    /**
-     * @return void
-     */
-    protected static function booted(): void
-    {
-        parent::booted();
-
-        static::addGlobalScope(new AdminPublicScope());
     }
 
     /**

@@ -25,10 +25,10 @@ class LinkController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $links = new Link()->searchQuery(
-            request()->except('id'),
-                $this->owner ?? null
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Link::SEARCH_ORDER_BY),
+            $this->owner ?? null
         )
-        ->orderBy('sequence')
         ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.link.index'), compact('links'))

@@ -1,11 +1,16 @@
 @php
+    use App\Models\Portfolio\Course;
     use App\Models\System\Admin;
 
+    // get variables
     $action     = $action ?? url()->current();
     $owner_id   = $owner->id ?? -1;
     $academy_id = $academy_id ?? request()->query('academy_id');
     $instructor = $instructor ?? request()->query('instructor');
     $name       = $name ?? request()->query('name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Course::SEARCH_ORDER_BY[0], Course::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -29,7 +34,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.portfolio-academy', [ 'owner_' => $owner_id ])
+                            @include('guest.components.search-panel.controls.portfolio-academy', [ 'owner_id' => $owner_id ])
                         </div>
                     </div>
 

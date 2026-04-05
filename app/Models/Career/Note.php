@@ -5,8 +5,10 @@ namespace App\Models\Career;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\NoteFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -60,12 +62,22 @@ class Note extends Model
      * SearchableModelTrait variables.
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'application_id', 'subject', 'body', 'notes', 'link', 'link_name',
-        'description', 'disclamier', 'is_public', 'is_readonly','is_root', 'is_disabled', 'is_demo' ];
+        'description', 'disclaimer', 'is_public', 'is_readonly','is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
      */
     const array SEARCH_ORDER_BY = [ 'created_at', 'desc' ];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
 
     /**
      * @return void
@@ -82,10 +94,17 @@ class Note extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -133,6 +152,12 @@ class Note extends Model
             DB::raw('applications.company_id as company_id'),
             DB::raw('companies.name as company_name'),
         ]);
+
+        // add order by clause
+        $query = $this->addOrderBy($query, $sort);
+        if (explode('|', $sort ?? '') != 'owner_username') {
+            $query->orderBy('owner_username');
+        }
 
         return $query;
     }

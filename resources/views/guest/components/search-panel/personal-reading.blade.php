@@ -2,6 +2,7 @@
     use App\Models\Personal\Reading;
     use App\Models\System\Admin;
 
+    // get variables
     $action             = $action ?? url()->current();
     $owner_id           = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $audio              = boolval($audio ?? request()->query('audio'));
@@ -11,6 +12,9 @@
     $paper              = boolval($paper ?? request()->query('paper'));
     $search_title_value = $search_title_value ?? request()->query('search_title_value');
     $wishlist           = boolval($wishlist ?? request()->query('wishlist'));
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Reading::SEARCH_ORDER_BY[0], Reading::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -22,24 +26,22 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            <div class="control" style="max-width: 28rem;">
-                                @include('guest.components.form-select', [
-                                    'name'     => 'title',
-                                    'value'    => $search_title_value,
-                                    'list'     => new Reading()->listOptions(
-                                        !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
-                                        'title',
-                                        'title',
-                                        true,
-                                        false,
-                                        [ 'title', 'asc' ],
-                                    ),
-                                    'style'    => 'min-width: 15rem;'
-                                ])
-                            </div>
-                        </div>
+                    <div class="search-panel-controls">
+
+                        @include('guest.components.form-select', [
+                            'name'     => 'title',
+                            'value'    => $search_title_value,
+                            'list'     => new Reading()->listOptions(
+                                !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
+                                'title',
+                                'title',
+                                true,
+                                false,
+                                [ 'title', 'asc' ],
+                            ),
+                            'style'    => 'min-width: 15rem;'
+                        ])
+
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
                                 @include('guest.components.form-select', [
@@ -118,10 +120,20 @@
                 </div>
 
                 <div class="has-text-right pr-2">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                            'title|asc'  => 'title',
+                            'author|asc' => 'author',
+                        ]
+                    ])
+
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])

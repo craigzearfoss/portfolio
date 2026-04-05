@@ -25,10 +25,10 @@ class CertificateController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $certificates = new Certificate()->searchQuery(
-            request()->except('id'),
-                $this->owner ?? null
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Certificate::SEARCH_ORDER_BY),
+            $this->owner ?? null
         )
-    ->orderBy('name')
     ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.certificate.index'), compact('certificates'))

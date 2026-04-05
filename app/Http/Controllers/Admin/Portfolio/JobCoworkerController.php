@@ -31,10 +31,10 @@ class JobCoworkerController extends BaseAdminController
         $job = null;
 
         $jobCoworkers = new JobCoworker()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', JobCoworker::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('name')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = (isRootAdmin() && !empty($this->ownerId)) ? $this->owner['name'] . ' Job Coworkers' : 'Job Coworkers';

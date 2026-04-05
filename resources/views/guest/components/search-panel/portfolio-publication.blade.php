@@ -1,11 +1,16 @@
 @php
+    use App\Models\Portfolio\Publication;
     use App\Models\System\Admin;
 
-    $action     = $action ?? url()->current();
-    $owner_id   = $owner->id ?? -1;
+    // get variables
+    $action           = $action ?? url()->current();
+    $owner_id         = $owner->id ?? -1;
     $publication_name = $publication_name ?? request()->query('publication_name');
     $publisher        = $publisher ?? request()->query('publisher');
     $search_title     = $search_title ?? request()->query('search_title');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Publication::SEARCH_ORDER_BY[0], Publication::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

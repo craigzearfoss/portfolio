@@ -5,10 +5,10 @@ namespace App\Models\Portfolio;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
-use Database\Factories\Portfolio\JobTaskFactory;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,8 +20,7 @@ use Illuminate\Support\Facades\DB;
  */
 class JobTask extends Model
 {
-    /** @use HasFactory<JobTaskFactory> */
-    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, Notifiable, SoftDeletes;
 
     /**
      * @var string
@@ -69,7 +68,20 @@ class JobTask extends Model
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'company_name', 'asc' ];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [
+            'company_name',
+            'role',
+        ];
+    }
 
     /**
      * @return void
@@ -86,10 +98,17 @@ class JobTask extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -131,17 +150,20 @@ class JobTask extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
+        $query->join( dbName('portfolio_db') . '.jobs', 'jobs.id', '=', $this->table . '.job_id');
+
+        // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        $query->join('jobs', 'jobs.id', '=', $this->table . '.job_id');
-        $query->select([
-            DB::raw($this->table . '.*'),
-            DB::raw('jobs.company as company'),
-            DB::raw('jobs.role as role'),
+        // join to owner
+        $query = $this->addJoinToAdminTable($query, [
+            DB::raw('jobs.company as company_name'),
+            DB::raw('jobs.role as role')
         ]);
 
-        return $query;
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

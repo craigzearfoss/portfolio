@@ -6,6 +6,7 @@ use App\Models\System\Admin;
 use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\RecruiterFactory;
 use Exception;
@@ -104,15 +105,31 @@ class Recruiter extends Model
     ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
      * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 

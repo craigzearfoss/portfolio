@@ -91,12 +91,12 @@
                             {!! $publication->title !!}{!! !empty($publication->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
                         <td data-field="publication_name">
-                            {!! $publication->publication !!}
+                            {!! $publication->publication_name !!}
                         </td>
                         <td data-field="publisher">
                             {!! $publication->publisher !!}
                         </td>
-                        <td data-field="publication_year">
+                        <td data-field="publication_year" class="has-text-centered">
                             {!! $publication->publication_year !!}
                         </td>
                         <td data-field="is_public" class="has-text-centered">

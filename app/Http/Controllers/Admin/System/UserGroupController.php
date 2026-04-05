@@ -28,8 +28,10 @@ class UserGroupController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         // note that any user can see all user teams
-        $userGroups = new UserGroup()->searchQuery($request->all())
-        ->orderBy('name')
+        $userGroups = new UserGroup()->searchQuery(
+            $request->all(),
+            request()->input('sort') ?? implode('|', UserGroup::SEARCH_ORDER_BY),
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'User Groups';

@@ -1,11 +1,16 @@
 @php
+    use App\Models\Portfolio\Project;
     use App\Models\System\Admin;
 
+    // get variables
     $action     = $action ?? url()->current();
     $owner_id   = $owner->id ?? -1;
     $language   = $language ?? request()->query('language');
     $name       = $name ?? request()->query('name');
     $repository = $repository ?? request()->query('repository');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Project::SEARCH_ORDER_BY[0], Project::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

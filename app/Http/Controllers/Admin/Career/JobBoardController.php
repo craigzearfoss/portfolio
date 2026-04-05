@@ -29,8 +29,10 @@ class JobBoardController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $jobBoards = new JobBoard()->searchQuery(request()->except('id'))
-        ->orderBy('name')
+        $jobBoards = new JobBoard()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', JobBoard::SEARCH_ORDER_BY)
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Job Boards';

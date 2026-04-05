@@ -30,11 +30,10 @@ class CompanyController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $companies = new Company()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Company::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('name')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Companies';

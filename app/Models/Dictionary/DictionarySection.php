@@ -66,7 +66,6 @@ class DictionarySection extends Model
             return [];
         }
 
-        $predefinedColumns = [];
         $other = null;
 
         if ($includeBlank) {

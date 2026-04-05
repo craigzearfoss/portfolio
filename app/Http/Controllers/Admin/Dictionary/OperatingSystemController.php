@@ -28,8 +28,10 @@ class OperatingSystemController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $operatingSystems = new Category()->searchQuery(request()->except('id'))
-        ->orderBy('name')
+        $operatingSystems = new OperatingSystem()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', OperatingSystem::SEARCH_ORDER_BY)
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.operating-system.index', compact('operatingSystems'))

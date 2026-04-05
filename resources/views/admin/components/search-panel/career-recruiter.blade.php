@@ -1,11 +1,15 @@
 @php
-    use App\Models\Career\JobBoard;
+    use App\Models\Career\Recruiter;
 
+    // get variables
     $action          = $action ?? url()->current();
     $name            = $name ?? request()->query('name');
     $city            = $city ?? request()->query('city');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recruiter::SEARCH_ORDER_BY[0], Recruiter::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -46,12 +50,14 @@
                         </div>
                     </div>
 
-                    <div class="floating-div" style="display: none;">
-                        @include('admin.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
-                    </div>
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            @include('admin.components.search-panel.controls.timestamp-created-at', [
+                                'created_at_from' => $created_at_from,
+                                'created_at_to'   => $created_at_to,
+                            ])
+                        </div>
+                    @endif
 
                 </div>
 

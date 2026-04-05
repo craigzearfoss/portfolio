@@ -1,10 +1,15 @@
 @php
+    use App\Models\Portfolio\Photography;
     use App\Models\System\Admin;
 
-    $action          = $action ?? url()->current();
-    $owner_id        = $owner->id ?? -1;
-    $credit          = $credit ?? request()->query('credit');
-    $name            = $name ?? request()->query('name');
+    // get variables
+    $action   = $action ?? url()->current();
+    $owner_id = $owner->id ?? -1;
+    $credit   = $credit ?? request()->query('credit');
+    $name     = $name ?? request()->query('name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Photography::SEARCH_ORDER_BY[0], Photography::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

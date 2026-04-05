@@ -1,7 +1,9 @@
 @php
     use App\Models\Career\Application;
+    use App\Models\Career\Communication;
     use App\Models\System\Admin;
 
+    // get variables
     $action           = $action ?? url()->current();
     $owner_id         = $owner->id ?? -1;
     $application_name = $application_name ?? request()->query('application_name');
@@ -11,6 +13,9 @@
     $from             = $from ?? request()->query('from');
     $subject          = $subject ?? request()->query('subject');
     $to               = $to ?? request()->query('to');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Communication::SEARCH_ORDER_BY[0], Communication::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -24,7 +29,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                            @include('guest.components.search-panel.controls.career-application', [ 'owner_id' => $owner_id ])
                         </div>
                     </div>
 

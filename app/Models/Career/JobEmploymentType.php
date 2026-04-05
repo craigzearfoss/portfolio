@@ -44,6 +44,16 @@ class JobEmploymentType extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * Get the career applications for the job employment type.
      */
     public function applications(): HasMany

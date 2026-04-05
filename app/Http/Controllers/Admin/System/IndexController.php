@@ -29,21 +29,25 @@ class IndexController extends BaseAdminController
 
             if (isRootAdmin() || empty($this->owner)) {
 
-                $systems = new Resource()->searchQuery([
-                    'database_id'          => $databaseId,
-                    EnvTypes::ADMIN->value => 1
-                ])
-                ->orderBy('sequence')
+                $systems = new Resource()->searchQuery(
+                    [
+                        'database_id'          => $databaseId,
+                        EnvTypes::ADMIN->value => 1
+                    ],
+                    request()->input('sort') ?? implode('|', Resource::SEARCH_ORDER_BY),
+                )
                 ->get();
 
             } else {
 
-                $systems = new AdminResource()->searchQuery([
-                    'database_id'          => $databaseId,
-                    'owner_id'             => $this->owner['id'],
-                    EnvTypes::ADMIN->value => 1
-                ])
-                ->orderBy('sequence')
+                $systems = new AdminResource()->searchQuery(
+                    [
+                        'database_id'          => $databaseId,
+                        'owner_id'             => $this->owner['id'],
+                        EnvTypes::ADMIN->value => 1
+                    ],
+                    request()->input('sort') ?? implode('|', AdminResource::SEARCH_ORDER_BY),
+                )
                 ->get();
             }
         }

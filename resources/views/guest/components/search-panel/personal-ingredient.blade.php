@@ -1,6 +1,12 @@
 @php
+    use App\Models\Personal\Ingredient;
+
+    // get variables
     $action = $action ?? url()->current();
     $name   = $name ?? request()->query('name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Ingredient::SEARCH_ORDER_BY[0], Ingredient::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

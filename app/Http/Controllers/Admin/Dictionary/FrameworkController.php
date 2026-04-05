@@ -28,8 +28,10 @@ class FrameworkController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $frameworks = new Category()->searchQuery(request()->except('id'))
-        ->orderBy('name')
+        $frameworks = new Framework()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Framework::SEARCH_ORDER_BY)
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         return view('admin.dictionary.framework.index', compact('frameworks'))

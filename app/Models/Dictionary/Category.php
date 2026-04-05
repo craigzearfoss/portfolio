@@ -8,6 +8,7 @@ use App\Models\Portfolio\Skill;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -78,6 +79,16 @@ class Category extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * @return void
      */
     protected static function booted(): void
@@ -111,12 +122,11 @@ class Category extends Model
             return [];
         }
 
-        $predefinedColumns = [];
         $other = null;
 
         // set the order by
         $sortColumn = $orderBy[0] ?? self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $predefinedColumns)) {
+        if (!in_array($sortColumn, $this->predefinedColumns)) {
             $sortColumn = 'name';
         }
         $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
@@ -176,10 +186,16 @@ class Category extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 

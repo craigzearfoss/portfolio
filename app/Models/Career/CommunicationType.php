@@ -44,6 +44,16 @@ class CommunicationType extends Model
     const array SEARCH_ORDER_BY = [ 'sequence', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * Get the career applications for the job communication type.
      */
     public function communications(): HasMany

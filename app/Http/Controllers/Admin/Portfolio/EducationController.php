@@ -28,11 +28,10 @@ class EducationController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $educations = new Education()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Education::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('enrollment_year', 'desc')
         ->orderBy('enrollment_month', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));
 

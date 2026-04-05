@@ -33,8 +33,10 @@ class DatabaseController extends BaseAdminController
             return redirect()->route('admin.system.admin-database.show', $this->admin);
         }
 
-        $databases = new Database()->searchQuery($request->all())
-        ->orderBy('sequence')
+        $databases = new Database()->searchQuery(
+            $request->all(),
+            request()->input('sort') ?? implode('|', Database::SEARCH_ORDER_BY),
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Databases';

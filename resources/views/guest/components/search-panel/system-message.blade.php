@@ -1,11 +1,16 @@
 @php
     use App\Models\System\Admin;
+    use App\Models\System\Message;
 
+    // get variables
     $action          = $action ?? url()->current();
     $name            = $name ?? request()->query('name');
     $email           = $email ?? request()->query('email');
     $subject         = $subject ?? request()->query('subject');
     $body            = $body ?? request()->query('body');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Message::SEARCH_ORDER_BY[0], Message::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

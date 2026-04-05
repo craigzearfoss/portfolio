@@ -43,4 +43,14 @@ class DegreeType extends Model
     {
         return $this->hasMany(Education::class, 'degree_type_id');
     }
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
 }

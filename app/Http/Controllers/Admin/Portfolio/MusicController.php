@@ -28,11 +28,11 @@ class MusicController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $musics = new Music()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Music::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('name')
+        ->orderBy('artist')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Music';

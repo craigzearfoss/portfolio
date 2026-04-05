@@ -11,6 +11,7 @@ use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\ResourceSetting;
 use App\Models\System\State;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Portfolio\JobFactory;
 use Exception;
@@ -101,7 +102,20 @@ class Job extends Model
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'company', 'asc' ];
+    const array SEARCH_ORDER_BY = [ 'start_date', 'desc' ];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [
+            'end_date',
+            'start_date',
+        ];
+    }
 
     /**
      * @return void
@@ -134,8 +148,6 @@ class Job extends Model
                                 array       $orderBy = [],
                                 EnvTypes    $envType = EnvTypes::GUEST): array
     {
-        $predefinedColumns = [];
-
         $options = $includeBlank ? [ '' => '' ] : [];
 
         // set the columns
@@ -148,7 +160,7 @@ class Job extends Model
         foreach ([$valueColumn, $labelColumn] as $field) {
             if (!empty($field) && ($field !== 'name')) {
                 // note that there is no "name" column in the jobs table
-                if ($field = $this->fullyQualifiedField($field, $predefinedColumns)) {
+                if ($field = $this->fullyQualifiedField($field)) {
                     if (!in_array($field, $selectColumns)) {
                         $selectColumns[] = $field;
                     }
@@ -157,11 +169,11 @@ class Job extends Model
         }
 
         // set the order by
-        $sortColumn = $orderBy[0] ?? self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
+        $sortColumn = $orderBy[0] ?? $this->table . '.company';
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $this->predefinedColumns)) {
             $selectColumns[] = $sortColumn;
         }
-        $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
+        $sortDir = $orderBy[1] ?? 'asc';
 
         // create the query
         if ($envType == EnvTypes::ADMIN) {
@@ -226,10 +238,17 @@ class Job extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -286,10 +305,29 @@ class Job extends Model
                 $query->where($this->table . '.summary', 'like', '%' . $filters['summary'] . '%');
             });
 
+        // add additional filters
         $query = $this->appendAddressFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // join to owner
+        $query = $this->addJoinToAdminTable($query);
+
+         // add order by clause
+        if (explode('|', $sort ?? '')[0] == 'start_date') {
+            $query->orderBy('start_year', 'desc');
+            $query->orderBy('start_month', 'desc');
+        } elseif (explode('|', $sort ?? '')[0] == 'end_date') {
+            $query->orderBy('end_year', 'desc');
+            $query->orderBy('end_month', 'desc');
+        } else {
+            $query = $this->addOrderBy($query, $sort);
+            if (explode('|', $sort ?? '') != 'owner_username') {
+                $query->orderBy('owner_username');
+            }
+        }
+
+        return $query;
     }
 
     /**

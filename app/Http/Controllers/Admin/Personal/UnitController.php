@@ -27,9 +27,10 @@ class UnitController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $units = new Unit()->searchQuery(request()->except('id'))
-        ->orderBy('name')->paginate($perPage)
-        ->appends(request()->except('page'));
+        $units = new Unit()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Unit::SEARCH_ORDER_BY),
+        )->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Units';
 

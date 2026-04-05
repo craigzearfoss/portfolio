@@ -1,9 +1,13 @@
 @php
-    use App\Models\Career\JobBoard;
+    use App\Models\Career\Recruiter;
 
+    // get variables
     $action        = $action ?? url()->current();
     $name          = $name ?? request()->query('name');
     $city          = $city ?? request()->query('city');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recruiter::SEARCH_ORDER_BY[0], Recruiter::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

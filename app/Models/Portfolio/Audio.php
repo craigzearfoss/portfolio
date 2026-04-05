@@ -5,6 +5,7 @@ namespace App\Models\Portfolio;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Portfolio\AudioFactory;
 use Exception;
@@ -103,6 +104,16 @@ class Audio extends Model
     ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * @return void
      */
     protected static function booted(): void
@@ -117,11 +128,17 @@ class Audio extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
      * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -197,9 +214,20 @@ class Audio extends Model
                 $query->where($this->table . '.year', '=', $filters['year']);
             });
 
+        // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // join to owner
+        $query = $this->addJoinToAdminTable($query);
+
+        // add order by clause
+        $query = $this->addOrderBy($query, $sort);
+        if (explode('|', $sort ?? '') != 'owner_username') {
+            $query->orderBy('owner_username');
+        }
+
+        return $query;
     }
 
     /**

@@ -27,8 +27,10 @@ class MessageController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $messages = new Message()->searchQuery($request->all())
-        ->orderBy('created_at', 'desc')
+        $messages = new Message()->searchQuery(
+            $request->all(),
+            request()->input('sort') ?? implode('|', Message::SEARCH_ORDER_BY),
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Messages';

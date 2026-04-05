@@ -28,12 +28,10 @@ class JobController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $jobs = new Job()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Job::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('start_year', 'desc')
-        ->orderBy('start_month', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Jobs';

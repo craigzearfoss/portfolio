@@ -6,12 +6,15 @@ use App\Models\System\Admin;
 use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
+use App\Models\System\User;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -74,19 +77,39 @@ class School extends Model
         'is_demo' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [
+            'state_code',
+            'state_name',
+        ];
+    }
+
+    /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->when(!empty($filters['name']), function ($query) use ($filters) {
-                $query->where($this->table . 'name', 'like', '%' . $filters['name'] . '%');
+                $query->where($this->table . '.name', 'like', '%' . $filters['name'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
@@ -104,10 +127,21 @@ class School extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             });
 
-        $query =$this->appendAddressFilters($query, $filters);
-        $query = $this->appendStandardFilters($query, $filters);
+        $query->join( dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id');
 
-        return $this->appendTimestampFilters($query, $filters);
+        $query->select([
+            DB::raw('schools.*'),
+            DB::raw('states.code AS `state_code`'),
+            DB::raw('states.name AS `state_name`')
+        ] );
+
+        // add additional filters
+        $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
+
+
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

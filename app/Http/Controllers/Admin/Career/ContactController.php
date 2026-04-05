@@ -9,6 +9,7 @@ use App\Http\Requests\Career\UpdateContactsRequest;
 use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
+use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -31,11 +32,10 @@ class ContactController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $contacts = new Contact()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Contact::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('name')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Contacts';

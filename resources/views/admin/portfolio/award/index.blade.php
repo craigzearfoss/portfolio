@@ -32,7 +32,7 @@
 
     @include('admin.components.search-panel.portfolio-award', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
-    <div class="floating-div-container" style="max-width: 60em !important;">
+    <div class="floating-div-container" style="max-width: 100em !important;">
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -50,6 +50,7 @@
                             <th>owner</th>
                         @endif
                         <th>name</th>
+                        <th>category</th>
                         <th>year</th>
                         <th>organization</th>
                         <th class="has-text-centered">public</th>
@@ -66,6 +67,7 @@
                             <th>owner</th>
                         @endif
                         <th>name</th>
+                        <th>category</th>
                         <th>year</th>
                         <th>organization</th>
                         <th class="has-text-centered">public</th>
@@ -88,6 +90,9 @@
                         <td data-field="name">
                             {!! $award->name !!}{!! !empty($award->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
+                            <td data-field="category">
+                                {!! $award->category !!}
+                            </td>
                         <td data-field="year">
                             {!! $award->year !!}
                         </td>
@@ -156,7 +161,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="{{ $isRootAdmin ? '7' : '6' }}">No awards found.</td>
+                        <td colspan="{{ $isRootAdmin ? '8' : '7' }}">No awards found.</td>
                     </tr>
 
                 @endforelse

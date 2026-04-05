@@ -5,7 +5,7 @@
     }
 @endphp
 <div class="field">
-    @if(isset($label) && ($label === '') )
+    @if(!isset($label) || ($label === ''))
     @else
         <label class="label" for="{{ $id }}">{!! $label ?? $name ?? '' !!}</label>
     @endif
@@ -24,7 +24,9 @@
             @if (!empty($onchange))onchange="{!! $onchange !!}" @endif
         >
             @foreach ($list as $listValue=>$listName)
-                <option value="{!! $listValue !!}" @if ($listValue == $value)selected @endif >
+                <option value="{!! $listValue !!}"
+                        {{ $listValue == $value ? 'selected' : '' }}
+                >
                     {!! $listName !!}
                 </option>
             @endforeach

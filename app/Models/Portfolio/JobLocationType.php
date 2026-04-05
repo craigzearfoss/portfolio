@@ -44,6 +44,16 @@ class JobLocationType extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * Get the portfolio jobs for the job location type.
      */
     public function applications(): HasMany

@@ -1,12 +1,19 @@
 @php
     use App\Models\Personal\Recipe;
+    use App\Models\Personal\RecipeIngredient;
     use App\Models\System\Admin;
 
+    // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $ingredient_name = $ingredient_name ?? request()->query('ingredient_name');
     $recipe_id       = $recipe_id ?? request()->query('recipe_id');
+    $recipe_name     = $recipe_name ?? request()->query('recipe_name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ RecipeIngredient::SEARCH_ORDER_BY[0], RecipeIngredient::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -18,49 +25,71 @@
 
                 <div class="floating-div-container">
 
-                    <div class="floating-div">
-                        @if($isRootAdmin)
+                    <div class="search-panel-controls">
+
+                        @include('guest.components.search-sort-select', [
+                            'sort' => $sort,
+                            'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                                  [
+                                                      'ingredient_name|asc' => 'ingredient',
+                                                      'recipe_name|asc'     => 'recipe',
+                                                  ],
+                                      )
+                        ])
+
+                        @include('admin.components.button-clear', [
+                            'id'   =>'clearSearchForm',
+                            'name' => 'Clear',
+                        ])
+
+                        @include('admin.components.button-search', [
+                            'id' =>'performSearch',
+                        ])
+
+                    </div>
+
+                    @if($isRootAdmin)
+                        <div class="floating-div">
                             <div class="search-form-control">
                                 @include('admin.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
                             </div>
-                        @endif
-                        <div class="search-form-control">
-                            <div class="control" style="max-width: 28rem;">
-                                @include('admin.components.form-select', [
-                                    'name'     => 'recipe_id',
-                                    'label'    => 'recipe',
-                                    'value'    => $recipe_id,
-                                    'list'     => new Recipe()->listOptions(
-                                        !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
-                                        'id',
-                                        'name',
-                                        true,
-                                        false,
-                                        [ 'name', 'asc' ]
-                                    ),
-                                    'style'    => 'min-width: 20rem;'
-                                ])
-                            </div>
                         </div>
+                    @endif
+
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'ingredient_name',
+                                'label'   => 'ingredient',
+                                'value'   => $ingredient_name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'recipe_name',
+                                'label'   => 'recipe',
+                                'value'   => $recipe_name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
                     </div>
 
-                    <div class="floating-div" style="display: none;">
-                        @include('admin.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
-                    </div>
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            @include('admin.components.search-panel.controls.timestamp-created-at', [
+                                'created_at_from' => $created_at_from,
+                                'created_at_to'   => $created_at_to,
+                            ])
+                        </div>
+                    @endif
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    @include('admin.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('admin.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

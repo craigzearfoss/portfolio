@@ -5,7 +5,9 @@ namespace App\Models\Personal;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -76,6 +78,16 @@ class Reading extends Model
     const array SEARCH_ORDER_BY = [ 'title', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * @return void
      */
     protected static function booted(): void
@@ -90,10 +102,17 @@ class Reading extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -144,8 +163,28 @@ class Reading extends Model
             });
 
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        if (empty($sort)) {
+            $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
+        } else {
+            $orderByCol = $this->fullyQualifiedField(explode('|', $sort)[0]);
+            $orderByDir = strtolower(explode('|', $sort)[1] ?? '');
+
+            if (in_array($orderByCol, $this->sortableColumns())) {
+                $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
+            } else {
+                $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
+            }
+        }
+
+        // add order by clause
+        $query = $this->addOrderBy($query, $sort);
+        if (explode('|', $sort ?? '') != 'owner_username') {
+            $query->orderBy('owner_username');
+        }
+
+        return $query;
     }
 
     /**

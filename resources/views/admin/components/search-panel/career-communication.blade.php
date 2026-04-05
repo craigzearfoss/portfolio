@@ -1,7 +1,9 @@
 @php
     use App\Models\Career\Application;
+    use App\Models\Career\Communication;
     use App\Models\System\Admin;
 
+    // get variables
     $action           = $action ?? url()->current();
     $owner_id         = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $application_name = $application_name ?? request()->query('application_name');
@@ -13,6 +15,9 @@
     $from             = $from ?? request()->query('from');
     $subject          = $subject ?? request()->query('subject');
     $to               = $to ?? request()->query('to');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Communication::SEARCH_ORDER_BY[0], Communication::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -39,7 +44,7 @@
                             </div>
                         @else
                             <div class="search-form-control">
-                                @include('admin.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                                @include('admin.components.search-panel.controls.career-application', [ 'owner_id' => $owner_id ])
                             </div>
                         @endif
                     </div>
@@ -99,12 +104,14 @@
                         </div>
                     </div>
 
-                    <div class="floating-div" style="display: none;">
-                        @include('admin.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
-                    </div>
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            @include('admin.components.search-panel.controls.timestamp-created-at', [
+                                'created_at_from' => $created_at_from,
+                                'created_at_to'   => $created_at_to,
+                            ])
+                        </div>
+                    @endif
 
                 </div>
 

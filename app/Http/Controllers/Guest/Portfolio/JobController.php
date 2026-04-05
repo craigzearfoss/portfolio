@@ -26,11 +26,10 @@ class JobController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $jobs = new Job()->searchQuery(
-            request()->except('id'),
-                $this->owner ?? null
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Job::SEARCH_ORDER_BY),
+            $this->owner ?? null
         )
-        ->orderBy('start_year', 'desc')
-        ->orderBy('start_month', 'desc')
         ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.job.index'), compact('jobs'))

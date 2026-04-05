@@ -49,13 +49,13 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
-                        <th class="has-text-centered">degree<br>type</th>
+                        <th class="has-text-centered">degree</th>
                         <th>major</th>
                         <th>minor</th>
                         <th>school</th>
-                        <th class="has-text-centered">enrollment<br>date</th>
+                        <th class="has-text-centered">enrolled</th>
                         <th class="has-text-centered">graduated</th>
-                        <th class="has-text-centered">graduation<br>date</th>
+                        <th class="has-text-centered">graduation<br>year</th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>
                     </tr>
@@ -68,13 +68,13 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
-                        <th class="has-text-centered">degree<br>type</th>
+                        <th class="has-text-centered">degree</th>
                         <th>major</th>
                         <th>minor</th>
                         <th>school</th>
-                        <th class="has-text-centered">enrollment<br>date</th>
+                        <th class="has-text-centered">enrolled</th>
                         <th class="has-text-centered">graduated</th>
-                        <th class="has-text-centered">graduation<br>date</th>
+                        <th class="has-text-centered">graduation<br>year</th>
                         <th class="has-text-centered">currently<br>enrolled</th>
                         <th>actions</th>
                     </tr>

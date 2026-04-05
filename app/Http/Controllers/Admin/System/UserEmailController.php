@@ -29,9 +29,9 @@ class UserEmailController extends BaseAdminController
 
         $userEmails = new UserEmail()->searchQuery(
             $request->all(),
+            request()->input('sort') ?? implode('|', UserEmail::SEARCH_ORDER_BY),
             !$this->isRootAdmin ? $this->user : null
         )
-        ->orderBy('email')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->user->name  ?? '') . ' User Email Addresses';

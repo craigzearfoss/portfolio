@@ -29,9 +29,9 @@ class AdminEmailController extends BaseAdminController
 
         $adminEmails = new AdminEmail()->searchQuery(
             $request->all(),
+            request()->input('sort') ?? implode('|', AdminEmail::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('email')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Email Addresses';

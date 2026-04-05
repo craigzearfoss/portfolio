@@ -1,12 +1,19 @@
 @php
     use App\Models\Dictionary\Category;
+    use App\Models\Portfolio\Skill;
     use App\Models\System\Admin;
 
-    $action                  = $action ?? url()->current();
-    $owner_id                = $owner->id ?? -1;
-    $name                    = $name ?? request()->query('name');
-    $min_years               = $min_years ?? request()->query('min_years');
-    $years                   = $years ?? request()->query('years');
+    // get variables
+    $action       = $action ?? url()->current();
+    $owner_id     = $owner->id ?? -1;
+    $company_name = $company_name ?? request()->query('company_name');
+    $job_id       = $job_id ?? request()->query('job_id');
+    $name         = $name ?? request()->query('name');
+    $min_years    = $min_years ?? request()->query('min_years');
+    $years        = $years ?? request()->query('years');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Skill::SEARCH_ORDER_BY[0], Skill::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

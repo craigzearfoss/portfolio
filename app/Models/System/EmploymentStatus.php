@@ -43,6 +43,16 @@ class EmploymentStatus extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * Get the system admins for the employment status.
      */
     public function admins(): HasMany

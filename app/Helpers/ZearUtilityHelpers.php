@@ -65,7 +65,7 @@ if (! function_exists('dbName')) {
      */
     function dbName(string $dbTag): string|null  {
         if ($database = Database::query()->where('tag', '=', $dbTag)->first()) {
-            return $database->name;
+            return $database->database;
         } else {
             return null;
         }

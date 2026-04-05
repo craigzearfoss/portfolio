@@ -1,12 +1,17 @@
 @php
+    use App\Models\Portfolio\JobTask;
     use App\Models\System\Admin;
 
+    // get variables
     $action   = $action ?? url()->current();
     $owner_id = $owner->id ?? -1;
     $company  = $company ?? request()->query('company');
     $job_id   = $job_id ?? request()->query('job_id');
     $name     = $name ?? request()->query('name');
     $summary  = $summary ?? request()->query('summary');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ JobTask::SEARCH_ORDER_BY[0], JobTask::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -20,7 +25,7 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.portfolio-job', [ 'owner_' => $owner_id ])
+                            @include('guest.components.search-panel.controls.portfolio-job', [ 'owner_id' => $owner_id ])
                         </div>
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [

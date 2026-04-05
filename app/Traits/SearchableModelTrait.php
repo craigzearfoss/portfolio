@@ -6,8 +6,10 @@ use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -15,6 +17,9 @@ use Illuminate\Support\Facades\Schema;
  */
 trait SearchableModelTrait
 {
+    /**
+     *
+     */
     const array COMMON_COLUMNS = [
         'id',
         'owner_id',
@@ -48,6 +53,22 @@ trait SearchableModelTrait
     ];
 
     /**
+     * These are column names that will never be fully qualified. Usually they are aliases as defined like:
+     *       `academies`.`name` as 'academy_name'
+     *
+     * @var string[]
+     */
+    protected array $predefinedColumns = [];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * Returns an array of options for an industry select list.
      *
      * @param array    $filters
@@ -68,7 +89,6 @@ trait SearchableModelTrait
                                 array  $orderBy = [],
                                 EnvTypes $envType = EnvTypes::GUEST): array
     {
-        $predefinedColumns = [];
         $other = null;
 
         $options = $includeBlank ? [ '' => '' ] : [];
@@ -80,7 +100,7 @@ trait SearchableModelTrait
 
         foreach ([$valueColumn, $labelColumn] as $field) {
             if (!empty($field) ) {
-                if ($field = $this->fullyQualifiedField($field, $predefinedColumns)) {
+                if ($field = $this->fullyQualifiedField($field)) {
                     $selectColumns[] = $field;
                 }
             }
@@ -88,7 +108,7 @@ trait SearchableModelTrait
 
         // set the order by
         $sortColumn = $orderBy[0] ?? $this->table . '.' . self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $this->predefinedColumns)) {
             $selectColumns[] = $sortColumn;
         }
         $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
@@ -235,9 +255,16 @@ trait SearchableModelTrait
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
+     * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
      */
-    public static function searchQuery(array $filters = []): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         return new self()->getSearchQuery($filters);
     }
@@ -445,16 +472,103 @@ trait SearchableModelTrait
         return $filters;
     }
 
-    public function fullyQualifiedField($field, array $predefinedColumns = []): string|null
+    /**
+     * Returns the fully qualified name for the specified columns (that is table + column name)
+     *
+     * @param string $field
+     * @return string|null
+     * @throws Exception
+     */
+    public function fullyQualifiedField(string $field): string|null
     {
         if (empty($field)) {
             return null;
-        } elseif (in_array($field, $predefinedColumns)) {
+        } elseif (strpos($field, '.')) {
             return $field;
+        } elseif (in_array($field, $this->predefinedColumns)) {
+            return $field;
+        } elseif (!in_array($field, self::SEARCH_COLUMNS)) {
+            throw new Exception('Invalid sort column "' . $field . '" specified.');
+        } else {
+            return $this->table . '.' . $field;
+        }
+    }
+
+    /**
+     * Returns an array columns that can be used in an order by clause.
+     *
+     * @param array $additionalCols
+     * @return array
+     */
+    protected function sortableColumns(array $additionalCols = []): array
+    {
+        // get standard columns
+        $cols = array_map(
+            function ($col) {
+                return (str_contains($col, '.'))
+                    ? $col
+                    : $this->table . '.' . $col;
+            },
+            array_merge($this->fillable, [ 'created_at', 'deleted_at', 'updated_at', 'deleted_at' ])
+        );
+
+        return array_merge($cols, $additionalCols, $this->predefinedColumns);
+    }
+
+    /**
+     * Add a join to the system admins table to the query to get the owner information.
+     *
+     * @param Builder $query
+     * @param array $additionalColumns
+     * @return Builder
+     */
+    protected function addJoinToAdminTable(Builder $query, array $additionalColumns = []): Builder
+    {
+        $selectColumns = [
+            DB::raw($this->table . '.*'),
+            DB::raw('admins.name AS `owner_name`'),
+            DB::raw('admins.username AS `owner_username`'),
+            DB::raw('admins.email AS `owner_email`'),
+        ];
+
+        if (!empty($additionalColumns)) {
+            $selectColumns = array_merge($selectColumns, $additionalColumns);
         }
 
-        return strpos($field, '.')
-            ? $field
-            : $this->table . '.' . $field;
+        $query->from(dbName('portfolio_db') . '.' . $this->table);
+        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
+        $query->select($selectColumns);
+
+        return $query;
+    }
+
+    /**
+     * Adds the order by clause to the query.
+     *
+     * @param Builder $query
+     * @param string|null $sort
+     * @return Builder
+     * @throws Exception
+     */
+    protected function addOrderBy(Builder $query, string|null $sort = null): Builder
+    {
+        if (empty($sort)) {
+            $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
+        } else {
+            $orderByCol = $this->fullyQualifiedField(explode('|', $sort)[0]);
+            $orderByDir = strtolower(explode('|', $sort)[1] ?? '');
+
+            if (in_array($orderByCol, $this->sortableColumns())) {
+                $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
+            } elseif(in_array($orderByCol, $this->predefinedColumns)) {
+                $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
+            } elseif (str_starts_with($orderByCol, 'owner.')) {
+                $query->orderBy('admins.' . explode('.',  $orderByCol)[1], in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
+            } else {
+                $query->orderBy($this->table . '.' . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
+            }
+        }
+
+        return $query;
     }
 }

@@ -33,10 +33,10 @@ class ResumeController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $query = new Resume()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Resume::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('date', 'desc')
         ->orderBy('name');
 
         if ($application = $request->application_id ? Application::query()->findOrFail($request->application_id) : null) {

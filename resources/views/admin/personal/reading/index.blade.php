@@ -52,7 +52,7 @@
                         <th>title</th>
                         <th>author</th>
                         <th>type</th>
-                        <th class="has-text-centered">publication year</th>
+                        <th class="has-text-centered">published</th>
                         <th>media</th>
                         <th class="has-text-centered">wishlist</th>
                         <th class="has-text-centered">public</th>
@@ -71,7 +71,7 @@
                         <th>name</th>
                         <th>author</th>
                         <th>type</th>
-                        <th class="has-text-centered">publication year</th>
+                        <th class="has-text-centered">published</th>
                         <th>media</th>
                         <th class="has-text-centered">wishlist</th>
                         <th class="has-text-centered">public</th>

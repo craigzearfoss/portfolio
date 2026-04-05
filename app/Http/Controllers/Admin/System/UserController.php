@@ -28,8 +28,10 @@ class UserController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $allUsers = new User()->searchQuery($request->all())
-        ->orderBy('name')
+        $allUsers = new User()->searchQuery(
+            $request->all(),
+            request()->input('sort') ?? implode('|', User::SEARCH_ORDER_BY),
+        )
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Users';

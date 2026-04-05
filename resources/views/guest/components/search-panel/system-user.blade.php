@@ -1,8 +1,12 @@
 @php
     use App\Models\System\User;
 
+    // get variables
     $action  = $action ?? url()->current();
     $user_id = $user_id ?? $user->id ?? null;
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ User::SEARCH_ORDER_BY[0], User::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

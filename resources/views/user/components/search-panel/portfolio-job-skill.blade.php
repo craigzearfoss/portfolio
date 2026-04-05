@@ -27,7 +27,7 @@
                             ])
                         </div>
                         <div class="search-form-control">
-                            @include('user.components.search-panel.controls.portfolio-job', [ 'owner_' => $owner_id ])
+                            @include('user.components.search-panel.controls.portfolio-job', [ 'owner_id' => $owner_id ])
                         </div>
                     </div>
 

@@ -28,10 +28,10 @@ class CertificateController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $certificates = new Certificate()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Certificate::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('name')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->owner->name  ?? '') . ' Certificates';

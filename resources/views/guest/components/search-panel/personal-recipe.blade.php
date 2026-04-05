@@ -1,12 +1,17 @@
 @php
+    use App\Models\Personal\Recipe;
     use App\Models\System\Admin;
 
+    // get variables
     $action     = $action ?? url()->current();
     $owner_id   = $owner->id ?? -1;
     $author     = $author ?? request()->query('author');
     $name       = $name ?? request()->query('name');
     $prep_time  = $prep_time ?? request()->query('prep_time');
     $total_time = $total_time ?? request()->query('total_time');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Recipe::SEARCH_ORDER_BY[0], Recipe::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

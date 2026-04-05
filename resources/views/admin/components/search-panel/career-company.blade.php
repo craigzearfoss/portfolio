@@ -1,12 +1,17 @@
 @php
+    use App\Models\Career\Company;
     use App\Models\System\Admin;
 
+    // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $city            = $city ?? request()->query('city');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $name            = $name ?? request()->query('name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Company::SEARCH_ORDER_BY[0], Company::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -52,12 +57,14 @@
                         </div>
                     </div>
 
-                    <div class="floating-div" style="display: none;">
-                        @include('admin.components.search-panel.controls.timestamp-created-at', [
-                            'created_at_from' => $created_at_from,
-                            'created_at_to'   => $created_at_to,
-                        ])
-                    </div>
+                    @if($isRootAdmin)
+                        <div class="floating-div">
+                            @include('admin.components.search-panel.controls.timestamp-created-at', [
+                                'created_at_from' => $created_at_from,
+                                'created_at_to'   => $created_at_to,
+                            ])
+                        </div>
+                    @endif
 
                 </div>
 

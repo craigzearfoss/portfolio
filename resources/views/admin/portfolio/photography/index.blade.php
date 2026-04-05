@@ -89,11 +89,11 @@
                                 {!! $photo->owner->username !!}
                             </td>
                         @endif
-                        <td data-field="year">
+                        <td data-field="name">
                             {!! $photo->name !!}{!! !empty($photo->featured) ? '<span class="featured-splat">*</span>' : '' !!}
                         </td>
-                        <td data-field="year">
-                            {!! $photo->name !!}
+                        <td data-field="credit">
+                            {!! $photo->credit !!}
                         </td>
                         <td data-field="year">
                             {!! $photo->year !!}

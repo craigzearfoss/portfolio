@@ -44,10 +44,10 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
+                        <th>name</th>
                         @if(empty($recipe))
                             <th>recipe</th>
                         @endif
-                        <th>name</th>
                         <th class="has-text-centered">amount</th>
                         <th>unit</th>
                         <th>actions</th>
@@ -61,10 +61,10 @@
                         @if($isRootAdmin)
                             <th>owner</th>
                         @endif
+                        <th>name</th>
                         @if(empty($recipe))
                             <th>recipe</th>
                         @endif
-                        <th>name</th>
                         <th class="has-text-centered">amount</th>
                         <th>unit</th>
                         <th>actions</th>
@@ -82,6 +82,9 @@
                                 {{ $recipeIngredient->owner->username ?? '' }}
                             </td>
                         @endif
+                        <td data-field="ingredient.name">
+                            {!! $recipeIngredient->ingredient->name ?? '' !!}
+                        </td>
                         @if(empty($recipe))
                             <td data-field="recipe.name">
                                 @if(!empty($recipeIngredient->recipe))
@@ -92,9 +95,6 @@
                                 @endif
                             </td>
                         @endif
-                        <td data-field="ingredient.name">
-                            {!! $recipeIngredient->ingredient->name ?? '' !!}
-                        </td>
                         <td data-field="amount" class="has-text-centered">
                             {!! $recipeIngredient->amount !!}
                         </td>

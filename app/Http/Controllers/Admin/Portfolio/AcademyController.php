@@ -27,9 +27,11 @@ class AcademyController extends BaseAdminController
 
         $perPage = $request->query('per_page', $this->perPage());
 
-        $academies = new Academy()->searchQuery(request()->except('id'))
+        $academies = new Academy()->searchQuery(
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Academy::SEARCH_ORDER_BY)
+        )
         ->where('name', '!=', 'other')
-        ->orderBy('name')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = 'Academies';

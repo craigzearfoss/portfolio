@@ -25,11 +25,10 @@ class MusicController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage());
 
         $musics = new Music()->searchQuery(
-            request()->except('id'),
-                $this->owner ?? null
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', Music::SEARCH_ORDER_BY),
+            $this->owner ?? null
         )
-        ->orderBy('name')
-        ->orderBy('artist')
         ->paginate($perPage)->appends(request()->except('page'));
 
         return view(themedTemplate('guest.portfolio.music.index'), compact('musics'))

@@ -1,10 +1,15 @@
 @php
+    use App\Models\Portfolio\Link;
     use App\Models\System\Admin;
 
+    // get variables
     $action   = $action ?? url()->current();
     $owner_id = $owner->id ?? -1;
     $name     = $name ?? request()->query('name');
     $url      = $url ?? request()->query('url');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Link::SEARCH_ORDER_BY[0], Link::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

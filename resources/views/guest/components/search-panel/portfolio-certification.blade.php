@@ -1,9 +1,14 @@
 @php
+    use App\Models\Portfolio\Certification;
     use App\Models\Career\JobBoard;
 
+    // get variables
     $action       = $action ?? url()->current();
     $abbreviation = $abbreviation ?? request()->query('abbreviation');
     $name         = $name ?? request()->query('name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ Certification::SEARCH_ORDER_BY[0], Certification::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

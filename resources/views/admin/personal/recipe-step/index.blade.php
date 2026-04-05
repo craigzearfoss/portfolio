@@ -55,7 +55,7 @@
                         @if(empty($recipeId))
                             <th>recipe</th>
                         @endif
-                        <th>step</th>
+                        <th class="has-text-centered">step</th>
                         <th>description</th>
                         <th>actions</th>
                     </tr>
@@ -71,7 +71,7 @@
                         @if(empty($recipeId))
                             <th>recipe</th>
                         @endif
-                        <th>step</th>
+                        <th class="has-text-centered">step</th>
                         <th>description</th>
                         <th>actions</th>
                     </tr>

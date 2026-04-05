@@ -24,6 +24,16 @@ class CompensationUnit extends Model
     protected $table = 'compensation_units';
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>

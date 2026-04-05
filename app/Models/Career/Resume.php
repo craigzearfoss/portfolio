@@ -6,6 +6,7 @@ use App\Enums\EnvTypes;
 use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
+use App\Models\System\User;
 use App\Traits\SearchableModelTrait;
 use Database\Factories\Career\ResumeFactory;
 use Exception;
@@ -96,7 +97,19 @@ class Resume extends Model
     /**
      *
      */
-    const array SEARCH_ORDER_BY = [ 'date', 'desc' ];
+    const array SEARCH_ORDER_BY = [ 'resume_date', 'desc' ];
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [
+            'name',
+        ];
+    }
 
     /**
      * @return void
@@ -129,7 +142,6 @@ class Resume extends Model
                                 array               $orderBy = [],
                                 EnvTypes $envType = EnvTypes::GUEST): array
     {
-        $predefinedColumns = [ 'name' ];
         $other = null;
 
         $options = $includeBlank ? [ '' => '' ] : [];
@@ -137,12 +149,12 @@ class Resume extends Model
         // set the columns
         $selectColumns = [
             $this->table . '.id',
-            'CONCAT(date, " - ", ' . $this->table . '.name) AS name',
+            'CONCAT(resume_date, " - ", ' . $this->table . '.name) AS name',
         ];
 
         foreach ([$valueColumn, $labelColumn] as $field) {
             if (!empty($field) && ($field !== 'name')) {
-                if ($field = $this->fullyQualifiedField($field, $predefinedColumns)) {
+                if ($field = $this->fullyQualifiedField($field)) {
                     if (!in_array($field, $selectColumns)) {
                         $selectColumns[] = $field;
                     }
@@ -152,7 +164,7 @@ class Resume extends Model
 
         // set the order by
         $sortColumn = $orderBy[0] ?? $this->table . '.' . self::SEARCH_ORDER_BY[0];
-        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $predefinedColumns)) {
+        if (!in_array($sortColumn, $selectColumns) && !in_array($sortColumn, $this->predefinedColumns)) {
             $selectColumns[] = $sortColumn;
         }
         $sortDir = $orderBy[1] ?? self::SEARCH_ORDER_BY[1];
@@ -220,10 +232,17 @@ class Resume extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
+     * @param User|null $user
      * @return Builder
+     * @throws Exception
      */
-    public function searchQuery(array $filters = [], Admin|Owner|null $owner = null): Builder
+    public function searchQuery(
+        array $filters = [],
+        string|null $sort = null,
+        Admin|Owner|null $owner = null,
+        User|null $user = null): Builder
     {
         $filters = $this->removeEmptyFilters($filters);
 
@@ -254,11 +273,24 @@ class Resume extends Model
             })
             ->when(!empty($filters['resume_date']), function ($query) use ($filters) {
                 $query->where($this->table . '.resume_date', '=', $filters['resume_date']);
+            })
+            ->when(!empty($filters['resume_date_from']), function ($query) use ($filters) {
+                $query->where($this->table . '.resume_date', '>=', $filters['resume_date_from']);
+            })
+            ->when(!empty($filters['resume_date_to']), function ($query) use ($filters) {
+                $query->where($this->table . '.resume_date', '<=', $filters['resume_date_to']);
             });
-        
-        $query = $this->appendStandardFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
+
+        // add order by clause
+        $query = $this->addOrderBy($query, $sort);
+        if (explode('|', $sort ?? '') != 'owner_username') {
+            $query->orderBy('owner_username');
+        }
+
+        return $query;
     }
 
     /**

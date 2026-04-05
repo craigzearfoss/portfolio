@@ -29,9 +29,9 @@ class UserPhoneController extends BaseAdminController
 
         $userPhones = new UserPhone()->searchQuery(
             $request->all(),
+            request()->input('sort') ?? implode('|', UserPhone::SEARCH_ORDER_BY),
             !$this->isRootAdmin ? $this->user : null
         )
-        ->orderBy('phone')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $pageTitle = ($this->user->name  ?? '') . ' User Phone Numbers';

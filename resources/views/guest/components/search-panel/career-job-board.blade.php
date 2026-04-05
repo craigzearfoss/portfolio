@@ -1,8 +1,12 @@
 @php
     use App\Models\Career\JobBoard;
 
+    // get variables
     $action        = $action ?? url()->current();
     $name          = $name ?? request()->query('name');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ JobBoard::SEARCH_ORDER_BY[0], JobBoard::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

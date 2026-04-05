@@ -29,11 +29,10 @@ class RecipeIngredientController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage());
 
         $recipeIngredients = new RecipeIngredient()->searchQuery(
-            request()->except('id'),
+            request()->except('id', 'sort'),
+            request()->input('sort') ?? implode('|', RecipeIngredient::SEARCH_ORDER_BY),
             $this->singleAdminMode || !$this->isRootAdmin ? $this->admin : null
         )
-        ->orderBy('owner_id')
-        ->orderBy('recipe_id')
         ->paginate($perPage)->appends(request()->except('page'));
 
         $recipe = $request->recipe_id ? Recipe::query()->findOrFail($request->recipe_id) : null;

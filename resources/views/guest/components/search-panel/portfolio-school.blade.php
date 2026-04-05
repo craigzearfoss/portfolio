@@ -1,9 +1,14 @@
 @php
+    use App\Models\Portfolio\School;
     use App\Models\System\Admin;
 
+    // get variables
     $action = $action ?? url()->current();
     $name   = $name ?? request()->query('name');
     $city   = $city ?? request()->query('city');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ School::SEARCH_ORDER_BY[0], School::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 

@@ -43,6 +43,16 @@ class CertificationType extends Model
     const array SEARCH_ORDER_BY = [ 'name', 'asc' ];
 
     /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->predefinedColumns = [];
+    }
+
+    /**
      * Get the portfolio certifications for the certification type.
      */
     public function certifications(): HasMany

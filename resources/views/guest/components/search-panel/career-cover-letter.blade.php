@@ -1,6 +1,8 @@
 @php
+    use App\Models\Career\CoverLetter;
     use App\Models\System\Admin;
 
+    // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner->id ?? -1;
     $content         = $content ?? request()->query('content');
@@ -9,6 +11,9 @@
     $name            = $name ?? request()->query('name');
     $description     = $description ?? request()->query('description');
     $notes           = $notes ?? request()->query('notes');
+
+    // set sort order
+    $sort = $sort ?? request()->query('sort') ?? implode('|', [ CoverLetter::SEARCH_ORDER_BY[0], CoverLetter::SEARCH_ORDER_BY[1] ]);
 @endphp
 <div class="mb-2" style="display: flex;">
 
@@ -22,11 +27,11 @@
 
                     <div class="floating-div">
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.career-application', [ 'owner_' => $owner_id ])
+                            @include('guest.components.search-panel.controls.career-application', [ 'owner_id' => $owner_id ])
                         </div>
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.career-company',
-                                $isRootAdmin ? [] : [ 'owner_' => $owner_id ]
+                                $isRootAdmin ? [] : [ 'owner_id' => $owner_id ]
                             )
                         </div>
                     </div>
