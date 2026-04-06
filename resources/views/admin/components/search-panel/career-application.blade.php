@@ -1,10 +1,10 @@
 @php
     use App\Models\Career\Application;
     use App\Models\System\Admin;
-
+//dd($owner_id);
     // get variables
     $action          = $action ?? url()->current();
-    $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
+    $owner_id        = $owner->id ?? null;
     $applied_from    = $applied_from ?? request()->query('applied_from');
     $applied_to      = $applied_to ?? request()->query('applied_to');
     $city            = $city ?? request()->query('city');
@@ -28,6 +28,39 @@
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
             <div>
+
+                <div class="search-panel-controls">
+
+                    @include('admin.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   'company_name|asc'      => 'company',
+                                                   'compensation_max|desc' => 'compensation (max)',
+                                                   'compensation_min|desc' => 'compensation (min)',
+                                                   'apply_date|desc'       => 'date applied',
+                                                   'close_date|desc'       => 'date closed',
+                                                   'post_date|desc'        => 'date posted',
+                                                   'rating|desc'           => 'rating',
+                                                   'role|asc'              => 'role',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 10rem', 'max-width: 10rem'],
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
 
                 <div class="floating-div-container">
 
@@ -157,15 +190,6 @@
                         </div>
                     @endif
 
-                </div>
-                <div class="has-text-right pr-2">
-                    @include('admin.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('admin.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

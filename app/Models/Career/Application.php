@@ -59,6 +59,7 @@ class Application extends Model
         'compensation_min',
         'compensation_max',
         'compensation_unit_id',
+        'wage_rate',
         'job_duration_type_id',
         'job_location_type_id',
         'job_employment_type_id',
@@ -105,11 +106,11 @@ class Application extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating',
         'active', 'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max',
-        'compensation_unit_id', 'job_duration_type_id', 'job_location_type_id', 'job_employment_type_id', 'street',
-        'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation',
-        'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email',
-        'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root', 'is_disabled',
-        'is_demo' ];
+        'wage_rate','compensation_unit_id', 'job_duration_type_id', 'job_location_type_id', 'job_employment_type_id',
+        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits',
+        'vacation', 'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
+        'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
+        'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -327,6 +328,12 @@ class Application extends Model
             ->when(!empty($filters['company_name']), function ($query) use ($filters) {
                 $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
             })
+            ->when(!empty($filters['compensation_min']), function ($query) use ($filters) {
+                $query->where('compensation_min', 'like', '%' . $filters['compensation_min'] . '%');
+            })
+            ->when(!empty($filters['compensation_max']), function ($query) use ($filters) {
+                $query->where('compensation_max', 'like', '%' . $filters['compensation_max'] . '%');
+            })
             ->when(!empty($filters['country_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.country_id', '=', intval($filters['country_id']));
             })
@@ -411,6 +418,9 @@ class Application extends Model
             })
             ->when(!empty($filters['w2']), function ($query) use ($filters) {
                 $query->where($this->table . '.w2', '=', true);
+            })
+            ->when(!empty($filters['wage_rate']), function ($query) use ($filters) {
+                $query->where('wage_rate', 'like', '%' . $filters['wage_rate'] . '%');
             });
 
         $query = $this->appendPhoneFilters($query, $filters);
@@ -418,10 +428,14 @@ class Application extends Model
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
+        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
         $query->join('resumes', 'resumes.id', '=', 'applications.resume_id');
         $query->select([
             DB::raw($this->table . '.*'),
+            DB::raw('admins.name AS `owner_name`'),
+            DB::raw('admins.username AS `owner_username`'),
+            DB::raw('admins.email AS `owner_email`'),
             DB::raw('companies.name as company_name'),
             DB::raw('resumes.name as resume_name'),
         ]);

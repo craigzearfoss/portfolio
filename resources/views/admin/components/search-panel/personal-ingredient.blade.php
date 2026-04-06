@@ -27,10 +27,13 @@
                                   ],
                     ])
 
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
                     @include('admin.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+                    */ ?>
 
                     @include('admin.components.button-search', [
                         'id' =>'performSearch',

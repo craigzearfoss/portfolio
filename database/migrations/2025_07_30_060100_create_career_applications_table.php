@@ -48,6 +48,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('compensation_units', 'id')
                 ->onDelete('cascade');
+            $table->float('wage_rate')->nullable();
             $table->foreignId('job_duration_type_id')
                 ->constrained('job_duration_types', 'id')
                 ->onDelete('cascade');

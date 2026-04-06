@@ -48,6 +48,7 @@ class UpdateApplicationsRequest extends FormRequest
             'compensation_min'       => ['integer', 'nullable'],
             'compensation_max'       => ['integer', 'nullable'],
             'compensation_unit_id'   => ['integer', 'nullable'],
+            'wage_rate'              => ['float', 'nullable'],
             'job_duration_type_id'   => ['filled', 'integer', 'exists:career_db.job_duration_types,id'],
             'job_employment_type_id' => ['filled', 'integer', 'exists:career_db.job_employment_types,id'],
             'job_location_type_id'   => ['filled', 'integer', 'exists:career_db.job_location_types,id'],
@@ -115,5 +116,26 @@ class UpdateApplicationsRequest extends FormRequest
             'state_id.exists'               => 'The specified state does not exist.',
             'country_id.exists'             => 'The specified country does not exist.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        // set the wage rage
+        if (!empty($this->compensation_min)) {
+            $this['wage_rate'] = match ($this['compensation_unit_id']) {
+                1 => $this->compensation_min,   // per hour
+                2 => $this->compensation_min / 2080,    // per year
+                3 => $this->compensation_min / 173,   // per month
+                4 => $this->compensation_min / 40,  // per week
+                5 => $this->compensation_min / 8,   // per day
+                6 => $this->compensation_min,   // per project (we an' calculate a wage rate)
+                default => null,
+            };
+        }
     }
 }
