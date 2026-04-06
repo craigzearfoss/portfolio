@@ -18,6 +18,35 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    <?php /*
+                    // @TODO: Implement sort select list.
+                    @include('admin.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'username'       => 'owner',
+                                              ],
+                                  ),
+                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                    ])
+                    */ ?>
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
@@ -40,16 +69,6 @@
                         </div>
                     @endif
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    @include('admin.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('admin.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

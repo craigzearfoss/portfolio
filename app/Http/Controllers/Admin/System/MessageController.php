@@ -23,7 +23,7 @@ class MessageController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(Message::class, $this->user);
+        readGate(Message::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 

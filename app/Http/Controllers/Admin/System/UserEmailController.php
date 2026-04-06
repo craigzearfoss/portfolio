@@ -23,7 +23,9 @@ class UserEmailController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(UserEmail::class, $this->user);
+        if (!$this->isRootAdmin) {
+            readGate(UserEmail::class, $this->user);
+        }
 
         $perPage = $request->query('per_page', $this->perPage());
 

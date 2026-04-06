@@ -23,7 +23,9 @@ class UserTeamController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(UserTeam::class , $this->admin);
+        if (!$this->isRootAdmin) {
+            readGate(UserTeam::class, $this->user);
+        }
 
         $perPage = $request->query('per_page', $this->perPage());
 

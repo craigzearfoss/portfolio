@@ -150,7 +150,7 @@
             </table>
 
             @if($pagination_bottom)
-                {!! $adminPhones->links('vendor.pagination.bulma') !!}
+                {!! $userPhones->links('vendor.pagination.bulma') !!}
             @endif
 
         </div>

@@ -23,7 +23,9 @@ class UserPhoneController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(UserPhone::class, $this->user);
+        if (!$this->isRootAdmin) {
+            readGate(UserPhone::class, $this->user);
+        }
 
         $perPage = $request->query('per_page', $this->perPage());
 

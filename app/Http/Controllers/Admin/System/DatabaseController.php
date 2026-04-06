@@ -23,7 +23,7 @@ class DatabaseController extends BaseAdminController
      */
     public function index(Request $request): View|RedirectResponse
     {
-        if (!isRootAdmin()) {
+        if (!$this->isRootAdmin) {
             abort(403, 'Not authorized.');
         }
 

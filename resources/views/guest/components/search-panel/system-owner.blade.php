@@ -1,5 +1,6 @@
 @php
     use App\Models\System\Admin;
+    use App\Models\System\Owner;
 
     // get variables
     $action   = $action ?? url()->current();
@@ -16,23 +17,30 @@
 
             <div>
 
-                <div class="floating-div-container">
-                    <div class="floating-div">
-                        @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-                    </div>
-                </div>
+                <div class="search-panel-controls">
 
-                <div class="has-text-right pr-2">
                     <?php /*
-                    // @TODO: Implement clear search form functionality.
+                    // @TODO: Implement sort select list.
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'username'       => 'owner',
+                                              ],
+                                  ),
+                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                    ])
+                    */ ?>
+
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
-                    */ ?>
+
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
+
                 </div>
 
             </div>

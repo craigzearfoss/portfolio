@@ -23,7 +23,9 @@ class UserGroupController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(UserGroup::class, $this->admin);
+        if (!$this->isRootAdmin) {
+            readGate(UserGroup::class, $this->user);
+        }
 
         $perPage = $request->query('per_page', $this->perPage());
 

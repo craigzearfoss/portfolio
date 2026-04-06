@@ -16,10 +16,39 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    <?php /*
+                    // @TODO: Implement sort select list.
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'username'       => 'owner',
+                                              ],
+                                  ),
+                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                    ])
+                    */ ?>
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('guest.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('guest.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
-                        <div class="control" style="max-width: 28rem;">
+                        <div class="control" style="max-width: 30rem;">
                             @include('guest.components.form-select', [
                                 'name'     => 'user_id',
                                 'label'    => 'user',
@@ -29,19 +58,6 @@
                         </div>
                     </div>
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    <?php /*
-                    // @TODO: Implement clear search form functionality.
-                    @include('guest.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    */ ?>
-                    @include('guest.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

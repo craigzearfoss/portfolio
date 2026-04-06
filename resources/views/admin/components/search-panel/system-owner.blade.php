@@ -18,6 +18,7 @@
         <form id="searchForm" action="{!! $action ?? '' !!}" method="get">
 
             <div>
+
                 <div class="search-panel-controls">
 
                     <?php /*
