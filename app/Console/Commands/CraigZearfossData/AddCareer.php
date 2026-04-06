@@ -7,6 +7,7 @@ use App\Models\Career\ApplicationSkill;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
+use App\Models\Career\CompensationUnit;
 use App\Models\Career\Contact;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Event;
@@ -1260,11 +1261,18 @@ EOD,
 
         $applicationModel = new Application();
 
-        if (!empty($data)) {
-            foreach ($data as $dataArray) {
-                $dataArray = [$dataArray];
-                $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            }
+        foreach ($data as $dataArray) {
+
+            // calculate wage rate
+            $dataArray['wage_rate'] = calculateWageRate(
+                $dataArray['compensation_min'],
+                $dataArray['compensation_max'],
+                CompensationUnit::getCompensationUnitName(intval($dataArray['compensation_unit_id'])),
+                $dataArray['estimated_hours'] ?? 0
+            );
+
+            $dataArray = [$dataArray];
+            $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
         $this->insertSystemAdminResource($this->adminId, 'applications', [ 'is_public' => false ]);
 
@@ -1435,6 +1443,7 @@ EOD,
             [ 'id' => $this->companyId[110],  'name' => 'PUTNAM RECRUITING GROUP',         'slug' => 'putnam-recruiting-group',         'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[111],  'name' => 'Craneware',                       'slug' => 'craneware',                       'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[112],  'name' => 'Sentry Data Systems',             'slug' => 'sentry-data-systems',             'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
+            /*
             [
                 'id'          => $this->companyId[113],
                 'name'        => '',
@@ -1449,6 +1458,7 @@ EOD,
                 'logo'        => null,
                 'logo_small'  => null
             ],
+            */
         ];
 
         if (!empty($data)) {
@@ -1533,6 +1543,7 @@ EOD,
             [ 'id' => $this->contactId[20],  'name' => 'Kelsey Higgins',   'slug' => 'kelsey-higgins',   'phone' => '(774) 283-1614', 'phone_label' => 'work', 'email' => 'kelsey.higgins@klaviyo.com',           'email_label' => 'work' ],
             [ 'id' => $this->contactId[21],  'name' => 'Britney Coleman',  'slug' => 'britney-coleman',  'phone' => null,	          'phone_label' => null,   'email' => 'coleman@lendflow.io',                  'email_label' => 'work' ],
             [ 'id' => $this->contactId[22],  'name' => 'Dan Chaffee',      'slug' => 'dan-chaffee',      'phone' => null,	          'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactId[23],  'name' => 'Kara Caldwell',    'slug' => 'kara-caldwell',    'phone' => null,	          'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
             /*
             [
                 'id'          => $this->contactId[1],

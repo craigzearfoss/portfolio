@@ -7,6 +7,7 @@ use App\Models\Career\ApplicationSkill;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
+use App\Models\Career\CompensationUnit;
 use App\Models\Career\Contact;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Event;
@@ -1260,11 +1261,18 @@ EOD,
 
         $applicationModel = new Application();
 
-        if (!empty($data)) {
-            foreach ($data as $dataArray) {
-                $dataArray = [$dataArray];
-                $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->is_demo]));
-            }
+        foreach ($data as $dataArray) {
+
+            // calculate wage rate
+            $dataArray['wage_rate'] = calculateWageRate(
+                $dataArray['compensation_min'],
+                $dataArray['compensation_max'],
+                CompensationUnit::getCompensationUnitName(intval($dataArray['compensation_unit_id'])),
+                $dataArray['estimated_hours'] ?? 0
+            );
+
+            $dataArray = [$dataArray];
+            $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
         $this->insertSystemAdminResource($this->adminId, 'applications', [ 'is_public' => false ]);
 
@@ -1945,19 +1953,19 @@ EOD,
         echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
 
         $data = [
-            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
-            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
-            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'date' => '2025-12-08', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'resume_date' => '2025-06-09', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'resume_date' => '2025-06-16', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'resume_date' => '2025-06-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'resume_date' => '2025-06-29', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'resume_date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'resume_date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'resume_date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'resume_date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'resume_date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'resume_date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'resume_date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
+            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'resume_date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'resume_date' => '2025-12-08', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
             /*
             [
                 'name'         => '',

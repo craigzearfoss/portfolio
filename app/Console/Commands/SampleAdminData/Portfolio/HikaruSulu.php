@@ -211,10 +211,10 @@ class HikaruSulu extends Command
                 'featured'          => 0,
                 'summary'           => null,
                 'full_episode'      => 0,
-                'clip'              => 1,
+                'clip'              => 0,
                 'podcast'           => 0,
                 'source_recording'  => 0,
-                'date'              => '0000-00-00',
+                'audio_date'        => null,
                 'year'              => null,
                 'company'           => null,
                 'credit'            => null,
@@ -222,7 +222,7 @@ class HikaruSulu extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'is_public'            => 1,
+                'is_public'         => 1,
             ]
             */
         ];
@@ -312,16 +312,31 @@ class HikaruSulu extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'PCAP – Python Certification Course', 'slug' => 'pcap-python-certification-course', 'completed' => 1, 'completion_date' => '2017-10-02', 'year' => 2017, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Lydia Halie', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/certified-associate-in-python-programming/', 'link_name' => null, 'is_public' => 1, 'summary' => 'Python offers a certification known as PCAP (Certified Associate in Python Programming) that gives its holders confidence in their programming skills.' ],
+            [
+                'name'            => 'PCAP – Python Certification Course',
+                'slug'            => 'pcap-python-certification-course',
+                'completed'       => 1,
+                'completion_date' => '2017-10-02',
+                'year'            => 2017,
+                'duration_hours'  => 1.3,
+                'academy_id'      => 4,
+                'instructor'      => 'Lydia Halie',
+                'sponsor'         => null,
+                'certificate_url' => null,
+                'link'            => 'https://kodekloud.com/courses/certified-associate-in-python-programming/',
+                'link_name'       => null,
+                'is_public'       => 1,
+                'summary'         => 'Python offers a certification known as PCAP (Certified Associate in Python Programming) that gives its holders confidence in their programming skills.'
+            ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
                 'completed'       => 1,
-                'completion_date' => '0000-00-00',
-                'year'            => 2025,
-                'duration_hours'  => 8,
-                'academy_id'      => 9,
+                'completion_date' => null,
+                'year'            => null,
+                'duration_hours'  => 0,
+                'academy_id'      => null,
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,

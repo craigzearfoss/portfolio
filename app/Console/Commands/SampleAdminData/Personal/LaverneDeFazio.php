@@ -141,6 +141,23 @@ class LaverneDeFazio extends Command
             [ 'title' => 'Moo',                                   'author' => 'Jane Smiley',         'slug' => 'moo-by-jane-smiley',                                            'publication_year' => 1995, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/Moo_(novel)', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Moocvr.jpg/250px-Moocvr.jpg', 'is_public' => 1 ],
             [ 'title' => 'Project Hail Mary',                     'author' => 'Andy Weir',           'slug' => 'project-hail-mary-by-andy-weir',                                'publication_year' => 2021, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/Project_Hail_Mary', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/a/ad/Project_Hail_Mary%2C_First_Edition_Cover_%282021%29.jpg/250px-Project_Hail_Mary%2C_First_Edition_Cover_%282021%29.jpg', 'is_public' => 1 ],
             [ 'title' => 'Roots: The Saga of an American Family', 'author' => 'Alex Haley',          'slug' => 'roots-the-saga-of-an-american-family-by-alex-haley',            'publication_year' => 1976, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/Roots:_The_Saga_of_an_American_Family', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Roots_The_Saga_of_an_American_Family_%281976_1st_ed_dust_jacket_cover%29.jpg/250px-Roots_The_Saga_of_an_American_Family_%281976_1st_ed_dust_jacket_cover%29.jpg', 'is_public' => 1 ],
+            /*
+            [
+                'title'            => '',
+                'author'           => '',
+                'slug'             => '',
+                'publication_year' => null,
+                'link_name'        => null,
+                'link'             => null,
+                'fiction'          => 0,
+                'nonfiction'       => 0,
+                'paper'            => 0,
+                'audio'            => 0,
+                'wishlist'         => 0,
+                'image'            => null,
+                'is_public'        => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -168,6 +185,25 @@ class LaverneDeFazio extends Command
             [ 'id' => $this->recipeId[3], 'name' => 'Vegan Sloppy Joes',                        'slug' => 'vegan-sloppy-joes',             'source' => 'Facebook',                      'author' => null,             'main' => 1, 'side' => 0, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
             [ 'id' => $this->recipeId[4], 'name' => 'Miso Soup',                                'slug' => 'miso-soup',                     'source' => 'Facebook',                      'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
             [ 'id' => $this->recipeId[5], 'name' => 'John Cope\'s Baked Corn Supreme',          'slug' => 'john-copes-baked-corn-supreme', 'source' => 'John Cope\'s Dried Sweet Corn', 'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 1, 'snack'  => 0, 'link' => null ],
+            /*
+            [
+                'id'        => $this->recipeId[6],
+                'name'      => '',
+                'slug'      => '',
+                'source'    => null,
+                'author'    => null,
+                'main'      => 0,
+                'side'      => 0,
+                'dessert'   => 0,
+                'appetizer' => 0,
+                'beverage'  => 0,
+                'breakfast' => 0,
+                'lunch'     => 0,
+                'dinner'    => 0,
+                'snack'     => 0,
+                'link'      => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -177,6 +213,8 @@ class LaverneDeFazio extends Command
     }
 
     /**
+     * NOTE: The entries in this table must correspond to the recipes defined in the insertPersonalRecipe() function.
+     *
      * @return void
      */
     protected function insertPersonalRecipeIngredients(): void
@@ -230,6 +268,16 @@ class LaverneDeFazio extends Command
             [ 'ingredient_id' => 566, 'recipe_id' => $this->recipeId[5], 'amount' => '1',     'unit_id' => 4,  'qualifier' => 'optional',                                                        'is_public' => 1 ],
             [ 'ingredient_id' => 599, 'recipe_id' => $this->recipeId[5], 'amount' => '1 1/2', 'unit_id' => 5,  'qualifier' => null,                                                              'is_public' => 1 ],
             [ 'ingredient_id' => 247, 'recipe_id' => $this->recipeId[5], 'amount' => '2',     'unit_id' => 1,  'qualifier' => null,                                                              'is_public' => 1 ],
+            /*
+            [
+                'ingredient_id' => 0,
+                'recipe_id'     => $this->recipeId[6],
+                'amount'        => 0,
+                'unit_id'       => 0,
+                'qualifier'     => null,
+                'is_public'     => 1
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -239,6 +287,8 @@ class LaverneDeFazio extends Command
     }
 
     /**
+     * NOTE: The entries in this table must correspond to the recipes defined in the insertPersonalRecipe() function.
+     *
      * @return void
      */
     protected function insertPersonalRecipeSteps(): void
@@ -262,6 +312,14 @@ class LaverneDeFazio extends Command
             [ 'recipe_id' => $this->recipeId[5],  'step' => 2,  'description'   => 'Grind the contents of a 3.75 oz package of John Cope\'s Dried Sweet Corn in a blender or food processor.', 'is_public' => 1 ],
             [ 'recipe_id' => $this->recipeId[5],  'step' => 3,  'description'   => 'Add 2 1/2 cups of cold milk, 2 Tbsp. melted butter or margarine, 1 tsp. salt (optional), 1 1/2 Tbsp. sugar, and 2 well beaten eggs. Mix thoroughly', 'is_public' => 1 ],
             [ 'recipe_id' => $this->recipeId[5],  'step' => 4,  'description'   => 'Bake in buttered 1.5 or 2 quart casserole dish for 40 to 50 minutes.', 'is_public' => 1 ],
+            /*
+            [
+                'recipe_id'   => $this->recipeId[6],
+                'step'        => 1,
+                'description' => '',
+                'is_public'   => 1
+            ],
+            */
         ];
 
         if (!empty($data)) {

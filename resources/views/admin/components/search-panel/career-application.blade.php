@@ -1,7 +1,7 @@
 @php
     use App\Models\Career\Application;
     use App\Models\System\Admin;
-//dd($owner_id);
+
     // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner->id ?? null;
@@ -17,6 +17,7 @@
     $posted_to       = $posted_to ?? request()->query('posted_to');
     $resume_name     = $resume_name ?? request()->query('resume_name');
     $role            = $role ?? request()->query('role');
+    $wage_rate       = $wage_rate ?? request()->query('wage_rate');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Application::SEARCH_ORDER_BY[0], Application::SEARCH_ORDER_BY[1] ]);
@@ -36,16 +37,17 @@
                         'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                                [
                                                    'company_name|asc'      => 'company',
-                                                   'compensation_max|desc' => 'compensation (max)',
-                                                   'compensation_min|desc' => 'compensation (min)',
+                                                   //'compensation_max|desc' => 'compensation (max)',
+                                                   //'compensation_min|desc' => 'compensation (min)',
                                                    'apply_date|desc'       => 'date applied',
                                                    'close_date|desc'       => 'date closed',
                                                    'post_date|desc'        => 'date posted',
                                                    'rating|desc'           => 'rating',
                                                    'role|asc'              => 'role',
+                                                   'wage_rate|desc'        => 'wage',
                                                ],
                                    ),
-                        'style' => [ 'width: 10rem', 'max-width: 10rem'],
+                        'style' => [ 'width: 8rem', 'max-width: 8rem'],
                     ])
 
                     <?php /*

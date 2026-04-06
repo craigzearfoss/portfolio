@@ -60,4 +60,23 @@ class CompensationUnit extends Model
         return $this->hasMany(Application::class, 'compensation_unit_id')
             ->orderBy('post_date', 'desc');
     }
+
+    /**
+     * Returns the compensation unit name from the compensation unit id.
+     *
+     * @param int $compensationUnitId
+     * @return string|null
+     */
+    public static function getCompensationUnitName(int $compensationUnitId): string|null
+    {
+        return match ($compensationUnitId) {
+            1 => 'hour',
+            2 => 'year',
+            3 => 'month',
+            4 => 'week',
+            5 => 'day',
+            6 => 'project',
+            default => null,
+        };
+    }
 }

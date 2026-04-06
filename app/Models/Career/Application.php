@@ -424,7 +424,7 @@ class Application extends Model
                 $query->where($this->table . '.w2', '=', true);
             })
             ->when(!empty($filters['wage_rate']), function ($query) use ($filters) {
-                $query->where('wage_rate', 'like', '%' . $filters['wage_rate'] . '%');
+                $query->where('wage_rate', 'like', '>=' . intval($filters['wage_rate']));
             });
 
         $query = $this->appendPhoneFilters($query, $filters);
@@ -528,7 +528,7 @@ class Application extends Model
     public function coverLetter(): HasOne
     {
         return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'application_id')
-            ->orderBy('date', 'desc');
+            ->orderBy('cover_letter_date', 'desc');
     }
 
     /**
@@ -606,7 +606,7 @@ class Application extends Model
      */
     public function resume(): BelongsTo
     {
-        return $this->belongsTo(Resume::class)->orderBy('date', 'desc')
+        return $this->belongsTo(Resume::class)->orderBy('resume_date', 'desc')
             ->orderBy('name');
     }
 

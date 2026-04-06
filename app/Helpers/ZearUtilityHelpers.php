@@ -1110,3 +1110,67 @@ if (! function_exists('validateDemoUserCredentials')) {
         return !empty($errorMessage) ? $errorMessage : true;
     }
 }
+
+if (! function_exists('calculateWageRate')) {
+    /**
+     * Checks oto make sure that the admin specified by the APP_DEMO_ADMIN_USERNAME variable in the .env exists
+     * in the database and has the password specified by APP_DEMO_ADMIN_PASSWORD matches.
+     *
+     * Returns the wage rate as dollars / hour from the average of the maximum and minimum compensation
+     * and interval.
+     *
+     * @param float|null $minCompensation
+     * @param float|null $maxCompensation
+     * @param string|null $interval
+     * @param int $estimatedHours
+     * @return float|null
+     */
+    function calculateWageRate(
+        float|null  $minCompensation,
+        float|null  $maxCompensation,
+        string|null $interval,
+        int         $estimatedHours = 0
+    ): float|null
+    {
+        $wageRate = null;
+
+        if (!empty($minCompensation) || !empty($maxCompensation)) {
+
+            if (!empty($minCompensation) && !empty($maxCompensation)) {
+                $wage = ($minCompensation + $maxCompensation) / 2;
+            } elseif (!empty($minCompensation)) {
+                $wage = $minCompensation;
+            } else {
+                $wage = $maxCompensation;
+            }
+
+            switch ($interval) {
+                case 'year':
+                    $wageRate = round($wage / 2080);
+                    break;
+                case 'month':
+                    $wageRate = round($wage / 173);
+                    break;
+                case 'week':
+                    $wageRate = round($wage / 40);
+                    break;
+                case 'day':
+                    $wageRate = round($wage / 8, 1);
+                    break;
+                case 'project':
+                    if (!empty($estimatedHours)) {
+                        $wageRate = $wage / $estimatedHours;
+                    } else {
+                        // if we don't have estimated hours for a project the just set wage rate is just the total compensation
+                        $wageRate = $wage;
+                    }
+                    break;
+                default:
+                    $wageRate = $wage;
+                    break;
+            };
+        }
+
+        return $wageRate;
+    }
+}

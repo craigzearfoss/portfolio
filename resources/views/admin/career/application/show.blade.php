@@ -163,6 +163,11 @@
                                 ])
 
                                 @include('admin.components.show-row', [
+                                    'name'  => 'wage',
+                                    'value' => wageRateFormat($application->wage_rate)
+                                ])
+
+                                @include('admin.components.show-row', [
                                     'name'  => 'duration type',
                                     'value' => $application->durationType['name'] ?? ''
                                 ])

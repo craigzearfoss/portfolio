@@ -152,17 +152,8 @@
                             !!}
                         </td>
                         <td data-field="wage_rate" class="has-text-centered whitespace-nowrap" style="white-space: nowrap;">
-                            @if($application->compensation_unit_id == 6)
-                                @if(!empty($application->estimated_hours))
-                                    ${{ Number::currency($application->wage_rate) }} / hr
-                                @else
-                                    ${{ Number::currency($application->wage_rate) }}
-                                @endif
-                            @else {
-                                ${{ Number::currency($application->wage_rate) }} / hr
-                            @endif
+                            {{ wageRateFormat($application->wage_rate, 0) }}
                         </td>
-
                         <td data-field="job_duration_id" style="display: none;">
                             {!! $application->durationType['name'] ?? '' !!}
                         </td>

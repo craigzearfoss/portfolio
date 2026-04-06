@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Application;
+use App\Models\Career\CompensationUnit;
 use Exception;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -42,7 +44,7 @@ class StoreApplicationsRequest extends FormRequest
             'compensation_max'       => ['integer', 'nullable'],
             'compensation_unit_id'   => ['integer', 'exists:career_db.compensation_units,id', 'nullable'],
             'estimated_hours'        => ['integer', 'nullable'],
-            'wage_rate'              => ['float', 'nullable'],
+            'wage_rate'              => [Rule::numeric()->min(0.0), 'nullable'],
             'job_duration_type_id'   => ['required', 'integer', 'exists:career_db.job_duration_types,id'],
             'job_employment_type_id' => ['required', 'integer', 'exists:career_db.job_employment_types,id'],
             'job_location_type_id'   => ['required', 'integer', 'exists:career_db.job_location_types,id'],
@@ -119,42 +121,14 @@ class StoreApplicationsRequest extends FormRequest
      */
     public function prepareForValidation(): void
     {
+        $interval = CompensationUnit::getCompensationUnitName(intval($this['compensation_unit_id']));
+
         // set the wage rage
-        if (!empty($this['compensation_min']) || !empty($this['compensation_max'])) {
-
-            if (!empty($this['compensation_min']) && !empty($this['compensation_max'])) {
-                $wageRate = ($this['compensation_min'] + $this['compensation_max']) / 2;
-            } elseif (!empty($this['compensation_min'])){
-                $wageRate = $this['compensation_min'];
-            } else {
-                $wageRate = $this['compensation_max'];
-            }
-
-            switch ($this['compensation_unit_id']) {
-                case 2: // per year
-                    $this['wage_rate'] = $wageRate / 2080;
-                    break;
-                case 3: // per month
-                    $this['wage_rate'] = $wageRate / 173;
-                    break;
-                case 4: // per week
-                    $this['wage_rate'] = $wageRate / 40;
-                    break;
-                case 5: // per day
-                    $this['wage_rate'] = $wageRate / 8;
-                    break;
-                case 6: // per project
-                    if (!empty($this['estimated_hours'])) {
-                        $this['wage_rate'] = $wageRate / intval($this['estimated_hours']);
-                    } else {
-                        // if we don't have estimated hours for a project the just set wage rate is just the total compensation
-                        $this['wage_rate'] = $wageRate;
-                    }
-                    break;
-                default:
-                    $this['wage_rate'] = $wageRate;
-                    break;
-            };
-        }
+        $this['wage_rate'] = calculateWageRate(
+            $this['compensation_min'],
+            $this['compensation_max'],
+            $interval,
+            $this['estimated_hours'] ?? 0
+        );
     }
 }

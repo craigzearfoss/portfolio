@@ -7,6 +7,7 @@ use App\Models\Career\ApplicationSkill;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\CompanyContact;
+use App\Models\Career\CompensationUnit;
 use App\Models\Career\Contact;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Event;
@@ -209,8 +210,18 @@ class DanFielding extends Command
             */
         ];
 
-        if (!empty($data)) {
-            $applicationModel->insert($this->additionalColumns($data, true, $this->adminId, ['is_demo' => $this->is_demo], boolval($this->is_demo)));
+        foreach ($data as $dataArray) {
+
+            // calculate wage rate
+            $dataArray['wage_rate'] = calculateWageRate(
+                $dataArray['compensation_min'],
+                $dataArray['compensation_max'],
+                CompensationUnit::getCompensationUnitName(intval($dataArray['compensation_unit_id'])),
+                $dataArray['estimated_hours'] ?? 0
+            );
+
+            $dataArray = [$dataArray];
+            $applicationModel->insert($this->additionalColumns($dataArray, true, $this->adminId, ['is_demo' => $this->is_demo]));
         }
         $this->insertSystemAdminResource($this->adminId, 'applications', [ 'is_public' => false ]);
     }

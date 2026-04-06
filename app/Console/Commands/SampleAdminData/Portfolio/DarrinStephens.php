@@ -210,10 +210,10 @@ class DarrinStephens extends Command
                 'featured'          => 0,
                 'summary'           => null,
                 'full_episode'      => 0,
-                'clip'              => 1,
+                'clip'              => 0,
                 'podcast'           => 0,
                 'source_recording'  => 0,
-                'date'              => '0000-00-00',
+                'audio_date'        => null,
                 'year'              => null,
                 'company'           => null,
                 'credit'            => null,
@@ -221,7 +221,7 @@ class DarrinStephens extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'is_public'            => 1,
+                'is_public'         => 1,
             ]
             */
         ];
@@ -277,17 +277,18 @@ class DarrinStephens extends Command
             [
                 'name'            => '',
                 'slug'            => '',
-                'featured'        => 0,
-                'summary'         => null,
-                'organization'    => null,
-                'academy_id'      => 3,
-                'year'            => 2023,
-                'received'        => '0000-00-00',
+                'completed'       => 1,
+                'completion_date' => null,
+                'year'            => null,
+                'duration_hours'  => 0,
+                'academy_id'      => null,
+                'instructor'      => null,
+                'sponsor'         => null,
                 'certificate_url' => null,
                 'link'            => null,
                 'link_name'       => null,
-                'description'     => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
+                'summary'         => null,
             ],
             */
         ];

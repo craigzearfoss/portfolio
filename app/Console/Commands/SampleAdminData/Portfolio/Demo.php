@@ -291,7 +291,7 @@ class Demo extends Command
                 'clip'              => 0,
                 'podcast'           => 1,
                 'source_recording'  => 0,
-                'date'              => '2014-11-14',
+                'audio_date'        => '2014-11-14',
                 'year'              => 2014,
                 'company'           => null,
                 'credit'            => 'Gilbert Gottfried & Frank Santopadre',
@@ -301,31 +301,31 @@ class Demo extends Command
                 'audio_url'         => null,
                 'link'              => 'https://www.gilbertpodcast.com/20-20-weird-al-yankovic/',
                 'link_name'         => null,
-                'is_public'            => 1,
+                'is_public'         => 1,
             ],
             [
-            'owner_id'          => $this->adminId,
-            'name'              => 'The Best of Car Talk',
-            'slug'              => 'the-best-of-car-talk',
-            'parent_id'         => null,
-            'featured'          => 0,
-            'summary'           => 'America\'s funniest auto mechanics take calls from weary car owners all over the country, and crack wise while they diagnose Dodges and dismiss Diahatsus. You don\'t have to know anything about cars to love this one hour weekly laugh fest.',
-            'full_episode'      => 0,
-            'clip'              => 0,
-            'podcast'           => 0,
-            'source_recording'  => 0,
-            'date'              => null,
-            'year'              => null,
-            'company'           => 'NPR',
-            'credit'            => 'Tom Magliozzi & Ray Magliozzi',
-            'show'              => 1,
-            'location'          => null,
-            'embed'             => null,
-            'audio_url'         => null,
-            'link'              => 'https://www.npr.org/podcasts/510208/car-talk',
-            'link_name'         => null,
-            'is_public'            => 1,
-        ]
+                'owner_id'          => $this->adminId,
+                'name'              => 'The Best of Car Talk',
+                'slug'              => 'the-best-of-car-talk',
+                'parent_id'         => null,
+                'featured'          => 0,
+                'summary'           => 'America\'s funniest auto mechanics take calls from weary car owners all over the country, and crack wise while they diagnose Dodges and dismiss Diahatsus. You don\'t have to know anything about cars to love this one hour weekly laugh fest.',
+                'full_episode'      => 0,
+                'clip'              => 0,
+                'podcast'           => 0,
+                'source_recording'  => 0,
+                'audio_date'        => null,
+                'year'              => null,
+                'company'           => 'NPR',
+                'credit'            => 'Tom Magliozzi & Ray Magliozzi',
+                'show'              => 1,
+                'location'          => null,
+                'embed'             => null,
+                'audio_url'         => null,
+                'link'              => 'https://www.npr.org/podcasts/510208/car-talk',
+                'link_name'         => null,
+                'is_public'         => 1,
+            ]
             /*
             [
                 'owner_id'          => $this->adminId,
@@ -335,10 +335,10 @@ class Demo extends Command
                 'featured'          => 0,
                 'summary'           => null,
                 'full_episode'      => 0,
-                'clip'              => 1,
+                'clip'              => 0,
                 'podcast'           => 0,
                 'source_recording'  => 0,
-                'date'              => '0000-00-00',
+                'audio_date'        => null,
                 'year'              => null,
                 'company'           => null,
                 'credit'            => null,
@@ -346,7 +346,7 @@ class Demo extends Command
                 'location'          => null,
                 'embed'             => null,
                 'audio_url'         => null,
-                'is_public'            => 1,
+                'is_public'         => 1,
             ]
             */
         ];
@@ -442,7 +442,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Cloud%20Concepts.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -458,7 +458,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Core%20Services.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -474,7 +474,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Course%20Introduction.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -490,7 +490,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Compute%20Services%20Overview.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -506,7 +506,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Database%20Services%20Overview.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -522,7 +522,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Shared%20Responsibility%20Model.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -538,7 +538,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Auto%20Scaling.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -554,7 +554,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Backup.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -570,7 +570,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Device%20Farm.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -586,7 +586,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Fargate.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -602,7 +602,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Import-Export.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -618,7 +618,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Snowball.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -634,7 +634,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Snowmobile.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -650,7 +650,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Storage%20Gateway.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -666,7 +666,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Aurora.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -682,7 +682,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20EC2%20Systems%20Manager.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -698,7 +698,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20ElastiCache.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -714,7 +714,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Block%20Storage%20-%20EBS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -730,7 +730,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Compute%20Cloud%20-%20EC2.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -746,7 +746,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20File%20System%20-%20EFS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -762,7 +762,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Load%20Balancer%20-%20Classic.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -778,7 +778,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20FSx%20for%20Lustre.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -794,7 +794,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20FSx%20for%20Windows%20File%20Server.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -810,7 +810,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Glacier.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -826,7 +826,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Redshift.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -842,7 +842,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Relational%20Database%20Service%20-%20RDS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -858,7 +858,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20S3.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -874,7 +874,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Simple%20Storage%20Service%20-%20S3.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -890,7 +890,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20PostgreSQL%20Fundamentals.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -906,7 +906,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/RS62SKVP89SG.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/RS62SKVP89SG',
                 'link_name'       => 'Coursera verification',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -922,7 +922,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/52BCA2UWTHPE.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/52BCA2UWTHPE',
                 'link_name'       => 'Coursera verification',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -938,7 +938,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MUUFRJW2JK7G.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/MUUFRJW2JK7G',
                 'link_name'       => 'Coursera verification',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -954,7 +954,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/KFJC8C2ZLQPU.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/KFJC8C2ZLQPU',
                 'link_name'       => 'Coursera verification',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -970,7 +970,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/DWKGKVVLFE9F.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/DWKGKVVLFE9F',
                 'link_name'       => 'Coursera verification',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -986,7 +986,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/LK8958ER9X7D.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/LK8958ER9X7D',
                 'link_name'       => 'Coursera verification',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1002,7 +1002,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/64K4C9WZSJQ.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/64K4C9WZSJQ',
                 'link_name'       => 'Coursera verification',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1018,7 +1018,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/javascript-foundations.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1034,7 +1034,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/responsive-web-design.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1050,7 +1050,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBz9qkj8zq9r.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1066,7 +1066,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBh4n25xp9f3.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-cb169d9d-f28b-5cfc-98ae-6849d44e9e45-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
 
@@ -1083,7 +1083,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB4llntcxgsw.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-28e6dfda-043f-5c82-a2ad-ff1aa0b4091f-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1099,7 +1099,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB5u800z5l3u.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-f04e21f1-2b5f-588f-a921-14605013fb42-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1115,7 +1115,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBz9qkj8zq9r.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1131,7 +1131,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBvcjb83odqk.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-5fc17da8-4f83-5c1d-9e13-18c046833329-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1147,7 +1147,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBzmzrrpzzin.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-b3ac9b75-0c7b-51ea-8cd0-b250bf0a2bcc-certificate.pdf',
                 'link_name'       => 'MongoDB certificate link',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1163,7 +1163,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB0elknbkm6j.pdf',
                 'link'            => 'learn.mongodb.com/learn/certificates/university-m001-mongob-basics?userId=63744623-417f-5e55-8d5c-c09650679c4d&id=2dc804a7-34d3-5ed1-b3de-750819bdb3c4',
                 'link_name'       => 'MongoDB certificate link',
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1179,7 +1179,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Learn%20CSS%20Animations.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1195,7 +1195,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Build%20Tic%20Tac%20Toe%20with%20React%20Hooks.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1211,7 +1211,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Build%20a%20movie%20search%20app%20in%20React.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1227,7 +1227,7 @@ class Demo extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Learn%20React%20Hooks%20In%20One%20Hour.png',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1243,7 +1243,7 @@ class Demo extends Command
                 'certificate_url' => 'images/admin/portfolio/2/course/sitepoint-introduction-to-es6.png',
                 'link'            => null,  // not found https://www.sitepoint.com/premium/cert/77e357ad4e843374
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1259,7 +1259,7 @@ class Demo extends Command
                 'certificate_url' => 'https://ude.my/UC-KBO1JBPE',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1275,7 +1275,7 @@ class Demo extends Command
                 'certificate_url' => 'https://ude.my/UC-07ca111c-1cac-48f5-9838-4c277d7d4485',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1291,7 +1291,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-02e72577-9ba3-420e-ae5a-9bd0744e5410',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1307,7 +1307,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-242b0dd4-0281-459c-bf98-54171bf64b05',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1323,7 +1323,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-374a4848-1715-4b4f-8cc2-eca24dbf74d0',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1339,7 +1339,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-a381561e-e6e3-48ec-884b-589070ef3962',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1355,7 +1355,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-INJ6D45T',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1371,7 +1371,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-YUC36HUA',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1387,7 +1387,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-Z8I0FZNQ',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1403,7 +1403,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-R1F91C9Z',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1419,7 +1419,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-ff3519ca-b81c-4e00-ab52-60ccf6028d06',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1435,7 +1435,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-72f079ac-e4de-47d9-ae85-f24f5d630159',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1451,7 +1451,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-f61996b5-c4c9-4551-bb10-29aaa7c5bcde',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1467,7 +1467,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-BQ55MYKN',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1483,7 +1483,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-6b64edb0-2cad-4fc6-935a-207b64b743d5',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1499,7 +1499,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-38ce2a2e-daeb-420e-aa4b-f70966e9756d',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1515,7 +1515,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-O8SY9NGJ',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1531,7 +1531,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-85DMHWQJ',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1547,7 +1547,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-XU9T4JHQ',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             [
@@ -1563,7 +1563,7 @@ class Demo extends Command
                 'certificate_url' => 'http://ude.my/UC-50b102c5-21aa-40af-84f9-f9e63fd416cb',
                 'link'            => null,
                 'link_name'       => null,
-                'is_public'          => 1,
+                'is_public'       => 1,
                 'summary'         => null,
             ],
             /*
@@ -1571,10 +1571,10 @@ class Demo extends Command
                 'name'            => '',
                 'slug'            => '',
                 'completed'       => 1,
-                'completion_date' => '0000-00-00',
-                'year'            => 2025,
-                'duration_hours'  => 8,
-                'academy_id'      => 9,
+                'completion_date' => null,
+                'year'            => null,
+                'duration_hours'  => 0,
+                'academy_id'      => null,
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
@@ -2357,7 +2357,6 @@ class Demo extends Command
                 'link_name'         => null,
                 'is_public'            => 1,
             ]
-
             /*
             [
                 'title'             => '',

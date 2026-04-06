@@ -171,6 +171,23 @@ class JREwing extends Command
             [ 'title' => 'Don Quixote',                           'author' => 'Miguel de Cervantes', 'slug' => 'don-quixote-by-miguel-de-cervantes',                            'publication_year' => 1605, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/Don_Quixote', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Title_page_first_edition_Don_Quijote.jpg/250px-Title_page_first_edition_Don_Quijote.jpg', 'is_public' => 1 ],
             [ 'title' => 'The Catcher in the Rye',                'author' => 'J.D. Salinger',       'slug' => 'the-catcher-in-the-rye-by-jd-salinger',                         'publication_year' => 1951, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg/250px-The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg', 'is_public' => 1 ],
             [ 'title' => 'The Great Gatsby',                      'author' => 'F. Scott Fitzgerald', 'slug' => 'the-great-gatsby-by-f-scott-fitzgerald',                        'publication_year' => 1925, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/The_Great_Gatsby', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg/250px-The_Great_Gatsby_Cover_1925_Retouched.jpg', 'is_public' => 1 ],
+            /*
+            [
+                'title'            => '',
+                'author'           => '',
+                'slug'             => '',
+                'publication_year' => null,
+                'link_name'        => null,
+                'link'             => null,
+                'fiction'          => 0,
+                'nonfiction'       => 0,
+                'paper'            => 0,
+                'audio'            => 0,
+                'wishlist'         => 0,
+                'image'            => null,
+                'is_public'        => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -198,6 +215,25 @@ class JREwing extends Command
             [ 'id' => $this->recipeId[3], 'name' => 'Vegan Sloppy Joes',                        'slug' => 'vegan-sloppy-joes',             'source' => 'Facebook',                      'author' => null,             'main' => 1, 'side' => 0, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
             [ 'id' => $this->recipeId[4], 'name' => 'Miso Soup',                                'slug' => 'miso-soup',                     'source' => 'Facebook',                      'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
             [ 'id' => $this->recipeId[5], 'name' => 'John Cope\'s Baked Corn Supreme',          'slug' => 'john-copes-baked-corn-supreme', 'source' => 'John Cope\'s Dried Sweet Corn', 'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 1, 'snack'  => 0, 'link' => null ],
+            /*
+            [
+                'id'        => $this->recipeId[6],
+                'name'      => '',
+                'slug'      => '',
+                'source'    => null,
+                'author'    => null,
+                'main'      => 0,
+                'side'      => 0,
+                'dessert'   => 0,
+                'appetizer' => 0,
+                'beverage'  => 0,
+                'breakfast' => 0,
+                'lunch'     => 0,
+                'dinner'    => 0,
+                'snack'     => 0,
+                'link'      => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -207,6 +243,8 @@ class JREwing extends Command
     }
 
     /**
+     * NOTE: The entries in this table must correspond to the recipes defined in the insertPersonalRecipe() function.
+     *
      * @return void
      */
     protected function insertPersonalRecipeIngredients(): void
@@ -260,6 +298,16 @@ class JREwing extends Command
             [ 'ingredient_id' => 566, 'recipe_id' => $this->recipeId[5], 'amount' => '1',     'unit_id' => 4,  'qualifier' => 'optional',                                                        'is_public' => 1 ],
             [ 'ingredient_id' => 599, 'recipe_id' => $this->recipeId[5], 'amount' => '1 1/2', 'unit_id' => 5,  'qualifier' => null,                                                              'is_public' => 1 ],
             [ 'ingredient_id' => 247, 'recipe_id' => $this->recipeId[5], 'amount' => '2',     'unit_id' => 1,  'qualifier' => null,                                                              'is_public' => 1 ],
+            /*
+            [
+                'ingredient_id' => 0,
+                'recipe_id'     => $this->recipeId[6],
+                'amount'        => 0,
+                'unit_id'       => 0,
+                'qualifier'     => null,
+                'is_public'     => 1
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -269,6 +317,8 @@ class JREwing extends Command
     }
 
     /**
+     * NOTE: The entries in this table must correspond to the recipes defined in the insertPersonalRecipe() function.
+     *
      * @return void
      */
     protected function insertPersonalRecipeSteps(): void
@@ -292,6 +342,14 @@ class JREwing extends Command
             [ 'recipe_id' => $this->recipeId[5],  'step' => 2,  'description'   => 'Grind the contents of a 3.75 oz package of John Cope\'s Dried Sweet Corn in a blender or food processor.', 'is_public' => 1 ],
             [ 'recipe_id' => $this->recipeId[5],  'step' => 3,  'description'   => 'Add 2 1/2 cups of cold milk, 2 Tbsp. melted butter or margarine, 1 tsp. salt (optional), 1 1/2 Tbsp. sugar, and 2 well beaten eggs. Mix thoroughly', 'is_public' => 1 ],
             [ 'recipe_id' => $this->recipeId[5],  'step' => 4,  'description'   => 'Bake in buttered 1.5 or 2 quart casserole dish for 40 to 50 minutes.', 'is_public' => 1 ],
+            /*
+            [
+                'recipe_id'   => $this->recipeId[6],
+                'step'        => 1,
+                'description' => '',
+                'is_public'   => 1
+            ],
+            */
         ];
 
         if (!empty($data)) {

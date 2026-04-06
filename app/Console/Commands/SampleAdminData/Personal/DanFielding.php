@@ -162,6 +162,23 @@ class DanFielding extends Command
             [ 'title' => 'Fermat\'s Last Theorem',                'author' => 'Simon Singh',         'slug' => 'fermats-last-theorem-by-simon-singh',                           'publication_year' => 1997, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/Fermat%27s_Last_Theorem_(book)', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Fermats-last-theorem-bookcover.jpg/250px-Fermats-last-theorem-bookcover.jpg', 'is_public' => 1 ],
             [ 'title' => 'The Name of the Rose',                  'author' => 'Umberto Eco',         'slug' => 'the-name-of-the-rose-by-umberto-eco',                           'publication_year' => 1980, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/The_Name_of_the_Rose', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/en/e/eb/The_Name_of_the_Rose.jpg', 'is_public' => 1 ],
             [ 'title' => 'Flowers for Algernon',                  'author' => 'Daniel Keyes',        'slug' => 'flowers-for-algernon-by-daniel-keyes',                          'publication_year' => 1966, 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'link' => 'https://en.wikipedia.org/wiki/Flowers_for_Algernon', 'link_name' => 'Wikipedia', 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/e/ea/FlowersForAlgernon.jpg/250px-FlowersForAlgernon.jpg', 'is_public' => 1 ],
+            /*
+            [
+                'title'            => '',
+                'author'           => '',
+                'slug'             => '',
+                'publication_year' => null,
+                'link_name'        => null,
+                'link'             => null,
+                'fiction'          => 0,
+                'nonfiction'       => 0,
+                'paper'            => 0,
+                'audio'            => 0,
+                'wishlist'         => 0,
+                'image'            => null,
+                'is_public'        => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -189,6 +206,25 @@ class DanFielding extends Command
             [ 'id' => $this->recipeId[3], 'name' => 'Vegan Sloppy Joes',                        'slug' => 'vegan-sloppy-joes',             'source' => 'Facebook',                      'author' => null,             'main' => 1, 'side' => 0, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
             [ 'id' => $this->recipeId[4], 'name' => 'Miso Soup',                                'slug' => 'miso-soup',                     'source' => 'Facebook',                      'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
             [ 'id' => $this->recipeId[5], 'name' => 'John Cope\'s Baked Corn Supreme',          'slug' => 'john-copes-baked-corn-supreme', 'source' => 'John Cope\'s Dried Sweet Corn', 'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 1, 'snack'  => 0, 'link' => null ],
+            /*
+            [
+                'id'        => $this->recipeId[6],
+                'name'      => '',
+                'slug'      => '',
+                'source'    => null,
+                'author'    => null,
+                'main'      => 0,
+                'side'      => 0,
+                'dessert'   => 0,
+                'appetizer' => 0,
+                'beverage'  => 0,
+                'breakfast' => 0,
+                'lunch'     => 0,
+                'dinner'    => 0,
+                'snack'     => 0,
+                'link'      => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -198,6 +234,8 @@ class DanFielding extends Command
     }
 
     /**
+     * NOTE: The entries in this table must correspond to the recipes defined in the insertPersonalRecipe() function.
+     *
      * @return void
      */
     protected function insertPersonalRecipeIngredients(): void
@@ -251,6 +289,16 @@ class DanFielding extends Command
             [ 'ingredient_id' => 566, 'recipe_id' => $this->recipeId[5], 'amount' => '1',     'unit_id' => 4,  'qualifier' => 'optional',                                                        'is_public' => 1 ],
             [ 'ingredient_id' => 599, 'recipe_id' => $this->recipeId[5], 'amount' => '1 1/2', 'unit_id' => 5,  'qualifier' => null,                                                              'is_public' => 1 ],
             [ 'ingredient_id' => 247, 'recipe_id' => $this->recipeId[5], 'amount' => '2',     'unit_id' => 1,  'qualifier' => null,                                                              'is_public' => 1 ],
+            /*
+            [
+                'ingredient_id' => 0,
+                'recipe_id'     => $this->recipeId[6],
+                'amount'        => 0,
+                'unit_id'       => 0,
+                'qualifier'     => null,
+                'is_public'     => 1
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -260,6 +308,8 @@ class DanFielding extends Command
     }
 
     /**
+     * NOTE: The entries in this table must correspond to the recipes defined in the insertPersonalRecipe() function.
+     *
      * @return void
      */
     protected function insertPersonalRecipeSteps(): void
@@ -283,6 +333,14 @@ class DanFielding extends Command
             [ 'recipe_id' => $this->recipeId[5],  'step' => 2,  'description'   => 'Grind the contents of a 3.75 oz package of John Cope\'s Dried Sweet Corn in a blender or food processor.', 'is_public' => 1 ],
             [ 'recipe_id' => $this->recipeId[5],  'step' => 3,  'description'   => 'Add 2 1/2 cups of cold milk, 2 Tbsp. melted butter or margarine, 1 tsp. salt (optional), 1 1/2 Tbsp. sugar, and 2 well beaten eggs. Mix thoroughly', 'is_public' => 1 ],
             [ 'recipe_id' => $this->recipeId[5],  'step' => 4,  'description'   => 'Bake in buttered 1.5 or 2 quart casserole dish for 40 to 50 minutes.', 'is_public' => 1 ],
+            /*
+            [
+                'recipe_id'   => $this->recipeId[6],
+                'step'        => 1,
+                'description' => '',
+                'is_public'   => 1
+            ],
+            */
         ];
 
         if (!empty($data)) {
