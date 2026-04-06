@@ -265,11 +265,14 @@ class PeterGibbons extends Command
                 'name'        => '',
                 'slug'        => '',
                 'industry_id' => 11,
+                'link'        => null,
+                'link_name'   => null,
                 'city'        => null,
-                'state_id'    => 5,
-                'country_id'  => 237,
+                'state_id'    => null,
+                'country_id'  => null,
+                'phone'       => null,
                 'logo'        => null,
-                'logo_small'  => null,
+                'logo_small'  => null
             ],
             */
         ];
@@ -281,6 +284,8 @@ class PeterGibbons extends Command
     }
 
     /**
+     * NOTE: This array will need to reflect the added contacts.
+     *
      * @return void
      */
     protected function insertCareerCompanyContacts(): void
@@ -305,6 +310,9 @@ class PeterGibbons extends Command
     }
 
     /**
+     * NOTE: If changes are made to contacts the the insertCareerCompanyContacts()
+     * function must be updated to reflect these changes.
+     *
      * @return void
      */
     protected function insertCareerContacts(): void
@@ -328,7 +336,7 @@ class PeterGibbons extends Command
                 'phone'       => null,
                 'phone_label' => null,
                 'email'       => null,
-                'email_label' => null,
+                'email_label' => null
             ],
             */
         ];
@@ -349,11 +357,12 @@ class PeterGibbons extends Command
         $data = [
             /*
             [
-                'application_id' => $this->applicationId[1],
-                'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
-                'body'           => null,
+                'application_id'         => $this->applicationId[1],
+                'subject'                => '',
+                'to'                     => '',
+                'from'                   => '',
+                'communication_datetime' => '0000-00-00',
+                'body'                   => null,
             ]
             */
         ];
@@ -374,12 +383,12 @@ class PeterGibbons extends Command
         $data = [
             /*
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['black-airplane'],
-                'name'           => 'Black-Airplane',
-                'slug'           => '2025-11-24-black-airplane',
-                'date'           => '2025-11-24',
-                'content'        => <<<EOD
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['#APPLICATION_SLUG#'],
+                'name'              => '',
+                'slug'              => '',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
 EOD,
             ],
             */
@@ -402,11 +411,13 @@ EOD,
             /*
             [
                 'application_id' => $this->applicationId[1],
-                'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
-                'location'       => null,
-                'description'    => null,
+                'subject'     => '',
+                'event_date'  => null,
+                'event_time'  => null,
+                'location'    => null,
+                'attendees'   => null,
+                'notes'       => null,
+                'description' => null,
             ]
             */
         ];
@@ -429,9 +440,12 @@ EOD,
             [
                 'application_id' => $this->applicationId[1],
                 'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
                 'body'           => null,
+                'notes'          => null,
+                'description'    => null,
+                'created_at'     => '2026-01-01,
+                'updated_at'     => '00:00:00',
+
             ]
             */
         ];
@@ -459,6 +473,36 @@ EOD,
             [ 'name' => 'Samir Nagheenanajar', 'slug' => 'samir-nagheenanajar', 'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1207', 'alt_phone_label' => 'mobile', 'email' => 'angela.martin@dunder-mifflin.com',   'email_label' => 'work', 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null ],
             [ 'name' => 'Lawrence',            'slug' => 'lawrence',            'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1207', 'alt_phone_label' => 'mobile', 'email' => 'kevin.malone@dunder-mifflin.com',    'email_label' => 'home', 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null ],
             [ 'name' => 'Tom Smykowski',       'slug' => 'tom-smykowski',       'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1207', 'alt_phone_label' => 'mobile', 'email' => 'andy.bernard@dunder-mifflin.com',    'email_label' => 'work', 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null ],
+            /*
+            [
+                'name'            => '',
+                'slug'            => '',
+                'friend'          => 0,
+                'family'          => 0,
+                'coworker'        => 0,
+                'supervisor'      => 0,
+                'subordinate'     => 0,
+                'professional'    => 0,
+                'other'           => 0,
+                'company_id'      => null,
+                'street'          => null,
+                'street2'         => null,
+                'city'            => null,
+                'state_id'        => null,
+                'zip'             => null,
+                'country_id'      => null,
+                'phone'           => null,
+                'phone_label'     => null,
+                'alt_phone'       => null,
+                'alt_phone_label' => null,
+                'email'           => null,
+                'email_label'     => null,
+                'alt_email'       => null,
+                'alt_email_label' => null,
+                'birthday'        => null,
+                'link'            => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -479,12 +523,12 @@ EOD,
             [
                 'name'         => '',
                 'slug'         => '',
-                'date'         => '0000-00-00',
+                'resume_date'  => null,
                 'primary'      => 0,
                 'doc_filepath' => null,
                 'pdf_filepath' => null,
-                'is_public'    => 0,
-            ]
+                'is_public'    => 1
+            ],
             */
         ];
 

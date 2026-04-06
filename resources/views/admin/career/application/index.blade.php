@@ -56,6 +56,7 @@
                         <th style="display: none;">posted</th>
                         <th>applied</th>
                         <th class="hide-at-1024">compensation</th>
+                        <th class="hide-at-1024 has-text-centered">wage</th>
                         <th style="display: none;">duration</th>
                         <th class="has-text-centered hide-at-1300">type</th>
                         <th class="has-text-centered hide-at-1300">office</th>
@@ -85,6 +86,7 @@
                         <th style="display: none;">posted</th>
                         <th>applied</th>
                         <th class="hide-at-1024">compensation</th>
+                        <th class="hide-at-1024 has-text-centered">wage</th>
                         <th style="display: none;">duration</th>
                         <th class="has-text-centered hide-at-1300">type</th>
                         <th class="has-text-centered hide-at-1300">office</th>
@@ -149,6 +151,18 @@
                                 ])
                             !!}
                         </td>
+                        <td data-field="wage_rate" class="has-text-centered whitespace-nowrap" style="white-space: nowrap;">
+                            @if($application->compensation_unit_id == 6)
+                                @if(!empty($application->estimated_hours))
+                                    ${{ Number::currency($application->wage_rate) }} / hr
+                                @else
+                                    ${{ Number::currency($application->wage_rate) }}
+                                @endif
+                            @else {
+                                ${{ Number::currency($application->wage_rate) }} / hr
+                            @endif
+                        </td>
+
                         <td data-field="job_duration_id" style="display: none;">
                             {!! $application->durationType['name'] ?? '' !!}
                         </td>

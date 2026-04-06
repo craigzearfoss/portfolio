@@ -1407,7 +1407,22 @@ EOD,
             [ 'id' => $this->companyId[82],  'name' => 'Duke & Duke',                          'slug' => 'duke-and-duke',                        'industry_id' => 11, 'city' => null,                  'state_id' => null, 'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
             [ 'id' => $this->companyId[83],  'name' => 'Lunar Industries',                     'slug' => 'lunar-industries',                     'industry_id' => 11, 'city' => 'Baltimore',           'state_id' => 21,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
             [ 'id' => $this->companyId[84],  'name' => 'McDowell\'s',                          'slug' => 'mcdowells',                            'industry_id' => 11, 'city' => 'Idaho Falls',         'state_id' => 13,   'country_id' => 237,  'logo' => null, 'logo_small'  => null ],
-            //[ 'id' => 1,                     'name' => '',                                     'slug' => '',                                     'industry_id' => 11, 'city' => null,                  'state_id' => null, 'country_id' => null, 'logo' => null, 'logo_small'  => null ],
+            /*
+             [
+                'id'          => $this->companyId[1],
+                'name'        => '',
+                'slug'        => '',
+                'industry_id' => 11,
+                'link'        => null,
+                'link_name'   => null,
+                'city'        => null,
+                'state_id'    => null,
+                'country_id'  => null,
+                'phone'       => null,
+                'logo'        => null,
+                'logo_small'  => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -1417,6 +1432,8 @@ EOD,
     }
 
     /**
+     * NOTE: This array will need to reflect the added contacts.
+     *
      * @return void
      */
     protected function insertCareerCompanyContacts(): void
@@ -1450,6 +1467,9 @@ EOD,
     }
 
     /**
+     * NOTE: If changes are made to contacts the the insertCareerCompanyContacts()
+     * function must be updated to reflect these changes.
+     *
      * @return void
      */
     protected function insertCareerContacts(): void
@@ -1488,7 +1508,17 @@ EOD,
             [ 'id' => $this->contactId[21],  'name' => 'Jill Tyrell',             'slug' => 'jill-tyrell',             'phone' => null,	            'phone_label' => null,   'email' => 'coleman@lendflow.io',                  'email_label' => 'work' ],
             [ 'id' => $this->contactId[22],  'name' => 'Archie Bunker',           'slug' => 'archie-bunker',           'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
             [ 'id' => $this->contactId[23],  'name' => 'Willy Gilligan',          'slug' => 'willy-gilligan',          'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            //[ 'id' => 1,   'name' => '',     'slug' => '',                 'phone' => null,	           'phone_label' => null,   'email' => null,                                   'email_label' => null ],
+            /*
+            [
+                'id'          => $this->contactId[1],
+                'name'        => '',
+                'slug'        => '',
+                'phone'       => null,
+                'phone_label' => null,
+                'email'       => null,
+                'email_label' => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -1507,11 +1537,12 @@ EOD,
         $data = [
             /*
             [
-                'application_id' => $this->applicationId[1],
-                'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
-                'body'           => null,
+                'application_id'         => $this->applicationId[1],
+                'subject'                => '',
+                'to'                     => '',
+                'from'                   => '',
+                'communication_datetime' => '0000-00-00',
+                'body'                   => null,
             ]
             */
         ];
@@ -1531,221 +1562,259 @@ EOD,
 
         $data = [
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['choam'],
-                'name'           => 'CHOAM',
-                'slug'           => '2025-11-24-choam',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['choam'],
+                'name'              => 'CHOAM',
+                'slug'              => '2025-11-24-choam',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['acme-corp'],
-                'name'           => 'ACME Corp.',
-                'slug'           => '2025-11-24-acme-corp',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['acme-corp'],
+                'name'              => 'ACME Corp.',
+                'slug'              => '2025-11-24-acme-corp',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['randstad'],
-                'name'           => 'Randstad',
-                'slug'           => '2025-11-24-randstad',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['randstad'],
+                'name'              => 'Randstad',
+                'slug'              => '2025-11-24-randstad',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['sirius-cybernetics-corporation'],
-                'name'           => 'Sirius Cybernetics Corporation',
-                'slug'           => '2025-11-23-sirius-cybernetics-corporation',
-                'date'           => '2025-11-23',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['sirius-cybernetics-corporation'],
+                'name'              => 'Sirius Cybernetics Corporation',
+                'slug'              => '2025-11-23-sirius-cybernetics-corporation',
+                'cover_letter_date' => '2025-11-23',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['momcorp'],
-                'name'           => 'MomCorp',
-                'slug'           => '2025-11-24-momcorp',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['momcorp'],
+                'name'              => 'MomCorp',
+                'slug'              => '2025-11-24-momcorp',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['rich-industries'],
-                'name'           => 'Rich Industries',
-                'slug'           => '2025-11-23-rich-industries',
-                'date'           => '2025-11-23',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['rich-industries'],
+                'name'              => 'Rich Industries',
+                'slug'              => '2025-11-23-rich-industries',
+                'cover_letter_date' => '2025-11-23',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['soylent-corporation'],
-                'name'           => 'Soylent Corporation',
-                'slug'           => '2025-11-24-soylent-corporation',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['soylent-corporation'],
+                'name'              => 'Soylent Corporation',
+                'slug'              => '2025-11-24-soylent-corporation',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['very-big-corporation-of-america'],
-                'name'           => 'Very Big Corporation of America',
-                'slug'           => '2025-11-24-very-big-corporation-of-america',
-                'date'           => '2025-11-24--',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['very-big-corporation-of-america'],
+                'name'              => 'Very Big Corporation of America',
+                'slug'              => '2025-11-24-very-big-corporation-of-america',
+                'cover_letter_date' => '2025-11-24--',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['frobozz-magic-co'],
-                'name'           => 'Frobozz Magic Co.',
-                'slug'           => '2025-11-24-frobozz-magic-co',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['frobozz-magic-co'],
+                'name'              => 'Frobozz Magic Co.',
+                'slug'              => '2025-11-24-frobozz-magic-co',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['warbucks-industries'],
-                'name'           => 'Warbucks Industries',
-                'slug'           => '2025-11-24-warbucks-industries',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['warbucks-industries'],
+                'name'              => 'Warbucks Industries',
+                'slug'              => '2025-11-24-warbucks-industries',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['tyrell-corp'],
-                'name'           => 'Tyrell Corp.',
-                'slug'           => '2025-10-24-tyrell-corp',
-                'date'           => '2025-10-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['tyrell-corp'],
+                'name'              => 'Tyrell Corp.',
+                'slug'              => '2025-10-24-tyrell-corp',
+                'cover_letter_date' => '2025-10-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['initech'],
-                'name'           => 'Initech',
-                'slug'           => '2025-11-24-initech',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['initech'],
+                'name'              => 'Initech',
+                'slug'              => '2025-11-24-initech',
+                'cover_letter_date'  => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['wayne-enterprises'],
-                'name'           => 'Wayne Enterprises',
-                'slug'           => '2025-10-24-wayne-enterprises',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['wayne-enterprises'],
+                'name'              => 'Wayne Enterprises',
+                'slug'              => '2025-10-24-wayne-enterprises',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['virtucon'],
-                'name'           => 'Virtucon',
-                'slug'           => '2025-11-24-virtucon',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['virtucon'],
+                'name'              => 'Virtucon',
+                'slug'              => '2025-11-24-virtucon',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['globex'],
-                'name'           => 'Globex',
-                'slug'           => '2025-11-24-globex',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['globex'],
+                'name'              => 'Globex',
+                'slug'              => '2025-11-24-globex',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['umbrella-corp'],
-                'name'           => 'Umbrella Corp.',
-                'slug'           => '2025-11-24-umbrella-corp',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['umbrella-corp'],
+                'name'              => 'Umbrella Corp.',
+                'slug'              => '2025-11-24-umbrella-corp',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['stark-industries'],
-                'name'           => 'Stark Industries',
-                'slug'           => '2025-11-24-stark-industries',
-                'date'           => '2025-11-24-',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['stark-industries'],
+                'name'              => 'Stark Industries',
+                'slug'              => '2025-11-24-stark-industries',
+                'cover_letter_date' => '2025-11-24-',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['clampett-oil'],
-                'name'           => 'Clampett Oil',
-                'slug'           => '2025-11-24-clampett-oil',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['clampett-oil'],
+                'name'              => 'Clampett Oil',
+                'slug'              => '2025-11-24-clampett-oil',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['oceanic-airlines'],
-                'name'           => 'Oceanic Airlines',
-                'slug'           => '2025-11-24-oceanic-airlines',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['oceanic-airlines'],
+                'name'              => 'Oceanic Airlines',
+                'slug'              => '2025-11-24-oceanic-airlines',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['yoyodyne-propulsion-sys'],
-                'name'           => 'Yoyodyne Propulsion Sys.',
-                'slug'           => '2025-11-24-yoyodyne-propulsion-sys',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['yoyodyne-propulsion-sys'],
+                'name'              => 'Yoyodyne Propulsion Sys.',
+                'slug'              => '2025-11-24-yoyodyne-propulsion-sys',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['cyberdyne-systems-corp'],
-                'name'           => 'Cyberdyne Systems Corp.',
-                'slug'           => '2025-11-24-cyberdyne-systems-corp',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['cyberdyne-systems-corp'],
+                'name'              => 'Cyberdyne Systems Corp.',
+                'slug'              => '2025-11-24-cyberdyne-systems-corp',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['danconia-copper'],
-                'name'           => 'd\'Anconia Copper',
-                'slug'           => '2025-11-24-danconia-copper',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['danconia-copper'],
+                'name'              => 'd\'Anconia Copper',
+                'slug'              => '2025-11-24-danconia-copper',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['kikis-delivery-service'],
-                'name'           => 'Kiki\'s Delivery Service',
-                'slug'           => '2025-11-24-kikis-delivery-service',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['kikis-delivery-service'],
+                'name'              => 'Kiki\'s Delivery Service',
+                'slug'              => '2025-11-24-kikis-delivery-service',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['gringotts'],
-                'name'           => 'Gringotts',
-                'slug'           => '2025-11-24-gringotts',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['gringotts'],
+                'name'              => 'Gringotts',
+                'slug'              => '2025-11-24-gringotts',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['oscorp'],
-                'name'           => 'Oscorp',
-                'slug'           => '2025-11-24-oscorp',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['oscorp'],
+                'name'              => 'Oscorp',
+                'slug'              => '2025-11-24-oscorp',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['nakatomi-trading-corp'],
-                'name'           => 'Nakatomi Trading Corp.',
-                'slug'           => 'nakatomi-trading-corp',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['nakatomi-trading-corp'],
+                'name'              => 'Nakatomi Trading Corp.',
+                'slug'              => 'nakatomi-trading-corp',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['spacely-space-sprockets'],
-                'name'           => 'Spacely Space Sprockets',
-                'slug'           => '2025-11-24-spacely-space-sprockets',
-                'date'           => '2025-11-24',
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['spacely-space-sprockets'],
+                'name'              => 'Spacely Space Sprockets',
+                'slug'              => '2025-11-24-spacely-space-sprockets',
+                'cover_letter_date' => '2025-11-24',
+                'content'           => <<<EOD
+EOD,
             ],
+            /*
+            [
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['#APPLICATION_SLUG#'],
+                'name'              => '',
+                'slug'              => '',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -1765,11 +1834,13 @@ EOD,
             /*
             [
                 'application_id' => $this->applicationId[1],
-                'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
-                'location'       => null,
-                'description'    => null,
+                'subject'     => '',
+                'event_date'  => null,
+                'event_time'  => null,
+                'location'    => null,
+                'attendees'   => null,
+                'notes'       => null,
+                'description' => null,
             ]
             */
         ];
@@ -1792,9 +1863,12 @@ EOD,
             [
                 'application_id' => $this->applicationId[1],
                 'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
                 'body'           => null,
+                'notes'          => null,
+                'description'    => null,
+                'created_at'     => '2026-01-01,
+                'updated_at'     => '00:00:00',
+
             ]
             */
         ];
@@ -1825,6 +1899,36 @@ EOD,
             [ 'name' => 'Raymond Holt',    'slug' => 'raymond-holt',    'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '2678 East Rd',          'street2' => null,  'city' => 'Brooklyn',    'state_id' => 33,   'zip' => null,    'country_id' => 237, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null,                             'email_label' => null,   'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1941-09-11', 'link' => null ],
             [ 'name' => 'Charlie Kelly ',  'slug' => 'charlie-kelly',   'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '903 S. Ninth St',       'street2' => null,  'city' => 'Philadelphia','state_id' => 39,   'zip' => null,    'country_id' => 237, 'phone' => '(763) 555-2216', 'phone_label' => 'mobile', 'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'mariaelaine29@yahoo.com',        'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1980-07-30', 'link' => null ],
             [ 'name' => 'Frank Reynolds',  'slug' => 'frank-reynolds',  'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '226 Market St',         'street2' => null,  'city' => 'Philadelphia','state_id' => 39,   'zip' => null,    'country_id' => 237, 'phone' => '(830) 555-8713', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'refugeechildrendream@yahoo.com', 'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday'  => null,        'link' => null ],
+            /*
+            [
+                'name'            => '',
+                'slug'            => '',
+                'friend'          => 0,
+                'family'          => 0,
+                'coworker'        => 0,
+                'supervisor'      => 0,
+                'subordinate'     => 0,
+                'professional'    => 0,
+                'other'           => 0,
+                'company_id'      => null,
+                'street'          => null,
+                'street2'         => null,
+                'city'            => null,
+                'state_id'        => null,
+                'zip'             => null,
+                'country_id'      => null,
+                'phone'           => null,
+                'phone_label'     => null,
+                'alt_phone'       => null,
+                'alt_phone_label' => null,
+                'email'           => null,
+                'email_label'     => null,
+                'alt_email'       => null,
+                'alt_email_label' => null,
+                'birthday'        => null,
+                'link'            => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -1854,7 +1958,17 @@ EOD,
             [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
             [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'date' => '2025-08-07', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
             [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'date' => '2025-12-08', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath'  => null, 'is_public' => 1 ],
-            //[ 'name' => '',                                         'slug' => '',                                                    'date' => null,         'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
+            /*
+            [
+                'name'         => '',
+                'slug'         => '',
+                'resume_date'  => null,
+                'primary'      => 0,
+                'doc_filepath' => null,
+                'pdf_filepath' => null,
+                'is_public'    => 1
+            ],
+            */
         ];
 
         $resumeModel = new Resume();

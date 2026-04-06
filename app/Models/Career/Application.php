@@ -59,6 +59,7 @@ class Application extends Model
         'compensation_min',
         'compensation_max',
         'compensation_unit_id',
+        'estimated_hours',
         'wage_rate',
         'job_duration_type_id',
         'job_location_type_id',
@@ -106,11 +107,11 @@ class Application extends Model
      */
     const array SEARCH_COLUMNS = [ 'id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating',
         'active', 'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max',
-        'wage_rate','compensation_unit_id', 'job_duration_type_id', 'job_location_type_id', 'job_employment_type_id',
-        'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits',
-        'vacation', 'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label',
-        'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public', 'is_readonly', 'is_root',
-        'is_disabled', 'is_demo' ];
+        'compensation_unit_id', 'estimated_hours', 'wage_rate', 'job_duration_type_id', 'job_location_type_id',
+        'job_employment_type_id', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'bonus', 'w2',
+        'relocation', 'benefits', 'vacation', 'health', 'phone', 'phone_label', 'alt_phone', 'alt_phone_label',
+        'email', 'email_label', 'alt_email', 'alt_email_label', 'notes', 'description', 'disclaimer', 'is_public',
+        'is_readonly', 'is_root', 'is_disabled', 'is_demo' ];
 
     /**
      *
@@ -354,6 +355,9 @@ class Application extends Model
             })
             ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
                 $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
+            })
+            ->when(!empty($filters['estimated_hours']), function ($query) use ($filters) {
+                $query->where($this->table . '.estimated_hours', '<=', intval($filters['estimated_hours']));
             })
             ->when(!empty($filters['health']), function ($query) use ($filters) {
                 $query->where($this->table . '.health', '=', true);

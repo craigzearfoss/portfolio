@@ -1435,7 +1435,20 @@ EOD,
             [ 'id' => $this->companyId[110],  'name' => 'PUTNAM RECRUITING GROUP',         'slug' => 'putnam-recruiting-group',         'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[111],  'name' => 'Craneware',                       'slug' => 'craneware',                       'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
             [ 'id' => $this->companyId[112],  'name' => 'Sentry Data Systems',             'slug' => 'sentry-data-systems',             'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
-            //[ 'id' => 1,   'name' => '',                                 'slug' => '',                                'industry_id' => 11, 'link' => null,                                  'link_name'   => null,                     'city' => null,                'state_id' => null, 'country_id' => null, 'phone' => null,             'logo' => null,  'logo_small' => null ],
+            [
+                'id'          => $this->companyId[113],
+                'name'        => '',
+                'slug'        => '',
+                'industry_id' => 11,
+                'link'        => null,
+                'link_name'   => null,
+                'city'        => null,
+                'state_id'    => null,
+                'country_id'  => null,
+                'phone'       => null,
+                'logo'        => null,
+                'logo_small'  => null
+            ],
         ];
 
         if (!empty($data)) {
@@ -1445,6 +1458,8 @@ EOD,
     }
 
     /**
+     * NOTE: This array will need to reflect the added contacts.
+     *
      * @return void
      */
     protected function insertCareerCompanyContacts(): void
@@ -1478,6 +1493,9 @@ EOD,
     }
 
     /**
+     * NOTE: If changes are made to contacts the the insertCareerCompanyContacts()
+     * function must be updated to reflect these changes.
+     *
      * @return void
      */
     protected function insertCareerContacts(): void
@@ -1515,8 +1533,17 @@ EOD,
             [ 'id' => $this->contactId[20],  'name' => 'Kelsey Higgins',   'slug' => 'kelsey-higgins',   'phone' => '(774) 283-1614', 'phone_label' => 'work', 'email' => 'kelsey.higgins@klaviyo.com',           'email_label' => 'work' ],
             [ 'id' => $this->contactId[21],  'name' => 'Britney Coleman',  'slug' => 'britney-coleman',  'phone' => null,	          'phone_label' => null,   'email' => 'coleman@lendflow.io',                  'email_label' => 'work' ],
             [ 'id' => $this->contactId[22],  'name' => 'Dan Chaffee',      'slug' => 'dan-chaffee',      'phone' => null,	          'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => $this->contactId[23],  'name' => 'Kara Caldwell',    'slug' => 'kara-caldwell',    'phone' => null,	          'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            //[ 'id' => 1,                     'name' => '',                 'slug' => '',                 'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null ],
+            /*
+            [
+                'id'          => $this->contactId[1],
+                'name'        => '',
+                'slug'        => '',
+                'phone'       => null,
+                'phone_label' => null,
+                'email'       => null,
+                'email_label' => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -1535,11 +1562,12 @@ EOD,
         $data = [
             /*
             [
-                'application_id' => $this->applicationId[1],
-                'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
-                'body'           => null,
+                'application_id'         => $this->applicationId[1],
+                'subject'                => '',
+                'to'                     => '',
+                'from'                   => '',
+                'communication_datetime' => '0000-00-00',
+                'body'                   => null,
             ]
             */
         ];
@@ -1559,237 +1587,272 @@ EOD,
 
         $data = [
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['black-airplane'],
-                'name'           => 'Black-Airplane',
-                'slug'           => '2025-11-24-black-airplane',
-                'date'           => '2025-11-24',
-                'content'        => <<<EOD
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['black-airplane'],
+                'name'              => 'Black-Airplane',
+                'slug'              => '2025-11-24-black-airplane',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
 <p>Craig Zearfoss&nbsp;&nbsp;</p><p>1291 El Mirasol Loop #424, Davenport, FL 33896&nbsp; |&nbsp; 305-469-6083&nbsp; |&nbsp; craigzearfoss@gmail.com</p><p>November 24, 2025</p><p>My name is Craig Zearfoss. I\'m a full stack developer with my main strength being back-end PHP. I have worked with multiple PHP frameworks, but I really love the way Laravel puts all the pieces together. I\'ve mostly worked on small, collaborative teams, usually on some of the most complex and critical features because of my experience. I love having my hands in code.</p><p>My current role is winding up and I\'m really looking forward to tackling a new project and becoming a valuable member of a new team. In order to demonstrate my Laravel skills I have created the website <a href=\"https://demo.craigzearfoss.com\">https://demo.craigzearfoss.com</a> which is a multi-user site to manage job searches. It is still in early beta development but is a good demonstration of the breadth of my skills. The project repo is at https://github.com/craigzearfoss/portfolio.</p><p>&nbsp;I\'ve always been a W2 employee, but my last two roles have been 1099 and I really miss paid vacation and other benefits.</p><p>I\'d love to speak more with you about myself and this position.</p><p>Sincerely,</p><p>Craig Zearfoss</p>
 EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['business-draft'],
-                'name'           => 'Business Draft',
-                'slug'           => 'business-draft',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['business-draft'],
+                'name'              => 'Business Draft',
+                'slug'              => 'business-draft',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['cogent-communications'],
-                'name'           => 'Cogent Communications',
-                'slug'           => 'cogent-communications',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['cogent-communications'],
+                'name'              => 'Cogent Communications',
+                'slug'              => 'cogent-communications',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['digital-minds-pakistan'],
-                'name'           => 'Digital-Minds-Pakistan',
-                'slug'           => 'digital-minds-pakistan',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['digital-minds-pakistan'],
+                'name'              => 'Digital-Minds-Pakistan',
+                'slug'              => 'digital-minds-pakistan',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['iclasspro-class-management-software'],
-                'name'           => 'iClasspro Class Management Software',
-                'slug'           => '2025-11-24-iclasspro-class-management-software',
-                'date'           => '2025-11-24',
-                'content'        => <<<EOD
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['iclasspro-class-management-software'],
+                'name'              => 'iClasspro Class Management Software',
+                'slug'              => '2025-11-24-iclasspro-class-management-software',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
 <p>Craig Zearfoss&nbsp;&nbsp;</p><p>1291 El Mirasol Loop #424, Davenport, FL 33896&nbsp; |&nbsp; 305-469-6083&nbsp; |&nbsp; craigzearfoss@gmail.com</p><p>November 24, 2025</p><p>My name is Craig Zearfoss. I\'m a full stack developer. I’ve worked with PHP frameworks, but have a strong preference for Laravel. I also do a lot of front end work creating dynamic web interfaces with JavaScript, and also with Vue.js for the past four or five years. I\'ve mostly worked on small, collaborative teams, usually on some of the most complex and critical features because of my experience. I love having my hands in code.</p><p>My current role is winding up and I\'m really looking forward to tackling a new project and becoming a valuable member of a new team. In order to demonstrate my development skills I have created the website <a href=\"https://demo.craigzearfoss.com\">https://demo.craigzearfoss.com</a> which is a multi-user site to manage job searches. It is still in early beta development but is a good demonstration of the breadth of my skills. The project repo is at <a href=\"https://github.com/craigzearfoss/portfolio\">https://github.com/craigzearfoss/portfolio</a>.</p><p>I’m always looking to broaden and enhance my skills. Although I haven’t had the opportunity to use Python in my day-to-day work, I have taken several classes in it and know that I could quickly get up to speed.</p><p>&nbsp;I\'ve always been a W2 employee, but my last two roles have been 1099 and I really miss paid vacation and other benefits.</p><p>I\'d love to speak more with you about myself and this position.</p><p>Sincerely,</p><p>Craig Zearfoss</p>
 EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['integrity-express-logistics'],
-                'name'           => 'Integrity Express Logistics',
-                'slug'           => 'integrity-express-logistics',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['integrity-express-logistics'],
+                'name'              => 'Integrity Express Logistics',
+                'slug'              => 'integrity-express-logistics',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['iostudio'],
-                'name'           => 'Iostudio',
-                'slug'           => '2025-11-24-iostudio',
-                'date'           => '2025-11-24',
-                'content'        => <<<EOD
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['iostudio'],
+                'name'              => 'Iostudio',
+                'slug'              => '2025-11-24-iostudio',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
 <h2><strong>LAMP Software Engineer (Contractor)- job post</strong></h2><p><a href=\"https://www.indeed.com/cmp/Red-Hawk-Technologies?campaignid=mobvjcmp&amp;from=mobviewjob&amp;tk=1jask6n5j229m003&amp;fromjk=b99d722c4b6b5443\">Red Hawk Technologies LLC</a></p><p>Remote</p><p>Contract</p><p><a href=\"https://www.indeed.com/cmp/Red-Hawk-Technologies?campaignid=mobvjcmp&amp;from=mobviewjob&amp;tk=1jask6n5j229m003&amp;fromjk=b99d722c4b6b5443\">Red Hawk Technologies LLC</a></p><p>Remote</p><p>&nbsp;</p><p>&nbsp;</p><h2><strong>Profile insights</strong></h2><p>Here’s how the job qualifications align with your <a href=\"https://profile.indeed.com/\">profile</a>.</p><h3><strong>Skills</strong></h3><p><strong>Web applications</strong></p><p><strong>Python</strong></p><p><strong>Linux</strong></p><ul><li>+ show more</li></ul><p>Do you have experience in <strong>Web applications</strong>?</p><h3><strong>Education</strong></h3><p><strong>Bachelor\'s degree</strong></p><p>&amp;nbsp;</p><h2><strong>Job details</strong></h2><p>Here’s how the job details align with your <a href=\"https://profile.indeed.com/\">profile</a>.</p><h3><strong>Job type</strong></h3><p><strong>Contract</strong></p><p>&amp;nbsp;</p><h2><strong>Full job description</strong></h2><p>We are looking for a talented and experienced LAMP software engineer contractor to join our team. As a LAMP software engineer, you will be responsible for developing, maintaining, and deploying web applications using the LAMP stack (Linux, Apache, MySQL, PHP and Python). This particular role requires experience with Laravel. You will also be responsible for working with other members of the team to design and implement new features and functionality.</p><p>If you are a talented and experienced LAMP software engineer, we encourage you to apply for this exciting opportunity. To apply, please submit your resume to careers@redhawk-tech.com.</p><p><strong>Responsibilities:</strong></p><p>Develop, maintain, and deploy web applications using the LAMP stack</p><p>Work with other members of the team to design and implement new features and functionality</p><p>Troubleshoot and debug web applications</p><p>Work directly with clients and project managers to gather requirements and specifications, and execute</p><p>Stay up-to-date on the latest technologies and trends in web development</p><p>Ability to work independently and on multiple projects simultaneously</p><p><strong>Qualifications:</strong></p><p>Bachelor\'s degree in computer science or a related field</p><p>5+ years of experience in web development using the LAMP stack</p><p>Strong understanding of PHP, MySQL, and Apache. Demonstrated Laravel experience.</p><p>Experience with HTML, CSS, and JavaScript</p><p>Experience with Git and other version control systems</p><p>Excellent problem-solving and debugging skills</p><p>Excellent communication and teamwork skills, you will work directly with clients</p><p>&nbsp;</p><p>&amp;nbsp;</p><p>If you require alternative methods of application or screening, you must approach the employer directly to request this as Indeed is not responsible for the employer\'s application process.</p>
 EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['jobs-by-allup'],
-                'name'           => 'Jobs by Allup',
-                'slug'           => 'jobs-by-allup',
-                'date'           => null,
-                'content'        => <<<EOD
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['jobs-by-allup'],
+                'name'              => 'Jobs by Allup',
+                'slug'              => 'jobs-by-allup',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
 <p>Craig Zearfoss&nbsp;&nbsp;</p><p>1291 El Mirasol Loop #424, Davenport, FL 33896&nbsp; |&nbsp; 305-469-6083&nbsp; |&nbsp; craigzearfoss@gmail.com</p><p>November 24, 2025</p><p>My name is Craig Zearfoss. I\'m a full stack developer with my main strength being back-end PHP. I have worked with multiple PHP frameworks, but I really love the way Laravel puts all the pieces together. I\'ve mostly worked on small, collaborative teams, usually on some of the most complex and critical features because of my experience. I love having my hands in code.</p><p>My current role is winding up and I\'m really looking forward to tackling a new project and becoming a valuable member of a new team. In order to demonstrate my Laravel skills I have created the website <a href=\"https://demo.craigzearfoss.com\">https://demo.craigzearfoss.com</a> which is a multi-user site to manage job searches. It is still in early beta development but is a good demonstration of the breadth of my skills. The project repo is at https://github.com/craigzearfoss/portfolio.</p><p>&nbsp;I\'ve always been a W2 employee, but my last two roles have been 1099 and I really miss paid vacation and other benefits.</p><p>I\'d love to speak more with you about myself and this position.</p><p>Sincerely,</p><p>Craig Zearfoss</p>
 EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['laravel'],
-                'name'           => 'Laravel',
-                'slug'           => 'laravel',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['laravel'],
+                'name'              => 'Laravel',
+                'slug'              => 'laravel',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['mile6'],
-                'name'           => 'Mile6',
-                'slug'           => 'mile6',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['mile6'],
+                'name'              => 'Mile6',
+                'slug'              => 'mile6',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['new-american-funding'],
-                'name'           => 'New American Funding',
-                'slug'           => 'new-american-funding',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['new-american-funding'],
+                'name'              => 'New American Funding',
+                'slug'              => 'new-american-funding',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['omnispear-inc'],
-                'name'           => 'Omnispear Inc',
-                'slug'           => 'omnispear-inc',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['omnispear-inc'],
+                'name'              => 'Omnispear Inc',
+                'slug'              => 'omnispear-inc',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['opendatajobs'],
-                'name'           => 'Opendatajobs',
-                'slug'           => 'opendatajobs',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['opendatajobs'],
+                'name'              => 'Opendatajobs',
+                'slug'              => 'opendatajobs',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['pactfi'],
-                'name'           => 'Pactfi',
-                'slug'           => 'pactfi',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['pactfi'],
+                'name'              => 'Pactfi',
+                'slug'              => 'pactfi',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['parento'],
-                'name'           => 'Parento',
-                'slug'           => 'parento',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['parento'],
+                'name'              => 'Parento',
+                'slug'              => 'parento',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['purecars'],
-                'name'           => 'Purecars',
-                'slug'           => 'purecars',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['purecars'],
+                'name'              => 'Purecars',
+                'slug'              => 'purecars',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['putnam-recruiting-group'],
-                'name'           => 'Putnam Recruiting Group',
-                'slug'           => 'putnam-recruiting-group',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['putnam-recruiting-group'],
+                'name'              => 'Putnam Recruiting Group',
+                'slug'              => 'putnam-recruiting-group',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['red-hawk-technologies-llc'],
-                'name'           => 'Red Hawk Technologies LLC',
-                'slug'           => 'red-hawk-technologies-llc',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['red-hawk-technologies-llc'],
+                'name'              => 'Red Hawk Technologies LLC',
+                'slug'              => 'red-hawk-technologies-llc',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['sensible-care'],
-                'name'           => 'Sensible Care',
-                'slug'           => 'sensible-care',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['sensible-care'],
+                'name'              => 'Sensible Care',
+                'slug'              => 'sensible-care',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['sentry-data-systems'],
-                'name'           => 'Sentry Data Systems',
-                'slug'           => 'sentry-data-systems',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['sentry-data-systems'],
+                'name'              => 'Sentry Data Systems',
+                'slug'              => 'sentry-data-systems',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['sportsrecruits'],
-                'name'           => 'Sportsrecruits',
-                'slug'           => 'sportsrecruits',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['sportsrecruits'],
+                'name'              => 'Sportsrecruits',
+                'slug'              => 'sportsrecruits',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['teamworks'],
-                'name'           => 'Teamworks',
-                'slug'           => 'teamworks',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['teamworks'],
+                'name'              => 'Teamworks',
+                'slug'              => 'teamworks',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['us-service-animals'],
-                'name'           => 'US Service Animals',
-                'slug'           => 'us-service-animals',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    =>  $this->applications['us-service-animals'],
+                'name'              => 'US Service Animals',
+                'slug'              => 'us-service-animals',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['venu-elearning-solutions'],
-                'name'           => 'Venu eLearning Solutions',
-                'slug'           => 'venu-elearning-solutions',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['venu-elearning-solutions'],
+                'name'              => 'Venu eLearning Solutions',
+                'slug'              => 'venu-elearning-solutions',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['vorys-sater-seymour-and-pease-llp'],
-                'name'           => 'Vorys, Sater, Seymour and Pease LLP',
-                'slug'           => 'vorys-sater-seymour-and-pease-llp',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['vorys-sater-seymour-and-pease-llp'],
+                'name'              => 'Vorys, Sater, Seymour and Pease LLP',
+                'slug'              => 'vorys-sater-seymour-and-pease-llp',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['webrock-media'],
-                'name'           => 'Webrock Media',
-                'slug'           => 'webrock-media',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['webrock-media'],
+                'name'              => 'Webrock Media',
+                'slug'              => 'webrock-media',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['wild-alaskan-company'],
-                'name'           => 'Wild Alaskan Company',
-                'slug'           => 'wild-alaskan-company',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['wild-alaskan-company'],
+                'name'              => 'Wild Alaskan Company',
+                'slug'              => 'wild-alaskan-company',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
             [
-                'owner_id'       => $this->adminId,
-                'application_id' => $this->applications['yard-management-solutions'],
-                'name'           => '',
-                'slug'           => '',
-                'date'           => null,
-                'content'        => '',
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['yard-management-solutions'],
+                'name'              => '',
+                'slug'              => '',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
             ],
+            /*
+            [
+                'owner_id'          => $this->adminId,
+                'application_id'    => $this->applications['#APPLICATION_SLUG#'],
+                'name'              => '',
+                'slug'              => '',
+                'cover_letter_date' => null,
+                'content'           => <<<EOD
+EOD,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -1809,11 +1872,13 @@ EOD,
             /*
             [
                 'application_id' => $this->applicationId[1],
-                'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
-                'location'       => null,
-                'description'    => null,
+                'subject'     => '',
+                'event_date'  => null,
+                'event_time'  => null,
+                'location'    => null,
+                'attendees'   => null,
+                'notes'       => null,
+                'description' => null,
             ]
             */
         ];
@@ -1836,9 +1901,12 @@ EOD,
             [
                 'application_id' => $this->applicationId[1],
                 'subject'        => '',
-                'date'           => '0000-00-00',
-                'time'           => '00:00:00',
                 'body'           => null,
+                'notes'          => null,
+                'description'    => null,
+                'created_at'     => '2026-01-01,
+                'updated_at'     => '00:00:00',
+
             ]
             */
         ];
@@ -1869,6 +1937,36 @@ EOD,
             [ 'name' => 'Gary Zearfoss',         'slug' => 'gary-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '2678 Sunset Lane',        'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 764-1215', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null,                             'email_label' => null,   'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1941-09-11', 'link' => null ],
             [ 'name' => 'Maria Arvanitis',       'slug' => 'maria-arvanitis',       'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '9079 Golden Pond Lane N', 'street2' => null,  'city' => 'Monticello',    'state_id' => 24,   'zip' => '55362',      'country_id' => 237, 'phone' => '(763) 777-2216', 'phone_label' => 'mobile', 'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'mariaelaine29@yahoo.com',        'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1980-07-30', 'link' => null ],
             [ 'name' => 'Barbara Smith',         'slug' => 'barbara-smith',         'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null,              'street' => '2041 Warwick Place',      'street2' => null,  'city' => 'New Braunfels', 'state_id' => 44,   'zip' => '78130',      'country_id' => 237, 'phone' => '(830) 221-8713', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'refugeechildrendream@yahoo.com', 'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday'  => null,        'link' => null ],
+            /*
+            [
+                'name'            => '',
+                'slug'            => '',
+                'friend'          => 0,
+                'family'          => 0,
+                'coworker'        => 0,
+                'supervisor'      => 0,
+                'subordinate'     => 0,
+                'professional'    => 0,
+                'other'           => 0,
+                'company_id'      => null,
+                'street'          => null,
+                'street2'         => null,
+                'city'            => null,
+                'state_id'        => null,
+                'zip'             => null,
+                'country_id'      => null,
+                'phone'           => null,
+                'phone_label'     => null,
+                'alt_phone'       => null,
+                'alt_phone_label' => null,
+                'email'           => null,
+                'email_label'     => null,
+                'alt_email'       => null,
+                'alt_email_label' => null,
+                'birthday'        => null,
+                'link'            => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -1885,29 +1983,39 @@ EOD,
         echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
 
         $data = [
-            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'date' => '2025-08-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'date' => '2025-08-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'date' => '2025-12-08', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [ai]',         'slug' => '2026-03-30-senior-full-stack-developer-[ai]',         'date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
-            [ 'name' => 'Senior Full Stack Developer [complete]',   'slug' => '2026-03-30-senior-full-stack-developer-[complete]',   'date' => '2026-03-30', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Full Stack Developer [human]',      'slug' => '2026-03-30-senior-full-stack-developer-[human]',      'date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
-            [ 'name' => 'Senior Software Developer [ai]',           'slug' => '2026-03-30-senior-software-developer-[ai]',           'date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
-            [ 'name' => 'Senior Software Developer [complete]',     'slug' => '2026-03-30-senior-software-developer-[complete]',     'date' => '2026-03-30', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Developer [human]',        'slug' => '2026-03-30-senior-software-developer-[human]',        'date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
-            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2026-03-30-senior-software-engineer-[ai]',            'date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
-            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2026-03-30-senior-software-engineer-[complete]',      'date' => '2026-03-30', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
-            [ 'name' => 'Senior Software Engineer [human]',         'slug' => '2026-03-30-senior-software-engineer-[human]',         'date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
-            //[ 'name' => '',                                         'slug' => '',                                                    'date' => null,         'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-09-senior-software-engineer',                 'resume_date' => '2025-06-09', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'slug' => '2025-06-16-senior-software-engineer',                 'resume_date' => '2025-06-16', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [condensed]',     'slug' => '2025-06-22-senior-software-engineer-[condensed]',     'resume_date' => '2025-06-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [streamlined]',   'slug' => '2025-06-29-senior-software-engineer-[streamlined]',   'resume_date' => '2025-06-29', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-07-senior-full-stack-developer-[prettified]', 'resume_date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-07-senior-php-developer-[prettified]',        'resume_date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-07-front-end-developer-[prettified]',         'resume_date' => '2025-07-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'slug' => '2025-07-22-front-end-developer-[prettified]',         'resume_date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'slug' => '2025-07-22-senior-full-stack-developer-[prettified]', 'resume_date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'slug' => '2025-07-22-senior-php-developer-[prettified]',        'resume_date' => '2025-07-22', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2025-08-07-senior-software-engineer-[ai]',            'resume_date' => '2025-08-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Full Stack Developer [ai]',                'slug' => '2025-08-07-full-stack-developer-[ai]',                'resume_date' => '2025-08-07', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2025-12-08-senior-software-engineer-[complete]',      'resume_date' => '2025-12-08', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [ai]',         'slug' => '2026-03-30-senior-full-stack-developer-[ai]',         'resume_date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Full Stack Developer [complete]',   'slug' => '2026-03-30-senior-full-stack-developer-[complete]',   'resume_date' => '2026-03-30', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [human]',      'slug' => '2026-03-30-senior-full-stack-developer-[human]',      'resume_date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Software Developer [ai]',           'slug' => '2026-03-30-senior-software-developer-[ai]',           'resume_date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Software Developer [complete]',     'slug' => '2026-03-30-senior-software-developer-[complete]',     'resume_date' => '2026-03-30', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Developer [human]',        'slug' => '2026-03-30-senior-software-developer-[human]',        'resume_date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Software Engineer [ai]',            'slug' => '2026-03-30-senior-software-engineer-[ai]',            'resume_date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
+            [ 'name' => 'Senior Software Engineer [complete]',      'slug' => '2026-03-30-senior-software-engineer-[complete]',      'resume_date' => '2026-03-30', 'primary' => 0, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 0 ],
+            [ 'name' => 'Senior Software Engineer [human]',         'slug' => '2026-03-30-senior-software-engineer-[human]',         'resume_date' => '2026-03-30', 'primary' => 1, 'doc_filepath' => null, 'pdf_filepath' => null, 'is_public' => 1 ],
+            /*
+            [
+                'name'         => '',
+                'slug'         => '',
+                'resume_date'  => null,
+                'primary'      => 0,
+                'doc_filepath' => null,
+                'pdf_filepath' => null,
+                'is_public'    => 1
+            ],
+            */
         ];
 
         $resumeModel = new Resume();

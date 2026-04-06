@@ -51,8 +51,8 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->unique('application_id', 'application_id_unique');
-            $table->unique(['owner_id', 'name', 'date'], 'owner_id_name_date_unique');
-            $table->unique(['owner_id', 'slug', 'date'], 'owner_id_slug_date_unique');
+            $table->unique(['owner_id', 'name', 'cover_letter_date'], 'owner_id_name_cover_letter_date_unique');
+            $table->unique(['owner_id', 'slug', 'cover_letter_date'], 'owner_id_slug_cover_letter_date_unique');
         });
 
         /*
