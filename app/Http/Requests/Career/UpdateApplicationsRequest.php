@@ -126,15 +126,22 @@ class UpdateApplicationsRequest extends FormRequest
     public function prepareForValidation(): void
     {
         // set the wage rage
-        if (!empty($this->compensation_min)) {
+        if (!empty($this->compensation_min) || !empty($this->compensation_max)) {
+
+            if (!empty($this->compensation_min) && !empty($this->compensation_max)) {
+                $wageRate = ($this->compensation_min + $this->compensation_max) / 2;
+            } elseif (!empty($this->compensation_min)){
+                $wageRate = $this->compensation_min;
+            } else {
+                $wageRate = $this['compensation_max'];
+            }
+
             $this['wage_rate'] = match ($this['compensation_unit_id']) {
-                1 => $this->compensation_min,   // per hour
-                2 => $this->compensation_min / 2080,    // per year
-                3 => $this->compensation_min / 173,   // per month
-                4 => $this->compensation_min / 40,  // per week
-                5 => $this->compensation_min / 8,   // per day
-                6 => $this->compensation_min,   // per project (we an' calculate a wage rate)
-                default => null,
+                2 => $wageRate / 2080,    // per year
+                3 => $wageRate / 173,   // per month
+                4 => $wageRate / 40,  // per week
+                5 => $wageRate / 8,   // per day
+                default => $wageRate,  // note that for per project we can't calculate a wage rate
             };
         }
     }
