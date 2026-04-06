@@ -2,7 +2,7 @@
     use App\Models\Portfolio\JobCoworker;
     use App\Models\System\Admin;
 
-    // get varibles
+    // get variables
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $company         = $company ?? request()->query('company');
@@ -23,7 +23,7 @@
 
                 <div class="search-panel-controls">
 
-                    @include('guest.components.search-sort-select', [
+                    @include('admin.components.search-sort-select', [
                         'sort' => $sort,
                         'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                               [

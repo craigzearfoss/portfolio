@@ -4,13 +4,10 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action       = $action ?? url()->current();
-    $owner_id     = $owner->id ?? -1;
-    $company_name = $company_name ?? request()->query('company_name');
-    $job_id       = $job_id ?? request()->query('job_id');
-    $name         = $name ?? request()->query('name');
-    $min_years    = $min_years ?? request()->query('min_years');
-    $years        = $years ?? request()->query('years');
+    $action    = $action ?? url()->current();
+    $owner_id  = $owner->id ?? -1;
+    $name      = $name ?? request()->query('name');
+    $min_years = $min_years ?? request()->query('min_years');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Skill::SEARCH_ORDER_BY[0], Skill::SEARCH_ORDER_BY[1] ]);
@@ -23,9 +20,36 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                      'dictionary_category_name|asc' => 'category',
+                                      'level|desc'                   => 'level',
+                                      'name|asc'                     => 'name',
+                                      'years|desc'                   => 'years',
+                                  ],
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('guest.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('guest.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
                                 'name'    => 'name',
@@ -33,21 +57,26 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.dictionary-category')
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
-                            @include('guest.components.search-panel.controls.portfolio-skill-level', [ 'level' => $level ])
+                            @include('guest.components.search-panel.controls.portfolio-skill-level')
                         </div>
+
                     </div>
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
                                 'type'    => 'number',
@@ -59,18 +88,9 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    @include('guest.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('guest.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

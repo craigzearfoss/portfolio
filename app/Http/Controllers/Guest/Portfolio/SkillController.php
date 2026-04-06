@@ -31,7 +31,9 @@ class SkillController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.skill.index'), compact('skills'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Skills';
+
+        return view(themedTemplate('guest.portfolio.skill.index', 'pageTitle'), compact('skills'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

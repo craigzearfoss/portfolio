@@ -23,7 +23,7 @@
 
                 <div class="search-panel-controls">
 
-                    @include('guest.components.search-sort-select', [
+                    @include('admin.components.search-sort-select', [
                         'sort' => $sort,
                         'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
                                               [
@@ -73,7 +73,9 @@
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-academy')
                         </div>
+                    </div>
 
+                    <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'organization',

@@ -31,7 +31,9 @@ class EducationController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.education.index'), compact('educations'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Education';
+
+        return view(themedTemplate('guest.portfolio.education.index', 'pageTitle'), compact('educations'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

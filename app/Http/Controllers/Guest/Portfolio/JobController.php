@@ -32,7 +32,9 @@ class JobController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.job.index'), compact('jobs'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Jobs';
+
+        return view(themedTemplate('guest.portfolio.job.index'), compact('jobs', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

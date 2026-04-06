@@ -23,16 +23,17 @@
 
                 <div class="search-panel-controls">
 
-                    @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'academy_name|asc'     => 'academy',
-                                                  'completion_date|desc' => 'completion date',
-                                                  'name|asc'             => 'name',
-                                                  'instructor|asc'       => 'instructor',
-                                              ],
-                                  )
+                    @include('admin.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   'academy_name|asc'     => 'academy',
+                                                   'completion_date|desc' => 'completion date',
+                                                   'name|asc'             => 'name',
+                                                   'instructor|asc'       => 'instructor',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 9rem', 'max-width: 9rem' ]
                     ])
 
                     @include('admin.components.button-clear', [
@@ -72,6 +73,9 @@
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.portfolio-academy')
                         </div>
+
+                    </div>
+                    <div class="floating-div">
 
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [

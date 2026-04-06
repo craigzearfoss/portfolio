@@ -31,7 +31,9 @@ class ArtController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.art.index'), compact('arts'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Art';
+
+        return view(themedTemplate('guest.portfolio.art.index'), compact('arts','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

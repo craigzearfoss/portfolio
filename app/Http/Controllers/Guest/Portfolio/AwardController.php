@@ -28,7 +28,9 @@ class AwardController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.award.index'), compact('awards'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Awards';
+
+        return view(themedTemplate('guest.portfolio.award.index'), compact('awards', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

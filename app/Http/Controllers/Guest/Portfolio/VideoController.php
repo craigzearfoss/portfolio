@@ -31,7 +31,9 @@ class VideoController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.video.index'), compact('videos'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Videos';
+
+        return view(themedTemplate('guest.portfolio.video.index', 'pageTitle'), compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

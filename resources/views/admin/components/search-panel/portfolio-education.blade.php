@@ -24,32 +24,33 @@
 
                 <div class="search-panel-controls">
 
-                    @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'degree_type_name|asc'  => 'degree',
-                                                  'major|asc'             => 'major',
-                                                  'minor|asc'             => 'minor',
-                                                  'school_name|asc'       => 'school',
-                                                  'enrollment_date|desc'  => 'year enrolled',
-                                                  'graduation_date|desc'  => 'year graduated',
-                                              ],
-                                  )
+                    @include('admin.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   'degree_type_name|asc'  => 'degree',
+                                                   'major|asc'             => 'major',
+                                                   'minor|asc'             => 'minor',
+                                                   'school_name|asc'       => 'school',
+                                                   'enrollment_date|desc'  => 'year enrolled',
+                                                   'graduation_date|desc'  => 'year graduated',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 9rem', 'max-width: 9rem' ]
                     ])
 
-                    <div class="floating-div-container">
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
 
-                        @include('admin.components.button-clear', [
-                            'id'   =>'clearSearchForm',
-                            'name' => 'Clear',
-                        ])
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
 
-                        @include('admin.components.button-search', [
-                            'id' =>'performSearch',
-                        ])
+                </div>
 
-                    </div>
+                <div class="floating-div-container">
 
                     @if($isRootAdmin)
                         <div class="floating-div">

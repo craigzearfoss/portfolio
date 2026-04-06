@@ -21,12 +21,6 @@
 
                     <div class="floating-div">
 
-                        @if(isRootAdmin())
-
-                            @include('guest.components.search-panel.controls.system-owner', [ 'owner_id' => $owner_id ])
-
-                        @endif
-
                         @if(!empty($owner))
 
                             @php
@@ -63,10 +57,13 @@
                 </div>
 
                 <div class="has-text-right pr-2">
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+                    */ ?>
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])

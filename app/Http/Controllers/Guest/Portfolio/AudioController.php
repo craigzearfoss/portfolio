@@ -31,7 +31,9 @@ class AudioController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.audio.index'), compact('audios'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Audio';
+
+        return view(themedTemplate('guest.portfolio.audio.index'), compact('audios','pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

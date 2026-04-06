@@ -31,7 +31,7 @@
                         </div>
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.career-company',
-                                $isRootAdmin ? [] : [ 'owner_id' => $owner_id ]
+                                [ 'owner_id' => $owner_id ]
                             )
                         </div>
                     </div>
@@ -80,10 +80,13 @@
                 </div>
 
                 <div class="has-text-right pr-2">
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+                    */ ?>
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])

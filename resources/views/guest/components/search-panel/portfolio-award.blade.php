@@ -21,9 +21,38 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => [
+                                       'category|asc'       => 'category',
+                                       'name|asc'           => 'name',
+                                       'nominated_work|asc' => 'nominated work',
+                                       'organization|asc'   => 'organization',
+                                       'year|asc'           => 'year',
+                                   ],
+				        'style' => [ 'width: 8rem', 'max-width: 8rem' ]
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('guest.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('guest.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
                                 'name'    => 'name',
@@ -32,6 +61,7 @@
                             ])
                         </div>
                     </div>
+
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
@@ -40,9 +70,10 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
                                 'name'    => 'nominated_work',
@@ -52,6 +83,7 @@
                             ])
                         </div>
                     </div>
+
                     <div class="floating-div">
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
@@ -60,31 +92,8 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
-
-                </div>
-
-                <div class="has-text-right pr-2">
-
-                    @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                    'category|asc'       => 'category',
-                                    'name|asc'           => 'name',
-                                    'nominated_work|asc' => 'nominated work',
-                                    'organization|asc'   => 'organization',
-                                    'year|asc'           => 'year',
-                                  ]
-                    ])
-
-                    @include('guest.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-
-                    @include('guest.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
 
                 </div>
 

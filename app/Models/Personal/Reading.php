@@ -171,9 +171,11 @@ class Reading extends Model
             DB::raw('admins.email AS `owner_email`'),
         ]);
 
+        // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
+        // add order by clause
         if (empty($sort)) {
             $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
         } else {
@@ -185,12 +187,6 @@ class Reading extends Model
             } else {
                 $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
             }
-        }
-
-        // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
         }
 
         return $query;

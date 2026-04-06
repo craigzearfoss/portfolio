@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -130,7 +131,7 @@ class Recipe extends Model
      * If an owner is specified it will override any owner_id parameter in the request.
      *
      * @param array $filters
-     * @param string|null $sort
+     * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
      * @param Admin|Owner|null $owner
      * @param User|null $user
      * @return Builder
@@ -228,18 +229,30 @@ class Recipe extends Model
                         . ' Valid relations are "appetizer", "beverage", "dessert", "main", and "side".');
                 }
             });
+        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
+        $query->select([
+            DB::raw($this->table . '.*'),
+            DB::raw('admins.name AS `owner_name`'),
+            DB::raw('admins.username AS `owner_username`'),
+            DB::raw('admins.email AS `owner_email`'),
+        ]);
 
         // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
-        // join to owner
-        $query = $this->addJoinToAdminTable($query);
-
         // add order by clause
-        $query = $this->addOrderBy($query, $sort);
-        if (explode('|', $sort ?? '') != 'owner_username') {
-            $query->orderBy('owner_username');
+        if (empty($sort)) {
+            $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
+        } else {
+            $orderByCol = $this->fullyQualifiedField(explode('|', $sort)[0]);
+            $orderByDir = strtolower(explode('|', $sort)[1] ?? '');
+
+            if (in_array($orderByCol, $this->sortableColumns())) {
+                $query->orderBy($orderByCol, in_array($orderByDir, ['asc', 'desc']) ? $orderByDir : 'asc');
+            } else {
+                $query->orderBy($this->table . self::SEARCH_ORDER_BY[0], self::SEARCH_ORDER_BY[1]);
+            }
         }
 
         return $query;

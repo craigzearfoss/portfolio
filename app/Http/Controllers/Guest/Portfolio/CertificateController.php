@@ -29,9 +29,11 @@ class CertificateController extends BaseGuestController
             request()->input('sort') ?? implode('|', Certificate::SEARCH_ORDER_BY),
             $this->owner ?? null
         )
-    ->paginate($perPage)->appends(request()->except('page'));
+        ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.certificate.index'), compact('certificates'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Certificates';
+
+        return view(themedTemplate('guest.portfolio.certificate.index'), compact('certificates', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

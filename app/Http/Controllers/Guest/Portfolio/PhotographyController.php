@@ -31,7 +31,9 @@ class PhotographyController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.photography.index'), compact('photos'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Photography';
+
+        return view(themedTemplate('guest.portfolio.photography.index', 'pageTitle'), compact('photos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

@@ -31,7 +31,9 @@ class ProjectController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.project.index'), compact('projects'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Projects';
+
+        return view(themedTemplate('guest.portfolio.project.index', 'pageTitle'), compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

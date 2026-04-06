@@ -18,9 +18,34 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                      'name|asc'       => 'name',
+                                      'state_name|asc' => 'state',
+                                  ],
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('guest.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('guest.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
                                 'name'    => 'name',
@@ -28,9 +53,11 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     <div class="floating-div">
+
                         <?php /* We don't currently have any cities in the portfolio.schools table.
                         <div class="search-form-control">
                             @include('guest.components.input-basic', [
@@ -40,21 +67,13 @@
                             ])
                         </div>
                         */ ?>
+
                         <div class="search-form-control">
                             @include('guest.components.search-panel.controls.system-state')
                         </div>
+
                     </div>
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    @include('guest.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    @include('guest.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

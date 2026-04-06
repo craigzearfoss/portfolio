@@ -28,21 +28,22 @@
 
                     @include('guest.components.search-sort-select', [
                         'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'author|asc'           => 'author',
-                                                  'title|asc'            => 'title',
-                                                  'publication_year|asc' => 'year',
-                                              ],
-                                  )
+                        'list' => [
+                                      'author|asc'           => 'author',
+                                      'title|asc'            => 'title',
+                                      'publication_year|asc' => 'year',
+                                  ],
                     ])
 
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+                    */ ?>
 
-                    @include('admin.components.button-search', [
+                    @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
 
@@ -58,7 +59,7 @@
                                     'name'     => 'title',
                                     'value'    => $search_title_value,
                                     'list'     => new Reading()->listOptions(
-                                        !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
+                                        [ 'owner_id' => $owner_id ],
                                         'title',
                                         'title',
                                         true,
@@ -79,7 +80,7 @@
                                     'name'     => 'author',
                                     'value'    => $author,
                                     'list'     => new Reading()->listOptions(
-                                        !empty($owner->is_root) ? [] : (!empty($owner) ? [ 'owner_id' => $owner->id ] : []),
+                                         [ 'owner_id' => $owner->id ],
                                         'author',
                                         'author',
                                         true,

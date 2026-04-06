@@ -25,17 +25,18 @@
 
                 <div class="search-panel-controls">
 
-                    @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'artist|asc'         => 'artist',
-                                                  'catalog_number|asc' => 'catalog number',
-                                                  'label|asc'          => 'label',
-                                                  'name|asc'           => 'name',
-                                                  'year|asc'          => 'year',
-                                              ],
-                                  )
+                    @include('admin.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   'artist|asc'         => 'artist',
+                                                   'catalog_number|asc' => 'catalog number',
+                                                   'label|asc'          => 'label',
+                                                   'name|asc'           => 'name',
+                                                   'year|asc'          => 'year',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 9rem', 'max-width: 9rem' ],
                     ])
 
                     @include('admin.components.button-clear', [
@@ -67,8 +68,10 @@
                                 'value'   => $name,
                                 'message' => $message ?? '',
                             ])
-
                         </div>
+
+                    </div>
+                    <div class="floating-div">
 
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
@@ -89,7 +92,9 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+                    </div>
 
+                    <div class="floating-div">
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'catalog_number',

@@ -25,10 +25,13 @@
                                   ],
                     ])
 
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+                    */ ?>
 
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',

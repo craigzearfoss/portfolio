@@ -31,10 +31,11 @@ class ReadingController extends BaseGuestController
             request()->input('sort') ?? implode('|', Reading::SEARCH_ORDER_BY),
             $this->owner ?? null
         )
-        ->orderBy('author')
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.personal.reading.index'), compact('readings'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Readings';
+
+        return view(themedTemplate('guest.personal.reading.index'), compact('readings', 'pageTitle'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

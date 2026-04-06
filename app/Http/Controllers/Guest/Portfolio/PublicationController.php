@@ -31,7 +31,9 @@ class PublicationController extends BaseGuestController
         )
         ->paginate($perPage)->appends(request()->except('page'));
 
-        return view(themedTemplate('guest.portfolio.publication.index'), compact('publications'))
+        $pageTitle = ($this->owner->name  ?? '') . ' Publications';
+
+        return view(themedTemplate('guest.portfolio.publication.index', 'pageTitle'), compact('publications'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
