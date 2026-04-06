@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -161,6 +162,14 @@ class Reading extends Model
             ->when(!empty($filters['wishlist']), function ($query) use ($filters) {
                 $query->where($this->table . '.wishlist', '=', true);
             });
+
+        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
+        $query->select([
+            DB::raw($this->table . '.*'),
+            DB::raw('admins.name AS `owner_name`'),
+            DB::raw('admins.username AS `owner_username`'),
+            DB::raw('admins.email AS `owner_email`'),
+        ]);
 
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);

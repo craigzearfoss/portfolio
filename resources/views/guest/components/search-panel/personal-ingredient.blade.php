@@ -16,28 +16,36 @@
 
             <div>
 
-                <div class="floating-div-container">
+                <div class="search-panel-controls">
 
-                    <div class="floating-div">
-                        <div class="search-form-control">
-                            @include('guest.components.input-basic', [
-                                'name'    => 'name',
-                                'value'   => $name,
-                                'message' => $message ?? '',
-                            ])
-                        </div>
-                    </div>
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                      'name|asc'    => 'name',
+                                  ],
+                    ])
 
-                </div>
-
-                <div class="has-text-right pr-2">
                     @include('guest.components.button-clear', [
                         'id'   =>'clearSearchForm',
                         'name' => 'Clear',
                     ])
+
                     @include('guest.components.button-search', [
                         'id' =>'performSearch',
                     ])
+
+                </div>
+
+                <div class="floating-div">
+
+                    <div class="search-form-control">
+                        @include('guest.components.input-basic', [
+                            'name'    => 'name',
+                            'value'   => $name,
+                            'message' => $message ?? '',
+                        ])
+                    </div>
+
                 </div>
 
             </div>

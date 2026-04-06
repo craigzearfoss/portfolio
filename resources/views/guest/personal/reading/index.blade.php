@@ -45,7 +45,8 @@
                     <tr>
                         <th>title</th>
                         <th>author</th>
-                        <th class="has-text-centered hide-at-600">type</th>
+                        <th class="hide-at-600">type</th>
+                        <th class="has-text-centered hide-at-600">published</th>
                         <th class="has-text-centered hide-at-900">paper</th>
                         <th class="has-text-centered hide-at-900">audio</th>
                         <th class="has-text-centered hide-at-900">wish list</th>
@@ -58,7 +59,8 @@
                     <tr>
                         <th>title</th>
                         <th>author</th>
-                        <th class="has-text-centered hide-at-600">type</th>
+                        <th class="hide-at-600">type</th>
+                        <th class="has-text-centered hide-at-600">published</th>
                         <th class="has-text-centered hide-at-900">paper</th>
                         <th class="has-text-centered hide-at-900">audio</th>
                         <th class="has-text-centered hide-at-900">wish list</th>
@@ -81,8 +83,19 @@
                         <td>
                             {{ $reading->author }}
                         </td>
-                        <td class="has-text-centered hide-at-600">
-                            {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}
+                        <td data-field="fiction|nonfiction" class="hide-at-600">
+                            {{
+                                (!empty($reading->fiction) && !empty($reading->nonfiction))
+                                    ? 'fiction/nonfiction'
+                                    : (!empty($reading->fiction) ? 'fiction' : (!empty($reading->nonfiction) ? 'nonfiction' : ''))
+                            }}
+                        </td>
+                        <td data-field="publication_year" class="has-text-centered hide-at-600">
+                            @if($reading->publication_year < 0)
+                                {{ abs($reading->publication_year) }} BCE
+                            @else
+                                {{ $reading->publication_year }}
+                            @endif
                         </td>
                         <td class="has-text-centered hide-at-900">
                             @include('guest.components.checkmark', [ 'checked' => $reading->paper ])
@@ -98,7 +111,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6">No readings found.</td>
+                        <td colspan="7">No readings found.</td>
                     </tr>
 
                 @endforelse

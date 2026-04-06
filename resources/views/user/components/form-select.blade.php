@@ -3,11 +3,20 @@
     if (!empty($value) && !in_array($value, array_keys($list))) {
         $list[$value] = $value;
     }
+    $title = $title ?? '';
 @endphp
 <div class="field">
     @if(isset($label) && ($label === '') )
     @else
-        <label class="label" for="{{ $id }}">{!! $label ?? $name ?? '' !!}</label>
+        <label class="label"
+               for="{{ $name }}"
+               @if($title)
+                   title="{{ $title }}"
+               @endif
+        >
+            {!! $label ?? $name !!}
+        </label>
+
     @endif
     <div class="select">
         <select
@@ -24,7 +33,9 @@
             @if (!empty($onchange))onchange="{!! $onchange !!}" @endif
         >
             @foreach ($list as $listValue=>$listName)
-                <option value="{!! $listValue !!}" @if ($listValue == $value)selected @endif >
+                <option value="{!! $listValue !!}"
+                        {{ $listValue == $value ? 'selected' : '' }}
+                >
                     {!! $listName !!}
                 </option>
             @endforeach

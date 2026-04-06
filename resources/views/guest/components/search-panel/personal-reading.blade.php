@@ -24,23 +24,54 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('guest.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'author|asc'           => 'author',
+                                                  'title|asc'            => 'title',
+                                                  'publication_year|asc' => 'year',
+                                              ],
+                                  )
+                    ])
+
+                    @include('guest.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
-                    <div class="search-panel-controls">
+                    <div class="floating-div">
 
-                        @include('guest.components.form-select', [
-                            'name'     => 'title',
-                            'value'    => $search_title_value,
-                            'list'     => new Reading()->listOptions(
-                                !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
-                                'title',
-                                'title',
-                                true,
-                                false,
-                                [ 'title', 'asc' ],
-                            ),
-                            'style'    => 'min-width: 15rem;'
-                        ])
+                        <div class="search-form-control">
+                            <div class="control" style="max-width: 28rem;">
+                                @include('guest.components.form-select', [
+                                    'name'     => 'title',
+                                    'value'    => $search_title_value,
+                                    'list'     => new Reading()->listOptions(
+                                        !empty($owner->is_root) ? [] : (!empty($owner_id) ? [ 'owner_id' => $owner_id ] : []),
+                                        'title',
+                                        'title',
+                                        true,
+                                        false,
+                                        [ 'title', 'asc' ],
+                                    ),
+                                    'style'    => 'min-width: 15rem;'
+                                ])
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="floating-div">
 
                         <div class="search-form-control">
                             <div class="control" style="max-width: 28rem;">
@@ -59,84 +90,70 @@
                                 ])
                             </div>
                         </div>
-                    </div>
 
-                    <div class="floating-div pl-4">
+                    </div>
+                    <div class="floating-div">
+
                         <div class="search-form-control">
                             <div class="container control" style="width: 8rem;">
                                 @include('guest.components.form-checkbox', [
                                     'name'     => 'fiction',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('fiction') ?? false),
+                                    'checked'  => $fiction,
                                     'nohidden' => true,
                                 ])
                             </div>
                         </div>
+
                         <div class="search-form-control">
                             <div class="container control" style="width: 8rem;">
                                 @include('guest.components.form-checkbox', [
                                     'name'     => 'nonfiction',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('nonfiction') ?? false),
+                                    'checked'  => $nonfiction,
                                     'nohidden' => true,
                                 ])
                             </div>
                         </div>
-                    </div>
 
-                    <div class="floating-div pl-4">
+                    </div>
+                    <div class="floating-div">
+
                         <div class="search-form-control">
                             <div class="container control" style="width: 8rem;">
                                 @include('guest.components.form-checkbox', [
                                     'name'     => 'paper',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('paper') ?? false),
+                                    'checked'  => $paper,
                                     'nohidden' => true,
                                 ])
                             </div>
                         </div>
+
                         <div class="search-form-control">
                             <div class="container control" style="width: 8rem;">
                                 @include('guest.components.form-checkbox', [
                                     'name'     => 'audio',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('audio') ?? false),
+                                    'checked'  => $audio,
                                     'nohidden' => true,
                                 ])
                             </div>
                         </div>
+
                         <div class="search-form-control">
                             <div class="container control" style="width: 8rem;">
                                 @include('guest.components.form-checkbox', [
                                     'name'     => 'wishlist',
                                     'value'    => 1,
-                                    'checked'  => boolval(Request::get('wishlist') ?? false),
+                                    'checked'  => $wishlist,
                                     'nohidden' => true,
                                 ])
                             </div>
                         </div>
+
                     </div>
 
-                </div>
-
-                <div class="has-text-right pr-2">
-
-                    @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                            'title|asc'  => 'title',
-                            'author|asc' => 'author',
-                        ]
-                    ])
-
-                    @include('guest.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-
-                    @include('guest.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

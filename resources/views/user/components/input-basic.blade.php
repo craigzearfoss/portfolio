@@ -9,6 +9,7 @@
     } else {
         $style = '';
     }
+    $title = $title ?? '';
     $hasIcon = in_array($name, [
         'username',
         'password', 'confirm_password',
@@ -22,7 +23,14 @@
     <div class="field">
         @if(isset($label) && ($label === '') )
         @else
-            <label class="label" for="{{ $name }}">{!! $label ?? $name !!}</label>
+            <label class="label"
+                   for="{{ $name }}"
+                   @if($title)
+                        title="{{ $title }}"
+                   @endif
+            >
+                {!! $label ?? $name !!}
+            </label>
         @endif
         <div class="input">
             <input class="input {!! $class !!} @error('role') is-invalid @enderror"

@@ -238,23 +238,32 @@ form#searchForm div.floating-div-container div.floating-div div.search-form-cont
     background-color: rgb(208,208,208);
     text-align: right !important;
     padding: .3rem !important;
+    margin-bottom: 0.3rem !important;
 }
-.search-panel-controls .select-container {
+.search-panel-controls .control.sort-control {
     position: absolute;
     left: 12px;
-    font-size: 13px;
     font-weight: 600;
 }
-.search-panel-controls .select-container .select-label {
+.search-panel-controls .control.sort-control .field .label {
     display: inline-block;
     padding-top: 4px;
     margin-right: 0.2rem;
+    font-size: 0.8rem !important;
 }
-.search-panel-controls .select-container .select-list {
+.search-panel-controls .control.sort-control .field .select {
     display: inline-block;
     position: absolute;
+    min-width: 6rem !important;
     top: -1px;
     margin-left: 0.2rem;
+}
+.search-panel-controls .control.sort-control .field .select select {
+    font-size: 0.9rem !important;
+    min-width: 6rem !important;
+    height: 1.8rem !important;
+    padding-left: 4px !important;
+    margin-top: 1px;
 }
 
 .top-pinned-message {

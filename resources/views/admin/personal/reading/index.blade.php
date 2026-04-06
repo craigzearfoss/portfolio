@@ -105,7 +105,11 @@
                             }}
                         </td>
                         <td data-field="publication_year" class="has-text-centered">
-                            {!! $reading->publication_year !!}
+                            @if($reading->publication_year < 0)
+                                {{ abs($reading->publication_year) }} BCE
+                            @else
+                                {{ $reading->publication_year }}
+                            @endif
                         </td>
                         <td data-field="paper|audio" style="white-space: nowrap;">
                             {{

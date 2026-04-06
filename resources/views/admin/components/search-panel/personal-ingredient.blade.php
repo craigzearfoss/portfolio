@@ -20,7 +20,7 @@
 
                 <div class="search-panel-controls">
 
-                    @include('guest.components.search-sort-select', [
+                    @include('admin.components.search-sort-select', [
                         'sort' => $sort,
                         'list' => [
                                       'name|asc'    => 'name',
