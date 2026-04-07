@@ -21,7 +21,9 @@
 @section('content')
 
     <div class="search-container card p-2">
+
         <form id="searchForm" action="{!! route('admin.system.log.index') !!}" method="get">
+
             <div class="control">
                 @include('admin.components.form-select', [
                     'name'     => 'type',
@@ -82,11 +84,16 @@
     </div>
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $loginAttempts->links('vendor.pagination.bulma') !!}
             @endif
+
+            <p class="admin-table-caption"></p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -157,6 +164,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -164,6 +172,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

@@ -47,7 +47,7 @@
                                                    'wage_rate|desc'        => 'wage',
                                                ],
                                    ),
-                        'style' => [ 'width: 8rem', 'max-width: 8rem'],
+                        'style' => [ 'width: 8rem !important', 'max-width: 8rem !important'],
                     ])
 
                     <?php /*

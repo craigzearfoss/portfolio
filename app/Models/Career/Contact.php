@@ -186,11 +186,15 @@ class Contact extends Model
                 $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
+        // add additional filters
         $query = $this->appendAddressFilters($query, $filters);
         $query = $this->appendPhoneFilters($query, $filters);
         $query = $this->appendEmailFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
+
+        // join to owner
+        $query = $this->addJoinToAdminTable($query, 'career_db');
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

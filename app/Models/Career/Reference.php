@@ -141,14 +141,29 @@ class Reference extends Model
         $filters = $this->removeEmptyFilters($filters);
 
         $query = new self()->getSearchQuery($filters, $owner)
+            ->when(!empty($filters['birthday']), function ($query) use ($filters) {
+                $query->where($this->table . '.birthday', '=', $filters['birthday']);
+            })
+            ->when(!empty($filters['company_id']), function ($query) use ($filters) {
+                $query->where($this->table . '.company_id', '=', intval($filters['company_id']));
+            })
             ->when(!empty($filters['coworker']), function ($query) use ($filters) {
                 $query->where($this->table . '.coworker', '=', true);
+            })
+            ->when(!empty($filters['description']), function ($query) use ($filters) {
+                $query->where('description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
+                $query->where($this->table . '.disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
             })
             ->when(!empty($filters['family']), function ($query) use ($filters) {
                 $query->where($this->table . '.family', '=', true);
             })
             ->when(!empty($filters['friend']), function ($query) use ($filters) {
                 $query->where($this->table . '.friend', '=', true);
+            })
+            ->when(!empty($filters['notes']), function ($query) use ($filters) {
+                $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             })
             ->when(!empty($filters['other']), function ($query) use ($filters) {
                 $query->where($this->table . '.other', '=', true);
@@ -169,27 +184,20 @@ class Reference extends Model
             })
             ->when(!empty($filters['supervisor']), function ($query) use ($filters) {
                 $query->where($this->table . '.supervisor', '=', true);
+            })
+            ->when(!empty($filters['title']), function ($query) use ($filters) {
+                $query->where($this->table . '.title', 'like', '%' . $filters['title'] . '%');
             });
 
-            $query =$this->appendAddressFilters($query, $filters);
-            $query =$this->appendPhoneFilters($query, $filters);
-            $query =$this->appendEmailFilters($query, $filters);
-
-            $query->when(!empty($filters['birthday']), function ($query) use ($filters) {
-                $query->where('birthday', '=', $filters['birthday']);
-            })
-            ->when(!empty($filters['notes']), function ($query) use ($filters) {
-                $query->where('notes', 'like', '%' . $filters['notes'] . '%');
-            })
-            ->when(!empty($filters['description']), function ($query) use ($filters) {
-                $query->where('description', 'like', '%' . $filters['description'] . '%');
-            })
-            ->when(!empty($filters['disclaimer']), function ($query) use ($filters) {
-                $query->where('disclaimer', 'like', '%' . $filters['disclaimer'] . '%');
-            });
-
+        // add additional filters
+        $query = $this->appendAddressFilters($query, $filters);
+        $query = $this->appendPhoneFilters($query, $filters);
+        $query = $this->appendEmailFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
+
+        // join to owner
+        $query = $this->addJoinToAdminTable($query, 'career_db');
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

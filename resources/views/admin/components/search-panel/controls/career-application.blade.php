@@ -16,7 +16,7 @@
                           'name',
                           true,
                           false,
-                          [ 'name', 'desc' ]
+                          [ 'company_name', 'asc' ]
                       ),
         'style'    => 'min-width: 12rem;'
     ])

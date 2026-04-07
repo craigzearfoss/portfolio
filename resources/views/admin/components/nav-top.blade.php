@@ -83,7 +83,7 @@
                                 ])
 
                                 @if (!empty($menuItem->children))
-                                    <div class="navbar-dropdown">
+                                    <div class="navbar-dropdown user-dropdown">
 
                                         @foreach($menuItem->children as $menuSubItem)
                                             @include('admin.components.nav-link-top', [

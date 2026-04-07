@@ -34,7 +34,7 @@
                                                   'publication_year|asc' => 'year',
                                               ],
                                   ),
-                        'style' => [ 'width: 7rem', 'max-width: 7rem' ],
+                        'style' => [ 'width: 7rem !important', 'max-width: 7rem !important' ],
                     ])
 
                     <?php /*

@@ -33,36 +33,40 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="floating-div-container">
 
-        @if($pagination_top)
-            {!! $libraries->links('vendor.pagination.bulma') !!}
-        @endif
+        <div class="show-container card floating-div">
 
-        <ul>
+            @if($pagination_top)
+                {!! $libraries->links('vendor.pagination.bulma') !!}
+            @endif
 
-            @forelse ($libraries as $library)
+            <ul class="dictionary-list">
 
-                <li>
-                    @include('guest.components.dictionary-definition', [
-                        'word'  => $library,
-                        'route' => route('guest.dictionary.library.show', $library->slug)
-                    ])
-                </li>
+                @forelse ($libraries as $library)
 
-            @empty
+                    <li>
+                        @include('guest.components.dictionary-definition', [
+                            'word'  => $library,
+                            'route' => route('guest.dictionary.library.show', $library->slug)
+                        ])
+                    </li>
 
-                <tr>
-                    <li>There are no libraries in the dictionary.</li>
-                </tr>
+                @empty
 
-            @endforelse
+                    <tr>
+                        <li>There are no libraries in the dictionary.</li>
+                    </tr>
 
-        </ul>
+                @endforelse
+
+            </ul>
 
             @if($pagination_bottom)
                 {!! $libraries->links('vendor.pagination.bulma') !!}
             @endif
+
+        </div>
 
     </div>
 

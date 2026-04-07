@@ -32,6 +32,7 @@
     @include('guest.components.search-panel.personal-reading', [ 'owner_id' => $owner->id ?? null ])
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -117,6 +118,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -124,6 +126,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

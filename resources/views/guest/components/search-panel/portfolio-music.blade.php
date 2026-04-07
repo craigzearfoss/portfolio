@@ -32,7 +32,7 @@
                                        'name|asc'           => 'name',
                                        'year|asc'          => 'year',
                                    ],
-                        'style' => [ 'width: 9rem', 'max-width: 9rem' ],
+                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ],
                     ])
 
                     <?php /*

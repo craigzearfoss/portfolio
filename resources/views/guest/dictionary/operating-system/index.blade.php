@@ -33,36 +33,40 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="floating-div-container">
 
-        @if($pagination_top)
-            {!! $operatingSystems->links('vendor.pagination.bulma') !!}
-        @endif
+        <div class="show-container card floating-div">
 
-        <ul>
+            @if($pagination_top)
+                {!! $operatingSystems->links('vendor.pagination.bulma') !!}
+            @endif
 
-            @forelse ($operatingSystems as $operatingSystem)
+            <ul class="dictionary-list">
 
-                <li>
-                    @include('guest.components.dictionary-definition', [
-                        'word'  => $operatingSystem,
-                        'route' => route('guest.dictionary.operating-system.show', $operatingSystem->slug)
-                    ])
-                </li>
+                @forelse ($operatingSystems as $operatingSystem)
 
-            @empty
+                    <li>
+                        @include('guest.components.dictionary-definition', [
+                            'word'  => $operatingSystem,
+                            'route' => route('guest.dictionary.operating-system.show', $operatingSystem->slug)
+                        ])
+                    </li>
 
-                <tr>
-                    <li>There are no operating systems in the dictionary.</li>
-                </tr>
+                @empty
 
-            @endforelse
+                    <tr>
+                        <li>There are no operating systems in the dictionary.</li>
+                    </tr>
 
-        </ul>
+                @endforelse
+
+            </ul>
 
             @if($pagination_bottom)
                 {!! $operatingSystems->links('vendor.pagination.bulma') !!}
             @endif
+
+        </div>
 
     </div>
 

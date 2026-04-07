@@ -28,6 +28,7 @@
     @endif
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
 
             @forelse ($jobs as $i=>$job)
@@ -130,6 +131,7 @@
             {!! $jobs->links('vendor.pagination.bulma') !!}
 
         </div>
+
     </div>
 
 @endsection

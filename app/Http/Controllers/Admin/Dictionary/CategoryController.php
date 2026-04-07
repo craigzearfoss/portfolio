@@ -23,7 +23,8 @@ class CategoryController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(Category::class, $this->admin);
+        // everyone can view dictionary index pages
+        //readGate(Category::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 

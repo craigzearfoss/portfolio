@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -111,7 +112,9 @@ class Recruiter extends Model
     {
         parent::__construct();
 
-        $this->predefinedColumns = [];
+        $this->predefinedColumns = [
+            'state_name'
+        ];
     }
 
     /**
@@ -167,11 +170,22 @@ class Recruiter extends Model
                 $query->where($this->table . '.state_id', '=', intval($filters['state_id']));
             });
 
+        $query->join( dbName('system_db') . '.states', 'states.id', '=', $this->table . '.state_id');
+
+        $query->select([
+            DB::raw('recruiters.*'),
+            DB::raw('states.code AS `state_code`'),
+            DB::raw('states.name AS `state_name`')
+        ] );
+
+        // add additional filters
         $query = $this->appendPhoneFilters($query, $filters);
         $query = $this->appendEmailFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
+        $query = $this->appendTimestampFilters($query, $filters);
 
-        return $this->appendTimestampFilters($query, $filters);
+        // add order by clause
+        return $this->addOrderBy($query, $sort);
     }
 
     /**

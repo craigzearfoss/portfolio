@@ -26,13 +26,14 @@
                 <div class="search-panel-controls">
 
                     @include('admin.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'ingredient_name|asc' => 'ingredient',
-                                                  'recipe_name|asc'     => 'recipe',
-                                              ],
-                                  )
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                               [
+                                                   'ingredient_name|asc' => 'ingredient',
+                                                   'recipe_name|asc'     => 'recipe',
+                                               ],
+                                   ),
+                        'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]
                     ])
 
                     <?php /*

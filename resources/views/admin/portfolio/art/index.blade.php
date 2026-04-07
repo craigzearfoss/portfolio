@@ -36,7 +36,10 @@
     @include('admin.components.search-panel.portfolio-art', [ 'owner_id' => $isRootAdmin ? null : $owner->id])
 
     <div class="floating-div-container" style="max-width: 60em !important;">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $arts->links('vendor.pagination.bulma') !!}
@@ -165,6 +168,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -172,6 +176,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

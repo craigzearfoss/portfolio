@@ -27,11 +27,16 @@
     @include('admin.components.search-panel.personal-ingredient')
 
     <div class="floating-div-container" style="max-width: 40em !important;">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $ingredients->links('vendor.pagination.bulma') !!}
             @endif
+
+            <p class="admin-table-caption"></p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -134,6 +139,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -141,6 +147,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

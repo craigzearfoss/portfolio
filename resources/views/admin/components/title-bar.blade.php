@@ -1,4 +1,4 @@
-<section class="section is-title-bar px-3 py-0">
+<section class="section is-title-bar">
     <div class="level">
 
         <div class="level-left">

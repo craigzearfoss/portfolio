@@ -33,11 +33,16 @@
     @endif
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $userPhones->links('vendor.pagination.bulma') !!}
             @endif
+
+            <p class="admin-table-caption"></p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -147,6 +152,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -154,6 +160,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

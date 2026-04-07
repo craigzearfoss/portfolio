@@ -23,12 +23,13 @@
                 <div class="search-panel-controls">
 
                     @include('admin.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'abbreviation|asc' => 'abbreviation',
-                                      'name|asc'         => 'name',
-                                      'type_name|asc'    => 'type',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => [
+                                       'abbreviation|asc' => 'abbreviation',
+                                       'name|asc'         => 'name',
+                                       'type_name|asc'    => 'type',
+                                   ],
+                        'style' => [ 'width: 8rem important!', 'min-width: 8rem !important' ]
                     ])
 
                     <?php /*

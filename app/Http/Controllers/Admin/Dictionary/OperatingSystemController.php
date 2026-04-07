@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreOperatingSystemsRequest;
 use App\Http\Requests\Dictionary\UpdateOperatingSystemsRequest;
-use App\Models\Dictionary\Category;
 use App\Models\Dictionary\OperatingSystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,7 +23,8 @@ class OperatingSystemController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(OperatingSystem::class, $this->admin);
+        // everyone can view dictionary index pages
+        //readGate(OperatingSystem::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 

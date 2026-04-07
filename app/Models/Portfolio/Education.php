@@ -206,10 +206,13 @@ class Education extends Model
             DB::raw('admins.email AS `owner_email`'),
         ]);
         /*
-        $query = $this->addJoinToAdminTable($query, [
-            DB::raw('schools.name as school_name'),
-            DB::raw('degree_types.name as degree_type_name') ,
-        ] );
+        $query = $this->addJoinToAdminTable($query,
+            portfolio_db,
+             [
+                DB::raw('`schools`.`name` as school_name'),
+                DB::raw('`degree_types`.`name` as degree_type_name') ,
+            ]
+        );
 */
 
         // add order by clause

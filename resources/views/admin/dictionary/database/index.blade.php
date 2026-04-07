@@ -26,10 +26,11 @@
 
 @section('content')
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 50em !important;">
+
         <div class="show-container card floating-div">
 
-            @if($pagination_topm)
+            @if($pagination_top)
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
 
@@ -62,6 +63,11 @@
                 <tbody>
 
                 @forelse ($databases as $database)
+
+                    @php
+                        // don't displace the entry for "other"
+                        if ($server->name == 'other') continue;
+                    @endphp
 
                     <tr data-id="{{ $database->id }}">
                         <td data-field="name">
@@ -154,6 +160,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -161,6 +168,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

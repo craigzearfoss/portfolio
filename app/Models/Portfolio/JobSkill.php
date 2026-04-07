@@ -174,10 +174,14 @@ class JobSkill extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // join to owner
-        $query = $this->addJoinToAdminTable($query, [
-            DB::raw('jobs.company as company_name'),
-            DB::raw('jobs.role as role')
-        ]);
+        $query = $this->addJoinToAdminTable(
+            $query,
+            'portfolio_db',
+            [
+                DB::raw('jobs.company as company_name'),
+                DB::raw('jobs.role as role')
+            ]
+        );
 
         // add order by clause
         return $this->addOrderBy($query, $sort);

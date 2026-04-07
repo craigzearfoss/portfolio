@@ -30,6 +30,7 @@
     @include('guest.components.search-panel.portfolio-award', [ 'owner_id' => $owner->id ?? null ])
 
     <div class="floating-div-container" style="max-width: 80em !important;">
+
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -103,6 +104,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -110,6 +112,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

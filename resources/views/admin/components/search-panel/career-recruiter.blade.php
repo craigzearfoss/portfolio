@@ -19,9 +19,35 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('admin.components.search-sort-select', [
+                        'sort' => $sort,
+                        'list' => [
+                                       'city|asc'       => 'city',
+                                       'name|asc'       => 'name',
+                                       'state_name|asc' => 'state',
+                                  ],
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
@@ -29,15 +55,17 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
-                    <div class="floating-div pl-4">
+                    </div>
+                    <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-recruiter-coverage_area')
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'city',
@@ -45,9 +73,11 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.system-state')
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)
@@ -59,19 +89,6 @@
                         </div>
                     @endif
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    <?php /*
-                    // @TODO: Implement clear search form functionality.
-                    @include('admin.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    */ ?>
-                    @include('admin.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

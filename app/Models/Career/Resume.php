@@ -281,8 +281,12 @@ class Resume extends Model
                 $query->where($this->table . '.resume_date', '<=', $filters['resume_date_to']);
             });
 
+        // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
+
+        // join to owner
+        $query = $this->addJoinToAdminTable($query, 'career_db');
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

@@ -41,19 +41,19 @@
 
                 </div>
 
-                <div class="floating-div">
-
-                    <div class="search-form-control">
-                        @include('admin.components.input-basic', [
-                            'name'    => 'name',
-                            'value'   => $name,
-                            'message' => $message ?? '',
-                        ])
-                    </div>
-
-                </div>
-
                 <div class="floating-div-container">
+
+                    <div class="floating-div">
+
+                        <div class="search-form-control">
+                            @include('admin.components.input-basic', [
+                                'name'    => 'name',
+                                'value'   => $name,
+                                'message' => $message ?? '',
+                            ])
+                        </div>
+
+                    </div>
 
                     @if($isRootAdmin)
                         <div class="floating-div">

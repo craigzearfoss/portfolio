@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreLanguagesRequest;
 use App\Http\Requests\Dictionary\UpdateLanguagesRequest;
-use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Language;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Lang;
 
 /**
  *
@@ -25,7 +23,8 @@ class LanguageController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(Lang::class, $this->admin);
+        //everyone can view dictionary index pages
+        //readGate(Language::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 

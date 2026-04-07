@@ -38,7 +38,10 @@
     @include('admin.components.search-panel.portfolio-course', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $courses->links('vendor.pagination.bulma') !!}
@@ -178,6 +181,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -185,6 +189,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

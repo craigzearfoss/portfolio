@@ -34,13 +34,14 @@
 @section('content')
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
 
             @if($pagination_top)
                 {!! $categories->links('vendor.pagination.bulma') !!}
             @endif
 
-            <ul>
+            <ul class="dictionary-list">
 
                 @forelse ($categories as $category)
 
@@ -66,6 +67,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

@@ -33,7 +33,10 @@
     @include('admin.components.search-panel.personal-reading', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container" style="max-width: 80em !important;">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $readings->links('vendor.pagination.bulma') !!}
@@ -190,6 +193,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -197,6 +201,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

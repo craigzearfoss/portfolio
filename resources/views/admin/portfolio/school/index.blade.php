@@ -27,11 +27,16 @@
     @include('admin.components.search-panel.portfolio-school')
 
     <div class="floating-div-container" style="max-width: 60em !important;">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $schools->links('vendor.pagination.bulma') !!}
             @endif
+
+            <p class="admin-table-caption"></p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -138,6 +143,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -145,6 +151,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

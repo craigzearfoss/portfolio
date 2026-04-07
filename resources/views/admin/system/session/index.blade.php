@@ -19,7 +19,12 @@
 @section('content')
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
+
+            <p class="admin-table-caption"></p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -85,11 +90,13 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             {!! $sessions->links('vendor.pagination.bulma') !!}
 
         </div>
+
     </div>
 
 @endsection

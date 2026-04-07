@@ -427,11 +427,13 @@ class Application extends Model
                 $query->where('wage_rate', 'like', '>=' . intval($filters['wage_rate']));
             });
 
+        // add additional filters
         $query = $this->appendPhoneFilters($query, $filters);
         $query = $this->appendEmailFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
+        // add joins
         $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
         $query->join('resumes', 'resumes.id', '=', 'applications.resume_id');

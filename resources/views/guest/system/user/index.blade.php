@@ -25,6 +25,7 @@
     @endif
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
@@ -90,11 +91,13 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             {!! $users->links('vendor.pagination.bulma') !!}
 
         </div>
+
     </div>
 
 @endsection

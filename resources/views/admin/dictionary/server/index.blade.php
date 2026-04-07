@@ -25,7 +25,8 @@
 
 @section('content')
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 50em !important;">
+
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -61,6 +62,11 @@
                 <tbody>
 
                 @forelse ($servers as $server)
+
+                    @php
+                        // don't displace the entry for "other"
+                        if ($server->name == 'other') continue;
+                    @endphp
 
                     <tr data-id="{{ $server->id }}">
                         <td data-field="name">
@@ -152,6 +158,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -159,6 +166,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

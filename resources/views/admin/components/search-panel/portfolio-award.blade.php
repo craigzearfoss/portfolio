@@ -36,7 +36,7 @@
                                                    'year|asc'           => 'year',
                                                ],
                                    ),
-				        'style' => [ 'width: 8rem', 'max-width: 8rem' ]
+				        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
                     ])
 
                     <?php /*

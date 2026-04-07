@@ -33,36 +33,40 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="floating-div-container">
 
-        @if($pagination_top)
-            {!! $databases->links('vendor.pagination.bulma') !!}
-        @endif
+        <div class="show-container card floating-div">
 
-        <ul>
+            @if($pagination_top)
+                {!! $databases->links('vendor.pagination.bulma') !!}
+            @endif
 
-            @forelse ($databases as $database)
+            <ul class="dictionary-list">
 
-                <li>
-                    @include('guest.components.dictionary-definition', [
-                        'word'  => $database,
-                        'route' => route('guest.dictionary.database.show', $database->slug),
-                    ])
-                </li>
+                @forelse ($databases as $database)
 
-            @empty
+                    <li>
+                        @include('guest.components.dictionary-definition', [
+                            'word'  => $database,
+                            'route' => route('guest.dictionary.database.show', $database->slug),
+                        ])
+                    </li>
 
-                <tr>
-                    <li>There are no databases in the dictionary.</li>
-                </tr>
+                @empty
 
-            @endforelse
+                    <tr>
+                        <li>There are no databases in the dictionary.</li>
+                    </tr>
 
-        </ul>
+                @endforelse
+
+            </ul>
 
             @if($pagination_bottom)
                 {!! $databases->links('vendor.pagination.bulma') !!}
             @endif
+
+        </div>
 
     </div>
 

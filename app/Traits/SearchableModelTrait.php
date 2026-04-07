@@ -487,6 +487,8 @@ trait SearchableModelTrait
             return $field;
         } elseif (in_array($field, $this->predefinedColumns)) {
             return $field;
+        } elseif (in_array($field, [ 'created_at', 'updated_at', 'deleted_at'])) {
+            return $field;
         } elseif (!in_array($field, self::SEARCH_COLUMNS)) {
             throw new Exception('Invalid sort column "' . $field . '" specified.');
         } else {
@@ -519,24 +521,25 @@ trait SearchableModelTrait
      * Add a join to the system admins table to the query to get the owner information.
      *
      * @param Builder $query
+     * @param string $dbTag
      * @param array $additionalColumns
      * @return Builder
      */
-    protected function addJoinToAdminTable(Builder $query, array $additionalColumns = []): Builder
+    protected function addJoinToAdminTable(Builder $query, string $dbTag,  array $additionalColumns = []): Builder
     {
         $selectColumns = [
-            DB::raw($this->table . '.*'),
-            DB::raw('admins.name AS `owner_name`'),
-            DB::raw('admins.username AS `owner_username`'),
-            DB::raw('admins.email AS `owner_email`'),
+            DB::raw('`' . $this->table . '`.*'),
+            DB::raw('`admins`.`name` AS `owner_name`'),
+            DB::raw('`admins`.`username` AS `owner_username`'),
+            DB::raw('`admins`.`email` AS `owner_email`'),
         ];
 
         if (!empty($additionalColumns)) {
             $selectColumns = array_merge($selectColumns, $additionalColumns);
         }
 
-        $query->from(dbName('portfolio_db') . '.' . $this->table);
-        $query->join( dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
+        $query->from(dbName($dbTag) . '.' . $this->table);
+        $query->join(dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
         $query->select($selectColumns);
 
         return $query;

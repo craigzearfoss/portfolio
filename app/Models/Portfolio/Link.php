@@ -137,7 +137,7 @@ class Link extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // join to owner
-        $query = $this->addJoinToAdminTable($query);
+        $query = $this->addJoinToAdminTable($query, 'portfolio_db');
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

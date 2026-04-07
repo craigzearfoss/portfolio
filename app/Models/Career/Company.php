@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -103,7 +104,9 @@ class Company extends Model
     {
         parent::__construct();
 
-        $this->predefinedColumns = [];
+        $this->predefinedColumns = [
+            'industry_name'
+        ];
     }
 
     /**
@@ -150,11 +153,22 @@ class Company extends Model
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
             });
 
+        $query->join( dbName('career_db') . '.industries', 'industries.id', '=', $this->table . '.industry_id');
+
+        // add additional filters
         $query = $this->appendAddressFilters($query, $filters);
         $query = $this->appendPhoneFilters($query, $filters);
         $query = $this->appendEmailFilters($query, $filters);
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
+
+        // join to owner
+        $query = $this->addJoinToAdminTable($query,
+            'career_db',
+            [
+                DB::raw('industries.name as industry_name'),
+            ]
+        );
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

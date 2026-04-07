@@ -33,36 +33,40 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="floating-div-container">
 
-        @if($pagination_top)
-            {!! $frameworks->links('vendor.pagination.bulma') !!}
-        @endif
+        <div class="show-container card floating-div">
 
-        <ul>
+            @if($pagination_top)
+                {!! $frameworks->links('vendor.pagination.bulma') !!}
+            @endif
 
-            @forelse ($frameworks as $framework)
+            <ul class="dictionary-list">
 
-                <li>
-                    @include('guest.components.dictionary-definition', [
-                        'word'  => $framework,
-                        'route' => route('guest.dictionary.framework.show', $framework->slug)
-                    ])
-                </li>
+                @forelse ($frameworks as $framework)
 
-            @empty
+                    <li>
+                        @include('guest.components.dictionary-definition', [
+                            'word'  => $framework,
+                            'route' => route('guest.dictionary.framework.show', $framework->slug)
+                        ])
+                    </li>
 
-                <tr>
-                    <li>There are no frameworks in the dictionary.</li>
-                </tr>
+                @empty
 
-            @endforelse
+                    <tr>
+                        <li>There are no frameworks in the dictionary.</li>
+                    </tr>
 
-        </ul>
+                @endforelse
+
+            </ul>
 
             @if($pagination_bottom)
                 {!! $frameworks->links('vendor.pagination.bulma') !!}
             @endif
+
+        </div>
 
     </div>
 

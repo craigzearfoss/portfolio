@@ -337,10 +337,12 @@ nav#navbar-main {
 nav#navbar-main.guest, nav#navbar-main.user {
     background-color: #48c78e !important;
     color: #17191e !important;
+    padding-right: 1.2rem !important;
 }
-nav#navbar-main.admin {
+nav#navbar-main.admin  {
     background-color: #d0d0d0 !important;
     color: #17191e !important;
+    padding-right: 1.2rem !important;
 }
 nav.navbar .navbar-item.has-dropdown .navbar-link {
     padding: 0 0.4rem 0 0.4rem;
@@ -348,6 +350,10 @@ nav.navbar .navbar-item.has-dropdown .navbar-link {
 div.navbar-link span {
     display: inline-block;
     white-space: nowrap;
+}
+nav.navbar .navbar-item.has-user-avatar .navbar-dropdown.user-dropdown {
+    right: -4px !important;
+    left: auto !important;
 }
 nav.navbar .navbar-item.has-user-avatar .is-user-avatar,
 nav.navbar .navbar-item.has-user-avatar .is-user-name {
@@ -384,6 +390,13 @@ nav.pagination span.pagination-next {
 
 .nav-button i {
     margin-right: 8px;
+}
+
+.export-buttons-container {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    text-align: right !important;
 }
 
 .home-button {
@@ -453,6 +466,7 @@ p.guest-table-caption {
     font-size: 14px;
     font-style: italic;
     margin: 0 !important;
+    min-height: 21px;
 }
 
 table.table.admin-table.recipe-instruction-table td,
@@ -535,6 +549,11 @@ div.floating-div-container.settings div.floating-div {
 }
 
 /* title bar */
+section.section.is-title-bar {
+    padding: 0 .75rem 4px !important;
+    border-bottom: 1px solid rgba(24, 28, 33, .06) !important;
+}
+
 section.section.is-title-bar div.level div.level-left,
 section.section.is-title-bar div.level div.level-right {
     margin-top: 0;
@@ -766,3 +785,6 @@ div.card.admin-preview div.admin-preview-text.no-flex {
     margin: 0;
 }
 
+ul.dictionary-list {
+    list-style-type: none !important;
+}

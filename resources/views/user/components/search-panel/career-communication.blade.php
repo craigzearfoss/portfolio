@@ -2,15 +2,15 @@
     use App\Models\Career\Application;
     use App\Models\System\Admin;
 
-    $action           = $action ?? url()->current();
-    $owner_id         = $owner->id ?? -1;
-    $application_name = $application_name ?? request()->query('application_name');
-    $body             = $body ?? request()->query('body');
-    $datetime_from    = $datetime_from ?? request()->query('datetime_from');
-    $datetime_to      = $datetime_to ?? request()->query('datetime_to');
-    $from             = $from ?? request()->query('from');
-    $subject          = $subject ?? request()->query('subject');
-    $to               = $to ?? request()->query('to');
+    $action         = $action ?? url()->current();
+    $owner_id       = $owner->id ?? -1;
+    $application_id = $application_id ?? request()->query('application_id');
+    $body           = $body ?? request()->query('body');
+    $datetime_from  = $datetime_from ?? request()->query('datetime_from');
+    $datetime_to    = $datetime_to ?? request()->query('datetime_to');
+    $from           = $from ?? request()->query('from');
+    $subject        = $subject ?? request()->query('subject');
+    $to             = $to ?? request()->query('to');
 @endphp
 <div class="mb-2" style="display: flex;">
 

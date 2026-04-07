@@ -19,23 +19,33 @@
 @section('content')
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
 
-            <h2 class="subtitle mt-2 mb-1">.env settings</h2>
+            @include('admin.components.export-buttons-container')
 
-            <code class="has-text-left">
+            <p class="admin-table-caption"></p>
 
-                @foreach ($envSettings as $i=>$setting)
+            <div class="show-container card floating-div">
 
-                    @if($i > 0)<br>@endif
+                <h2 class="subtitle mt-2 mb-1">.env settings</h2>
 
-                    {{$setting . PHP_EOL}}
+                <code class="has-text-left">
 
-                @endforeach
+                    @foreach ($envSettings as $i=>$setting)
 
-            </code>
+                        @if($i > 0)<br>@endif
+
+                        {{$setting . PHP_EOL}}
+
+                    @endforeach
+
+                </code>
+
+            </div>
 
         </div>
+
     </div>
 
 @endsection

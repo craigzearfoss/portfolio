@@ -39,7 +39,10 @@
     <p class="admin-table-caption">* An asterisk indicates a featured photo.</p>
 
     <div class="floating-div-container" style="max-width: 60em !important;">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $photos->links('vendor.pagination.bulma') !!}
@@ -167,6 +170,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -174,6 +178,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

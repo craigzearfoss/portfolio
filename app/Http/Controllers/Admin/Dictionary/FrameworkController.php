@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreFrameworksRequest;
 use App\Http\Requests\Dictionary\UpdateFrameworksRequest;
-use App\Models\Dictionary\Category;
 use App\Models\Dictionary\Framework;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,7 +23,8 @@ class FrameworkController extends BaseAdminController
      */
     public function index(Request $request): View
     {
-        readGate(Framework::class, $this->admin);
+        // everyone can view dictionary index pages
+        //readGate(Framework::class, $this->admin);
 
         $perPage = $request->query('per_page', $this->perPage());
 

@@ -30,6 +30,7 @@
     @include('guest.components.search-panel.portfolio-skill', [ 'owner_id' => $owner->id ?? null ])
 
     <div class="floating-div-container" style="max-width: 80em !important;">
+
         <div class="show-container card floating-div">
 
             <table class="table guest-table {{ $guestTableClasses ?? '' }}">
@@ -89,11 +90,13 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             {!! $skills->links('vendor.pagination.bulma') !!}
 
         </div>
+
     </div>
 
 @endsection

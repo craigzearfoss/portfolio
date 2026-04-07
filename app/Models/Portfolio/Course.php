@@ -175,7 +175,13 @@ class Course extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // join to owner
-        $query = $this->addJoinToAdminTable($query, [ DB::raw('academies.name AS `academy_name`') ] );
+        $query = $this->addJoinToAdminTable(
+            $query,
+            'portfolio_db',
+            [
+                DB::raw('academies.name AS `academy_name`')
+            ]
+        );
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

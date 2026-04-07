@@ -1,13 +1,13 @@
 @php
     use App\Models\System\Admin;
 
-    $action           = $action ?? url()->current();
-    $owner_id         = $owner->id ?? -1;
-    $application_name = $application_name ?? request()->query('application_name');
-    $body             = $body ?? request()->query('body');
-    $created_at_from  = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to    = $created_at_to ?? request()->query('created_at_to');
-    $subject          = $subject ?? request()->query('subject');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $application_id  = $application_id ?? request()->query('application_id');
+    $body            = $body ?? request()->query('body');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $subject         = $subject ?? request()->query('subject');
 @endphp
 <div class="mb-2" style="display: flex;">
 

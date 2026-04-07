@@ -3,13 +3,13 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action           = $action ?? url()->current();
-    $owner_id         = $owner->id ?? -1;
-    $application_name = $application_name ?? request()->query('application_name');
-    $body             = $body ?? request()->query('body');
-    $created_at_from  = $created_at_from ?? request()->query('created_at_from');
-    $created_at_to    = $created_at_to ?? request()->query('created_at_to');
-    $subject          = $subject ?? request()->query('subject');
+    $action          = $action ?? url()->current();
+    $owner_id        = $owner->id ?? -1;
+    $application_id  = $application_id ?? request()->query('application_id');
+    $body            = $body ?? request()->query('body');
+    $created_at_from = $created_at_from ?? request()->query('created_at_from');
+    $created_at_to   = $created_at_to ?? request()->query('created_at_to');
+    $subject         = $subject ?? request()->query('subject');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Note::SEARCH_ORDER_BY[0], Note::SEARCH_ORDER_BY[1] ]);

@@ -20,6 +20,33 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('admin.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'name|asc'         => 'name',
+                                                  'resume_date|desc' => 'date',
+                                              ],
+                                  ),
+                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     @if($isRootAdmin)
@@ -31,6 +58,7 @@
                     @endif
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
@@ -38,15 +66,18 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.primary')
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.public')
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)
@@ -58,19 +89,6 @@
                         </div>
                     @endif
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    <?php /*
-                    // @TODO: Implement clear search form functionality.
-                    @include('admin.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    */ ?>
-                    @include('admin.components.button-search', [
-                        'id'      =>'performSearch',
-                    ])
                 </div>
 
             </div>

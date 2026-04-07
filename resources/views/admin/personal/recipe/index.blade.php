@@ -33,7 +33,10 @@
     @include('admin.components.search-panel.personal-recipe', [ 'owner_id' => $isRootAdmin ? null : $owner->id ])
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
+
+            @include('admin.components.export-buttons-container')
 
             @if($pagination_top)
                 {!! $recipes->links('vendor.pagination.bulma') !!}
@@ -168,6 +171,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -175,6 +179,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

@@ -26,7 +26,8 @@
 
 @section('content')
 
-    <div class="floating-div-container">
+    <div class="floating-div-container" style="max-width: 50em !important;">
+
         <div class="show-container card floating-div">
 
             @if($pagination_top)
@@ -63,6 +64,11 @@
 
                 @forelse ($stacks as $stack)
 
+                    @php
+                        // don't displace the entry for "other"
+                        if ($server->name == 'other') continue;
+                    @endphp
+
                     <tr data-id="{{ $stack->id }}">
                         <td data-field="name">
                             {!! $stack->name !!}
@@ -80,7 +86,7 @@
 
                             <div class="action-button-panel">
 
-                                @if(canRead($server, $admin))
+                                @if(canRead($stack, $admin))
                                     @include('admin.components.link-icon', [
                                         'title' => 'show',
                                         'href'  => route('admin.dictionary.stack.show', $stack),
@@ -154,6 +160,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -161,6 +168,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

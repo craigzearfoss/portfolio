@@ -221,7 +221,11 @@ class Skill extends Model
         $query = $this->appendTimestampFilters($query, $filters);
 
         // join to owner
-        $query = $this->addJoinToAdminTable($query, [ DB::raw('categories.name AS `dictionary_category_name`') ]);
+        $query = $this->addJoinToAdminTable(
+            $query,
+            'portfolio_db',
+            [ DB::raw('categories.name AS `dictionary_category_name`') ]
+        );
 
         // add order by clause
         $query = $this->addOrderBy($query, $sort);

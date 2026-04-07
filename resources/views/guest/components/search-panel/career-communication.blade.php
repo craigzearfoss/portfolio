@@ -4,15 +4,15 @@
     use App\Models\System\Admin;
 
     // get variables
-    $action           = $action ?? url()->current();
-    $owner_id         = $owner->id ?? -1;
-    $application_name = $application_name ?? request()->query('application_name');
-    $body             = $body ?? request()->query('body');
-    $datetime_from    = $datetime_from ?? request()->query('datetime_from');
-    $datetime_to      = $datetime_to ?? request()->query('datetime_to');
-    $from             = $from ?? request()->query('from');
-    $subject          = $subject ?? request()->query('subject');
-    $to               = $to ?? request()->query('to');
+    $action         = $action ?? url()->current();
+    $owner_id       = $owner->id ?? -1;
+    $application_id = $application_id ?? request()->query('application_id');
+    $body           = $body ?? request()->query('body');
+    $datetime_from  = $datetime_from ?? request()->query('datetime_from');
+    $datetime_to    = $datetime_to ?? request()->query('datetime_to');
+    $from           = $from ?? request()->query('from');
+    $subject        = $subject ?? request()->query('subject');
+    $to             = $to ?? request()->query('to');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Communication::SEARCH_ORDER_BY[0], Communication::SEARCH_ORDER_BY[1] ]);

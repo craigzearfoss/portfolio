@@ -25,11 +25,14 @@
 @section('content')
 
     <div class="floating-div-container" style="max-width: 40em !important;">
+
         <div class="show-container card floating-div">
 
             @if($pagination_top)
                 {!! $units->links('vendor.pagination.bulma') !!}
             @endif
+
+            <p class="admin-table-caption"></p>
 
             <table class="table admin-table {{ $adminTableClasses ?? '' }}">
 
@@ -131,6 +134,7 @@
                 @endforelse
 
                 </tbody>
+
             </table>
 
             @if($pagination_bottom)
@@ -138,6 +142,7 @@
             @endif
 
         </div>
+
     </div>
 
 @endsection

@@ -6,6 +6,7 @@
     $action          = $action ?? url()->current();
     $owner_id        = $owner_id ?? (!empty($owner->is_root) ? null : ($owner->id ?? null));
     $city            = $city ?? request()->query('city');
+    $company_name    = $company_name ?? request()->query('company_name');
     $created_at_from = $created_at_from ?? request()->query('created_at_from');
     $created_at_to   = $created_at_to ?? request()->query('created_at_to');
     $email           = $email ?? request()->query('email');
@@ -23,6 +24,36 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('admin.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'company_name|asc'           => 'company',
+                                                  'communication_datetime|desc' => 'date',
+                                                  'from|asc'                    => 'from',
+                                                  'subject|asc'                 => 'subject',
+                                                  'to|asc'                      => 'to',
+                                              ],
+                                  ),
+                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     @if($isRootAdmin)
@@ -34,6 +65,7 @@
                     @endif
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
@@ -41,12 +73,14 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-reference-relation', [ 'owner_id' => $owner_id ])
                         </div>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'email',
@@ -54,6 +88,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'phone',
@@ -61,9 +96,11 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'city',
@@ -71,9 +108,11 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.system-state')
                         </div>
+
                     </div>
 
                     @if($isRootAdmin)
@@ -85,19 +124,6 @@
                         </div>
                     @endif
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    <?php /*
-                    // @TODO: Implement clear search form functionality.
-                    @include('admin.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    */ ?>
-                    @include('admin.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

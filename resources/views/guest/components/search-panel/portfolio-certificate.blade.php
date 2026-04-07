@@ -23,14 +23,15 @@
                 <div class="search-panel-controls">
 
                     @include('guest.components.search-sort-select', [
-                        'sort' => $sort,
-                        'list' => [
-                                      'academy_name|asc' => 'academy',
-                                      'expiration|asc'   => 'expiration',
-                                      'name|asc'         => 'name',
-                                      'received|asc'     => 'received',
-                                      'year|asc'         => 'year',
-                                  ],
+                        'sort'  => $sort,
+                        'list'  => [
+                                       'academy_name|asc' => 'academy',
+                                       'expiration|asc'   => 'expiration',
+                                       'name|asc'         => 'name',
+                                       'received|asc'     => 'received',
+                                       'year|asc'         => 'year',
+                                   ],
+                        'style' => [ 'width: 7rem important!', 'min-width: 7rem !important' ]
                     ])
 
                     <?php /*

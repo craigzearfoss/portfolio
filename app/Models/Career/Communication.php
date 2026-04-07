@@ -81,7 +81,13 @@ class Communication extends Model
     {
         parent::__construct();
 
-        $this->predefinedColumns = [];
+        $this->predefinedColumns = [
+            'application_apply_date',
+            'application_post_date',
+            'application_role',
+            'company_id',
+            'company_name',
+        ];
     }
 
     /**
@@ -97,7 +103,6 @@ class Communication extends Model
     /**
      * Returns the query builder for a search from the request parameters.
      * If an owner is specified it will override any owner_id parameter in the request.
-     * @TODO: Need to add joins for company_ids to be searched.
      *
      * @param array $filters
      * @param string|null $sort - column for sort order, append "|asc" or "|desc" to specify direction
@@ -127,6 +132,15 @@ class Communication extends Model
             ->when(!empty($filters['owner_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.owner_id', '=', intval($filters['owner_id']));
             })
+            ->when(!empty($filters['application_apply_date']), function ($query) use ($filters) {
+                $query->where('applications.apply_date', '=', intval($filters['application_apply_date']));
+            })
+            ->when(!empty($filters['application_apply_date_from']), function ($query) use ($filters) {
+                $query->where('applications.apply_date', '>=', intval($filters['application_apply_date_from']));
+            })
+            ->when(!empty($filters['application_apply_date_to']), function ($query) use ($filters) {
+                $query->where('applications.apply_date', '<=', intval($filters['application_apply_date_to']));
+            })
             ->when(!empty($filters['application_id']), function ($query) use ($filters) {
                 $query->where($this->table . '.application_id', '=', intval($filters['application_id']));
             })
@@ -138,6 +152,18 @@ class Communication extends Model
                         ->orWhere('applications.apply_date', 'LIKE', '%' . $applicationName . '%');
                 });
             })
+            ->when(!empty($filters['application_post_date_from']), function ($query) use ($filters) {
+                $query->where('applications.post_date', '>=', intval($filters['application_post_date_from']));
+            })
+            ->when(!empty($filters['application_post_date_to']), function ($query) use ($filters) {
+                $query->where('applications.post_date', '<=', intval($filters['application_post_date_to']));
+            })
+            ->when(!empty($filters['application_role']), function ($query) use ($filters) {
+                $query->where('applications.application_role', '=', intval($filters['application_role']));
+            })
+            ->when(!empty($filters['body']), function ($query) use ($filters) {
+                $query->where($this->table . '.body', 'like', '%' . $filters['body'] . '%');
+            })
             ->when(!empty($filters['communication_datetime_from']), function ($query) use ($filters) {
                 $query->where($this->table . '.communication_datetime', '>=', $filters['communication_datetime_from']);
             })
@@ -148,13 +174,16 @@ class Communication extends Model
                 $query->where($this->table . '.communication_type_id', '=', intval($filters['communication_type_id']));
             })
             ->when(!empty($filters['company_id']), function ($query) use ($filters) {
-                $query->where($this->table . '.company_id', '=', intval($filters['company_id']));
+                $query->where('applications.company_id', '=', intval($filters['company_id']));
             })
             ->when(!empty($filters['company_name']), function ($query) use ($filters) {
-                $query->where('companies.name', '=', 'like', '%' . $filters['company_name'] . '%');
+                $query->where('companies.name', 'like', '%' . $filters['company_name'] . '%');
             })
             ->when(!empty($filters['description']), function ($query) use ($filters) {
                 $query->where($this->table . '.description', 'like', '%' . $filters['description'] . '%');
+            })
+            ->when(!empty($filters['from']), function ($query) use ($filters) {
+                $query->where($this->table . '.from', 'like', '%' . $filters['from'] . '%');
             })
             ->when(!empty($filters['notes']), function ($query) use ($filters) {
                 $query->where($this->table . '.notes', 'like', '%' . $filters['notes'] . '%');
@@ -164,23 +193,25 @@ class Communication extends Model
             })
             ->when(!empty($filters['to']), function ($query) use ($filters) {
                 $query->where($this->table . '.to', 'like', '%' . $filters['to'] . '%');
-            })
-            ->when(!empty($filters['from']), function ($query) use ($filters) {
-                $query->where($this->table . '.from', 'like', '%' . $filters['from'] . '%');
-            })
-            ->when(!empty($filters['body']), function ($query) use ($filters) {
-                $query->where($this->table . '.body', 'like', '%' . $filters['body'] . '%');
             });
 
+        // add additional filters
         $query = $this->appendStandardFilters($query, $filters);
         $query = $this->appendTimestampFilters($query, $filters);
 
+        $query->join(dbName('system_db') . '.admins', 'admins.id', '=', $this->table . '.owner_id');
         $query->join('applications', 'applications.id', '=', $this->table . '.application_id');
         $query->join('companies', 'companies.id', '=', 'applications.company_id');
         $query->select([
             DB::raw($this->table . '.*'),
+            DB::raw('applications.apply_date as application_apply_date'),
+            DB::raw('applications.post_date as application_post_date'),
+            DB::raw('applications.role as application_role'),
             DB::raw('applications.company_id as company_id'),
             DB::raw('companies.name as company_name'),
+            DB::raw('admins.name AS `owner_name`'),
+            DB::raw('admins.username AS `owner_username`'),
+            DB::raw('admins.email AS `owner_email`'),
         ]);
 
         // add order by clause

@@ -26,12 +26,12 @@
                     @include('admin.components.search-sort-select', [
                         'sort' => $sort,
                         'list' => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
-                                              [
-                                                  'artist|asc' => 'artist',
-                                                  'name|asc'   => 'name',
-                                                  'year|asc'   => 'year',
-                                              ],
-                                  )
+                                             [
+                                                 'artist|asc' => 'artist',
+                                                 'name|asc'   => 'name',
+                                                 'year|asc'   => 'year',
+                                             ],
+                                 )
                     ])
 
                     <?php /*

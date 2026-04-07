@@ -23,6 +23,7 @@
     @endif
 
     <div class="floating-div-container">
+
         <div class="show-container card floating-div">
 
             @include('guest.components.candidates-table', ['candidates' => $candidates])

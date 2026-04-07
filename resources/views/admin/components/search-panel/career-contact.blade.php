@@ -12,6 +12,7 @@
     $email           = $email ?? request()->query('email');
     $name            = $name ?? request()->query('name');
     $phone           = $phone ?? request()->query('phone');
+    $state_id        = $state_id ?? request()->query('state_id');
 
     // set sort order
     $sort = $sort ?? request()->query('sort') ?? implode('|', [ Contact::SEARCH_ORDER_BY[0], Contact::SEARCH_ORDER_BY[1] ]);
@@ -24,6 +25,34 @@
 
             <div>
 
+                <div class="search-panel-controls">
+
+                    @include('admin.components.search-sort-select', [
+                        'sort'  => $sort,
+                        'list'  => array_merge($isRootAdmin ? [ 'owner.username|asc' => 'owner' ] : [],
+                                              [
+                                                  'name|asc'          => 'name',
+                                                  //'city|asc'          => 'city',
+                                                  //'state_id|asc'      => 'state',
+                                              ],
+                                  ),
+                        'style' => [ 'width: 10rem', 'max-width: 10rem' ]
+                    ])
+
+                    <?php /*
+                    // @TODO: Implement clear search form functionality.
+                    @include('admin.components.button-clear', [
+                        'id'   =>'clearSearchForm',
+                        'name' => 'Clear',
+                    ])
+                    */ ?>
+
+                    @include('admin.components.button-search', [
+                        'id' =>'performSearch',
+                    ])
+
+                </div>
+
                 <div class="floating-div-container">
 
                     @if($isRootAdmin)
@@ -35,6 +64,7 @@
                     @endif
 
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'name',
@@ -42,15 +72,17 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <?php /*
                         @TODO: Need to add joins for company_ids to be searched.
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.career-company')
                         </div>
                         */ ?>
-                    </div>
 
+                    </div>
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'email',
@@ -58,6 +90,7 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'phone',
@@ -65,9 +98,12 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                     </div>
 
+                    <?php /*
                     <div class="floating-div">
+
                         <div class="search-form-control">
                             @include('admin.components.input-basic', [
                                 'name'    => 'city',
@@ -75,10 +111,13 @@
                                 'message' => $message ?? '',
                             ])
                         </div>
+
                         <div class="search-form-control">
                             @include('admin.components.search-panel.controls.system-state')
                         </div>
+
                     </div>
+                    */ ?>
 
                     @if($isRootAdmin)
                         <div class="floating-div">
@@ -89,19 +128,6 @@
                         </div>
                     @endif
 
-                </div>
-
-                <div class="has-text-right pr-2">
-                    <?php /*
-                    // @TODO: Implement clear search form functionality.
-                    @include('admin.components.button-clear', [
-                        'id'   =>'clearSearchForm',
-                        'name' => 'Clear',
-                    ])
-                    */ ?>
-                    @include('admin.components.button-search', [
-                        'id' =>'performSearch',
-                    ])
                 </div>
 
             </div>

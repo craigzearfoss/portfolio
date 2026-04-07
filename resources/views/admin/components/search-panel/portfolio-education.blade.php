@@ -36,7 +36,7 @@
                                                    'graduation_date|desc'  => 'year graduated',
                                                ],
                                    ),
-                        'style' => [ 'width: 9rem', 'max-width: 9rem' ]
+                        'style' => [ 'width: 9rem !important', 'max-width: 9rem !important' ]
                     ])
 
                     <?php /*
